@@ -60,7 +60,7 @@ OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développ
 
 
 
-<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Python,OpenCV," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer Python 2.7.x et OpenCV 3 sur OS X"/>
@@ -145,14 +145,14 @@ OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développ
             <div class="post-content">
                 <p>Comme l'installatin d'OpenCV n'est vraiment pas aisée. J'ai donc décidé d'écrire cet article. Si vous suivez cette procédure vous devriez pouvoir faire tourner OpenCV 3 sur OSX High Sierra dans un environnement virtuel.</p>
 <p>OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développeurs Python utilisent encore la version 2, j'ai décidé de faire 2 tutoriaux. Il y a celui-ci pour Python 2.7.x et il y en un autre pour <a href="http://blog.leandeep.com/installer-python-3-et-opencv-3-sur-os-x/">installer OpenCV 3 pour Python 3.5.x</a>.</p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <ul>
 <li>Xcode doit être installé</li>
 <li>Xcode a déjà dû être démarré et vous avez accepté les conditions générales</li>
 <li>Les commandes lines tools ont déjà été installés. Si ce n'est pas le cas exécutez la commande suivante: $ sudo xcode-select &ndash;install</li>
 <li><a href="https://brew.sh/index_fr.html">Homebrew</a> doit être installé</li>
 </ul>
-<h1 id="installer-python">Installer Python</h1>
+<h2 id="installer-python">Installer Python</h2>
 <p>Même si Python est déjà installé sur votre Mac, installez le une nouvelle fois avec Homebrew:</p>
 <pre><code>$ brew install python
 # Cela va installer python dans /usr/local/opt/
@@ -166,14 +166,14 @@ export PATH=&quot;/usr/local/opt/python/libexec/bin:$PATH&quot;
 Vérifiez aussi que ce sont bien les nouvelles versions de Python et pip qui sont utilisées</p>
 <pre><code>$ which python
 $ which pip
-</code></pre><h1 id="installer-les-packages-de-cration-denvironnements-virtuels">Installer les packages de création d'environnements virtuels</h1>
+</code></pre><h2 id="installer-les-packages-de-cration-denvironnements-virtuels">Installer les packages de création d'environnements virtuels</h2>
 <p>Les packages virtualenv et virtualenvwrapper vont vous permettre de créer environnements Python différents. Tout est isolé; vous pouvez avoir des librairies différentes dans chaque environnement. C'est extrèmement pratique; je le recommande fortement.</p>
 <pre><code>$ pip install virtualenv virtualenvwrapper # /!\ il se peut que sudo soit nécessaire
 </code></pre><p>Ajoutez les lignes suivantes dans votre ~/.zshrc (ou ~/.bash_profile)</p>
 <pre><code># Support d'environnement virtuel pour Python 2
 source /usr/local/bin/virtualenvwrapper.sh
 </code></pre><p>Une fois ces lignes ajoutées, &ldquo;rechargez&rdquo; votre terminal en exécutant la commande $ source ~/.zshrc ($ source ~/.bash_profile)</p>
-<h1 id="crer-un-environnement-virtuel">Créer un environnement virtuel</h1>
+<h2 id="crer-un-environnement-virtuel">Créer un environnement virtuel</h2>
 <p>Pour créer un nouvel environement, il suffit d'utiliser la commande suivante. Afin de vous y retrouver avec les différents environnement, je vous conseille d'utiliser un nom court et très explicite avec les numéros de version.</p>
 <pre><code>$ mkvirtualenv py2_cv3
 </code></pre><p>Une fois créé, fermez votre terminal et réouvrez en un nouveau.
@@ -183,17 +183,17 @@ Par défault vous n'êtes pas dans l'environnement Python que vous avez créé. 
 <p>Si vous souhaitez quitter votre environnement virtuel utilisez la commande suivante:</p>
 <pre><code>$ deactivate
 </code></pre><p><em>Pour tout ce qui suit, travaillez dans le nouvel environnement virtuel que l'on vient de créer</em></p>
-<h1 id="installer-numpy">Installer Numpy</h1>
+<h2 id="installer-numpy">Installer Numpy</h2>
 <p>Numpy est une bibliothèque très connue de calculs scientiques nécessaire pour OpenCV.</p>
 <pre><code>pip install numpy
-</code></pre><h1 id="installer-les-pr-requis--opencv-3">Installer les pré-requis à OpenCV 3</h1>
+</code></pre><h2 id="installer-les-pr-requis--opencv-3">Installer les pré-requis à OpenCV 3</h2>
 <p>Pour qu'on OpenCV 3 fonctionne certains pré-requis sont nécessaires.
 Heureusement l'installation de ces pré-requis est aisée grâce à Homebrew.</p>
 <pre><code>$ brew install cmake pkg-config # Nécessaire pour compiler OpenCV
 $ brew install jpeg libpng libtiff openexr # Nécessaire pour manipuler les images 
 $ brew install eigen # Nécessaire pour faire des calculs algébriques
 $ brew install tbb # Nécessaire pour faire les calculs parallèles
-</code></pre><h1 id="installer-opencv">Installer OpenCV</h1>
+</code></pre><h2 id="installer-opencv">Installer OpenCV</h2>
 <p>Commencez par télécharger OpenCV. Il y a 2 repositories git à cloner.
 (Vous n'avez pas besoin de tout l'historique du repository)</p>
 <pre><code>$ cd
@@ -228,7 +228,7 @@ $ cd /usr/local/lib/python2.7/site-packages/
 $ ls -l | grep cv2.so # Vérifiez que le fichier cv2.so est bien présent
 $ cd ~/.virtualenvs/py2_cv3/lib/python2.7/site-packages/
 $ ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
-</code></pre><h1 id="vrification-de-linstallation">Vérification de l'installation</h1>
+</code></pre><h2 id="vrification-de-linstallation">Vérification de l'installation</h2>
 <p>Ouvrez un nouveau terminal et vérifiez que l'installation d'OpenCV fonctionne dans votre environnement virtuel.</p>
 <pre><code>$ workon py2_cv3
 $ python
@@ -246,7 +246,7 @@ Si vous suivez bien ce tutoriel et que vous êtes sur la même version d'OS X, n
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/opencv">OpenCV</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>801 Mots</p>

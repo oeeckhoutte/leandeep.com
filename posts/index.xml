@@ -1399,15 +1399,17 @@ gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runn
             
             <guid>https://leandeep.com/installer-docker-comme-service-sur-centos-7-ou-ubuntu-18.04/</guid>
             <description>Voici une procédure simple pour installer et activer le service Docker sur Centos 7 ou Ubuntu 18.04.
-Installation Centos 7 Commencer par installer les pré-requis:
+Installation Centos 7
+Commencer par installer les pré-requis:
 yum install -y yum-utils device-mapper-persistent-data lvm2 Ajouter ensuite le repository Docker à yum:
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Installer Docker:
 yum install -y docker-ce docker-ce-cli containerd.io Démarrer le service Docker
 systemctl start docker Activer le service au démarrage du système:
-systemctl enable docker Ubuntu 18.04 sudo apt update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.</description>
+systemctl enable docker Ubuntu 18.04
+sudo apt update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.</description>
             <content type="html"><![CDATA[<p>Voici une procédure simple pour installer et activer le service Docker sur Centos 7 ou Ubuntu 18.04.</p>
 <h2 id="installation">Installation</h2>
-<h3 id="centos-7">Centos 7</h3>
+<p><strong>Centos 7</strong></p>
 <p>Commencer par installer les pré-requis:</p>
 <pre><code>yum install -y yum-utils device-mapper-persistent-data lvm2
 </code></pre><p>Ajouter ensuite le repository Docker à yum:</p>
@@ -1418,7 +1420,7 @@ systemctl enable docker Ubuntu 18.04 sudo apt update sudo apt install apt-transp
 <pre><code>systemctl start docker
 </code></pre><p>Activer le service au démarrage du système:</p>
 <pre><code>systemctl enable docker
-</code></pre><h3 id="ubuntu-1804">Ubuntu 18.04</h3>
+</code></pre><p><strong>Ubuntu 18.04</strong></p>
 <pre><code>sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -1697,19 +1699,21 @@ Une fois authentifié avec le compte créé durant l'installation, on peut comme
             <pubDate>Fri, 19 Jul 2019 11:14:00 +0000</pubDate>
             
             <guid>https://leandeep.com/installer-xgboost-lightgbm-et-catboost-sur-ubuntu-18.04/</guid>
-            <description>Installation de XGBoost Installation simple Exécuter la commande suivante:
+            <description>Installation de XGBoost Installation simple
+Exécuter la commande suivante:
 pip install xgboost  &amp;ldquo;The default open-source XGBoost packages already include GPU support.&amp;rdquo;
- Build from source Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
+ Build from source
+Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
 Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
 sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:</description>
-            <content type="html"><![CDATA[<h1 id="installation-de-xgboost">Installation de XGBoost</h1>
-<h2 id="installation-simple">Installation simple</h2>
+            <content type="html"><![CDATA[<h2 id="installation-de-xgboost">Installation de XGBoost</h2>
+<p><strong>Installation simple</strong></p>
 <p>Exécuter la commande suivante:</p>
 <pre><code>pip install xgboost
 </code></pre><blockquote>
 <p>&ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;</p>
 </blockquote>
-<h2 id="build-from-source">Build from source</h2>
+<p><strong>Build from source</strong></p>
 <p>Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.</p>
 <p>Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.</p>
 <pre><code>sudo apt-get update
@@ -1793,7 +1797,7 @@ Result = PASS
 </code></pre><p>Installer XGBoost:</p>
 <pre><code>cd ../python-package
 sudo python3 setup.py install
-</code></pre><h2 id="vrification-du-bon-fonctionnement-dxgboost">Vérification du bon fonctionnement d'XGBoost</h2>
+</code></pre><p><strong>Vérification du bon fonctionnement d'XGBoost</strong></p>
 <pre><code>git clone https://github.com/dmlc/xgboost
 cd xgboost
 
@@ -1811,7 +1815,7 @@ bst = xgb.train(param, dtrain, num_round)
 # make prediction
 preds = bst.predict(dtest)
 print(preds)
-</code></pre><h1 id="installation-de-lightgbm">Installation de LightGBM</h1>
+</code></pre><h2 id="installation-de-lightgbm">Installation de LightGBM</h2>
 <p>Installation des dépendances:</p>
 <pre><code>sudo apt install -y \
     libboost-dev \
@@ -1860,7 +1864,7 @@ Did not meet early stopping. Best iteration is:
 Saving model...
 Starting predicting...
 The rmse of prediction is: 0.44512434910807497
-</code></pre><h1 id="installation-de-catboost">Installation de CatBoost</h1>
+</code></pre><h2 id="installation-de-catboost">Installation de CatBoost</h2>
 <p>Simplement:</p>
 <pre><code>pip install catboost
 </code></pre><p>Installer l'outil de visualisation:</p>
@@ -1921,7 +1925,7 @@ preds_raw = model.predict(eval_dataset,
 7:	learn: -0.2666318	total: 47.6ms	remaining: 11.9ms
 8:	learn: -0.2358041	total: 53ms	remaining: 5.89ms
 9:	learn: -0.2107419	total: 57.9ms	remaining: 0us
-</code></pre><h1 id="comparaison-des-3-algorithmes-de-boosting">Comparaison des 3 algorithmes de Boosting</h1>
+</code></pre><h2 id="comparaison-des-3-algorithmes-de-boosting">Comparaison des 3 algorithmes de Boosting</h2>
 <p>Un article très intéressant comparant les 3 algorithmes est disponible à l'adresse suivante <a href="https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db">https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db</a></p>
 <p>Voici un tableau comparatif extrait de cet article:</p>
 <p><img src="/images/lightGBM-vs-CatBoost-vs-XGBoost.png" alt="image"></p>
@@ -1937,19 +1941,19 @@ preds_raw = model.predict(eval_dataset,
             <guid>https://leandeep.com/installer-un-egpu-sur-un-intel-nuc-avec-ubuntu-18.04/</guid>
             <description>&lt;p&gt;&lt;img src=&#34;https://leandeep.com/images/IMG_35783.JPG&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;</description>
             <content type="html"><![CDATA[<p><img src="/images/IMG_35783.JPG" alt="image"></p>
-<h1 id="introduction">Introduction</h1>
+<h2 id="introduction">Introduction</h2>
 <p>J'ai récemment fait l'acquisition d'un Intel Nuc (Core i7 et 32 go de RAM). Franchement je suis vraiment satisfait. Il est petit, leger, sobre, stylé, consomme peu et celui que j'ai choisi a du Thunderbolt 3. C'est d'ailleurs pour cela que je l'ai acheté.</p>
 <p>Qui dit Thunderbolt 3 dit eGPU. Et qui dit eGPU dit tensorflow-gpu !..</p>
 <p>J'ai recyclé une ancienne carte graphique qui trainaient dans un ancien PC. Il s'agit d'une <code>Geforce GTX 660 Ti</code> achetée en 2012 aux USA. Elle ne vaut sans doute plus grand chose aujourd'hui. Mais pourtant elle va nous être bien utile; soit pour miner (nouveau centre d'intérêt) soit pour entraîner mes modèles de Machine / Deep Learning.<br>
 J'ai aussi fait l'acquisition d'un boitier eGPU. J'ai pris un Razer Core X. C'est la première fois que j'achète du Razer. Ce premier achat me satisfait vraiment car il est de très bonne qualité.</p>
 <p><strong>Dans cet article nous allons voir comment installer les drivers pour que la carte graphique utilisée dans le boitier eGPU soit reconnue et comment installer les outils nécessaires pour que Tensorflow puisse être compilé et fonctionner avec ce dernier. J'ai beaucoup galéré pour faire fonctionner le tout. J'espère que cet article pourra vous faire économiser des heures pour rien.</strong></p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <p>Le kernel que j'utilise est le <code>4.18.0</code>. Il y a pleins d'articles sur internet qui disent de mettre à jour le Kernel avant de commencer. Je l'ai fait et cela n'a pas fonctionné. J'ai testé le <code>5.2</code> et j'ai dû faire machine arrière&hellip;</p>
-<p><strong>Questions!</strong></p>
-<h2 id="comment-connatre-la-version-du-kernel-">Comment connaître la version du kernel ?</h2>
+<h2 id="questions">Questions!</h2>
+<p><strong>Comment connaître la version du kernel ?</strong></p>
 <p>Tout simplement avec la commande:</p>
 <pre><code>cat /proc/version
-</code></pre><h2 id="comment-mettre--jour-le-kernel-">Comment mettre à jour le kernel ?</h2>
+</code></pre><p><strong>Comment mettre à jour le kernel ?</strong></p>
 <p>En ligne de commande ou via une petite interface graphique:</p>
 <pre><code># Installer ukuu
 sudo apt-add-repository ppa:teejee2008/ppa
@@ -1957,7 +1961,7 @@ sudo apt update
 sudo apt-get install ukuu
 # Lancer l'interface
 sudo ukuu-gtk
-</code></pre><h2 id="comment-backuper-sa-machine-avant-de-la-bidouiller-">Comment backuper sa machine avant de la bidouiller ?</h2>
+</code></pre><p><strong>Comment backuper sa machine avant de la bidouiller ?</strong></p>
 <p>Très bonne question! Heureusement avant chaque manipulation délicate j'ai snapshoté ma machine. J'ai pris le risque de laisser le snapshot dessus en toute connaissance de cause. Vous pouvez le sortir si vraiment vous craignez de ne pas pouvoir réparer votre machine. Je vous conseille juste d'installer SSH pour pouvoir vous connecter dessus au cas où Gnome ne démarre même plus&hellip;</p>
 <p>Je réalise mes snapshots avec Timeshift. Il y a une interface graphique mais apprenez à l'utiliser en lignes de commande. Ce n'est pas le jour où tout est crashé qu'il faut se demander comment faire :D .</p>
 <pre><code># Installation de Timeshift
@@ -1968,12 +1972,12 @@ sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &am
 sudo timeshift --list
 # Restaurer un snapshot 
 # sudo timeshift --restore
-</code></pre><h2 id="est-ce-que-le-gpu-install-dans-le-boitier-egpu-est-bien-dtect-">Est-ce que le GPU installé dans le boitier eGPU est bien détecté ?</h2>
+</code></pre><p><strong>Est-ce que le GPU installé dans le boitier eGPU est bien détecté ?</strong></p>
 <pre><code>lspci | grep -i nvidia
 
 06:00.0 VGA compatible controller: NVIDIA Corporation GK104 [GeForce GTX 660 Ti] (rev a1)
-</code></pre><h1 id="installation">Installation</h1>
-<h2 id="configurer-gcc-et-g">Configurer GCC et G++</h2>
+</code></pre><h2 id="installation">Installation</h2>
+<p><strong>Configurer GCC et G++</strong></p>
 <p>Il vous faudra une utiliser la version 6 de <code>GCC</code> et <code>G++</code> pour builder Tensorflow. Si vous avez une version plus récente cela ne fonctionnera pas.</p>
 <pre><code>gcc --version
 g++ --version
@@ -1982,7 +1986,7 @@ g++ --version
 </code></pre><p>Créer les variables d'environnement permettant de sélectionner la bonne version dans le fichier <code>~/.zshrc</code>.</p>
 <pre><code>export CC=/usr/bin/gcc-6
 export CXX=/usr/bin/g++-6
-</code></pre><h2 id="installer-les-drivers-nvidia">Installer les Drivers Nvidia</h2>
+</code></pre><p><strong>Installer les Drivers Nvidia</strong></p>
 <p>Enlever les nouveaux drivers qui viennent avec l'installation d'Ubuntu. Identifier les avec la commande:</p>
 <pre><code>lsmod | grep nouveau
 </code></pre><p>Créer un fichier <code>/etc/modprobe.d/blacklist-nouveau.conf</code> et ajouter lui le contenu suivant:</p>
@@ -2011,7 +2015,7 @@ sudo reboot
 |=============================================================================|
 |    0                    Not Supported                                       |
 +-----------------------------------------------------------------------------+
-</code></pre><h2 id="installer-cuda">Installer Cuda</h2>
+</code></pre><p><strong>Installer Cuda</strong></p>
 <p>On peut maintenant passer à l'installation de Cuda.
 J'ai beaucoup galéré à cette étape car j'ai essayé d'installer les dernières versione de Cuda. Au moment où j'écris cet article il s'agissait de la version 10.1. Cette dernière n'a pas fonctionné car trop récente pour mon GPU.
 J'ai donc installé la <code>cuda version 9.0</code> à partir de ce fichier précisément <code>cuda_9.0.176_384.81_linux-run</code>.</p>
@@ -2042,13 +2046,13 @@ nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2017 NVIDIA Corporation
 Built on Fri_Sep__1_21:08:03_CDT_2017
 Cuda compilation tools, release 9.0, V9.0.176
-</code></pre><h2 id="installer-cudnn">Installer CudNN</h2>
+</code></pre><p><strong>Installer CudNN</strong></p>
 <p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez le package suivant <code>cudnn-9.0-linux-x64-v7.3.0.29</code>. Ensuite installez le.</p>
 <pre><code>tar -xzvf cudnn-9.0-linux-x64-v7.3.0.29.tgz
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
 sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
-</code></pre><h2 id="installer-libcudnn">Installer libcudnn</h2>
+</code></pre><p><strong>Installer libcudnn</strong></p>
 <p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez les 3 packages <code>libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb</code>, <code>libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb</code> et <code>libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb</code>. Attention les numéros de versions sont à respecter. J'ai aussi perdu beaucoup de temps sur cela.</p>
 <p>Installez les:</p>
 <pre><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
@@ -2067,13 +2071,13 @@ make clean &amp;&amp; make
 $ Test passed!
 </code></pre><p>Maintenons les paquets afin qu’ils ne soient pas updatés ou effacés:</p>
 <pre><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
-</code></pre><h2 id="installer-bazel">Installer Bazel</h2>
+</code></pre><p><strong>Installer Bazel</strong></p>
 <pre><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
 chmod +x bazel-0.17.2-installer-linux-x86_64.sh
 ./bazel-0.17.2-installer-linux-x86_64.sh --user
 </code></pre><p>Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:</p>
 <pre><code>export PATH=&quot;$PATH:$HOME/bin&quot;
-</code></pre><h2 id="builderinstallertester-tensorflow-gpu">Builder/Installer/Tester Tensorflow GPU</h2>
+</code></pre><p><strong>Builder/Installer/Tester Tensorflow GPU</strong></p>
 <p>Rendez-vous ensuite sur un précédent article que j'ai écrit sur le sujet. Suivez la section &ldquo;Installer TensorFlow&rdquo;. J'ai suivi mon propre tutorial et cela a fonctionné ! <a href="https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow">https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow</a></p>
 <p>Cela fonctionne avec Python 2.7 et Python 3&hellip;</p>
 <pre><code>python
@@ -2737,7 +2741,7 @@ sudo apt-get update sudo apt-get install -y curl curl -o- https://raw.githubuser
 export NVM_DIR=&amp;quot;$HOME/.nvm&amp;quot; [ -s &amp;quot;$NVM_DIR/nvm.sh&amp;quot; ] &amp;amp;&amp;amp; \. &amp;quot;$NVM_DIR/nvm.sh&amp;quot; # This loads nvm [ -s &amp;quot;$NVM_DIR/bash_completion&amp;quot; ] &amp;amp;&amp;amp; \.</description>
             <content type="html"><![CDATA[<p>In this tutorial we are going to see how to install Jupyter lab.
 More on this tool here: <a href="https://jupyterlab.readthedocs.io/en/stable/">https://jupyterlab.readthedocs.io/en/stable/</a></p>
-<h1 id="install-nodejs">Install NodeJS</h1>
+<h2 id="install-nodejs">Install NodeJS</h2>
 <p>We are going to install NVM (Node Version Manager) to manage the install NodeJS
 version.</p>
 <pre><code>sudo apt-get update
@@ -2753,16 +2757,16 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 # Determine the latest LTS. For me it is v10.16.0 when I am writing this tutorial
 nvm install v10.16.0
 nvm use default v10.16.0
-</code></pre><h2 id="install-python-3">Install python 3</h2>
+</code></pre><p><strong>Install python 3</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get install python3
 sudo apt-get install python3-pip
-</code></pre><h2 id="install-jupyterlab">Install jupyterlab</h2>
+</code></pre><p><strong>Install jupyterlab</strong></p>
 <pre><code>pip3 install jupyterlab
 </code></pre><p>If you are using ohmyzsh (and you should !) edit your <code>~/.zshrc</code> file and add the line at the end <code>export PATH=$PATH:~/.local/bin/</code>. Then execute <code>source ~/.zshrc</code>.</p>
-<h2 id="verify-jupyterlab-works">Verify jupyterlab works</h2>
+<p><strong>Verify jupyterlab works</strong></p>
 <pre><code>jupyter lab --allow-root --ip=0.0.0.0 --no-browser
-</code></pre><h2 id="install-extensions-hub">Install extensions hub</h2>
+</code></pre><p><strong>Install extensions hub</strong></p>
 <blockquote>
 <p>Kill the previously launched server with Ctrl-c</p>
 </blockquote>
@@ -2771,7 +2775,7 @@ jupyter lab build
 jupyter lab --allow-root --ip=0.0.0.0 --no-browser
 </code></pre><p>Go to &ldquo;Settings&rdquo; &ndash;&gt; &ldquo;Enable Extensions manager (Experimental) to enable the extensions manager.
 If you click on the extensions icon that appear on the left menu you should see all available extensions to install.</p>
-<h2 id="make-jupyterlab-a-service">Make Jupyterlab a service</h2>
+<p><strong>Make Jupyterlab a service</strong></p>
 <p>Generate a config file:</p>
 <pre><code>jupyter-lab --generate-config
 </code></pre><p>Create a working directory:</p>
@@ -2802,7 +2806,7 @@ EOF
 <pre><code>sudo systemctl start jupyter-lab.service
 </code></pre><p>Verify jupyterlab service is working and get access token:</p>
 <pre><code>sudo systemctl status jupyter-lab.service
-</code></pre><h2 id="custom-jupyter-conf">Custom jupyter conf</h2>
+</code></pre><p><strong>Custom jupyter conf</strong></p>
 <p>It is possible to custom jupyter lab conf with the following commands:</p>
 <pre><code># Incoming connection whitelist. tried with IP &amp; CIDR. not sure about ranges. should be comma separated if more than one.
 sed -i.back &quot;s/#c.NotebookApp.allow_origin = ''/c.NotebookApp.allow_origin = '10.1.0.0\/24'/&quot; ~/.jupyter/jupyter_notebook_config.py
@@ -6404,11 +6408,11 @@ server_tokens off;
 Ce Framework permet d&#39;exécuter des fonctions dans n&#39;importe quel langage et sont coeur est écrit en Go.Fission supporte actuellement le NodeJS, Python, Ruby, Go, PHP, Bash et n&#39;importe quel exécutable Linux. Le support d&#39;autres langages est prévu.
 Dans cet article, nous allons voir comment l&#39;installer sur un Minikube.
 Installation On considère que Virtualbox, kubectl et minikube sont déjà installés sur votre poste.</description>
-            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Fission est un Framework perfomant et efficace permettant de faire du serverless sur Kubernetes.</p>
 <p>Ce Framework permet d'exécuter des fonctions dans n'importe quel langage et sont coeur est écrit en Go.Fission supporte actuellement le NodeJS, Python, Ruby, Go, PHP, Bash et n'importe quel exécutable Linux. Le support d'autres langages est prévu.</p>
 <p>Dans cet article, nous allons voir comment l'installer sur un Minikube.</p>
-<h1 id="installation">Installation</h1>
+<h2 id="installation">Installation</h2>
 <p>On considère que Virtualbox, kubectl et minikube sont déjà installés sur votre poste.</p>
 <p>Sinon voici les commandes pour une machine sous Ubuntu.</p>
 <pre><code># Installation de virtualbox
@@ -7365,12 +7369,12 @@ En effet, à l'avant du véhicule, il y a 3 caméras. Une filme le côté gauche
             <description>Qu&#39;est-ce qu&#39;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&#39;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&#39;est opensource&amp;hellip;
 MiniShift Si vous voulez tester l&#39;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
 Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</description>
-            <content type="html"><![CDATA[<h1 id="quest-ce-quopenshift-">Qu'est-ce qu'OpenShift ?</h1>
+            <content type="html"><![CDATA[<h2 id="quest-ce-quopenshift-">Qu'est-ce qu'OpenShift ?</h2>
 <p>OpenShift est une plateforme de PAAS développée par RedHat qui repose sur <a href="https://kubernetes.io/">Kubernetes</a>. En gros, c'est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c'est opensource&hellip;</p>
-<h1 id="minishift">MiniShift</h1>
+<h2 id="minishift">MiniShift</h2>
 <p>Si vous voulez tester l'outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.</p>
 <p>Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</p>
-<h1 id="installation-de-minishift">Installation de MiniShift</h1>
+<h2 id="installation-de-minishift">Installation de MiniShift</h2>
 <p>Voici la procédure pour l'installer avec les dépendances nécessaires:</p>
 <ul>
 <li>Docker CE pour OSX</li>
@@ -7400,7 +7404,7 @@ $ brew install --HEAD xhyve
 $ brew install docker-machine-driver-xhyve
 $ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 $ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-</code></pre><h1 id="cration-de-la-vm">Création de la VM</h1>
+</code></pre><h2 id="cration-de-la-vm">Création de la VM</h2>
 <pre><code># Créer une VM dans xhyve et créer un cluster OpenShift sur cette dernière
 minishift start
 
@@ -7408,7 +7412,7 @@ minishift start
 # minishift start --vm-driver=virtualbox
 </code></pre><p>Si tout se passe bien, vous devriez avoir ceci:</p>
 <p><img src="/images/oc-login.png" alt="image"></p>
-<h1 id="test-avec-une-application-exemple">Test avec une application exemple</h1>
+<h2 id="test-avec-une-application-exemple">Test avec une application exemple</h2>
 <p>Dans cette section, nous allons déployer une application NodeJS fournie par OpenShift qui nous permettra de vérifier que tout fonctionne.</p>
 <p>Il y a 3 manières de &ldquo;piloter&rdquo; OpenShift. Vous pouvez le faire avec le CLI, l'interface Web ou directement via l'API. Bien que l'interface Web soit très simple à utiliser, on va utiliser le CLI pour la suite de cet article.</p>
 <p>Pour l'installer, il suffit d'exécuter la commande suivante:</p>
@@ -7445,30 +7449,30 @@ oc logs -f bc/nodejs-ex
 oc expose svc/nodejs-ex
 </code></pre><p>Si tout s'est bien passé, une URL &ldquo;publique&rdquo; va être générée et vous permettra d'accéder à l'application juste déployée. L'application d'exemple déployée <strong>via le CLI</strong> ressemble à ceci:</p>
 <p><img src="/images/front-app-example-openshift.png" alt="image"></p>
-<h1 id="commandes-utiles-pour-le-cli">Commandes utiles pour le CLI</h1>
-<h3 id="switcher-de-compte-openshift">Switcher de compte OpenShift</h3>
+<h2 id="commandes-utiles-pour-le-cli">Commandes utiles pour le CLI</h2>
+<p><strong>Switcher de compte OpenShift</strong></p>
 <pre><code>oc login --username developer 
 
 # oc login --username &lt;username&gt; --password &lt;password&gt;
 # oc login --token &lt;token&gt;
-</code></pre><h3 id="lister-les-clusters-sur-lesquels-on-sest-dj-connect">Lister les clusters sur lesquels on s'est déjà connecté</h3>
+</code></pre><p><strong>Lister les clusters sur lesquels on s'est déjà connecté</strong></p>
 <pre><code>oc config get-clusters
-</code></pre><h3 id="se-connecter--un-cluster-spcifique-avec-un-compte-particulier">Se connecter à un cluster spécifique avec un compte particulier</h3>
+</code></pre><p><strong>Se connecter à un cluster spécifique avec un compte particulier</strong></p>
 <pre><code>oc login https://clusterA.leandeep.com --username superadmin
-</code></pre><h3 id="lister-tous-les-contextes">Lister tous les contextes</h3>
+</code></pre><p><strong>Lister tous les contextes</strong></p>
 <pre><code>oc config get-contexts
-</code></pre><h3 id="who-am-i-">Who am I ?</h3>
+</code></pre><p><strong>Who am I ?</strong></p>
 <pre><code>oc whoami
 
 # oc whoami --token (voir le token actuel)
 # oc whoami --show-server (voir le cluster actuel)
-</code></pre><h3 id="lister-les-projets">Lister les projets</h3>
+</code></pre><p><strong>Lister les projets</strong></p>
 <pre><code>oc get projects
-</code></pre><h3 id="crer-un-projet">Créer un projet</h3>
+</code></pre><p><strong>Créer un projet</strong></p>
 <pre><code>oc new-project mon_super_projet
-</code></pre><h3 id="accder--un-projet">Accéder à un projet</h3>
+</code></pre><p><strong>Accéder à un projet</strong></p>
 <pre><code>oc project &lt;nom-du-projet&gt;
-</code></pre><h3 id="crer-une-app-s2i-source-2-image">Créer une app s2i (source 2 image)</h3>
+</code></pre><p><strong>Créer une app s2i (source 2 image)</strong></p>
 <pre><code>oc new-app --source-secret &lt;nom-de-votre-secret-pour-se-connecter-a-votre-source-control&gt; &lt;image-docker-permettant-de-faire-du-s2i&gt;~https://bitbucket.org/user/repo-avec-du-nodejs-et-un-dockerfile.git --name nom-de-votre-app-dans-votre-projet
 </code></pre><p>Les ressources suivantes vont être automatiquement créées:</p>
 <pre><code>--&gt; Creating resources ...
@@ -7477,17 +7481,17 @@ oc expose svc/nodejs-ex
     buildconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
     deploymentconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
     service &quot;nom-de-votre-app-dans-votre-projet&quot; created
-</code></pre><h3 id="update-une-app-s2i">Update une app s2i</h3>
+</code></pre><p><strong>Update une app s2i</strong></p>
 <pre><code>oc start-build &lt;nom-du-build-pour-votre-app&gt;
-</code></pre><h3 id="delete-une-app">Delete une app</h3>
+</code></pre><p><strong>Delete une app</strong></p>
 <pre><code>oc delete all -l app=bla-bla-bla-https
-</code></pre><h3 id="donner-les-droits-en-lecture--un-utilisateur">Donner les droits en lecture à un utilisateur</h3>
+</code></pre><p><strong>Donner les droits en lecture à un utilisateur</strong></p>
 <pre><code>oc adm policy add-role-to-user view developer -n mon_super_projet
 
 # oc adm policy add-role-to-user edit &lt;username&gt; -n &lt;project&gt; (donne les droits d'écriture + création de déploiements + effacement d'applications)
 
 # oc adm policy add-role-to-user admin &lt;username&gt; -n &lt;project&gt; (donne tous les droits sur le projet)
-</code></pre><h3 id="lister-toutes-les-ressources-dun-projet-dont-dns-expos">Lister toutes les ressources d'un projet (dont DNS exposé)</h3>
+</code></pre><p><strong>Lister toutes les ressources d'un projet (dont DNS exposé)</strong></p>
 <pre><code>oc get all
 
 # Plus direct pour obtenir la route exposée
@@ -7495,66 +7499,66 @@ oc expose svc/nodejs-ex
 
 # Lister et filtrer sur un label
 oc get all -o name --selector app=apinodejs
-</code></pre><h3 id="obtenir-plus-dinformation-sur-une-ressource">Obtenir plus d'information sur une ressource</h3>
+</code></pre><p><strong>Obtenir plus d'information sur une ressource</strong></p>
 <pre><code>oc describe route/apinodejs
 # alternative 
 # oc describe route apinodejs
-</code></pre><h3 id="comprendre-openshift-obtenir-des-informations-sur-les-ressources">Comprendre OpenShift (obtenir des informations sur les ressources)</h3>
+</code></pre><p><strong>Comprendre OpenShift (obtenir des informations sur les ressources)</strong></p>
 <pre><code>oc get 
 # ou 
 # oc types
 # ou
 # oc explain route.spec.host (utile lorsqu'on sort les réponses au format JSON. Exemple oc get route/apinodejs -o json ==&gt; lire l'arborescence) 
-</code></pre><h3 id="editer-une-ressource">Editer une ressource</h3>
+</code></pre><p><strong>Editer une ressource</strong></p>
 <pre><code>oc edit route/apinodejs 
 
 ou 
 oc edit route/apinodejs -o json
-</code></pre><h3 id="crer-une-ressource-formats-json-ou-yml-accepts">Créer une ressource (formats json ou yml acceptés)</h3>
+</code></pre><p><strong>Créer une ressource (formats json ou yml acceptés)</strong></p>
 <pre><code>oc create -f apinodejs-fqdn.json
 
 # Commande disponible pour la création de route
 # oc create route edge apinodejs-fqdn --service apinodejs --insecure-policy Allow --hostname www.example.com
-</code></pre><h3 id="editer-une-ressource-1">Editer une ressource</h3>
+</code></pre><p><strong>Editer une ressource</strong></p>
 <pre><code>oc replace -f apinodejs-fqdn.json
 
 # Erreur si la ressource n'existe pas. L'alternative: oc apply 
-</code></pre><h3 id="editer--la-vole">Editer à la volée</h3>
+</code></pre><p><strong>Editer à la volée</strong></p>
 <pre><code>oc patch route/apinodejs-fqdn --patch '{&quot;spec&quot;:{&quot;tls&quot;: {&quot;insecureEdgeTerminationPolicy&quot;: &quot;Allow&quot;}}}'
 
 # Erreur si la ressource n'existe pas. L'alternative: oc apply
-</code></pre><h3 id="ajouterretirer-un-label-sur-un-service">Ajouter/Retirer un label sur un service</h3>
+</code></pre><p><strong>Ajouter/Retirer un label sur un service</strong></p>
 <pre><code># Ajouter le label
 oc label service/apinodejs web=true
 
 # Retirer le label
 oc label service/apinodejs web-
-</code></pre><h3 id="effacer-une-ressource">Effacer une ressource</h3>
+</code></pre><p><strong>Effacer une ressource</strong></p>
 <pre><code>oc delete route/apinodejs-fqdn
 
 # Effacer plusieurs ressources
 # oc delete all [--all] --selector app=apinodejs
-</code></pre><h3 id="crer-un-environnement-from-scratch">Créer un environnement from scratch</h3>
+</code></pre><p><strong>Créer un environnement from scratch</strong></p>
 <pre><code>conda create --name py35 python=3.5 
-</code></pre><h3 id="connect-as-minishift-superadmin">Connect as Minishift superadmin</h3>
+</code></pre><p><strong>Connect as Minishift superadmin</strong></p>
 <pre><code>oc login -u system:admin
-</code></pre><h3 id="accder--minishift-en-local">Accéder à Minishift en local</h3>
+</code></pre><p><strong>Accéder à Minishift en local</strong></p>
 <pre><code>oc login https://&lt;IP&gt;:8443 -u system:admin --insecure-skip-tls-verify=true
-</code></pre><h3 id="obtenir-lip-de-minishift">Obtenir l'IP de Minishift</h3>
+</code></pre><p><strong>Obtenir l'IP de Minishift</strong></p>
 <pre><code>minishift ip
-</code></pre><h1 id="troubleshooting">Troubleshooting</h1>
-<h3 id="un-pod-en-terminating-state-ne-se-kill-pas">Un pod en terminating state ne se kill pas</h3>
+</code></pre><h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Un pod en terminating state ne se kill pas</strong></p>
 <pre><code>oc get po 
 oc delete pod &lt;pod-name&gt; -n &lt;pod-namespace&gt; --grace-period=0 --force
-</code></pre><h3 id="un-provisioned-service-marked-for-deletion-ne-sefface-pas">Un provisioned service &ldquo;marked for deletion&rdquo; ne s'efface pas</h3>
+</code></pre><p><strong>Un provisioned service &ldquo;marked for deletion&rdquo; ne s'efface pas</strong></p>
 <pre><code>oc edit serviceinstance &lt;provisioned-service&gt; -n &lt;namespace&gt;
 # Effacer metadata.finalizers de l'instance comme workaround
-</code></pre><h3 id="lapplication-ne-saffiche-pas">L'application ne s'affiche pas</h3>
+</code></pre><p><strong>L'application ne s'affiche pas</strong></p>
 <p>Si vous avez l'erreur suivante, c'est qu'il y a un problème de résolution DNS sur votre Mac:</p>
 <p><img src="/images/openshift-app-unreachable.png" alt="image"></p>
 <p>Pour corriger le problème, changez le DNS de votre Mac et utilisez celui de Google.
 Pour ce faire, allez dans Préférences Système &ndash;&gt; Network &ndash;&gt; Cliquez sur le bouton avancé en bas à droit après avoir sélectionné l'interface réseau que vous utilisez &ndash;&gt; Cliquez sur l'onglet DNS &ndash;&gt; Ajoutez 8.8.8.8 dans la section DNS</p>
-<h3 id="vous-avez-tout-crash-et-vous-voulez-tout-recommencer-de-0">Vous avez tout crashé et vous voulez tout recommencer de 0</h3>
+<p><strong>Vous avez tout crashé et vous voulez tout recommencer de 0</strong></p>
 <p>En cas d'erreur avec votre VM, cette commande peut être utile pour effacer les dossiers en cache. Supprimer la VM dans VirtualBox ne suffit pas.</p>
 <pre><code># Effacer le cache et la VM
 minishift delete --clear-cache
@@ -7576,10 +7580,10 @@ rm -rf ~/.minishift/machines/*
             <description>Dans cet article nous allons voir comment installer Keras sur OS X (High Sierra) pour faire du Deep Learning.
 Pré-requis Si vous voulez utiliser Keras, vous allez sans doute avoir besoin d&#39;OpenCV. J&#39;ai réalisé un article sur l&#39;installation d&#39;OpenCV 3 pour Python 3.6. Cela explique également comment installer des environnements virtuels; ce qui est vraiment très utile. Si vous voulez installer Keras en suivant cet article et ne rencontrer aucun problème, je vous recommande de suivre le tutoriel suivant: installer OpenCV 3 sur Python 3.</description>
             <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment installer Keras sur OS X (High Sierra) pour faire du Deep Learning.</p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <p>Si vous voulez utiliser Keras, vous allez sans doute avoir besoin d'OpenCV.
 J'ai réalisé un article sur l'installation d'OpenCV 3 pour Python 3.6. Cela explique également comment installer des environnements virtuels; ce qui est vraiment très utile. Si vous voulez installer Keras en suivant cet article et ne rencontrer aucun problème, je vous recommande de suivre le tutoriel suivant: <a href="http://blog.leandeep.com/installer-python-3-et-opencv-3-sur-os-x/">installer OpenCV 3 sur Python 3.6</a>.</p>
-<h1 id="installation-de-keras">Installation de Keras</h1>
+<h2 id="installation-de-keras">Installation de Keras</h2>
 <p>Commencez par créez un nouvel environnement virtuel (même si vous en avez déjà créé un auparavant) et donnez lui un nom explicite.</p>
 <pre><code>$ mkvirtualenv py3_keras_tf -p python3
 </code></pre><p>Dans votre nouvel environnement virtuel, installez les librairies suivantes:</p>
@@ -7599,7 +7603,7 @@ $ echo &quot;backend: TkAgg&quot; &gt;&gt; ~/.matplotlib/matplotlibrc
 <pre><code>$ pip install tensorflow
 </code></pre><p>Vous pouvez maintenant installer Keras</p>
 <pre><code>$ pip install keras
-</code></pre><h1 id="vrification-de-linstallation">Vérification de l'installation</h1>
+</code></pre><h2 id="vrification-de-linstallation">Vérification de l'installation</h2>
 <pre><code>$ python
 &gt;&gt;&gt; import keras
 Using TensorFlow backend.
@@ -7620,14 +7624,14 @@ Il s&#39;agit du deuxième article que j&#39;écris sur l&#39;installation d&#39
 Pré-requis  Xcode doit être installé Xcode a déjà dû être démarré et vous avez accepté les conditions générales Les commandes lines tools ont déjà été installés.</description>
             <content type="html"><![CDATA[<p>Comme l'installatin d'OpenCV n'est vraiment pas aisée. J'ai donc décidé d'écrire cet article. Si vous suivez cette procédure vous devriez pouvoir faire tourner OpenCV 3 sur OSX High Sierra dans un environnement virtuel.</p>
 <p>Il s'agit du deuxième article que j'écris sur l'installation d'OpenCV. Cette article se focalise sur l'installation d'OpenCV 3 pour Python 3.6.x. Si vous souhaitez installer OpenCV 3 pour python 2.7.x, vous pouvez lire <a href="http://blog.leandeep.com/installer-python-2-7-x-et-opencv-3-sur-os-x/">mon autre article</a>.</p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <ul>
 <li>Xcode doit être installé</li>
 <li>Xcode a déjà dû être démarré et vous avez accepté les conditions générales</li>
 <li>Les commandes lines tools ont déjà été installés. Si ce n'est pas le cas exécutez la commande suivante: $ sudo xcode-select &ndash;install</li>
 <li><a href="https://brew.sh/index_fr.html">Homebrew</a> doit être installé</li>
 </ul>
-<h1 id="installer-python-3">Installer Python 3</h1>
+<h2 id="installer-python-3">Installer Python 3</h2>
 <p>Même si Python est déjà installé sur votre Mac, installez le une nouvelle fois avec Homebrew:</p>
 <pre><code>$ brew install python3
 </code></pre><p>Vérifiez que Python 3 et pip fonctionnent.</p>
@@ -7636,7 +7640,7 @@ $ pip3 --version
 </code></pre><p>Vérifiez aussi que ce sont bien les nouvelles versions de Python et pip qui sont utilisées</p>
 <pre><code>$ which python3
 $ which pip3
-</code></pre><h1 id="crer-un-environnement-virtuel">Créer un environnement virtuel</h1>
+</code></pre><h2 id="crer-un-environnement-virtuel">Créer un environnement virtuel</h2>
 <pre><code>$ pip3 install virtualenv virtualenvwrapper # /!\ il se peut que sudo soit nécessaire
 </code></pre><p>Ajoutez les lignes suivantes dans votre ~/.zshrc (ou ~/.bash_profile)</p>
 <pre><code># Support d'environnements virtuels pour Python 3
@@ -7654,17 +7658,17 @@ Par défault vous n'êtes pas dans l'environnement Python que vous avez créé. 
 <p>Si vous souhaitez quitter votre environnement virtuel utilisez la commande suivante:</p>
 <pre><code>$ deactivate
 </code></pre><p><em>Pour tout ce qui suit, travaillez dans le nouvel environnement virtuel que l'on vient de créer</em></p>
-<h1 id="installer-numpy">Installer Numpy</h1>
+<h2 id="installer-numpy">Installer Numpy</h2>
 <p>Numpy est une bibliothèque très connue de calculs scientiques nécessaire pour OpenCV.</p>
 <pre><code>pip install numpy
-</code></pre><h1 id="installer-les-pr-requis--opencv-3">Installer les pré-requis à OpenCV 3</h1>
+</code></pre><h2 id="installer-les-pr-requis--opencv-3">Installer les pré-requis à OpenCV 3</h2>
 <p>Pour qu'on OpenCV 3 fonctionne certains pré-requis sont nécessaires.
 Heureusement l'installation de ces pré-requis est aisée grâce à Homebrew.</p>
 <pre><code>$ brew install cmake pkg-config # Nécessaire pour compiler OpenCV
 $ brew install jpeg libpng libtiff openexr # Nécessaire pour manipuler les images 
 $ brew install eigen # Nécessaire pour faire des calculs algébriques
 $ brew install tbb # Nécessaire pour faire les calculs parallèles
-</code></pre><h1 id="installer-opencv">Installer OpenCV</h1>
+</code></pre><h2 id="installer-opencv">Installer OpenCV</h2>
 <p>Commencez par télécharger OpenCV. Il y a 2 repositories git à cloner.
 (Vous n'avez pas besoin de tout l'historique du repository)</p>
 <pre><code>$ cd
@@ -7699,7 +7703,7 @@ $ cd /usr/local/lib/python3.6/site-packages
 $ ls -l | grep cv2.cpython-36m-darwin.so # Vérifiez que le fichier cv2.cpython-36m-darwin.so est bien présent
 $ cd ~/.virtualenvs/py3_cv3/lib/python3.6/site-packages
 $ ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-darwin.so cv2.so
-</code></pre><h1 id="vrification-de-linstallation">Vérification de l'installation</h1>
+</code></pre><h2 id="vrification-de-linstallation">Vérification de l'installation</h2>
 <p>Ouvrez un nouveau terminal et vérifiez que l'installation d'OpenCV fonctionne dans votre environnement virtuel.</p>
 <pre><code>$ workon py3_cv3
 $ python
@@ -7722,14 +7726,14 @@ J'espère que vous ne rencontrerez pas de problème et que je vous aurais fait g
 OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développeurs Python utilisent encore la version 2, j&#39;ai décidé de faire 2 tutoriaux. Il y a celui-ci pour Python 2.7.x et il y en un autre pour installer OpenCV 3 pour Python 3.</description>
             <content type="html"><![CDATA[<p>Comme l'installatin d'OpenCV n'est vraiment pas aisée. J'ai donc décidé d'écrire cet article. Si vous suivez cette procédure vous devriez pouvoir faire tourner OpenCV 3 sur OSX High Sierra dans un environnement virtuel.</p>
 <p>OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développeurs Python utilisent encore la version 2, j'ai décidé de faire 2 tutoriaux. Il y a celui-ci pour Python 2.7.x et il y en un autre pour <a href="http://blog.leandeep.com/installer-python-3-et-opencv-3-sur-os-x/">installer OpenCV 3 pour Python 3.5.x</a>.</p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <ul>
 <li>Xcode doit être installé</li>
 <li>Xcode a déjà dû être démarré et vous avez accepté les conditions générales</li>
 <li>Les commandes lines tools ont déjà été installés. Si ce n'est pas le cas exécutez la commande suivante: $ sudo xcode-select &ndash;install</li>
 <li><a href="https://brew.sh/index_fr.html">Homebrew</a> doit être installé</li>
 </ul>
-<h1 id="installer-python">Installer Python</h1>
+<h2 id="installer-python">Installer Python</h2>
 <p>Même si Python est déjà installé sur votre Mac, installez le une nouvelle fois avec Homebrew:</p>
 <pre><code>$ brew install python
 # Cela va installer python dans /usr/local/opt/
@@ -7743,14 +7747,14 @@ export PATH=&quot;/usr/local/opt/python/libexec/bin:$PATH&quot;
 Vérifiez aussi que ce sont bien les nouvelles versions de Python et pip qui sont utilisées</p>
 <pre><code>$ which python
 $ which pip
-</code></pre><h1 id="installer-les-packages-de-cration-denvironnements-virtuels">Installer les packages de création d'environnements virtuels</h1>
+</code></pre><h2 id="installer-les-packages-de-cration-denvironnements-virtuels">Installer les packages de création d'environnements virtuels</h2>
 <p>Les packages virtualenv et virtualenvwrapper vont vous permettre de créer environnements Python différents. Tout est isolé; vous pouvez avoir des librairies différentes dans chaque environnement. C'est extrèmement pratique; je le recommande fortement.</p>
 <pre><code>$ pip install virtualenv virtualenvwrapper # /!\ il se peut que sudo soit nécessaire
 </code></pre><p>Ajoutez les lignes suivantes dans votre ~/.zshrc (ou ~/.bash_profile)</p>
 <pre><code># Support d'environnement virtuel pour Python 2
 source /usr/local/bin/virtualenvwrapper.sh
 </code></pre><p>Une fois ces lignes ajoutées, &ldquo;rechargez&rdquo; votre terminal en exécutant la commande $ source ~/.zshrc ($ source ~/.bash_profile)</p>
-<h1 id="crer-un-environnement-virtuel">Créer un environnement virtuel</h1>
+<h2 id="crer-un-environnement-virtuel">Créer un environnement virtuel</h2>
 <p>Pour créer un nouvel environement, il suffit d'utiliser la commande suivante. Afin de vous y retrouver avec les différents environnement, je vous conseille d'utiliser un nom court et très explicite avec les numéros de version.</p>
 <pre><code>$ mkvirtualenv py2_cv3
 </code></pre><p>Une fois créé, fermez votre terminal et réouvrez en un nouveau.
@@ -7760,17 +7764,17 @@ Par défault vous n'êtes pas dans l'environnement Python que vous avez créé. 
 <p>Si vous souhaitez quitter votre environnement virtuel utilisez la commande suivante:</p>
 <pre><code>$ deactivate
 </code></pre><p><em>Pour tout ce qui suit, travaillez dans le nouvel environnement virtuel que l'on vient de créer</em></p>
-<h1 id="installer-numpy">Installer Numpy</h1>
+<h2 id="installer-numpy">Installer Numpy</h2>
 <p>Numpy est une bibliothèque très connue de calculs scientiques nécessaire pour OpenCV.</p>
 <pre><code>pip install numpy
-</code></pre><h1 id="installer-les-pr-requis--opencv-3">Installer les pré-requis à OpenCV 3</h1>
+</code></pre><h2 id="installer-les-pr-requis--opencv-3">Installer les pré-requis à OpenCV 3</h2>
 <p>Pour qu'on OpenCV 3 fonctionne certains pré-requis sont nécessaires.
 Heureusement l'installation de ces pré-requis est aisée grâce à Homebrew.</p>
 <pre><code>$ brew install cmake pkg-config # Nécessaire pour compiler OpenCV
 $ brew install jpeg libpng libtiff openexr # Nécessaire pour manipuler les images 
 $ brew install eigen # Nécessaire pour faire des calculs algébriques
 $ brew install tbb # Nécessaire pour faire les calculs parallèles
-</code></pre><h1 id="installer-opencv">Installer OpenCV</h1>
+</code></pre><h2 id="installer-opencv">Installer OpenCV</h2>
 <p>Commencez par télécharger OpenCV. Il y a 2 repositories git à cloner.
 (Vous n'avez pas besoin de tout l'historique du repository)</p>
 <pre><code>$ cd
@@ -7805,7 +7809,7 @@ $ cd /usr/local/lib/python2.7/site-packages/
 $ ls -l | grep cv2.so # Vérifiez que le fichier cv2.so est bien présent
 $ cd ~/.virtualenvs/py2_cv3/lib/python2.7/site-packages/
 $ ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
-</code></pre><h1 id="vrification-de-linstallation">Vérification de l'installation</h1>
+</code></pre><h2 id="vrification-de-linstallation">Vérification de l'installation</h2>
 <p>Ouvrez un nouveau terminal et vérifiez que l'installation d'OpenCV fonctionne dans votre environnement virtuel.</p>
 <pre><code>$ workon py2_cv3
 $ python
@@ -8070,13 +8074,13 @@ La première app est construite en Ionic. La seconde en React.</p>
             
             <guid>https://leandeep.com/installer-miniconda-sur-osx/</guid>
             <description>Qu&#39;est-ce que Conda ? Conda est un outil permettant de gérer les packages scientifiques utiles notamment pour faire du Machine Learning. Il gère aussi les dépendances de ces packages; même celles en dehors de Python (Librairies C, Paquets R&amp;hellip;). Il permet également de gérer des environnements virtuels comme virtualenv. C&#39;est un outil très répandu que vous retrouverez dans beaucoup de cours ou tutoriels. Il est donc intéressant de l&#39;installer sur votre poste.</description>
-            <content type="html"><![CDATA[<h1 id="quest-ce-que-conda-">Qu'est-ce que Conda ?</h1>
+            <content type="html"><![CDATA[<h2 id="quest-ce-que-conda-">Qu'est-ce que Conda ?</h2>
 <p>Conda est un outil permettant de gérer les packages scientifiques utiles notamment pour faire du Machine Learning. Il gère aussi les dépendances de ces packages; même celles en dehors de Python (Librairies C, Paquets R&hellip;). Il permet également de gérer des environnements virtuels comme virtualenv. C'est un outil très répandu que vous retrouverez dans beaucoup de cours ou tutoriels. Il est donc intéressant de l'installer sur votre poste.</p>
-<h1 id="quest-ce-quanaconda-">Qu'est-ce qu'Anaconda ?</h1>
+<h2 id="quest-ce-quanaconda-">Qu'est-ce qu'Anaconda ?</h2>
 <p>Conda est le gestionnaire de paquets d'Anaconda. Anaconda est une distribution gratuite de Python délivré par la société Continuum Analytics qui contient plus d'un milliers de paquets permettant de faire des sciences, des mathématiques, de l'ingénierie et de l'analyse de données. C'est une sorte de gros package incluant tous les outils nécessaires pour faire du Machine Learning.</p>
-<h1 id="quest-ce-que-miniconda-">Qu'est-ce que Miniconda ?</h1>
+<h2 id="quest-ce-que-miniconda-">Qu'est-ce que Miniconda ?</h2>
 <p>C'est une alternative à Anaconda. C'est beaucoup plus léger car il ne contient que Conda et quelques dépendances nécessaires à son fonctionnement.</p>
-<h1 id="installer-miniconda-sur-osx">Installer Miniconda sur OSX</h1>
+<h2 id="installer-miniconda-sur-osx">Installer Miniconda sur OSX</h2>
 <p>Il faut commencer par télécharger un script bash disponible à l&rsquo;<a href="https://conda.io/miniconda.html">adresse suivante</a>.</p>
 <pre><code>$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 </code></pre><p>Une fois téléchargé, il faut exécuter le script dans le terminal et suivre les instructions affichées à l'écran:</p>
@@ -8088,16 +8092,16 @@ export PATH=&quot;/Users/olivier/miniconda3/bin:$PATH&quot;
 <pre><code>$ source ~/.zshrc
 </code></pre><p>Vérifiez enfin que l'installation s'est bien déroulée:</p>
 <pre><code>$ conda -V
-</code></pre><h1 id="commandes-conda-utiles">Commandes Conda utiles</h1>
-<h4 id="lister-les-environnements-virtuels">Lister les environnements virtuels</h4>
+</code></pre><h2 id="commandes-conda-utiles">Commandes Conda utiles</h2>
+<p><strong>Lister les environnements virtuels</strong></p>
 <pre><code>$ conda env list
-</code></pre><h4 id="supprimer-un-environnement-et-tous-les-packages">Supprimer un environnement et tous les packages</h4>
+</code></pre><p><strong>Supprimer un environnement et tous les packages</strong></p>
 <pre><code>$ conda env remove --name nom-environnement
-</code></pre><h4 id="sortir-de-lenvironnement-actuel">Sortir de l'environnement actuel</h4>
+</code></pre><p><strong>Sortir de l'environnement actuel</strong></p>
 <pre><code>$ source deactivate
-</code></pre><h4 id="activer-un-environnement">Activer un environnement</h4>
+</code></pre><p>**Activer un environnement **</p>
 <pre><code>$ conda activate nom-environnement
-</code></pre><h4 id="crer-un-environnement--partir-dun-fichier-de-config-yml">Créer un environnement à partir d'un fichier de config (.yml)</h4>
+</code></pre><p><strong>Créer un environnement à partir d'un fichier de config (.yml)</strong></p>
 <pre><code>$ conda env create -f environments.yml 
 </code></pre><p>Le fichier environnement ressemble à ceci:</p>
 <pre><code>name: self-driving
@@ -14769,10 +14773,10 @@ olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
             
             <guid>https://leandeep.com/installer-couchdb-sur-un-raspberry/</guid>
             <description>Installation de CouchDB sudo apt-get update sudo apt-get install couchdb Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0 Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&#39;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&#39;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1.</description>
-            <content type="html"><![CDATA[<h1 id="installation-de-couchdb">Installation de CouchDB</h1>
+            <content type="html"><![CDATA[<h2 id="installation-de-couchdb">Installation de CouchDB</h2>
 <pre><code>sudo apt-get update
 sudo apt-get install couchdb
-</code></pre><h1 id="configuration">Configuration</h1>
+</code></pre><h2 id="configuration">Configuration</h2>
 <ol>
 <li>On configure le port et la bind_address</li>
 </ol>
@@ -14892,12 +14896,12 @@ False
             <guid>https://leandeep.com/h%C3%A9ritage-vs-composition-en-programmation-orient%C3%A9e-objet/</guid>
             <description>Introduction Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.
 Rappel héritage (&amp;ldquo;est un&amp;rdquo;) L&#39;héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère. En d&#39;autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</description>
-            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.</p>
-<h1 id="rappel-hritage-est-un">Rappel héritage (&ldquo;est un&rdquo;)</h1>
+<h2 id="rappel-hritage-est-un">Rappel héritage (&ldquo;est un&rdquo;)</h2>
 <p>L'héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère.
 En d'autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</p>
-<h1 id="example-dhritage-en-python">Example d'héritage en Python</h1>
+<h2 id="example-dhritage-en-python">Example d'héritage en Python</h2>
 <pre><code>class classeMere:
     &quot;&quot;&quot;une classe mère&quot;&quot;&quot;
     ...
@@ -14906,28 +14910,28 @@ class classeFille(classeMere):
     &quot;&quot;&quot;une classe fille qui hérite de la classe mère&quot;&quot;&quot;
     ...
 
-</code></pre><h1 id="constructeur">Constructeur</h1>
+</code></pre><h2 id="constructeur">Constructeur</h2>
 <p>Le constructeur de la classe fille doit faire un appel explicite au constructeur de la classe mère afin d’initialiser les attributs hérités de celle-ci. Pour cela on aura deux syntaxes à notre disposition.</p>
 <p>Dans la première syntaxe possible, on fait précéder <code>__init__</code> du nom de la classe mère :</p>
-<h2 id="1re-syntaxe">1ère syntaxe</h2>
+<p><strong>1ère syntaxe</strong></p>
 <pre><code>class classeFille(classeMere):
     &quot;&quot;&quot;documentation de la classe fille&quot;&quot;&quot;
     def __init__(self, parametre1, parametre2, ...):
         classeMere.__init__(self, parametre1, ...)
         ...
-</code></pre><h2 id="2me-syntaxe">2ème syntaxe</h2>
+</code></pre><p><strong>2ème syntaxe</strong></p>
 <pre><code>class classeFille(classeMere):
     &quot;&quot;&quot;documentation de la classe fille&quot;&quot;&quot;
     def __init__(self, parametre1, parametre2, ...):
         super().__init__(parametre1, ...)
         ...
-</code></pre><h1 id="reprsentation-uml">Représentation UML</h1>
+</code></pre><h2 id="reprsentation-uml">Représentation UML</h2>
 <p><img src="/images/heritage.png" alt="image"></p>
-<h1 id="rappel-composition-a-un">Rappel composition (&ldquo;a un&rdquo;)</h1>
+<h2 id="rappel-composition-a-un">Rappel composition (&ldquo;a un&rdquo;)</h2>
 <p>La relation de composition modélise une relation d’inclusion entre les instances de deux classes. Les objets de la classe conteneur possèdent donc un attribut qui est un objet de la classe contenue.</p>
 <p>Dans certains cas il est tout à fait possible techniquement d’utiliser une relation de composition à la place d’une relation d’héritage.</p>
 <p>Au lieu d’avoir une classe B qui hérite d’une classe A, on déclare dans B un attribut qui sera une instance de la classe A.</p>
-<h1 id="example-de-composition-en-python">Example de composition en Python</h1>
+<h2 id="example-de-composition-en-python">Example de composition en Python</h2>
 <pre><code>class point:
     def __init__(self,x,y):
         self.__x = x
@@ -14949,10 +14953,10 @@ class disque:
 cd = disque(-1, 2, 5)
 print(&quot;abscisse du centre :&quot;,cd.getCentre().getx())
 print(&quot;ordonnée du centre :&quot;,cd.getCentre().gety())
-</code></pre><h1 id="reprsentation-uml-1">Représentation UML</h1>
+</code></pre><h2 id="reprsentation-uml-1">Représentation UML</h2>
 <p><img src="/images/composition-agregation.png" alt="image"></p>
-<h1 id="hritage-vs-composition-en-python">Héritage vs Composition en Python</h1>
-<h2 id="exemples-simples">Exemples simples</h2>
+<h2 id="hritage-vs-composition-en-python">Héritage vs Composition en Python</h2>
+<p><strong>Exemples simples</strong></p>
 <pre><code># Héritage
 class Vehicule:
 	pass
@@ -14970,7 +14974,7 @@ class Car:
 	def __init__(self):
     	self.engine = Engine()
 
-</code></pre><h1 id="choisir-entre-composition-et-hritage-">Choisir entre composition et héritage ?</h1>
+</code></pre><h2 id="choisir-entre-composition-et-hritage-">Choisir entre composition et héritage ?</h2>
 <p>On choisit l’héritage quand la relation entre classes est bien de la forme <code>est un</code>, ou pour les anglicistes <code>is a</code>.</p>
 <p>On choisit la composition quand la relation entre classes est bien de la forme <code>a un</code>, ou pour les anglicistes <code>has a</code>.</p>
 <p>Si l'on suit les recommandations du best seller &ldquo;Design Patterns - Elements of Reusable Object Oriented Software&rdquo; (du Gang of 4), il vaut mieux utiliser la composition.</p>
@@ -14978,7 +14982,7 @@ class Car:
 <p>Object composition consiste à voir les objets comme des boites noires. C'est plus simple que de faire de l'héritage où il faut connaître les détails de l'objet pour l'utiliser</p>
 <p>&mdash;&ndash; Mis à jour 21/05/2019 &mdash;&ndash;</p>
 <p>La conférence &ldquo;PyCon Cleveland 2019&rdquo; a une vidéo intéressante sur le sujet: <a href="https://www.youtube.com/watch?time_continue=1&amp;v=YXiaWtc0cgE">https://www.youtube.com/watch?time_continue=1&amp;v=YXiaWtc0cgE</a></p>
-<h2 id="quand-utiliser-lhritage-">Quand utiliser l'héritage ?</h2>
+<p><strong>Quand utiliser l'héritage ?</strong></p>
 <ol>
 <li>
 <p>Quand la base classe et la classe dérivée appartiennent au même module/ package et sous le contrôle des mêmes développeurs.</p>

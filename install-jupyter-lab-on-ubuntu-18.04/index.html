@@ -64,7 +64,7 @@ export NVM_DIR=&quot;$HOME/.nvm&quot; [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&a
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Machine Learning,Jupyter," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Install Jupyter Lab on Ubuntu 18.04"/>
@@ -151,7 +151,7 @@ export NVM_DIR=&quot;$HOME/.nvm&quot; [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&a
             <div class="post-content">
                 <p>In this tutorial we are going to see how to install Jupyter lab.
 More on this tool here: <a href="https://jupyterlab.readthedocs.io/en/stable/">https://jupyterlab.readthedocs.io/en/stable/</a></p>
-<h1 id="install-nodejs">Install NodeJS</h1>
+<h2 id="install-nodejs">Install NodeJS</h2>
 <p>We are going to install NVM (Node Version Manager) to manage the install NodeJS
 version.</p>
 <pre><code>sudo apt-get update
@@ -167,16 +167,16 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 # Determine the latest LTS. For me it is v10.16.0 when I am writing this tutorial
 nvm install v10.16.0
 nvm use default v10.16.0
-</code></pre><h2 id="install-python-3">Install python 3</h2>
+</code></pre><p><strong>Install python 3</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get install python3
 sudo apt-get install python3-pip
-</code></pre><h2 id="install-jupyterlab">Install jupyterlab</h2>
+</code></pre><p><strong>Install jupyterlab</strong></p>
 <pre><code>pip3 install jupyterlab
 </code></pre><p>If you are using ohmyzsh (and you should !) edit your <code>~/.zshrc</code> file and add the line at the end <code>export PATH=$PATH:~/.local/bin/</code>. Then execute <code>source ~/.zshrc</code>.</p>
-<h2 id="verify-jupyterlab-works">Verify jupyterlab works</h2>
+<p><strong>Verify jupyterlab works</strong></p>
 <pre><code>jupyter lab --allow-root --ip=0.0.0.0 --no-browser
-</code></pre><h2 id="install-extensions-hub">Install extensions hub</h2>
+</code></pre><p><strong>Install extensions hub</strong></p>
 <blockquote>
 <p>Kill the previously launched server with Ctrl-c</p>
 </blockquote>
@@ -185,7 +185,7 @@ jupyter lab build
 jupyter lab --allow-root --ip=0.0.0.0 --no-browser
 </code></pre><p>Go to &ldquo;Settings&rdquo; &ndash;&gt; &ldquo;Enable Extensions manager (Experimental) to enable the extensions manager.
 If you click on the extensions icon that appear on the left menu you should see all available extensions to install.</p>
-<h2 id="make-jupyterlab-a-service">Make Jupyterlab a service</h2>
+<p><strong>Make Jupyterlab a service</strong></p>
 <p>Generate a config file:</p>
 <pre><code>jupyter-lab --generate-config
 </code></pre><p>Create a working directory:</p>
@@ -216,7 +216,7 @@ EOF
 <pre><code>sudo systemctl start jupyter-lab.service
 </code></pre><p>Verify jupyterlab service is working and get access token:</p>
 <pre><code>sudo systemctl status jupyter-lab.service
-</code></pre><h2 id="custom-jupyter-conf">Custom jupyter conf</h2>
+</code></pre><p><strong>Custom jupyter conf</strong></p>
 <p>It is possible to custom jupyter lab conf with the following commands:</p>
 <pre><code># Incoming connection whitelist. tried with IP &amp; CIDR. not sure about ranges. should be comma separated if more than one.
 sed -i.back &quot;s/#c.NotebookApp.allow_origin = ''/c.NotebookApp.allow_origin = '10.1.0.0\/24'/&quot; ~/.jupyter/jupyter_notebook_config.py
@@ -245,6 +245,9 @@ sed -i &quot;s/#c.NotebookNotary.secret = b''/#c.NotebookNotary.secret = ''/&quo
         <hr />
 
         <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/jupyter">Jupyter</a></span>
+                </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>470 Mots</p>
 

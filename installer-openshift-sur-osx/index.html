@@ -62,7 +62,7 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
 
 
 
-<meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Docker,Openshift," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer OpenShift sur OSX"/>
@@ -146,12 +146,12 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
             
 
             <div class="post-content">
-                <h1 id="quest-ce-quopenshift-">Qu'est-ce qu'OpenShift ?</h1>
+                <h2 id="quest-ce-quopenshift-">Qu'est-ce qu'OpenShift ?</h2>
 <p>OpenShift est une plateforme de PAAS développée par RedHat qui repose sur <a href="https://kubernetes.io/">Kubernetes</a>. En gros, c'est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c'est opensource&hellip;</p>
-<h1 id="minishift">MiniShift</h1>
+<h2 id="minishift">MiniShift</h2>
 <p>Si vous voulez tester l'outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.</p>
 <p>Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</p>
-<h1 id="installation-de-minishift">Installation de MiniShift</h1>
+<h2 id="installation-de-minishift">Installation de MiniShift</h2>
 <p>Voici la procédure pour l'installer avec les dépendances nécessaires:</p>
 <ul>
 <li>Docker CE pour OSX</li>
@@ -181,7 +181,7 @@ $ brew install --HEAD xhyve
 $ brew install docker-machine-driver-xhyve
 $ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 $ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-</code></pre><h1 id="cration-de-la-vm">Création de la VM</h1>
+</code></pre><h2 id="cration-de-la-vm">Création de la VM</h2>
 <pre><code># Créer une VM dans xhyve et créer un cluster OpenShift sur cette dernière
 minishift start
 
@@ -189,7 +189,7 @@ minishift start
 # minishift start --vm-driver=virtualbox
 </code></pre><p>Si tout se passe bien, vous devriez avoir ceci:</p>
 <p><img src="https://leandeep.com/images/oc-login.png" alt="image"></p>
-<h1 id="test-avec-une-application-exemple">Test avec une application exemple</h1>
+<h2 id="test-avec-une-application-exemple">Test avec une application exemple</h2>
 <p>Dans cette section, nous allons déployer une application NodeJS fournie par OpenShift qui nous permettra de vérifier que tout fonctionne.</p>
 <p>Il y a 3 manières de &ldquo;piloter&rdquo; OpenShift. Vous pouvez le faire avec le CLI, l'interface Web ou directement via l'API. Bien que l'interface Web soit très simple à utiliser, on va utiliser le CLI pour la suite de cet article.</p>
 <p>Pour l'installer, il suffit d'exécuter la commande suivante:</p>
@@ -226,30 +226,30 @@ oc logs -f bc/nodejs-ex
 oc expose svc/nodejs-ex
 </code></pre><p>Si tout s'est bien passé, une URL &ldquo;publique&rdquo; va être générée et vous permettra d'accéder à l'application juste déployée. L'application d'exemple déployée <strong>via le CLI</strong> ressemble à ceci:</p>
 <p><img src="https://leandeep.com/images/front-app-example-openshift.png" alt="image"></p>
-<h1 id="commandes-utiles-pour-le-cli">Commandes utiles pour le CLI</h1>
-<h3 id="switcher-de-compte-openshift">Switcher de compte OpenShift</h3>
+<h2 id="commandes-utiles-pour-le-cli">Commandes utiles pour le CLI</h2>
+<p><strong>Switcher de compte OpenShift</strong></p>
 <pre><code>oc login --username developer 
 
 # oc login --username &lt;username&gt; --password &lt;password&gt;
 # oc login --token &lt;token&gt;
-</code></pre><h3 id="lister-les-clusters-sur-lesquels-on-sest-dj-connect">Lister les clusters sur lesquels on s'est déjà connecté</h3>
+</code></pre><p><strong>Lister les clusters sur lesquels on s'est déjà connecté</strong></p>
 <pre><code>oc config get-clusters
-</code></pre><h3 id="se-connecter--un-cluster-spcifique-avec-un-compte-particulier">Se connecter à un cluster spécifique avec un compte particulier</h3>
+</code></pre><p><strong>Se connecter à un cluster spécifique avec un compte particulier</strong></p>
 <pre><code>oc login https://clusterA.leandeep.com --username superadmin
-</code></pre><h3 id="lister-tous-les-contextes">Lister tous les contextes</h3>
+</code></pre><p><strong>Lister tous les contextes</strong></p>
 <pre><code>oc config get-contexts
-</code></pre><h3 id="who-am-i-">Who am I ?</h3>
+</code></pre><p><strong>Who am I ?</strong></p>
 <pre><code>oc whoami
 
 # oc whoami --token (voir le token actuel)
 # oc whoami --show-server (voir le cluster actuel)
-</code></pre><h3 id="lister-les-projets">Lister les projets</h3>
+</code></pre><p><strong>Lister les projets</strong></p>
 <pre><code>oc get projects
-</code></pre><h3 id="crer-un-projet">Créer un projet</h3>
+</code></pre><p><strong>Créer un projet</strong></p>
 <pre><code>oc new-project mon_super_projet
-</code></pre><h3 id="accder--un-projet">Accéder à un projet</h3>
+</code></pre><p><strong>Accéder à un projet</strong></p>
 <pre><code>oc project &lt;nom-du-projet&gt;
-</code></pre><h3 id="crer-une-app-s2i-source-2-image">Créer une app s2i (source 2 image)</h3>
+</code></pre><p><strong>Créer une app s2i (source 2 image)</strong></p>
 <pre><code>oc new-app --source-secret &lt;nom-de-votre-secret-pour-se-connecter-a-votre-source-control&gt; &lt;image-docker-permettant-de-faire-du-s2i&gt;~https://bitbucket.org/user/repo-avec-du-nodejs-et-un-dockerfile.git --name nom-de-votre-app-dans-votre-projet
 </code></pre><p>Les ressources suivantes vont être automatiquement créées:</p>
 <pre><code>--&gt; Creating resources ...
@@ -258,17 +258,17 @@ oc expose svc/nodejs-ex
     buildconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
     deploymentconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
     service &quot;nom-de-votre-app-dans-votre-projet&quot; created
-</code></pre><h3 id="update-une-app-s2i">Update une app s2i</h3>
+</code></pre><p><strong>Update une app s2i</strong></p>
 <pre><code>oc start-build &lt;nom-du-build-pour-votre-app&gt;
-</code></pre><h3 id="delete-une-app">Delete une app</h3>
+</code></pre><p><strong>Delete une app</strong></p>
 <pre><code>oc delete all -l app=bla-bla-bla-https
-</code></pre><h3 id="donner-les-droits-en-lecture--un-utilisateur">Donner les droits en lecture à un utilisateur</h3>
+</code></pre><p><strong>Donner les droits en lecture à un utilisateur</strong></p>
 <pre><code>oc adm policy add-role-to-user view developer -n mon_super_projet
 
 # oc adm policy add-role-to-user edit &lt;username&gt; -n &lt;project&gt; (donne les droits d'écriture + création de déploiements + effacement d'applications)
 
 # oc adm policy add-role-to-user admin &lt;username&gt; -n &lt;project&gt; (donne tous les droits sur le projet)
-</code></pre><h3 id="lister-toutes-les-ressources-dun-projet-dont-dns-expos">Lister toutes les ressources d'un projet (dont DNS exposé)</h3>
+</code></pre><p><strong>Lister toutes les ressources d'un projet (dont DNS exposé)</strong></p>
 <pre><code>oc get all
 
 # Plus direct pour obtenir la route exposée
@@ -276,66 +276,66 @@ oc expose svc/nodejs-ex
 
 # Lister et filtrer sur un label
 oc get all -o name --selector app=apinodejs
-</code></pre><h3 id="obtenir-plus-dinformation-sur-une-ressource">Obtenir plus d'information sur une ressource</h3>
+</code></pre><p><strong>Obtenir plus d'information sur une ressource</strong></p>
 <pre><code>oc describe route/apinodejs
 # alternative 
 # oc describe route apinodejs
-</code></pre><h3 id="comprendre-openshift-obtenir-des-informations-sur-les-ressources">Comprendre OpenShift (obtenir des informations sur les ressources)</h3>
+</code></pre><p><strong>Comprendre OpenShift (obtenir des informations sur les ressources)</strong></p>
 <pre><code>oc get 
 # ou 
 # oc types
 # ou
 # oc explain route.spec.host (utile lorsqu'on sort les réponses au format JSON. Exemple oc get route/apinodejs -o json ==&gt; lire l'arborescence) 
-</code></pre><h3 id="editer-une-ressource">Editer une ressource</h3>
+</code></pre><p><strong>Editer une ressource</strong></p>
 <pre><code>oc edit route/apinodejs 
 
 ou 
 oc edit route/apinodejs -o json
-</code></pre><h3 id="crer-une-ressource-formats-json-ou-yml-accepts">Créer une ressource (formats json ou yml acceptés)</h3>
+</code></pre><p><strong>Créer une ressource (formats json ou yml acceptés)</strong></p>
 <pre><code>oc create -f apinodejs-fqdn.json
 
 # Commande disponible pour la création de route
 # oc create route edge apinodejs-fqdn --service apinodejs --insecure-policy Allow --hostname www.example.com
-</code></pre><h3 id="editer-une-ressource-1">Editer une ressource</h3>
+</code></pre><p><strong>Editer une ressource</strong></p>
 <pre><code>oc replace -f apinodejs-fqdn.json
 
 # Erreur si la ressource n'existe pas. L'alternative: oc apply 
-</code></pre><h3 id="editer--la-vole">Editer à la volée</h3>
+</code></pre><p><strong>Editer à la volée</strong></p>
 <pre><code>oc patch route/apinodejs-fqdn --patch '{&quot;spec&quot;:{&quot;tls&quot;: {&quot;insecureEdgeTerminationPolicy&quot;: &quot;Allow&quot;}}}'
 
 # Erreur si la ressource n'existe pas. L'alternative: oc apply
-</code></pre><h3 id="ajouterretirer-un-label-sur-un-service">Ajouter/Retirer un label sur un service</h3>
+</code></pre><p><strong>Ajouter/Retirer un label sur un service</strong></p>
 <pre><code># Ajouter le label
 oc label service/apinodejs web=true
 
 # Retirer le label
 oc label service/apinodejs web-
-</code></pre><h3 id="effacer-une-ressource">Effacer une ressource</h3>
+</code></pre><p><strong>Effacer une ressource</strong></p>
 <pre><code>oc delete route/apinodejs-fqdn
 
 # Effacer plusieurs ressources
 # oc delete all [--all] --selector app=apinodejs
-</code></pre><h3 id="crer-un-environnement-from-scratch">Créer un environnement from scratch</h3>
+</code></pre><p><strong>Créer un environnement from scratch</strong></p>
 <pre><code>conda create --name py35 python=3.5 
-</code></pre><h3 id="connect-as-minishift-superadmin">Connect as Minishift superadmin</h3>
+</code></pre><p><strong>Connect as Minishift superadmin</strong></p>
 <pre><code>oc login -u system:admin
-</code></pre><h3 id="accder--minishift-en-local">Accéder à Minishift en local</h3>
+</code></pre><p><strong>Accéder à Minishift en local</strong></p>
 <pre><code>oc login https://&lt;IP&gt;:8443 -u system:admin --insecure-skip-tls-verify=true
-</code></pre><h3 id="obtenir-lip-de-minishift">Obtenir l'IP de Minishift</h3>
+</code></pre><p><strong>Obtenir l'IP de Minishift</strong></p>
 <pre><code>minishift ip
-</code></pre><h1 id="troubleshooting">Troubleshooting</h1>
-<h3 id="un-pod-en-terminating-state-ne-se-kill-pas">Un pod en terminating state ne se kill pas</h3>
+</code></pre><h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Un pod en terminating state ne se kill pas</strong></p>
 <pre><code>oc get po 
 oc delete pod &lt;pod-name&gt; -n &lt;pod-namespace&gt; --grace-period=0 --force
-</code></pre><h3 id="un-provisioned-service-marked-for-deletion-ne-sefface-pas">Un provisioned service &ldquo;marked for deletion&rdquo; ne s'efface pas</h3>
+</code></pre><p><strong>Un provisioned service &ldquo;marked for deletion&rdquo; ne s'efface pas</strong></p>
 <pre><code>oc edit serviceinstance &lt;provisioned-service&gt; -n &lt;namespace&gt;
 # Effacer metadata.finalizers de l'instance comme workaround
-</code></pre><h3 id="lapplication-ne-saffiche-pas">L'application ne s'affiche pas</h3>
+</code></pre><p><strong>L'application ne s'affiche pas</strong></p>
 <p>Si vous avez l'erreur suivante, c'est qu'il y a un problème de résolution DNS sur votre Mac:</p>
 <p><img src="https://leandeep.com/images/openshift-app-unreachable.png" alt="image"></p>
 <p>Pour corriger le problème, changez le DNS de votre Mac et utilisez celui de Google.
 Pour ce faire, allez dans Préférences Système &ndash;&gt; Network &ndash;&gt; Cliquez sur le bouton avancé en bas à droit après avoir sélectionné l'interface réseau que vous utilisez &ndash;&gt; Cliquez sur l'onglet DNS &ndash;&gt; Ajoutez 8.8.8.8 dans la section DNS</p>
-<h3 id="vous-avez-tout-crash-et-vous-voulez-tout-recommencer-de-0">Vous avez tout crashé et vous voulez tout recommencer de 0</h3>
+<p><strong>Vous avez tout crashé et vous voulez tout recommencer de 0</strong></p>
 <p>En cas d'erreur avec votre VM, cette commande peut être utile pour effacer les dossiers en cache. Supprimer la VM dans VirtualBox ne suffit pas.</p>
 <pre><code># Effacer le cache et la VM
 minishift delete --clear-cache
@@ -353,7 +353,7 @@ rm -rf ~/.minishift/machines/*
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span><span class="tag"><a href="https://leandeep.com/tags/openshift">Openshift</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1181 Mots</p>

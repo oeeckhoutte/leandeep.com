@@ -141,19 +141,19 @@
 
             <div class="post-content">
                 <p><img src="https://leandeep.com/images/IMG_35783.JPG" alt="image"></p>
-<h1 id="introduction">Introduction</h1>
+<h2 id="introduction">Introduction</h2>
 <p>J'ai récemment fait l'acquisition d'un Intel Nuc (Core i7 et 32 go de RAM). Franchement je suis vraiment satisfait. Il est petit, leger, sobre, stylé, consomme peu et celui que j'ai choisi a du Thunderbolt 3. C'est d'ailleurs pour cela que je l'ai acheté.</p>
 <p>Qui dit Thunderbolt 3 dit eGPU. Et qui dit eGPU dit tensorflow-gpu !..</p>
 <p>J'ai recyclé une ancienne carte graphique qui trainaient dans un ancien PC. Il s'agit d'une <code>Geforce GTX 660 Ti</code> achetée en 2012 aux USA. Elle ne vaut sans doute plus grand chose aujourd'hui. Mais pourtant elle va nous être bien utile; soit pour miner (nouveau centre d'intérêt) soit pour entraîner mes modèles de Machine / Deep Learning.<br>
 J'ai aussi fait l'acquisition d'un boitier eGPU. J'ai pris un Razer Core X. C'est la première fois que j'achète du Razer. Ce premier achat me satisfait vraiment car il est de très bonne qualité.</p>
 <p><strong>Dans cet article nous allons voir comment installer les drivers pour que la carte graphique utilisée dans le boitier eGPU soit reconnue et comment installer les outils nécessaires pour que Tensorflow puisse être compilé et fonctionner avec ce dernier. J'ai beaucoup galéré pour faire fonctionner le tout. J'espère que cet article pourra vous faire économiser des heures pour rien.</strong></p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <p>Le kernel que j'utilise est le <code>4.18.0</code>. Il y a pleins d'articles sur internet qui disent de mettre à jour le Kernel avant de commencer. Je l'ai fait et cela n'a pas fonctionné. J'ai testé le <code>5.2</code> et j'ai dû faire machine arrière&hellip;</p>
-<p><strong>Questions!</strong></p>
-<h2 id="comment-connatre-la-version-du-kernel-">Comment connaître la version du kernel ?</h2>
+<h2 id="questions">Questions!</h2>
+<p><strong>Comment connaître la version du kernel ?</strong></p>
 <p>Tout simplement avec la commande:</p>
 <pre><code>cat /proc/version
-</code></pre><h2 id="comment-mettre--jour-le-kernel-">Comment mettre à jour le kernel ?</h2>
+</code></pre><p><strong>Comment mettre à jour le kernel ?</strong></p>
 <p>En ligne de commande ou via une petite interface graphique:</p>
 <pre><code># Installer ukuu
 sudo apt-add-repository ppa:teejee2008/ppa
@@ -161,7 +161,7 @@ sudo apt update
 sudo apt-get install ukuu
 # Lancer l'interface
 sudo ukuu-gtk
-</code></pre><h2 id="comment-backuper-sa-machine-avant-de-la-bidouiller-">Comment backuper sa machine avant de la bidouiller ?</h2>
+</code></pre><p><strong>Comment backuper sa machine avant de la bidouiller ?</strong></p>
 <p>Très bonne question! Heureusement avant chaque manipulation délicate j'ai snapshoté ma machine. J'ai pris le risque de laisser le snapshot dessus en toute connaissance de cause. Vous pouvez le sortir si vraiment vous craignez de ne pas pouvoir réparer votre machine. Je vous conseille juste d'installer SSH pour pouvoir vous connecter dessus au cas où Gnome ne démarre même plus&hellip;</p>
 <p>Je réalise mes snapshots avec Timeshift. Il y a une interface graphique mais apprenez à l'utiliser en lignes de commande. Ce n'est pas le jour où tout est crashé qu'il faut se demander comment faire :D .</p>
 <pre><code># Installation de Timeshift
@@ -172,12 +172,12 @@ sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &am
 sudo timeshift --list
 # Restaurer un snapshot 
 # sudo timeshift --restore
-</code></pre><h2 id="est-ce-que-le-gpu-install-dans-le-boitier-egpu-est-bien-dtect-">Est-ce que le GPU installé dans le boitier eGPU est bien détecté ?</h2>
+</code></pre><p><strong>Est-ce que le GPU installé dans le boitier eGPU est bien détecté ?</strong></p>
 <pre><code>lspci | grep -i nvidia
 
 06:00.0 VGA compatible controller: NVIDIA Corporation GK104 [GeForce GTX 660 Ti] (rev a1)
-</code></pre><h1 id="installation">Installation</h1>
-<h2 id="configurer-gcc-et-g">Configurer GCC et G++</h2>
+</code></pre><h2 id="installation">Installation</h2>
+<p><strong>Configurer GCC et G++</strong></p>
 <p>Il vous faudra une utiliser la version 6 de <code>GCC</code> et <code>G++</code> pour builder Tensorflow. Si vous avez une version plus récente cela ne fonctionnera pas.</p>
 <pre><code>gcc --version
 g++ --version
@@ -186,7 +186,7 @@ g++ --version
 </code></pre><p>Créer les variables d'environnement permettant de sélectionner la bonne version dans le fichier <code>~/.zshrc</code>.</p>
 <pre><code>export CC=/usr/bin/gcc-6
 export CXX=/usr/bin/g++-6
-</code></pre><h2 id="installer-les-drivers-nvidia">Installer les Drivers Nvidia</h2>
+</code></pre><p><strong>Installer les Drivers Nvidia</strong></p>
 <p>Enlever les nouveaux drivers qui viennent avec l'installation d'Ubuntu. Identifier les avec la commande:</p>
 <pre><code>lsmod | grep nouveau
 </code></pre><p>Créer un fichier <code>/etc/modprobe.d/blacklist-nouveau.conf</code> et ajouter lui le contenu suivant:</p>
@@ -215,7 +215,7 @@ sudo reboot
 |=============================================================================|
 |    0                    Not Supported                                       |
 +-----------------------------------------------------------------------------+
-</code></pre><h2 id="installer-cuda">Installer Cuda</h2>
+</code></pre><p><strong>Installer Cuda</strong></p>
 <p>On peut maintenant passer à l'installation de Cuda.
 J'ai beaucoup galéré à cette étape car j'ai essayé d'installer les dernières versione de Cuda. Au moment où j'écris cet article il s'agissait de la version 10.1. Cette dernière n'a pas fonctionné car trop récente pour mon GPU.
 J'ai donc installé la <code>cuda version 9.0</code> à partir de ce fichier précisément <code>cuda_9.0.176_384.81_linux-run</code>.</p>
@@ -246,13 +246,13 @@ nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2017 NVIDIA Corporation
 Built on Fri_Sep__1_21:08:03_CDT_2017
 Cuda compilation tools, release 9.0, V9.0.176
-</code></pre><h2 id="installer-cudnn">Installer CudNN</h2>
+</code></pre><p><strong>Installer CudNN</strong></p>
 <p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez le package suivant <code>cudnn-9.0-linux-x64-v7.3.0.29</code>. Ensuite installez le.</p>
 <pre><code>tar -xzvf cudnn-9.0-linux-x64-v7.3.0.29.tgz
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
 sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
-</code></pre><h2 id="installer-libcudnn">Installer libcudnn</h2>
+</code></pre><p><strong>Installer libcudnn</strong></p>
 <p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez les 3 packages <code>libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb</code>, <code>libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb</code> et <code>libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb</code>. Attention les numéros de versions sont à respecter. J'ai aussi perdu beaucoup de temps sur cela.</p>
 <p>Installez les:</p>
 <pre><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
@@ -271,13 +271,13 @@ make clean &amp;&amp; make
 $ Test passed!
 </code></pre><p>Maintenons les paquets afin qu’ils ne soient pas updatés ou effacés:</p>
 <pre><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
-</code></pre><h2 id="installer-bazel">Installer Bazel</h2>
+</code></pre><p><strong>Installer Bazel</strong></p>
 <pre><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
 chmod +x bazel-0.17.2-installer-linux-x86_64.sh
 ./bazel-0.17.2-installer-linux-x86_64.sh --user
 </code></pre><p>Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:</p>
 <pre><code>export PATH=&quot;$PATH:$HOME/bin&quot;
-</code></pre><h2 id="builderinstallertester-tensorflow-gpu">Builder/Installer/Tester Tensorflow GPU</h2>
+</code></pre><p><strong>Builder/Installer/Tester Tensorflow GPU</strong></p>
 <p>Rendez-vous ensuite sur un précédent article que j'ai écrit sur le sujet. Suivez la section &ldquo;Installer TensorFlow&rdquo;. J'ai suivi mon propre tutorial et cela a fonctionné ! <a href="https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow">https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow</a></p>
 <p>Cela fonctionne avec Python 2.7 et Python 3&hellip;</p>
 <pre><code>python

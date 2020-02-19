@@ -143,12 +143,12 @@ Rappel héritage (&ldquo;est un&rdquo;) L&#39;héritage est une relation de spé
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.</p>
-<h1 id="rappel-hritage-est-un">Rappel héritage (&ldquo;est un&rdquo;)</h1>
+<h2 id="rappel-hritage-est-un">Rappel héritage (&ldquo;est un&rdquo;)</h2>
 <p>L'héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère.
 En d'autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</p>
-<h1 id="example-dhritage-en-python">Example d'héritage en Python</h1>
+<h2 id="example-dhritage-en-python">Example d'héritage en Python</h2>
 <pre><code>class classeMere:
     &quot;&quot;&quot;une classe mère&quot;&quot;&quot;
     ...
@@ -157,28 +157,28 @@ class classeFille(classeMere):
     &quot;&quot;&quot;une classe fille qui hérite de la classe mère&quot;&quot;&quot;
     ...
 
-</code></pre><h1 id="constructeur">Constructeur</h1>
+</code></pre><h2 id="constructeur">Constructeur</h2>
 <p>Le constructeur de la classe fille doit faire un appel explicite au constructeur de la classe mère afin d’initialiser les attributs hérités de celle-ci. Pour cela on aura deux syntaxes à notre disposition.</p>
 <p>Dans la première syntaxe possible, on fait précéder <code>__init__</code> du nom de la classe mère :</p>
-<h2 id="1re-syntaxe">1ère syntaxe</h2>
+<p><strong>1ère syntaxe</strong></p>
 <pre><code>class classeFille(classeMere):
     &quot;&quot;&quot;documentation de la classe fille&quot;&quot;&quot;
     def __init__(self, parametre1, parametre2, ...):
         classeMere.__init__(self, parametre1, ...)
         ...
-</code></pre><h2 id="2me-syntaxe">2ème syntaxe</h2>
+</code></pre><p><strong>2ème syntaxe</strong></p>
 <pre><code>class classeFille(classeMere):
     &quot;&quot;&quot;documentation de la classe fille&quot;&quot;&quot;
     def __init__(self, parametre1, parametre2, ...):
         super().__init__(parametre1, ...)
         ...
-</code></pre><h1 id="reprsentation-uml">Représentation UML</h1>
+</code></pre><h2 id="reprsentation-uml">Représentation UML</h2>
 <p><img src="https://leandeep.com/images/heritage.png" alt="image"></p>
-<h1 id="rappel-composition-a-un">Rappel composition (&ldquo;a un&rdquo;)</h1>
+<h2 id="rappel-composition-a-un">Rappel composition (&ldquo;a un&rdquo;)</h2>
 <p>La relation de composition modélise une relation d’inclusion entre les instances de deux classes. Les objets de la classe conteneur possèdent donc un attribut qui est un objet de la classe contenue.</p>
 <p>Dans certains cas il est tout à fait possible techniquement d’utiliser une relation de composition à la place d’une relation d’héritage.</p>
 <p>Au lieu d’avoir une classe B qui hérite d’une classe A, on déclare dans B un attribut qui sera une instance de la classe A.</p>
-<h1 id="example-de-composition-en-python">Example de composition en Python</h1>
+<h2 id="example-de-composition-en-python">Example de composition en Python</h2>
 <pre><code>class point:
     def __init__(self,x,y):
         self.__x = x
@@ -200,10 +200,10 @@ class disque:
 cd = disque(-1, 2, 5)
 print(&quot;abscisse du centre :&quot;,cd.getCentre().getx())
 print(&quot;ordonnée du centre :&quot;,cd.getCentre().gety())
-</code></pre><h1 id="reprsentation-uml-1">Représentation UML</h1>
+</code></pre><h2 id="reprsentation-uml-1">Représentation UML</h2>
 <p><img src="https://leandeep.com/images/composition-agregation.png" alt="image"></p>
-<h1 id="hritage-vs-composition-en-python">Héritage vs Composition en Python</h1>
-<h2 id="exemples-simples">Exemples simples</h2>
+<h2 id="hritage-vs-composition-en-python">Héritage vs Composition en Python</h2>
+<p><strong>Exemples simples</strong></p>
 <pre><code># Héritage
 class Vehicule:
 	pass
@@ -221,7 +221,7 @@ class Car:
 	def __init__(self):
     	self.engine = Engine()
 
-</code></pre><h1 id="choisir-entre-composition-et-hritage-">Choisir entre composition et héritage ?</h1>
+</code></pre><h2 id="choisir-entre-composition-et-hritage-">Choisir entre composition et héritage ?</h2>
 <p>On choisit l’héritage quand la relation entre classes est bien de la forme <code>est un</code>, ou pour les anglicistes <code>is a</code>.</p>
 <p>On choisit la composition quand la relation entre classes est bien de la forme <code>a un</code>, ou pour les anglicistes <code>has a</code>.</p>
 <p>Si l'on suit les recommandations du best seller &ldquo;Design Patterns - Elements of Reusable Object Oriented Software&rdquo; (du Gang of 4), il vaut mieux utiliser la composition.</p>
@@ -229,7 +229,7 @@ class Car:
 <p>Object composition consiste à voir les objets comme des boites noires. C'est plus simple que de faire de l'héritage où il faut connaître les détails de l'objet pour l'utiliser</p>
 <p>&mdash;&ndash; Mis à jour 21/05/2019 &mdash;&ndash;</p>
 <p>La conférence &ldquo;PyCon Cleveland 2019&rdquo; a une vidéo intéressante sur le sujet: <a href="https://www.youtube.com/watch?time_continue=1&amp;v=YXiaWtc0cgE">https://www.youtube.com/watch?time_continue=1&amp;v=YXiaWtc0cgE</a></p>
-<h2 id="quand-utiliser-lhritage-">Quand utiliser l'héritage ?</h2>
+<p><strong>Quand utiliser l'héritage ?</strong></p>
 <ol>
 <li>
 <p>Quand la base classe et la classe dérivée appartiennent au même module/ package et sous le contrôle des mêmes développeurs.</p>
