@@ -144,7 +144,7 @@
 Même s'il existe des Elastic IP (EIP), cela peut parfois être utile de ne pas les utiliser si votre instance est presque tout le temps éteinte. Comme on ne paye les EIP que lorsqu'elles ne sont pas attachées à des instances qui tournent cela peut faire grimper la facture inutilement; surtout quand on a pas mal d'instances dans cet état.</p>
 <p>Bref avec l'image Docker suivante <code>docker pull oeeckhoutte/cloudflare-dns</code> vous pouvez si vous avez un startup script toujours avoir accès à votre instance via votre DNS chez cloudflare.</p>
 <p>Le code source est accessible sur Github à l'adresse suivante: <a href="https://github.com/oeeckhoutte/cloudflare-dns-update-server-startup">https://github.com/oeeckhoutte/cloudflare-dns-update-server-startup</a>.</p>
-<p>Si éventuellement vous avez besoin d'un startup script je vous renvoie (sur un précédent article que j'avais écrit)[https://leandeep.com/cr%C3%A9er-un-script-qui-se-lance-au-d%C3%A9marrage-de-centos-7/].</p>
+<p>Si éventuellement vous avez besoin d'un startup script je vous renvoie <a href="https://leandeep.com/cr%C3%A9er-un-script-qui-se-lance-au-d%C3%A9marrage-de-centos-7/">sur un précédent article que j'avais écrit</a>.</p>
 <p>Pour utiliser cette image il suffit d'exécuter la commande suivante:</p>
 <pre><code>docker run --rm -e CF_API_KEY='0000000000000000000000000000000000000' -e CF_API_EMAIL='your.email@domain.com' -e DNS_TO_UPDATE='your_dns_or_subdns' -it cloudflare-dns
 </code></pre><p>Have fun.</p>
