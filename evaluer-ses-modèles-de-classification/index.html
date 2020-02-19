@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
-Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Classification Justesse / Accuracy
+  Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
 Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
 ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )" />
 <meta name="keywords" content="" />
@@ -54,12 +55,13 @@ ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )" />
 
 <meta itemprop="name" content="Evaluer ses modèles de classification">
 <meta itemprop="description" content="Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
-Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Classification Justesse / Accuracy
+  Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
 Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
 ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )">
 <meta itemprop="datePublished" content="2017-03-15T15:27:00&#43;00:00" />
 <meta itemprop="dateModified" content="2017-03-15T15:27:00&#43;00:00" />
-<meta itemprop="wordCount" content="824">
+<meta itemprop="wordCount" content="827">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -69,7 +71,8 @@ ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )">
 
 <meta name="twitter:title" content="Evaluer ses modèles de classification"/>
 <meta name="twitter:description" content="Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
-Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Classification Justesse / Accuracy
+  Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
 Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
 ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )"/>
 
@@ -149,10 +152,10 @@ ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )"/>
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>Voici les métriques à analyser pour évaluer la performance de son modèle.</p>
-<h1 id="classification">Classification</h1>
-<h2 id="justesse--accuracy">Justesse / Accuracy</h2>
+<h2 id="classification">Classification</h2>
+<p><strong>Justesse / Accuracy</strong></p>
 <ul>
 <li>
 <p><code>Justesse</code>, (ou <code>Taux de réussite</code> ou encore <code>taux de prédiction</code>; <code>accuracy</code> en anglais). <strong>Mais attention, il ne faut pas se fier qu'à cette seule métrique.</strong></p>
@@ -167,7 +170,7 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 <ul>
 <li>CART (Classification And Regression Tree) Voir wikipédia: <a href="http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees">http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees</a></li>
 </ul>
-<h2 id="matrice-de-confusion">Matrice de confusion</h2>
+<p><strong>Matrice de confusion</strong></p>
 <ul>
 <li>
 <p>La <code>Matrice de confusion</code> (<code>tableau de contingence</code>; <code>contingency table</code> en anglais) est une manière simple et non ambigue de présenter les résultats d'un classifier. (Voici un exemple sur ce notebook: <a href="https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm">https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm</a>)</p>
@@ -178,14 +181,14 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 <p><em>En haut, on a ce qui est observé et sur le côté ce qui est prédit.</em></p>
 <p>Parfois et par exemple pour des sujets où les classes sont déséquilibrées il vaut mieux ne pas se fier au taux de précision (<em>accuracy</em>) et plus utiliser une matrice de confusion.</p>
 <p>En effet, utiliser le <code>nombre de faux positifs</code> ou <code>faux négatifs</code> pour les sujets liés à la santé par exemple a plus de sens que le taux de précision du modèle. <strong>Un modèle qui prédit si oui ou non on a le cancer ne doit pas avoir de faux négatif. Le taux de précision a donc moins d'importance dans ce cas. Au contraire, un modèle qui prédit qu'un patient est en bonne santé alors qu'il a un cancer c'est grave car le patient peut en mourir puisqu'il ne sera pas soigné !</strong>)</p>
-<h2 id="precision">Precision</h2>
+<p><strong>Precision</strong></p>
 <p><img src="https://leandeep.com/images/precision-rappel.png" alt="image"></p>
 <p>La <code>précision</code> permet de répondre à la question: &ldquo;Quelle proportion d'identifications positives était effectivement correcte ?&rdquo;</p>
 <p>La précision se calcule comme ceci:</p>
 <p><img src="https://leandeep.com/images/precision.png" alt="image"></p>
 <p>Example (source developer.google.com):</p>
 <p><img src="https://leandeep.com/images/exemple-precision.png" alt="image"></p>
-<h2 id="rappel">Rappel</h2>
+<p>**Rappel **</p>
 <p>Le <code>rappel</code> (<em><code>recall</code></em> en anglais ou aussi <code>sensibilité</code> ou encore <code>taux de vrais positifs (TVP)</code>) permet de répondre à la question suivante: &ldquo;Quelle proportion de résultats positifs réels a été identifiée correctement ?&rdquo;</p>
 <p>Le rappel se calcule comme ceci:</p>
 <p><img src="https://leandeep.com/images/rappel.png" alt="image"></p>
@@ -193,17 +196,17 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 <p><img src="https://leandeep.com/images/exemple-rappel.png" alt="image"></p>
 <p>Pour évaluer les performances d'un modèle de façon complète, vous devez analyser à la fois la précision et le rappel. Malheureusement, précision et rappel sont fréquemment en tension. Ceci est dû au fait que l'amélioration de la précision se fait généralement au détriment du rappel et réciproquement.</p>
 <p>Dans l'exemple du dépistage de cancer c'est la proportion de vrais positifs parmi les personnes à dépister.</p>
-<h2 id="spcificit">Spécificité</h2>
+<p>**Spécificité **</p>
 <p>La <code>spécificité</code> se calcule comme ceci:</p>
 <p><img src="https://leandeep.com/images/specificite.png" alt="image"></p>
 <p>Dans l'exemple du dépistage du cancer c'est proportion de vrais négatifs chez les non-malades.</p>
 <p><strong>Différence avec la sensibilité:</strong></p>
 <p>La <code>sensibilité</code> est l'indice qui évalue la capacité d'une mesure à bien classer les malades (ou les exposés), et la <code>spécificité</code> celui qui évalue la capacité à bien classer les non-malades (ou les non-exposés).</p>
-<h2 id="score-f1">Score F1</h2>
+<p>**Score F1 **</p>
 <p>Aussi appelé <em>F Score</em> ou <em>F Measure</em>, le <code>score F1</code> permet de traduire l'équilibre entre la précision et le rappel. Attention, le problème de cette métrique est qu'elle ne tient pas compte de l'éventuel déséquilibre entre les classes.</p>
 <p>Il se calcule comme ceci:</p>
 <p><img src="https://leandeep.com/images/f1-score.png" alt="image"></p>
-<h2 id="courbe-roc">Courbe ROC</h2>
+<p><strong>Courbe ROC</strong></p>
 <p>La <code>courbe ROC</code> (Receiver Operating Characteristic) trace le taux de vrais positifs en fonction du taux de faux positifs.</p>
 <p>Le taux de vrais positifs (TVP) est l'équivalent du rappel.</p>
 <p>Le taux de faux positifs (TFP) se calcule comme ceci:</p>
@@ -216,13 +219,13 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 The latter summarizes the trade-off between the true positive rate and the positive predictive value for a predictive model using different probability thresholds.</p>
 </blockquote>
 <p><strong>ROC curves are appropriate when the observations are balanced between each class, whereas precision-recall curves are appropriate for imbalanced datasets.</strong> En savoir plus sur cet article: <a href="https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/">https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/</a></p>
-<h2 id="auc">AUC</h2>
+<p><strong>AUC</strong></p>
 <p>En savoir plus sur l'aire sous la courbe ROC (<code>AUC</code> pour Area Under the Curve ROC) sur le même site qu'au dessus: <a href="https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/">https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/</a></p>
 <p>&ldquo;An excellent model has AUC near to the 1 which means it has good measure of separability. A poor model has AUC near to the 0 which means it has worst measure of separability.
 And when AUC is 0.5, it means model has no class separation capacity whatsoever. It would be a naive model.&rdquo;</p>
 <p>En gros l'AUC correspond à l’intégrale de la fonction ROC.</p>
 <p>Voici une vidéo explicative: <a href="https://www.dataschool.io/roc-curves-and-auc-explained/">https://www.dataschool.io/roc-curves-and-auc-explained/</a></p>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>Un &ldquo;bon&rdquo; classifieur doit présenter d’une part un rappel élevé et, d’autre part, une précision et une spécificité élevée (et un taux de faux positifs faible).</p>
 <p>Scikit Learn fournit un tas de métriques par défaut: <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">https://scikit-learn.org/stable/modules/model_evaluation.html</a></p>
 <p>Voici enfin un article intéressant sur les métriques en général pour des sujets de classification, de recommandation et de régression.
@@ -238,7 +241,7 @@ And when AUC is 0.5, it means model has no class separation capacity whatsoever.
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>824 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>827 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Mar. 2017</p>
         </div>

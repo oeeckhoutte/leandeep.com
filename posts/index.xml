@@ -1201,23 +1201,23 @@ WantedBy=default.target
             <guid>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</guid>
             <description>Let&#39;s say you want to setup a Gitlab server on AWS and you need to do a git clone using SSH protocol. You will be annoyed by the .pem file. To get rid of it (or more simply hide it) you can follow this procedure:
 The pem file contains a private key. Simply extract it and add it to your system.
-Copy the private key to the .ssh folder:
+Copy the private key to the .ssh folder
 cp /path/to/your/cert.</description>
             <content type="html"><![CDATA[<p>Let's say you want to setup a Gitlab server on AWS and you need to do a <code>git clone</code> using <code>SSH</code> protocol. You will be annoyed by the <code>.pem</code> file. To get rid of it (or more simply hide it) you can follow this procedure:</p>
 <p>The pem file contains a private key. Simply extract it and add it to your system.</p>
-<p><strong>Copy the private key to the .ssh folder:</strong></p>
+<p><strong>Copy the private key to the .ssh folder</strong></p>
 <pre><code>cp /path/to/your/cert.pem ~/.ssh/id_rsa_gitlab_ec2
-</code></pre><p><strong>Generate a public key from the .pem file:</strong></p>
+</code></pre><p><strong>Generate a public key from the .pem file</strong></p>
 <pre><code>ssh-keygen -y -f /path/to/your/cert.pem &gt; ~/.ssh/id_rsa_gitlab_ec2.pub
-</code></pre><p><strong>Change private key file rights:</strong></p>
+</code></pre><p><strong>Change private key file rights</strong></p>
 <pre><code>chmod 
-</code></pre><p><strong>Add the private key to ssh-agent:</strong></p>
+</code></pre><p><strong>Add the private key to ssh-agent</strong></p>
 <pre><code># Start ssh-agent
 eval &quot;$(ssh-agent -s)&quot;
 
 # Add your newly created key to the agent
 ssh-add ~/.ssh/id_rsa_gitlab_ec2
-</code></pre><p><strong>Now try to connect to you EC2 instance via SSH:</strong></p>
+</code></pre><p><strong>Now try to connect to you EC2 instance via SSH</strong></p>
 <pre><code>ssh your_user@ec2-ip......amazonaws.com
 </code></pre><p>Try to <code>git clone ...</code>. All good !</p>
 ]]></content>
@@ -2127,7 +2127,7 @@ The installation will be done on Ubuntu 18.04.</p>
 <p>Here is the description of the tool coming from the official website:</p>
 <p><em>CLAVIN does not simply “look up” location names – it uses intelligent heuristics to identify exactly which “Springfield” (for example) was intended by the author, based on the context of the document. CLAVIN also employs fuzzy search to handle incorrectly-spelled location names, and it recognizes alternative names (e.g., “Ivory Coast” and “Côte d’Ivoire”) as referring to the same geographic entity.</em></p>
 <h2 id="prerequisites">Prerequisites</h2>
-<h3 id="install-maven">Install Maven</h3>
+<p><strong>Install Maven</strong></p>
 <p>Update your system to the latest stable version:</p>
 <pre><code>sudo apt-get update -y
 sudo apt-get upgrade -y
@@ -3646,15 +3646,15 @@ sonar.host.url=http://IP_DU_SONAR:9000
             <guid>https://leandeep.com/faire-un-dual-boot-linux-sur-mac/</guid>
             <description>Introduction Dans cet article, nous allons voir comment installer refind, un bootloader custom pour Mac qui permet de détecter les disques internes et externes pour booter sur différents OS.
 Pré-requis  Disque dur externe ou clé USB ayant suffisamment d&#39;espace disque pour contenir un OS comme Fedora par exemple. Formater votre disque grâce à Disk Utility. Sélectionnez votre disque, cliquez erase et sélectionnez le format MS-DOS, et &amp;ldquo;GUID Partition Map&amp;rdquo;. Via des utilitaires comme Unetbootin, BalenaEtcher (anciennement Etcher), Fedora Media Writer créez une clé USB contenant un Live CD de Linux.</description>
-            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Dans cet article, nous allons voir comment installer refind, un bootloader custom pour Mac qui permet de détecter les disques internes et externes pour booter sur différents OS.</p>
-<h1 id="pr-requis">Pré-requis</h1>
+<h2 id="pr-requis">Pré-requis</h2>
 <ul>
 <li>Disque dur externe ou clé USB ayant suffisamment d'espace disque pour contenir un OS comme Fedora par exemple.</li>
 <li>Formater votre disque grâce à <em>Disk Utility</em>. Sélectionnez votre disque, cliquez erase et sélectionnez le format MS-DOS, et &ldquo;GUID Partition Map&rdquo;.</li>
 <li>Via des utilitaires comme <code>Unetbootin</code>, <code>BalenaEtcher</code> (anciennement Etcher), <code>Fedora Media Writer</code> créez une clé USB contenant un Live CD de Linux.</li>
 </ul>
-<h1 id="installation">Installation</h1>
+<h2 id="installation">Installation</h2>
 <ul>
 <li>
 <p>Redémarrer votre Mac et désactivez le <code>System Integrity Protection (SIP)</code>.</p>
@@ -3684,7 +3684,7 @@ Pré-requis  Disque dur externe ou clé USB ayant suffisamment d&#39;espace disq
 <p>Et voilà. Rebootez pour vérifier que cela fonctionne.</p>
 </li>
 </ul>
-<h1 id="dsinstallation">Désinstallation</h1>
+<h2 id="dsinstallation">Désinstallation</h2>
 <p>Ouvrez un Terminal et exécutez les commandes suivantes:</p>
 <pre><code>sudo mkdir /Volumes/efi
 sudo mount -t msdos /dev/disk0s1 /Volumes/efi
@@ -8410,13 +8410,14 @@ Object.is(NaN, NaN); //true
             
             <guid>https://leandeep.com/evaluer-ses-mod%C3%A8les-de-classification/</guid>
             <description>Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
-Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Classification Justesse / Accuracy
+  Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
 Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
 ou accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</description>
-            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Voici les métriques à analyser pour évaluer la performance de son modèle.</p>
-<h1 id="classification">Classification</h1>
-<h2 id="justesse--accuracy">Justesse / Accuracy</h2>
+<h2 id="classification">Classification</h2>
+<p><strong>Justesse / Accuracy</strong></p>
 <ul>
 <li>
 <p><code>Justesse</code>, (ou <code>Taux de réussite</code> ou encore <code>taux de prédiction</code>; <code>accuracy</code> en anglais). <strong>Mais attention, il ne faut pas se fier qu'à cette seule métrique.</strong></p>
@@ -8431,7 +8432,7 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 <ul>
 <li>CART (Classification And Regression Tree) Voir wikipédia: <a href="http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees">http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees</a></li>
 </ul>
-<h2 id="matrice-de-confusion">Matrice de confusion</h2>
+<p><strong>Matrice de confusion</strong></p>
 <ul>
 <li>
 <p>La <code>Matrice de confusion</code> (<code>tableau de contingence</code>; <code>contingency table</code> en anglais) est une manière simple et non ambigue de présenter les résultats d'un classifier. (Voici un exemple sur ce notebook: <a href="https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm">https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm</a>)</p>
@@ -8442,14 +8443,14 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 <p><em>En haut, on a ce qui est observé et sur le côté ce qui est prédit.</em></p>
 <p>Parfois et par exemple pour des sujets où les classes sont déséquilibrées il vaut mieux ne pas se fier au taux de précision (<em>accuracy</em>) et plus utiliser une matrice de confusion.</p>
 <p>En effet, utiliser le <code>nombre de faux positifs</code> ou <code>faux négatifs</code> pour les sujets liés à la santé par exemple a plus de sens que le taux de précision du modèle. <strong>Un modèle qui prédit si oui ou non on a le cancer ne doit pas avoir de faux négatif. Le taux de précision a donc moins d'importance dans ce cas. Au contraire, un modèle qui prédit qu'un patient est en bonne santé alors qu'il a un cancer c'est grave car le patient peut en mourir puisqu'il ne sera pas soigné !</strong>)</p>
-<h2 id="precision">Precision</h2>
+<p><strong>Precision</strong></p>
 <p><img src="/images/precision-rappel.png" alt="image"></p>
 <p>La <code>précision</code> permet de répondre à la question: &ldquo;Quelle proportion d'identifications positives était effectivement correcte ?&rdquo;</p>
 <p>La précision se calcule comme ceci:</p>
 <p><img src="/images/precision.png" alt="image"></p>
 <p>Example (source developer.google.com):</p>
 <p><img src="/images/exemple-precision.png" alt="image"></p>
-<h2 id="rappel">Rappel</h2>
+<p>**Rappel **</p>
 <p>Le <code>rappel</code> (<em><code>recall</code></em> en anglais ou aussi <code>sensibilité</code> ou encore <code>taux de vrais positifs (TVP)</code>) permet de répondre à la question suivante: &ldquo;Quelle proportion de résultats positifs réels a été identifiée correctement ?&rdquo;</p>
 <p>Le rappel se calcule comme ceci:</p>
 <p><img src="/images/rappel.png" alt="image"></p>
@@ -8457,17 +8458,17 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 <p><img src="/images/exemple-rappel.png" alt="image"></p>
 <p>Pour évaluer les performances d'un modèle de façon complète, vous devez analyser à la fois la précision et le rappel. Malheureusement, précision et rappel sont fréquemment en tension. Ceci est dû au fait que l'amélioration de la précision se fait généralement au détriment du rappel et réciproquement.</p>
 <p>Dans l'exemple du dépistage de cancer c'est la proportion de vrais positifs parmi les personnes à dépister.</p>
-<h2 id="spcificit">Spécificité</h2>
+<p>**Spécificité **</p>
 <p>La <code>spécificité</code> se calcule comme ceci:</p>
 <p><img src="/images/specificite.png" alt="image"></p>
 <p>Dans l'exemple du dépistage du cancer c'est proportion de vrais négatifs chez les non-malades.</p>
 <p><strong>Différence avec la sensibilité:</strong></p>
 <p>La <code>sensibilité</code> est l'indice qui évalue la capacité d'une mesure à bien classer les malades (ou les exposés), et la <code>spécificité</code> celui qui évalue la capacité à bien classer les non-malades (ou les non-exposés).</p>
-<h2 id="score-f1">Score F1</h2>
+<p>**Score F1 **</p>
 <p>Aussi appelé <em>F Score</em> ou <em>F Measure</em>, le <code>score F1</code> permet de traduire l'équilibre entre la précision et le rappel. Attention, le problème de cette métrique est qu'elle ne tient pas compte de l'éventuel déséquilibre entre les classes.</p>
 <p>Il se calcule comme ceci:</p>
 <p><img src="/images/f1-score.png" alt="image"></p>
-<h2 id="courbe-roc">Courbe ROC</h2>
+<p><strong>Courbe ROC</strong></p>
 <p>La <code>courbe ROC</code> (Receiver Operating Characteristic) trace le taux de vrais positifs en fonction du taux de faux positifs.</p>
 <p>Le taux de vrais positifs (TVP) est l'équivalent du rappel.</p>
 <p>Le taux de faux positifs (TFP) se calcule comme ceci:</p>
@@ -8480,13 +8481,13 @@ accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
 The latter summarizes the trade-off between the true positive rate and the positive predictive value for a predictive model using different probability thresholds.</p>
 </blockquote>
 <p><strong>ROC curves are appropriate when the observations are balanced between each class, whereas precision-recall curves are appropriate for imbalanced datasets.</strong> En savoir plus sur cet article: <a href="https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/">https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/</a></p>
-<h2 id="auc">AUC</h2>
+<p><strong>AUC</strong></p>
 <p>En savoir plus sur l'aire sous la courbe ROC (<code>AUC</code> pour Area Under the Curve ROC) sur le même site qu'au dessus: <a href="https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/">https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/</a></p>
 <p>&ldquo;An excellent model has AUC near to the 1 which means it has good measure of separability. A poor model has AUC near to the 0 which means it has worst measure of separability.
 And when AUC is 0.5, it means model has no class separation capacity whatsoever. It would be a naive model.&rdquo;</p>
 <p>En gros l'AUC correspond à l’intégrale de la fonction ROC.</p>
 <p>Voici une vidéo explicative: <a href="https://www.dataschool.io/roc-curves-and-auc-explained/">https://www.dataschool.io/roc-curves-and-auc-explained/</a></p>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>Un &ldquo;bon&rdquo; classifieur doit présenter d’une part un rappel élevé et, d’autre part, une précision et une spécificité élevée (et un taux de faux positifs faible).</p>
 <p>Scikit Learn fournit un tas de métriques par défaut: <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">https://scikit-learn.org/stable/modules/model_evaluation.html</a></p>
 <p>Voici enfin un article intéressant sur les métriques en général pour des sujets de classification, de recommandation et de régression.
@@ -13445,11 +13446,11 @@ Exemple:</description>
             <pubDate>Sun, 15 Jun 2014 22:07:00 +0000</pubDate>
             
             <guid>https://leandeep.com/ex%C3%A9cuter-la-derni%C3%A8re-commande-en-tant-que-root/</guid>
-            <description>Dans la catégorie Historique Shell:
+            <description>Dans la catégorie Historique Shell
 Si vous avez oublié d&#39;exécuter une commande avec les privilèges root, vous pouvez simplement la répéter en utilisant:
 $ sudo !! $ su -c &amp;quot;!!&amp;quot; Exemple:
 $ adduser bob -bash: /usr/sbin/adduser: Permission denied $ sudo !! $ sudo adduser bob id bob uid=1007(bob) gid=1007(bob) groups=1007(bob) $ useradd bill -bash: /usr/sbin/useradd: Permission denied $ su -c &amp;quot;!!&amp;quot; $ su -c &amp;quot;useradd bill&amp;quot; Password: id bill uid=1007(bill) gid=1007(bill) groups=1007(bill) Cette syntaxe avec points d&#39;exclamation est appelée event designator.</description>
-            <content type="html"><![CDATA[<p><strong>Dans la catégorie Historique Shell:</strong></p>
+            <content type="html"><![CDATA[<p><strong>Dans la catégorie Historique Shell</strong></p>
 <p>Si vous avez oublié d'exécuter une commande avec les privilèges root, vous pouvez simplement la répéter en utilisant:</p>
 <pre><code>$ sudo !!
 $ su -c &quot;!!&quot;
@@ -13488,18 +13489,18 @@ root
             <pubDate>Thu, 15 May 2014 19:54:00 +0000</pubDate>
             
             <guid>https://leandeep.com/formater-cl%C3%A9-usb-en-fat32-depuis-osx/</guid>
-            <description>Lister les disques pour récupérer le nom de la clé à formater:
-diskutil list Démonter la clé à formater:
-diskutil unmountDisk /dev/disk2 Formater la clé au format fat32 et lui donner le nom &amp;ldquo;USB&amp;rdquo;:
-diskutil eraseDisk FAT32 USB /dev/disk2 Formater la clé en FAT32 avec l’option de zone d’amorce en MBR pour qu’elle soit lisible sur tous les OS:
+            <description>Lister les disques pour récupérer le nom de la clé à formater
+diskutil list Démonter la clé à formater
+diskutil unmountDisk /dev/disk2 Formater la clé au format fat32 et lui donner le nom &amp;ldquo;USB&amp;rdquo;
+diskutil eraseDisk FAT32 USB /dev/disk2 Formater la clé en FAT32 avec l’option de zone d’amorce en MBR pour qu’elle soit lisible sur tous les OS
 diskutil eraseDisk FAT32 USB MBR /dev/disk2 </description>
-            <content type="html"><![CDATA[<p>Lister les disques pour récupérer le nom de la clé à formater:</p>
+            <content type="html"><![CDATA[<p><strong>Lister les disques pour récupérer le nom de la clé à formater</strong></p>
 <pre><code>diskutil list
-</code></pre><p>Démonter la clé à formater:</p>
+</code></pre><p><strong>Démonter la clé à formater</strong></p>
 <pre><code>diskutil unmountDisk /dev/disk2
-</code></pre><p>Formater la clé au format fat32 et lui donner le nom &ldquo;USB&rdquo;:</p>
+</code></pre><p><strong>Formater la clé au format fat32 et lui donner le nom &ldquo;USB&rdquo;</strong></p>
 <pre><code>diskutil eraseDisk FAT32 USB /dev/disk2
-</code></pre><p>Formater la clé en FAT32 avec l’option de zone d’amorce en MBR pour qu’elle soit lisible sur tous les OS:</p>
+</code></pre><p><strong>Formater la clé en FAT32 avec l’option de zone d’amorce en MBR pour qu’elle soit lisible sur tous les OS</strong></p>
 <pre><code>diskutil eraseDisk FAT32 USB MBR /dev/disk2
 </code></pre>]]></content>
         </item>
@@ -14370,14 +14371,14 @@ Ensuite si mon PC distant est éteint il me suffit d&#39;exécuter la commande s
             <description>downtime &amp;lt; 10 minutes Pour avoir un downtime &amp;lt; 10 minutes il y a cette première stratégie:
 On crée un clone de l&#39;environnement de production prêt à être lancé à n&#39;importe quel moment sur une autre zone de disponibilité si l&#39;environnement de production venait à crasher. L&#39;outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.
 Un peu de redondance Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit.</description>
-            <content type="html"><![CDATA[<h1 id="downtime--10-minutes">downtime &lt; 10 minutes</h1>
+            <content type="html"><![CDATA[<h2 id="downtime--10-minutes">downtime &lt; 10 minutes</h2>
 <p>Pour avoir un downtime &lt; 10 minutes il y a cette première stratégie:</p>
 <p><img src="/images/downtime-10-min.png" alt="image"></p>
 <p>On crée un clone de l'environnement de production prêt à être lancé à n'importe quel moment sur une autre zone de disponibilité si l'environnement de production venait à crasher. L'outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.</p>
-<h1 id="un-peu-de-redondance">Un peu de redondance</h1>
+<h2 id="un-peu-de-redondance">Un peu de redondance</h2>
 <p>Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit. Par contre, entre 2 zones différentes le coût est de $0.01 par gigabyte.</p>
 <p><img src="/images/un-peu-redondance.png" alt="image"></p>
-<h1 id="redondance-totale">Redondance totale</h1>
+<h2 id="redondance-totale">Redondance totale</h2>
 <p><img src="/images/redondance-totale.png" alt="image"></p>
 ]]></content>
         </item>
