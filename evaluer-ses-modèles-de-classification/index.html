@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
+Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
+ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/evaluer-ses-mod%C3%A8les-de-classification/" />
+
+
+    <title>
+        
+            Evaluer ses modèles de classification :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Evaluer ses modèles de classification">
+<meta itemprop="description" content="Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
+Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
+ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )">
+<meta itemprop="datePublished" content="2017-03-15T15:27:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-15T15:27:00&#43;00:00" />
+<meta itemprop="wordCount" content="824">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Evaluer ses modèles de classification"/>
+<meta name="twitter:description" content="Introduction Voici les métriques à analyser pour évaluer la performance de son modèle.
+Classification Justesse / Accuracy   Justesse, (ou Taux de réussite ou encore taux de prédiction; accuracy en anglais). Mais attention, il ne faut pas se fier qu&#39;à cette seule métrique.
+Pour la calculer, c&#39;est simple: accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)
+ou accuracy = justesse = VP &#43; VN / ( VP &#43; VN &#43; FP &#43; FN )"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-03-15 15:27:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/evaluer-ses-mod%C3%A8les-de-classification/">Evaluer ses modèles de classification</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="introduction">Introduction</h1>
+<p>Voici les métriques à analyser pour évaluer la performance de son modèle.</p>
+<h1 id="classification">Classification</h1>
+<h2 id="justesse--accuracy">Justesse / Accuracy</h2>
+<ul>
+<li>
+<p><code>Justesse</code>, (ou <code>Taux de réussite</code> ou encore <code>taux de prédiction</code>; <code>accuracy</code> en anglais). <strong>Mais attention, il ne faut pas se fier qu'à cette seule métrique.</strong></p>
+<p>Pour la calculer, c'est simple:
+accuracy = justesse (%) = nombre de prédictions correctes / (nombre total de prédictions données * 100)</p>
+<p>ou
+accuracy = justesse = VP + VN / ( VP + VN + FP + FN )</p>
+</li>
+</ul>
+<p>Exemple (source developer.google.com):</p>
+<p><img src="https://leandeep.com/images/exemple-justesse.png" alt="image"></p>
+<ul>
+<li>CART (Classification And Regression Tree) Voir wikipédia: <a href="http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees">http://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees</a></li>
+</ul>
+<h2 id="matrice-de-confusion">Matrice de confusion</h2>
+<ul>
+<li>
+<p>La <code>Matrice de confusion</code> (<code>tableau de contingence</code>; <code>contingency table</code> en anglais) est une manière simple et non ambigue de présenter les résultats d'un classifier. (Voici un exemple sur ce notebook: <a href="https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm">https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm</a>)</p>
+<p>Pour un sujet de classification binaire et non multi-classes (comme l'example plus haut), la matrice de confusion ressemble à ceci:</p>
+</li>
+</ul>
+<p><img src="https://leandeep.com/images/matrice-confusion.png" alt="image"></p>
+<p><em>En haut, on a ce qui est observé et sur le côté ce qui est prédit.</em></p>
+<p>Parfois et par exemple pour des sujets où les classes sont déséquilibrées il vaut mieux ne pas se fier au taux de précision (<em>accuracy</em>) et plus utiliser une matrice de confusion.</p>
+<p>En effet, utiliser le <code>nombre de faux positifs</code> ou <code>faux négatifs</code> pour les sujets liés à la santé par exemple a plus de sens que le taux de précision du modèle. <strong>Un modèle qui prédit si oui ou non on a le cancer ne doit pas avoir de faux négatif. Le taux de précision a donc moins d'importance dans ce cas. Au contraire, un modèle qui prédit qu'un patient est en bonne santé alors qu'il a un cancer c'est grave car le patient peut en mourir puisqu'il ne sera pas soigné !</strong>)</p>
+<h2 id="precision">Precision</h2>
+<p><img src="https://leandeep.com/images/precision-rappel.png" alt="image"></p>
+<p>La <code>précision</code> permet de répondre à la question: &ldquo;Quelle proportion d'identifications positives était effectivement correcte ?&rdquo;</p>
+<p>La précision se calcule comme ceci:</p>
+<p><img src="https://leandeep.com/images/precision.png" alt="image"></p>
+<p>Example (source developer.google.com):</p>
+<p><img src="https://leandeep.com/images/exemple-precision.png" alt="image"></p>
+<h2 id="rappel">Rappel</h2>
+<p>Le <code>rappel</code> (<em><code>recall</code></em> en anglais ou aussi <code>sensibilité</code> ou encore <code>taux de vrais positifs (TVP)</code>) permet de répondre à la question suivante: &ldquo;Quelle proportion de résultats positifs réels a été identifiée correctement ?&rdquo;</p>
+<p>Le rappel se calcule comme ceci:</p>
+<p><img src="https://leandeep.com/images/rappel.png" alt="image"></p>
+<p>Example (source developer.google.com):</p>
+<p><img src="https://leandeep.com/images/exemple-rappel.png" alt="image"></p>
+<p>Pour évaluer les performances d'un modèle de façon complète, vous devez analyser à la fois la précision et le rappel. Malheureusement, précision et rappel sont fréquemment en tension. Ceci est dû au fait que l'amélioration de la précision se fait généralement au détriment du rappel et réciproquement.</p>
+<p>Dans l'exemple du dépistage de cancer c'est la proportion de vrais positifs parmi les personnes à dépister.</p>
+<h2 id="spcificit">Spécificité</h2>
+<p>La <code>spécificité</code> se calcule comme ceci:</p>
+<p><img src="https://leandeep.com/images/specificite.png" alt="image"></p>
+<p>Dans l'exemple du dépistage du cancer c'est proportion de vrais négatifs chez les non-malades.</p>
+<p><strong>Différence avec la sensibilité:</strong></p>
+<p>La <code>sensibilité</code> est l'indice qui évalue la capacité d'une mesure à bien classer les malades (ou les exposés), et la <code>spécificité</code> celui qui évalue la capacité à bien classer les non-malades (ou les non-exposés).</p>
+<h2 id="score-f1">Score F1</h2>
+<p>Aussi appelé <em>F Score</em> ou <em>F Measure</em>, le <code>score F1</code> permet de traduire l'équilibre entre la précision et le rappel. Attention, le problème de cette métrique est qu'elle ne tient pas compte de l'éventuel déséquilibre entre les classes.</p>
+<p>Il se calcule comme ceci:</p>
+<p><img src="https://leandeep.com/images/f1-score.png" alt="image"></p>
+<h2 id="courbe-roc">Courbe ROC</h2>
+<p>La <code>courbe ROC</code> (Receiver Operating Characteristic) trace le taux de vrais positifs en fonction du taux de faux positifs.</p>
+<p>Le taux de vrais positifs (TVP) est l'équivalent du rappel.</p>
+<p>Le taux de faux positifs (TFP) se calcule comme ceci:</p>
+<p><img src="https://leandeep.com/images/taux-faux-positifs-TFP.png" alt="image"></p>
+<p><img src="https://leandeep.com/images/courbe-roc.png" alt="image"></p>
+<p>Elle résume le trade-off entre le taux de vrais positifs et le taux de faux négatifs pour un modèle prédictif en utilisant différent seuils de probabilité.</p>
+<p>Cette courbe sert également à comparer différents classifieurs. <strong>Plus une courbe a des valeurs élevées, plus l’aire sous la courbe est grande, moins le classifieur fait d’erreur.</strong></p>
+<blockquote>
+<p>Il existe aussi la Precision-Recall curves.
+The latter summarizes the trade-off between the true positive rate and the positive predictive value for a predictive model using different probability thresholds.</p>
+</blockquote>
+<p><strong>ROC curves are appropriate when the observations are balanced between each class, whereas precision-recall curves are appropriate for imbalanced datasets.</strong> En savoir plus sur cet article: <a href="https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/">https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/</a></p>
+<h2 id="auc">AUC</h2>
+<p>En savoir plus sur l'aire sous la courbe ROC (<code>AUC</code> pour Area Under the Curve ROC) sur le même site qu'au dessus: <a href="https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/">https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/</a></p>
+<p>&ldquo;An excellent model has AUC near to the 1 which means it has good measure of separability. A poor model has AUC near to the 0 which means it has worst measure of separability.
+And when AUC is 0.5, it means model has no class separation capacity whatsoever. It would be a naive model.&rdquo;</p>
+<p>En gros l'AUC correspond à l’intégrale de la fonction ROC.</p>
+<p>Voici une vidéo explicative: <a href="https://www.dataschool.io/roc-curves-and-auc-explained/">https://www.dataschool.io/roc-curves-and-auc-explained/</a></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Un &ldquo;bon&rdquo; classifieur doit présenter d’une part un rappel élevé et, d’autre part, une précision et une spécificité élevée (et un taux de faux positifs faible).</p>
+<p>Scikit Learn fournit un tas de métriques par défaut: <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">https://scikit-learn.org/stable/modules/model_evaluation.html</a></p>
+<p>Voici enfin un article intéressant sur les métriques en général pour des sujets de classification, de recommandation et de régression.
+<a href="https://www.oreilly.com/ideas/evaluating-machine-learning-models/page/3/evaluation-metrics">https://www.oreilly.com/ideas/evaluating-machine-learning-models/page/3/evaluation-metrics</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>824 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Mar. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/pourquoi-il-faut-utiliser-object.is-pour-comparer-des-%C3%A9l%C3%A9ments/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Pourquoi il faut utiliser Object.is() pour comparer des éléments</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/tradeoff-biais-variance/">
+                                <span class="button__text">Tradeoff biais variance</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

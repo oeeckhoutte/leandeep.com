@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &amp;ldquo;logguer&amp;rdquo; tous les sites appelés par un device. C&#39;est extrèmement pratique lorsqu&#39;on fait du développement mobile lorsqu&#39;on veut analyser les requêtes faites par notre application. (Je n&#39;ai pas encore d&#39;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&amp;hellip; Bref il y a beaucoup de use cases.
+L&#39;idée ici est de créer un hotspot Wifi." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/mise-en-place-dun-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/" />
+
+
+    <title>
+        
+            Mise en place d&#39;un proxy transparent compatible SSL pour tracer toutes les requêtes :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Mise en place d&#39;un proxy transparent compatible SSL pour tracer toutes les requêtes">
+<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;logguer&rdquo; tous les sites appelés par un device. C&#39;est extrèmement pratique lorsqu&#39;on fait du développement mobile lorsqu&#39;on veut analyser les requêtes faites par notre application. (Je n&#39;ai pas encore d&#39;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.
+L&#39;idée ici est de créer un hotspot Wifi.">
+<meta itemprop="datePublished" content="2018-12-06T22:22:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-06T22:22:00&#43;00:00" />
+<meta itemprop="wordCount" content="619">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Unix Tip,Security," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Mise en place d&#39;un proxy transparent compatible SSL pour tracer toutes les requêtes"/>
+<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;logguer&rdquo; tous les sites appelés par un device. C&#39;est extrèmement pratique lorsqu&#39;on fait du développement mobile lorsqu&#39;on veut analyser les requêtes faites par notre application. (Je n&#39;ai pas encore d&#39;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.
+L&#39;idée ici est de créer un hotspot Wifi."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2018-12-06 22:22:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/mise-en-place-dun-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/">Mise en place d'un proxy transparent compatible SSL pour tracer toutes les requêtes</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="introduction">Introduction</h1>
+<p>Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;<em>logguer</em>&rdquo; tous les sites appelés par un device.
+C'est extrèmement pratique lorsqu'on fait du développement mobile lorsqu'on veut analyser les requêtes faites par notre application. (Je n'ai pas encore d'enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.</p>
+<p>L'idée ici est de créer un hotspot Wifi. Lorsqu'un device s'y connecte tout le traffic qu'il va générer sera &ldquo;<em>loggué</em>&quot;. Il sera alors facile de voir toutes les requetes et réponses faites par le device.</p>
+<p>Ce proxy permet de tracker le traffic HTTP et HTTPS.
+Pour la partie HTTPS il faudra installer un Root CA sur le device.</p>
+<p>J'ai utilisé un dongle USB type Atheros Alfa AWUS&hellip;</p>
+<h1 id="installation-du-proxy-man-in-the-middle">Installation du proxy Man-In-The-Middle</h1>
+<ul>
+<li>
+<p>Commencez par télécharger la version complète de kali linux (~3Go) <a href="https://kali.org/downloads/">https://kali.org/downloads/</a></p>
+</li>
+<li>
+<p>Je suis sur Mac du coup j'ai créé une VM avec VirtualBox (outil simple et gratuit). Faites de même et n'oubliez pas de brancher votre dongle et de l'associer à votre VM. Pour le réseau, montez le en mode Bridge (cela permettra de facilement faire un SSH sur la VM)</p>
+</li>
+<li>
+<p>Démarrez votre VM et donc Kali en mode Live.</p>
+</li>
+<li>
+<p>Au bout d'une minute Kali aura démarré. Vous pourrez alors vous connecter dessus en utilisant les credentials par défaut root/toor.</p>
+</li>
+<li>
+<p>Créer un hotspot Wifi. Pour cela, cliquez sur l'icône réseau en haut à droite puis cliquez sur &ldquo;Wi-Fi&rdquo;, puis &ldquo;Wi-Fi Settings&rdquo;, sélectionnez la carte sans fil que vous souhaitez utiliser pour le hotspot et enfin cliquez sur &ldquo;Use as Hotspot&rdquo;. Bravo vous avez créé en quelques minutes un hotspot wifi avec avec des rêgles de routage. Vous pouvez d'ors et déjà utiliser Wireshark ou d'autres outils du genre&hellip;</p>
+</li>
+<li>
+<p>Connectez votre device au hotspot &ldquo;kali&rdquo;.</p>
+</li>
+<li>
+<p>De retour sur votre Kali, activez l'IP forwarding dans le kernel avec la commande suivante <code>sysctl -w net.ipv4.ip_forward=1</code>.</p>
+</li>
+<li>
+<p>En supposant que votre hotspot utilise <code>wlan0</code>, on va configurer des rêgles <code>iptables</code> qui vont rediriger tout le traffic TCP des ports 80 et 443 sur le proxy Mitmproxy.</p>
+</li>
+</ul>
+<pre><code>iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+</code></pre><ul>
+<li>Maintenant vous pouvez démarrer le proxy avec la commande suivante:</li>
+</ul>
+<pre><code>mitmproxy --mode transparent --listen-port 8080
+</code></pre><ul>
+<li>Mitmproxy va démarrer et vous pourrez voir tout le traffic HTTP.
+Par contre dès que vous essayerez de voir le contenu des sites en HTTPS vous aurez une erreur comme celle-ci:</li>
+</ul>
+<p><img src="https://leandeep.com/images/https-error.png" alt="image"></p>
+<h1 id="configuration-https-pour-ios">Configuration HTTPS pour iOS</h1>
+<ul>
+<li>
+<p>Lorsque Mitmproxy démarre pour la première fois il crée automatiquement des CA certificates dans le répertoire ~/.mitmproxy.</p>
+</li>
+<li>
+<p>Récupérer les CA de la VM sur votre Host via scp. Pour cela démarrez le service SSH:</p>
+</li>
+</ul>
+<pre><code>systemctl start ssh.service
+# scp... ou faite un cat (il n'y a que 2 fichiers)
+</code></pre><ul>
+<li>
+<p>Une fois les 2 CA <code>mitmproxy-ca.pem</code> et <code>mitmproxy-ca-cert.pem</code> récupérés, créez un server web (un simple directory listing) et exposez les CA. L'idée est de vous rendre sur le serveur web avec votre device (iPhone) et de cliquer sur les CA. Une fois que vous aurez cliqué dessus vous pourrez les &ldquo;truster&rdquo;.</p>
+</li>
+<li>
+<p>Une fois que vous les aurez &ldquo;trusté&rdquo;, vous pourrez lire le contenu des requêtes HTTPS dans l'interface mitmproxy :D. Voici à quoi cela ressemble lorsque je me rends avec mon iPhone sur la page &ldquo;Tweets&rdquo; de ce site.</p>
+</li>
+</ul>
+<p><img src="https://leandeep.com/images/leandeep-browsing-ios.png" alt="image"></p>
+<!-- raw HTML omitted -->
+<p><img src="https://leandeep.com/images/mitmproxy-demo.png" alt="image"></p>
+<!-- raw HTML omitted -->
+<ul>
+<li>Pour Android je n'ai pas encore testé. Il semblerait qu'il y ait un domaine permettant d'installer plus facilement les CA. <a href="http://mitm.it">http://mitm.it</a> (cela ne fonctionnait pas pour iOS mais pour Android il faudrait tester). Si cette URL ne nous aide pas à installer les CA, la méthode ci-dessus devrait fonctionner également sur Android.</li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span><span class="tag"><a href="https://leandeep.com/tags/security">Security</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>619 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Dec. 2018</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/coding-coneways-game-of-life-en-tdd/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Coding Coneway&#39;s Game of Life en TDD</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/convertir-une-video-.webm-en-.mp4/">
+                                <span class="button__text">Convertir une video .webm en .mp4</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

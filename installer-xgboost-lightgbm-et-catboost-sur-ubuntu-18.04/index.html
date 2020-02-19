@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Installation de XGBoost Installation simple Exécuter la commande suivante:
+pip install xgboost  &amp;ldquo;The default open-source XGBoost packages already include GPU support.&amp;rdquo;
+ Build from source Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
+Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
+sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/installer-xgboost-lightgbm-et-catboost-sur-ubuntu-18.04/" />
+
+
+    <title>
+        
+            Installer XGBoost, LightGBM et CatBoost sur Ubuntu 18.04 :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Installer XGBoost, LightGBM et CatBoost sur Ubuntu 18.04">
+<meta itemprop="description" content="Installation de XGBoost Installation simple Exécuter la commande suivante:
+pip install xgboost  &ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;
+ Build from source Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
+Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
+sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:">
+<meta itemprop="datePublished" content="2019-07-19T11:14:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-07-19T11:14:00&#43;00:00" />
+<meta itemprop="wordCount" content="1117">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Boosting,GPU,XGBoost,LightGBM,CatBoost,Machine Learning,Data Science," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Installer XGBoost, LightGBM et CatBoost sur Ubuntu 18.04"/>
+<meta name="twitter:description" content="Installation de XGBoost Installation simple Exécuter la commande suivante:
+pip install xgboost  &ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;
+ Build from source Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
+Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
+sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-07-19 11:14:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/installer-xgboost-lightgbm-et-catboost-sur-ubuntu-18.04/">Installer XGBoost, LightGBM et CatBoost sur Ubuntu 18.04</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="installation-de-xgboost">Installation de XGBoost</h1>
+<h2 id="installation-simple">Installation simple</h2>
+<p>Exécuter la commande suivante:</p>
+<pre><code>pip install xgboost
+</code></pre><blockquote>
+<p>&ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;</p>
+</blockquote>
+<h2 id="build-from-source">Build from source</h2>
+<p>Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.</p>
+<p>Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.</p>
+<pre><code>sudo apt-get update
+sudo apt install -y cmake
+cmake --version
+</code></pre><p>Si ce n'est pas la bonne version désinstallez le avant de le réinstaller manuellement:</p>
+<pre><code>sudo apt purge cmake
+
+# Download source
+version=3.14
+build=5
+mkdir ~/temp
+cd ~/temp
+wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+tar -xzvf cmake-$version.$build.tar.gz
+cd cmake-$version.$build/
+
+# Build et installation
+./bootstrap
+make -j4 &amp;&amp; sudo make install
+
+# Vérification de la version
+cmake --version
+</code></pre><p>Déterminer le compute capability de votre carte graphique pour l'indiquer à la prochaine commande dans le flag <code>-DGPU_COMPUTE_VER=</code>:</p>
+<pre><code>cd ~/NVIDIA_CUDA-9.0_Samples/1_Utilities/deviceQuery
+make 
+./deviceQuery
+
+./deviceQuery Starting...
+
+ CUDA Device Query (Runtime API) version (CUDART static linking)
+
+Detected 1 CUDA Capable device(s)
+
+Device 0: &quot;GeForce GTX 660 Ti&quot;
+  CUDA Driver Version / Runtime Version          9.1 / 9.0
+  CUDA Capability Major/Minor version number:    3.0
+  Total amount of global memory:                 2000 MBytes (2097086464 bytes)
+  ( 7) Multiprocessors, (192) CUDA Cores/MP:     1344 CUDA Cores
+  GPU Max Clock rate:                            980 MHz (0.98 GHz)
+  Memory Clock rate:                             3004 Mhz
+  Memory Bus Width:                              192-bit
+  L2 Cache Size:                                 393216 bytes
+  Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65536), 3D=(4096, 4096, 4096)
+  Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers
+  Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers
+  Total amount of constant memory:               65536 bytes
+  Total amount of shared memory per block:       49152 bytes
+  Total number of registers available per block: 65536
+  Warp size:                                     32
+  Maximum number of threads per multiprocessor:  2048
+  Maximum number of threads per block:           1024
+  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
+  Maximum memory pitch:                          2147483647 bytes
+  Texture alignment:                             512 bytes
+  Concurrent copy and kernel execution:          Yes with 1 copy engine(s)
+  Run time limit on kernels:                     Yes
+  Integrated GPU sharing Host Memory:            No
+  Support host page-locked memory mapping:       Yes
+  Alignment requirement for Surfaces:            Yes
+  Device has ECC support:                        Disabled
+  Device supports Unified Addressing (UVA):      Yes
+  Supports Cooperative Kernel Launch:            No
+  Supports MultiDevice Co-op Kernel Launch:      No
+  Device PCI Domain ID / Bus ID / location ID:   0 / 6 / 0
+  Compute Mode:
+     &lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;
+
+deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 9.1, CUDA Runtime Version = 9.0, NumDevs = 1
+Result = PASS
+</code></pre><p>La ligne qui nous intéresse est la suivante <code>CUDA Capability Major/Minor version number:    3.0</code></p>
+<p>Dans le flag <code>-DGPU_COMPUTE_VER=</code> vous pourrez indiquer la valeur <code>30</code>.</p>
+<blockquote>
+<p><strong>Cette carte graphique n'est plus compatible avec XGBoost. Le minimum requis d'après le site officiel est <code>CUDA 9.0, Compute Capability 3.5 required</code></strong>. <a href="https://xgboost.readthedocs.io/en/latest/gpu/">https://xgboost.readthedocs.io/en/latest/gpu/</a></p>
+</blockquote>
+<p>Builder XGBoost:</p>
+<pre><code>cd ~ &amp;&amp; \
+    git clone --recursive https://github.com/dmlc/xgboost &amp;&amp; \
+    cd xgboost &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCUDA_HOST_COMPILER=/usr/bin/gcc-6 -DGPU_COMPUTE_VER=35 -DUSE_CUDA=ON .. &amp;&amp; make -j
+</code></pre><p>Installer XGBoost:</p>
+<pre><code>cd ../python-package
+sudo python3 setup.py install
+</code></pre><h2 id="vrification-du-bon-fonctionnement-dxgboost">Vérification du bon fonctionnement d'XGBoost</h2>
+<pre><code>git clone https://github.com/dmlc/xgboost
+cd xgboost
+
+python3 # ou workon votre_environnement_virtuel &amp;&amp; python
+Puis exécutez les commandes Python suivantes:
+
+import xgboost as xgb
+# read in data
+dtrain = xgb.DMatrix('demo/data/agaricus.txt.train')
+dtest = xgb.DMatrix('demo/data/agaricus.txt.test')
+# specify parameters via map
+param = {'max_depth':2, 'eta':1, 'silent':1, 'objective':'binary:logistic' }
+num_round = 2
+bst = xgb.train(param, dtrain, num_round)
+# make prediction
+preds = bst.predict(dtest)
+print(preds)
+</code></pre><h1 id="installation-de-lightgbm">Installation de LightGBM</h1>
+<p>Installation des dépendances:</p>
+<pre><code>sudo apt install -y \
+    libboost-dev \
+    libboost-system-dev \
+    libboost-filesystem-dev
+</code></pre><p>Build:</p>
+<pre><code>cd ~ &amp;&amp; \
+    git clone --recursive https://github.com/Microsoft/LightGBM &amp;&amp; \
+    cd LightGBM &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; \
+    cmake -DUSE_GPU=1 -DOpenCL_LIBRARY=/usr/local/cuda-9.0/lib64/libOpenCL.so -DOpenCL_INCLUDE_DIR=/usr/local/cuda-9.0/include/ .. &amp;&amp; \
+    make -j
+    
+</code></pre><p>Installation:</p>
+<pre><code>cd ../python-package
+sudo python setup.py install --precompile
+</code></pre><p>Vérifier le bon fonctionnement de LightGBM:</p>
+<pre><code>cd ~/LightGBM/examples/python-guide/
+pip install scikit-learn pandas matplotlib scipy -U
+python3 simple_example.py
+
+Loading data...
+Starting training...
+[1]	valid_0's l1: 0.492841	valid_0's l2: 0.243898
+Training until validation scores don't improve for 5 rounds.
+[2]	valid_0's l1: 0.489327	valid_0's l2: 0.240605
+[3]	valid_0's l1: 0.484931	valid_0's l2: 0.236472
+[4]	valid_0's l1: 0.480567	valid_0's l2: 0.232586
+[5]	valid_0's l1: 0.475965	valid_0's l2: 0.22865
+[6]	valid_0's l1: 0.472861	valid_0's l2: 0.226187
+[7]	valid_0's l1: 0.469847	valid_0's l2: 0.223738
+[8]	valid_0's l1: 0.466258	valid_0's l2: 0.221012
+[9]	valid_0's l1: 0.462751	valid_0's l2: 0.218429
+[10]	valid_0's l1: 0.458755	valid_0's l2: 0.215505
+[11]	valid_0's l1: 0.455252	valid_0's l2: 0.213027
+[12]	valid_0's l1: 0.452051	valid_0's l2: 0.210809
+[13]	valid_0's l1: 0.448764	valid_0's l2: 0.208612
+[14]	valid_0's l1: 0.446667	valid_0's l2: 0.207468
+[15]	valid_0's l1: 0.444211	valid_0's l2: 0.206009
+[16]	valid_0's l1: 0.44186	valid_0's l2: 0.20465
+[17]	valid_0's l1: 0.438508	valid_0's l2: 0.202489
+[18]	valid_0's l1: 0.435919	valid_0's l2: 0.200668
+[19]	valid_0's l1: 0.433348	valid_0's l2: 0.19925
+[20]	valid_0's l1: 0.431211	valid_0's l2: 0.198136
+Did not meet early stopping. Best iteration is:
+[20]	valid_0's l1: 0.431211	valid_0's l2: 0.198136
+Saving model...
+Starting predicting...
+The rmse of prediction is: 0.44512434910807497
+</code></pre><h1 id="installation-de-catboost">Installation de CatBoost</h1>
+<p>Simplement:</p>
+<pre><code>pip install catboost
+</code></pre><p>Installer l'outil de visualisation:</p>
+<pre><code>pip install ipywidgets
+</code></pre><pre><code># Turn on the widgets extension:
+jupyter nbextension enable --py widgetsnbextension
+</code></pre><p>Pour tester le bon fonctionnement vous pouvez créer un fichier <code>test.py</code> et y insérer le code suivant:</p>
+<pre><code>from catboost import Pool, CatBoostClassifier
+
+train_data = [[&quot;summer&quot;, 1924, 44],
+              [&quot;summer&quot;, 1932, 37],
+              [&quot;winter&quot;, 1980, 37],
+              [&quot;summer&quot;, 2012, 204]]
+
+eval_data = [[&quot;winter&quot;, 1996, 197],
+             [&quot;winter&quot;, 1968, 37],
+             [&quot;summer&quot;, 2002, 77],
+             [&quot;summer&quot;, 1948, 59]]
+
+cat_features = [0]
+
+train_label = [&quot;France&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;UK&quot;]
+eval_label = [&quot;USA&quot;, &quot;France&quot;, &quot;USA&quot;, &quot;UK&quot;]
+
+
+train_dataset = Pool(data=train_data,
+                     label=train_label,
+                     cat_features=cat_features)
+
+eval_dataset = Pool(data=eval_data,
+                    label=eval_label,
+                    cat_features=cat_features)
+
+# Initialize CatBoostClassifier
+model = CatBoostClassifier(iterations=10,
+                           learning_rate=1,
+                           depth=2,
+                           loss_function='MultiClass',
+                           task_type=&quot;GPU&quot;)
+# Fit model
+model.fit(train_dataset)
+# Get predicted classes
+preds_class = model.predict(eval_dataset)
+# Get predicted probabilities for each class
+preds_proba = model.predict_proba(eval_dataset)
+# Get predicted RawFormulaVal
+preds_raw = model.predict(eval_dataset,
+                          prediction_type='RawFormulaVal')
+
+</code></pre><p>Après l'avoir exécuté le code précédent un training sera réalisé sur GPU (<a href="https://catboost.ai/docs/features/training-on-gpu.html#training-on-gpu)">https://catboost.ai/docs/features/training-on-gpu.html#training-on-gpu)</a>. Si tout est ok vous devriez obtenir le résultat suivant:</p>
+<pre><code>0:	learn: -0.9623099	total: 8.48ms	remaining: 76.3ms
+1:	learn: -0.7421078	total: 14.6ms	remaining: 58.3ms
+2:	learn: -0.5898572	total: 20.2ms	remaining: 47.2ms
+3:	learn: -0.4816516	total: 26.3ms	remaining: 39.4ms
+4:	learn: -0.4023528	total: 31.8ms	remaining: 31.8ms
+5:	learn: -0.3545669	total: 37.2ms	remaining: 24.8ms
+6:	learn: -0.3052314	total: 42.1ms	remaining: 18ms
+7:	learn: -0.2666318	total: 47.6ms	remaining: 11.9ms
+8:	learn: -0.2358041	total: 53ms	remaining: 5.89ms
+9:	learn: -0.2107419	total: 57.9ms	remaining: 0us
+</code></pre><h1 id="comparaison-des-3-algorithmes-de-boosting">Comparaison des 3 algorithmes de Boosting</h1>
+<p>Un article très intéressant comparant les 3 algorithmes est disponible à l'adresse suivante <a href="https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db">https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db</a></p>
+<p>Voici un tableau comparatif extrait de cet article:</p>
+<p><img src="https://leandeep.com/images/lightGBM-vs-CatBoost-vs-XGBoost.png" alt="image"></p>
+<p>Au vu de ces résultats, je pencherais soit sur l'utilisation de CatBoost si les délais d'inférence sont un enjeu. Dans le cas contraire, vue les résultats de LightGBM et sa durée d'entrainement nécessaire par rapport à XGBoost je partirais sur LightGBM.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/boosting">Boosting</a></span><span class="tag"><a href="https://leandeep.com/tags/gpu">GPU</a></span><span class="tag"><a href="https://leandeep.com/tags/xgboost">XGBoost</a></span><span class="tag"><a href="https://leandeep.com/tags/lightgbm">LightGBM</a></span><span class="tag"><a href="https://leandeep.com/tags/catboost">CatBoost</a></span><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/data-science">Data Science</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1117 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Jul. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/installer-apache-superset-avec-docker/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Installer Apache Superset avec Docker</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/installer-un-egpu-sur-un-intel-nuc-avec-ubuntu-18.04/">
+                                <span class="button__text">Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

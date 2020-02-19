@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Dans cet article nous allons travailler sur le dataset &amp;ldquo;Boston house prices&amp;rdquo; de scikit-learn et essayer de prédire le prix de l&#39;immobilier. Nous allons prédire une le prix d&#39;une maison; ce qui signifie prédire une valeur continue.
+Le dataset ressemble à ceci:
+from sklearn.datasets import load_boston import pandas as pd data = load_boston() print(data.data.shape) print(data.target.shape) df_data = pd.DataFrame(data.data, columns=data.feature_names) df_labels = pd.DataFrame(data.target, columns=[&#39;price in $1000\&#39;s&#39;]) df_total = pd.concat([df_data, df_labels], axis=1) print(df_total." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/commandes-python-de-base-pour-faire-une-r%C3%A9gression-en-apprentissage-supervis%C3%A9-avec-scikit/" />
+
+
+    <title>
+        
+            Commandes Python de base pour faire une régression en apprentissage supervisé avec scikit :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Commandes Python de base pour faire une régression en apprentissage supervisé avec scikit">
+<meta itemprop="description" content="Dans cet article nous allons travailler sur le dataset &ldquo;Boston house prices&rdquo; de scikit-learn et essayer de prédire le prix de l&#39;immobilier. Nous allons prédire une le prix d&#39;une maison; ce qui signifie prédire une valeur continue.
+Le dataset ressemble à ceci:
+from sklearn.datasets import load_boston import pandas as pd data = load_boston() print(data.data.shape) print(data.target.shape) df_data = pd.DataFrame(data.data, columns=data.feature_names) df_labels = pd.DataFrame(data.target, columns=[&#39;price in $1000\&#39;s&#39;]) df_total = pd.concat([df_data, df_labels], axis=1) print(df_total.">
+<meta itemprop="datePublished" content="2016-02-13T16:25:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-02-13T16:25:00&#43;00:00" />
+<meta itemprop="wordCount" content="723">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning,Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Commandes Python de base pour faire une régression en apprentissage supervisé avec scikit"/>
+<meta name="twitter:description" content="Dans cet article nous allons travailler sur le dataset &ldquo;Boston house prices&rdquo; de scikit-learn et essayer de prédire le prix de l&#39;immobilier. Nous allons prédire une le prix d&#39;une maison; ce qui signifie prédire une valeur continue.
+Le dataset ressemble à ceci:
+from sklearn.datasets import load_boston import pandas as pd data = load_boston() print(data.data.shape) print(data.target.shape) df_data = pd.DataFrame(data.data, columns=data.feature_names) df_labels = pd.DataFrame(data.target, columns=[&#39;price in $1000\&#39;s&#39;]) df_total = pd.concat([df_data, df_labels], axis=1) print(df_total."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2016-02-13 16:25:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/commandes-python-de-base-pour-faire-une-r%C3%A9gression-en-apprentissage-supervis%C3%A9-avec-scikit/">Commandes Python de base pour faire une régression en apprentissage supervisé avec scikit</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article nous allons travailler sur le dataset &ldquo;Boston house prices&rdquo; de scikit-learn et essayer de prédire le prix de l'immobilier. Nous allons prédire une le prix d'une maison; ce qui signifie prédire une valeur continue.</p>
+<p>Le dataset ressemble à ceci:</p>
+<pre><code>from sklearn.datasets import load_boston
+import pandas as pd
+
+data = load_boston()
+
+print(data.data.shape)
+print(data.target.shape)
+
+df_data = pd.DataFrame(data.data, columns=data.feature_names)      
+df_labels = pd.DataFrame(data.target, columns=['price in $1000\'s'])      
+df_total = pd.concat([df_data, df_labels], axis=1)
+
+print(df_total.head(5))
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>(506, 13)
+(506,)
+      CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD    TAX  \
+0  0.00632  18.0   2.31   0.0  0.538  6.575  65.2  4.0900  1.0  296.0   
+1  0.02731   0.0   7.07   0.0  0.469  6.421  78.9  4.9671  2.0  242.0   
+2  0.02729   0.0   7.07   0.0  0.469  7.185  61.1  4.9671  2.0  242.0   
+3  0.03237   0.0   2.18   0.0  0.458  6.998  45.8  6.0622  3.0  222.0   
+4  0.06905   0.0   2.18   0.0  0.458  7.147  54.2  6.0622  3.0  222.0   
+
+   PTRATIO       B  LSTAT  price in $1000's
+0     15.3  396.90   4.98              24.0
+1     17.8  396.90   9.14              21.6
+2     17.8  392.83   4.03              34.7
+3     18.7  394.63   2.94              33.4
+4     18.7  396.90   5.33              36.2
+</code></pre><blockquote>
+<p>La librairie Pandas est une librairie parfaite pour manipuler les données. Nous avons déjà parlé de cette librairie dans l'article [article à indiquer].</p>
+</blockquote>
+<p>Les features CRIM, ZN, INDUS, CHAS, NOX,&hellip; ne veulent rien dire comme cela.
+Il y a un descriptif dans l'objet data qui permet de mieux comprendre à quoi correspond ces abréviations.</p>
+<pre><code>print(data.DESCR)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>Boston House Prices dataset
+===========================
+
+Notes
+------
+Data Set Characteristics:  
+
+    :Number of Instances: 506 
+
+    :Number of Attributes: 13 numeric/categorical predictive
+    
+    :Median Value (attribute 14) is usually the target
+
+    :Attribute Information (in order):
+        - CRIM     per capita crime rate by town
+        - ZN       proportion of residential land zoned for lots over 25,000 sq.ft.
+        - INDUS    proportion of non-retail business acres per town
+        - CHAS     Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
+        - NOX      nitric oxides concentration (parts per 10 million)
+        - RM       average number of rooms per dwelling
+        - AGE      proportion of owner-occupied units built prior to 1940
+        - DIS      weighted distances to five Boston employment centres
+        - RAD      index of accessibility to radial highways
+        - TAX      full-value property-tax rate per $10,000
+        - PTRATIO  pupil-teacher ratio by town
+        - B        1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+        - LSTAT    % lower status of the population
+        - MEDV     Median value of owner-occupied homes in $1000's
+
+    :Missing Attribute Values: None
+...
+</code></pre><h1 id="visualisation-des-donnes-et-slection-des-features">Visualisation des données et sélection des features</h1>
+<p>On va commencer par visualiser les données pour essayer de comprendre de à quoi ressemble le dataset. L'objectif n'est pas de tout visualiser et de tout comprendre tout de suite; l'objectif est plus d'avoir une première idée de ce à quoi ressemblent les données.</p>
+<pre><code>%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.hist(data.target)
+plt.xlabel('price in $1000\'s')
+plt.ylabel('nombre de maisons')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/bar-chart-price-houses.png" alt="image"></p>
+<p>On va sélectionner les features qui influent le plus le prix des maisons. On va afficher sur un graphique chaque feature et retenir celles qui sont les plus corrélées avec notre cible. Cette étape est faite manuellement. Nous aurions pu le faire automatiquement. Nous verrons ces techniques dans un prochain article.</p>
+<pre><code>for index, feature_name in enumerate(data.feature_names):
+    plt.figure()
+    plt.scatter(data.data[:, index], data.target)
+    plt.ylabel('Prix')
+    plt.xlabel(feature_name)
+</code></pre><p><img src="https://leandeep.com/images/charts.png" alt="image"></p>
+<p><img src="https://leandeep.com/images/charts2.png" alt="image"></p>
+<p><img src="https://leandeep.com/images/charts3.png" alt="image"></p>
+<p><img src="https://leandeep.com/images/charts4.png" alt="image"></p>
+<h1 id="prdire-le-prix-de-limmobilier">Prédire le prix de l'immobilier</h1>
+<h2 id="rgression-linaire">Régression linéaire</h2>
+<p>A présent nous allons construire notre modèle de régression linéaire (calcul des moindres carrés) sur l'ensemble des données.</p>
+<blockquote>
+<p>Cette méthode consiste à déterminer la droite théorique dont les coordonnées sont la moyenne arithmétique de toutes les données.
+Pour faire plus simple, c'est la droite qui passe au plus près de tous les points de données.</p>
+</blockquote>
+<pre><code>from sklearn.cross_validation import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(data.data, data.target)
+
+from sklearn.linear_model import LinearRegression
+
+estimator = LinearRegression()
+estimator.fit(X_train, y_train)
+
+predicted = estimator.predict(X_test)
+expected = y_test
+
+plt.scatter(expected, predicted)
+plt.plot([0, 50], [0, 50], '--k')
+plt.axis('tight')
+plt.xlabel('True price in $1000\'s')
+plt.ylabel('Predicted price in $1000\'s')
+print(&quot;RMS:&quot;, np.sqrt(np.mean((predicted - expected) ** 2)))
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>RMS: 4.683413955906375
+</code></pre><p><img src="https://leandeep.com/images/predicted-prices.png" alt="image"></p>
+<p>On voit qu'il y a une correlation entre le prix prédit et le vrai prix des maisons; même s'il y a quand même pas mal de biais.</p>
+<h1 id="arbre-de-dcision-gradient-boosting">Arbre de décision Gradient Boosting</h1>
+<p>On va utiliser un meilleur régresseur pour obtenir un meilleur résultat.</p>
+<pre><code>from sklearn.ensemble import GradientBoostingRegressor
+
+clf = GradientBoostingRegressor()
+clf.fit(X_train, y_train)
+
+predicted = clf.predict(X_test)
+expected = y_test
+
+plt.scatter(expected, predicted)
+plt.plot([0, 50], [0, 50], '--k')
+plt.axis('tight')
+plt.xlabel('True price in $1000\'s')
+plt.ylabel('Predicted price in $1000\'s')
+print(&quot;RMS:&quot;, np.sqrt(np.mean((predicted - expected) ** 2)))
+
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>RMS: 3.2226035734196445
+</code></pre><p><img src="https://leandeep.com/images/predicted-prices2.png" alt="image"></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>723 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 Feb. 2016</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/importer-des-donn%C3%A9es-depuis-numpy-et-pandas-dans-tensorflow/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Importer des données depuis Numpy et Pandas dans Tensorflow</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/r%C3%A9duire-la-taille-du-contexte-lors-dun-docker-build/">
+                                <span class="button__text">Réduire la taille du contexte lors d&#39;un Docker build</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

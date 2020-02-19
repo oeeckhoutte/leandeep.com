@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/custom-python-packages-with-aws-lambda-and-cdk/" />
+
+
+    <title>
+        
+            Custom Python Packages with AWS lambda and CDK :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Custom Python Packages with AWS lambda and CDK">
+<meta itemprop="description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda.">
+<meta itemprop="datePublished" content="2019-06-18T21:27:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-18T21:27:00&#43;00:00" />
+<meta itemprop="wordCount" content="577">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Python,AWS,AWS CDK,AWS Lambda," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Custom Python Packages with AWS lambda and CDK"/>
+<meta name="twitter:description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-06-18 21:27:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/custom-python-packages-with-aws-lambda-and-cdk/">Custom Python Packages with AWS lambda and CDK</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="introduction">Introduction</h1>
+<p>The purpose of this article is to describe how to execute Python code with custom packages on <strong>AWS Lambda</strong>. Since there is no way to execute a <code>pip install</code> on lambda when you use the inline code feature you cannot use external packages. So you are very limited.
+Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda. If you use a deployment script (.sh or Makefile) and <strong>AWS CDK</strong> like I do it becomes very easy to make Lambda execute any Python code.</p>
+<h1 id="docker">Docker</h1>
+<p>I use Docker and an <code>Amazon AMI Linux</code> base image to build everything. At least I am sure that everything I build fits the target execution environment (AWS Lambda).</p>
+<p>Dockerfile example:</p>
+<pre><code>FROM amazonlinux:latest
+
+RUN yum update -y 
+RUN yum install -y gcc-c++ pkgconfig python3-devel redhat-rpm-config python3-pip
+
+RUN mkdir -p /app
+ADD requirements-prod.txt /app/requirements.txt
+ADD my_script.py /app
+
+WORKDIR /app
+RUN pip3 install -t . -Ur requirements.txt
+RUN zip -r zip.zip . 
+
+CMD python3 my_script.py
+</code></pre><p>I use this Docker image to deploy on AWS Lambda and also run my Python script locally if neccessary.
+As you can see the pip dependences are installed in the current directory /app and everything is zipped to be deployed on AWS Lambda.</p>
+<h1 id="deployment">Deployment</h1>
+<p>With few basic commands and a CDK script it becomes handy to automate the whole deployment of your AWS infrastructure and create a Lambda function that will use your previously generated zip file containing your Python code with custom dependences.</p>
+<p>Here is an example of deployment script you can write:</p>
+<pre><code># Create the Docker image based on Amazonlinux
+docker build -t lambda-function .
+
+# Verify the function works and creates a container to produce a zip file
+docker run -it lambda-function
+
+# Get the last container ID
+container_id=`docker ps --last 1 --format &quot;{{.ID}}&quot;`
+
+# Print the last container ID
+echo $container_id
+
+# Copy the zip.zip file from the Docker container to the host
+docker cp $container_id:/app/zip.zip .
+
+# Deploy the AWS infra with AWS Lambda function. The latter will use the zip.zip file located inside the current directory of the host
+cdk deploy --require-approval=never 
+</code></pre><p>Here is a CDK script example to deploy an AWS Lambda function with a zip file. In the following example the zip file is located locally. It could have been located in AWS S3.</p>
+<blockquote>
+<p>I use the package version 0.31.0 for aws-cdk.aws-lambda and aws-cdk.cdk</p>
+</blockquote>
+<pre><code>from aws_cdk import (
+    aws_lambda as lambda_,
+    cdk,
+)
+
+class BonjourExampleLambda(cdk.Stack):
+    def __init__(self, scope: cdk.Construct, id: str, **kwargs) -&gt; None:
+        super().__init__(scope, id, *kwargs)
+        
+		lambdaFn = lambda_.Function(
+    		self,
+		    &quot;exampleLambda&quot;,
+		    code=lambda_.Code.asset(&quot;zip.zip&quot;),
+		    handler=&quot;my_script.main_function_to_call&quot;,
+		    timeout=30,
+		    runtime=lambda_.Runtime.PYTHON37,
+            tracing=lambda_.Tracing.Active,
+		)
+  
+app = cdk.App()
+BonjourExampleLambda(app, &quot;Example-lambda-cdk&quot;)
+app.run()
+
+</code></pre><blockquote>
+<p>If some of your dependences require shared objects (<code>*.so</code> files) to work you can also create one or few &ldquo;Layer(s)&rdquo; that contain the <code>*.so</code> files. AWS Lambda will use them and your dependences should work.</p>
+</blockquote>
+<h1 id="conclusion">Conclusion</h1>
+<p><strong>Firstly use AWS CDK ! Secondly if you need to execute custom packages on Lambda you can ! Docker is great alternative (with AWS Fargate if you want to manage nothing) but it is not always the best solution. It depends on your team, your skills, your budget and above all your use case&hellip;</strong></p>
+<p>Obviously this is a simple example but you could build a pretty cool and modern architecture with these tools. This is especially true if you investigate in the AWS CDK (that use AWS Cloud Formation under the hood)&hellip;</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/aws">AWS</a></span><span class="tag"><a href="https://leandeep.com/tags/aws-cdk">AWS CDK</a></span><span class="tag"><a href="https://leandeep.com/tags/aws-lambda">AWS Lambda</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>577 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Jun. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/commandes-custom-utiles-openshift/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Commandes custom utiles Openshift</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/dependency-injection-in-python/">
+                                <span class="button__text">Dependency Injection in Python</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

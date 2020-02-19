@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte ">
+<meta name="description" content="Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.
+Matplotlib &amp;amp; Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&#39;en sert ensuite dans l&#39;affichage d&#39;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4 2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/" />
+
+
+    <title>
+        
+            Basics Python commands pour Matplotlib, Numpy et debugging misc :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Basics Python commands pour Matplotlib, Numpy et debugging misc">
+<meta itemprop="description" content="Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.
+Matplotlib &amp; Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&#39;en sert ensuite dans l&#39;affichage d&#39;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4 2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4).">
+<meta itemprop="datePublished" content="2015-09-14T19:24:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-09-14T19:24:00&#43;00:00" />
+<meta itemprop="wordCount" content="963">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Basics Python commands pour Matplotlib, Numpy et debugging misc"/>
+<meta name="twitter:description" content="Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.
+Matplotlib &amp; Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&#39;en sert ensuite dans l&#39;affichage d&#39;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4 2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2015-09-14 19:24:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/">Basics Python commands pour Matplotlib, Numpy et debugging misc</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.</p>
+<h1 id="matplotlib--numpy">Matplotlib &amp; Numpy</h1>
+<h2 id="1-charger-un-dataset">1. Charger un dataset</h2>
+<p>On charge un dataset basic (fleurs Iris très connu). On s'en sert ensuite dans l'affichage d'un nuage de points avec Matplotlib.</p>
+<pre><code>from sklearn.datasets import load_iris
+iris = load_iris()
+
+n_samples, n_features = iris.data.shape
+print(n_samples)
+print(n_features)
+
+# 150
+# 4
+</code></pre><h2 id="2-afficher-un-nuage-de-points-scatter-plot">2. Afficher un nuage de points (scatter plot)</h2>
+<p>On considère travailler avec un array (150,4). Voir point 1.</p>
+<pre><code># La commande qui suit permet de ne pas avoir de problème avec l'affichage de graphiques dans Jupyter Notebook 
+%matplotlib inline
+</code></pre><p>Affichage du scratter plot:</p>
+<pre><code>from matplotlib import pyplot as plt
+
+x_index = 1
+y_index = 3
+
+# Ce formateur permet de remplacer les index des classes d'iris par leur nom dans la légende
+formatter = plt.FuncFormatter(lambda i, *args: iris.target_names[int(i)])
+
+plt.scatter(iris.data[:, x_index], iris.data[:, y_index], c=iris.target)
+plt.colorbar(ticks=[0, 1, 2], format=formatter)
+plt.xlabel(iris.feature_names[x_index])
+plt.ylabel(iris.feature_names[y_index])
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/plot-basics.png" alt="image"></p>
+<h2 id="3-manipuler-des-numpy-arrays">3. Manipuler des Numpy Arrays</h2>
+<h3 id="31-gnrer-un-tableau-alatoire">3.1. Générer un tableau aléatoire</h3>
+<pre><code>import numpy as np
+
+X = np.random.random((3,5))
+print(X)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
+ [0.32855405 0.11656708 0.63427992 0.51111629 0.53846283]
+ [0.99568791 0.44366564 0.0842925  0.12422041 0.38149375]]
+</code></pre><h3 id="32-accder--des-lments-dun-numpy-array">3.2. Accéder à des éléments d'un numpy array</h3>
+<pre><code># Accéder à un seul élément
+print(X[0,0])
+
+# Accéder à une ligne
+print(X[0,:]) ou print(X[0])
+
+# Accéder à une colonne
+print(X[:,0]
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>0.7427128108295802
+[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
+[0.74271281 0.32855405 0.99568791]
+</code></pre><h3 id="33-faire-une-transpose-de-matrice-les-lignes-deviennent-les-colonnes">3.3. Faire une transposée de Matrice (les lignes deviennent les colonnes)</h3>
+<pre><code>print(X.T)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74271281 0.32855405 0.99568791]
+ [0.89627097 0.11656708 0.44366564]
+ [0.95309957 0.63427992 0.0842925 ]
+ [0.48770972 0.51111629 0.12422041]
+ [0.3841344  0.53846283 0.38149375]]
+</code></pre><h3 id="34-faire-un-range-sans-tre-gn-par-le-dernier-lement">3.4. Faire un range sans être gêné par le dernier élement</h3>
+<p>Cette méthode permet d’obtenir un tableau à une dimension allant d’une valeur de départ à une valeur de fin avec un nombre donné d’éléments.</p>
+<pre><code># la fonction linspace(premier, dernier, n) évite tout désagrément
+np.linspace(1., 4., 6)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code># array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
+</code></pre><h3 id="35-incrmenter-la-dimension-dun-array">3.5. Incrémenter la dimension d'un array</h3>
+<p>(Permet également de <strong>convertir explicitement un array à 1 dimension</strong> en un vecteur ligne ou vecteur colonne.)</p>
+<pre><code>A = np.array([2, 0, 1, 8])
+print(A)
+A.shape
+
+# [2 0 1 8]
+# (4,)
+
+
+B = A[np.newaxis, :]
+print(B)
+B.shape
+
+# [[2 0 1 8]]
+# (1, 4)
+
+C = A[:, np.newaxis]
+print(C)
+C.shape
+
+# [[2]
+  [0]
+  [1]
+  [8]]
+# (4,1)
+</code></pre><p><strong>Alternatives:</strong></p>
+<pre><code>np.expand_dims(A, 1)  # équivaut à A[:, np.newaxis]
+np.expand_dims(A, 0)  # équivaut à A[np.newaxis, :]
+
+ou
+
+A.reshape(A.shape + (1,))  # équivaut à A[:, np.newaxis]
+A.reshape((1,) + A.shape)  # équivaut à A[np.newaxis, :]
+</code></pre><h2 id="4-manipuler-des-scipy-sparse-matrices">4. Manipuler des Scipy Sparse Matrices</h2>
+<p>Ces matrices sont parfois utiles lorsque le dataset est extrèmement grand (millions de features) et qu'il n'y a presque que des 0 pour un échantillon donné.</p>
+<p>On crée une matrice avec des données aléatoires</p>
+<pre><code>from scipy import sparse
+
+X = np.random.random((10, 5))
+print(X)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74668664 0.28468523 0.31235423 0.85889384 0.44178508]
+ [0.42935032 0.12811469 0.10010876 0.44757517 0.85568623]
+ [0.52500676 0.81764407 0.32380153 0.41696393 0.46913849]
+ [0.38276909 0.93648265 0.19733164 0.42392672 0.75220776]
+ [0.71149141 0.21479105 0.93260534 0.44922132 0.1069613 ]
+ [0.81701    0.85721634 0.43327147 0.07404298 0.00268589]
+ [0.41816508 0.45835663 0.13466681 0.65741327 0.19939561]
+ [0.87886815 0.90599216 0.60680106 0.52665484 0.69824682]
+ [0.75469648 0.89312007 0.10350947 0.48109062 0.61979146]
+ [0.90195641 0.48118575 0.95517067 0.86300827 0.36144463]]
+</code></pre><p>On fixe la majorité des éléments à 0</p>
+<pre><code>X[X &lt; 0.7] = 0
+print(X)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code> [[0.74668664 0.         0.         0.85889384 0.        ]
+ [0.         0.         0.         0.         0.85568623]
+ [0.         0.81764407 0.         0.         0.        ]
+ [0.         0.93648265 0.         0.         0.75220776]
+ [0.71149141 0.         0.93260534 0.         0.        ]
+ [0.81701    0.85721634 0.         0.         0.        ]
+ [0.         0.         0.         0.         0.        ]
+ [0.87886815 0.90599216 0.         0.         0.        ]
+ [0.75469648 0.89312007 0.         0.         0.        ]
+ [0.90195641 0.         0.95517067 0.86300827 0.        ]]
+</code></pre><p>On convertit X en une Matrice CSR (Compressed-Sparse-Row)</p>
+<pre><code>X_csr = sparse.csr_matrix(X)
+print(X_csr)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>  (0, 0)	0.7466866354064811
+  (0, 3)	0.858893836600347
+  (1, 4)	0.8556862339513924
+  (2, 1)	0.8176440715795563
+  (3, 1)	0.9364826540107359
+  (3, 4)	0.7522077587621511
+  (4, 0)	0.7114914132345445
+  (4, 2)	0.9326053405778985
+  (5, 0)	0.8170100021133657
+  (5, 1)	0.8572163407003378
+  (7, 0)	0.8788681533625899
+  (7, 1)	0.9059921645080171
+  (8, 0)	0.7546964834006666
+  (8, 1)	0.893120069181746
+  (9, 0)	0.9019564067395904
+  (9, 2)	0.9551706684658897
+  (9, 3)	0.8630082740227074
+</code></pre><p>On rétablit la Matrice Sparse en numpy array</p>
+<pre><code>print(X_csr.toarray())
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74668664 0.         0.         0.85889384 0.        ]
+ [0.         0.         0.         0.         0.85568623]
+ [0.         0.81764407 0.         0.         0.        ]
+ [0.         0.93648265 0.         0.         0.75220776]
+ [0.71149141 0.         0.93260534 0.         0.        ]
+ [0.81701    0.85721634 0.         0.         0.        ]
+ [0.         0.         0.         0.         0.        ]
+ [0.87886815 0.90599216 0.         0.         0.        ]
+ [0.75469648 0.89312007 0.         0.         0.        ]
+ [0.90195641 0.         0.95517067 0.86300827 0.        ]]
+</code></pre><h2 id="5-visualisation-des-donnes-avec-matplotlib">5. Visualisation des données avec Matplotlib</h2>
+<h3 id="51-afficher-une-fonction-simple">5.1. Afficher une fonction simple</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+# Afficher une ligne
+x = np.linspace(0, 10, 100)
+plt.plot(x, np.sin(x))
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/plot2-basics.png" alt="image"></p>
+<h3 id="52-afficher-un-nuage-de-points-scatter-plot">5.2. Afficher un nuage de points (scatter plot)</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+x = np.random.normal(size=500)
+y = np.random.normal(size=500)
+plt.scatter(x, y)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/scatter-plot-basics.png" alt="image"></p>
+<h3 id="53-tracer-une-image">5.3. Tracer une image</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+x = np.linspace(1, 12, 100)
+y = x[:, np.newaxis]
+
+im = y * np.sin(x) * np.cos(y)
+
+plt.imshow(im)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/draw-image-basics.png" alt="image"></p>
+<h3 id="54-tracer-les-contours">5.4. Tracer les contours</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+x = np.linspace(1, 12, 100)
+y = x[:, np.newaxis]
+
+im = y * np.sin(x) * np.cos(y)
+
+plt.contour(im)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/contour-basics.png" alt="image"></p>
+<h3 id="55-gallerie-dexemples">5.5. Gallerie d'exemples</h3>
+<p>Des centaines d'exemples sont disponibles sur le <a href="http://matplotlib.org/gallery.html">site de Matplotlib</a>.
+En exécutant la commande suivante dans votre notebook, le code source sera téléchargé. Vous n'aurez plus qu'à le ré-excuter pour qu'un graphique s'affiche.</p>
+<pre><code>%load http://matplotlib.org/mpl_examples/pylab_examples/ellipse_collection.py
+</code></pre><h3 id="56-graphique-3d">5.6. Graphique 3D</h3>
+<pre><code># 3D 
+from mpl_toolkits.mplot3d import Axes3D
+
+ax = plt.axes(projection='3d')
+xgrid, ygrid = np.meshgrid(x, y.ravel())
+ax.plot_surface(xgrid, ygrid, im, cmap=plt.cm.jet, cstride=2, rstride=2, linewidth=0)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/3d-plots-basics.png" alt="image"></p>
+<h1 id="debugging-misc">Debugging Misc</h1>
+<h2 id="dumper-un-objet">&ldquo;Dumper&rdquo; un objet:</h2>
+<pre><code>def dump(obj):
+   for attr in dir(obj):
+       if hasattr( obj, attr ):
+           print( &quot;obj.%s = %s&quot; % (attr, getattr(obj, attr)))
+</code></pre><h2 id="afficher-des-couleurs-dans-le-terminal">Afficher des couleurs dans le terminal</h2>
+<pre><code>print('\x1b[6;30;42m' + 'Success!' + '\x1b[0m')
+</code></pre><p><img src="https://leandeep.com/images/colors-terminal-basics.png" alt="image"></p>
+<p>Voir toutes les couleurs disponibles:</p>
+<pre><code>def print_format_table():
+    &quot;&quot;&quot;
+    prints table of formatted text format options
+    &quot;&quot;&quot;
+    for style in range(8):
+        for fg in range(30,38):
+            s1 = ''
+            for bg in range(40,48):
+                format = ';'.join([str(style), str(fg), str(bg)])
+                s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
+            print(s1)
+        print('\n')
+
+print_format_table()
+</code></pre><p>Voici quelques examples:</p>
+<p><img src="https://leandeep.com/images/terminal_few_colors.png" alt="image"></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>963 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 Sep. 2015</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/config-commandes-et-tips-utiles-git/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Config, Commandes et tips utiles Git</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/formater-un-markdown-dans-le-terminal/">
+                                <span class="button__text">Formater un markdown dans le terminal </span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

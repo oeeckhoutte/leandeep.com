@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Introduction Le biais conduit à du sous-apprentissage (underfitting) et la variance amène du sur-apprentissage (overfitting) et donc à de hautes erreurs de tests.
+Example pour un jeu de données composé de 8 points:
+Polynomials of various degrees. d = 1 under-fits the data, while d = 6 over-fits the data.
+On peut éviter cela en:
+ ajoutant de la régularisation à notre modèle Si la data est under-fit le modèle est trop simple." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/tradeoff-biais-variance/" />
+
+
+    <title>
+        
+            Tradeoff biais variance :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Tradeoff biais variance">
+<meta itemprop="description" content="Introduction Le biais conduit à du sous-apprentissage (underfitting) et la variance amène du sur-apprentissage (overfitting) et donc à de hautes erreurs de tests.
+Example pour un jeu de données composé de 8 points:
+Polynomials of various degrees. d = 1 under-fits the data, while d = 6 over-fits the data.
+On peut éviter cela en:
+ ajoutant de la régularisation à notre modèle Si la data est under-fit le modèle est trop simple.">
+<meta itemprop="datePublished" content="2017-03-01T13:34:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-01T13:34:00&#43;00:00" />
+<meta itemprop="wordCount" content="1099">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Tradeoff biais variance"/>
+<meta name="twitter:description" content="Introduction Le biais conduit à du sous-apprentissage (underfitting) et la variance amène du sur-apprentissage (overfitting) et donc à de hautes erreurs de tests.
+Example pour un jeu de données composé de 8 points:
+Polynomials of various degrees. d = 1 under-fits the data, while d = 6 over-fits the data.
+On peut éviter cela en:
+ ajoutant de la régularisation à notre modèle Si la data est under-fit le modèle est trop simple."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-03-01 13:34:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/tradeoff-biais-variance/">Tradeoff biais variance</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="introduction">Introduction</h1>
+<p>Le biais conduit à du sous-apprentissage (<em>underfitting</em>) et la variance amène du sur-apprentissage (<em>overfitting</em>) et donc à de hautes erreurs de tests.</p>
+<p>Example pour un jeu de données composé de 8 points:</p>
+<p><img src="https://leandeep.com/images/plot_bias_variance_examples.png" alt="image"></p>
+<p><em>Polynomials of various degrees. d = 1 under-fits the data, while d = 6 over-fits the data.</em></p>
+<p>On peut éviter cela en:</p>
+<ul>
+<li>ajoutant de la régularisation à notre modèle</li>
+<li>Si la data est <em>under-fit</em> le modèle est trop simple. On dit qu'il souffre de <em>High-bias</em>. Le modèle est biaisé et cela se traduit par le fait que les data sont <em>poorly fit</em>. On pourrait trouver un autre modèle plus complexe.</li>
+<li>Attention au contraire à ne pas avoir un modèle trop complexe qui ferait que les données <em>&ldquo;over-fitterait&rdquo;</em> car il pourrait s'ajuster parfaitement aux données d'entrainement grâce à tous ses degrés de liberté.</li>
+<li>Si le modèle over-fit on peut aussi ajouter des données au dataset&hellip;</li>
+</ul>
+<p><img src="https://leandeep.com/images/over-under-fitted.png" alt="image"></p>
+<blockquote>
+<p>Pour déterminer le bon algorithme à utiliser par rapport à notre jeu de données, il faut pouvoir identifier quantitativement le bias et la variance pour pouvoir optimiser les metaparamètres.</p>
+</blockquote>
+<p><em>C'est faisable grâce au process de <code>cross-validation</code>.</em></p>
+<h1 id="dtecter-loverfitting-grce--la-cross-validation">Détecter l'overfitting grâce à la cross-validation</h1>
+<p>Pour quantifier les effets du biais et de la variance et construire le meilleur estimateur possible, on va découper notre dataset en 3 parties:</p>
+<ul>
+<li>training set (60% du dataset)</li>
+<li>cross-validation set (20%)</li>
+<li>test set (20%)</li>
+</ul>
+<p>L'idée générale est la suivante:</p>
+<ol>
+<li>Les paramètres du modèles (dans notre cas, les coefficients du polynôme) sont appris en utilisant le training set.</li>
+<li>L'erreur est évaluée sur le cross-validation set et les meta-paramètres  (dans notre cas les degrés du polynôme) sont ajustés pour que l'erreur de cross-validation soit minimisée.</li>
+<li>Finalement les labels sont prédits pour le test set. Ces labels sont utilisés pour évaluer la performance de l'algorithme à labeliser des nouvelles données.</li>
+</ol>
+<blockquote>
+<p>Pourquoi a-t-on besoin à la fois d'un cross-validation set et d'un test set ?</p>
+</blockquote>
+<blockquote>
+<p>Certains data scientists utilisent les mêmes set de données pour le cross-validation set et le test set. Ce n'est pas la meilleure approche car les meta-paramètres peuvent &ldquo;<em>over-fittés</em>&rdquo; le cross-validation set tout comme les paramètres peuvent &ldquo;<em>over-fittés</em>&rdquo; le training set.</p>
+</blockquote>
+<p>L'erreur de cross-validation de notre classifieur polynomial peut être visualisée en affichant l'erreur comme une fonction du polynôme de degré d. (Ici exemple avec 100 points)</p>
+<p><img src="https://leandeep.com/images/plot_bias_variance_examples_cross_validation_error.png" alt="image"></p>
+<blockquote>
+<p>De manière générale, plus on a données d'entraînement et plus on peut utiliser un modèle complexe. <em><code>The learning curve</code></em>&hellip;</p>
+</blockquote>
+<h1 id="la-courbe-dapprentissage">La courbe d'apprentissage</h1>
+<p>La courbe d'apprentissage est l'affichage des erreurs de training et de cross-validation en fonction du nombre de <em>training points</em>.</p>
+<p><img src="https://leandeep.com/images/plot_bias_variance_examples_learning_curve.png" alt="image"></p>
+<p><em>Learning Curves for a case of high bias (left, d = 2) and high variance (right, d = 20)</em></p>
+<ul>
+<li>
+<p>Sur la gauche, le polynôme de degré 1 est un estimateur hautement biaisé qui sous-apprend les données. C'est indiqué par le fait qu'à la fois les erreurs d'entrainement et les erreurs de cross-validation sont élevées.</p>
+</li>
+<li>
+<p>Sur la droite, le polynôme est de degré 20. L'erreur d'entrainement est beaucoup plus faible que l'erreur de cross-validation. Plus on ajoute de données dans le training set et plus l'erreur d'entrainement augmente alors que l'erreur de cross-validation diminue.</p>
+</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<h2 id="fort-biais">Fort biais</h2>
+<p>Si notre algorithme montre un fort biais, il faut:</p>
+<ul>
+<li>Ajouter plus de features</li>
+<li>Utiliser un modèle plus sophistiqué</li>
+<li>Diminuer le training set pour booster la durée d'entrainement. On arrivera à la même erreur plus rapidement; avec moins de données d'entrainement. Par contre, cela ne va pas améliorer la classification.</li>
+<li>Diminuer la régularisation: la régularisation est une technique utilisée pour simplifier certains modèles de Machine Learning en ajoutant des termes de pénalité qui dépendent des caractéristiques des paramètres.</li>
+</ul>
+<h2 id="forte-variance">Forte variance</h2>
+<ul>
+<li>Utiliser moins de features</li>
+<li>Augmenter le training set. Ajouter des données dans le training set peut réduire l'effet d'over-fitting et conduire à diminuer la variance de l'estimateur.</li>
+<li>Augmenter la régularisation qui est faite justement pour éviter l'over-fitting.</li>
+</ul>
+<h1 id="code-des-graphs">Code des graphs</h1>
+<pre><code>import pylab as pl
+from matplotlib import ticker
+from matplotlib.patches import FancyArrow
+
+np.random.seed(42)
+
+def test_func(x, err=0.5):
+    return np.random.normal(10 - 1. / (x + 0.1), err)
+
+
+def compute_error(x, y, p):
+    yfit = np.polyval(p, x)
+    return np.sqrt(np.mean((y - yfit) ** 2))
+
+
+#------------------------------------------------------------
+# Plot linear regression example
+np.random.seed(42)
+x = np.random.random(20)
+y = np.sin(2 * x)
+p = np.polyfit(x, y, 1)  # fit a 1st-degree polynomial to the data
+
+xfit = np.linspace(-0.2, 1.2, 10)
+yfit = np.polyval(p, xfit)
+
+pl.scatter(x, y, c='k')
+pl.plot(xfit, yfit)
+pl.xlabel('x')
+pl.ylabel('y')
+pl.title('Linear Regression Example')
+
+#------------------------------------------------------------
+# Plot example of over-fitting and under-fitting
+
+N = 8
+np.random.seed(42)
+x = 10 ** np.linspace(-2, 0, N)
+y = test_func(x)
+
+xfit = np.linspace(-0.2, 1.2, 1000)
+
+titles = ['d = 1 (under-fit)', 'd = 2', 'd = 6 (over-fit)']
+degrees = [1, 2, 6]
+
+pl.figure(figsize = (9, 3.5))
+for i, d in enumerate(degrees):
+    pl.subplot(131 + i, xticks=[], yticks=[])
+    pl.scatter(x, y, marker='x', c='k', s=50)
+
+    p = np.polyfit(x, y, d)
+    yfit = np.polyval(p, xfit)
+    pl.plot(xfit, yfit, '-b')
+    
+    pl.xlim(-0.2, 1.2)
+    pl.ylim(0, 12)
+    pl.xlabel('house size')
+    if i == 0:
+        pl.ylabel('price')
+
+    pl.title(titles[i])
+
+pl.subplots_adjust(left = 0.06, right=0.98,
+                   bottom=0.15, top=0.85,
+                   wspace=0.05)
+
+#------------------------------------------------------------
+# Plot training error and cross-val error
+#   as a function of polynomial degree
+
+Ntrain = 100
+Ncrossval = 100
+error = 1.0
+
+np.random.seed(0)
+x = np.random.random(Ntrain + Ncrossval)
+y = test_func(x, error)
+
+xtrain = x[:Ntrain]
+ytrain = y[:Ntrain]
+
+xcrossval = x[Ntrain:]
+ycrossval = y[Ntrain:]
+
+degrees = np.arange(1, 21)
+train_err = np.zeros(len(degrees))
+crossval_err = np.zeros(len(degrees))
+
+for i, d in enumerate(degrees):
+    p = np.polyfit(xtrain, ytrain, d)
+
+    train_err[i] = compute_error(xtrain, ytrain, p)
+    crossval_err[i] = compute_error(xcrossval, ycrossval, p)
+
+pl.figure()
+pl.title('Error for 100 Training Points')
+pl.plot(degrees, crossval_err, lw=2, label = 'cross-validation error')
+pl.plot(degrees, train_err, lw=2, label = 'training error')
+pl.plot([0, 20], [error, error], '--k', label='intrinsic error')
+pl.legend()
+pl.xlabel('degree of fit')
+pl.ylabel('rms error')
+
+pl.gca().add_patch(FancyArrow(5, 1.35, -3, 0, width = 0.01,
+                              head_width=0.04, head_length=1.0,
+                              length_includes_head=True))
+pl.text(5.3, 1.35, &quot;High Bias&quot;, fontsize=18, va='center')
+
+pl.gca().add_patch(FancyArrow(19, 1.22, 0, -0.1, width = 0.25,
+                              head_width=1.0, head_length=0.05,
+                              length_includes_head=True))
+pl.text(19.8, 1.23, &quot;High Variance&quot;, ha='right', fontsize=18)
+
+#------------------------------------------------------------
+# Plot training error and cross-val error
+#   as a function of training set size
+
+Ntrain = 100
+Ncrossval = 100
+error = 1.0
+
+np.random.seed(0)
+x = np.random.random(Ntrain + Ncrossval)
+y = test_func(x, error)
+
+xtrain = x[:Ntrain]
+ytrain = y[:Ntrain]
+
+xcrossval = x[Ntrain:]
+ycrossval = y[Ntrain:]
+
+sizes = np.linspace(2, Ntrain, 50).astype(int)
+train_err = np.zeros(sizes.shape)
+crossval_err = np.zeros(sizes.shape)
+
+pl.figure(figsize=(10, 5))
+
+for j,d in enumerate((1, 20)):
+    for i, size in enumerate(sizes):
+        p = np.polyfit(xtrain[:size], ytrain[:size], d)
+        crossval_err[i] = compute_error(xcrossval, ycrossval, p)
+        train_err[i] = compute_error(xtrain[:size], ytrain[:size], p)
+
+    ax = pl.subplot(121 + j)
+    pl.plot(sizes, crossval_err, lw=2, label='cross-val error')
+    pl.plot(sizes, train_err, lw=2, label='training error')
+    pl.plot([0, Ntrain], [error, error], '--k', label='intrinsic error')
+
+    pl.xlabel('traning set size')
+    if j == 0:
+        pl.ylabel('rms error')
+    else:
+        ax.yaxis.set_major_formatter(ticker.NullFormatter())
+    
+    pl.legend(loc = 4)
+    
+    pl.ylim(0.0, 2.5)
+    pl.xlim(0, 99)
+
+    pl.text(98, 2.45, 'd = %i' % d, ha='right', va='top', fontsize='large')
+
+pl.subplots_adjust(wspace = 0.02, left=0.07, right=0.95)
+pl.suptitle('Learning Curves', fontsize=18)
+
+
+pl.show()
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1099 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 Mar. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/evaluer-ses-mod%C3%A8les-de-classification/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Evaluer ses modèles de classification</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/class-iterator-en-python/">
+                                <span class="button__text">Class iterator en Python</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&amp;hellip; J&#39;en profite pour écrire rapidement cet article.
+Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/damn-toujours-pas-dhttps/" />
+
+
+    <title>
+        
+            Damn! Toujours pas d’HTTPS… :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Damn! Toujours pas d’HTTPS…">
+<meta itemprop="description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J&#39;en profite pour écrire rapidement cet article.
+Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:">
+<meta itemprop="datePublished" content="2018-08-06T23:11:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-08-06T23:11:00&#43;00:00" />
+<meta itemprop="wordCount" content="550">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Damn! Toujours pas d’HTTPS…"/>
+<meta name="twitter:description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J&#39;en profite pour écrire rapidement cet article.
+Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2018-08-06 23:11:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/damn-toujours-pas-dhttps/">Damn! Toujours pas d’HTTPS…</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Honte à moi, je passe mon temps à jouer avec des serveurs et je n'ai toujours pas configuré d'HTTPS pour mon blog.
+Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J'en profite pour écrire rapidement cet article.</p>
+<p>Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.</p>
+<p>Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</p>
+<pre><code>docker run -d --restart=always -e url=http://leandeep.com -e NODE_ENV=production --name some-ghost-v2 -v /var/lib/ghost:/var/lib/ghost/content -p 80:2368 ghost
+</code></pre><p>C’était plutôt simple et efficace. En effet, je n’ai jamais dû intervenir sur le serveur depuis avril 2015. (Enfin jamais sauf une fois pour upgrader l'OS et passer à Ubuntu 16.04 . Mais c'est un autre sujet)</p>
+<p>Aujourd’hui, pour avoir un certificat HTTPS simplement, je vais utiliser Nginx comme reverse proxy. Ce dernier portera le certificat.</p>
+<p>Pour utiliser Nginx, je vais passer par Docker. C'est beaucoup plus rapide et propre que faire des apt-get install nginx&hellip; Et pour me simplifier la vie, je vais utiliser un docker-compose puisque j’aurais plus d’un container à gérer sur ce serveur.</p>
+<p>Voici ci-dessous à quoi ressemble mon docker-compose.yml. Vous verrez que j'utilise 2 projets opensource que je vous invite à consulter sur Github: <a href="https://github.com/jwilder/nginx-proxy">https://github.com/jwilder/nginx-proxy</a> et <a href="https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion">https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion</a>. C'est grâce à ces projets que mes certificats se génèrent tout seul et que je peux avoir des HTTPS pour mes nouveaux projets sans rien faire.</p>
+<pre><code>version: '3.1'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - nginx.html:/usr/share/nginx/html
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: &quot;true&quot;
+  nginx-proxy-companon:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    depends_on:
+      - &quot;nginx-proxy&quot;
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./nginx/certs:/etc/nginx/certs:rw
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - nginx.html:/usr/share/nginx/html
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+  ghost:
+    image: ghost:1-alpine
+    restart: always
+    depends_on:
+      - &quot;nginx-proxy&quot;
+    ports:
+      - 127.0.0.1:8080:2368
+    volumes:
+      - ./blog:/var/lib/ghost/content
+    environment:
+      - url=https://leandeep.com
+      - VIRTUAL_HOST=leandeep.com
+      - LETSENCRYPT_HOST=leandeep.com
+      - LETSENCRYPT_EMAIL=&lt;mon_email&gt;
+  staticweb:
+    image: nginx:alpine
+    depends_on:
+      - &quot;nginx-proxy&quot;
+    ports:
+      - 127.0.0.1:8081:80
+    volumes:
+      - ./staticweb:/usr/share/nginx/html:ro
+    environment:
+      - url=https://www.leandeep.com
+      - VIRTUAL_HOST=www.leandeep.com
+      - LETSENCRYPT_HOST=www.leandeep.com
+      - LETSENCRYPT_EMAIL=&lt;mon_email&gt;
+volumes:
+  nginx.html:
+</code></pre><p>Comme vous pouvez le voir, ce docker-compose définit 2 sites: <a href="https://leandeep.com">https://leandeep.com</a> et <a href="https://www.leandeep.com">https://www.leandeep.com</a>.
+Le premier renvoie vers un blog Ghost et le deuxième vers un dossier statique servi par Nginx.</p>
+<p>Avant de faire un docker-compose up -d , j’ai créé 2 dossiers pour chacun des 2 sites web.
+Le premier dossier blog/ contient le contenu de mon blog Ghost <a href="https://leandeep.com">https://leandeep.com</a>. Il contient donc l’arborescence suivante:</p>
+<pre><code>apps/
+data/
+images/
+logs/
+settings/
+themes/
+</code></pre><p>Le deuxième dossier staticweb/ pour le site internet <a href="https://www.leandeep.com">https://www.leandeep.com</a> contient une simple page HTML qui redirige vers <a href="https://leandeep.com">https://leandeep.com</a> via ces 3 lignes de code:</p>
+<pre><code>&lt;script&gt;
+window.location.href = 'https://leandeep.com';
+&lt;/script&gt;
+</code></pre><blockquote>
+<p>A la place de cette redirection bête et méchante, on pourrait avoir un tout autre site internet bien plus intéressant. Ici c’est une redirection que j’ai laissé volontairement à titre d'exemple pour montrer comment avoir plusieurs sites web avec cet unique docker-compose.</p>
+</blockquote>
+<p>Enfin, pour générer le certificat, il faudra créer un fichier ./nginx/vhost.d/leandeep.com qui contiendra la configuration pour let's encrypt:</p>
+<pre><code>## Start of configuration add by letsencrypt container
+location ^~ /.well-known/acme-challenge/ {
+    auth_basic off;
+    allow all;
+    root /usr/share/nginx/html;
+    try_files $uri =404;
+    break;
+}
+## End of configuration add by letsencrypt container
+add_header X-Frame-Options &quot;SAMEORIGIN&quot;;
+add_header Content-Security-Policy &quot;script-src 'self' 'unsafe-inline' https://code.jquery.com&quot;;
+add_header X-XSS-Protection &quot;1; mode=block&quot;;
+add_header X-Content-Type-Options &quot;nosniff&quot;;
+add_header Referrer-Policy &quot;no-referrer-when-downgrade&quot;;
+server_tokens off;
+</code></pre><p>Voilà. Il n'y a plus qu'à lancer le docker-compose avec la commande:</p>
+<pre><code>docker-compose up -d
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>550 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Aug. 2018</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/comment-exporter-et-restaurer-un-mod%C3%A8le-tensorflow/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Comment exporter et restaurer un modèle Tensorflow ?</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/installer-fission-sur-minikube-avec-helm/">
+                                <span class="button__text">Installer Fission sur Minikube avec Helm</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

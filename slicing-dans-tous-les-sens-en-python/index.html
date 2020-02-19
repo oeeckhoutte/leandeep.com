@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Voici quelques exemples d&#39;utilisation de slicing en Python. Cela fonctionne très bien sur les list, str et bytes. On peut ajouter du slicing sur des classes qui implémentent __getitem__ et __setitem__ magic methods.
+a = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] print(&#39;First four: &#39;, a[:4]) print(&#39;Last four: &#39;, a[-4:]) print(&#39;Middle two: &#39;, a[3:-3]) # First four: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;] # Last four: [&#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] # Middle two: [&#39;d&#39;, &#39;e&#39;] # When slicing from the start of a list, you should leave out the zero index # to reduce visual noise." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/slicing-dans-tous-les-sens-en-python/" />
+
+
+    <title>
+        
+            Slicing dans tous les sens en Python :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Slicing dans tous les sens en Python">
+<meta itemprop="description" content="Voici quelques exemples d&#39;utilisation de slicing en Python. Cela fonctionne très bien sur les list, str et bytes. On peut ajouter du slicing sur des classes qui implémentent __getitem__ et __setitem__ magic methods.
+a = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] print(&#39;First four: &#39;, a[:4]) print(&#39;Last four: &#39;, a[-4:]) print(&#39;Middle two: &#39;, a[3:-3]) # First four: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;] # Last four: [&#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] # Middle two: [&#39;d&#39;, &#39;e&#39;] # When slicing from the start of a list, you should leave out the zero index # to reduce visual noise.">
+<meta itemprop="datePublished" content="2017-02-04T21:16:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-02-04T21:16:00&#43;00:00" />
+<meta itemprop="wordCount" content="1298">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Slicing dans tous les sens en Python"/>
+<meta name="twitter:description" content="Voici quelques exemples d&#39;utilisation de slicing en Python. Cela fonctionne très bien sur les list, str et bytes. On peut ajouter du slicing sur des classes qui implémentent __getitem__ et __setitem__ magic methods.
+a = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] print(&#39;First four: &#39;, a[:4]) print(&#39;Last four: &#39;, a[-4:]) print(&#39;Middle two: &#39;, a[3:-3]) # First four: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;] # Last four: [&#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] # Middle two: [&#39;d&#39;, &#39;e&#39;] # When slicing from the start of a list, you should leave out the zero index # to reduce visual noise."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-02-04 21:16:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/slicing-dans-tous-les-sens-en-python/">Slicing dans tous les sens en Python</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Voici quelques exemples d'utilisation de <em>slicing</em> en Python.
+Cela fonctionne très bien sur les <code>list</code>, <code>str</code> et <code>bytes</code>.
+On peut ajouter du <em>slicing</em> sur des classes qui implémentent <code>__getitem__</code> et <code>__setitem__</code> <em>magic methods</em>.</p>
+<pre><code>a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+print('First four: ', a[:4])
+print('Last four:  ', a[-4:])
+print('Middle two: ', a[3:-3])
+# First four:  ['a', 'b', 'c', 'd']
+# Last four:   ['e', 'f', 'g', 'h']
+# Middle two:  ['d', 'e']
+</code></pre><pre><code># When slicing from the start of a list, you should leave out the zero index
+# to reduce visual noise.
+
+
+assert a[:5] == a[0:5]
+
+
+# When slicing to the end of a list, you should leave out the final index
+# because it's redundant.
+
+
+assert a[5:] == a[5:len(a)]
+</code></pre><pre><code># Using negative numbers for slicing is helpful for doing offsets relative
+# to the end of a list. All of these forms of slicing would be clear to a new
+# reader of your code. There are no surprises, and I encourage you to use
+# these variations.
+
+
+print(a[:])
+print(a[:5])
+print(a[:-1])
+print(a[4:])
+print(a[-3:])
+print(a[2:5])
+print(a[2:-1])
+print(a[-3:-1])
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+# ['a', 'b', 'c', 'd', 'e']
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+# ['e', 'f', 'g', 'h']
+# ['f', 'g', 'h']
+# ['c', 'd', 'e']
+# ['c', 'd', 'e', 'f', 'g']
+# ['f', 'g']
+</code></pre><pre><code># Slicing deals properly with start and end indexes that are beyond the
+# boundaries of the list. That makes it easy for your code to establish
+# a maximum length to consider for an input sequence.
+
+
+first_twenty_items = a[:20]
+last_twenty_items = a[-20:]
+print(first_twenty_items)
+print(last_twenty_items)
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
+# In contrast, accessing the same index directly causes an exception.
+# print(a[20])
+# IndexError: list index out of range
+
+
+# Note
+# Beware that indexing a list by a negative variable is one of the few
+# situations in which you can get surprising results from slicing. For
+# example, the expression somelist[-n:] will work fine when n is greater
+# than one (e.g. somelist[-3:]). However, when n is zero, the expression
+# somelist[-0:] will result in a copy of the original list.
+</code></pre><pre><code># The result of slicing a list is a whole new list. References to the objects
+# from the original list are maintained. Modifying the result of slicing won't
+# affect the original list.
+
+b = a[4:]
+print('Before:    ', b)
+b[1] = 99
+print('After:     ', b)
+print('No change: ', a)
+# Before:     ['e', 'f', 'g', 'h']
+# After:      ['e', 99, 'g', 'h']
+# No change:  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+</code></pre><pre><code># When used in assignments, slices will replace the specified range in the
+# original list. Unlike tuple assignments (like a, b = c[:2), the length of
+# slice assignments don't need to be the same. The values before and after
+# the assigned slice will be preserved. The list will grow or shrink to
+# accommodate the new values.
+
+print('Before: ', a)
+a[2:7] = [99, 22, 14]
+print('After:  ', a)
+# Before:  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+# After:   ['a', 'b', 99, 22, 14, 'h']
+</code></pre><pre><code># If you leave out both the start and the end indexes when slicing, you'll end
+# up with a copy of the original list.
+
+b = a[:]
+assert b == a and b is not a
+</code></pre><pre><code># if you assign a slice with no start or end indexes, you'll replace its
+# entire contents with a copy of what's referenced (instead of allocating a
+# new list).
+
+
+b = a
+print('Before: ', a)
+a[:] = [101, 102, 103]
+assert a is b
+print('After:  ', a)
+# Before:  ['a', 'b', 99, 22, 14, 'h']
+# After:   [101, 102, 103]
+</code></pre><pre><code># In addition to basic slicing (see Item 5: Knowing how to slice sequences),
+# Python has special syntax for the stride of a slice in the form
+# somelist[start🔚stride]. This lets you take every n-th item when slicing
+# a sequence. For example, the stride makes it easy to group by even and odd
+# indexes in a list.
+
+a = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+odds = a[::2]
+evens = a[1::2]
+print(odds)
+print(evens)
+# ['red', 'yellow', 'blue']
+# ['orange', 'green', 'purple']
+</code></pre><pre><code># The problem is that the stride syntax ofter cause unexpected behavior that
+# can introduce bugs. For example, a common Python trick for reversing a byte
+# string is to slice the string with a stride of -1.
+
+
+x = b'mongoose'
+y = x[::-1]
+print(y)
+# b'esoognom'
+</code></pre><pre><code># That works well for byte strings and ASCII characters, but it will break for
+# Unicode characters encoded as UTF-8 byte strings.
+
+
+w = '谢谢谢谢'
+# x = w.enocde('utf-8')
+# y = x[::-1]
+# z = y.decode('utf-8')
+# print(y)
+# print(z)
+# AttributeError: 'str' object has no attribute 'enocde'
+</code></pre><pre><code># Are negative strides besides -1 useful? Consider the following examples.
+
+
+a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+print(a[::2])
+print(a[::-2])
+# ['a', 'c', 'e', 'g']
+# ['h', 'f', 'd', 'b']
+</code></pre><pre><code># Here, ::2 means select every second item starting at the beginning.
+# Trickier, ::-2 means select every second item starting at the end and moving
+# backwards.
+
+
+# What do you think 2::2 means? What about -2::-2 vs. -2:2:-2 vs. 2:2:-2?
+print(a[2::2])
+print(a[-2::-2])
+print(a[-2:2:-2])
+print(a[2:2:-2])
+# ['c', 'e', 'g']
+# ['g', 'e', 'c', 'a']
+# ['g', 'e']
+# []
+
+
+# The point is that the stride part of the slicing syntax can be extremely
+# confusing. Having three numbers within the brackets is hard enough to read
+# because of its density. Then it's not obvious when the start and end indexes
+# come into effect relative to the stride value, especially when stride is
+# negative.
+
+
+# To prevent problems, avoid using stride along with start and end indexes. If
+# you must use a stride, prefer making it a positive value and omit start and
+# end indexes. If you must use stride with start and end indexes, consider
+# using one assignment to stride and another to slice.
+
+
+b = a[::2]
+c = b[1:-1]
+print(b)
+print(c)
+# ['a', 'c', 'e', 'g']
+# ['c', 'e']
+</code></pre><pre><code># Slicing and then striding will create an extra shallow copy of the data.
+# The first operation should try to reduce the size of the resulting slice by
+# as much as possible. If your program can't afford the time or memory
+# required for two steps, consider using the itertools built-in module's
+# islice method (see Item 46: Use built-in algorithms and data structures),
+# which doesn't permit negative values for start, end or stride.
+</code></pre><pre><code># Things to remember
+
+# 1. Avoid being verbose: Don't supply 0 for the start index or the length of
+#     the sequence for the end index.
+# 2. Slicing is forgiving of start or end indexes that are out of bounds,
+#     making it easy to express slices on the front or back boundaries of a
+#     sequence (like a[:20] or a[-20:]).
+# 3. Assigning to a list slice will replace that range in the original
+#     sequence with what's referenced even if their lengths are different.
+# 4. Specifying start, end, and stride in a slice can be extremely confusing.
+# 5. Prefer using positive stride values in slices without start or end
+#     indexes. Avoid negative stride values if possible.
+# 6. Avoid using start, end and stride together in a single slice. If you need
+#     all three parameters, consider doing two assignments (one to slice,
+#     another to stride) or using islice form itertools built-in module.
+</code></pre><p>Source: Livre &ldquo;Effective Python: 59 Specific Ways to Write Better Python&rdquo; par Brett Slatkin. Je vous recommande grandement de l'acheter et de le lire.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1298 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>04 Feb. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/list-set-et-dict-comprehensions-en-python/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">List, set et dict comprehensions en Python </span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/style-guide-pep8-en-python/">
+                                <span class="button__text">Style guide PEP8 en Python</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Bonjour à tous,
+Dans cet article nous allons parler de clean architecture en référence à ce que présente Robert C. Martin (alias Oncle Bob) dans cette vidéo. Si vous ne l&#39;avez pas vu, je vous la recommande fortement !
+Tous les concepts dont il parle dans sa proposition &amp;ldquo;d&#39;Architecture propre&amp;rdquo; ne sont pas nouveaux car déjà utilisés dans d&#39;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)
+Voici la proposition d&#39;Architecture propre: Partie 1 Le schéma à gauche (en forme d&#39;oignon) est la combinaison de 2 architectures plus anciennes:" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/clean-architecture/" />
+
+
+    <title>
+        
+            Clean Architecture :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Clean Architecture">
+<meta itemprop="description" content="Bonjour à tous,
+Dans cet article nous allons parler de clean architecture en référence à ce que présente Robert C. Martin (alias Oncle Bob) dans cette vidéo. Si vous ne l&#39;avez pas vu, je vous la recommande fortement !
+Tous les concepts dont il parle dans sa proposition &ldquo;d&#39;Architecture propre&rdquo; ne sont pas nouveaux car déjà utilisés dans d&#39;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)
+Voici la proposition d&#39;Architecture propre: Partie 1 Le schéma à gauche (en forme d&#39;oignon) est la combinaison de 2 architectures plus anciennes:">
+<meta itemprop="datePublished" content="2016-03-15T21:34:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-03-15T21:34:00&#43;00:00" />
+<meta itemprop="wordCount" content="1053">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Architecture," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Clean Architecture"/>
+<meta name="twitter:description" content="Bonjour à tous,
+Dans cet article nous allons parler de clean architecture en référence à ce que présente Robert C. Martin (alias Oncle Bob) dans cette vidéo. Si vous ne l&#39;avez pas vu, je vous la recommande fortement !
+Tous les concepts dont il parle dans sa proposition &ldquo;d&#39;Architecture propre&rdquo; ne sont pas nouveaux car déjà utilisés dans d&#39;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)
+Voici la proposition d&#39;Architecture propre: Partie 1 Le schéma à gauche (en forme d&#39;oignon) est la combinaison de 2 architectures plus anciennes:"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2016-03-15 21:34:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/clean-architecture/">Clean Architecture</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Bonjour à tous,</p>
+<p>Dans cet article nous allons parler de <em>clean architecture</em> en référence à ce que présente Robert C. Martin (alias <a href="https://fr.wikipedia.org/wiki/Robert_C._Martin">Oncle Bob</a>) dans cette <a href="https://www.youtube.com/watch?v=Nsjsiz2A9mg">vidéo</a>. Si vous ne l'avez pas vu, je vous la recommande fortement !</p>
+<p>Tous les concepts dont il parle dans sa proposition &ldquo;d'Architecture propre&rdquo; ne sont pas nouveaux car déjà utilisés dans d'autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)</p>
+<p>Voici la proposition d'Architecture propre:
+<img src="https://leandeep.com/images/clean-architecture-diagram.jpg" alt="image"></p>
+<h1 id="partie-1">Partie 1</h1>
+<p>Le schéma à gauche (en forme d'oignon) est la combinaison de 2 architectures plus anciennes:</p>
+<ul>
+<li><a href="http://jeffreypalermo.com/blog/the-onion-architecture-part-1/">Onion Architecture</a> de Jeffrey Palermo, 2008</li>
+<li><a href="http://alistair.cockburn.us/Hexagonal+architecture">Ports &amp; Adapters Architecture</a> d'Alistair Cockburn, 2005. Cette dernière est également appelée <strong>Architecture Hexagonale</strong>)</li>
+</ul>
+<p>Voici une synthèse des différents concepts présentés.</p>
+<h2 id="externalisation-des-outils-et-des-mcanismes-de-livraison">Externalisation des outils et des mécanismes de livraison</h2>
+<p>Dans une Architecture Hexagonale on se focuse sur l'externalisation des outils et mécanismes de livraison de l'application en utilisant des interfaces (ports) et des <em>adapters</em>.</p>
+<p>Cette approche est aussi un des fondements de l'Onion Architecture comme on peut le voir sur le schéma ci-dessous. Comme on peut le voir, les tests, la couche infrastructure, le UI et la couche d'API sont situés à l'extrémité du diagramme.</p>
+<p><img src="https://leandeep.com/images/Onion-Architecture.png" alt="image"></p>
+<p>Dans la clean Architecture, c'est similaire. Au final tout le <em>core</em> applicatif se retrouve au centre et est agnostique des différents frameworks et librairies.</p>
+<h2 id="direction-des-dpendances">Direction des dépendances</h2>
+<p>Dans l'Archictecture Hexagonale rien n'explicite la direction des dépendances. Néanmoins on peut facilement la déduire.
+L'application a un port (ou interface) qui doit être implémenté ou utilisé par un <em>adpater</em>. Donc l&rsquo;<em>adapter</em> dépend de l'interface qui dépend du <em>core</em> applicatif qui est au centre. Ce qui est à l'extérieur dépend de ce qui est à l'intérieur. Donc la direction des dépendances est vers le centre.</p>
+<p>In the Hexagonal Architecture, we don’t have anything explicitly telling us the direction of the dependencies. Nevertheless, we can easily infer it: The Application has a port (an interface) which must be implemented or used by an adapter. So the Adapter depends on the interface, it depends on the application which is in the centre. What is outside depends on what is inside, the direction of the dependencies is towards the centre.
+Dans le diagramme de la Clean Architecture c'est très explicite. Il y a des flèches en direction du centre. Elles introduisent le principe d'inversion de dépendances. Le centre du cercle ne connait rien de ce qu'il y a à l'extérieur. De plus, lorsque les données circulent entre les couches c'est toujours dans une forme qui convient le mieux aux couches les plus proches du centre.</p>
+<h2 id="couches">Couches</h2>
+<p>Le diagramme de l'Architecture Hexagonale ne montre que 2 couches: intérieur de l'application et extérieur de l'application.</p>
+<p><img src="https://leandeep.com/images/archi-hexa.jpeg" alt="image"></p>
+<p>L'Onion Architecture quant à elle apporte les couches identifiées par le DDD (Domain Driven Design):</p>
+<ul>
+<li>Application Services qui porte la logique du <em>use case</em>.</li>
+<li>Domain Services qui encapsule la logique du domaine qui n'appartient pas aux <em>Entites</em> ou au <em>Value Objects</em>.</li>
+<li>Les Entities, Value Objects&hellip;</li>
+</ul>
+<p>Quand on compare l'Onion Architecture et la Clean Architecture on voit que la Clean Architecture garde toutes les couches de l'Onion Architecture sauf la partie <em>Domain Services layer</em>.
+Cependant lorsque l'on rentre dans le détail des articles de Robert C. Martin on se rend compte qu'il considère les Entities pas simplement comme les Entities en DDD mais comme un Domain Object.</p>
+<h2 id="testabilit-et-isolation">Testabilité et isolation</h2>
+<p>Les 3 types d'Architecture pronent l'isolation de l'application et de la  <em>domain logic</em> . Cela signifie que pour tous les use cases on peut &ldquo;<em>mocker</em>&rdquo; les outils externes et mécanismes de livraison et que les différentes partie de l'application peuvent être testées de manière isolée.</p>
+<h1 id="partie-2">Partie 2</h1>
+<p>Dans cette partie on va s'intéresser à la partie droite du schéma de la Clean Architecture.</p>
+<p><img src="https://leandeep.com/images/clean-architecture-right-side.png" alt="image"></p>
+<p>Ce n'est pas très explicite !
+Par contre, on retrouve plus d'explication avec le schéma suivant:</p>
+<p><img src="https://leandeep.com/images/clean-architecture-design.png" alt="image"></p>
+<p>On y retrouve sur la gauche une Architecture MVC et sur la droite une Architecture EBI (on voit clairement les <em>Boundaries</em>, l&rsquo;<em>Interactor</em> et les <em>Entities</em>), the “Application” in Hexagonal Architecture, the “Application Core” in the Onion Architecture, and the “Entities” and “Use Cases” layers in the Clean Architecture diagram above.</p>
+<p>Ce dernier permet d'illustrer les Architectures suivantes:</p>
+<ul>
+<li>EBI (Entity-Boundary-Interactor) Architecture par Ivar Jacobson, 1992</li>
+<li>Architecture MVC, 1970s</li>
+</ul>
+<p>Le pattern EBI est au backend ce que MVC est au frontend. Ces 2 approches sont complémentaires.</p>
+<blockquote>
+<p>Rappel sur MVC:
+<a href="https://herbertograca.com/2017/08/17/mvc-and-its-variants/#model-view-view_model">https://herbertograca.com/2017/08/17/mvc-and-its-variants/#model-view-view_model</a></p>
+</blockquote>
+<p>Le pattern MVC separe le code en 3 parties:</p>
+<ul>
+<li>Le Modèle représente la <em>business logic</em></li>
+<li>La Vue représente un widget dans le UI: un bouton, text box&hellip;</li>
+<li>Le Controleur permet de coordonner la vue avec le modèle; c'est-à-dire décider quelle Vue afficher avec quelle donnée. Il traduit les actions utilisateur (i.e. clic sur bouton) en business logic.</li>
+</ul>
+<blockquote>
+<p>EBI (Entity-Boundary-Interactor) ou Single Responsibility Principle ?</p>
+</blockquote>
+<h3 id="entity">Entity</h3>
+<p>L'objet <em>Entity</em> contient la donnée utilisée par le système ainsi que tous les comportements couplés à cette donnée.
+&ldquo;An Entity object should contain the logic that would change when the Entity itself changes, that is to say: if the data structure it holds changes, the operations on that data will also need to change and therefore they should be located in the Entity as well.&quot;, Ivar Jacobson 1992</p>
+<h3 id="boundary-interface">Boundary (Interface)</h3>
+<p>L'object Boundary est l'interface avec le système.</p>
+<p>&ldquo;Everything concerning the interface of the system is placed in an interface object&rdquo;, Ivar Jacobson 1992</p>
+<p>Toutes les fonctionnalités qui dépendent de l'environnement du système (outils et mécanismes de livraison) appartiennent à l'objet <em>Boundary</em>.</p>
+<p>Chaque intéraction avec le système au travers d'un &ldquo;acteur&rdquo; passe par l'objet Boundary. Un &ldquo;acteur&rdquo; peut être un humain (admin, client) ou non (alarme, trigger, API externe).</p>
+<h3 id="interactor-control">Interactor (Control)</h3>
+<p>L'objet <em>Interactor</em> va contenir les comportements par naturellement liés aux autres types d'objets.</p>
+<p>Ces comportement peuvent typiquement être des opérations sur plusieurs Entities retournant des résultats (qui passeront par l'objet boundary).</p>
+<p>&ldquo;Behaviour that remains after the Interface objects and Entity objects have obtained their parts will be placed in the control objects&rdquo; Ivar Jacobson 1992</p>
+<p>Cela signifie que tous les comportements qui ne se situent pas dans les objets Boundary ou Entity seront placés dans un ou plusieurs objets Interactor.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Avec cette approche, Robert C. Martin a n'a rien inventé mais rappelle et clarifie des <em>patterns</em> importants souvent oubliés. Il explique quand même comment tous ces patterns, règles et concepts peuvent coexister ensemble pour construire de manière standardisée et propre des applications complexes et facilement maintenables. Je dirais donc que c'est à adopter&hellip;</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/architecture">Architecture</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1053 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Mar. 2016</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/liste-des-exceptions-python/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Liste des exceptions Python</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/r%C3%A9duire-un-tableau-en-javascript/">
+                                <span class="button__text">Réduire un tableau en JavaScript</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.
+Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.
+Description du fonctionnement Voici un schéma qui décrit globalement le fonctionnement du système.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/ok-google-ouvre-le-portail/" />
+
+
+    <title>
+        
+            « Ok google… Ouvre le portail » ! :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="« Ok google… Ouvre le portail » !">
+<meta itemprop="description" content="Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.
+Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.
+Description du fonctionnement
+Voici un schéma qui décrit globalement le fonctionnement du système.
+">
+<meta itemprop="datePublished" content="2017-01-08T20:28:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-01-08T20:28:00&#43;00:00" />
+<meta itemprop="wordCount" content="1251">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Javascript,Python,Raspberry,Domotique,featured," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="« Ok google… Ouvre le portail » !"/>
+<meta name="twitter:description" content="Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.
+Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.
+Description du fonctionnement
+Voici un schéma qui décrit globalement le fonctionnement du système.
+"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-01-08 20:28:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/ok-google-ouvre-le-portail/">« Ok google… Ouvre le portail » !</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.</p>
+<p>Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.</p>
+<h2 id="description-du-fonctionnement">Description du fonctionnement</h2>
+<p>Voici un schéma qui décrit globalement le fonctionnement du système.</p>
+<p><img src="https://leandeep.com/images/article-ok-google-portail.png" alt="image"></p>
+<p>Comme l’indique le schéma ci-dessus, j’ai le choix entre 2 options pour actionner mon portail. Je peux le faire avec les commandes par défaut qui sont les télécommandes ou le visiophone. Et je peux le faire grâce à des commandes vocales.</p>
+<p>Mon portail possède un actionneur de marque BFT (Ultra BT A 400). Ce dernier est fourni avec un moteur et sa carte électronique de commande qui me permettent d’ouvrir ou fermer le portail. Je me suis branché directement sur cette carte électronique et je la pilote grâce à un relais et un Raspberry Pi. Si on regarde le schéma de la carte électronique de commande du moteur ci-dessous, on peut voir qu’il y a deux inputs <code>IC1</code> et <code>IC2</code>.</p>
+<p><img src="https://leandeep.com/images/moteur-1.png" alt="image"></p>
+<p><code>IC1</code> permet d’ouvrir ou fermer le portail en grand et <code>IC2</code> permet de le faire en mode piéton.</p>
+<p>Pour piloter le portail, il faut donc tirer 2 fils entre cette carte de commande et le relais et ensuite piloter le relais avec un Raspberry Pi. Le schéma du câblage est présent dans le paragraphe suivant.</p>
+<h2 id="hardware">Hardware</h2>
+<p>Voici le matériel que j’ai utilisé:</p>
+<ul>
+<li>Raspberry Pi 2</li>
+<li>Dongle Wifi Netgear</li>
+<li>Alimentation 220V</li>
+<li>Relay 5V</li>
+<li>Quelques fils électriques</li>
+<li>Une boite de dérivation</li>
+</ul>
+<p>Finalement il y a assez peu de matériel. La boite de dérivation, n’est pas indispensable mais elle permet de cacher les cables et cartes et ainsi d’avoir quelque chose de propre. En gros, une fois terminé, il n’y a pas des fils qui pendent à côté du tableau électrique. Voici à quoi cela ressemble chez moi:</p>
+<p><img src="https://leandeep.com/images/DSC_0051.jpg" alt="image"></p>
+<p>Voici comment j’ai câblé mon relais et Raspberry Pi avec la commande IC1:</p>
+<p><img src="https://leandeep.com/images/schema-pi-relay.jpeg" alt="image"></p>
+<h2 id="software">Software</h2>
+<p>Pour piloter le GPIO du Raspberry Pi, j’utilise un script que j’ai réalisé en Python. En exécutant le script, la PIN 17 du GPIO prend alternativement la valeur 0 ou 5V. A chaque fois que le relais reçoit une impulsion de 5V, il change d’état; ce qui crée une impulsion sur IC1.</p>
+<p>J’ai également créé une API NodeJS qui me permet d’exposer l’exécution de mon script Python, de sécuriser le tout et de créer une interface WEB de contrôle du portail (je ne la présente pas dans cet article).</p>
+<p>Tout est donc exécuté directement sur le Raspberry Pi qui est accessible sur internet via ma box internet.</p>
+<h2 id="prparation-environnement">Préparation environnement</h2>
+<h3 id="installation-de-nodejs">Installation de NodeJS</h3>
+<pre><code>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+</code></pre><p>Ajouter les 2 commandes suivantes dans votre ~/.bashrc pour activer NVM.</p>
+<pre><code>export NVM_DIR=&quot;$HOME/.nvm&quot; 
+[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; . &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm
+</code></pre><p>Vous pouvez maintenant utiliser NVM et utiliser la version de NodeJS que vous souhaitez.
+Exécutez simplement la commande suivante:</p>
+<pre><code>nvm use 6.9.1 # sélectionnez la version de NodeJS que vous voulez
+</code></pre><h3 id="installation-de-python">Installation de Python</h3>
+<pre><code>apt-get update
+apt-get install gcc
+apt-get install python-dev
+apt-get install python-pip
+pip install RPi.GPIO
+</code></pre><h2 id="api-nodejs">API NodeJS</h2>
+<p>Voici un extrait de code. C’est le endpoint ExpressJS qui exécute mon script Python via un fork unix.</p>
+<pre><code>router.get('/portail/toggle', (req, res) =&gt; {
+  var exec = require('child_process').exec;
+  var cmd = 'python /home/pi/relay.py 2';
+ 
+  exec(cmd, function(error, stdout, stderr) {
+    if(error)
+      return next(error);
+    res.send({msg: 'Yeah it works!'});
+  });
+});
+</code></pre><h3 id="script-python">Script Python</h3>
+<pre><code>#!/usr/bin/python
+ 
+import sys
+import time
+import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+ 
+args = sys.argv
+pin = 17 # GPIO PIN 17
+GPIO.setup(pin, GPIO.OUT)
+ctl = args[1]
+ 
+# [...] Reste du code ici. En effet, mon Raspberry ne me sert pas qu'à piloter le portail.
+ 
+if (int(ctl) == 2):
+  GPIO.output(pin,GPIO.HIGH)
+  time.sleep(2)
+  GPIO.output(pin, GPIO.LOW)
+</code></pre><h3 id="automatisation-sur-android-via-tasker">Automatisation sur Android via Tasker</h3>
+<p>Voyons maintenant comment j’ai fait pour que mon téléphone comprenne ce que je lui dis et comment il communique avec  l’API NodeJS pour ouvrir ou fermer mon portail.</p>
+<p>Pour avancer de façon Lean sur ce projet, j’ai commencé par quelque chose de simple. Je vous parlerais de la finalité de ce que je veux faire avec ce projet en conclusion de cet article.</p>
+<p>J’ai utilisé les fonctionnalités de reconnaissance vocale de Google Now sans rien développer.</p>
+<p>Pour ce faire, j’ai utilisé l’application d’automatisation de tâches appelée Tasker ainsi que son plugin AutoVoice.</p>
+<p>Pour que mon téléphone envoie une requête à mon API Node pour ouvrir le portail quand je prononce la phrase: « Sésame ouvre-toi », il suffit de définir une tâche qui permet d’envoyer une requête vers une URL et définir des profils. Un exemple de profil peut être: si Google Now reconnait une phrase en particulier comme par exemple « Sésame ouvre-toi » alors j’exécute une tâche.</p>
+<p>Beaucoup de tutoriaux sont disponibles sur internet. En voici un par exemple: <a href="http://lifehacker.com/how-to-create-custom-voice-commands-with-tasker-and-aut-1282209195">http://lifehacker.com/how-to-create-custom-voice-commands-with-tasker-and-aut-1282209195</a></p>
+<h3 id="tests-et-industrialisation">Tests et industrialisation</h3>
+<p>J’ai eu beaucoup de chance car je n’ai rencontré absolument aucun obstacle et avais tout ce qu’il me fallait sous la main. Après quelques tests tout a très vite fonctionné.</p>
+<p>Ma dernière tâche, avant de ranger tous les câbles proprement dans le tableau électrique, a consisté à créer un script de démarrage et à installer un process manager pour NodeJS (PM2).</p>
+<p>J’ai donc créé un script nodeStartupHomeAutomation dans /etc/init.d/ et installé les 2 librairies suivantes sur le Raspberry Pi.</p>
+<pre><code>apt-get install psmisc
+npm install -g pm2
+</code></pre><p>Voici à quoi peut ressembler le script de démarrage:</p>
+<pre><code>#! /bin/sh
+# /etc/init.d/nodeStartupHomeAutomation
+ 
+# If you want a command to always run, put it here
+ 
+# Carry out specific functions when asked to by the system
+case &quot;$1&quot; in
+start)
+echo &quot;Starting Node Server&quot;
+ 
+export NVM_DIR=&quot;/home/pi/.nvm&quot;
+[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; . &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm
+ 
+# run application you want to start
+cd /home/pi/home-automation/
+pm2 start app.js --name=&quot;homeAuto&quot;
+# node app.js &amp;
+;;
+stop)
+echo &quot;Stopping Node Server&quot;
+ 
+# kill application you want to stop
+pm2 stop homeAuto
+# killall node
+;;
+*)
+echo &quot;Usage: /etc/init.d/nodeStartupHomeAutomation {start|stop}&quot;
+exit 1
+;;
+esac
+ 
+exit 0
+</code></pre><p>Pour vérifier que le service démarre convenablement, qu’il se stoppe bien et pour l’enregistrer aux services de démarrage, vous pouvez utiliser les commandes suivantes:</p>
+<pre><code>chmod 755 /etc/init.d/nodeStartupHomeAutomation
+ 
+# Test du démarrage du script
+/etc/init.d/nodeStartupHomeAutomation start
+ 
+# Test de l'arrêt du script
+/etc/init.d/nodeStartupHomeAutomation stop 
+ 
+#Enregistrement du script pour être lancé au démarrage de la machine une fois qu'il est ok 
+update-rc.d nodeStartupHomeAutomation defaults 
+</code></pre><h2 id="conclusion">Conclusion</h2>
+<p>Voilà c’est à peu près tout pour cet article. Il n’en faut pas beaucoup plus pour piloter un portail avec des commandes vocales sur un Smartphone.</p>
+<p>Pour ce projet, je ne veux pas en rester là. Je vais passer le tout sur Docker si bien sûr je peux accéder au GPIO depuis un container.</p>
+<p>De plus aujourd’hui je dépends d’internet. Si je n’ai plus internet sur mon Smartphone, aucune commande ne peut être envoyée vers mon Raspberry Pi.</p>
+<p>Pour palier à ce problème et faire du Deep Learning sur un cas concret, je vais mettre en place une caméra à l’extérieure de chez moi qui va filmer en permanence ce qui vient vers le portail. Si ma voiture est reconnue, alors je vais ouvrir le portail et allumer les lumières de chez moi. Pour ce faire, je vais utiliser TensorFlow et un réseau de neurones profond. Cela fera l’objet d’un autre article.</p>
+<p>Si le temps me le permet et purement à des fins d’apprentissage, j’essayerai de mettre en place manuellement de la reconnaissance vocale et remplacer Google Now.</p>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/javascript">Javascript</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/raspberry">Raspberry</a></span><span class="tag"><a href="https://leandeep.com/tags/domotique">Domotique</a></span><span class="tag"><a href="https://leandeep.com/tags/featured">featured</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1251 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 Jan. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/style-guide-pep8-en-python/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Style guide PEP8 en Python</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/obtenir-les-sous-titres-dun-film-en-2-secondes/">
+                                <span class="button__text">Obtenir les sous-titres d&#39;un film en 2 secondes</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

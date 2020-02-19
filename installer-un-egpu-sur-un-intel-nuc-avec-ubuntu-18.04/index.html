@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/installer-un-egpu-sur-un-intel-nuc-avec-ubuntu-18.04/" />
+
+
+    <title>
+        
+            Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04 :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04">
+<meta itemprop="description" content="">
+<meta itemprop="datePublished" content="2019-07-18T12:19:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-07-18T12:19:00&#43;00:00" />
+<meta itemprop="wordCount" content="1363">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Featured,Tensorflow,eGPU,Intel Nuc,Data Science," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04"/>
+<meta name="twitter:description" content=""/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-07-18 12:19:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/installer-un-egpu-sur-un-intel-nuc-avec-ubuntu-18.04/">Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p><img src="https://leandeep.com/images/IMG_35783.JPG" alt="image"></p>
+<h1 id="introduction">Introduction</h1>
+<p>J'ai récemment fait l'acquisition d'un Intel Nuc (Core i7 et 32 go de RAM). Franchement je suis vraiment satisfait. Il est petit, leger, sobre, stylé, consomme peu et celui que j'ai choisi a du Thunderbolt 3. C'est d'ailleurs pour cela que je l'ai acheté.</p>
+<p>Qui dit Thunderbolt 3 dit eGPU. Et qui dit eGPU dit tensorflow-gpu !..</p>
+<p>J'ai recyclé une ancienne carte graphique qui trainaient dans un ancien PC. Il s'agit d'une <code>Geforce GTX 660 Ti</code> achetée en 2012 aux USA. Elle ne vaut sans doute plus grand chose aujourd'hui. Mais pourtant elle va nous être bien utile; soit pour miner (nouveau centre d'intérêt) soit pour entraîner mes modèles de Machine / Deep Learning.<br>
+J'ai aussi fait l'acquisition d'un boitier eGPU. J'ai pris un Razer Core X. C'est la première fois que j'achète du Razer. Ce premier achat me satisfait vraiment car il est de très bonne qualité.</p>
+<p><strong>Dans cet article nous allons voir comment installer les drivers pour que la carte graphique utilisée dans le boitier eGPU soit reconnue et comment installer les outils nécessaires pour que Tensorflow puisse être compilé et fonctionner avec ce dernier. J'ai beaucoup galéré pour faire fonctionner le tout. J'espère que cet article pourra vous faire économiser des heures pour rien.</strong></p>
+<h1 id="pr-requis">Pré-requis</h1>
+<p>Le kernel que j'utilise est le <code>4.18.0</code>. Il y a pleins d'articles sur internet qui disent de mettre à jour le Kernel avant de commencer. Je l'ai fait et cela n'a pas fonctionné. J'ai testé le <code>5.2</code> et j'ai dû faire machine arrière&hellip;</p>
+<p><strong>Questions!</strong></p>
+<h2 id="comment-connatre-la-version-du-kernel-">Comment connaître la version du kernel ?</h2>
+<p>Tout simplement avec la commande:</p>
+<pre><code>cat /proc/version
+</code></pre><h2 id="comment-mettre--jour-le-kernel-">Comment mettre à jour le kernel ?</h2>
+<p>En ligne de commande ou via une petite interface graphique:</p>
+<pre><code># Installer ukuu
+sudo apt-add-repository ppa:teejee2008/ppa
+sudo apt update
+sudo apt-get install ukuu
+# Lancer l'interface
+sudo ukuu-gtk
+</code></pre><h2 id="comment-backuper-sa-machine-avant-de-la-bidouiller-">Comment backuper sa machine avant de la bidouiller ?</h2>
+<p>Très bonne question! Heureusement avant chaque manipulation délicate j'ai snapshoté ma machine. J'ai pris le risque de laisser le snapshot dessus en toute connaissance de cause. Vous pouvez le sortir si vraiment vous craignez de ne pas pouvoir réparer votre machine. Je vous conseille juste d'installer SSH pour pouvoir vous connecter dessus au cas où Gnome ne démarre même plus&hellip;</p>
+<p>Je réalise mes snapshots avec Timeshift. Il y a une interface graphique mais apprenez à l'utiliser en lignes de commande. Ce n'est pas le jour où tout est crashé qu'il faut se demander comment faire :D .</p>
+<pre><code># Installation de Timeshift
+sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift
+# Créer un snapshot 
+# sudo timeshift --create --comments &quot;after cuda installation&quot; --tags D
+# Voir les snapshots
+sudo timeshift --list
+# Restaurer un snapshot 
+# sudo timeshift --restore
+</code></pre><h2 id="est-ce-que-le-gpu-install-dans-le-boitier-egpu-est-bien-dtect-">Est-ce que le GPU installé dans le boitier eGPU est bien détecté ?</h2>
+<pre><code>lspci | grep -i nvidia
+
+06:00.0 VGA compatible controller: NVIDIA Corporation GK104 [GeForce GTX 660 Ti] (rev a1)
+</code></pre><h1 id="installation">Installation</h1>
+<h2 id="configurer-gcc-et-g">Configurer GCC et G++</h2>
+<p>Il vous faudra une utiliser la version 6 de <code>GCC</code> et <code>G++</code> pour builder Tensorflow. Si vous avez une version plus récente cela ne fonctionnera pas.</p>
+<pre><code>gcc --version
+g++ --version
+</code></pre><p>Installer gcc et g++ 6:</p>
+<pre><code>sudo apt install gcc-6 g++-6
+</code></pre><p>Créer les variables d'environnement permettant de sélectionner la bonne version dans le fichier <code>~/.zshrc</code>.</p>
+<pre><code>export CC=/usr/bin/gcc-6
+export CXX=/usr/bin/g++-6
+</code></pre><h2 id="installer-les-drivers-nvidia">Installer les Drivers Nvidia</h2>
+<p>Enlever les nouveaux drivers qui viennent avec l'installation d'Ubuntu. Identifier les avec la commande:</p>
+<pre><code>lsmod | grep nouveau
+</code></pre><p>Créer un fichier <code>/etc/modprobe.d/blacklist-nouveau.conf</code> et ajouter lui le contenu suivant:</p>
+<pre><code>blacklist nouveau
+options nouveau modeset=0
+</code></pre><p>Régénérer le Kernel initramfs:</p>
+<pre><code>sudo update-initramfs -u
+</code></pre><p>On peut maintenant installer le Driver Nvidia nécessaire au bon fonctionnement de mon GPU:</p>
+<pre><code>sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt install nvidia-384 nvidia-384-dev
+sudo reboot
+</code></pre><p>Après le reboot vérifier que tout fonctionne avecc la commande <code>nvidia-smi</code>. Si vous avez un résultat similaire à celui-ci vous êtes sur la bonne voie.</p>
+<pre><code>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 390.116                Driver Version: 390.116                   |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 660 Ti  Off  | 00000000:06:00.0 N/A |                  N/A |
+| 30%   26C    P8    N/A /  N/A |    162MiB /  1999MiB |     N/A      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0                    Not Supported                                       |
++-----------------------------------------------------------------------------+
+</code></pre><h2 id="installer-cuda">Installer Cuda</h2>
+<p>On peut maintenant passer à l'installation de Cuda.
+J'ai beaucoup galéré à cette étape car j'ai essayé d'installer les dernières versione de Cuda. Au moment où j'écris cet article il s'agissait de la version 10.1. Cette dernière n'a pas fonctionné car trop récente pour mon GPU.
+J'ai donc installé la <code>cuda version 9.0</code> à partir de ce fichier précisément <code>cuda_9.0.176_384.81_linux-run</code>.</p>
+<pre><code>wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
+chmod +x cuda_9.0.176_384.81_linux.run 
+sudo ./cuda_9.0.176_384.81_linux.run --override
+</code></pre><ul>
+<li>
+<p>Pendant l'installation dire yes à &ldquo;You are attempting to install on an unsupported configuration. Do you wish to continue?&rdquo;</p>
+</li>
+<li>
+<p>Dire no à &ldquo;Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 384.81?&rdquo;</p>
+</li>
+<li>
+<p>Dire yes à &ldquo;Install the CUDA 9.0 Toolkit?&rdquo;</p>
+</li>
+<li>
+<p>Dire yes à &ldquo;Create symbolic links?&rdquo;</p>
+</li>
+<li>
+<p>Dire yes à l'installation des examples Cuda et installer les dans le répertoire proposé par défaut.</p>
+</li>
+</ul>
+<p>Vous pouvez vérifier la bonne installation de Cuda avec la commande:</p>
+<pre><code>nvcc -V
+
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2017 NVIDIA Corporation
+Built on Fri_Sep__1_21:08:03_CDT_2017
+Cuda compilation tools, release 9.0, V9.0.176
+</code></pre><h2 id="installer-cudnn">Installer CudNN</h2>
+<p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez le package suivant <code>cudnn-9.0-linux-x64-v7.3.0.29</code>. Ensuite installez le.</p>
+<pre><code>tar -xzvf cudnn-9.0-linux-x64-v7.3.0.29.tgz
+sudo cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include
+sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
+sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
+</code></pre><h2 id="installer-libcudnn">Installer libcudnn</h2>
+<p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez les 3 packages <code>libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb</code>, <code>libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb</code> et <code>libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb</code>. Attention les numéros de versions sont à respecter. J'ai aussi perdu beaucoup de temps sur cela.</p>
+<p>Installez les:</p>
+<pre><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb
+</code></pre><p>Vérifier que cudnn est bien installé:</p>
+<pre><code># Copy the cuDNN sample to a writable path.
+cp -r /usr/src/cudnn_samples_v7/ $HOME
+# Go to the writable path.
+cd  $HOME/cudnn_samples_v7/mnistCUDNN
+# Compile the mnistCUDNN sample.
+make clean &amp;&amp; make
+# Run the mnistCUDNN sample.
+./mnistCUDNN
+# If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:
+$ Test passed!
+</code></pre><p>Maintenons les paquets afin qu’ils ne soient pas updatés ou effacés:</p>
+<pre><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
+</code></pre><h2 id="installer-bazel">Installer Bazel</h2>
+<pre><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
+chmod +x bazel-0.17.2-installer-linux-x86_64.sh
+./bazel-0.17.2-installer-linux-x86_64.sh --user
+</code></pre><p>Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:</p>
+<pre><code>export PATH=&quot;$PATH:$HOME/bin&quot;
+</code></pre><h2 id="builderinstallertester-tensorflow-gpu">Builder/Installer/Tester Tensorflow GPU</h2>
+<p>Rendez-vous ensuite sur un précédent article que j'ai écrit sur le sujet. Suivez la section &ldquo;Installer TensorFlow&rdquo;. J'ai suivi mon propre tutorial et cela a fonctionné ! <a href="https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow">https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow</a></p>
+<p>Cela fonctionne avec Python 2.7 et Python 3&hellip;</p>
+<pre><code>python
+Python 3.6.8 (default, Jan 14 2019, 11:02:34)
+[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;
+&gt;&gt;&gt; import tensorflow as tf
+&gt;&gt;&gt; hello = tf.constant('Hello, TensorFlow!')
+&gt;&gt;&gt; sess = tf.Session()
+
+2019-07-19 11:08:55.100940: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2019-07-19 11:08:55.170484: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:964] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-07-19 11:08:55.171894: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1411] Found device 0 with properties:
+name: GeForce GTX 660 Ti major: 3 minor: 0 memoryClockRate(GHz): 0.98
+pciBusID: 0000:06:00.0
+totalMemory: 1.95GiB freeMemory: 1.75GiB
+2019-07-19 11:08:55.171908: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1490] Adding visible gpu devices: 0
+2019-07-19 11:08:55.467370: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-07-19 11:08:55.467397: I tensorflow/core/common_runtime/gpu/gpu_device.cc:977]      0
+2019-07-19 11:08:55.467409: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990] 0:   N
+2019-07-19 11:08:55.467629: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1103] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1523 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 660 Ti, pci bus id: 0000:06:00.0, compute capability: 3.0)
+</code></pre><blockquote>
+<p>Jupyter Lab fix:
+Après avoir installé Tensorflow j'avais un message d'erreur m'indiquant que la librairie <code>libcublas</code> n'existait pas (<code>No such file or directory</code>) alors que les variables d'environnement <code>LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64</code> et <code>PATH=$PATH:/usr/local/cuda-9.0/bin</code> étaient bien configurées. Cette erreur n'apparaissait que dans Jupyter Lab. Partout ailleurs Tensorflow fonctionnait. J'ai donc modifié la configuration de Jupyter Lab et ajouté l'import manuellement. En haut du fichier <code>~/.jupyter/jupyter_notebook_config.py</code> j'ai ajouté le code suivant:</p>
+</blockquote>
+<pre><code>import os
+c = get_config()
+os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda-9.0/lib64:usr/local/cuda-9.0/lib64/libcudart.so.9.0'
+c.Spawner.env.update('LD_LIBRARY_PATH')
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/featured">Featured</a></span><span class="tag"><a href="https://leandeep.com/tags/tensorflow">Tensorflow</a></span><span class="tag"><a href="https://leandeep.com/tags/egpu">eGPU</a></span><span class="tag"><a href="https://leandeep.com/tags/intel-nuc">Intel Nuc</a></span><span class="tag"><a href="https://leandeep.com/tags/data-science">Data Science</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1363 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Jul. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/installer-xgboost-lightgbm-et-catboost-sur-ubuntu-18.04/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Installer XGBoost, LightGBM et CatBoost sur Ubuntu 18.04</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/extract-resolve-geographic-entities-from-unstructured-text/">
+                                <span class="button__text">Extract &amp; resolve geographic entities from unstructured text</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Indispensable à savoir Index L’index est une zone qui permet de préparer un commit.
+HEAD HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
+Rebase vs Merge Préférer le rebase pour garder un historique propre
+Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/config-commandes-et-tips-utiles-git/" />
+
+
+    <title>
+        
+            Config, Commandes et tips utiles Git :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Config, Commandes et tips utiles Git">
+<meta itemprop="description" content="Indispensable à savoir Index L’index est une zone qui permet de préparer un commit.
+HEAD HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
+Rebase vs Merge Préférer le rebase pour garder un historique propre
+Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.">
+<meta itemprop="datePublished" content="2015-09-19T18:25:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-09-19T18:25:00&#43;00:00" />
+<meta itemprop="wordCount" content="1678">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Development,Git," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Config, Commandes et tips utiles Git"/>
+<meta name="twitter:description" content="Indispensable à savoir Index L’index est une zone qui permet de préparer un commit.
+HEAD HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
+Rebase vs Merge Préférer le rebase pour garder un historique propre
+Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2015-09-19 18:25:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/config-commandes-et-tips-utiles-git/">Config, Commandes et tips utiles Git</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="indispensable--savoir">Indispensable à savoir</h1>
+<h2 id="index">Index</h2>
+<p>L’index est une zone qui permet de préparer un commit.</p>
+<h2 id="head">HEAD</h2>
+<p>HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.</p>
+<h1 id="rebase-vs-merge">Rebase vs Merge</h1>
+<p>Préférer le rebase pour garder un historique propre</p>
+<h1 id="rebase">Rebase</h1>
+<p>Eviter <code>git pull</code> pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.</p>
+<p>Faire un rebase:</p>
+<pre><code>git pull --rebase 
+ou 
+git rebase origin/master
+</code></pre><p>Les commits qui n’existaient que sur la branche master sont supprimés et réappliqués/ rejoués à la suite des commits de la branche origin/master.</p>
+<p>En rebasant vos branches avant de les fusionner, vous obtiendrez un historique tout plat et bien plus agréable à parcourir.</p>
+<h2 id="exemple-1">Exemple 1:</h2>
+<pre><code>          F---G ← bug2
+         /
+A---B---E---H---I ← master
+     \
+      C---D ← bug1
+</code></pre><p>En utilisant un rebase avant chaque fusion, on obtient l'historique suivant :</p>
+<pre><code>A---B---E---H---I---C---D---F---G ← master
+</code></pre><p>Les commandes pour parvenir à ce résultat sont les suivantes, explications juste après.</p>
+<pre><code>git rebase master bug1
+git checkout master
+git merge bug1
+git branch -d bug1
+git rebase master bug2
+git checkout master
+git merge bug2
+git branch -d bug2
+</code></pre><p>Explications des commandes.</p>
+<ul>
+<li>Transplante bug1 sur l'actuelle branche master. <strong>Si on est déjà en train de bosser sur bug1 on peut se contenter de taper git rebase master</strong></li>
+<li>Switche sur master</li>
+<li>Fusionne bug1 dans master</li>
+<li>Supprime la branche bug1 devenue inutile</li>
+<li>Transplante bug2 sur la branche master</li>
+<li>Switche sur master</li>
+<li>Fusionne bug2 dans master</li>
+<li>Supprime bug2 devenue inutile.</li>
+</ul>
+<h2 id="exemple-2">Exemple 2</h2>
+<blockquote>
+<p>Autre manière de faire, peut être plus simple&hellip;</p>
+</blockquote>
+<p>En supposant que l'on veuille garder la feature branche synchronisée avec la branche develop, voici les commandes à suivre:</p>
+<pre><code>git fetch # depuis la feature branche (vérifier que la feature branche sur laquelle vous travaillez est à jour)
+
+git rebase origin/develop
+
+# S'il y a des conflits, il faut les résoudre un par un.
+
+Utiliser git rebase --continue une fois que tous les conflits sont traités
+
+git push origin feature_branch --force
+</code></pre><h2 id="exemple-3-ultra-simple">Exemple 3 (ultra simple)</h2>
+<pre><code>git checkout votre_feature_branch
+git fetch
+git rebase origin/master
+</code></pre><p>Et c'est tout!</p>
+<h1 id="merge-quand-mme">Merge (quand même)</h1>
+<pre><code>git checkout master
+git pull
+git checkout your_feature_en_attente
+git merge master
+</code></pre><h1 id="stash">Stash</h1>
+<p>Cette commande permet de mettre de côté des modifications de la copie de travail et de l’index.</p>
+<h3 id="afficher-tous-les-stash">Afficher tous les stash</h3>
+<pre><code>git stash list
+</code></pre><h3 id="appliquer-un-stash">Appliquer un stash</h3>
+<pre><code># Exemple:
+git stash apply stash@{0}
+</code></pre><h3 id="crer-un-nouveau-stash-stasher-tous-les-fichiers">Créer un nouveau stash (stasher tous les fichiers)</h3>
+<pre><code>git stash save &quot;&lt;nom du stash&gt;&quot;
+</code></pre><h3 id="crer-seulement-certains-fichiers">Créer seulement certains fichiers</h3>
+<p>Add to index changes we don't want to stash and then stash with &ndash;keep-index option.</p>
+<pre><code>git add app/controllers/cart_controller.php
+git stash --keep-index
+git reset
+</code></pre><h3 id="appliquer-un-stash-1">Appliquer un stash</h3>
+<pre><code>git stash branch myfeature
+</code></pre><h3 id="appliquer-le-dernier-stash-lifo">Appliquer le dernier stash (LIFO)</h3>
+<pre><code>git stash pop
+</code></pre><h1 id="cherry-picking">Cherry-picking</h1>
+<p>Cherry-pick permet de sélectionner un commit quelconque et de l’appliquer sur la branche actuelle.</p>
+<pre><code>git checkout my-feature
+git cherry-pick e32c529d
+</code></pre><h1 id="rsoudre-un-conflit">Résoudre un conflit</h1>
+<h3 id="pendant-un-merge">Pendant un merge</h3>
+<p>Après un <code>git merge</code> ou <code>git pull</code>, on commence par exécuter la commande:</p>
+<pre><code>git status # ou gss # ou git st # git stp (voir mes alias)
+# On branch master
+# Changes to be committed:
+#
+#       modified:   mon_fichier1
+#
+# Unmerged paths:
+#   (use &quot;git add/rm &lt; file &gt;...&quot; as appropriate to mark resolution)
+#
+#       both modified:      mon_fichier2
+#
+</code></pre><p>Puis on corrige le problème de merge grâce à la commande <code>git mergetool</code> qui ouvrira l'outil de merge configuré sur votre poste.
+Autre possibilité, faire la correction manuellement, faire un <code>git add</code> ou <code>git stage</code> sur le fichier corrigé et enfin un <code>git commit</code>.</p>
+<blockquote>
+<p>En cas de problème, il est possible d'exécuter un <code>git reset --hard HEAD</code> pour revenir en arrière sur le merge</p>
+</blockquote>
+<blockquote>
+<p>Pour configurer git mergetool, il est possible d'utiliser la commande suivante: <code>git config --global merge.tool bc3</code> après avoir téléchargé et installé l'extension <a href="https://marketplace.visualstudio.com/items?itemName=hung-vi.terminal-git-mergetool">vscode-ext-git-mergetool</a> pour OSX .</p>
+</blockquote>
+<h3 id="pendant-un-rebase">Pendant un rebase</h3>
+<pre><code>git checkout master # ou git co master
+git rebase origin/master # ou git pull --rebase
+
+git status
+# Unmerged paths:
+#   (use &quot;git add/rm &lt; file &gt;...&quot; as appropriate to mark resolution)
+#
+#       both modified:      mon_fichier
+#
+
+git mergetool
+
+# On corrige
+
+git rebase --continue
+</code></pre><blockquote>
+<p>Pour revenir en arrière (état du dépot) sur un rebase qui se passe mal: <code>git rebase --abort</code></p>
+</blockquote>
+<p>Un schéma vaut mieux qu'un long discours. Voici ce que fait un rebase:</p>
+<p><img src="https://leandeep.com/images/rebase.png" alt="image"></p>
+<h3 id="grer-un-conflit-sur-un-binaire">Gérer un conflit sur un binaire</h3>
+<pre><code>git checkout --ours -- path_binary_file
+git checkout --theirs -- path_binary_file
+</code></pre><h1 id="rcrire-lhistorique">Réécrire l'historique</h1>
+<pre><code>git rebase --interactive HEAD~3
+# ou 
+# git rebase -i HEAD~3
+# ou
+# git rebase -i &lt;sha-de-votre-commit&gt; (via git log)
+</code></pre><p>Plusieurs options s'offrent à nous pour les 3 commits:</p>
+<ul>
+<li>Supprimer la ligne pour supprimer le commit de l’historique</li>
+<li>Changer l’ordre des lignes pour changer l’ordre d’application des commits</li>
+<li>Remplacer &ldquo;pick&rdquo; par &ldquo;edit&rdquo; pour pouvoir modifier le commit</li>
+<li>Remplacer &ldquo;pick&rdquo; par &ldquo;squash&rdquo; pour merger le commit avec le précédent pour n’en créer qu’un seul</li>
+<li>Remplacer &ldquo;pick&rdquo; par &ldquo;reword&rdquo; pour juste changer le message de commit</li>
+</ul>
+<p>Pour poursuivre la réécriture de l’historique, terminer avec les commandes suivantes:</p>
+<pre><code>git stage
+git rebase --continue
+</code></pre><h1 id="config-en-plus-de-oh-my-zsh">Config (en plus de oh-my-zsh)</h1>
+<p>A ajouter au fichier ~/.gitconfig:</p>
+<pre><code>[alias]
+        st = status
+        stp = status --porcelain
+        ci = commit
+        br = branch
+        co = checkout
+        rz = reset --hard HEAD
+        pullr = pull --rebase
+        unstage = reset HEAD
+        lol = log --graph --decorate --pretty=oneline --abbrev-commit
+        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+        lpush = &quot;!git --no-pager log origin/$(git currentbranch)..HEAD --oneline&quot;
+        lpull = &quot;!git --no-pager log HEAD..origin/$(git currentbranch) --oneline&quot;
+        whatsnew = &quot;!git diff origin/$(git currentbranch)...HEAD&quot;
+        whatscoming = &quot;!git diff HEAD...origin/$(git currentbranch)&quot;
+        currentbranch = &quot;!git branch | grep \&quot;^\\*\&quot; | cut -d \&quot; \&quot; -f 2&quot;
+...
+[color]
+        branch = auto
+        diff = auto
+        status = auto
+        interactive = auto
+</code></pre><h1 id="tlcharger-en-local-les-pull-requests">Télécharger en local les Pull Requests</h1>
+<p><strong>Projet par projet</strong></p>
+<p>Dans le fichier .git/config, localiser le code qui ressemble à ceci:</p>
+<pre><code>[remote &quot;origin&quot;]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git@github.com:joyent/node.git
+</code></pre><p>Maintenant ajouter la ligne suivante:</p>
+<pre><code>(pour Gitlab) fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+
+# fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+</code></pre><p>La section dans le fichier devrait resssemble à cela:</p>
+<pre><code>[remote &quot;origin&quot;]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git@github.com:joyent/node.git
+	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+</code></pre><p>Maitenant vous pouvez récupérer toutes les PR en cours:</p>
+<pre><code>git fetch origin
+From github.com:joyent/node
+ * [new ref]         refs/pull/1000/head -&gt; origin/pr/1000
+ * [new ref]         refs/pull/1002/head -&gt; origin/pr/1002
+ * [new ref]         refs/pull/1004/head -&gt; origin/pr/1004
+ * [new ref]         refs/pull/1009/head -&gt; origin/pr/1009
+...
+</code></pre><p>Vous pouvez faire un checkout sur une pull request en particulier:</p>
+<pre><code>git checkout pr/999
+Branch pr/999 set up to track remote branch pr/999 from origin.
+Switched to a new branch 'pr/999'
+</code></pre><p><strong>Ajouter automatiquement cette commande à tous les repos</strong></p>
+<pre><code>git config --global --add remote.origin.fetch &quot;+refs/pull/*/head:refs/remotes/origin/pr/*&quot;
+</code></pre><h1 id="diffrences-entre-branches">Différences entre branches</h1>
+<p><strong>Différences entre branche actuelle et master:</strong></p>
+<pre><code>git diff master
+</code></pre><p><strong>Différences entre 2 branches (par exemple master et staging):</strong></p>
+<pre><code>git diff master..staging
+</code></pre><p><strong>Seulement montrer les fichiers différents entre 2 branches (sans les changements):</strong></p>
+<pre><code>git diff --name-status master..staging
+</code></pre><h1 id="commandes-en-vrac">Commandes en vrac</h1>
+<p><strong>Annuler la commande <code>git commit</code> (et donc conserver/ récupérer tous les changements qui étaient prêts à être pushés:</strong></p>
+<pre><code>git reset --soft HEAD^
+</code></pre><p><strong>Modifier le dernier commit:</strong></p>
+<pre><code>git commit --amend
+</code></pre><p><strong>Effacer une branche locale:</strong></p>
+<pre><code>git branch -d new-branch
+</code></pre><p><strong>Retourner sur la dernière branche:</strong></p>
+<pre><code>git checkout -
+</code></pre><p><strong>Effacer une branche remote:</strong></p>
+<pre><code>git push origin --delete new-branch
+</code></pre><p><strong>Contrôler le comportement de git push par default pour éviter de devoir specifier la branch (sur laquelle on est) avant de pusher:</strong></p>
+<pre><code>git config --global push.default current
+</code></pre><p><strong>Annuler les changements en local d'un fichier</strong></p>
+<pre><code>git checkout filename
+</code></pre><p><strong>Pusher un seul commit</strong></p>
+<pre><code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:&lt;remote_branch_name&gt;
+</code></pre><p>La branche &lt;remote_branch_name&gt; doit exister sur remote. (Si ce n'est pas le cas, il est possible d'utiliser <code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:refs/heads/&lt;remote_branch_name&gt;</code> pour la créer automatiquement.)</p>
+<blockquote>
+<p>Note:
+<code>git push --set-upstream origin dev</code> ou <code>git push -u origin dev</code>
+Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. celui dont on a fait un clone au départ), et l'option &ndash;set-upstream permet de dire à Git de se souvenir qu'un « git push » de notre branche « dev » a été fait. Le prochain push pourra donc se faire simplement avec un simple <code>git push</code>.</p>
+</blockquote>
+<p><strong>Annuler le dernier commit</strong></p>
+<p>Les commandes à appliquer dépendent du dernier commit:</p>
+<ul>
+<li>
+<p>Quand le dernier commit <strong>n'est pas</strong> le commit initial, il suffit d'exécuter la commance suivante: <code>git reset HEAD~</code></p>
+</li>
+<li>
+<p>Quand le dernier commit <strong>est</strong> le commit initial, il faut exécuter les commandes suivantes: <code>git update-ref -d HEAD</code> puis <code>git rm --cached -r .</code></p>
+</li>
+</ul>
+<p><strong>Annuler le dernier commit et garder tous les changements staged</strong></p>
+<pre><code>git reset --soft HEAD~
+</code></pre><p><em>C'est différent de <code>git reset HEAD~</code> qui ne garde pas staged les derniers changements.</em></p>
+<p><strong>Voir les derniers commits locaux pas encore pushé sur l'origin:</strong></p>
+<pre><code>git log --branches --not --remotes
+</code></pre><h1 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h1>
+<pre><code>$ git init
+Initialized empty Git repository in .git/
+
+$ echo &quot;testing reset&quot; &gt; file1
+$ git add file1
+$ git commit -m 'added file1'
+Created initial commit 1a75c1d: added file1
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 file1
+
+$ echo &quot;added new file&quot; &gt; file2
+$ git add file2
+$ git commit -m 'added file2'
+Created commit f6e5064: added file2
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 file2
+
+$ git reset --hard HEAD^
+HEAD is now at 1a75c1d... added file1
+
+$ cat file2
+cat: file2: No such file or directory
+
+$ git reflog
+1a75c1d... HEAD@{0}: reset --hard HEAD^: updating HEAD
+f6e5064... HEAD@{1}: commit: added file2
+
+$ git reset --hard f6e5064
+HEAD is now at f6e5064... added file2
+
+$ cat file2
+added new file
+</code></pre><h1 id="taille-en-local-du-repo">Taille en local du repo</h1>
+<pre><code>$ git count-objects -v -H
+
+count: 6
+size: 24.00 KiB
+in-pack: 0
+packs: 0
+size-pack: 0 bytes
+prune-packable: 0
+garbage: 0
+size-garbage: 0 bytes
+</code></pre><h1 id="bisect">Bisect</h1>
+<blockquote>
+<p>Le bisect permet de réaliser une dichotimie sur un range de commit afin d'identifier celui qui génère une régression.</p>
+</blockquote>
+<pre><code>$ git bisect start          # Start the binary search process
+$ git bisect bad            # Identify the end of the range
+$ git bisect good v4.2.0    # Identify the start of the range
+</code></pre><p>Puis après un test sur votre app ou tests unitaires préciser soit <code>git bisect bad</code> ou <code>git bisect good</code></p>
+<h1 id="workflow-pour-travailler-en-quipe">Workflow pour travailler en équipe</h1>
+<p><strong>Gitflow:</strong>
+<a href="http://danielkummer.github.io/git-flow-cheatsheet/">http://danielkummer.github.io/git-flow-cheatsheet/</a></p>
+<p><em>Edited 13 november 2016:</em></p>
+<p><strong>Better method: Github flow:</strong></p>
+<p><a href="https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/">https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/development">Development</a></span><span class="tag"><a href="https://leandeep.com/tags/git">Git</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1678 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Sep. 2015</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/comment-lire-une-matrice-de-confusion/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Comment lire une Matrice de confusion</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/">
+                                <span class="button__text">Basics Python commands pour Matplotlib, Numpy et debugging misc</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

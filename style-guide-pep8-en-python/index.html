@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Je recommande de suivre le style guide PEP 8 pour coder en Python.
+# Whitespace: In Python, whitespace is syntactically significant. Python # programmers are especially sensitive to the effects of whitespace on # code clarity. # 1. Use spaces instead of tabs for indentation. # 2. Use four spaces for each level of syntactically significant indenting. # 3. Lines should be 79 characters in length or less. # 4. Continuations of long expressions onto additional lines should be # indented by four extra spaces from their normal indentation level." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/style-guide-pep8-en-python/" />
+
+
+    <title>
+        
+            Style guide PEP8 en Python :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Style guide PEP8 en Python">
+<meta itemprop="description" content="Je recommande de suivre le style guide PEP 8 pour coder en Python.
+# Whitespace: In Python, whitespace is syntactically significant. Python # programmers are especially sensitive to the effects of whitespace on # code clarity. # 1. Use spaces instead of tabs for indentation. # 2. Use four spaces for each level of syntactically significant indenting. # 3. Lines should be 79 characters in length or less. # 4. Continuations of long expressions onto additional lines should be # indented by four extra spaces from their normal indentation level.">
+<meta itemprop="datePublished" content="2017-02-01T21:54:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-02-01T21:54:00&#43;00:00" />
+<meta itemprop="wordCount" content="691">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Style guide PEP8 en Python"/>
+<meta name="twitter:description" content="Je recommande de suivre le style guide PEP 8 pour coder en Python.
+# Whitespace: In Python, whitespace is syntactically significant. Python # programmers are especially sensitive to the effects of whitespace on # code clarity. # 1. Use spaces instead of tabs for indentation. # 2. Use four spaces for each level of syntactically significant indenting. # 3. Lines should be 79 characters in length or less. # 4. Continuations of long expressions onto additional lines should be # indented by four extra spaces from their normal indentation level."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-02-01 21:54:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/style-guide-pep8-en-python/">Style guide PEP8 en Python</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Je recommande de suivre le style guide PEP 8 pour coder en Python.</p>
+<pre><code># Whitespace: In Python, whitespace is syntactically significant. Python
+# programmers are especially sensitive to the effects of whitespace on
+# code clarity.
+
+# 1. Use spaces instead of tabs for indentation.
+# 2. Use four spaces for each level of syntactically significant indenting.
+# 3. Lines should be 79 characters in length or less.
+# 4. Continuations of long expressions onto additional lines should be
+#     indented by four extra spaces from their normal indentation level.
+# 5. In a file, functions and classes should be separated by two blank lines.
+# 6. In a class, methods should be separated by one blank line.
+# 7. Don't put spaces around list indexes, function calls, or keyword
+#     argument assignments.
+# 8. Put one-and only one-space before and after variable assignments.
+</code></pre><pre><code># Naming: PEP 8 suggests unique styles of naming for different part in the
+# language.
+
+# 1. Functions, variables, and attributs should be in lovercase_underscore
+#     format.
+# 2. Protected instance attributes should be in _leading_underscore format.
+# 3. Private instance attributes should be in __double_leading_underscore
+#     format.
+# 4. Classes and exceptions should be in CapitalizedWord format.
+# 5. Module-level constants should be in ALL_CAPS format.
+# 6. Instance methods in classes should use self as the name of the first
+#     parameter (which refers to the object).
+# 7. Class methods should use cls as the name of the first parameter (which
+# refers to the class).
+</code></pre><pre><code># Expressions and Statements: The Zen of Python states: &quot;There should be one-
+# and preferably only one-obvious way to do it.&quot;
+
+# 1. Use inline negation (if a is not b) instead of negative of positive
+#     expressions (if not a is b)
+# 2. Don't check for empty value (like [] or '') by checking the length
+#     (if len(somelist) == 0). Use if not somelist and assume empty values
+#     implicitly evaluate to False.
+# 3. The same thing goes for non-empty values (like [1] or 'hi'). The statement
+#     if somelist is implicitly True for non-empty values.
+# 4. Avoid single-line if statements, for and while loops, and except compound
+#     statements. Spread these over multiple lines for clarity.
+# 5. Always put import statements as the top of a file.
+# 6. Always use absolute names for modules when importing them, not names
+#     relative to the current module's own path. For example, to import the foo
+#     module for the bar package, you should do from bar import foo, not just
+#     import foo.
+# 7. If you must do relative imports, use the explicit syntax from . import foo.
+# 8. Imports should be in sections in the following order: standard library
+#     modules, third-party modules, your own modules. Each subsection should
+#     have imports in alphabetical order.
+</code></pre><p>&hellip; Ceci n'est qu'un aperçu.</p>
+<p>Avec de bons outils comme flake8, il est facile de linter son code pour faire en sorte qu'il respecte certains style guides. Le slogan de Flake8 est parlant: &ldquo;Your Tool For Style Guide Enforcement&rdquo;.</p>
+<blockquote>
+<p>Attention à ceci:
+&ldquo;It is very important to install Flake8 on the correct version of Python for your needs. If you want Flake8 to properly parse new language features in Python 3.5 (for example), you need it to be installed on 3.5 for Flake8 to understand those features. In many ways, Flake8 is tied to the version of Python on which it runs.&rdquo; Source <a href="http://flake8.pycqa.org">http://flake8.pycqa.org</a></p>
+</blockquote>
+<p>Flake8 c'est un outil qui vérifie grâce à pyflakes la conformité du code Python avec pep8 et la <em>circular complexity</em>.</p>
+<p>Pour utiliser flake8 avec VScode, il suffit de créer un fichier <code>.flake8</code> à la racine de votre projet et de coller le contenu suivant:</p>
+<pre><code>[flake8]
+filename = *.py,*.pyx,*.pxd,*.pxi
+ignore = E402,E731,D100,D101,D102,D103,D104,D105,W503,W504,E252
+exclude = .git,__pycache__,build,dist,.eggs,postgres,vendor
+
+per-file-ignores = *.pyx,*.pxd,*.pxi: E211, E222, E225, E226, E227, E999
+
+max-line-length = 160
+</code></pre><p>Comme vous pouvez le remarquer il est possible d'ignorer certaines rêgles.</p>
+<p>Il faut aussi créer un fichier <code>.vscode/settings.json</code> pour dire à VScode d'utiliser flake8 comme linter.</p>
+<p>Voici un exemple de fichier settings.</p>
+<pre><code>{
+    &quot;python.pythonPath&quot;: &quot;.venv/bin/python3.5&quot;,
+    &quot;python.linting.pylintEnabled&quot;: false,
+    &quot;python.linting.flake8Enabled&quot;: true,
+    &quot;python.linting.enabled&quot;: true
+}
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>691 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 Feb. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/slicing-dans-tous-les-sens-en-python/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Slicing dans tous les sens en Python</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/ok-google-ouvre-le-portail/">
+                                <span class="button__text">« Ok google… Ouvre le portail » !</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

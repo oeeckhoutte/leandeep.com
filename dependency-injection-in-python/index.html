@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Introduction There are many articles available online that talk about dependency injection (DI) in Python. Most of them suggest complexe methods for something that can be finally very easy to do using the built-in Python mechanisms.
+Working with dependency injection is a good thing since it makes your code more testable and decoupled.
+To implement dependency injection we are going to use the super method. Super calls the next dependency in the Method Resolution Order." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/dependency-injection-in-python/" />
+
+
+    <title>
+        
+            Dependency Injection in Python :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Dependency Injection in Python">
+<meta itemprop="description" content="Introduction There are many articles available online that talk about dependency injection (DI) in Python. Most of them suggest complexe methods for something that can be finally very easy to do using the built-in Python mechanisms.
+Working with dependency injection is a good thing since it makes your code more testable and decoupled.
+To implement dependency injection we are going to use the super method. Super calls the next dependency in the Method Resolution Order.">
+<meta itemprop="datePublished" content="2019-06-12T19:28:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-12T19:28:00&#43;00:00" />
+<meta itemprop="wordCount" content="459">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Python,Tests,Design Patterns," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Dependency Injection in Python"/>
+<meta name="twitter:description" content="Introduction There are many articles available online that talk about dependency injection (DI) in Python. Most of them suggest complexe methods for something that can be finally very easy to do using the built-in Python mechanisms.
+Working with dependency injection is a good thing since it makes your code more testable and decoupled.
+To implement dependency injection we are going to use the super method. Super calls the next dependency in the Method Resolution Order."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-06-12 19:28:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/dependency-injection-in-python/">Dependency Injection in Python</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="introduction">Introduction</h1>
+<p>There are many articles available online that talk about dependency injection (DI) in Python.
+Most of them suggest complexe methods for something that can be finally very easy to do using the built-in Python mechanisms.</p>
+<p>Working with dependency injection is a good thing since it makes your code more testable and decoupled.</p>
+<p>To implement dependency injection we are going to use the <code>super</code> method. Super calls the next dependency in the <strong><a href="https://en.wikipedia.org/wiki/C3_linearization">Method Resolution Order</a></strong>.</p>
+<h1 id="example">Example</h1>
+<p>Let's say I am developing an (kind of) autonomous surveillance camera composed of a RC car with a camera on top of it.</p>
+<p>I have the following class to steer my car:</p>
+<p><em>Create a file autonomous_surveillance_car.py</em></p>
+<pre><code>class Car(object):
+    &quot;&quot;&quot;
+    Class that can drive a RCC car
+    &quot;&quot;&quot;
+
+    def turn_on(self):
+        print(&quot;Starting car...&quot;)
+
+    def move_forward(self):
+        print(&quot;Going forward...&quot;)
+
+    def move_backward(self):
+        print(&quot;Going backward...&quot;)
+
+    def turn_right(self):
+        print(&quot;Turning right...&quot;)
+
+    def turn_left(self):
+        print(&quot;Turning left...&quot;)
+
+
+class AutonomousCar(Car):
+    &quot;&quot;&quot;
+    Automates the car directions to spy the house
+    &quot;&quot;&quot;
+
+    def spy(self, times=10):
+        super().turn_on()
+        for i in range(times):
+            super().move_forward()
+            super().turn_right()
+            super().move_forward()
+            super().turn_right()
+            super().move_forward()
+            super().turn_right()
+            super().move_forward()
+            super().turn_right()
+            # sleep x minutes
+
+
+if __name__ == '__main__':
+    auto_car = AutonomousCar()
+    auto_car.spy()
+
+</code></pre><p>Now I want to write tests for my autonomous car class car but I don't want that my car starts going forward. This can be dangerous. I want to use a Mock. But I don't want to modify the <code>AutonomousCar(Car)</code> line and replace the <code>Car</code> dependency with something like <code>MockCar</code> when I want to execute my tests.</p>
+<p>The solution is to use a dependency injection:</p>
+<p><em>Create a file called test_autonomous_surveillance_car.py</em></p>
+<pre><code>import unittest
+from autonomous_surveillance_car import AutonomousCar, Car
+
+
+class MockCar(Car):
+    &quot;&quot;&quot;
+    Simulates a read RC car by recording tasks
+    &quot;&quot;&quot;
+
+    def __init__(self):
+        self.tasks = []
+
+    def turn_on(self):
+        self.tasks.append(&quot;Turning on car&quot;)
+
+    def move_forward(self):
+        self.tasks.append(&quot;Going forward&quot;)
+
+    def move_backward(self):
+        self.tasks.append(&quot;Going backward&quot;)
+
+    def turn_right(self):
+        self.tasks.append(&quot;Turning right&quot;)
+
+    def turn_left(self):
+        self.tasks.append(&quot;Turning left&quot;)
+
+
+class MockedAutonomousCar(AutonomousCar, MockCar):
+    &quot;&quot;&quot;
+    Inject a mock car into the car dependency
+    &quot;&quot;&quot;
+
+
+class TestAutonomousCar(unittest.TestCase):
+
+    def test_spy(self):
+        mocked_auto_car = MockedAutonomousCar()
+        mocked_auto_car.spy()
+        expected = ([&quot;Turning on car&quot;] +
+                    [&quot;Going forward&quot;, &quot;Turning right&quot;] * 40)
+        self.assertEqual(mocked_auto_car.tasks, expected)
+
+
+if __name__ == &quot;__main__&quot;:
+    unittest.main()
+
+</code></pre><p>Now execute the test:</p>
+<pre><code>python -i test_autonomous_surveillance_car.py
+</code></pre><p>Result:</p>
+<pre><code>.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+</code></pre><p>In the prompt type <code>help(MockedAutonomousCar)</code>.</p>
+<p>You will see the Method Resolution Order (the dependencies order used when <code>super</code> is called) of the <code>MockedAutonomousCar</code> Class:</p>
+<pre><code>Help on class MockedAutonomousCar in module __main__:
+
+class MockedAutonomousCar(autonomous_surveillance_car.AutonomousCar, MockCar)
+ |  Inject a mock car into the car dependency
+ |
+ |  Method resolution order:
+ |      MockedAutonomousCar
+ |      autonomous_surveillance_car.AutonomousCar
+ |      MockCar
+ |      autonomous_surveillance_car.Car
+ |      builtins.object
+ |
+
+...
+
+</code></pre><h1 id="conclusion">Conclusion</h1>
+<p>We see that our <code>MockedAutonomousCar</code> class uses depends on <code>autonomous_surveillance_car.AutonomousCar</code> class that depends on <code>MockCar</code> class. It does not depends on the <code>Car</code> class and we did not change our codebase. Moreover the implementation was very easy and just took 1 line of code.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/tests">Tests</a></span><span class="tag"><a href="https://leandeep.com/tags/design-patterns">Design Patterns</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>459 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>12 Jun. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/custom-python-packages-with-aws-lambda-and-cdk/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Custom Python Packages with AWS lambda and CDK</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/passer-de-oh-my-zsh-%C3%A0-oh-my-fish/">
+                                <span class="button__text">Passer de oh-my-zsh à oh-my-fish</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

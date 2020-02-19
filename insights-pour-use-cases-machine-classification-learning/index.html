@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Cette compilation de compétitions Kaggle autour de sujets de classification peut vous faire gagner du temps dans vos propres Use Cases.
+======
+Titanic: Machine Learning from Disaster Fri 28 Sep 2012 - Sat 31 Dec 2016
+Predict survival on the Titanic using Excel, Python, R &amp;amp; Random Forests
+======
+TalkingData Mobile User Demographics Mon 11 Jul 2016 - Mon 5 Sep 2016
+Get to know millions of mobile device users" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/insights-pour-use-cases-machine-classification-learning/" />
+
+
+    <title>
+        
+            Insights pour Use Cases Machine Classification Learning :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Insights pour Use Cases Machine Classification Learning">
+<meta itemprop="description" content="Cette compilation de compétitions Kaggle autour de sujets de classification peut vous faire gagner du temps dans vos propres Use Cases.
+======
+Titanic: Machine Learning from Disaster Fri 28 Sep 2012 - Sat 31 Dec 2016
+Predict survival on the Titanic using Excel, Python, R &amp; Random Forests
+======
+TalkingData Mobile User Demographics Mon 11 Jul 2016 - Mon 5 Sep 2016
+Get to know millions of mobile device users">
+<meta itemprop="datePublished" content="2016-07-24T21:33:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-07-24T21:33:00&#43;00:00" />
+<meta itemprop="wordCount" content="1787">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Insights pour Use Cases Machine Classification Learning"/>
+<meta name="twitter:description" content="Cette compilation de compétitions Kaggle autour de sujets de classification peut vous faire gagner du temps dans vos propres Use Cases.
+======
+Titanic: Machine Learning from Disaster Fri 28 Sep 2012 - Sat 31 Dec 2016
+Predict survival on the Titanic using Excel, Python, R &amp; Random Forests
+======
+TalkingData Mobile User Demographics Mon 11 Jul 2016 - Mon 5 Sep 2016
+Get to know millions of mobile device users"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2016-07-24 21:33:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>9 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/insights-pour-use-cases-machine-classification-learning/">Insights pour Use Cases Machine Classification Learning</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Cette compilation de compétitions Kaggle autour de sujets de classification peut vous faire gagner du temps dans vos propres Use Cases.</p>
+<p>======</p>
+<h3 id="titanic-machine-learning-from-disasterhttpswwwkagglecomctitanic"><a href="https://www.kaggle.com/c/titanic">Titanic: Machine Learning from Disaster</a></h3>
+<p>Fri 28 Sep 2012 - Sat 31 Dec 2016</p>
+<p>Predict survival on the Titanic using Excel, Python, R &amp; Random Forests</p>
+<p>======</p>
+<h3 id="talkingdata-mobile-user-demographicshttpswwwkagglecomctalkingdata-mobile-user-demographics"><a href="https://www.kaggle.com/c/talkingdata-mobile-user-demographics">TalkingData Mobile User Demographics</a></h3>
+<p>Mon 11 Jul 2016 - Mon 5 Sep 2016</p>
+<p>Get to know millions of mobile device users</p>
+<p>======</p>
+<h3 id="shelter-animal-outcomeshttpswwwkagglecomcshelter-animal-outcomes"><a href="https://www.kaggle.com/c/shelter-animal-outcomes">Shelter Animal Outcomes</a></h3>
+<p>Mon 21 Mar 2016 - Sun 31 Jul 2016</p>
+<p>Help improve outcomes for shelter animals</p>
+<p>======</p>
+<h3 id="san-francisco-crime-classificationhttpswwwkagglecomcsf-crime"><a href="https://www.kaggle.com/c/sf-crime">San Francisco Crime Classification</a></h3>
+<p>Tue 2 Jun 2015 – Mon 6 Jun 2016</p>
+<p>Predict the category of crimes that occurred in the city by the bay</p>
+<p>======</p>
+<h3 id="santander-customer-satisfactionhttpswwwkagglecomcsantander-customer-satisfaction"><a href="https://www.kaggle.com/c/santander-customer-satisfaction">Santander Customer Satisfaction</a></h3>
+<p>Wed 2 Mar 2016 – Mon 2 May 2016</p>
+<p>Which customers are happy customers?</p>
+<p>======</p>
+<h3 id="bnp-paribas-cardif-claims-managementhttpswwwkagglecomcbnp-paribas-cardif-claims-management"><a href="https://www.kaggle.com/c/bnp-paribas-cardif-claims-management">BNP Paribas Cardif Claims Management</a></h3>
+<p>Wed 3 Feb 2016 – Mon 18 Apr 2016</p>
+<p>Can you accelerate BNP Paribas Cardif's claims management process?</p>
+<p>======</p>
+<h3 id="march-machine-learning-mania-2016httpswwwkagglecomcmarch-machine-learning-mania-2016"><a href="https://www.kaggle.com/c/march-machine-learning-mania-2016">March Machine Learning Mania 2016</a></h3>
+<p>Thu 11 Feb 2016 – Tue 5 Apr 2016</p>
+<p>Predict the 2016 NCAA Basketball Tournament</p>
+<p>======</p>
+<h3 id="telstra-network-disruptionshttpswwwkagglecomctelstra-recruiting-network"><a href="https://www.kaggle.com/c/telstra-recruiting-network">Telstra Network Disruptions</a></h3>
+<p>Wed 25 Nov 2015 – Mon 29 Feb 2016</p>
+<p>Telstra is challenging Kagglers to predict the severity of service disruptions on their network. Using a dataset of features from their service logs, you're tasked with predicting if a disruption is a momentary glitch or a total interruption of connectivity.</p>
+<p>======</p>
+<h3 id="prudential-life-insurance-assessmenthttpswwwkagglecomcprudential-life-insurance-assessment"><a href="https://www.kaggle.com/c/prudential-life-insurance-assessment">Prudential Life Insurance Assessment</a></h3>
+<p>Mon 23 Nov 2015 – Mon 15 Feb 2016</p>
+<p>By developing a predictive model that accurately classifies risk using a more automated approach, you can greatly impact public perception of the industry.</p>
+<p>======</p>
+<h3 id="the-allen-ai-science-challengehttpswwwkagglecomcthe-allen-ai-science-challenge"><a href="https://www.kaggle.com/c/the-allen-ai-science-challenge">The Allen AI Science Challenge</a></h3>
+<p>Wed 7 Oct 2015 – Sat 13 Feb 2016</p>
+<p>Using a dataset of multiple choice question and answers from a standardized 8th grade science exam, AI2 is challenging you to create a model that gets to the head of the class.</p>
+<p>======</p>
+<h3 id="airbnb-new-user-bookingshttpswwwkagglecomcairbnb-recruiting-new-user-bookings"><a href="https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings">Airbnb New User Bookings</a></h3>
+<p>Wed 25 Nov 2015 – Thu 11 Feb 2016</p>
+<p>In this recruiting competition, Airbnb challenges you to predict in which country a new user will make his or her first booking.</p>
+<p>======</p>
+<h3 id="homesite-quote-conversionhttpswwwkagglecomchomesite-quote-conversion"><a href="https://www.kaggle.com/c/homesite-quote-conversion">Homesite Quote Conversion</a></h3>
+<p>Mon 9 Nov 2015 – Mon 8 Feb 2016</p>
+<p>Which customers will purchase a quoted insurance plan?</p>
+<p>======</p>
+<h3 id="walmart-recruiting-trip-type-classificationhttpswwwkagglecomcwalmart-recruiting-trip-type-classification"><a href="https://www.kaggle.com/c/walmart-recruiting-trip-type-classification">Walmart Recruiting: Trip Type Classification</a></h3>
+<p>Mon 26 Oct 2015 – Sun 27 Dec 2015</p>
+<p>Walmart is challenging Kagglers to focus on the (data) science and classify customer trips using only a transactional dataset of the items they've purchased.</p>
+<p>======</p>
+<h3 id="whats-cookinghttpswwwkagglecomcwhats-cooking"><a href="https://www.kaggle.com/c/whats-cooking">What's Cooking?</a></h3>
+<p>Wed 9 Sep 2015 – Sun 20 Dec 2015</p>
+<p>Use recipe ingredients to categorize the cuisine</p>
+<p>======</p>
+<h3 id="springleaf-marketing-responsehttpswwwkagglecomcspringleaf-marketing-response"><a href="https://www.kaggle.com/c/springleaf-marketing-response">Springleaf Marketing Response</a></h3>
+<p>Fri 14 Aug 2015 – Mon 19 Oct 2015</p>
+<p>Determine whether to send a direct mail piece to a customer</p>
+<p>======</p>
+<h3 id="truly-nativehttpswwwkagglecomcdato-native"><a href="https://www.kaggle.com/c/dato-native">Truly Native?</a></h3>
+<p>Thu 6 Aug 2015 – Wed 14 Oct 2015</p>
+<p>Predict which web pages served by StumbleUpon are sponsored</p>
+<p>======</p>
+<h3 id="flavours-of-physics-finding---httpswwwkagglecomcflavours-of-physics"><a href="https://www.kaggle.com/c/flavours-of-physics">Flavours of Physics: Finding τ → μμμ</a></h3>
+<p>Mon 20 Jul 2015 – Mon 12 Oct 2015</p>
+<p>Identify a rare decay phenomenon</p>
+<p>======</p>
+<h3 id="avito-context-ad-clickshttpswwwkagglecomcavito-context-ad-clicks"><a href="https://www.kaggle.com/c/avito-context-ad-clicks">Avito Context Ad Clicks</a></h3>
+<p>Tue 2 Jun 2015 – Tue 28 Jul 2015</p>
+<p>Predict if context ads will earn a user's click</p>
+<p>======</p>
+<h3 id="crowdflower-search-results-relevancehttpswwwkagglecomccrowdflower-search-relevance"><a href="https://www.kaggle.com/c/crowdflower-search-relevance">Crowdflower Search Results Relevance</a></h3>
+<p>Mon 11 May 2015 – Mon 6 Jul 2015</p>
+<p>Predict the relevance of search results from eCommerce sites</p>
+<p>======</p>
+<h3 id="west-nile-virus-predictionhttpswwwkagglecomcpredict-west-nile-virus"><a href="https://www.kaggle.com/c/predict-west-nile-virus">West Nile Virus Prediction</a></h3>
+<p>Wed 22 Apr 2015 – Wed 17 Jun 2015</p>
+<p>Predict West Nile virus in mosquitos across the city of Chicago</p>
+<p>======</p>
+<h3 id="facebook-recruiting-iv-human-or-robothttpswwwkagglecomcfacebook-recruiting-iv-human-or-bot"><a href="https://www.kaggle.com/c/facebook-recruiting-iv-human-or-bot">Facebook Recruiting IV: Human or Robot?</a></h3>
+<p>Mon 27 Apr 2015 – Mon 8 Jun 2015</p>
+<p>The goal of this competition is to identify online auction bids that are placed by &ldquo;robots&rdquo;, helping the site owners easily flag these users for removal from their site to prevent unfair auction activity.</p>
+<p>======</p>
+<h3 id="poker-rule-inductionhttpswwwkagglecomcpoker-rule-induction"><a href="https://www.kaggle.com/c/poker-rule-induction">Poker Rule Induction</a></h3>
+<p>Wed 3 Dec 2014 – Mon 1 Jun 2015</p>
+<p>Determine the poker hand of five playing cards</p>
+<p>======</p>
+<h3 id="random-acts-of-pizzahttpswwwkagglecomcrandom-acts-of-pizza"><a href="https://www.kaggle.com/c/random-acts-of-pizza">Random Acts of Pizza</a></h3>
+<p>Thu 29 May 2014 – Mon 1 Jun 2015</p>
+<p>Predicting altruism through free pizza</p>
+<p>======</p>
+<h3 id="otto-group-product-classification-challengehttpswwwkagglecomcotto-group-product-classification-challenge"><a href="https://www.kaggle.com/c/otto-group-product-classification-challenge">Otto Group Product Classification Challenge</a></h3>
+<p>Tue 17 Mar 2015 – Mon 18 May 2015</p>
+<p>Classify products into the correct category</p>
+<p>======</p>
+<h3 id="forest-cover-type-predictionhttpswwwkagglecomcforest-cover-type-prediction"><a href="https://www.kaggle.com/c/forest-cover-type-prediction">Forest Cover Type Prediction</a></h3>
+<p>Fri 16 May 2014 – Mon 11 May 2015</p>
+<p>Use cartographic variables to classify forest categories</p>
+<p>======</p>
+<h3 id="microsoft-malware-classification-challenge-big-2015httpswwwkagglecomcmalware-classification"><a href="https://www.kaggle.com/c/malware-classification">Microsoft Malware Classification Challenge (BIG 2015)</a></h3>
+<p>Tue 3 Feb 2015 – Fri 17 Apr 2015</p>
+<p>Classify malware into families based on file content and characteristics</p>
+<p>======</p>
+<h3 id="march-machine-learning-mania-2015httpswwwkagglecomcmarch-machine-learning-mania-2015"><a href="https://www.kaggle.com/c/march-machine-learning-mania-2015">March Machine Learning Mania 2015</a></h3>
+<p>Mon 2 Feb 2015 – Tue 7 Apr 2015</p>
+<p>Predict the 2015 NCAA Basketball Tournament</p>
+<p>======</p>
+<h3 id="bci-challenge--ner-2015httpswwwkagglecomcinria-bci-challenge"><a href="https://www.kaggle.com/c/inria-bci-challenge">BCI Challenge @ NER 2015</a></h3>
+<p>Wed 19 Nov 2014 – Tue 24 Feb 2015</p>
+<p>A spell on you if you cannot detect errors!</p>
+<p>======</p>
+<h3 id="click-through-rate-predictionhttpswwwkagglecomcavazu-ctr-prediction"><a href="https://www.kaggle.com/c/avazu-ctr-prediction">Click-Through Rate Prediction</a></h3>
+<p>Tue 18 Nov 2014 – Mon 9 Feb 2015</p>
+<p>Predict whether a mobile ad will be clicked</p>
+<p>======</p>
+<h3 id="data-science-london--scikit-learnhttpswwwkagglecomcdata-science-london-scikit-learn"><a href="https://www.kaggle.com/c/data-science-london-scikit-learn">Data Science London + Scikit-learn</a></h3>
+<p>Wed 6 Mar 2013 – Wed 31 Dec 2014</p>
+<p>Scikit-learn is an open-source machine learning library for Python. Give it a try here!</p>
+<p>======</p>
+<h3 id="display-advertising-challengehttpswwwkagglecomccriteo-display-ad-challenge"><a href="https://www.kaggle.com/c/criteo-display-ad-challenge">Display Advertising Challenge</a></h3>
+<p>Tue 24 Jun 2014 – Tue 23 Sep 2014</p>
+<p>Predict click-through rates on display ads</p>
+<p>======</p>
+<h3 id="mlsp-2014-schizophrenia-classification-challengehttpswwwkagglecomcmlsp-2014-mri"><a href="https://www.kaggle.com/c/mlsp-2014-mri">MLSP 2014 Schizophrenia Classification Challenge</a></h3>
+<p>Thu 5 Jun 2014 – Sun 20 Jul 2014</p>
+<p>Diagnose schizophrenia using multimodal features from MRI scans</p>
+<p>======</p>
+<h3 id="greek-media-monitoring-multilabel-classification-wise-2014httpswwwkagglecomcwise-2014"><a href="https://www.kaggle.com/c/wise-2014">Greek Media Monitoring Multilabel Classification (WISE 2014)</a></h3>
+<p>Mon 2 Jun 2014 – Tue 15 Jul 2014</p>
+<p>Multi-label classification of printed media articles to topics</p>
+<p>======</p>
+<h3 id="kdd-cup-2014---predicting-excitement-at-donorschooseorghttpswwwkagglecomckdd-cup-2014-predicting-excitement-at-donors-choose"><a href="https://www.kaggle.com/c/kdd-cup-2014-predicting-excitement-at-donors-choose">KDD Cup 2014 - Predicting Excitement at DonorsChoose.org</a></h3>
+<p>Thu 15 May 2014 – Tue 15 Jul 2014</p>
+<p>Predict funding requests that deserve an A+</p>
+<p>======</p>
+<h3 id="acquire-valued-shoppers-challengehttpswwwkagglecomcacquire-valued-shoppers-challenge"><a href="https://www.kaggle.com/c/acquire-valued-shoppers-challenge">Acquire Valued Shoppers Challenge</a></h3>
+<p>Thu 10 Apr 2014 – Mon 14 Jul 2014</p>
+<p>Predict which shoppers will become repeat buyers</p>
+<p>======</p>
+<h3 id="allstate-purchase-prediction-challengehttpswwwkagglecomcallstate-purchase-prediction-challenge"><a href="https://www.kaggle.com/c/allstate-purchase-prediction-challenge">Allstate Purchase Prediction Challenge</a></h3>
+<p>Tue 18 Feb 2014 – Mon 19 May 2014</p>
+<p>Predict a purchased policy based on transaction history</p>
+<p>======</p>
+<h3 id="march-machine-learning-maniahttpswwwkagglecomcmarch-machine-learning-mania"><a href="https://www.kaggle.com/c/march-machine-learning-mania">March Machine Learning Mania</a></h3>
+<p>Tue 7 Jan 2014 – Tue 8 Apr 2014</p>
+<p>Tip off college basketball by predicting the 2014 NCAA Tournament</p>
+<p>======</p>
+<h3 id="accelerometer-biometric-competitionhttpswwwkagglecomcaccelerometer-biometric-competition"><a href="https://www.kaggle.com/c/accelerometer-biometric-competition">Accelerometer Biometric Competition</a></h3>
+<p>Tue 23 Jul 2013 – Fri 22 Nov 2013</p>
+<p>Recognize users of mobile devices from accelerometer data</p>
+<p>======</p>
+<h3 id="stumbleupon-evergreen-classification-challengehttpswwwkagglecomcstumbleupon"><a href="https://www.kaggle.com/c/stumbleupon">StumbleUpon Evergreen Classification Challenge</a></h3>
+<p>Fri 16 Aug 2013 – Thu 31 Oct 2013</p>
+<p>Build a classifier to categorize webpages as evergreen or non-evergreen</p>
+<p>======</p>
+<h3 id="cause-effect-pairshttpswwwkagglecomccause-effect-pairs"><a href="https://www.kaggle.com/c/cause-effect-pairs">Cause-effect pairs</a></h3>
+<p>Fri 29 Mar 2013 – Mon 2 Sep 2013</p>
+<p>Given samples from a pair of variables A, B, find whether A is a cause of B.</p>
+<p>======</p>
+<h3 id="amazoncom---employee-access-challengehttpswwwkagglecomcamazon-employee-access-challenge"><a href="https://www.kaggle.com/c/amazon-employee-access-challenge">Amazon.com - Employee Access Challenge</a></h3>
+<p>Wed 29 May 2013 – Wed 31 Jul 2013</p>
+<p>Predict an employee's access needs, given his/her job role</p>
+<p>======</p>
+<h3 id="kdd-cup-2013---author-disambiguation-challenge-track-2httpswwwkagglecomckdd-cup-2013-author-disambiguation"><a href="https://www.kaggle.com/c/kdd-cup-2013-author-disambiguation">KDD Cup 2013 - Author Disambiguation Challenge (Track 2)</a></h3>
+<p>Fri 19 Apr 2013 – Wed 12 Jun 2013</p>
+<p>Identify which authors correspond to the same person</p>
+<p>======</p>
+<h3 id="predict-closed-questions-on-stack-overflowhttpswwwkagglecomcpredict-closed-questions-on-stack-overflow"><a href="https://www.kaggle.com/c/predict-closed-questions-on-stack-overflow">Predict Closed Questions on Stack Overflow</a></h3>
+<p>Tue 21 Aug 2012 – Sat 3 Nov 2012</p>
+<p>Predict which new questions asked on Stack Overflow will be closed</p>
+<p>======</p>
+<h3 id="merck-molecular-activity-challengehttpswwwkagglecomcmerckactivity"><a href="https://www.kaggle.com/c/MerckActivity">Merck Molecular Activity Challenge</a></h3>
+<p>Thu 16 Aug 2012 – Tue 16 Oct 2012</p>
+<p>Help develop safe and effective medicines by predicting molecular activity.</p>
+<p>======</p>
+<h3 id="data-mining-hackathon-on-big-data-7gb-best-buy-mobile-web-sitehttpswwwkagglecomcacm-sf-chapter-hackathon-big"><a href="https://www.kaggle.com/c/acm-sf-chapter-hackathon-big">Data Mining Hackathon on BIG DATA (7GB) Best Buy mobile web site</a></h3>
+<p>Sat 18 Aug 2012 – Sun 30 Sep 2012</p>
+<p>Predict which BestBuy product a mobile web visitor will be most interested in based on their search query or behavior over 2 years (7 GB).</p>
+<p>======</p>
+<h3 id="data-mining-hackathon-on-20-mb-best-buy-mobile-web-site---acm-sf-bay-area-chapterhttpswwwkagglecomcacm-sf-chapter-hackathon-small"><a href="https://www.kaggle.com/c/acm-sf-chapter-hackathon-small">Data Mining Hackathon on (20 mb) Best Buy mobile web site - ACM SF Bay Area Chapter</a></h3>
+<p>Sat 18 Aug 2012 – Sun 30 Sep 2012</p>
+<p>Getting Started - Predict which Xbox game a visitor will be most interested in based on their search query. (20 MB)</p>
+<p>======</p>
+<h3 id="practice-fusion-diabetes-classificationhttpswwwkagglecomcpf2012-diabetes"><a href="https://www.kaggle.com/c/pf2012-diabetes">Practice Fusion Diabetes Classification</a></h3>
+<p>Tue 10 Jul 2012 – Mon 10 Sep 2012</p>
+<p>Identify patients diagnosed with Type 2 Diabetes</p>
+<p>======</p>
+<h3 id="personality-prediction-based-on-twitter-streamhttpswwwkagglecomctwitter-personality-prediction"><a href="https://www.kaggle.com/c/twitter-personality-prediction">Personality Prediction Based on Twitter Stream</a></h3>
+<p>Tue 8 May 2012 – Fri 29 Jun 2012</p>
+<p>Identify the best performing model(s) to predict personality traits based on Twitter usage</p>
+<p>======</p>
+<h3 id="predicting-a-biological-responsehttpswwwkagglecomcbioresponse"><a href="https://www.kaggle.com/c/bioresponse">Predicting a Biological Response</a></h3>
+<p>Fri 16 Mar 2012 – Fri 15 Jun 2012</p>
+<p>Predict a biological response of molecules from their chemical properties</p>
+<p>======</p>
+<h3 id="eye-movements-verification-and-identification-competitionhttpswwwkagglecomcemvic"><a href="https://www.kaggle.com/c/emvic">Eye Movements Verification and Identification Competition</a></h3>
+<p>Tue 20 Mar 2012 – Sun 15 Apr 2012</p>
+<p>Determine how people may be identified based on their eye movement characteristic.</p>
+<p>======</p>
+<h3 id="what-do-you-knowhttpswwwkagglecomcwhatdoyouknow"><a href="https://www.kaggle.com/c/WhatDoYouKnow">What Do You Know?</a></h3>
+<p>Fri 18 Nov 2011 – Wed 29 Feb 2012</p>
+<p>Improve the state of the art in student evaluation by predicting whether a student will answer the next test question correctly.</p>
+<p>======</p>
+<h3 id="dont-get-kickedhttpswwwkagglecomcdontgetkicked"><a href="https://www.kaggle.com/c/DontGetKicked">Don't Get Kicked!</a></h3>
+<p>Fri 30 Sep 2011 – Thu 5 Jan 2012</p>
+<p>Predict if a car purchased at auction is a lemon (new car with defects)</p>
+<p>======</p>
+<h3 id="give-me-some-credithttpswwwkagglecomcgivemesomecredit"><a href="https://www.kaggle.com/c/GiveMeSomeCredit">Give Me Some Credit</a></h3>
+<p>Mon 19 Sep 2011 – Thu 15 Dec 2011</p>
+<p>Improve on the state of the art in credit scoring by predicting the probability that somebody will experience financial distress in the next two years.</p>
+<p>======</p>
+<h3 id="photo-quality-predictionhttpswwwkagglecomcphotoqualityprediction"><a href="https://www.kaggle.com/c/PhotoQualityPrediction">Photo Quality Prediction</a></h3>
+<p>Sat 29 Oct 2011 – Sun 20 Nov 2011</p>
+<p>Given anonymized information on thousands of photo albums, predict whether a human evaluator would mark them as &lsquo;good&rsquo;.</p>
+<p>======</p>
+<h3 id="dont-overfithttpswwwkagglecomcoverfitting"><a href="https://www.kaggle.com/c/overfitting">Don't Overfit!</a></h3>
+<p>Mon 28 Feb 2011 – Sun 15 May 2011</p>
+<p>With nearly as many variables as training cases, what are the best techniques to avoid disaster?</p>
+<p>======</p>
+<h3 id="stay-alert-the-ford-challengehttpswwwkagglecomcstayalert"><a href="https://www.kaggle.com/c/stayalert">Stay Alert! The Ford Challenge</a></h3>
+<p>Wed 19 Jan 2011 – Wed 9 Mar 2011</p>
+<p>Driving while not alert can be deadly. The objective is to design a classifier that will detect whether the driver is alert or not alert, employing data that are acquired while driving.</p>
+<p>======</p>
+<h3 id="predict-grant-applicationshttpswwwkagglecomcunimelb"><a href="https://www.kaggle.com/c/unimelb">Predict Grant Applications</a></h3>
+<p>Mon 13 Dec 2010 – Sun 20 Feb 2011</p>
+<p>This task requires participants to predict the outcome of grant applications for the University of Melbourne.</p>
+<p>======</p>
+<h3 id="ijcnn-social-network-challengehttpswwwkagglecomcsocialnetwork"><a href="https://www.kaggle.com/c/socialNetwork">IJCNN Social Network Challenge</a></h3>
+<p>Mon 8 Nov 2010 – Tue 11 Jan 2011</p>
+<p>This competition requires participants to predict edges in an online social network. The winner will receive free registration and the opportunity to present their solution at IJCNN 2011.</p>
+<p>======</p>
+<h3 id="r-package-recommendation-enginehttpswwwkagglecomcr"><a href="https://www.kaggle.com/c/R">R Package Recommendation Engine</a></h3>
+<p>Sun 10 Oct 2010 – Tue 8 Feb 2011</p>
+<p>The aim of this competition is to develop a recommendation engine for R libraries (or packages). (R is opensource statistics software.)</p>
+<p>======</p>
+<h3 id="informs-data-mining-contest-2010httpswwwkagglecomcinforms2010"><a href="https://www.kaggle.com/c/informs2010">INFORMS Data Mining Contest 2010</a></h3>
+<p>Mon 21 Jun 2010 – Sun 10 Oct 2010</p>
+<p>The goal of this contest is to predict short term movements in stock prices. The winners of this contest will be honoured of the INFORMS Annual Meeting in Austin-Texas (November 7-10).</p>
+<p>======</p>
+<h3 id="predict-hiv-progressionhttpswwwkagglecomchivprogression"><a href="https://www.kaggle.com/c/hivprogression">Predict HIV Progression</a></h3>
+<p>Tue 27 Apr 2010 – Mon 2 Aug 2010</p>
+<p>This contest requires competitors to predict the likelihood that an HIV patient's infection will become less severe, given a small dataset and limited clinical information.</p>
+<p>======</p>
+<h3 id="forecast-eurovision-votinghttpswwwkagglecomceurovision2010"><a href="https://www.kaggle.com/c/Eurovision2010">Forecast Eurovision Voting</a></h3>
+<p>Wed 7 Apr 2010 – Tue 25 May 2010</p>
+<p>This competition requires contestants to forecast the voting for this year's Eurovision Song Contest in Norway on May 25th, 27th and 29th.</p>
+<p>======</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1787 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>24 Jul. 2016</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/insights-pour-use-cases-image-machine-learning/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Insights pour Use Cases Image Machine Learning</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/insights-pour-use-cases-regressions-machine-learning/">
+                                <span class="button__text">Insights pour Use Cases Regressions Machine Learning</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

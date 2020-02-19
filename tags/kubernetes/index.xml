@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Bienvenue sur le site de Lean Deep</title>
+    <link>https://leandeep.com/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Bienvenue sur le site de Lean Deep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 05 May 2019 19:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://leandeep.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installer Rancher 2 sur Centos 7 (Dev setup)</title>
+      <link>https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/</link>
+      <pubDate>Sun, 05 May 2019 19:00:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/</guid>
+      <description>Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.
+Docker installation Install needed packages:
+$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
+$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
+$ sudo yum install docker-ce Create Docker group:
+$ sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
+$ ls -l /var/run/docker.</description>
+    </item>
+    
+    <item>
+      <title>Commandes utiles Kubernetes</title>
+      <link>https://leandeep.com/commandes-utiles-kubernetes/</link>
+      <pubDate>Fri, 08 Mar 2019 17:08:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/commandes-utiles-kubernetes/</guid>
+      <description>Créer un namespace kubectl create ns &amp;lt;new-namespace&amp;gt; Savoir si une ressource appartient à un namespace kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace kubectl api-resources --namespaced=false Switcher de namespace # Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx # sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx # sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens kubens &amp;lt;namespace&amp;gt; # Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte kubectl config set-context --current --namespace=NOM_DU_NAMESPACE Connaître le cluster dans lequel on se situe kubectl config get-contexts Connaître le namespace dans lequel on se situe kubectl config view | grep namespace # Alternative: # kubectl config view --minify --output &#39;jsonpath={.</description>
+    </item>
+    
+    <item>
+      <title>Provisionner un cluster Kubernetes avec AWS EKS</title>
+      <link>https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/</link>
+      <pubDate>Thu, 07 Mar 2019 21:28:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/</guid>
+      <description>Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&#39;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
+Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)  Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt; Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &amp;quot;&amp;lt;nom_de_votre_clé&amp;gt;&amp;quot; --public-key-material file://~/.</description>
+    </item>
+    
+    <item>
+      <title>Comparaison des services de conteneurisation AWS (ECS, Fargate et EKS) </title>
+      <link>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</link>
+      <pubDate>Wed, 16 Jan 2019 19:33:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
+      <description>Il n&#39;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
+Dans cet article je vais essayer de résumer les différences qu&#39;il peut y avoir entre ces 3 services.
+Avantages
+   ECS EKS Fargate     Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS   Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
+    </item>
+    
+    <item>
+      <title>Provisionner un cluster Kubernetes sur HCloud</title>
+      <link>https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/</link>
+      <pubDate>Wed, 02 Jan 2019 00:45:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/</guid>
+      <description>Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&#39;est parfait quand on n&#39;est pas en production.
+Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</description>
+    </item>
+    
+  </channel>
+</rss>

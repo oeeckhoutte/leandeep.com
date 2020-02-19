@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&#39;est intéressant d&#39;en créer un de toute pièce avant de s&#39;attaquer à des réseaux de neurones profonds ou d&#39;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39;un réseau de dendrites et d&#39;un axone.
+ Le corps cellulaire contient le patrimoine génétique." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/programmer-un-r%C3%A9seau-de-neurones-en-javascript/" />
+
+
+    <title>
+        
+            Programmer un réseau de neurones en JavaScript :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Programmer un réseau de neurones en JavaScript">
+<meta itemprop="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&#39;est intéressant d&#39;en créer un de toute pièce avant de s&#39;attaquer à des réseaux de neurones profonds ou d&#39;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39;un réseau de dendrites et d&#39;un axone.
+ Le corps cellulaire contient le patrimoine génétique.">
+<meta itemprop="datePublished" content="2017-06-03T22:45:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-06-03T22:45:00&#43;00:00" />
+<meta itemprop="wordCount" content="2141">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning,Javascript," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Programmer un réseau de neurones en JavaScript"/>
+<meta name="twitter:description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&#39;est intéressant d&#39;en créer un de toute pièce avant de s&#39;attaquer à des réseaux de neurones profonds ou d&#39;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39;un réseau de dendrites et d&#39;un axone.
+ Le corps cellulaire contient le patrimoine génétique."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-06-03 22:45:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>11 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/programmer-un-r%C3%A9seau-de-neurones-en-javascript/">Programmer un réseau de neurones en JavaScript</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un <em>from scratch</em> en JavaScript. Je pense que c'est intéressant d'en créer un de toute pièce avant de s'attaquer à des réseaux de neurones profonds ou d'utiliser des frameworks qui masquent toute la complexité.</p>
+<h1 id="introduction">Introduction</h1>
+<p>Un neurone biologique est composé d'un corps cellulaire, d'un réseau de dendrites et d'un axone.</p>
+<ul>
+<li>Le corps cellulaire contient le patrimoine génétique.</li>
+<li>Les signaux électriques transitent par le réseau de dendrites. Ces dernières correspondent aux entrées du neurone.</li>
+<li>L'axone à la sortie du neurone permet de véhiculer l'influx nerveux.</li>
+</ul>
+<p>Les neurones artificiels s'inspirent du comportement des neurones biologiques; c'est-à-dire de leur capacité à s'activer à partir d'un seuil.</p>
+<p><img src="https://leandeep.com/images/neurone-biologique-neurone-artificiel.jpg" alt="image"></p>
+<p>Si on entre plus dans le détail, un neurone calcule la somme pondérée de ses entrées, puis il compare le résultat à un seuil (dit seuil d'activation). Basiquement, si la somme est supérieure au seuil, alors il s'active et sort la valeur 1. Réciproquement, si la somme est inférieure au seuil, alors il ne s'active pas et sort la valeur 0.</p>
+<p>En ce qui concerne la somme pondérée, chaque entrée valant 0 ou 1 est multipliée par un coefficient qui représente son poids (on parle de poids synaptique).
+A noter, que si un signal d'entrée est à 1, alors la valeur ce ce signal prend tout simplement la valeur du coefficient. De même, si le signal d'entrée est à 0, alors sa valeur reste à 0.</p>
+<p>Un neurone fonctionne ainsi: il faut additionner toutes les valeurs obtenues par les sommes pondérées en entrée et comparer le résultat à la valeur d'un seuil.</p>
+<h1 id="prcision-sur-les-seuils-dactivation">Précision sur les seuils d'activation</h1>
+<p>Nous venons de voir dans le paragraphe précédent que la sortie d'un neurone nous donnait 1 ou 0 en fonction du seuil d'activation. C'est tout à fait vrai lorsqu'on utilise une fonction à seuil binaire. Mais en pratique on utilise d'autres fonctions d'activation nous donnant des valeurs numériques comprises entre 0 et 1. La plus répandue est la &ldquo;fonction sigmoïde&rdquo; (aussi appelée &ldquo;fonction logistique&rdquo; ou &ldquo;courbe en S&rdquo;).</p>
+<p>Avec cette fonction, le passage de 0 à 1 est plus progressif comme on peut le voir sur la courbe suivante:</p>
+<p><img src="https://leandeep.com/images/sigmoide.png" alt="image"></p>
+<p>L'équation de la fonction sigmoïde est la suivante:</p>
+<p><img src="https://leandeep.com/images/equation-sigmoide.png" alt="image"></p>
+<h1 id="initialisation-de-notre-rseau-de-neurones">Initialisation de notre réseau de neurones</h1>
+<p>Nous allons créer un réseau simple permettant de résoudre un problème simple.
+Nous allons classifier en 4 catégories des images noir et blanc réduites à seulement 4 pixels. C'est un exemple pédagagique bien sûr.</p>
+<p>Pendant la phase d'apprentissage, nous allons présenter au réseau les images que l'on souhaite reconnaître. Puis pendant la phase de reconnaissance, on présente des images aléatoires afin de vérifier si le réseau a bien appris.</p>
+<p>Voici les images dont on va se servir pour entraîner notre réseau.</p>
+<p><img src="https://leandeep.com/images/combinaison-images-apprentissage.png" alt="image"></p>
+<p>Pour se simplifier la vie, nous allons représenter ces images sous forme de tableau.</p>
+<p><img src="https://leandeep.com/images/image-to-tableau.png" alt="image"></p>
+<p>Nous allons les représenter les 4 catégories d'images via un tableau à 2 valeurs.</p>
+<ul>
+<li>[0, 0] pour les images n'ayant aucun ou tous les pixels noirs</li>
+<li>[0, 1] pour les images comprenant 1 pixel noir</li>
+<li>[1, 0] pour les images comprenant 2 pixels noirs</li>
+<li>[1, 1] pour les images comprenant 3 pixels noirs</li>
+</ul>
+<p>Nous allons construire un réseau comprenant 3 couches:</p>
+<ul>
+<li>La première couche (couche d'entrée) contient 4 neurones en entrée pour les 4 pixels de l'image.</li>
+<li>La deuxième couche est une couche cachée. Elle permet de faire la liaison entre la couche d'entrée et la couche de sortie.</li>
+<li>La 3ème couche (couche de sortie) contient 2 neurones pour les 2 valeurs représentant notre catégorie.</li>
+</ul>
+<p><img src="https://leandeep.com/images/Reseau-de-neurones-simple.png" alt="image"></p>
+<p>Pour construire un réseau de neurones avec une structure simple comme celle-ci, il suffit d'assembler les neurones les uns derrières les autres. On connecte les sorties des uns aux entrées des autres.
+Entre chaque couche, nous relions les sorties des neurones de la couche précédente à tous les neurones de la couche suivante.
+Dans notre exemple simple, on appelle ce genre de réseau un réseau totalement connecté.</p>
+<p>En JavaScript, on initialise les couches du réseau via des tableaux:</p>
+<pre><code>let input = [];
+let hidden = [];
+let output = [];
+</code></pre><p>En plus de ces tableaux, il nous en faut 2 autres pour stocker les valeurs des poids synaptiques associés aux connexions entre la 1ère et 2ème couches et la 2ème et 3ème couches:</p>
+<pre><code>let Wh = [];
+let Wo = [];
+</code></pre><p>On va créer un dernier tableau pour notre input:</p>
+<pre><code>// Tableau représentant notre image en input
+let inputData = [0, 1, 0, 1]
+</code></pre><p>On crée une fonction d'initialisation des différents tableaux.</p>
+<pre><code>const reset = () =&gt; {
+    input = [0, 0, 0, 0];
+    hidden = [0, 0, 0, 0];
+    output = [0, 0];
+    
+    // 0.5 a été choisi totalement arbitrairement
+    // En pratique, on aurait pu générer des valeurs aléatoires distribuées uniformément sur l'intervalle [-1; 1] et dont la moyenne aurait été nulle.
+    Wh = [[0.5, 0.5, 0.5, 0.5],
+         [0.5, 0.5, 0.5, 0.5], 
+         [0.5, 0.5, 0.5, 0.5]
+         [0.5, 0.5, 0.5, 0.5]];
+         
+    Wo = [[0.5, 0.5, 0.5, 0.5],
+         [0.5, 0.5, 0.5, 0.5]];
+}
+
+</code></pre><p>Chaque neurone de la couche d'entrée est connecté à tous les neurones de la couche cachée. Par conséquent, il y aura 4 poids synaptiques à prendre en compte dans le calcul de la moyenne pondérée pour chaque neurone de la couche cachée. Wh contient donc 4 tableaux de 4 poids.</p>
+<p>Pour Wo, on a 2 neurones dans la couche de sortie. Donc on a 2 tableaux. Ces 2 tableaux contiennent les 4 poids de la couche cachée.</p>
+<h1 id="propagation-des-donnes">Propagation des données</h1>
+<p>Les données d'input sont propagées dans le réseau de neurones.
+Pour propager les données de la couche d'entrée vers la couche de sortie, il faut réaliser une succession de calculs de couche en couche et de neurone en neurone. Ces calculs sont simples car ce ne sont que des multiplications et des additions. Par contre, il faut en faire beaucoup. Nous n'allons pas détailler les calculs car cela n'a pas d'intérêt et c'est fastidieux. On va plutôt utiliser des matrices et faire des produits matriciels&hellip;</p>
+<p>Nous allons commencer par créer notre fonction sigmoïde qui permettra de calculer la valeur de sortie des neurones.</p>
+<pre><code>const sigmoid = (x) =&gt; {
+    return 1 / (1 + Math.pow(Math.E, (-1 * x)));
+}
+</code></pre><p>En programmation, si on veut connecter deux couches de neurones (par exemple connecter la couche A avec la couche B), voici le pseudo-code:</p>
+<pre><code>Pour chaque neurone de la couche B:
+    Pour chaque neurone de la couche A:
+        Calcul sur le lien Wba;
+    Fin pour;
+Fin pour;
+</code></pre><p>En JavaScript, cela donne:</p>
+<pre><code>for (let j = 0; j &lt; B.length; j++) {
+    for (let i = 0; j &lt; A.length; i++) {
+        // Calcul sur le lien w[j][i]
+    }
+}
+</code></pre><p>Après ces quelques explications, nous allons créer une fonction de propagation des données de la couche d'entrée vers la couche de sortie. Cette fonction va appliquer la fonction d'activation sur les sommes pondérées calculées entre les neurones des différentes couches. On va créer une fonction appelée propagate().</p>
+<pre><code>const propagate = (d) =&gt; {
+
+    // On copie les données dans la couche d'entrée
+    for (let i = 0; i &lt; input.length; i++) {
+        input[i] = d[i];
+    }
+
+    // On propage dans la couche cachée
+    // Xh contient les sommes cumulées pour la couche cachée
+    Xh = [0, 0, 0, 0];
+    for (let j = 0; j &lt; hidden.length; j++) {
+        for (let i = 0; i &lt; input.length; i++) {
+            Xh[j] += Wh[j][i] * input[i];
+        }   
+    }
+
+    // On applique la fonction d'activation
+    for (let j = 0; j &lt; hidden.length; j++) {
+        hidden[j] = sigmoid(Xh[j]);
+    }
+
+    // On propage dans la couche de sortie
+    // Xo contient les sommes pondérées de chaque neurone de sortie
+    Xo = [0, 0];
+    for (let k = 0; k &lt; output.length; k++) {
+        for (let j = 0; j &lt; hidden.length; j++) {
+            Xo[k] += Wo[k][j] * hidden[j];
+        }
+    }
+
+    // On applique la fonction d'activation
+    for (let k = 0; k &lt; output.length; k++) {
+        output[k] = sigmoid(Xo[k]);
+    }
+    
+}
+</code></pre><h1 id="test-de-la-propagation">Test de la propagation</h1>
+<p>On va créer une petite interface en HTML permettant de visualiser la propagation. Si la valeur des 2 neurones de la dernière couche ont une valeur différente de [0, 0] (valeur d'initialisation), c'est que la propagation des données s'est bien produite.</p>
+<iframe  src='//jsfiddle.net/oeeckhoutte/440La2wz/32/embedded/result/dark/' allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<h1 id="apprentissage">Apprentissage</h1>
+<p>Nous allons passer à la phase la plus importante qui est l'apprentissage.
+Cette phase est indispensable pour que notre réseau puisse apprendre à reconnaître nos images. Nous allons créer une fonction learn() qui implémente <a href="https://fr.wikipedia.org/wiki/R%C3%A9tropropagation_du_gradient">l'algorithme de rétropropagation du gradient de l'erreur</a>.</p>
+<p>On va commencer par créer 2 nouvelles variables qui vont nous servir à définir le taux d'apprentissage et à définir la cible que l'on souhaite obtenir en sortie du réseau de neurones.</p>
+<ul>
+<li>Le taux d'apprentissage va être initialisé à 0.5 et sera représenté par la variable <strong>alpha</strong>.</li>
+<li>La cible est un tableau de 2 valeurs. Il va être initialisé à [0, 0] et s'appelera <strong>target</strong>. Il s'agit de la cible à atteindre pour nos neurones de sortie.</li>
+</ul>
+<pre><code>let alpha = 0.5;
+let target = [0, 0];
+</code></pre><p>Nous allons passer à l'implémentation de l'algorithme de rétropropagation du gradient de l'erreur.
+Pour notre exemple, cet algorithme comporte 4 étapes qui sont exécutées les unes à la suite des autres de manière cyclique. La boucle s'arrête lorsqu'un critère d'arrêt est atteint. On considère donc que l'apprentissage est terminé.
+Le critère d'arrêt peut être soit un seuil d'erreur atteint ou soit un nombre d'itérations maximum atteint.</p>
+<p>Les 4 étapes de l'algorithme sont les suivantes:</p>
+<ul>
+<li>Calcul de l'erreur en sortie de la propagation des données.</li>
+<li>Calcul des gradients d'erreurs pour corriger les poids synaptiques des neurones de la couche de sortie.</li>
+</ul>
+<blockquote>
+<p>Voici la formule que nous coderons qui permet de calculer l'erreur propagée:
+<img src="https://leandeep.com/images/derivee-partielle.png" alt="image"></p>
+</blockquote>
+<ul>
+<li>Calcul des gradients d'erreurs pour corriger les poids synaptiques des neurones de la couche cachée.</li>
+<li>Mise à jour des poids synaptiques de la couche de sortie et de la couche cachée</li>
+</ul>
+<p>Ci dessous, le code JavaScript qui implémente cet algorithme:</p>
+<pre><code>
+const learn = () =&gt; {
+
+    // 1ère étage:
+    // On calcule l'erreur sur les neurones de sortie
+    let error = [];
+
+    for (let k = 0; k &lt; output.length; k++) {
+        error[k] = target[k] - output[k]
+    }
+    
+    // 2ème étage:
+    // Calcul des gradients d'erreurs de la couche de sortie
+    let gradErrOutput = [[0, 0, 0, 0], [0, 0, 0, 0]];
+    for (let k = 0; k &lt; output.length; k++) {
+        for (let j = 0; j &lt; hidden.length; j++) {
+            gradErrOutput[k][j] = -error[k] * output[k] * ( 1 - output[k]) * hidden[j];
+        }
+    }
+    
+    // 3ème étage:
+    // a. 
+    // On retropropage l'erreur de sortie vers les neurones de la couche cachée proportionnellement à leurs poids synaptiques
+    // b.
+    // Ensuite on calcule les gradients d'erreurs dans la couche cachée
+    let gradErrHidden = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    for (let j = 0; j &lt; hidden.length; j++) {
+        for (let i = 0; i &lt; input.length; i++) {
+            // Variable locale permettant de cumuler l'erreur proportionnellement aux poids synaptiques
+            let e = 0;
+            for (k = 0; k &lt; output.length; k++) {
+                // Rappel: 
+                // Wo contient les poids synaptiques associés aux connexions entre la 2ème et 3ème couches
+                e += Wo[k][j] * error[k];
+                gradErrHidden[j][i] = -e * hidden[j] * (1 - hidden[j]) * input[i];
+            }
+        }
+    }
+    
+    // 4ème étape:
+    // Mise à jour de l'ensemble des poids synaptiques. Pour chaque poids, on soustrait une portion du gradient d'erreur par application du taux d'apprentissage alpha.
+    for (let k = 0; k &lt; output.length; k++) {
+        for (let j = 0; j &lt; hidden.length; j++) {
+            Wo[k][j] -= alpha * gradErrOutput[k][j];
+        }
+    }
+    
+    for (let j = 0; j &lt; hidden.length; j++) {
+        for (let i = 0; i &lt; input.length; i++) {
+            Wh[j][i] -= alpha * gradErrHidden[j][i];
+        }
+    }
+}
+</code></pre><h1 id="test-de-la-rtropropagation">Test de la rétropropagation</h1>
+<p>Nous allons modifier l'interface que nous avons précédemment codée afin de tester le bon fonctionnement de notre algorithme.</p>
+<p>Tout le code est accessible ci-dessous:</p>
+<iframe  src='//jsfiddle.net/oeeckhoutte/bxt2wy25/72/embedded/js,html,result/dark/' allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<p>Si vous appuyez une dizaine de fois sur les boutons <strong>Propagate</strong> et <strong>Learn</strong> alternativement, vous verrez que le réseau de neurones fonctionne bien. Les erreurs diminuent et les valeurs en output convergent bien vers [1, 0].</p>
+<p><img src="https://leandeep.com/images/front-propagation-neuronal-net.png" alt="image"></p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Si vous prenez le temps de bien lire cet article et de recoder l'ensemble du réseau de neurones, vous comprendrez comment ils fonctionnent. Bien comprendre ces réseaux simples est indispensable pour aller plus loin et faire du <em>Deep Learning</em>.
+L'implémentation de notre réseau pour notre exemple simple était trivial. Par contre, en pratique, les use cases sont beaucoup plus complexes et donc cela se corse rapidement car l'algorithme de rétropropagation du gradient de l'erreur est sensible aux conditions de son exécution. Il faudra faire attention au surapprentissage (<em>overfitting</em>) et à la disparition du gradient (<em>vanishing gradient</em>) en jouant sur les fonctions d'activation, le taux d'apprentissage, pré-traiter les données d'entrée en les normalisant par exemple&hellip;</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/javascript">Javascript</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2141 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 Jun. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/installer-miniconda-sur-osx/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Installer (Mini)Conda sur OSX</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/pourquoi-il-faut-utiliser-object.is-pour-comparer-des-%C3%A9l%C3%A9ments/">
+                                <span class="button__text">Pourquoi il faut utiliser Object.is() pour comparer des éléments</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…
+J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/" />
+
+
+    <title>
+        
+            Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds">
+<meta itemprop="description" content="Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…
+J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS.">
+<meta itemprop="datePublished" content="2017-02-06T23:42:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-02-06T23:42:00&#43;00:00" />
+<meta itemprop="wordCount" content="806">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Deep Learning,AWS,Docker," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds"/>
+<meta name="twitter:description" content="Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…
+J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2017-02-06 23:42:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/">Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…</p>
+<p>J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS. En 1 heure vous pouvez avoir à disposition un Chatbot et exécuter des actions en fonction des intents que vous avez configuré. Le Chatbot peut communiquer avec AWS Lambda.</p>
+<p><img src="https://leandeep.com/images/Diagrams_lex_messaging-platform.png" alt="image"></p>
+<p><em>Source: Amazon</em></p>
+<p>J’ai également testé le <a href="http://www.ibm.com/watson/developercloud/conversation.html">service conversation de Watson</a> et idem la mise en place est aisée. Il y a projet boilerplate en NodeJS sur Github: <a href="https://github.com/watson-developer-cloud/conversation-simple;">https://github.com/watson-developer-cloud/conversation-simple;</a> ainsi qu’un Chatbot de démo plutôt bien fait: <a href="https://conversation-demo.mybluemix.net/">https://conversation-demo.mybluemix.net/</a></p>
+<p>(On m’a aussi parlé des services Wit.ai et API.ai . Je n’ai pas encore testé)</p>
+<p>Dans un but pédagogique, j’ai voulu implémenter un Chatbot maison un mon propre réseau neuronal. Je me suis donc inspiré d’un <a href="https://arxiv.org/pdf/1506.05869.pdf">papier</a> écrit par un ingénieur chez Google et créé un modèle Seq2Seq avec un RNN (Recurrent Neural Network).</p>
+<p>Dans cet article, je ne vais pas m’entendre sur le RNN ou le modèle Seq2Seq. (Cela pourrait faire l’objet d’un autre article…)</p>
+<blockquote>
+<p>Ce dont je voulais parler dans cet article c’est comment j’ai divisé par 5 le temps d’apprentissage de mon Recurrent Neural Network !</p>
+</blockquote>
+<p>C’est tout simplement grâce aux GPU ! Et dans mon cas précis grâce aux GPU d’Amazon Web Services.</p>
+<p><img src="https://leandeep.com/images/aws.png" alt="image"></p>
+<p>Jusqu’à présent, lorsque je voulais entraîner mes réseaux de neurones profonds, j’utilisais le CPU de mon Mac Pro. Entraîner un réseau avec un corpus d’environ 220 000 conversations m’a pris environ 3600 minutes soit 2,5 jours. En utilisant le GPU d’une instance AWS, je suis passé à une demi journée et je pense cela peut encore être optimisé. En effet, je n’ai pas loué les machines avec les plus grosses cartes graphiques…</p>
+<p>L’autre gros travail que j’ai fait est de complètement Dockeriser mon projet et faire en sorte que le container Docker puisse accéder au GPU du Host.</p>
+<p>Pour ce faire, j’ai utilisé la technologie Compute Unified Device Architecture (CUDA) et un projet open source appelé <a href="https://github.com/NVIDIA/nvidia-docker">nvidia-docker</a>.</p>
+<p><img src="https://leandeep.com/images/NVIDIA-CUDA.jpg" alt="image"></p>
+<p>Voici un lien intéressants pour comprendre ce qu’est CUDA: <a href="https://fr.wikipedia.org/wiki/Compute_Unified_Device_Architecture">https://fr.wikipedia.org/wiki/Compute_Unified_Device_Architecture</a></p>
+<p>Le gros intérêt d’avoir Dockerisé mon projet est que je peux le faire tourner n’importe où. Bien sûr, si je veux bénéficier de performances optimales pour entraîner mon RNN, il me faut un bon GPU et un GPU de la marque Nvidia.</p>
+<p>Voici la procédure à suivre pour faire tourner TensorFlow sur des GPUs sur AWS:</p>
+<p>Commencez par démarrer une instance sur AWS. Avec les commandes que vous trouverez ci-dessous, je vous conseille de démarrer une Instance Ubuntu 16.04 LTS:</p>
+<p><img src="https://leandeep.com/images/ubuntu.png" alt="image"></p>
+<p>Choisissez ensuite une instance de type p2 ou g2:</p>
+<p><img src="https://leandeep.com/images/p2-g2-aws.png" alt="image"></p>
+<p><img src="https://leandeep.com/images/g2-aws.png" alt="image"></p>
+<p>Récupérez l’adresse IP publique de votre instance et connectez vous en SSH</p>
+<pre><code>ssh -i ~/.ssh/&lt;votre-fichier-pem&gt; ubuntu@&lt;addresse-ip&gt;
+</code></pre><p>Installer le dernier Driver Nvidia</p>
+<pre><code>$ apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+$ sh -c 'echo &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /&quot; &amp;&amp; /etc/apt/sources.list.d/cuda.list'
+$ apt-get update 
+$ apt-get install -y --no-install-recommends cuda-drivers
+</code></pre><p>Installer la dernière version de Docker (tutorial réalisé avec Docker 1.13)</p>
+<pre><code>$ apt-get update
+$ curl -fsSL https://get.docker.com/ | sh
+$ curl -fsSL https://get.docker.com/gpg | sudo apt-key add -
+</code></pre><p>Installer Nvidia Docker</p>
+<pre><code>$ wget https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0/nvidia-docker_1.0.0-1_amd64.deb
+$ dpkg -i nvidia-docker_1.0.0-1_amd64.deb
+$ rm nvidia-docker_1.0.0-1_amd64.deb
+</code></pre><p>Téléchargez l’image Docker TensorFlow GPU</p>
+<pre><code>$ docker pull tensorflow/tensorflow:latest-gpu
+</code></pre><p>Démarrez ensuite un container Docker depuis l’image téléchargée. Je vous conseille d’exposer les ports 6006 et 8888 pour tensorboard et Jupyter Notebook.</p>
+<pre><code>$ nvidia-docker run -itd --name=gpu-tensorflow -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:latest-gpu
+</code></pre><p>Vous pouvez à présent vous connecter en SSH dans le container Docker et utiliser TensorFlow. Python 3 devrait être installé.</p>
+<pre><code>$ sudo nvidia-docker exec -it gpu-tensorflow bash
+</code></pre><p>La commande suivante vous permettra de vérifier qu’il y a bien une carte GPU accessible:</p>
+<pre><code>$ nvidia-smi
+</code></pre><p>Par exemple avec une instance g2.2xlarge (1 Nvidia K520 GPU), vous devriez voir ceci:</p>
+<p><img src="https://leandeep.com/images/nvidia-smi.png" alt="image"></p>
+<p>Il ne vous reste plus qu’à cloner votre projet TensorFlow et à l’exécuter.</p>
+<p>Si vous ne l’avez pas configuré autrement, vous devriez voir que TensorFlow utilise bien le GPU.</p>
+<p><img src="https://leandeep.com/images/tensorflow-gpu.png" alt="image"></p>
+<p>Lorsque vous avez terminé, n’oubliez pas d’éteindre votre instance AWS; surtout si vous choisissez une instance p2. Attention à la facture !</p>
+<p>C’est d’ailleurs un point d’amélioration que j’aimerais apporter à ce projet. J’aimerais automatiser la création d’instance AWS via un bot ou un script, que TensorFlow entraîne automatiquement le modèle pendant plusieurs heures et que la VM soit automatiquement <em>terminated</em> lorsque l’apprentissage est achevé. J’aimerais évidemment que le modèle généré par TensorFlow soit sauvegardé dans un Bucket S3.</p>
+<p>Pour info, voici les commandes à utiliser pour désinstaller complètement Docker sur Ubuntu. J’ai rencontré des difficultés avec des versions de Docker non compatibles avec nvidia-docker. Ces commandes pourraient aider:</p>
+<pre><code>$ apt-get purge docker-engine
+$ apt-get autoremove --purge docker-engine
+$ rm -rf /var/lib/docker
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/deep-learning">Deep Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/aws">AWS</a></span><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>806 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Feb. 2017</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/class-iterator-en-python/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Class iterator en Python</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/list-set-et-dict-comprehensions-en-python/">
+                                <span class="button__text">List, set et dict comprehensions en Python </span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

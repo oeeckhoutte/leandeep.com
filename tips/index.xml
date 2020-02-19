@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python Tips on Bienvenue sur le site de Lean Deep</title>
+    <link>https://leandeep.com/tips/</link>
+    <description>Recent content in Python Tips on Bienvenue sur le site de Lean Deep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 15 Jan 2020 22:20:04 -0700</lastBuildDate>
+    
+	<atom:link href="https://leandeep.com/tips/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Comparaison de strings et logique floue</title>
+      <link>https://leandeep.com/tips/logique-flou-dans-comparaison-de-strings/</link>
+      <pubDate>Thu, 16 Jan 2020 16:20:04 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/logique-flou-dans-comparaison-de-strings/</guid>
+      <description>Pour implémenter dans la logique floue pour comparer deux strings, on peut utiliser la distance de Levenshtein.
+Voici le code permettant de calculer cette distance. Rien de particulier, on retrouve partout ce code sur internet.
+import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False): &amp;quot;&amp;quot;&amp;quot; levenshtein_ratio_and_distance: Calculates levenshtein distance between two strings. If ratio_calc = True, the function computes the levenshtein distance ratio of similarity between two strings For all i and j, distance[i,j] will contain the Levenshtein distance between the first i characters of s and the first j characters of t &amp;quot;&amp;quot;&amp;quot; # Initialize matrix of zeros rows = len(s)+1 cols = len(t)+1 distance = np.</description>
+    </item>
+    
+    <item>
+      <title>Eviter les if ou try/except avec les dictionnaires</title>
+      <link>https://leandeep.com/tips/handle-keyerrors-dans-les-dict-avec-defaultdict/</link>
+      <pubDate>Thu, 16 Jan 2020 01:20:04 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/handle-keyerrors-dans-les-dict-avec-defaultdict/</guid>
+      <description>Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
+prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&#39;une clé, on peut
+ soit tester si une clé existe dans le dict ou catcher l&#39;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&#39;avoir du code plus propre, et plus facilement testable.</description>
+    </item>
+    
+    <item>
+      <title>Slicer de manière Pythonique un set</title>
+      <link>https://leandeep.com/tips/slicer-un-set-de-maniere-pythonique/</link>
+      <pubDate>Wed, 15 Jan 2020 15:20:04 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/slicer-un-set-de-maniere-pythonique/</guid>
+      <description>Ce tip décrit comment slicer (découper) un set de manière Pythonique.
+Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&#39;un sous-ensemble du set de départ.
+import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;, &#39;titi&#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
+    </item>
+    
+    <item>
+      <title>Utiliser zip pour itérer sur deux listes</title>
+      <link>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes/</link>
+      <pubDate>Tue, 14 Jan 2020 21:20:04 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes/</guid>
+      <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&#39;utiliser zip en passant en paramètre les 2 variables.
+Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
+1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&#39;itérer sur ces 2 listes.</description>
+    </item>
+    
+    <item>
+      <title>Utiliser une boucle non Pythonique</title>
+      <link>https://leandeep.com/tips/utiliser-une-boucle-non-pythonique/</link>
+      <pubDate>Sat, 11 Jan 2020 21:20:04 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/utiliser-une-boucle-non-pythonique/</guid>
+      <description>Pour accéder aux éléments d&#39;une liste et afficher l&#39;index des éléments, il vaut mieux privilégier l&#39;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&#39;incrémenter la valeur de l&#39;index.
+Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom) Bonne pratique (Bien!) Voici la manière plus Pythonique d&#39;itérérer sur une liste.
+prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx, prenom in enumerate(prenoms): print(idx, prenom) </description>
+    </item>
+    
+    <item>
+      <title>Demander Pardon plutôt que la permission</title>
+      <link>https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/</link>
+      <pubDate>Sat, 04 Jan 2020 21:20:04 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/</guid>
+      <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission). Ce code style suppose que les fichiers, variables existent. Les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. Le code Python est donc généralement concis et rempli de try except.
+Anti-pattern (Pas bien!) import os if os.path.exists(&amp;quot;mon_fichier.txt&amp;quot;): os.unlink(&amp;quot;mon_fichier.txt&amp;quot;) Bonne pratique (Bien!) Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l&#39;utiliser, on suppose qu&#39;il existe bien et on catch les éventuelles exceptions.</description>
+    </item>
+    
+  </channel>
+</rss>

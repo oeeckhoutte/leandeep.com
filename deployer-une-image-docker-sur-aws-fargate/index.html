@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Voici la procédure pour déployer des containers Docker sur Fargate.
+Rôle ecsTaskExecutionRole Vérifier l&#39;existance de ce rôle dans l&#39;IAM. S&#39;il n&#39;existe pas, il faut le créer:
+Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
+{ &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Principal&amp;quot;: { &amp;quot;Service&amp;quot;: &amp;quot;ecs-tasks.amazonaws.com&amp;quot; }, &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot; } ] } Créer une tâche d&#39;exécution de rôle:
+aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&#39;exécution de rôle:" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/" />
+
+
+    <title>
+        
+            Deployer une image Docker sur AWS Fargate :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Deployer une image Docker sur AWS Fargate">
+<meta itemprop="description" content="Voici la procédure pour déployer des containers Docker sur Fargate.
+Rôle ecsTaskExecutionRole Vérifier l&#39;existance de ce rôle dans l&#39;IAM. S&#39;il n&#39;existe pas, il faut le créer:
+Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
+{ &quot;Version&quot;: &quot;2012-10-17&quot;, &quot;Statement&quot;: [ { &quot;Sid&quot;: &quot;&quot;, &quot;Effect&quot;: &quot;Allow&quot;, &quot;Principal&quot;: { &quot;Service&quot;: &quot;ecs-tasks.amazonaws.com&quot; }, &quot;Action&quot;: &quot;sts:AssumeRole&quot; } ] } Créer une tâche d&#39;exécution de rôle:
+aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&#39;exécution de rôle:">
+<meta itemprop="datePublished" content="2019-05-07T21:17:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-05-07T21:17:00&#43;00:00" />
+<meta itemprop="wordCount" content="461">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="AWS,Fargate,Docker," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Deployer une image Docker sur AWS Fargate"/>
+<meta name="twitter:description" content="Voici la procédure pour déployer des containers Docker sur Fargate.
+Rôle ecsTaskExecutionRole Vérifier l&#39;existance de ce rôle dans l&#39;IAM. S&#39;il n&#39;existe pas, il faut le créer:
+Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
+{ &quot;Version&quot;: &quot;2012-10-17&quot;, &quot;Statement&quot;: [ { &quot;Sid&quot;: &quot;&quot;, &quot;Effect&quot;: &quot;Allow&quot;, &quot;Principal&quot;: { &quot;Service&quot;: &quot;ecs-tasks.amazonaws.com&quot; }, &quot;Action&quot;: &quot;sts:AssumeRole&quot; } ] } Créer une tâche d&#39;exécution de rôle:
+aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&#39;exécution de rôle:"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-05-07 21:17:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/">Deployer une image Docker sur AWS Fargate</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Voici la procédure pour déployer des containers Docker sur Fargate.</p>
+<h2 id="rle-ecstaskexecutionrole">Rôle ecsTaskExecutionRole</h2>
+<p>Vérifier l'existance de ce rôle dans l'IAM.
+S'il n'existe pas, il faut le créer:</p>
+<p>Créer un fichier appelé <code>task-execution-assume-role.json</code> avec ce contenu:</p>
+<pre><code>{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Sid&quot;: &quot;&quot;,
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Principal&quot;: {
+        &quot;Service&quot;: &quot;ecs-tasks.amazonaws.com&quot;
+      },
+      &quot;Action&quot;: &quot;sts:AssumeRole&quot;
+    }
+  ]
+}
+</code></pre><p>Créer une tâche d'exécution de rôle:</p>
+<pre><code>aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json
+</code></pre><p>Attacher la tâche d'exécution de rôle:</p>
+<pre><code>aws iam --region eu-west-1 attach-role-policy --role-name ecsTaskExecutionRole --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+</code></pre><h2 id="configurer-aws-cli-et-ecs-cli">Configurer AWS cli et ecs cli</h2>
+<pre><code># Pour OSX
+brew upgrade amazon-ecs-cli
+brew upgrade awscli
+
+rm -rf ~/.ecs # ou mv ~/.ecs ...
+
+export PROJECT_NAME=xxxxxxxxxxxxx
+
+# Création d'un profil
+ecs-cli configure profile --access-key $AWS_ACCESS_KEY_ID --secret-key $AWS_SECRET_ACCESS_KEY --profile-name $PROJECT_NAME
+</code></pre><h2 id="cration-dun-cluster">Création d'un cluster</h2>
+<pre><code>ecs-cli configure --cluster $PROJECT_NAME --region eu-west-1 --default-launch-type FARGATE --config-name $PROJECT_NAME
+
+ecs-cli up
+</code></pre><p>Output:</p>
+<pre><code>...
+VPC created: vpc-xxxxxxxxxx
+Subnet created: subnet-xxxxxxxxx
+Subnet created: subnet-xxxxxxxxx
+Cluster creation succeeded.
+</code></pre><h2 id="cration-dun-securitygroup">Création d'un securitygroup</h2>
+<pre><code>export VPC_ID=&quot;vpc-xxxxxxxxxxxxxxxxxxx&quot;
+
+# securitygroup name
+export SG_NAME=&quot;xxxxxxxxxxxxx-sg&quot;
+
+export SG_DESCRIPTION=&quot;xxxxxxxxxx xxxxxx xxx security group&quot;
+
+aws ec2 create-security-group --group-name $SG_NAME --description $SG_DESCRIPTION --vpc-id $VPC_ID
+</code></pre><p>Output:</p>
+<pre><code>{
+    &quot;GroupId&quot;: &quot;sg-xxxxxxxxxxxxxxx&quot;
+}
+</code></pre><h2 id="cration-rgle-ingress">Création règle Ingress</h2>
+<pre><code>export SG_GROUP_ID=&quot;sg-xxxxxxxxxxxxxxxxx&quot;
+
+aws ec2 authorize-security-group-ingress --group-id $SG_GROUP_ID --protocol tcp --port 8080 --cidr 0.0.0.0/0
+</code></pre><h2 id="configuration-docker-et-ressources">Configuration Docker et Ressources</h2>
+<p>Créer un fichier <code>docker-compose.yml</code></p>
+<pre><code>version: '3'
+services:
+  SERVICE_NAME_IE_WP:
+    image: IMAGE_DOCKER
+    ports:
+      - &quot;8080:8080&quot;
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: PROJECT_NAME
+        awslogs-region: eu-west-1
+        awslogs-stream-prefix: SERVICE_NAME_IE_WP
+
+</code></pre><p>Créer un fichier <code>ecs-params.yml</code>:</p>
+<pre><code>version: 1
+task_definition:
+  task_execution_role: ecsTaskExecutionRole
+  ecs_network_mode: awsvpc
+  task_size:
+    mem_limit: 0.5GB
+    cpu_limit: 256
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - &quot;subnet-xxxxxxxxxxxxxxxxx&quot;
+        - &quot;subnet-xxxxxxxxxxxxxxxxx&quot;
+      security_groups:
+        - &quot;sg-xxxxxxxxxxxxxxxxxx&quot;
+      assign_public_ip: ENABLED
+
+</code></pre><h2 id="dploiement-sur-fargate">Déploiement sur Fargate:</h2>
+<pre><code>ecs-cli compose --project-name $PROJECT_NAME service up --create-log-groups --cluster-config $PROJECT_NAME
+</code></pre><p>Pour updater le container, il suffit de réexécuter la commande ci-dessus. Une nouvelle version de la task déployée se créera et l'ancienne sera éteinte.</p>
+<blockquote>
+<p>Note: Pour ajouter une instance RDS et l'utiliser dans le container, le plus simple est de créer l'instance RDS dans le VPC du container. Puis il faudra créer une rêgle dans le securitygroup créé précédemment et réutilisant la commande suivante: <code> aws ec2 authorize-security-group-ingress --group-id $SG_GROUP_ID --protocol tcp --port 5432 --cidr 0.0.0.0/0</code></p>
+</blockquote>
+<p>Rien de plus simple et le tarif est intéressant: <a href="https://aws.amazon.com/fr/fargate/pricing/">https://aws.amazon.com/fr/fargate/pricing/</a></p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Restart task:</strong></p>
+<blockquote>
+<p>Attention l'IP publique sera modifiée.</p>
+</blockquote>
+<pre><code>export SERVICE_NAME=xxxx
+export CLUSTER_NAME=xxxx
+
+aws ecs update-service --force-new-deployment --cluster $CLUSTER_NAME --service $SERVICE_NAME
+</code></pre><h2 id="tip-useful-bash-functions">Tip: Useful bash functions</h2>
+<pre><code>stop_running_tasks() {
+    tasks=$(aws ecs list-tasks --cluster $CLUSTER --service $SERVICE | $JQ &quot;.taskArns | . []&quot;);
+    tasks=( $tasks )
+    for task in &quot;${tasks[@]}&quot;
+    do
+        [[ ! -z &quot;$task&quot; ]] &amp;&amp; stop_task=$(aws ecs stop-task --cluster $CLUSTER --task &quot;$task&quot;)
+    done
+}
+
+push_ecr_image(){
+    echo &quot;Push built image to ECR&quot;
+    eval $(aws ecr get-login --region us-east-1)
+    docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/repository:$TAG
+}
+
+configure_aws_cli(){
+    aws --version
+    aws configure set default.region us-east-1
+    aws configure set default.output json
+}
+
+start_tasks() {
+    start_task=$(aws ecs start-task --cluster $CLUSTER --task-definition $DEFINITION --container-instances $EC2_INSTANCE --group $SERVICE_GROUP --started-by $SERVICE_ID)
+    echo &quot;$start_task&quot;
+}
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/aws">AWS</a></span><span class="tag"><a href="https://leandeep.com/tags/fargate">Fargate</a></span><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>461 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 May. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/vscode-et-les-pipenv/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">VSCode et les pipenv</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/">
+                                <span class="button__text">Installer Rancher 2 sur Centos 7 (Dev setup)</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

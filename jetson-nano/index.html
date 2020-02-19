@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Découverte du Nvidia Jetson Nano J&#39;ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s&#39;initier au Edge Deep Learning." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/jetson-nano/" />
+
+
+    <title>
+        
+            Jetson Nano :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Jetson Nano">
+<meta itemprop="description" content="Découverte du Nvidia Jetson Nano J&#39;ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s&#39;initier au Edge Deep Learning.">
+<meta itemprop="datePublished" content="2019-12-22T16:35:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-12-22T16:35:00&#43;00:00" />
+<meta itemprop="wordCount" content="1016">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Jetson Nano,Nvidia,Edge Computing," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Jetson Nano"/>
+<meta name="twitter:description" content="Découverte du Nvidia Jetson Nano J&#39;ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s&#39;initier au Edge Deep Learning."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-12-22 16:35:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/jetson-nano/">Jetson Nano</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="dcouverte-du-nvidia-jetson-nano">Découverte du Nvidia Jetson Nano</h2>
+<p>J'ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s'initier au <strong>Edge Deep Learning</strong>. Avec ce genre de carte, on n'a plus besoin du Cloud pour faire l'inférence de modèle de Machine Learinig utilisant des librairies GPU. Cette carte est parfaite pour les sujets IoT. <em>On aura besoin du Cloud juste au moment où il faudra upgrader ses modèles de Machine/ Deep Learning.</em></p>
+<p>Voici une première review de cette carte. D'autres articles viendront le compléter&hellip;</p>
+<h2 id="caractristiques-techniques">Caractéristiques techniques</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td align="right">Quad-core ARM® Cortex®-A57 MPCore processor</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td align="right">NVIDIA Maxwell™ architecture with 128 NVIDIA CUDA® cores</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td align="right">4 GB 64-bit LPDDR4</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td align="right">16 GB eMMC 5.1 Flash</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="right">12 lanes (3×4 or 4×2) MIPI CSI-2 DPHY 1.1 (1.5 Gbps)</td>
+</tr>
+<tr>
+<td>Connectivity</td>
+<td align="right">Gigabit Ethernet</td>
+</tr>
+<tr>
+<td>Display Ports</td>
+<td align="right">HDMI 2.0 and DP 1.2</td>
+</tr>
+<tr>
+<td>USB Ports</td>
+<td align="right">1 USB 3.0 and 3 USB 2.0</td>
+</tr>
+<tr>
+<td>Other</td>
+<td align="right">1 x1/2/4 PCIE, 1x SDIO / 2x SPI / 6x I2C / 2x I2S / GPIOs</td>
+</tr>
+<tr>
+<td>Size</td>
+<td align="right">69.6 mm x 45 mm</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://leandeep.com/images/jetson-nano.png" alt="image"></p>
+<h2 id="alimentation-lectrique">Alimentation électrique</h2>
+<p>Il y a 3 manières d'alimenter le Jetson Nano Developer Kit.</p>
+<p>Premièrement, on peut le faire avec un cable micro-USB qui va fournir 5V et 2A.</p>
+<p>Deuxièmement, on peut utiliser une ou deux pins du GPIO qui peuvent recevoir 5V et 3A chacune. On arrive donc à une intensité totale de 6A.</p>
+<p>La troisième méthode consiste à utiliser le connecteur <em>Barrel Jack</em> qui reçoit du 5V et 4A. Personnellement, c'est la méthode que j'utilise. Pour que cela fonctionne, il faut relier entre elles les broches du jumper j48. Si vous branchez beaucoup de périphériques à votre Nano privilégiez cette option. Lorsque le Jumper est positionné sur la carte, le micro-USB passe en mode transfert de données.</p>
+<blockquote>
+<p>Pour info, l'alimentation PoE (Power Over Ethernet) n'est pas supportée&hellip; Par contre les broches sont disponibles sur le connecteur j38</p>
+</blockquote>
+<p>Deux modes d'alimentation sont disponibles: le mode 5W et le mode 10W.</p>
+<p>Pour passer en mode 5W:</p>
+<pre><code>sudo nvpmodel -m 1
+</code></pre><p>Pour passer en mode 10W:</p>
+<pre><code>sudo nvpmodel -m 0
+</code></pre><h2 id="installation-des-softs">Installation des Softs</h2>
+<p><strong>Création de la carte micro SD</strong></p>
+<p>Des images Linux <a href="https://developer.nvidia.com/embedded/dlc/jetson-nano-dev-kit-sd-card-image">Linux4Tegra</a> (Ubuntu 18.04 optimisé pour le hardware Nvidia) sont disponibles sur le site de Nvidia pour démarrer très vite.
+Avec un utilitaire comme <a href="https://unetbootin.github.io/">Unetbootin</a> sur Mac (ou Win32 Disk Imager sur Windows), on peut créer une carte MicroSD bootable pour démarrer Linux sur son Jetson Nano.</p>
+<p><strong>Installation d'un virtualenv</strong></p>
+<pre><code>sudo apt-get install virtualenv -y
+mkdir ~/envs
+cd envs
+virtualenv --p python3 ai_env
+source ~/envs/ai_env/bin/activate
+echo 'source ~/envs/ai_env/bin/activate' &gt;&gt; ~/.bashrc
+</code></pre><p><strong>OpenCV</strong></p>
+<p>OpenCV est déjà installé sur cette distribution. Pour l'utiliser dans son projet Python à l'intérieur d'un environnement virtuel, il suffit d'exécuter les commandes suivantes:</p>
+<pre><code>sudo find / -name &quot;cv2*&quot;
+
+[sudo] password for olivier:
+
+find: '/run/user/1000/gvfs': Permission denied
+
+/usr/lib/python2.7/dist-packages/cv2.so
+/usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
+
+cd ~/envs/ai_env/lib/python3.6/site-packages/
+
+ln -s /usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
+</code></pre><p>Pour vérfier que le symlink a bien fonctionné et qu'OpenCV est fonctionnel, vous pouvez exécuter les commandes suivantes:</p>
+<pre><code>python
+&gt;&gt;&gt; import cv2
+&gt;&gt;&gt; print(cv2.__version__)
+3.3.1
+</code></pre><p><strong>Installation de modules de base</strong></p>
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install libfreetype6-dev pkg-config -y
+sudo apt-get install zlib1g-dev zip libjpeg8-dev libhdf5-dev -y
+sudo apt-get install libssl-dev libffi-dev python3-dev -y
+sudo apt-get install libhdf5-serial-dev hdf5-tools -y
+sudo apt-get install libblas-dev liblapack-dev
+sudo apt-get install libatlas-base-dev -y
+sudo apt-get install build-essential cmake libgtk-3-dev libboost-all-dev -y
+sudo apt-get install nano -y
+pip install matplotlib
+pip install scikit-build
+pip install imutils
+pip install pillow
+</code></pre><p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook</strong></p>
+<pre><code>pip install scipy
+pip install keras
+pip install scikit-learn
+pip install jupyter notebook	
+</code></pre><p><strong>Installation de Tensorflow</strong></p>
+<pre><code>pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-gpu version_de_tensorflow 
+
+# Les dernières versions de Tensorflow sont disponibles:
+tensorflow_gpu-1.15.0+nv19.11-cp36-cp36m-linux_aarch64.whl 217MB 2019-12-12 16:58:00
+tensorflow_gpu-2.0.0+nv19.11-cp36-cp36m-linux_aarch64.whl 198MB 2019-12-12 16:58:00
+</code></pre><p><strong>Configuration du SWAP</strong></p>
+<p>Par défaut, le SWAP n'est pas activé, ce qui provoque des <code>OOM Kills</code> (Out Of Memory kills).</p>
+<p>Il faut donc l'activer. Pour ce faire, exécutez les commandes suivantes:</p>
+<pre><code>sudo swapon --show
+
+# La taille idéale devrait être de deux fois celle de la RAM. Si vous avez une carte de 64 Go, fixez la taille du Swap à 8G.
+
+sudo fallocate -l 8G /swapfile
+sudo chmod 600 /swapfile
+ls -lh /swapfile
+
+# Création et activation du SWAP
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# Vérification
+sudo swapon --show
+free -h
+
+# Rendre l'activation persistente après reboot
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+</code></pre><p><strong>Installation du driver GPIO</strong></p>
+<pre><code>pip install Jetson.GPIO
+sudo groupadd -f -r gpio
+sudo usermod -a -G gpio pi
+sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
+
+Rebooter ou exécuter
+
+sudo udevadm control --reload-rules &amp;&amp; sudo udevadm trigger
+</code></pre><p><strong>Installation du modèle Yolo</strong></p>
+<pre><code>export GPU = 1
+pip install yolo34py-gpu
+</code></pre><h2 id="forum-nvidia-officiel">Forum Nvidia officiel</h2>
+<p><a href="https://devtalk.nvidia.com/default/board/371/">Accès au forum Nvidia</a></p>
+<h2 id="commandes-utiles">Commandes utiles</h2>
+<p><strong>Taux d'utilisation et température</strong></p>
+<pre><code>tegrastats
+</code></pre><p><strong>Power mode activé</strong></p>
+<pre><code>sudo /usr/sbin/nvpmodel -q
+</code></pre><p><strong>Booster le ventilateur</strong></p>
+<pre><code># Le faire tourner au maximum
+sudo sh -c 'echo 255 &gt; /sys/devices/pwm-fan/target_pwm'
+# L'arrêter
+sudo sh -c 'echo 0 &gt; /sys/devices/pwm-fan/target_pwm'
+</code></pre><p><strong>Jetson stats</strong></p>
+<pre><code>git clone https://github.com/rbonghi/jetson_stats.git
+cd jetson_stats/
+sudo ./install_jetson_stats.sh --s
+ntop
+jetson_release
+</code></pre><h2 id="conclusion">Conclusion</h2>
+<p>A part quels petits soucis que j'ai pu rencontrer au niveau de l'alimentation de la carte, je ne lui trouve que des avantages.
+Les petits soucis que j'ai eu au niveau de l'alimentation était dû à un manque de connaissance de ma part sur le fonctionnement de cette carte. Une fois qu'on a compris comment bien aliementer sa carte, tout fonctionne parfaitement.</p>
+<p>Un GPIO composé de 40 pins est compatible avec celui du Raspberry Pi. Pour moi cela représente un énorme avantage. Si vous avez déjà construit des projets avec des Raspberry Pi vous pouvez reprendre vos montages existants et les porter sur le Nano.</p>
+<p>Et avec le GPU présent, vous pourrez sans doute construire de très beaux projets en y apportant des réseaux de neurones. Et la cela devient vraiment fun.</p>
+<p>Je pense que vous l'aurez compris, je recommande très clairement cette carte.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/jetson-nano">Jetson Nano</a></span><span class="tag"><a href="https://leandeep.com/tags/nvidia">Nvidia</a></span><span class="tag"><a href="https://leandeep.com/tags/edge-computing">Edge Computing</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1016 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 Dec. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/rust-to-webassembly/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Rust to Webassembly</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/autonomous-3d-printed-car-using-nvidia-jetson-nano-and-torch/">
+                                <span class="button__text">Autonomous 3D printed car using Nvidia Jetson Nano and Torch</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

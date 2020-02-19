@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Bienvenue sur le site de Lean Deep</title>
+    <link>https://leandeep.com/tags/docker/</link>
+    <description>Recent content in Docker on Bienvenue sur le site de Lean Deep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 07 May 2019 21:17:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deployer une image Docker sur AWS Fargate</title>
+      <link>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</link>
+      <pubDate>Tue, 07 May 2019 21:17:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</guid>
+      <description>Voici la procédure pour déployer des containers Docker sur Fargate.
+Rôle ecsTaskExecutionRole Vérifier l&#39;existance de ce rôle dans l&#39;IAM. S&#39;il n&#39;existe pas, il faut le créer:
+Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
+{ &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Principal&amp;quot;: { &amp;quot;Service&amp;quot;: &amp;quot;ecs-tasks.amazonaws.com&amp;quot; }, &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot; } ] } Créer une tâche d&#39;exécution de rôle:
+aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&#39;exécution de rôle:</description>
+    </item>
+    
+    <item>
+      <title>Installer Rancher 2 sur Centos 7 (Dev setup)</title>
+      <link>https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/</link>
+      <pubDate>Sun, 05 May 2019 19:00:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/</guid>
+      <description>Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.
+Docker installation Install needed packages:
+$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
+$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
+$ sudo yum install docker-ce Create Docker group:
+$ sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
+$ ls -l /var/run/docker.</description>
+    </item>
+    
+    <item>
+      <title>Mettre en place Traefik en moins de 5 minutes</title>
+      <link>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</link>
+      <pubDate>Fri, 29 Mar 2019 21:44:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</guid>
+      <description>Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
+Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&#39;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
+Installtion Docker-compose Créer un fichier docker-compose.yml:
+version: &amp;quot;3.</description>
+    </item>
+    
+    <item>
+      <title>Comparaison des services de conteneurisation AWS (ECS, Fargate et EKS) </title>
+      <link>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</link>
+      <pubDate>Wed, 16 Jan 2019 19:33:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
+      <description>Il n&#39;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
+Dans cet article je vais essayer de résumer les différences qu&#39;il peut y avoir entre ces 3 services.
+Avantages
+   ECS EKS Fargate     Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS   Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
+    </item>
+    
+    <item>
+      <title>Datalab made portable on any server or laptop to work from anywhere with or without internet</title>
+      <link>https://leandeep.com/datalab-made-portable-on-any-server-or-laptop-to-work-from-anywhere-with-or-without-internet/</link>
+      <pubDate>Fri, 31 Aug 2018 10:46:30 +0000</pubDate>
+      
+      <guid>https://leandeep.com/datalab-made-portable-on-any-server-or-laptop-to-work-from-anywhere-with-or-without-internet/</guid>
+      <description>Introduction Cet article n&#39;est pas vraiment détaillé et structuré. Il s&#39;agit plus de notes personnelles pour avoir toujours à disposition mon datalab avec toutes les données (max 1 To for now) nécessaires pour travailler. Il s&#39;agit d&#39;une installation très rapide à usage personnel. Ici je ne parle pas du tout d&#39;industrialisation ou de setup pour une grande entreprise&amp;hellip; L&#39;idée ici est de pouvoir travailler de partout que ce soit avec ou sans internet.</description>
+    </item>
+    
+    <item>
+      <title>Damn! Toujours pas d’HTTPS…</title>
+      <link>https://leandeep.com/damn-toujours-pas-dhttps/</link>
+      <pubDate>Mon, 06 Aug 2018 23:11:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/damn-toujours-pas-dhttps/</guid>
+      <description>Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&amp;hellip; J&#39;en profite pour écrire rapidement cet article.
+Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</description>
+    </item>
+    
+    <item>
+      <title>Installer OpenShift sur OSX</title>
+      <link>https://leandeep.com/installer-openshift-sur-osx/</link>
+      <pubDate>Wed, 28 Feb 2018 22:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-openshift-sur-osx/</guid>
+      <description>Qu&#39;est-ce qu&#39;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&#39;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&#39;est opensource&amp;hellip;
+MiniShift Si vous voulez tester l&#39;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
+Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</description>
+    </item>
+    
+    <item>
+      <title>Lancer un Datalab en quelques minutes</title>
+      <link>https://leandeep.com/lancer-un-datalab-en-quelques-minutes/</link>
+      <pubDate>Fri, 19 Jan 2018 23:39:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/lancer-un-datalab-en-quelques-minutes/</guid>
+      <description>Il m’arrive assez régulièrement de devoir switcher de machine de développement lorsque je travaille sur du Machine ou Deep Learning. C’est d’autant plus vrai lorsque je travaille avec Tensorflow avec support GPU et que je manipule des datasets de plusieurs Go. Pour accélérer la phase d’apprentissage de mes algorithmes, il m’arrive de louer, durant plusieurs heures, des VM survitaminées chez Amazon Web Services.
+Pour éviter de devoir reconfigurer à chaque fois mon environnement de datascience, j’utilise 2 images Docker.</description>
+    </item>
+    
+    <item>
+      <title>Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</title>
+      <link>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</link>
+      <pubDate>Mon, 06 Feb 2017 23:42:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</guid>
+      <description>Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…
+J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS.</description>
+    </item>
+    
+    <item>
+      <title>Réduire la taille du contexte lors d&#39;un Docker build</title>
+      <link>https://leandeep.com/r%C3%A9duire-la-taille-du-contexte-lors-dun-docker-build/</link>
+      <pubDate>Mon, 01 Feb 2016 21:26:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/r%C3%A9duire-la-taille-du-contexte-lors-dun-docker-build/</guid>
+      <description>Très simplement, il suffit d&#39;ajouter un fichier .dockerignore au même niveau que votre Dockerfile.
+Voici un exemple de paths à exclure du contexte.
+.git .ipynb_checkpoints/* /notebooks/* /unused/* Dockerfile .DS_Store .gitignore README.md env.* /devops/* # To prevent storing dev/temporary container data *.csv /tmp/* tmp/ </description>
+    </item>
+    
+  </channel>
+</rss>

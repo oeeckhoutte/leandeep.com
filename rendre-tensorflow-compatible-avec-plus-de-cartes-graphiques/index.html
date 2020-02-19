@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Installer les dépendances: Installer openjdk 8:
+sudo apt-get install openjdk-8-jdk Installer les autres dépendances:
+sudo apt-get install pkg-config zip g&#43;&#43; zlib1g-dev unzip Installer Bazel: wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh chmod &#43;x bazel-0.17.2-installer-linux-x86_64.sh ./bazel-0.17.2-installer-linux-x86_64.sh --user Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:
+export PATH=&amp;quot;$PATH:$HOME/bin&amp;quot; Install libcudnn Télécharger le binaire directement depuis le site: https://developer.nvidia.com/cudnn. Cette étape nécessite de créer une compte chez Nvidia.
+Pour installer le binaire il suffit d&#39;exécuter la commande suivante:" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/" />
+
+
+    <title>
+        
+            Rendre Tensorflow compatible avec plus de cartes graphiques :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Rendre Tensorflow compatible avec plus de cartes graphiques">
+<meta itemprop="description" content="Installer les dépendances: Installer openjdk 8:
+sudo apt-get install openjdk-8-jdk Installer les autres dépendances:
+sudo apt-get install pkg-config zip g&#43;&#43; zlib1g-dev unzip Installer Bazel: wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh chmod &#43;x bazel-0.17.2-installer-linux-x86_64.sh ./bazel-0.17.2-installer-linux-x86_64.sh --user Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:
+export PATH=&quot;$PATH:$HOME/bin&quot; Install libcudnn Télécharger le binaire directement depuis le site: https://developer.nvidia.com/cudnn. Cette étape nécessite de créer une compte chez Nvidia.
+Pour installer le binaire il suffit d&#39;exécuter la commande suivante:">
+<meta itemprop="datePublished" content="2018-09-29T19:50:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-29T19:50:00&#43;00:00" />
+<meta itemprop="wordCount" content="584">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning,Deep Learning,Tensorflow," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Rendre Tensorflow compatible avec plus de cartes graphiques"/>
+<meta name="twitter:description" content="Installer les dépendances: Installer openjdk 8:
+sudo apt-get install openjdk-8-jdk Installer les autres dépendances:
+sudo apt-get install pkg-config zip g&#43;&#43; zlib1g-dev unzip Installer Bazel: wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh chmod &#43;x bazel-0.17.2-installer-linux-x86_64.sh ./bazel-0.17.2-installer-linux-x86_64.sh --user Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:
+export PATH=&quot;$PATH:$HOME/bin&quot; Install libcudnn Télécharger le binaire directement depuis le site: https://developer.nvidia.com/cudnn. Cette étape nécessite de créer une compte chez Nvidia.
+Pour installer le binaire il suffit d&#39;exécuter la commande suivante:"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2018-09-29 19:50:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/">Rendre Tensorflow compatible avec plus de cartes graphiques</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="installer-les-dpendances">Installer les dépendances:</h2>
+<p>Installer openjdk 8:</p>
+<pre><code>sudo apt-get install openjdk-8-jdk
+</code></pre><p>Installer les autres dépendances:</p>
+<pre><code>sudo apt-get install pkg-config zip g++ zlib1g-dev unzip
+</code></pre><h2 id="installer-bazel">Installer Bazel:</h2>
+<pre><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
+chmod +x bazel-0.17.2-installer-linux-x86_64.sh
+./bazel-0.17.2-installer-linux-x86_64.sh --user
+</code></pre><p>Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:</p>
+<pre><code>export PATH=&quot;$PATH:$HOME/bin&quot;
+</code></pre><h2 id="install-libcudnn">Install libcudnn</h2>
+<p>Télécharger le binaire directement depuis le site: <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a>. Cette étape nécessite de créer une compte chez Nvidia.</p>
+<p>Pour installer le binaire il suffit d'exécuter la commande suivante:</p>
+<pre><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb
+sudo dpkg -i libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb
+</code></pre><!-- raw HTML omitted -->
+<p>Vérifier que cudnn est bien installé:</p>
+<pre><code># Copy the cuDNN sample to a writable path.
+cp -r /usr/src/cudnn_samples_v7/ $HOME
+# Go to the writable path.
+cd  $HOME/cudnn_samples_v7/mnistCUDNN
+# Compile the mnistCUDNN sample.
+make clean &amp;&amp; make
+# Run the mnistCUDNN sample.
+./mnistCUDNN
+# If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:
+$ Test passed!
+</code></pre><p>Maintenons les paquets afin qu'ils ne soient pas updatés ou effacés:</p>
+<pre><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
+</code></pre><h2 id="installer-tensorflow">Installer Tensorflow:</h2>
+<p>Commencer par installer les dépendances:</p>
+<pre><code>sudo apt-get install python-numpy swig python-dev git python-pip
+</code></pre><p>Puis cloner Tensorflow repo:</p>
+<pre><code>git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git -b r1.11
+</code></pre><p>Configurer le build pour que Tensorflow puisse fonctionner avec (dans mon cas) les cartes supportant cuda 3.0 compute:
+Pour voir quelle version appliquer pour votre carte graphique rendez-vous sur <a href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus</a></p>
+<p>Obtenir le modèle de sa carte graphique:</p>
+<pre><code>sudo lshw -C display | grep product
+</code></pre><pre><code>cd tensorflow
+TF_UNOFFICIAL_SETTING=1 ./configure
+
+# Pour les questions suivantes répondre comme ceci: 
+
+Do you wish to build TensorFlow with CUDA support? [y/N]: y
+CUDA support will be enabled for TensorFlow.
+
+Please specify the CUDA SDK version you want to use. [Leave empty to default to CUDA 9.0]:
+
+
+Please specify the location where CUDA 9.0 toolkit is installed. Refer to README.md for more details. [Default is /usr/local/cuda]:
+
+
+Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 7.0]:
+
+
+Please specify the location where cuDNN 7 library is installed. Refer to README.md for more details. [Default is /usr/local/cuda]: /usr/lib/x86_64-linux-gnu/
+
+</code></pre><p>Installer la dépendance Keras:</p>
+<pre><code>pip install keras_applications
+pip install keras_preprocessing
+</code></pre><p>Compiler Tensorflow:</p>
+<pre><code>$HOME/bin/bazel build -c opt --config=cuda //tensorflow/cc:tutorials_example_trainer
+
+bazel-bin/tensorflow/cc/tutorials_example_trainer --use_gpu
+</code></pre><p>Installer l'interface Python.
+On commence par créer un package pip avec Bazel:</p>
+<pre><code>$HOME/bin/bazel build -c opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+</code></pre><p>On install ensuite le package:</p>
+<pre><code>bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+</code></pre><p>Et on installe le package Tensorflow disponible dans /tmp/tensorflow_pkg/:</p>
+<pre><code>pip install /tmp/tensorflow_pkg/tensorflow-1.11.0-cp27-cp27mu-linux_x86_64.whl
+</code></pre><p>On vérifie que cela fonctionne:</p>
+<pre><code>python
+Python 2.7.12 (default, Dec  4 2017, 14:50:18)
+[GCC 5.4.0 20160609] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import tensorflow as tf
+&gt;&gt;&gt; hello = tf.constant('Hello, TensorFlow!')
+&gt;&gt;&gt; sess = tf.Session()
+2018-09-29 17:03:03.939989: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX
+2018-09-29 17:03:03.981711: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:964] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2018-09-29 17:03:03.982119: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1411] Found device 0 with properties:
+name: GeForce GTX 660 Ti major: 3 minor: 0 memoryClockRate(GHz): 0.98
+pciBusID: 0000:01:00.0
+totalMemory: 1.95GiB freeMemory: 1.89GiB
+2018-09-29 17:03:03.982143: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1490] Adding visible gpu devices: 0
+2018-09-29 17:03:04.240898: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] Device interconnect StreamExecutor with strength 1 edge matrix:
+2018-09-29 17:03:04.240938: I tensorflow/core/common_runtime/gpu/gpu_device.cc:977]      0
+2018-09-29 17:03:04.240950: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990] 0:   N
+2018-09-29 17:03:04.241102: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1103] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1663 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 660 Ti, pci bus id: 0000:01:00.0, compute capability: 3.0)
+</code></pre><p>Perfect! Maintenant je peux utiliser mon GPU sur mon serveur.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/deep-learning">Deep Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/tensorflow">Tensorflow</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>584 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>29 Sep. 2018</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/%C3%AAtre-notifi%C3%A9-lorsquun-long-traitement-est-termin%C3%A9/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Être notifié lorsqu&#39;un long traitement est terminé</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/comment-jorganise-mes-projets-de-data-science/">
+                                <span class="button__text">Comment j&#39;organise mes projets de data science ?</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

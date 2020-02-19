@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Cela fait pas mal de temps que j&#39;utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp;amp; tricks à savoir (comme si j&#39;utilisais Jupyter Notebook).
+Voici la liste des tips:
+ Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&#39;une itération  A compléter&amp;hellip;" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/mastering-pandas/" />
+
+
+    <title>
+        
+            Mastering Pandas :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Mastering Pandas">
+<meta itemprop="description" content="Cela fait pas mal de temps que j&#39;utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp; tricks à savoir (comme si j&#39;utilisais Jupyter Notebook).
+Voici la liste des tips:
+ Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&#39;une itération  A compléter&hellip;">
+<meta itemprop="datePublished" content="2019-02-16T13:47:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-02-16T13:47:00&#43;00:00" />
+<meta itemprop="wordCount" content="2846">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Data Science,Machine Learning,Pandas," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Mastering Pandas"/>
+<meta name="twitter:description" content="Cela fait pas mal de temps que j&#39;utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp; tricks à savoir (comme si j&#39;utilisais Jupyter Notebook).
+Voici la liste des tips:
+ Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&#39;une itération  A compléter&hellip;"/>
+
+
+
+
+
+    <meta property="article:published_time" content="2019-02-16 13:47:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>14 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/mastering-pandas/">Mastering Pandas</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Cela fait pas mal de temps que j'utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp; tricks à savoir (comme si j'utilisais Jupyter Notebook).</p>
+<p>Voici la liste des tips:</p>
+<ul>
+<li>Introduction à Pandas</li>
+<li>Lire des données tabulaires</li>
+<li>Sélectionner une série Pandas</li>
+<li>Parenthèses Pandas</li>
+<li>Renommer des colonnes</li>
+<li>Effacer une colonne</li>
+<li>Effacer toutes les colonnes sauf</li>
+<li>Trier</li>
+<li>Filtrer</li>
+<li>Filtres multi-critères</li>
+<li>Examiner un dataset</li>
+<li>Numéro, index et contenu de la ligne lors d'une itération</li>
+</ul>
+<p>A compléter&hellip;</p>
+<ul>
+<li>Utiliser le paramètre Axis</li>
+<li>Utiliser les méthodes String</li>
+<li>Changer le type de donnée</li>
+<li>Utiliser groupeby</li>
+<li>Explorer les séries</li>
+<li>Gérer les données manquantes</li>
+<li>Utiliser l'index Pandas</li>
+<li>Sélectionner plusieurs lignes et colonnes</li>
+<li>Utiliser le paramètre inplace</li>
+<li>Réduire le dataset plus petit et plus rapide</li>
+<li>Pandas et Scikit-learn</li>
+<li>Echantillonner aléatoirement</li>
+<li>Créer des dummy variables</li>
+<li>Manipuler des dates et heures</li>
+<li>Retirer les lignes en doublon</li>
+<li>Filtrer et convenir les series NaN</li>
+<li>Changer les options d'affichage</li>
+</ul>
+<h2 id="introduction--pandas">Introduction à Pandas</h2>
+<p>C'est une librairie opensource d'analyse de données qui fourni des structures de données ainsi que des outils d'analyse faciles à utiliser.</p>
+<p>Ses avantages sont:</p>
+<ul>
+<li>Un grand nombre de fonctionnalités</li>
+<li>Une communauté active</li>
+<li>Documentation bien faite</li>
+<li>S'associe bien avec d'autres packages connus
+<ul>
+<li>construit au-dessus de Numpy</li>
+<li>s'utilise facilement avec Scikit-learn</li>
+</ul>
+</li>
+</ul>
+<p>Lien vers la documentation officielle: <a href="http://pandas.pydata.org/">http://pandas.pydata.org/</a></p>
+<h2 id="lire-des-donnes-tabulaires">Lire des données tabulaires</h2>
+<p><em>Lire des fichiers de données tabulaires dans Pandas</em></p>
+<p><strong>Example de fichiers de données:</strong></p>
+<ul>
+<li>CSV</li>
+<li>Excel</li>
+<li>Table-like data format</li>
+</ul>
+<pre><code># import pandas
+import pandas as pd
+</code></pre><pre><code># reading a well-formatted .tsv file
+url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/chipotle.tsv'
+orders = pd.read_table(url)
+orders.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-1.png" alt="image"></p>
+<p><strong>Fonctionnement par default de read_table:</strong></p>
+<ul>
+<li>Le fichier à charger doit contenir des tabs entre les colonnes</li>
+<li>Présence d'un header</li>
+</ul>
+<pre><code>url2 = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/u.user'
+users = pd.read_table(url2)
+users.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-2.png" alt="image"></p>
+<p><strong>Problème:</strong></p>
+<ul>
+<li>Le sepérateur entre les colonnes est le caractère <code>&quot;|&quot;</code>. Il faut donc le spécifier à Pandas avec le paramètre <code>sep=</code></li>
+<li>Il n'y a pas de header. Il faut donc le spécifier en passant le paramètre <code>header=None</code>. On peut aussi ajouter une ligne pour les noms des colonnes en utilisant le paramètre <code>names=user_cols</code></li>
+</ul>
+<pre><code>user_cols = ['user_id', 'age', 'gender', 'occupation', 'zip_code']
+users = pd.read_table(url2, sep='|', header=None, names=user_cols)
+users.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-3.png" alt="image"></p>
+<p><strong>Note:</strong></p>
+<p>Si vous avez un fichier contenant du texte en haut ou en bas vous pouvez utiliser les paramètres suivants: <code>skiprows=None</code> ou <code>skipfooter=None</code>.</p>
+<p>Lien vers la documentation de read_table: <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_table.html">http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_table.html</a></p>
+<h2 id="slectionner-une-srie-pandas">Sélectionner une série Pandas</h2>
+<p><em>Sélectionner une série Pandas à partir d'un dataframe</em></p>
+<p><strong>Qu'est-ce qu'une série ?</strong></p>
+<ul>
+<li>c'est un vecteur m x 1
+<ul>
+<li>m est le nombre de lignes</li>
+<li>1 le nombre de colonne</li>
+</ul>
+</li>
+<li>Chaque colonne d'un dataframe Pandas est une série</li>
+</ul>
+<pre><code>import pandas as pd
+</code></pre><pre><code># The csv file is separated by commas
+url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
+
+# method 1: read_table
+ufo = pd.read_table(url, sep=',')
+
+# method 2: read_csv
+# this is a short-cut here using read_csv because it uses comma as the default separator
+ufo = pd.read_csv(url)
+ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-4.png" alt="image"></p>
+<pre><code># Method 1: Selecting City series (this will always work)
+ufo['City']
+
+# Method 2: Selecting City series
+ufo.City
+
+# 'City' is case-sensitive, you cannot use 'city'
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0                      Ithaca
+1                 Willingboro
+2                     Holyoke
+3                     Abilene
+4        New York Worlds Fair
+5                 Valley City
+6                 Crater Lake
+7                        Alma
+8                     Eklutna
+9                     Hubbard
+10                    Fontana
+11                   Waterloo
+12                     Belton
+13                     Keokuk
+14                  Ludington
+15                Forest Home
+16                Los Angeles
+17                  Hapeville
+18                     Oneida
+19                 Bering Sea
+20                   Nebraska
+21                        NaN
+22                        NaN
+23                  Owensboro
+24                 Wilderness
+25                  San Diego
+26                 Wilderness
+27                     Clovis
+28                 Los Alamos
+29               Ft. Duschene
+                 ...         
+18211                 Holyoke
+18212                  Carson
+18213                Pasadena
+18214                  Austin
+18215                El Campo
+18216            Garden Grove
+18217           Berthoud Pass
+18218              Sisterdale
+18219            Garden Grove
+18220             Shasta Lake
+18221                Franklin
+18222          Albrightsville
+18223              Greenville
+18224                 Eufaula
+18225             Simi Valley
+18226           San Francisco
+18227           San Francisco
+18228              Kingsville
+18229                 Chicago
+18230             Pismo Beach
+18231             Pismo Beach
+18232                    Lodi
+18233               Anchorage
+18234                Capitola
+18235          Fountain Hills
+18236              Grant Park
+18237             Spirit Lake
+18238             Eagle River
+18239             Eagle River
+18240                    Ybor
+Name: City, dtype: object
+</code></pre><pre><code># confirm type
+type(ufo['City'])
+type(ufo.City)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>pandas.core.series.Series
+</code></pre><p><strong>Comment sélectionner une colonne qui contient des espaces ?</strong></p>
+<ul>
+<li>Il n'est pas possible d'utiliser la méthode 2  <code>ufo.category_name</code></li>
+<li>Il faut utiliser la méthode 1 <code>ufo['category name']</code></li>
+</ul>
+<pre><code>ufo['Colors Reported']
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0           NaN
+1           NaN
+2           NaN
+3           NaN
+4           NaN
+5           NaN
+6           NaN
+7           NaN
+8           NaN
+9           NaN
+10          NaN
+11          NaN
+12          RED
+13          NaN
+14          NaN
+15          NaN
+16          NaN
+17          NaN
+18          NaN
+19          RED
+20          NaN
+21          NaN
+22          NaN
+23          NaN
+24          NaN
+25          NaN
+26          NaN
+27          NaN
+28          NaN
+29          NaN
+          ...  
+18211       NaN
+18212       NaN
+18213     GREEN
+18214       NaN
+18215       NaN
+18216    ORANGE
+18217       NaN
+18218       NaN
+18219       NaN
+18220      BLUE
+18221       NaN
+18222       NaN
+18223       NaN
+18224       NaN
+18225       NaN
+18226       NaN
+18227       NaN
+18228       NaN
+18229       NaN
+18230       NaN
+18231       NaN
+18232       NaN
+18233       RED
+18234       NaN
+18235       NaN
+18236       NaN
+18237       NaN
+18238       NaN
+18239       RED
+18240       NaN
+Name: Colors Reported, dtype: object
+</code></pre><p><strong>Comment créer une nouvelle série Pandas dans un dataframe ?</strong></p>
+<pre><code># example of concatenating strings
+'ab' + 'cd'
+</code></pre><pre><code># created a new column called &quot;Location&quot; with a concatenation of &quot;City&quot; and &quot;State&quot;
+ufo['Location'] = ufo.City + ', ' + ufo.State
+ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-5.png" alt="image"></p>
+<h2 id="parenthses-pandas">Parenthèses Pandas</h2>
+<p><em>Commandes Pandas finissant par des parenthèses</em></p>
+<pre><code>import pandas as pd
+</code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/imdb_1000.csv'
+movies = pd.read_csv(url)
+</code></pre><pre><code># Looking at the first 5 rows of the DataFrame
+movies.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-6.png" alt="image"></p>
+<pre><code># This will show descriptive statistics of numeric columns
+movies.describe()
+</code></pre><p><img src="https://leandeep.com/images/pandas-7.png" alt="image"></p>
+<pre><code>movies.describe(include=['float64'])
+</code></pre><p><img src="https://leandeep.com/images/pandas-8.png" alt="image"></p>
+<pre><code># Finding out dimensionality of DataFrame
+movies.shape
+</code></pre><p>Jupyter Output:</p>
+<pre><code>(979, 6)
+</code></pre><pre><code># Finding out data types of each columns
+movies.dtypes
+</code></pre><p>Jupyter Output:</p>
+<pre><code>star_rating       float64
+title              object
+content_rating     object
+genre              object
+duration            int64
+actors_list        object
+dtype: object
+</code></pre><pre><code>type(movies)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>pandas.core.frame.DataFrame
+</code></pre><p><strong>Les dataframes ont certains attributs et méthodes</strong></p>
+<ul>
+<li>
+<p>Méthodes: avec parenthèses</p>
+<ul>
+<li>
+<p>Orientées action:</p>
+<ul>
+<li><code>movies.head()</code></li>
+<li><code>movies.describe()</code></li>
+</ul>
+</li>
+<li>
+<p>Les parenthèses autorisent les arguments optionnels</p>
+<ul>
+<li><code>movies.describe(include='object')</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Attributs: sans parenthèse</p>
+<ul>
+<li>Orientés description:
+<ul>
+<li><code>movie.shape</code></li>
+<li><code>movie.dtypes</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="renommer-des-colonnes">Renommer des colonnes</h2>
+<pre><code>import pandas as pd
+</code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
+ufo = pd.read_csv(url)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-9.png" alt="image"></p>
+<pre><code># To check out only the columns
+# It will output a list of columns
+ufo.columns
+</code></pre><p>Jupyter Output:</p>
+<pre><code>Index(['City', 'Colors Reported', 'Shape Reported', 'State', 'Time'], dtype='object')
+</code></pre><p><strong>Méthode 1: Renommer une seule colonne:</strong></p>
+<pre><code># inplace=True to affect DataFrame
+ufo.rename(columns = {'Colors Reported': 'Colors_Reported', 'Shape Reported': 'Shape_Reported'}, inplace=True)
+</code></pre><pre><code>ufo.columns
+</code></pre><p>Jupyter Output:</p>
+<pre><code>Index(['City', 'Colors_Reported', 'Shape_Reported', 'State', 'Time'], dtype='object')
+</code></pre><p><strong>Méthode 2: renommer plusieurs colonnes:</strong></p>
+<pre><code>ufo_cols = ['city', 'colors reported', 'shape reported', 'state', 'time']
+</code></pre><pre><code>ufo.columns = ufo_cols
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-10.png" alt="image"></p>
+<p><strong>Méthode 3: Changer les colonnes pendant la lecture:</strong></p>
+<pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
+ufo = pd.read_csv(url, names=ufo_cols, header=0)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-11.png" alt="image"></p>
+<p><strong>Méthode 4: replacer les espaces avec des underscores pour toutes les colonnes:</strong></p>
+<pre><code>ufo.columns = ufo.columns.str.replace(' ', '_')
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-12.png" alt="image"></p>
+<h2 id="effacer-une-colonne">Effacer une colonne</h2>
+<pre><code>import pandas as pd
+</code></pre><pre><code># Creating pandas DataFrame
+url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
+ufo = pd.read_csv(url)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-13.png" alt="image"></p>
+<pre><code>ufo.shape
+</code></pre><p>Jupyter Output:</p>
+<pre><code>(18241, 5)
+</code></pre><pre><code># Removing column
+# axis=0 row axis
+# axis=1 column axis
+# inplace=True to effect change
+ufo.drop('Colors Reported', axis=1, inplace=True)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-14.png" alt="image"></p>
+<pre><code># Removing column
+list_drop = ['City', 'State']
+ufo.drop(list_drop, axis=1, inplace=True)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-15.png" alt="image"></p>
+<pre><code># Removing rows 0 and 1
+# axis=0 is the default, so technically, you can leave this out
+rows = [0, 1]
+ufo.drop(rows, axis=0, inplace=True)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-16.png" alt="image"></p>
+<h2 id="effacer-toutes-les-colonnes-sauf-certaine">Effacer toutes les colonnes sauf certaine</h2>
+<pre><code># df d'origine
+a  b  c  d  e  f  g  
+1  2  3  4  5  6  7
+4  3  7  1  6  9  4
+8  9  0  2  4  2  1
+
+# df attendu
+a  b
+1  2
+4  3
+8  9
+
+df = df[['a','b']]
+</code></pre><h2 id="trier">Trier</h2>
+<pre><code>import pandas as pd
+</code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/imdb_1000.csv'
+movies = pd.read_csv(url)
+</code></pre><pre><code>movies.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-17.png" alt="image"></p>
+<pre><code># sort using sort_values
+# sort with numbers first then alphabetical order
+movies.title.sort_values()
+
+# alternative sorting
+movies['title'].sort_values()
+</code></pre><p>Jupyter Output:</p>
+<pre><code>542                   (500) Days of Summer
+5                             12 Angry Men
+201                       12 Years a Slave
+698                              127 Hours
+110                  2001: A Space Odyssey
+910                                   2046
+596                               21 Grams
+624                              25th Hour
+708                       28 Days Later...
+60                                3 Idiots
+225                                 3-Iron
+570                                    300
+555                           3:10 to Yuma
+427           4 Months, 3 Weeks and 2 Days
+824                                     42
+597                                  50/50
+203                                  8 1/2
+170                       A Beautiful Mind
+941                       A Bridge Too Far
+571                           A Bronx Tale
+266                      A Christmas Story
+86                      A Clockwork Orange
+716                         A Few Good Men
+750                    A Fish Called Wanda
+276                   A Fistful of Dollars
+612                     A Hard Day's Night
+883                  A History of Violence
+869              A Nightmare on Elm Street
+865                        A Perfect World
+426                              A Prophet
+                      ...                 
+207       What Ever Happened to Baby Jane?
+562            What's Eating Gilbert Grape
+719                When Harry Met Sally...
+649                      Where Eagles Dare
+33                                Whiplash
+669                Who Framed Roger Rabbit
+219        Who's Afraid of Virginia Woolf?
+127                      Wild Strawberries
+497    Willy Wonka &amp; the Chocolate Factory
+270                        Wings of Desire
+483                           Withnail &amp; I
+920                                Witness
+65             Witness for the Prosecution
+970                            Wonder Boys
+518                         Wreck-It Ralph
+954                                  X-Men
+248             X-Men: Days of Future Past
+532                     X-Men: First Class
+871                                     X2
+695                      Y Tu Mama Tambien
+403                             Ying xiong
+235                                Yip Man
+96                                 Yojimbo
+280                     Young Frankenstein
+535                                  Zelig
+955                       Zero Dark Thirty
+677                                 Zodiac
+615                             Zombieland
+526                                   Zulu
+864                                  [Rec]
+Name: title, dtype: object
+</code></pre><pre><code># returns a series
+type(movies['title'].sort_values())
+</code></pre><p>Jupyter Output:</p>
+<pre><code>pandas.core.series.Series
+</code></pre><p><strong>Tirer une colonne:</strong></p>
+<pre><code># sort in ascending=False
+# this does not affect the underlying data
+movies.title.sort_values(ascending=False)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>864                                  [Rec]
+526                                   Zulu
+615                             Zombieland
+677                                 Zodiac
+955                       Zero Dark Thirty
+535                                  Zelig
+280                     Young Frankenstein
+96                                 Yojimbo
+235                                Yip Man
+403                             Ying xiong
+695                      Y Tu Mama Tambien
+871                                     X2
+532                     X-Men: First Class
+248             X-Men: Days of Future Past
+954                                  X-Men
+518                         Wreck-It Ralph
+970                            Wonder Boys
+65             Witness for the Prosecution
+920                                Witness
+483                           Withnail &amp; I
+270                        Wings of Desire
+497    Willy Wonka &amp; the Chocolate Factory
+127                      Wild Strawberries
+219        Who's Afraid of Virginia Woolf?
+669                Who Framed Roger Rabbit
+33                                Whiplash
+649                      Where Eagles Dare
+719                When Harry Met Sally...
+562            What's Eating Gilbert Grape
+207       What Ever Happened to Baby Jane?
+                      ...                 
+426                              A Prophet
+865                        A Perfect World
+869              A Nightmare on Elm Street
+883                  A History of Violence
+612                     A Hard Day's Night
+276                   A Fistful of Dollars
+750                    A Fish Called Wanda
+716                         A Few Good Men
+86                      A Clockwork Orange
+266                      A Christmas Story
+571                           A Bronx Tale
+941                       A Bridge Too Far
+170                       A Beautiful Mind
+203                                  8 1/2
+597                                  50/50
+824                                     42
+427           4 Months, 3 Weeks and 2 Days
+555                           3:10 to Yuma
+570                                    300
+225                                 3-Iron
+60                                3 Idiots
+708                       28 Days Later...
+624                              25th Hour
+596                               21 Grams
+910                                   2046
+110                  2001: A Space Odyssey
+698                              127 Hours
+201                       12 Years a Slave
+5                             12 Angry Men
+542                   (500) Days of Summer
+Name: title, dtype: object
+</code></pre><p><strong>Trieer un DataFrame en utilisant une colonne particulière:</strong></p>
+<pre><code>movies.sort_values('title')
+</code></pre><p><img src="https://leandeep.com/images/pandas-18.png" alt="image"></p>
+<pre><code>movies.sort_values('duration', ascending=False)
+</code></pre><p><img src="https://leandeep.com/images/pandas-19.png" alt="image"></p>
+<p><strong>Trier un DataFrame en utilisant plusieurs colonnes:</strong></p>
+<pre><code># create list of columns
+# sort using content_rating
+# then within content_rating, sort by duration
+columns = ['content_rating', 'duration']
+
+# sort column
+movies.sort_values(columns)
+</code></pre><p><img src="https://leandeep.com/images/pandas-20.png" alt="image"></p>
+<h2 id="filtrer">Filtrer</h2>
+<p><em>Filtrer les lignes d'un dataframe Pandas par rapport aux valeurs d'une colonne</em></p>
+<pre><code>import pandas as pd
+</code></pre><pre><code># url
+
+url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/imdb_1000.csv'
+
+# create DataFrame called movies
+movies = pd.read_csv(url)
+</code></pre><pre><code>movies.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-21.png" alt="image"></p>
+<pre><code>movies.shape
+</code></pre><p>Jupyter Output:</p>
+<pre><code>(979, 6)
+</code></pre><pre><code># booleans
+type(True)
+type(False)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>bool
+</code></pre><p>On veut créer une liste de boolean avec le même nombre de lignes que le dataframe movies</p>
+<ul>
+<li>Le boolean vaudra true si la duration &gt; 200</li>
+<li>false dans le cas contraire</li>
+</ul>
+<pre><code># create list
+booleans = []
+
+# loop
+for length in movies.duration:
+    if length &gt;= 200:
+        booleans.append(True)
+    else:
+        booleans.append(False)
+</code></pre><pre><code>booleans[0:5]
+</code></pre><p>Jupyter Output:</p>
+<pre><code>[False, False, True, False, False]
+</code></pre><pre><code># len(booleans) is the same as the number of rows in movies' DataFrame
+len(booleans)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>979
+</code></pre><pre><code># convert booleans into a Pandas series
+is_long = pd.Series(booleans)
+</code></pre><pre><code>is_long.head()
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0    False
+1    False
+2     True
+3    False
+4    False
+dtype: bool
+</code></pre><pre><code># pulls out genre
+movies['genre']
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0          Crime
+1          Crime
+2          Crime
+3         Action
+4          Crime
+5          Drama
+6        Western
+7      Adventure
+8      Biography
+9          Drama
+10     Adventure
+11        Action
+12        Action
+13         Drama
+14     Adventure
+15     Adventure
+16         Drama
+17         Drama
+18     Biography
+19        Action
+20        Action
+21         Crime
+22         Drama
+23         Crime
+24         Drama
+25        Comedy
+26       Western
+27         Drama
+28         Crime
+29        Comedy
+         ...    
+949       Comedy
+950        Crime
+951        Drama
+952       Comedy
+953    Adventure
+954       Action
+955        Drama
+956       Comedy
+957       Comedy
+958        Drama
+959       Comedy
+960       Comedy
+961    Biography
+962       Comedy
+963       Action
+964    Biography
+965      Mystery
+966    Animation
+967       Action
+968        Drama
+969        Crime
+970        Drama
+971       Comedy
+972        Drama
+973        Drama
+974       Comedy
+975    Adventure
+976       Action
+977       Horror
+978        Crime
+Name: genre, dtype: object
+</code></pre><pre><code># this pulls out duration &gt;= 200mins
+movies[is_long]
+</code></pre><p><img src="https://leandeep.com/images/pandas-22.png" alt="image"></p>
+<p><strong>Méthode plus rapide sans for loop:</strong></p>
+<pre><code># this line of code replaces the for loop
+# when you use a series name using pandas and use a comparison operator, it will loop through each row
+is_long = movies.duration &gt;= 200
+is_long.head()
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0    False
+1    False
+2     True
+3    False
+4    False
+Name: duration, dtype: bool
+</code></pre><pre><code>movies[is_long]
+</code></pre><p><img src="https://leandeep.com/images/pandas-23.png" alt="image"></p>
+<p><strong>Méthode encore meilleure pour simplifier <code>movies[is_long]</code>:</strong></p>
+<pre><code>movies[movies.duration &gt;= 200]
+</code></pre><p><img src="https://leandeep.com/images/pandas-24.png" alt="image"></p>
+<p><strong>Conseil additionnel: on veut étudier la duration et seulement le genre au lieu de toutes les colonnes</strong></p>
+<pre><code># this is a DataFrame, we use dot or bracket notation to get what we want
+movies[movies.duration &gt;= 200]['genre']
+movies[movies.duration &gt;= 200].genre
+</code></pre><p>Jupyter Output:</p>
+<pre><code>2          Crime
+7      Adventure
+17         Drama
+78         Crime
+85     Adventure
+142    Adventure
+157        Drama
+204    Adventure
+445    Adventure
+476        Drama
+630    Biography
+767       Action
+Name: genre, dtype: object
+</code></pre><pre><code># best practice is to use .loc instead of what we did above by selecting columns
+movies.loc[movies.duration &gt;= 200, 'genre']
+</code></pre><p>Jupyter Output:</p>
+<pre><code>2          Crime
+7      Adventure
+17         Drama
+78         Crime
+85     Adventure
+142    Adventure
+157        Drama
+204    Adventure
+445    Adventure
+476        Drama
+630    Biography
+767       Action
+Name: genre, dtype: object
+</code></pre><h2 id="filtres-multi-critres">Filtres multi-critères</h2>
+<p><em>Appliquer des filtres multi-critères sur un dataframe Pandas</em></p>
+<pre><code>import pandas as pd
+</code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/imdb_1000.csv'
+
+# Create movies DataFrame
+movies = pd.read_csv(url)
+</code></pre><pre><code>movies.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-25.png" alt="image"></p>
+<pre><code>movies[movies.duration &gt;= 200]
+</code></pre><p><img src="https://leandeep.com/images/pandas-26.png" alt="image"></p>
+<p>2 conditions</p>
+<ul>
+<li>duration &gt; 200</li>
+<li>Seulement genre Drama</li>
+</ul>
+<pre><code>True or False
+Output: True
+
+True or True
+Output: True
+
+False or False
+Output: False
+
+True and True
+Output: True
+
+True and False
+Output: False
+</code></pre><pre><code># when you wrap conditions in parantheses, you give order
+# you do those in brackets first before 'and'
+# AND
+movies[(movies.duration &gt;= 200) &amp; (movies.genre == 'Drama')]
+</code></pre><p><img src="https://leandeep.com/images/pandas-27.png" alt="image"></p>
+<pre><code># OR 
+movies[(movies.duration &gt;= 200) | (movies.genre == 'Drama')]
+</code></pre><p><img src="https://leandeep.com/images/pandas-28.png" alt="image"></p>
+<pre><code>(movies.duration &gt;= 200) | (movies.genre == 'Drama')
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0      False
+1      False
+2       True
+3      False
+4      False
+5       True
+6      False
+7       True
+8      False
+9       True
+10     False
+11     False
+12     False
+13      True
+14     False
+15     False
+16      True
+17      True
+18     False
+19     False
+20     False
+21     False
+22      True
+23     False
+24      True
+25     False
+26     False
+27      True
+28     False
+29     False
+       ...  
+949    False
+950    False
+951     True
+952    False
+953    False
+954    False
+955     True
+956    False
+957    False
+958     True
+959    False
+960    False
+961    False
+962    False
+963    False
+964    False
+965    False
+966    False
+967    False
+968     True
+969    False
+970     True
+971    False
+972     True
+973     True
+974    False
+975    False
+976    False
+977    False
+978    False
+dtype: bool
+</code></pre><pre><code>(movies.duration &gt;= 200) &amp; (movies.genre == 'Drama')
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0      False
+1      False
+2      False
+3      False
+4      False
+5      False
+6      False
+7      False
+8      False
+9      False
+10     False
+11     False
+12     False
+13     False
+14     False
+15     False
+16     False
+17      True
+18     False
+19     False
+20     False
+21     False
+22     False
+23     False
+24     False
+25     False
+26     False
+27     False
+28     False
+29     False
+       ...  
+949    False
+950    False
+951    False
+952    False
+953    False
+954    False
+955    False
+956    False
+957    False
+958    False
+959    False
+960    False
+961    False
+962    False
+963    False
+964    False
+965    False
+966    False
+967    False
+968    False
+969    False
+970    False
+971    False
+972    False
+973    False
+974    False
+975    False
+976    False
+977    False
+978    False
+dtype: bool
+</code></pre><p><strong>Et si on veut les genres crime, drama, et action?</strong></p>
+<pre><code># slow method
+movies[(movies.genre == 'Crime') | (movies.genre == 'Drama') | (movies.genre == 'Action')]
+</code></pre><p><img src="https://leandeep.com/images/pandas-29.png" alt="image"></p>
+<pre><code># fast method
+filter_list = ['Crime', 'Drama', 'Action']
+movies[movies.genre.isin(filter_list)]
+</code></pre><p><img src="https://leandeep.com/images/pandas-30.png" alt="image"></p>
+<h2 id="examiner-un-dataset">Examiner un dataset</h2>
+<p><em>Lire un sous-ensemble de colonnes ou lignes</em></p>
+<pre><code>import pandas as pd
+</code></pre><pre><code>link = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
+ufo = pd.read_csv(link)
+</code></pre><pre><code>ufo.columns
+</code></pre><p>Jupyter Output:</p>
+<pre><code>Index(['City', 'Colors Reported', 'Shape Reported', 'State', 'Time'], dtype='object')
+</code></pre><pre><code># reference using String
+cols = ['City', 'State']
+
+ufo = pd.read_csv(link, usecols=cols)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-31.png" alt="image"></p>
+<pre><code># reference using position (Integer)
+cols2 = [0, 4]
+
+ufo = pd.read_csv(link, usecols=cols2)
+</code></pre><pre><code>ufo.head()
+</code></pre><p><img src="https://leandeep.com/images/pandas-32.png" alt="image"></p>
+<pre><code># if you only want certain number of rows
+ufo = pd.read_csv(link, nrows=3)
+</code></pre><pre><code>ufo
+</code></pre><p><img src="https://leandeep.com/images/pandas-33.png" alt="image"></p>
+<p><em>Itérer dans une série et un dataframe</em></p>
+<pre><code># intuitive method
+for c in ufo.City:
+    print(c)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>Ithaca
+Willingboro
+Holyoke
+</code></pre><pre><code># pandas method
+# you can grab index and row
+for index, row in ufo.iterrows():
+    print(index, row.City, row.State)
+</code></pre><p>Jupyter Output:</p>
+<pre><code>0 Ithaca NY
+1 Willingboro NJ
+2 Holyoke CO
+</code></pre><p><em>Retirer les colonnes non-numeriques d'un DataFrame</em></p>
+<pre><code>link = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/drinks.csv'
+drinks = pd.read_csv(link)
+</code></pre><pre><code># you have 2 non-numeric columns
+drinks.dtypes
+</code></pre><p>Jupyter Output:</p>
+<pre><code>country                          object
+beer_servings                     int64
+spirit_servings                   int64
+wine_servings                     int64
+total_litres_of_pure_alcohol    float64
+continent                        object
+dtype: object
+</code></pre><pre><code>import numpy as np
+drinks.select_dtypes(include=[np.number]).dtypes
+</code></pre><p>Jupyter Output:</p>
+<pre><code>beer_servings                     int64
+spirit_servings                   int64
+wine_servings                     int64
+total_litres_of_pure_alcohol    float64
+dtype: object
+</code></pre><h2 id="numro-index-et-contenu-de-la-ligne-lors-dune-itration">Numéro, index et contenu de la ligne lors d'une itération</h2>
+<p>Pour obtenir le numéro, l'index et le contenu de la ligne lors d'une itération on peut utiliser le code suivant:</p>
+<pre><code>for line_number, (idx, row) in enumerate(df.iterrows()):
+	...
+
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/data-science">Data Science</a></span><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/pandas">Pandas</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2846 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 Feb. 2019</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Provisionner un cluster Kubernetes avec AWS EKS</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/comment-r%C3%A9duire-la-dur%C3%A9e-dentrainement-dun-mod%C3%A8le/">
+                                <span class="button__text">Comment réduire la durée d&#39;entrainement d&#39;un modèle ?</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

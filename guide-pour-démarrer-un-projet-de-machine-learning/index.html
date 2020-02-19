@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.
+Un projet de Machine Learning correspond bien souvent à un problème que l&#39;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&#39;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X)." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/guide-pour-d%C3%A9marrer-un-projet-de-machine-learning/" />
+
+
+    <title>
+        
+            Guide pour démarrer un projet de Machine Learning :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Guide pour démarrer un projet de Machine Learning">
+<meta itemprop="description" content="Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.
+Un projet de Machine Learning correspond bien souvent à un problème que l&#39;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&#39;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X).">
+<meta itemprop="datePublished" content="2015-12-21T23:05:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-12-21T23:05:00&#43;00:00" />
+<meta itemprop="wordCount" content="1035">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning,Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Guide pour démarrer un projet de Machine Learning"/>
+<meta name="twitter:description" content="Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.
+Un projet de Machine Learning correspond bien souvent à un problème que l&#39;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&#39;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X)."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2015-12-21 23:05:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/guide-pour-d%C3%A9marrer-un-projet-de-machine-learning/">Guide pour démarrer un projet de Machine Learning</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.</p>
+<p>Un projet de Machine Learning correspond bien souvent à un problème que l'on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l'immobilier pour faire le plus de rentabilité ? etc.
+Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X). Nous verrons par la suite de quoi on parle en terme de données.
+Enfin il faudra définir une fonction de coût (f) qui nous permette d'évaluer la distance (autrement dit l'erreur) entre la prédiction de notre modèle et la cible réelle.</p>
+<p>L'objectif final étant de trouver la meilleure fonction f qui permette de prédire Y en fonction de X:
+Y ~ f(X,w) avec w un ensemble de paramètres</p>
+<p>Une fois le problème bien posé, il faut se poser les questions suivantes:</p>
+<h1 id="1-de-quel-type-de-problme-sagit-il-">1. De quel type de problème s'agit-il ?</h1>
+<p>Est-ce qu'il s'agit d'un problème d'apprentissage supervisé ou de non supervisé ?</p>
+<ul>
+<li>
+<p><strong>Apprentissage supervisé</strong>
+<em>S'agit-il d'un problème d'apprentissage supervisé de type:</em></p>
+<ul>
+<li>regression <em>(i.e: est-ce que la variable à prédire est continue ? Est-ce qu'on essaye de s'en approcher le plus possible ?)</em></li>
+<li>classification <em>(i.e: est-ce que la variable à prédire est une classe ou un entier ?)</em></li>
+<li>ranking <em>(i.e: est-ce que la variable à prédire me permet d'ordonner une liste ? Est-ce que c'est un score ?)</em></li>
+</ul>
+</li>
+<li>
+<p><strong>Apprentissage non supervisé</strong>
+<em>S'agit-il d'un problème d'apprentissage non supervisé de type:</em></p>
+<ul>
+<li>clustering <em>(i.e: est-ce que mes données peuvent être regroupées en clusters plus pu moins homogènes ?)</em></li>
+<li>réduction du nombre de dimension</li>
+<li>système de recommandations</li>
+</ul>
+</li>
+</ul>
+<p>Pour simplifier le problème et essayer de donner du sens au modèle prédictif, on essaye de le ramener à un problème d'apprentissage supervisé; même si à la base on pensait qu'il s'agissait d'un problème d'apprentissage non-supervisé.</p>
+<p>En pratique, ce n'est pas si simple. Pour construire un modèle prédictif fiable, il faut assembler différents types de modèles avec parfois des étapes d'apprentissage non supervisées intermédiaires.</p>
+<h1 id="2-quelles-donnes-ai-je--ma-disposition-">2. Quelles données ai-je à ma disposition ?</h1>
+<ul>
+<li>Y a-t-il des données temporelles ?</li>
+<li>Quel est mon nombre d'observations (nombre de lignes) ?</li>
+<li>Quel est mon nombre de features/ variables (nombre de colonnes) ?</li>
+<li>Quelles sont les variables manquantes ?</li>
+<li>Quelles sont les corrélations entre les variables et la cible à prédire ?</li>
+<li>Mes variables sont-elles catégorielles, discètes ou continues ?</li>
+<li>Est-ce quel type de données je travaille ? CSV ? JSON ? BDD relationnelle ? BDD Graph ?..</li>
+<li>Dois-je encoder mes données catégorielles ?</li>
+</ul>
+<h1 id="3-quel-train-test-split-raliser-sur-mon-dataset-">3. Quel Train/ Test Split réaliser sur mon dataset ?</h1>
+<p>Dans cet partie on va découper notre dataset en 2 parties pour éviter de faire de l'overfitting (apprentissage par coeur).
+On va réserver environ entre 70 à 80% du dataset pour la phase d'apprentissage et on va utiliser le reste pour déterminer le modèle qui fait le moins d'erreurs durant la phase de test.</p>
+<p>Attention toutefois si le problème que l'on traite est un problème de classification. Il faut que toutes les classes à prédire soient bien représentées dans les 2 splits. C'est d'autant plus vrai si l'un de nos split comporte peu d'exemples.</p>
+<p>Attention aussi si le problème que l'on traite comporte des données temporelles. Il faut bien séparer temporellement les splits de données pour prédire le futur avec le passé.</p>
+<h1 id="4-quel-algorithme-dois-je-utiliser-">4. Quel algorithme dois-je utiliser ?</h1>
+<p>Enchaînez l'apprentissage avec plusieurs modèles et comparez les résultats. Cela peut même être fait de manière automatique (Grid Search, Tpot, Auto-Sklearn&hellip;). Dès que vous entamez un problème de Machine Learning essayez tout de suite d'apprendre un modèle et d'observer votre performance. Cela vous permettra d'estimer la complexité du sujet.</p>
+<p>Il faudra ensuite itérer en améliorant votre code jusqu'à ce que la performance recherchée soit atteinte.</p>
+<p>Si vous souhaitez pouvoir interprêter les prédictions de votre modèle, privilégiez les modèles linéaires ou les arbres de décision.
+Dans le cas contraire privilégiez les random forests. Cela vous simplifiera la vie car vous pourrez travailler avec tout type de données et votre modèle ne sera pas victime d'un surapprentissage.</p>
+<h1 id="5-quelle-est-la-performance-de-mon-modle-">5. Quelle est la performance de mon modèle ?</h1>
+<p>En fonction du type de problème que vous adressez, différents indicateurs peuvent être mesurés à partir du split de test.</p>
+<ul>
+<li>
+<p><strong>Apprentissage supervisé</strong></p>
+<ul>
+<li>
+<p>Régression</p>
+<ul>
+<li>Erreur de prédiction</li>
+<li>Sur un Graph XY: valeur à prédire / valeur prédite</li>
+</ul>
+</li>
+<li>
+<p>Classification</p>
+<ul>
+<li>Courbe de ROC</li>
+</ul>
+<blockquote>
+<p>Pour rappel, la courbre de ROC permet de représenter le ratio précision (prédire correctement) / rappel (valider la prédiction)
+Certains modèles retournent un score de confiance en plus de la prédiction. Plus ce score est élevé et plus le résultat a de chance d'être correct ou précis.</p>
+</blockquote>
+<ul>
+<li>Matrice de confusion</li>
+<li>Précision / Rappel</li>
+</ul>
+</li>
+<li>
+<p>Ranking</p>
+<ul>
+<li>Corrélation de rang</li>
+<li>DCG</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Apprentissage non supervisé</strong></p>
+<ul>
+<li>
+<p>Clustering</p>
+<ul>
+<li>Nombre d'arc coupés</li>
+<li>Variance inter et intra classes</li>
+</ul>
+</li>
+<li>
+<p>Système de recommandation</p>
+<ul>
+<li>Corrélation de rang</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Si la performance de votre modèle n'est pas suffisante, posez-vous par exemple les questions suivantes:</p>
+<ul>
+<li>Est-ce que les valeurs manquantes empêchent le modèle d'apprendre ?</li>
+<li>Faut-il donner plus de features à mon modèle ?</li>
+<li>Ai-je distribué de manière homogène mes variables entre mes splits d'apprentissage et de test ?</li>
+<li>Ai-je laissé des outliers dans ma base d'apprentissage ?</li>
+<li>Est-ce que mes données sont bruitées ?</li>
+</ul>
+<h1 id="6-comment-puis-je-optimiser-mon-modle-">6. Comment puis-je optimiser mon modèle ?</h1>
+<ul>
+<li>Valorisez des valeurs manquantes en utilisant la sortie d'autres modèles de machine learning</li>
+<li>Calculez de nouvelles données si des données peuvent être groupées (Par exemple, calculez des moyennes pour connaître la note d'un restaurant et savoir si oui ou non des clients sont satisfaits&hellip;)</li>
+<li>Pour traiter les outliers et diminuer leur importance, il faut passer les variables au logarithme.</li>
+<li>Aggrégés des données sur des périodes d'un mois ou d'un an pour des données temporelles</li>
+<li>Si la performance est mauvaise essayez de comprendre quelle feature est la cause du problème</li>
+<li>Si vos données sont bruitées, voire très bruitées, il est possible d'utiliser les premiers axes d'une ACP (Analyse en Composante Principale; i.e: prendre le maximum d'échantillons du dataset et diminuer le nombre de variables en les compressant) ou un réseau Diabolo.</li>
+</ul>
+<h1 id="7-validation-du-modle">7. Validation du modèle</h1>
+<p>Pour valider que votre modèle est performant et qu'il permette de réellement prédire une cible de manière fiable, réaliser une Cross Validation.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1035 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>21 Dec. 2015</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/premi%C3%A8re-exp%C3%A9rimentation-avec-sigfox/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Première expérimentation avec Sigfox</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/installer-redis-sur-osx/">
+                                <span class="button__text">Installer Redis sur OSX</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

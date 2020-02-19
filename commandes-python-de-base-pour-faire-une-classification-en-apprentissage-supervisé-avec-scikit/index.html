@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Dans cet article nous allons voir comment classifier des chiffres écrits à la main. Le dataset que nous allons utiliser est publique, bien connu et accessible depuis scikit. Nous allons voir le processus pour classifier ces chiffres et voir comment évaluer la performance de notre modèle.
+from sklearn.datasets import load_digits digits = load_digits() print(digits.data.shape) (1797, 64) Notre dataset contient 1797 échantillons.
+On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/commandes-python-de-base-pour-faire-une-classification-en-apprentissage-supervis%C3%A9-avec-scikit/" />
+
+
+    <title>
+        
+            Commandes Python de base pour faire une classification en apprentissage supervisé avec scikit :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Commandes Python de base pour faire une classification en apprentissage supervisé avec scikit">
+<meta itemprop="description" content="Dans cet article nous allons voir comment classifier des chiffres écrits à la main. Le dataset que nous allons utiliser est publique, bien connu et accessible depuis scikit. Nous allons voir le processus pour classifier ces chiffres et voir comment évaluer la performance de notre modèle.
+from sklearn.datasets import load_digits digits = load_digits() print(digits.data.shape) (1797, 64) Notre dataset contient 1797 échantillons.
+On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces.">
+<meta itemprop="datePublished" content="2016-06-03T21:24:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-06-03T21:24:00&#43;00:00" />
+<meta itemprop="wordCount" content="951">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Commandes Python de base pour faire une classification en apprentissage supervisé avec scikit"/>
+<meta name="twitter:description" content="Dans cet article nous allons voir comment classifier des chiffres écrits à la main. Le dataset que nous allons utiliser est publique, bien connu et accessible depuis scikit. Nous allons voir le processus pour classifier ces chiffres et voir comment évaluer la performance de notre modèle.
+from sklearn.datasets import load_digits digits = load_digits() print(digits.data.shape) (1797, 64) Notre dataset contient 1797 échantillons.
+On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2016-06-03 21:24:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/commandes-python-de-base-pour-faire-une-classification-en-apprentissage-supervis%C3%A9-avec-scikit/">Commandes Python de base pour faire une classification en apprentissage supervisé avec scikit</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article nous allons voir comment classifier des chiffres écrits à la main. Le dataset que nous allons utiliser est publique, bien connu et accessible depuis scikit. Nous allons voir le processus pour classifier ces chiffres et voir comment évaluer la performance de notre modèle.</p>
+<pre><code>from sklearn.datasets import load_digits
+digits = load_digits()
+print(digits.data.shape)
+(1797, 64)
+</code></pre><p>Notre dataset contient 1797 échantillons.</p>
+<p>On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces.</p>
+<pre><code>fig = plt.figure(figsize=(9, 9))  # figure size in inches
+fig.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0.05, wspace=0.05)
+
+# plot the digits: each image is 8x8 pixels
+for i in range(128):
+    ax = fig.add_subplot(16, 8, i + 1, xticks=[], yticks=[])
+    ax.imshow(digits.images[i], cmap=plt.cm.binary, interpolation='nearest')
+    
+    # label the image with the target value
+    ax.text(0, 7, str(digits.target[i]))
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/mnist.png" alt="image"></p>
+<h1 id="visualisation-des-donnes">Visualisation des données</h1>
+<p>Pour beaucoup de problème, la première étape est de visualiser les données en utilisant une technique de réduction de dimensions. Pour se faire, l'algorithme le plus simple est PCA (Principal Component Analysis)</p>
+<p>Cet algorithme cherche à trouver les combinaisons linéaires orthogonales qui ont la plus grande variance entre les <em>features</em> du dataset. Cela permet d'avoir une bonne idée de la structure du dataset.</p>
+<pre><code>from sklearn.decomposition import RandomizedPCA
+pca = RandomizedPCA(n_components=2)
+proj = pca.fit_transform(digits.data)
+
+plt.scatter(proj[:, 0], proj[:, 1], c=digits.target)
+plt.colorbar()
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/visu1.png" alt="image"></p>
+<h1 id="classifieur-naf-baysien">Classifieur naïf bayésien</h1>
+<blockquote>
+<p>A la base de la classification naïve bayésienne se trouve le théorème de Bayes avec l'hypothèse simplificatrice, dite naïve, d'indépendance entre toutes les paires de variables.
+Le rôle de ce classifieur est de classer dans des groupes (des
+classes) les échantillons qui ont des propriétés similaires, mesurées sur les observations.</p>
+</blockquote>
+<p>Ce classifieur simple permet d'avoir rapidement une idée de nos données. Dans notre cas, il se prête au sujet mais avec des données plus complexe, il faut passer à un classifieur plus sophistiqué.</p>
+<pre><code>from sklearn.naive_bayes import GaussianNB
+from sklearn.cross_validation import train_test_split
+
+# split des données en 2 parties: apprentissage et test
+X_train, X_test, y_train, y_test = train_test_split(digits.data, digits.target)
+
+# Entrainement du modèle
+clf = GaussianNB()
+clf.fit(X_train, y_train)
+
+# On utilise le modèle pour prédire les labels des données de test
+predicted = clf.predict(X_test)
+expected = y_test
+</code></pre><p>On réaffiche les chiffres avec la prédiction de notre classifieur. Si le chiffre est en vert, cela signifie que notre classifieur a bien trouvé le bon chiffre. En rouge, il s'est trompé.</p>
+<pre><code>fig = plt.figure(figsize=(9, 9))  # Taille du graphique en pouces
+fig.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0.05, wspace=0.05)
+
+# On affiche les chiffres: chaque image fait 16x16 pixels
+for i in range(128):
+    ax = fig.add_subplot(16, 16, i + 1, xticks=[], yticks=[])
+    ax.imshow(X_test.reshape(-1, 8, 8)[i], cmap=plt.cm.binary,
+              interpolation='nearest')
+    
+    # On labelise l'image avec la valeur prédite
+    if predicted[i] == expected[i]:
+        ax.text(0, 7, str(predicted[i]), color='green')
+    else:
+        ax.text(0, 7, str(predicted[i]), color='red')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/mnist2.png" alt="image"></p>
+<h1 id="mesure-quantitative-de-la-performance-du-classifieur">Mesure quantitative de la performance du classifieur</h1>
+<p>Une première approche simple consisterait à calculer le pourcentage de bonnes prédictions du classifieur.</p>
+<pre><code>matches = (predicted == expected)
+print(matches.sum())
+print(len(matches))
+
+matches.sum() / float(len(matches))
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>372
+450
+
+0.88222222222222224
+</code></pre><p>Ce résultat est pas trop mal mais d'autres métriques plus sophistiquées peuvent être utilisées pour juger de la performance du classifieur.
+Les métriques données par ==classification_report== peuvent être utilisées. Cet outil est disponible dans le package ==sklearn.metrics==.</p>
+<pre><code>from sklearn import metrics
+print(metrics.classification_report(expected, predicted))
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/metrics-classification.png" alt="image"></p>
+<p>La matrice de confusion (ou tableau de contingence) peut également nous donner des précisions sur la performance de notre classifieur. Elle est obtenue en comparant les données classées avec des données de référence qui doivent être différentes de celles ayant servi à réaliser la classification.</p>
+<pre><code>print(metrics.confusion_matrix(expected, predicted))
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[25  0  0  0  0  0  0  0  0  0]
+ [ 0 41  1  0  0  0  0  0  5  1]
+ [ 0  3 26  1  0  0  0  0 17  0]
+ [ 0  0  2 30  0  2  0  1  8  0]
+ [ 0  3  0  0 42  1  1  2  1  0]
+ [ 0  0  0  1  0 41  0  1  1  0]
+ [ 0  1  0  0  0  0 37  0  0  0]
+ [ 0  0  0  0  0  0  0 51  0  0]
+ [ 0  5  0  2  0  1  0  0 39  0]
+ [ 0  1  0  0  0  2  0  7  7 40]]
+</code></pre><p><em>Explications sur la lecture de cette Matrice:</em></p>
+<pre><code>     0  1  2  3  4  5  6  7  8  9 (classe estimée)
+0 [[25  0  0  0  0  0  0  0  0  0]
+1  [ 0 41  1  0  0  0  0  0  5  1]
+2  [ 0  3 26  1  0  0  0  0 17  0]
+3  [ 0  0  2 30  0  2  0  1  8  0]
+4  [ 0  3  0  0 42  1  1  2  1  0]
+5  [ 0  0  0  1  0 41  0  1  1  0]
+6  [ 0  1  0  0  0  0 37  0  0  0]
+7  [ 0  0  0  0  0  0  0 51  0  0]
+8  [ 0  5  0  2  0  1  0  0 39  0]
+9  [ 0  1  0  0  0  2  0  7  7 40]]
+</code></pre><ul>
+<li>
+<p>Sur 25 chiffres prédits à 0, il n'y a pas eu d'erreur</p>
+</li>
+<li>
+<p>Verticalement, sur 53 chiffres prédits à 1, (additionner verticalement: 41+3+3+1+5 = 53)</p>
+<ul>
+<li>3 étaient en fait des 2,</li>
+<li>3 étaient des 4</li>
+<li>1 chiffre prédit à 1 était en fait un 6</li>
+<li>5 étaient des 8</li>
+<li><em>Soit un total de 12 erreurs</em></li>
+</ul>
+</li>
+<li>
+<p>Verticalement, sur 71 chiffres prédits à 8, seulement 39 sont bons</p>
+<ul>
+<li>17 étaient en fait des 2</li>
+<li>8 étaient des 3</li>
+<li><em>39 erreurs de prédictions quand le classifieur a estimé des chiffres à 8</em></li>
+</ul>
+</li>
+<li>
+<p>Horizontalement, sur 47 chiffres qui étaient à 2, 26 sont biens estimés</p>
+</li>
+<li>
+<p>Horizontalement, sur 43 chiffres qui étaient des 3, 30 sont biens estimés</p>
+</li>
+</ul>
+<p><strong>Ce qu'on voit surtout en conclusion, c'est les chiffres 1, 2, 3, et 9 sont souvent labelisé comme des 8.</strong></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>951 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 Jun. 2016</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/moderne-javascript-tips/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Moderne Javascript Tips</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/g%C3%A9rer-plusieurs-environnements-virtuels-sans-se-prendre-la-t%C3%AAte/">
+                                <span class="button__text">Gérer plusieurs environnements virtuels sans se prendre la tête</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>

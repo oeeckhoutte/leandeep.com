@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Mocker l&#39;ouverture d&#39;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&#39;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
+ Comment vérifier qu&#39;un appel de fonction raise une exception Comment vérifier qu&#39;un fichier de config est valide Comment créer un fichier de config temporaire &amp;ldquo;bouchonné&amp;rdquo;.  import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+<link rel="canonical" href="https://leandeep.com/pytest-tricks/" />
+
+
+    <title>
+        
+            Pytest tricks :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Pytest tricks">
+<meta itemprop="description" content="Mocker l&#39;ouverture d&#39;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&#39;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
+ Comment vérifier qu&#39;un appel de fonction raise une exception Comment vérifier qu&#39;un fichier de config est valide Comment créer un fichier de config temporaire &ldquo;bouchonné&rdquo;.  import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json.">
+<meta itemprop="datePublished" content="2018-04-04T21:53:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-04-04T21:53:00&#43;00:00" />
+<meta itemprop="wordCount" content="1221">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Python,Pytest," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Pytest tricks"/>
+<meta name="twitter:description" content="Mocker l&#39;ouverture d&#39;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&#39;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
+ Comment vérifier qu&#39;un appel de fonction raise une exception Comment vérifier qu&#39;un fichier de config est valide Comment créer un fichier de config temporaire &ldquo;bouchonné&rdquo;.  import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2018-04-04 21:53:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/pytest-tricks/">Pytest tricks</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="mocker-louverture-dun-fichier-et-tester-les-exceptions">Mocker l'ouverture d'un fichier et tester les exceptions</h1>
+<p>Pour la fonction suivante, il est possible d'exécuter différents tests.
+Les 3 exemples de tests ci-dessous montrent:</p>
+<ul>
+<li>Comment vérifier qu'un appel de fonction raise une exception</li>
+<li>Comment vérifier qu'un fichier de config est valide</li>
+<li>Comment créer un fichier de config temporaire &ldquo;bouchonné&rdquo;.</li>
+</ul>
+<pre><code>import os 
+import json
+
+class InvalidConfig(Exception):
+    pass
+
+def load_config(config_path):
+  try:
+      with open(config_path, 'r') as json_file:
+          return json.load(json_file)
+  except (OSError, IOError, json.JSONDecodeError) as exception:
+      raise InvalidConfig(exception)
+
+</code></pre><pre><code>def test_missing_conf_file():
+	with pytest.raises(InvalidConfig):
+	    load_config('does-not-exist.json')
+
+</code></pre><pre><code>def test_invalid_conf_file(tmpdir):
+	json_content = (
+    	'%%%%%%%%%%\n'
+	)
+    tmp_config = tmpdir.join('temp-config_file.json')
+    tmp_config.write_text(json_content, encoding='utf-8')
+    with pytest.raises(InvalidConfig):
+    	load_config(tmp_config.strpath)
+</code></pre><pre><code>def test_valid_conf_file(tmpdir):
+	json_content = (
+    	'{\n'
+        '&quot;hello&quot;: &quot;olivier&quot;, \n'
+        '&quot;titi&quot;: &quot;tata&quot;\n'
+        '}\n'
+	)
+    tmp_config = tmpdir.join('temp-config_file.json')
+    tmp_config.write_text(json_content, encoding='utf-8')
+    parsed_config = load_config(tmp_config.strpath)
+    assert parsed_config['hello'] == 'olivier'
+    assert parsed_config['titi'] == 'tata'
+
+</code></pre><h1 id="parametrize-tests-with-fixtures">Parametrize tests with fixtures</h1>
+<h2 id="option-1">Option 1</h2>
+<p>Exemple:</p>
+<pre><code>import pytest
+
+def integer_to_binary(input, zero_pad_length=0):
+    &quot;&quot;&quot;
+    Converts an integer to a zero-padded binary string.
+    &quot;&quot;&quot;
+    return &quot;{{:0{}b}}&quot;.format(zero_pad_length).format(input)
+
+@pytest.fixture(params=[{&quot;input&quot;: 8, &quot;expectedResult&quot;: &quot;1000&quot;}, {&quot;input&quot;: 5, &quot;expectedResult&quot;: &quot;0&quot;}, {&quot;input&quot;: 1, &quot;expectedResult&quot;: &quot;1&quot;}])
+def testCase(request):
+    return request.param
+
+def test_my_converter(testCase):
+    result = integer_to_binary(testCase[&quot;input&quot;])
+    assert result == testCase[&quot;expectedResult&quot;]
+
+</code></pre><p>Output:</p>
+<pre><code>====================================================================================================== test session starts ======================================================================================================
+platform darwin -- Python 3.7.3, pytest-4.5.0, py-1.8.0, pluggy-0.11.0 -- /Users/olivier/Dev/.venv/bin/python3.7
+cachedir: .pytest_cache
+rootdir: /Users/olivier/Dev/
+collected 3 items
+
+test_tmp.py::test_my_converter[testCase0] PASSED                                                                                                                                                                          [ 33%]
+test_tmp.py::test_my_converter[testCase1] FAILED                                                                                                                                                                          [ 66%]
+test_tmp.py::test_my_converter[testCase2] PASSED                                                                                                                                                                          [100%]
+
+=========================================================================================================== FAILURES ============================================================================================================
+_________________________________________________________________________________________________ test_my_converter[testCase1] __________________________________________________________________________________________________
+
+testCase = {'expectedResult': '0', 'input': 5}
+
+    def test_my_converter(testCase):
+        result = integer_to_binary(testCase[&quot;input&quot;])
+&gt;       assert result == testCase[&quot;expectedResult&quot;]
+E       AssertionError: assert '101' == '0'
+E         - 101
+E         + 0
+
+test_tmp.py:15: AssertionError
+============================================================================================== 1 failed, 2 passed in 0.08 seconds ===============================================================================================
+</code></pre><h2 id="option-2">Option 2</h2>
+<p>Example</p>
+<pre><code>import pytest
+
+def integer_to_binary(input, zero_pad_length=0):
+    &quot;&quot;&quot;
+    Converts an integer to a zero-padded binary string.
+    &quot;&quot;&quot;
+    return &quot;{{:0{}b}}&quot;.format(zero_pad_length).format(input)
+
+
+@pytest.mark.parametrize('input, expectedResult', [(8, &quot;1000&quot;), (5, &quot;0&quot;), (1, &quot;1&quot;)])
+def test_integer_to_binary(input, expectedResult):
+    assert expectedResult == integer_to_binary(input)
+    
+</code></pre><p>Same Output.</p>
+<h1 id="scopes-des-fixtures">Scopes des fixtures</h1>
+<p><strong>Une fixture peut avoir plusieurs scopes: test, module ou session.</strong></p>
+<p>Exemple de fixture au niveau des tests:</p>
+<pre><code>@pytest.fixture()
+def user():
+	print(&quot;Creating user&quot;)
+    return User('Python', 'Awesome')
+
+def test_is_prime(user):
+	assert is_prime(user, 2) is True
+	assert is_prime(user, 3) is True    
+	assert is_prime(user, 4) is False
+
+def test_prime_factors(user):
+	assert prime_factors(user, 2) == [2]
+	assert prime_factors(user, 12) == [2, 2, 3]
+
+</code></pre><p>Exemple de fixture au niveau du module:</p>
+<blockquote>
+<p>Il suffit de changer le scope dans l'annotation <code>@pytest.fixture()</code>:</p>
+</blockquote>
+<pre><code>@pytest.fixture(scope='module')
+def user():
+	print(&quot;Creating user&quot;)
+    return User('Python', 'Awesome')
+
+...
+
+</code></pre><h1 id="tagger-ses-tests-avec-des-fixtures">Tagger ses tests avec des fixtures</h1>
+<p>Exemple:</p>
+<pre><code>import pytest
+import math_func
+
+@pytest.mark.strings
+def test_add_strings():
+	result = math_func.add('Hello', ' World')
+    assert result == 'Hello World'
+    assert type(result) is str
+
+</code></pre><p>Appeler les tests ayant un tag particulier:</p>
+<pre><code>pytest -v -m strings
+</code></pre><h1 id="skipper-un-test-grce--un-tag">Skipper un test (grâce à un tag)</h1>
+<h2 id="simple-skip">Simple skip</h2>
+<p>Exemple:</p>
+<pre><code>import pytest
+import math_func
+
+@pytest.mark.skip(reason='do not run this test for no reason')
+def test_add_strings():
+	result = math_func.add('Hello', ' World')
+    assert result == 'Hello World'
+    assert type(result) is str
+
+</code></pre><p>Exécution:</p>
+<pre><code>pytest -v
+</code></pre><h2 id="skipif">skipif</h2>
+<p>Exemple:</p>
+<pre><code>import pytest
+import math_func
+import sys
+
+@pytest.mark.skipif(sys.version_info &lt; (3, 3), reason='')
+def test_add_strings():
+	result = math_func.add('Hello', ' World')
+    assert result == 'Hello World'
+    assert type(result) is str
+
+</code></pre><p>Exécution:</p>
+<pre><code>pytest -v
+</code></pre><h1 id="code-dinitialisation-et-de-clture-des-tests">Code d'initialisation et de clôture des tests</h1>
+<h2 id="option-1-setup-and-teardown">Option 1: Setup and Teardown</h2>
+<p>Exemple de code de setup (Connection à une BDD par exemple):</p>
+<p>Au lieu de:</p>
+<pre><code>import pytest
+
+def test_olivier_data():
+	db = StudentDB()
+    db.connect('data.json')
+    olivier_data = db.get_data('Olivier')
+    assert olivier_data['id'] == 1
+    assert olivier_data['name'] == 'Olivier'
+
+</code></pre><p>On peut initialiser la fonction <code>setup_module</code> qui sera exécutée au démarrage des tests:</p>
+<p>On écrit plutôt:</p>
+<pre><code>import pytest
+
+db = None
+def setup_module(module):
+	db = StudentDB()
+    db.connect('data.json')
+
+def test_olivier_data():
+    olivier_data = db.get_data('Olivier')
+    assert olivier_data['id'] == 1
+    assert olivier_data['name'] == 'Olivier'
+
+</code></pre><p>Avec la fonction <code>teardown_module</code> on exécute du code lorsque les tests sont terminés (pour fermer la connexion avec une BDD par exemple)</p>
+<p>Exemple:</p>
+<pre><code>def teardown_module(module):
+	db.close()
+</code></pre><h2 id="option-2-avec-des-fixtures-avec-un-scope-module-et-un-gnrateur">Option 2: Avec des Fixtures avec un scope module et un générateur</h2>
+<p>On peut réécrire le code précédent avec des fixtures.</p>
+<pre><code>import pytest
+
+@pytest.fixture(scope='module')
+def db():
+	print(&quot;{}setup{}&quot;.format(&quot;-&quot;*10, &quot;-&quot;*10))
+	db = StudentDB()
+    db.connect('data.json')
+	yield db ## yield is canceled by return 
+	print(&quot;{}teardown{}&quot;.format(&quot;-&quot;*10, &quot;-&quot;*10))
+	db.close()
+    ## implicit return when not specified
+
+def test_olivier_data(db):
+    olivier_data = db.get_data('Olivier')
+    assert olivier_data['id'] == 1
+    assert olivier_data['name'] == 'Olivier'
+
+</code></pre><h1 id="excuter-les-tests-en-parallle">Exécuter les tests en parallèle</h1>
+<p>Le paquet suivant est nécessaire:</p>
+<pre><code>pip install pytest-xdist
+</code></pre><p>Puis pour exécuter les tests en parallèle, il faut spécifier l'option suivante au module pytest:</p>
+<pre><code>python -m pytest -v tests/ -n auto
+
+# ou python -m pytest -v tests/ -n 2
+</code></pre><h1 id="ajouter-du-code-coverage">Ajouter du code coverage</h1>
+<p>Installer le paquet suivant:</p>
+<pre><code>pip install pytest-cov
+</code></pre><p>Puis exécuter la commande:</p>
+<pre><code>python -m pytest -v --cov=path_to_analyze_coverage
+</code></pre><h1 id="configuration-files">Configuration files</h1>
+<ul>
+<li>
+<p>pytest.ini (permet par exemple de définir le rootdir des tests)</p>
+</li>
+<li>
+<p>conftest.py (exécuté automatiquement, c'est un bon endroit pour écrire des fixtures)</p>
+</li>
+</ul>
+<h1 id="useful-commands">Useful commands:</h1>
+<p><strong>Run last failing test:</strong></p>
+<pre><code>python -m pytest -v --lf
+
+# ou pytest -v --lf
+</code></pre><p><strong>Display print statements:</strong></p>
+<pre><code>python -v -s
+
+# ou pytest -v -s
+</code></pre><p><strong>Run one specific test:</strong></p>
+<pre><code>python -m pytest -v -k &quot;nom_du_test_complet_ou_regex&quot;
+
+# ou pytest -v -k &quot;nom_du_test_complet_ou_regex&quot;
+
+# Or est également possible
+# ou pytest -v -k &quot;regex1 or regex2&quot;
+
+# And est également possible
+# ou pytest -v -k &quot;regex1 and regex2&quot;
+</code></pre><p><strong>Run one specific test in a particular file:</strong></p>
+<pre><code>python -m pytest -v mon_fichier_de_test::nom_du_test
+
+# ou pytest -v mon_fichier_de_test::nom_du_test
+</code></pre><p><strong>Run one test file:</strong></p>
+<pre><code>python -m pytest -v tests/votre_fichier_de_test.py
+
+# ou pytest -v tests/votre_fichier_de_test.py
+</code></pre><p><strong>Stopper l'exécution des tests dès la première failure:</strong></p>
+<pre><code>python -m pytest -v -x
+
+# ou pytest -v -x
+</code></pre><p><strong>Stopper l'exécution des tests après x failed tests:</strong></p>
+<pre><code>python -m pytest -v --maxfail=2
+
+# ou pytest -v --maxfail=2
+</code></pre><p>Voir les commandes disponibles: <a href="https://docs.pytest.org/en/latest/usage.html">https://docs.pytest.org/en/latest/usage.html</a></p>
+<h1 id="cool-pytest-plugins">Cool Pytest plugins</h1>
+<table>
+<thead>
+<tr>
+<th>PLUGIN</th>
+<th align="center">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pytest-server-fixtures</td>
+<td align="center">Extensible server-running framework with a suite of well-known databases and webservices included: mongodb, redis, rethinkd, Jenkins, Apache httpd, Xvfb</td>
+</tr>
+<tr>
+<td>pytest-shutil</td>
+<td align="center">Unix shell and environment management tools</td>
+</tr>
+<tr>
+<td>pytest-profiling</td>
+<td align="center">Profiling plugin with tabular heat graph output and gprof support for C-Extensions</td>
+</tr>
+<tr>
+<td>pytest-devpi-server</td>
+<td align="center">DevPI server runnning fixture for testing package management code</td>
+</tr>
+<tr>
+<td>pytest-pyramid-server</td>
+<td align="center">Pyramid server fixture for running up servers in integration tests</td>
+</tr>
+<tr>
+<td>pytest-webdriver</td>
+<td align="center">Selenium webdriver fixture for testing web applications</td>
+</tr>
+<tr>
+<td>pytest-virtualenv</td>
+<td align="center">Create and teardown virtual environments, run tests and commands in the scope of the virtualenv</td>
+</tr>
+<tr>
+<td>pytest-qt-app</td>
+<td align="center">PyQT application fixture</td>
+</tr>
+<tr>
+<td>pytest-listener</td>
+<td align="center">TCP Listener/Reciever for testing remote systems</td>
+</tr>
+<tr>
+<td>pytest-git</td>
+<td align="center">Git repository fixture</td>
+</tr>
+<tr>
+<td>pytest-svn</td>
+<td align="center">SVN repository fixture</td>
+</tr>
+<tr>
+<td>pytest-fixture-config</td>
+<td align="center">Configuration tools for Py.test fixtures</td>
+</tr>
+<tr>
+<td>pytest-verbose-parametrize</td>
+<td align="center">Makes py.test’s parametrize output a little more verbose</td>
+</tr>
+</tbody>
+</table>
+<h1 id="tricks">Tricks</h1>
+<h2 id="crer-et-importer-des-helper-functions-dans-les-tests-sans-crer-de-package-dans-le-dossier-tests">Créer et importer des <em>helper functions</em> dans les tests sans créer de package dans le dossier <code>tests</code></h2>
+<p>Par exemple, vous voulez créer ceci:</p>
+<pre><code># Dans le fichier common.py
+def assert_nimporte_quoi_entre_deux_proprietes(x, y):
+    assert ...
+
+
+# Dans tests/my_test.py
+def test_something_with(x):
+    some_value = some_function_of_(x)
+    assert_nimporte_quoi_entre_deux_proprietes(x, some_value)
+
+</code></pre><p>Créer un dossier <code>helpers</code> dans le répertoire <code>tests</code> et ajouter le path de ce dernier via <code>pythonpath</code> dans le fichier <code>conftest.py</code>.</p>
+<pre><code>tests/
+    helpers/
+      utils.py
+      ...
+    conftest.py
+setup.cfg
+</code></pre><p>Dans le fichier <code>conftest.py</code>:</p>
+<pre><code>import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'helpers'))
+</code></pre><p>Dans le fichier <code>setup.cfg</code>:</p>
+<pre><code>[pytest]
+norecursedirs=tests/helpers
+</code></pre><p>Ce module sera accessible via <code>import utils</code>.</p>
+<h2 id="avoir-des-modules-de-tests-qui-ont-le-mme-nom">Avoir des modules de tests qui ont le même nom</h2>
+<p>Pour ce faire, il faut ajouter un fichier <code>__init__.py</code> dans le dossier <code>tests</code> ainsi que dans ses sous-répertoires. (Le répertoire <code>tests</code>devient donc un module):</p>
+<pre><code>setup.py
+mypkg/
+    ...
+tests/
+    __init__.py
+    foo/
+        __init__.py
+        test_view.py
+    bar/
+        __init__.py
+        test_view.py
+
+</code></pre><p>Maintenant pytest va charger les modules comme ceci: <code>tests.foo.test_view</code> et <code>tests.bar.test_view</code>
+Cela permet d'avoir des modules qui ont le même nom.</p>
+<h2 id="organiser-un-grand-nombre-de-fixtures">Organiser un grand nombre de fixtures</h2>
+<p>On peut par exemple ajouter les lignes suivantes dans le fichier <code>tests/unit/conftest.py</code>:</p>
+<pre><code>pytest_plugins = [
+   &quot;tests.unit.fixtures.some_stuff&quot;,
+]
+</code></pre><p>Et un fichier de fixture <code>tests/unit/fixtures/some_stuff.py</code> peut être défini ainsi:</p>
+<pre><code>import pytest
+
+@pytest.fixture
+def foo():
+    return 'foobar'
+
+</code></pre><p>(Il faudra également créer un fichier <code>__init__.py</code>)</p>
+<h1 id="outils">Outils</h1>
+<ul>
+<li>Reporting: <a href="http://allure.qatools.ru/">Allure</a></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/pytest">Pytest</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1221 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>04 Apr. 2018</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/modules-python-populaires/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Modules Python populaires</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/devenir-atari-pong-master-gr%C3%A2ce-%C3%A0-lapprentissage-par-renforcement/">
+                                <span class="button__text">Devenir Atari Pong master grâce à l&#39;apprentissage par renforcement</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.016c8e5770e17fd1303ca7a9b80f022e42cc24b9e07f33b1c0de276576fccde3dfc4c7698f10f2d1443d2465f6d58d4470aff0782daef69e7172da8a75ff41b1.js" integrity="sha512-AWyOV3Dhf9EwPKepuA8CLkLMJLngfzOxwN4nZXb8zePfxMdpjxDy0UQ9JGX21Y1EcK/weC2u9p5xctqKdf9BsQ=="></script>
+
+
+
+    </body>
+</html>
