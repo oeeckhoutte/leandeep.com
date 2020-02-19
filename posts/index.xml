@@ -6761,7 +6761,7 @@ Text
             <guid>https://leandeep.com/pytest-tricks/</guid>
             <description>Mocker l&#39;ouverture d&#39;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&#39;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
  Comment vérifier qu&#39;un appel de fonction raise une exception Comment vérifier qu&#39;un fichier de config est valide Comment créer un fichier de config temporaire &amp;ldquo;bouchonné&amp;rdquo;.  import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json.</description>
-            <content type="html"><![CDATA[<h1 id="mocker-louverture-dun-fichier-et-tester-les-exceptions">Mocker l'ouverture d'un fichier et tester les exceptions</h1>
+            <content type="html"><![CDATA[<h2 id="mocker-louverture-dun-fichier-et-tester-les-exceptions">Mocker l'ouverture d'un fichier et tester les exceptions</h2>
 <p>Pour la fonction suivante, il est possible d'exécuter différents tests.
 Les 3 exemples de tests ci-dessous montrent:</p>
 <ul>
@@ -6807,8 +6807,8 @@ def load_config(config_path):
     assert parsed_config['hello'] == 'olivier'
     assert parsed_config['titi'] == 'tata'
 
-</code></pre><h1 id="parametrize-tests-with-fixtures">Parametrize tests with fixtures</h1>
-<h2 id="option-1">Option 1</h2>
+</code></pre><h2 id="parametrize-tests-with-fixtures">Parametrize tests with fixtures</h2>
+<p><strong>Option 1</strong></p>
 <p>Exemple:</p>
 <pre><code>import pytest
 
@@ -6851,7 +6851,7 @@ E         + 0
 
 test_tmp.py:15: AssertionError
 ============================================================================================== 1 failed, 2 passed in 0.08 seconds ===============================================================================================
-</code></pre><h2 id="option-2">Option 2</h2>
+</code></pre><p><strong>Option 2</strong></p>
 <p>Example</p>
 <pre><code>import pytest
 
@@ -6867,7 +6867,7 @@ def test_integer_to_binary(input, expectedResult):
     assert expectedResult == integer_to_binary(input)
     
 </code></pre><p>Same Output.</p>
-<h1 id="scopes-des-fixtures">Scopes des fixtures</h1>
+<h2 id="scopes-des-fixtures">Scopes des fixtures</h2>
 <p><strong>Une fixture peut avoir plusieurs scopes: test, module ou session.</strong></p>
 <p>Exemple de fixture au niveau des tests:</p>
 <pre><code>@pytest.fixture()
@@ -6895,7 +6895,7 @@ def user():
 
 ...
 
-</code></pre><h1 id="tagger-ses-tests-avec-des-fixtures">Tagger ses tests avec des fixtures</h1>
+</code></pre><h2 id="tagger-ses-tests-avec-des-fixtures">Tagger ses tests avec des fixtures</h2>
 <p>Exemple:</p>
 <pre><code>import pytest
 import math_func
@@ -6908,8 +6908,8 @@ def test_add_strings():
 
 </code></pre><p>Appeler les tests ayant un tag particulier:</p>
 <pre><code>pytest -v -m strings
-</code></pre><h1 id="skipper-un-test-grce--un-tag">Skipper un test (grâce à un tag)</h1>
-<h2 id="simple-skip">Simple skip</h2>
+</code></pre><h2 id="skipper-un-test-grce--un-tag">Skipper un test (grâce à un tag)</h2>
+<p><strong>Simple skip</strong></p>
 <p>Exemple:</p>
 <pre><code>import pytest
 import math_func
@@ -6922,7 +6922,7 @@ def test_add_strings():
 
 </code></pre><p>Exécution:</p>
 <pre><code>pytest -v
-</code></pre><h2 id="skipif">skipif</h2>
+</code></pre><p><strong>skipif</strong></p>
 <p>Exemple:</p>
 <pre><code>import pytest
 import math_func
@@ -6936,8 +6936,8 @@ def test_add_strings():
 
 </code></pre><p>Exécution:</p>
 <pre><code>pytest -v
-</code></pre><h1 id="code-dinitialisation-et-de-clture-des-tests">Code d'initialisation et de clôture des tests</h1>
-<h2 id="option-1-setup-and-teardown">Option 1: Setup and Teardown</h2>
+</code></pre><h2 id="code-dinitialisation-et-de-clture-des-tests">Code d'initialisation et de clôture des tests</h2>
+<p><strong>Option 1: Setup and Teardown</strong></p>
 <p>Exemple de code de setup (Connection à une BDD par exemple):</p>
 <p>Au lieu de:</p>
 <pre><code>import pytest
@@ -6967,7 +6967,7 @@ def test_olivier_data():
 <p>Exemple:</p>
 <pre><code>def teardown_module(module):
 	db.close()
-</code></pre><h2 id="option-2-avec-des-fixtures-avec-un-scope-module-et-un-gnrateur">Option 2: Avec des Fixtures avec un scope module et un générateur</h2>
+</code></pre><p><strong>Option 2: Avec des Fixtures avec un scope module et un générateur</strong></p>
 <p>On peut réécrire le code précédent avec des fixtures.</p>
 <pre><code>import pytest
 
@@ -6986,19 +6986,19 @@ def test_olivier_data(db):
     assert olivier_data['id'] == 1
     assert olivier_data['name'] == 'Olivier'
 
-</code></pre><h1 id="excuter-les-tests-en-parallle">Exécuter les tests en parallèle</h1>
+</code></pre><h2 id="excuter-les-tests-en-parallle">Exécuter les tests en parallèle</h2>
 <p>Le paquet suivant est nécessaire:</p>
 <pre><code>pip install pytest-xdist
 </code></pre><p>Puis pour exécuter les tests en parallèle, il faut spécifier l'option suivante au module pytest:</p>
 <pre><code>python -m pytest -v tests/ -n auto
 
 # ou python -m pytest -v tests/ -n 2
-</code></pre><h1 id="ajouter-du-code-coverage">Ajouter du code coverage</h1>
+</code></pre><h2 id="ajouter-du-code-coverage">Ajouter du code coverage</h2>
 <p>Installer le paquet suivant:</p>
 <pre><code>pip install pytest-cov
 </code></pre><p>Puis exécuter la commande:</p>
 <pre><code>python -m pytest -v --cov=path_to_analyze_coverage
-</code></pre><h1 id="configuration-files">Configuration files</h1>
+</code></pre><h2 id="configuration-files">Configuration files</h2>
 <ul>
 <li>
 <p>pytest.ini (permet par exemple de définir le rootdir des tests)</p>
@@ -7007,7 +7007,7 @@ def test_olivier_data(db):
 <p>conftest.py (exécuté automatiquement, c'est un bon endroit pour écrire des fixtures)</p>
 </li>
 </ul>
-<h1 id="useful-commands">Useful commands:</h1>
+<h2 id="useful-commands">Useful commands:</h2>
 <p><strong>Run last failing test:</strong></p>
 <pre><code>python -m pytest -v --lf
 
@@ -7043,7 +7043,7 @@ def test_olivier_data(db):
 
 # ou pytest -v --maxfail=2
 </code></pre><p>Voir les commandes disponibles: <a href="https://docs.pytest.org/en/latest/usage.html">https://docs.pytest.org/en/latest/usage.html</a></p>
-<h1 id="cool-pytest-plugins">Cool Pytest plugins</h1>
+<h2 id="cool-pytest-plugins">Cool Pytest plugins</h2>
 <table>
 <thead>
 <tr>
@@ -7106,8 +7106,8 @@ def test_olivier_data(db):
 </tr>
 </tbody>
 </table>
-<h1 id="tricks">Tricks</h1>
-<h2 id="crer-et-importer-des-helper-functions-dans-les-tests-sans-crer-de-package-dans-le-dossier-tests">Créer et importer des <em>helper functions</em> dans les tests sans créer de package dans le dossier <code>tests</code></h2>
+<h2 id="tricks">Tricks</h2>
+<p><strong>Créer et importer des <em>helper functions</em> dans les tests sans créer de package dans le dossier <code>tests</code></strong></p>
 <p>Par exemple, vous voulez créer ceci:</p>
 <pre><code># Dans le fichier common.py
 def assert_nimporte_quoi_entre_deux_proprietes(x, y):
@@ -7134,7 +7134,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'helpers'))
 <pre><code>[pytest]
 norecursedirs=tests/helpers
 </code></pre><p>Ce module sera accessible via <code>import utils</code>.</p>
-<h2 id="avoir-des-modules-de-tests-qui-ont-le-mme-nom">Avoir des modules de tests qui ont le même nom</h2>
+<p><strong>Avoir des modules de tests qui ont le même nom</strong></p>
 <p>Pour ce faire, il faut ajouter un fichier <code>__init__.py</code> dans le dossier <code>tests</code> ainsi que dans ses sous-répertoires. (Le répertoire <code>tests</code>devient donc un module):</p>
 <pre><code>setup.py
 mypkg/
@@ -7150,7 +7150,7 @@ tests/
 
 </code></pre><p>Maintenant pytest va charger les modules comme ceci: <code>tests.foo.test_view</code> et <code>tests.bar.test_view</code>
 Cela permet d'avoir des modules qui ont le même nom.</p>
-<h2 id="organiser-un-grand-nombre-de-fixtures">Organiser un grand nombre de fixtures</h2>
+<p><strong>Organiser un grand nombre de fixtures</strong></p>
 <p>On peut par exemple ajouter les lignes suivantes dans le fichier <code>tests/unit/conftest.py</code>:</p>
 <pre><code>pytest_plugins = [
    &quot;tests.unit.fixtures.some_stuff&quot;,
@@ -7163,7 +7163,7 @@ def foo():
     return 'foobar'
 
 </code></pre><p>(Il faudra également créer un fichier <code>__init__.py</code>)</p>
-<h1 id="outils">Outils</h1>
+<h2 id="outils">Outils</h2>
 <ul>
 <li>Reporting: <a href="http://allure.qatools.ru/">Allure</a></li>
 </ul>
