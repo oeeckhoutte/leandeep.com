@@ -53,7 +53,7 @@
 <meta itemprop="description" content="J&#39;ai créé une petite image Docker permettant de mettre à jour l&#39;IP publique de son instance sur Cloudflare. Même s&#39;il existe des Elastic IP (EIP), cela peut parfois être utile de ne pas les utiliser si votre instance est presque tout le temps éteinte. Comme on ne paye les EIP que lorsqu&#39;elles ne sont pas attachées à des instances qui tournent cela peut faire grimper la facture inutilement; surtout quand on a pas mal d&#39;instances dans cet état.">
 <meta itemprop="datePublished" content="2019-09-17T17:39:19&#43;00:00" />
 <meta itemprop="dateModified" content="2019-09-17T17:39:19&#43;00:00" />
-<meta itemprop="wordCount" content="159">
+<meta itemprop="wordCount" content="157">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -144,7 +144,7 @@
 Même s'il existe des Elastic IP (EIP), cela peut parfois être utile de ne pas les utiliser si votre instance est presque tout le temps éteinte. Comme on ne paye les EIP que lorsqu'elles ne sont pas attachées à des instances qui tournent cela peut faire grimper la facture inutilement; surtout quand on a pas mal d'instances dans cet état.</p>
 <p>Bref avec l'image Docker suivante <code>docker pull oeeckhoutte/cloudflare-dns</code> vous pouvez si vous avez un startup script toujours avoir accès à votre instance via votre DNS chez cloudflare.</p>
 <p>Le code source est accessible sur Github à l'adresse suivante: <a href="https://github.com/oeeckhoutte/cloudflare-dns-update-server-startup">https://github.com/oeeckhoutte/cloudflare-dns-update-server-startup</a>.</p>
-<p>Si éventuellement vous avez besoin d'un startup script je vous renvoie sur un précédent article que j'avais écrit <a href="https://leandeep.com/cr%C3%A9er-un-script-qui-se-lance-au-d%C3%A9marrage-de-centos-7/">https://leandeep.com/cr%C3%A9er-un-script-qui-se-lance-au-d%C3%A9marrage-de-centos-7/</a> .</p>
+<p>Si éventuellement vous avez besoin d'un startup script je vous renvoie (sur un précédent article que j'avais écrit)[https://leandeep.com/cr%C3%A9er-un-script-qui-se-lance-au-d%C3%A9marrage-de-centos-7/].</p>
 <p>Pour utiliser cette image il suffit d'exécuter la commande suivante:</p>
 <pre><code>docker run --rm -e CF_API_KEY='0000000000000000000000000000000000000' -e CF_API_EMAIL='your.email@domain.com' -e DNS_TO_UPDATE='your_dns_or_subdns' -it cloudflare-dns
 </code></pre><p>Have fun.</p>
@@ -156,7 +156,7 @@ Même s'il existe des Elastic IP (EIP), cela peut parfois être utile de ne pas 
 
         <div class="post-info">
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>159 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>157 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>17 Sep. 2019</p>
         </div>
