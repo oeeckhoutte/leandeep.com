@@ -152,7 +152,7 @@ On peut éviter cela en:
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>Le biais conduit à du sous-apprentissage (<em>underfitting</em>) et la variance amène du sur-apprentissage (<em>overfitting</em>) et donc à de hautes erreurs de tests.</p>
 <p>Example pour un jeu de données composé de 8 points:</p>
 <p><img src="https://leandeep.com/images/plot_bias_variance_examples.png" alt="image"></p>
@@ -169,7 +169,7 @@ On peut éviter cela en:
 <p>Pour déterminer le bon algorithme à utiliser par rapport à notre jeu de données, il faut pouvoir identifier quantitativement le bias et la variance pour pouvoir optimiser les metaparamètres.</p>
 </blockquote>
 <p><em>C'est faisable grâce au process de <code>cross-validation</code>.</em></p>
-<h1 id="dtecter-loverfitting-grce--la-cross-validation">Détecter l'overfitting grâce à la cross-validation</h1>
+<h2 id="dtecter-loverfitting-grce--la-cross-validation">Détecter l'overfitting grâce à la cross-validation</h2>
 <p>Pour quantifier les effets du biais et de la variance et construire le meilleur estimateur possible, on va découper notre dataset en 3 parties:</p>
 <ul>
 <li>training set (60% du dataset)</li>
@@ -193,7 +193,7 @@ On peut éviter cela en:
 <blockquote>
 <p>De manière générale, plus on a données d'entraînement et plus on peut utiliser un modèle complexe. <em><code>The learning curve</code></em>&hellip;</p>
 </blockquote>
-<h1 id="la-courbe-dapprentissage">La courbe d'apprentissage</h1>
+<h2 id="la-courbe-dapprentissage">La courbe d'apprentissage</h2>
 <p>La courbe d'apprentissage est l'affichage des erreurs de training et de cross-validation en fonction du nombre de <em>training points</em>.</p>
 <p><img src="https://leandeep.com/images/plot_bias_variance_examples_learning_curve.png" alt="image"></p>
 <p><em>Learning Curves for a case of high bias (left, d = 2) and high variance (right, d = 20)</em></p>
@@ -205,8 +205,8 @@ On peut éviter cela en:
 <p>Sur la droite, le polynôme est de degré 20. L'erreur d'entrainement est beaucoup plus faible que l'erreur de cross-validation. Plus on ajoute de données dans le training set et plus l'erreur d'entrainement augmente alors que l'erreur de cross-validation diminue.</p>
 </li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
-<h2 id="fort-biais">Fort biais</h2>
+<h2 id="conclusion">Conclusion</h2>
+<p><strong>Fort biais</strong></p>
 <p>Si notre algorithme montre un fort biais, il faut:</p>
 <ul>
 <li>Ajouter plus de features</li>
@@ -214,13 +214,13 @@ On peut éviter cela en:
 <li>Diminuer le training set pour booster la durée d'entrainement. On arrivera à la même erreur plus rapidement; avec moins de données d'entrainement. Par contre, cela ne va pas améliorer la classification.</li>
 <li>Diminuer la régularisation: la régularisation est une technique utilisée pour simplifier certains modèles de Machine Learning en ajoutant des termes de pénalité qui dépendent des caractéristiques des paramètres.</li>
 </ul>
-<h2 id="forte-variance">Forte variance</h2>
+<p><strong>Forte variance</strong></p>
 <ul>
 <li>Utiliser moins de features</li>
 <li>Augmenter le training set. Ajouter des données dans le training set peut réduire l'effet d'over-fitting et conduire à diminuer la variance de l'estimateur.</li>
 <li>Augmenter la régularisation qui est faite justement pour éviter l'over-fitting.</li>
 </ul>
-<h1 id="code-des-graphs">Code des graphs</h1>
+<h2 id="code-des-graphs">Code des graphs</h2>
 <pre><code>import pylab as pl
 from matplotlib import ticker
 from matplotlib.patches import FancyArrow
