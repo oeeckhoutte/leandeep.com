@@ -1675,11 +1675,11 @@ Dans votre code, ajoutez le snippet suivant là où vous voulez debugguer:</p>
             <guid>https://leandeep.com/installer-apache-superset-avec-docker/</guid>
             <description>Apache Superset est un super outil Opensource (construit en React et Python) permettant de réaliser des dashboards d&#39;analyse de données. Cet outil est gratuit et parfaitement responsive design. La documentation officielle est ici.
 Son installation est aisée avec Docker.
-Voici les commandes permettant de créer une instance avec toutes ses dépendances (Redis ete Postgres) avec Docker:
+Voici les commandes permettant de créer une instance avec toutes ses dépendances (Redis et Postgres) avec Docker:
 git clone https://github.com/apache/incubator-superset/ cd incubator-superset/contrib/docker docker-compose run -e SUPERSET_LOAD_EXAMPLES=yes --rm superset ./docker-init.sh docker-compose up Une fois le container principal (superset) lancé, il suffit de se rendre à l&#39;adresse suivante http://localhost:8088 pour accéder à l&#39;outil.</description>
             <content type="html"><![CDATA[<p><code>Apache Superset</code> est un super outil Opensource (construit en React et Python) permettant de réaliser des dashboards d'analyse de données. Cet outil est gratuit et parfaitement responsive design. La documentation officielle est <a href="https://superset.incubator.apache.org">ici</a>.</p>
 <p>Son installation est aisée avec Docker.</p>
-<p>Voici les commandes permettant de créer une instance avec toutes ses dépendances (Redis ete Postgres) avec Docker:</p>
+<p>Voici les commandes permettant de créer une instance avec toutes ses dépendances (Redis et Postgres) avec Docker:</p>
 <pre><code>git clone https://github.com/apache/incubator-superset/
 cd incubator-superset/contrib/docker
 docker-compose run -e SUPERSET_LOAD_EXAMPLES=yes --rm superset ./docker-init.sh
@@ -2877,6 +2877,133 @@ oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | s
 </code></pre><h2 id="ne-garder-que-2-builds">Ne garder que 2 builds</h2>
 <pre><code>oc adm prune builds --orphans --keep-failed=2 --keep-complete=2  --confirm
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Useful Postgres commands</title>
+            <link>https://leandeep.com/useful-postgres-commands/</link>
+            <pubDate>Fri, 21 Jun 2019 19:43:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/useful-postgres-commands/</guid>
+            <description>Here is a list of Postgres basic commands:
+Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt list tables of the public schema \dt &amp;lt;schema-name&amp;gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \q quit psql  I recommand the usage of pgadmin4 to manage your Postgres Databases.</description>
+            <content type="html"><![CDATA[<p>Here is a list of Postgres basic commands:</p>
+<h2 id="basics">Basics</h2>
+<pre><code>\? list all the commands
+\l list databases
+\conninfo display information about current connection
+\c [DBNAME] connect to new database, e.g., \c template1
+\dt list tables of the public schema
+\dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.*
+\dt *.* list tables of all schemas
+Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;)
+\q quit psql
+</code></pre><blockquote>
+<p>I recommand the usage of pgadmin4 to manage your Postgres Databases.</p>
+</blockquote>
+<h2 id="install-psql-client">Install PSQL Client</h2>
+<p><strong>On ubuntu</strong></p>
+<pre><code>apt-get update
+apt-get install -y postgresql-client
+</code></pre><h2 id="database">Database</h2>
+<p><strong>Connect to specific local DB</strong></p>
+<pre><code>psql your_db your_username
+</code></pre><p><strong>Connect to remote DB</strong></p>
+<pre><code>psql -h DB_HOST -p DB_PORT DB_NAME DB_USER
+</code></pre><p><strong>Dump DB</strong></p>
+<pre><code>pg_dump -Fc my_db &gt; /tmp/db.dump
+
+# restore
+# pg_restore -d new_db /tmp/db.dump
+</code></pre><p><strong>Restore DB:</strong></p>
+<pre><code>pg_restore path_to_backup_file.backup --dbname=your_db --username=your_username --clean
+
+# -d &lt;=&gt; --dbname
+# -U &lt;=&gt; --username
+# --clean = clean (drop) database objects before recreating
+</code></pre><p><strong>Create a DB with a particular role:</strong></p>
+<pre><code>CREATE DATABASE your_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+</code></pre><p><strong>Drop DB:</strong></p>
+<pre><code>drop database your_db;
+</code></pre><p><strong>Close all sessions:</strong></p>
+<pre><code>SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'you_db';
+</code></pre><p><strong>Truncate all tables from DB</strong></p>
+<p><em>(It is as if you remove the data but keep the schema.)</em></p>
+<pre><code># Create Schema dump of database (schema-only)
+pg_dump your_db -s &gt; schema.sql
+
+# Drop database
+drop database your_db;
+
+# Create Database
+create database your_db;
+
+4) Import Schema
+psql your_db &lt; schema.sql
+</code></pre><blockquote>
+<p>In case you want to create a script can execute SQL commands the Terminal using the -c flag: <code>$ psql -c &quot;YOUR SQL QUERY;&quot;</code></p>
+</blockquote>
+<h2 id="roles-vs-users-vs-groups">Roles vs Users vs Groups</h2>
+<blockquote>
+<p>&ldquo;CREATE ROLE&rdquo;, &ldquo;CREATE USER&rdquo;, and &ldquo;CREATE GROUP&rdquo; were different couple of years ago. Since group management has changed these 3 commands are (almost) the same. They all still exist for the sake of compatibility.
+There is all the same a slight difference between for example &ldquo;CREATE ROLE&rdquo; and &ldquo;CREATE USER&rdquo;. &ldquo;CREATE ROLE&rdquo; will create a default user that cannot login (NOLOGIN), even though &ldquo;CREATE USER&rdquo; will create a user with the LOGIN attribute. .</p>
+</blockquote>
+<h2 id="roles">Roles</h2>
+<p><strong>List roles:</strong></p>
+<pre><code>\du
+
+# or 
+
+SELECT
+   rolname
+FROM
+   pg_roles;
+</code></pre><p><strong>Create a role:</strong></p>
+<pre><code>create role your_role
+</code></pre><h2 id="users">Users</h2>
+<p><strong>Create user:</strong></p>
+<pre><code>create user your_user with encrypted password 'user_password';
+</code></pre><p><strong>Grant all priviledges to user on database:</strong></p>
+<pre><code>grant all privileges on database your_db to your_user;
+</code></pre><h2 id="installations">Installations</h2>
+<h3 id="on-centos-7">On Centos 7</h3>
+<pre><code>yum install postgresql-server postgresql-contrib
+# Initialize the DB
+postgresql-setup initdb
+# Start the service
+systemctl start postgresql
+# Starts with system
+systemctl enable postgresql
+Change user to postgres and connect to the client to check if it works
+su postgres
+psql
+\l
+</code></pre><h3 id="on-osx">On OSX</h3>
+<pre><code>brew install postgresql
+brew services start postgres
+</code></pre><h2 id="database-modeler">Database modeler</h2>
+<p>It can be very useful to generate the database graph to see all relations betweens tables.</p>
+<p>There is a great tool that can help. It is opensource and works perfectly with Postgres 11+. It is called pgmodeler and it is available here:  <a href="https://github.com/pgmodeler/pgmodeler.git">https://github.com/pgmodeler/pgmodeler.git</a></p>
+<p>Here is the procedure to install it on OSX. (You need Xcode installed)</p>
+<pre><code>brew install qt
+echo 'export PATH=&quot;/usr/local/opt/qt/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
+source ~/.zshrc
+git clone https://github.com/pgmodeler/pgmodeler.git
+cd pgmodeler
+git checkout the_latest_tag
+# Edit the file pgmodeler.pri and replace the variables `PGSQL_LIB = /Library/PostgreSQL/11/lib/libpq.dylib` and `PGSQL_INC = /Library/PostgreSQL/11/include` with respectively `PGSQL_LIB = /usr/local/Cellar/postgresql/11.4/lib/libpq.dylib` and `PGSQL_INC = /usr/local/Cellar/postgresql/11.4/include`
+qmake -r CONFIG+=release pgmodeler.pro
+make &amp;&amp; make install
+open /Applications/pgmodeler.app
+</code></pre><h2 id="great-python-orm">Great Python ORM</h2>
+<p><strong>SQLAlchemy</strong> is a great Python ORM.
+Here are few useful links to manage to model your Postgres DB using Python and this library:
+<a href="https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html">https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html</a></p>
+]]></content>
         </item>
         
         <item>
@@ -14295,18 +14422,32 @@ Indeed they also organized Hackathons not only for developers but also for non-t
             <pubDate>Wed, 24 Jul 2013 23:14:00 +0000</pubDate>
             
             <guid>https://leandeep.com/rapidement-remplacer-des-chaines-de-caract%C3%A8res-dans-vim/</guid>
-            <description>Il est possible d&#39;ajouter un raccourci clavier pour rapidement remplacer une chaine de caractère sélectionnée en mode visuel.
+            <description>Raccourci clavier Il est possible d&#39;ajouter un raccourci clavier pour rapidement remplacer une chaine de caractère sélectionnée en mode visuel.
 Editer le fichier ~/.vimrc et ajouter la ligne suivante:
 vnoremap &amp;lt;C-r&amp;gt; &amp;quot;hy:%s/&amp;lt;C-r&amp;gt;h//gc&amp;lt;left&amp;gt;&amp;lt;left&amp;gt;&amp;lt;left&amp;gt; En pressant ctrl + r en mode visuel, un prompt va s&#39;afficher pour entrer le texte qui remplacer l&#39;ancien. Appuyer sur enter et confirmer ou annuler chaque changement par y ou n.
  Si vous ne voulez pas confirmer les changements vous pouvez aussi supprimer le c à la fin de la commande VIM :%s/old_text/new_text/gc</description>
-            <content type="html"><![CDATA[<p>Il est possible d'ajouter un raccourci clavier pour rapidement remplacer une chaine de caractère sélectionnée en mode visuel.</p>
+            <content type="html"><![CDATA[<h2 id="raccourci-clavier">Raccourci clavier</h2>
+<p>Il est possible d'ajouter un raccourci clavier pour rapidement remplacer une chaine de caractère sélectionnée en mode visuel.</p>
 <p>Editer le fichier ~/.vimrc et ajouter la ligne suivante:</p>
 <pre><code>vnoremap &lt;C-r&gt; &quot;hy:%s/&lt;C-r&gt;h//gc&lt;left&gt;&lt;left&gt;&lt;left&gt;
 </code></pre><p>En pressant <code>ctrl + r</code> en mode visuel, un <em>prompt</em> va s'afficher pour entrer le texte qui remplacer l'ancien. Appuyer sur <code>enter</code> et confirmer ou annuler chaque changement par <code>y</code> ou <code>n</code>.</p>
 <blockquote>
 <p>Si vous ne voulez pas confirmer les changements vous pouvez aussi supprimer le <code>c</code> à la fin de la commande VIM <code>:%s/old_text/new_text/gc</code></p>
 </blockquote>
-]]></content>
+<h2 id="slection-verticale">Sélection verticale</h2>
+<p>Sélectionner la première colonne et entrer cTEXT_REMPLACEMENT<!-- raw HTML omitted -->.</p>
+<p>Example:</p>
+<pre><code>[a]aa
+[b]bb
+[c]cc
+[d]dd
+
+c123&lt;Esc&gt;
+
+123aa
+123bb
+123cc
+123dd</code></pre>]]></content>
         </item>
         
         <item>
