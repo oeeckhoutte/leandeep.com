@@ -386,6 +386,7 @@ function toTitleCase(str) {
                 <h2 id="dcouverte-du-nvidia-jetson-nano">Découverte du Nvidia Jetson Nano</h2>
 <p>J'ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s'initier au <strong>Edge Deep Learning</strong>. Avec ce genre de carte, on n'a plus besoin du Cloud pour faire l'inférence de modèle de Machine Learinig utilisant des librairies GPU. Cette carte est parfaite pour les sujets IoT. <em>On aura besoin du Cloud juste au moment où il faudra upgrader ses modèles de Machine/ Deep Learning.</em></p>
 <p>Voici une première review de cette carte. D'autres articles viendront le compléter&hellip;</p>
+<br/>
 <h2 id="caractristiques-techniques">Caractéristiques techniques</h2>
 <table>
 <thead>
@@ -438,6 +439,7 @@ function toTitleCase(str) {
 </tbody>
 </table>
 <p><img src="https://leandeep.com/images/jetson-nano.png" alt="image"></p>
+<br/>
 <h2 id="alimentation-lectrique">Alimentation électrique</h2>
 <p>Il y a 3 manières d'alimenter le Jetson Nano Developer Kit.</p>
 <p>Premièrement, on peut le faire avec un cable micro-USB qui va fournir 5V et 2A.</p>
@@ -451,10 +453,12 @@ function toTitleCase(str) {
 <pre><code>sudo nvpmodel -m 1
 </code></pre><p>Pour passer en mode 10W:</p>
 <pre><code>sudo nvpmodel -m 0
-</code></pre><h2 id="installation-des-softs">Installation des Softs</h2>
+</code></pre><br/>
+<h2 id="installation-des-softs">Installation des Softs</h2>
 <p><strong>Création de la carte micro SD</strong></p>
 <p>Des images Linux <a href="https://developer.nvidia.com/embedded/dlc/jetson-nano-dev-kit-sd-card-image">Linux4Tegra</a> (Ubuntu 18.04 optimisé pour le hardware Nvidia) sont disponibles sur le site de Nvidia pour démarrer très vite.
 Avec un utilitaire comme <a href="https://unetbootin.github.io/">Unetbootin</a> sur Mac (ou Win32 Disk Imager sur Windows), on peut créer une carte MicroSD bootable pour démarrer Linux sur son Jetson Nano.</p>
+<br/>
 <p><strong>Installation d'un virtualenv</strong></p>
 <pre><code>sudo apt-get install virtualenv -y
 mkdir ~/envs
@@ -462,7 +466,8 @@ cd envs
 virtualenv --p python3 ai_env
 source ~/envs/ai_env/bin/activate
 echo 'source ~/envs/ai_env/bin/activate' &gt;&gt; ~/.bashrc
-</code></pre><p><strong>OpenCV</strong></p>
+</code></pre><br/>
+<p><strong>OpenCV</strong></p>
 <p>OpenCV est déjà installé sur cette distribution. Pour l'utiliser dans son projet Python à l'intérieur d'un environnement virtuel, il suffit d'exécuter les commandes suivantes:</p>
 <pre><code>sudo find / -name &quot;cv2*&quot;
 
@@ -481,7 +486,8 @@ ln -s /usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
 &gt;&gt;&gt; import cv2
 &gt;&gt;&gt; print(cv2.__version__)
 3.3.1
-</code></pre><p><strong>Installation de modules de base</strong></p>
+</code></pre><br/>
+<p><strong>Installation de modules de base</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install libfreetype6-dev pkg-config -y
@@ -496,18 +502,21 @@ pip install matplotlib
 pip install scikit-build
 pip install imutils
 pip install pillow
-</code></pre><p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook</strong></p>
+</code></pre><br/>
+<p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook</strong></p>
 <pre><code>pip install scipy
 pip install keras
 pip install scikit-learn
 pip install jupyter notebook	
-</code></pre><p><strong>Installation de Tensorflow</strong></p>
+</code></pre><br/>
+<p><strong>Installation de Tensorflow</strong></p>
 <pre><code>pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-gpu version_de_tensorflow 
 
 # Les dernières versions de Tensorflow sont disponibles:
 tensorflow_gpu-1.15.0+nv19.11-cp36-cp36m-linux_aarch64.whl 217MB 2019-12-12 16:58:00
 tensorflow_gpu-2.0.0+nv19.11-cp36-cp36m-linux_aarch64.whl 198MB 2019-12-12 16:58:00
-</code></pre><p><strong>Configuration du SWAP</strong></p>
+</code></pre><br/>
+<p><strong>Configuration du SWAP</strong></p>
 <p>Par défaut, le SWAP n'est pas activé, ce qui provoque des <code>OOM Kills</code> (Out Of Memory kills).</p>
 <p>Il faut donc l'activer. Pour ce faire, exécutez les commandes suivantes:</p>
 <pre><code>sudo swapon --show
@@ -529,7 +538,8 @@ free -h
 # Rendre l'activation persistente après reboot
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-</code></pre><p><strong>Installation du driver GPIO</strong></p>
+</code></pre><br/>
+<p><strong>Installation du driver GPIO</strong></p>
 <pre><code>pip install Jetson.GPIO
 sudo groupadd -f -r gpio
 sudo usermod -a -G gpio pi
@@ -538,28 +548,35 @@ sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
 Rebooter ou exécuter
 
 sudo udevadm control --reload-rules &amp;&amp; sudo udevadm trigger
-</code></pre><p><strong>Installation du modèle Yolo</strong></p>
+</code></pre><br/>
+<p><strong>Installation du modèle Yolo</strong></p>
 <pre><code>export GPU = 1
 pip install yolo34py-gpu
-</code></pre><h2 id="forum-nvidia-officiel">Forum Nvidia officiel</h2>
+</code></pre><br/>
+<h2 id="forum-nvidia-officiel">Forum Nvidia officiel</h2>
 <p><a href="https://devtalk.nvidia.com/default/board/371/">Accès au forum Nvidia</a></p>
+<br/>
 <h2 id="commandes-utiles">Commandes utiles</h2>
 <p><strong>Taux d'utilisation et température</strong></p>
 <pre><code>tegrastats
-</code></pre><p><strong>Power mode activé</strong></p>
+</code></pre><br/>
+<p><strong>Power mode activé</strong></p>
 <pre><code>sudo /usr/sbin/nvpmodel -q
-</code></pre><p><strong>Booster le ventilateur</strong></p>
+</code></pre><br/>
+<p><strong>Booster le ventilateur</strong></p>
 <pre><code># Le faire tourner au maximum
 sudo sh -c 'echo 255 &gt; /sys/devices/pwm-fan/target_pwm'
 # L'arrêter
 sudo sh -c 'echo 0 &gt; /sys/devices/pwm-fan/target_pwm'
-</code></pre><p><strong>Jetson stats</strong></p>
+</code></pre><br/>
+<p><strong>Jetson stats</strong></p>
 <pre><code>git clone https://github.com/rbonghi/jetson_stats.git
 cd jetson_stats/
 sudo ./install_jetson_stats.sh --s
 ntop
 jetson_release
-</code></pre><h2 id="conclusion">Conclusion</h2>
+</code></pre><br/>
+<h2 id="conclusion">Conclusion</h2>
 <p>A part quels petits soucis que j'ai pu rencontrer au niveau de l'alimentation de la carte, je ne lui trouve que des avantages.
 Les petits soucis que j'ai eu au niveau de l'alimentation était dû à un manque de connaissance de ma part sur le fonctionnement de cette carte. Une fois qu'on a compris comment bien aliementer sa carte, tout fonctionne parfaitement.</p>
 <p>Un GPIO composé de 40 pins est compatible avec celui du Raspberry Pi. Pour moi cela représente un énorme avantage. Si vous avez déjà construit des projets avec des Raspberry Pi vous pouvez reprendre vos montages existants et les porter sur le Nano.</p>
