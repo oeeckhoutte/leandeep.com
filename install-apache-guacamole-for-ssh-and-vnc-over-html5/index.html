@@ -6,10 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Lean Deep">
 <meta name="description" content="I struggled a little bit with the installation on Apache Guacamole. I think this tutorial will help some people. I installed it on Ubuntu 18.04.
-Install VNC Install the following packages:
+ Install VNC Install the following packages:
 sudo apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal tightvncserver We are going to create a VNC startup script:
 cd mkdir ~/.vnc Create a VNC startup script at this location ~/.vnc/xstartup and enter this content:
-Option 1: Pour Ubuntu 18." />
+ Option 1: Pour Ubuntu 18." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -298,10 +298,10 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Install Apache Guacamole for SSH and VNC over HTML5">
 <meta itemprop="description" content="I struggled a little bit with the installation on Apache Guacamole. I think this tutorial will help some people. I installed it on Ubuntu 18.04.
-Install VNC Install the following packages:
+ Install VNC Install the following packages:
 sudo apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal tightvncserver We are going to create a VNC startup script:
 cd mkdir ~/.vnc Create a VNC startup script at this location ~/.vnc/xstartup and enter this content:
-Option 1: Pour Ubuntu 18.">
+ Option 1: Pour Ubuntu 18.">
 <meta itemprop="datePublished" content="2019-07-05T15:07:21&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-05T15:07:21&#43;00:00" />
 <meta itemprop="wordCount" content="1569">
@@ -314,10 +314,10 @@ Option 1: Pour Ubuntu 18.">
 
 <meta name="twitter:title" content="Install Apache Guacamole for SSH and VNC over HTML5"/>
 <meta name="twitter:description" content="I struggled a little bit with the installation on Apache Guacamole. I think this tutorial will help some people. I installed it on Ubuntu 18.04.
-Install VNC Install the following packages:
+ Install VNC Install the following packages:
 sudo apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal tightvncserver We are going to create a VNC startup script:
 cd mkdir ~/.vnc Create a VNC startup script at this location ~/.vnc/xstartup and enter this content:
-Option 1: Pour Ubuntu 18."/>
+ Option 1: Pour Ubuntu 18."/>
 
 
 
@@ -396,6 +396,7 @@ Option 1: Pour Ubuntu 18."/>
 
             <div class="post-content">
                 <p>I struggled a little bit with the installation on Apache Guacamole. I think this tutorial will help some people. I installed it on Ubuntu 18.04.</p>
+<br/>
 <h2 id="install-vnc">Install VNC</h2>
 <p>Install the following packages:</p>
 <pre><code>sudo apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal tightvncserver
@@ -403,6 +404,7 @@ Option 1: Pour Ubuntu 18."/>
 <pre><code>cd
 mkdir ~/.vnc
 </code></pre><p>Create a VNC startup script at this location <code>~/.vnc/xstartup</code> and enter this content:</p>
+<br/>
 <p><strong>Option 1: Pour Ubuntu 18.04 &ldquo;classique&rdquo; avec le desktop environment Gnome</strong></p>
 <pre><code>#!/bin/sh
 
@@ -423,7 +425,8 @@ gnome-settings-daemon &amp;
 nautilus &amp;
 metacity &amp;
 gnome-session-flashback &amp;
-</code></pre><p><strong>Option 2: Pour Ubuntu Mate</strong></p>
+</code></pre><br/>
+<p><strong>Option 2: Pour Ubuntu Mate</strong></p>
 <pre><code>#!/bin/sh
 unset DBUS_SESSION_BUS_ADDRESS
 [ -x /etc/vnc/xstartup ] &amp;&amp; exec /etc/vnc/xstartup
@@ -442,6 +445,7 @@ mate-session &amp;
 <p>Fix rights issue:
 <code>sudo chown -R olivier:olivier /home/olivier/.cache/dconf</code></p>
 </blockquote>
+<br/>
 <h2 id="create-vnc-service">Create VNC service</h2>
 <pre><code>sudo vi /etc/systemd/system/vncserver@.service
 </code></pre><p>Enter the following content. Replace <code>olivier</code> by your username.</p>
@@ -468,7 +472,8 @@ WantedBy=multi-user.target
 <pre><code>sudo systemctl daemon-reload
 sudo systemctl enable vncserver@1.service
 sudo systemctl start vncserver@1
-</code></pre><h2 id="install-guacamole">Install Guacamole</h2>
+</code></pre><br/>
+<h2 id="install-guacamole">Install Guacamole</h2>
 <p>Create a install script and enter the following content:</p>
 <pre><code>#!/bin/bash
 
@@ -784,13 +789,15 @@ echo -e &quot;${BLUE}Installation Complete\nhttp://localhost:8080/guacamole/\nDe
 <pre><code>chmod +x install_guacamole.sh
 </code></pre><p>Install Guacamole:</p>
 <pre><code>./install_guacamole.sh
-</code></pre><h2 id="configure-guacamole">Configure Guacamole</h2>
+</code></pre><br/>
+<h2 id="configure-guacamole">Configure Guacamole</h2>
 <p>Create a new user and create 2 connections (one for SSH and one for VNC).
 This is very easy I do not describe this part.</p>
 <p>At the end you will have this:
 <img src="https://leandeep.com/images/guacamole-home.png" alt="image"></p>
 <p><img src="https://leandeep.com/images/guacamole-ssh.png" alt="image"></p>
 <p><img src="https://leandeep.com/images/guacamole-vnc.png" alt="image"></p>
+<br/>
 <h2 id="configurer-un-reverse-proxy-nginx">Configurer un reverse proxy Nginx</h2>
 <p>Installer Nginx:</p>
 <pre><code>apt install nginx

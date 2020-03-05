@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
-Verify Java is installed Verify Java is installed:
+ Pré-requis Verify Java is installed:
 $ java -version openjdk version &amp;quot;11.0.3&amp;quot; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
 echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/." />
 <meta name="keywords" content="" />
@@ -297,12 +297,12 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Install Elasticsearch on Ubuntu 18.04 ">
 <meta itemprop="description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
-Verify Java is installed Verify Java is installed:
+ Pré-requis Verify Java is installed:
 $ java -version openjdk version &quot;11.0.3&quot; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
 echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/.">
 <meta itemprop="datePublished" content="2019-07-06T11:01:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-06T11:01:00&#43;00:00" />
-<meta itemprop="wordCount" content="185">
+<meta itemprop="wordCount" content="182">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -312,7 +312,7 @@ echo $JAVA_HOME If the previous command return an empty string you need to set t
 
 <meta name="twitter:title" content="Install Elasticsearch on Ubuntu 18.04 "/>
 <meta name="twitter:description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
-Verify Java is installed Verify Java is installed:
+ Pré-requis Verify Java is installed:
 $ java -version openjdk version &quot;11.0.3&quot; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
 echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/."/>
 
@@ -393,7 +393,8 @@ echo $JAVA_HOME If the previous command return an empty string you need to set t
 
             <div class="post-content">
                 <p>In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.</p>
-<h2 id="verify-java-is-installed">Verify Java is installed</h2>
+<br/>
+<h2 id="pr-requis">Pré-requis</h2>
 <p>Verify Java is installed:</p>
 <pre><code>$ java -version
 openjdk version &quot;11.0.3&quot; 2019-04-16
@@ -405,6 +406,7 @@ OpenJDK 64-Bit Server VM (build 11.0.3+7-Ubuntu-1ubuntu218.04.1, mixed mode, sha
 <blockquote>
 <p>Please note that it might not be this path <code>/usr/lib/jvm/java-11-openjdk-amd64</code> in your case. Just check what java path you have under <code>/usr/lib/jvm</code>.</p>
 </blockquote>
+<br/>
 <h2 id="install-elasticsearch">Install Elasticsearch</h2>
 <pre><code>sudo apt-get install apt-transport-https
 # Add gpg key
@@ -414,14 +416,16 @@ add-apt-repository &quot;deb https://artifacts.elastic.co/packages/7.x/apt stabl
 sudo apt-get update
 # Install ES
 sudo apt-get install elasticsearch
-</code></pre><h2 id="add-servicce">Add Servicce</h2>
+</code></pre><br/>
+<h2 id="add-servicce">Add Servicce</h2>
 <pre><code>sudo systemctl enable elasticsearch.service
 sudo systemctl start elasticsearch.service
 # To debug
 sudo systemctl status elasticsearch.service
 # or 
 journalctl -xe
-</code></pre><h2 id="verify-it-is-working">Verify it is working</h2>
+</code></pre><br/>
+<h2 id="verify-it-is-working">Verify it is working</h2>
 <pre><code>curl -X GET http://localhost:9200
 </code></pre><blockquote>
 <p>To customize ES settings you can edit the well documented configuration file located in this path <code>/etc/elasticsearch/elasticsearch.yml</code>.</p>
@@ -437,7 +441,7 @@ journalctl -xe
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/elasticsearch">ElasticSearch</a></span><span class="tag"><a href="https://leandeep.com/tags/ubuntu">Ubuntu</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>185 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>182 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Jul. 2019</p>
         </div>

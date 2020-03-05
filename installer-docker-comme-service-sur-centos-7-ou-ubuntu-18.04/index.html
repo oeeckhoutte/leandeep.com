@@ -12,7 +12,7 @@ yum install -y yum-utils device-mapper-persistent-data lvm2 Ajouter ensuite le r
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Installer Docker:
 yum install -y docker-ce docker-ce-cli containerd.io Démarrer le service Docker
 systemctl start docker Activer le service au démarrage du système:
-systemctl enable docker Ubuntu 18.04
+systemctl enable docker  Ubuntu 18.04
 sudo apt update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -308,7 +308,7 @@ yum install -y yum-utils device-mapper-persistent-data lvm2 Ajouter ensuite le r
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Installer Docker:
 yum install -y docker-ce docker-ce-cli containerd.io Démarrer le service Docker
 systemctl start docker Activer le service au démarrage du système:
-systemctl enable docker Ubuntu 18.04
+systemctl enable docker  Ubuntu 18.04
 sudo apt update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download.">
 <meta itemprop="datePublished" content="2019-08-31T12:34:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-08-31T12:34:00&#43;00:00" />
@@ -328,7 +328,7 @@ yum install -y yum-utils device-mapper-persistent-data lvm2 Ajouter ensuite le r
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Installer Docker:
 yum install -y docker-ce docker-ce-cli containerd.io Démarrer le service Docker
 systemctl start docker Activer le service au démarrage du système:
-systemctl enable docker Ubuntu 18.04
+systemctl enable docker  Ubuntu 18.04
 sudo apt update sudo apt install apt-transport-https ca-certificates curl software-properties-common curl -fsSL https://download."/>
 
 
@@ -420,7 +420,8 @@ sudo apt update sudo apt install apt-transport-https ca-certificates curl softwa
 <pre><code>systemctl start docker
 </code></pre><p>Activer le service au démarrage du système:</p>
 <pre><code>systemctl enable docker
-</code></pre><p><strong>Ubuntu 18.04</strong></p>
+</code></pre><br/>
+<p><strong>Ubuntu 18.04</strong></p>
 <pre><code>sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -429,7 +430,8 @@ sudo apt update
 apt-cache policy docker-ce
 sudo apt install docker-ce
 sudo systemctl status docker
-</code></pre><h2 id="configuration-des-droits">Configuration des droits</h2>
+</code></pre><br/>
+<h2 id="configuration-des-droits">Configuration des droits</h2>
 <p>Pour éviter de devoir toujours ajouter <code>sudo</code> devant vos commandes <code>docker</code> on peut changer les droits et ajouter votre utilisateur linux au groupe docker.</p>
 <pre><code>sudo usermod -aG docker $USER
 </code></pre><p>Rechargez votre terminal pour que les droits soient pris en compte.</p>
@@ -439,6 +441,7 @@ sudo systemctl status docker
 <blockquote>
 <p>Voici le fix: <code>sudo chown root:docker /var/run/docker.sock</code></p>
 </blockquote>
+<br/>
 <h2 id="installation-de-docker-compose">Installation de docker-compose</h2>
 <p>Télécharger le binaire et le placer dans <code>/usr/local/bin</code>:</p>
 <pre><code>curl -L &quot;https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose

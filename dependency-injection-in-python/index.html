@@ -389,12 +389,13 @@ To implement dependency injection we are going to use the super method. Super ca
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>There are many articles available online that talk about dependency injection (DI) in Python.
 Most of them suggest complexe methods for something that can be finally very easy to do using the built-in Python mechanisms.</p>
 <p>Working with dependency injection is a good thing since it makes your code more testable and decoupled.</p>
 <p>To implement dependency injection we are going to use the <code>super</code> method. Super calls the next dependency in the <strong><a href="https://en.wikipedia.org/wiki/C3_linearization">Method Resolution Order</a></strong>.</p>
-<h1 id="example">Example</h1>
+<br/>
+<h2 id="example">Example</h2>
 <p>Let's say I am developing an (kind of) autonomous surveillance camera composed of a RC car with a camera on top of it.</p>
 <p>I have the following class to steer my car:</p>
 <p><em>Create a file autonomous_surveillance_car.py</em></p>
@@ -517,7 +518,8 @@ class MockedAutonomousCar(autonomous_surveillance_car.AutonomousCar, MockCar)
 
 ...
 
-</code></pre><h1 id="conclusion">Conclusion</h1>
+</code></pre><br/>
+<h2 id="conclusion">Conclusion</h2>
 <p>We see that our <code>MockedAutonomousCar</code> class uses depends on <code>autonomous_surveillance_car.AutonomousCar</code> class that depends on <code>MockCar</code> class. It does not depends on the <code>Car</code> class and we did not change our codebase. Moreover the implementation was very easy and just took 1 line of code.</p>
 
             </div>

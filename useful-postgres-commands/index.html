@@ -400,37 +400,46 @@ Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement
 </code></pre><blockquote>
 <p>I recommand the usage of pgadmin4 to manage your Postgres Databases.</p>
 </blockquote>
+<br/>
 <h2 id="install-psql-client">Install PSQL Client</h2>
 <p><strong>On ubuntu</strong></p>
 <pre><code>apt-get update
 apt-get install -y postgresql-client
-</code></pre><h2 id="database">Database</h2>
+</code></pre><br/>
+<h2 id="database">Database</h2>
 <p><strong>Connect to specific local DB</strong></p>
 <pre><code>psql your_db your_username
-</code></pre><p><strong>Connect to remote DB</strong></p>
+</code></pre><br/>
+<p><strong>Connect to remote DB</strong></p>
 <pre><code>psql -h DB_HOST -p DB_PORT DB_NAME DB_USER
-</code></pre><p><strong>Dump DB</strong></p>
+</code></pre><br/>
+<p><strong>Dump DB</strong></p>
 <pre><code>pg_dump -Fc my_db &gt; /tmp/db.dump
 
 # restore
 # pg_restore -d new_db /tmp/db.dump
-</code></pre><p><strong>Restore DB:</strong></p>
+</code></pre><br/>
+<p><strong>Restore DB:</strong></p>
 <pre><code>pg_restore path_to_backup_file.backup --dbname=your_db --username=your_username --clean
 
 # -d &lt;=&gt; --dbname
 # -U &lt;=&gt; --username
 # --clean = clean (drop) database objects before recreating
-</code></pre><p><strong>Create a DB with a particular role:</strong></p>
+</code></pre><br/>
+<p><strong>Create a DB with a particular role:</strong></p>
 <pre><code>CREATE DATABASE your_db
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
-</code></pre><p><strong>Drop DB:</strong></p>
+</code></pre><br/>
+<p><strong>Drop DB:</strong></p>
 <pre><code>drop database your_db;
-</code></pre><p><strong>Close all sessions:</strong></p>
+</code></pre><br/>
+<p><strong>Close all sessions:</strong></p>
 <pre><code>SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'you_db';
-</code></pre><p><strong>Truncate all tables from DB</strong></p>
+</code></pre><br/>
+<p><strong>Truncate all tables from DB</strong></p>
 <p><em>(It is as if you remove the data but keep the schema.)</em></p>
 <pre><code># Create Schema dump of database (schema-only)
 pg_dump your_db -s &gt; schema.sql
@@ -446,11 +455,13 @@ psql your_db &lt; schema.sql
 </code></pre><blockquote>
 <p>In case you want to create a script can execute SQL commands the Terminal using the -c flag: <code>$ psql -c &quot;YOUR SQL QUERY;&quot;</code></p>
 </blockquote>
+<br/>
 <h2 id="roles-vs-users-vs-groups">Roles vs Users vs Groups</h2>
 <blockquote>
 <p>&ldquo;CREATE ROLE&rdquo;, &ldquo;CREATE USER&rdquo;, and &ldquo;CREATE GROUP&rdquo; were different couple of years ago. Since group management has changed these 3 commands are (almost) the same. They all still exist for the sake of compatibility.
 There is all the same a slight difference between for example &ldquo;CREATE ROLE&rdquo; and &ldquo;CREATE USER&rdquo;. &ldquo;CREATE ROLE&rdquo; will create a default user that cannot login (NOLOGIN), even though &ldquo;CREATE USER&rdquo; will create a user with the LOGIN attribute. .</p>
 </blockquote>
+<br/>
 <h2 id="roles">Roles</h2>
 <p><strong>List roles:</strong></p>
 <pre><code>\du
@@ -461,14 +472,18 @@ SELECT
    rolname
 FROM
    pg_roles;
-</code></pre><p><strong>Create a role:</strong></p>
+</code></pre><br/>
+<p><strong>Create a role:</strong></p>
 <pre><code>create role your_role
-</code></pre><h2 id="users">Users</h2>
+</code></pre><br/>
+<h2 id="users">Users</h2>
 <p><strong>Create user:</strong></p>
 <pre><code>create user your_user with encrypted password 'user_password';
-</code></pre><p><strong>Grant all priviledges to user on database:</strong></p>
+</code></pre><br/>
+<p><strong>Grant all priviledges to user on database:</strong></p>
 <pre><code>grant all privileges on database your_db to your_user;
-</code></pre><h2 id="installations">Installations</h2>
+</code></pre><br/>
+<h2 id="installations">Installations</h2>
 <h3 id="on-centos-7">On Centos 7</h3>
 <pre><code>yum install postgresql-server postgresql-contrib
 # Initialize the DB
@@ -481,10 +496,12 @@ Change user to postgres and connect to the client to check if it works
 su postgres
 psql
 \l
-</code></pre><h3 id="on-osx">On OSX</h3>
+</code></pre><br/>
+<h3 id="on-osx">On OSX</h3>
 <pre><code>brew install postgresql
 brew services start postgres
-</code></pre><h2 id="database-modeler">Database modeler</h2>
+</code></pre><br/>
+<h2 id="database-modeler">Database modeler</h2>
 <p>It can be very useful to generate the database graph to see all relations betweens tables.</p>
 <p>There is a great tool that can help. It is opensource and works perfectly with Postgres 11+. It is called pgmodeler and it is available here:  <a href="https://github.com/pgmodeler/pgmodeler.git">https://github.com/pgmodeler/pgmodeler.git</a></p>
 <p>Here is the procedure to install it on OSX. (You need Xcode installed)</p>
@@ -498,7 +515,8 @@ git checkout the_latest_tag
 qmake -r CONFIG+=release pgmodeler.pro
 make &amp;&amp; make install
 open /Applications/pgmodeler.app
-</code></pre><h2 id="great-python-orm">Great Python ORM</h2>
+</code></pre><br/>
+<h2 id="great-python-orm">Great Python ORM</h2>
 <p><strong>SQLAlchemy</strong> is a great Python ORM.
 Here are few useful links to manage to model your Postgres DB using Python and this library:
 <a href="https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html">https://docs.sqlalchemy.org/en/13/orm/basic_relationships.html</a></p>

@@ -383,10 +383,11 @@ function toTitleCase(str) {
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>The purpose of this article is to describe how to execute Python code with custom packages on <strong>AWS Lambda</strong>. Since there is no way to execute a <code>pip install</code> on lambda when you use the inline code feature you cannot use external packages. So you are very limited.
 Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda. If you use a deployment script (.sh or Makefile) and <strong>AWS CDK</strong> like I do it becomes very easy to make Lambda execute any Python code.</p>
-<h1 id="docker">Docker</h1>
+<br/>
+<h2 id="docker">Docker</h2>
 <p>I use Docker and an <code>Amazon AMI Linux</code> base image to build everything. At least I am sure that everything I build fits the target execution environment (AWS Lambda).</p>
 <p>Dockerfile example:</p>
 <pre><code>FROM amazonlinux:latest
@@ -405,7 +406,8 @@ RUN zip -r zip.zip .
 CMD python3 my_script.py
 </code></pre><p>I use this Docker image to deploy on AWS Lambda and also run my Python script locally if neccessary.
 As you can see the pip dependences are installed in the current directory /app and everything is zipped to be deployed on AWS Lambda.</p>
-<h1 id="deployment">Deployment</h1>
+<br/>
+<h2 id="deployment">Deployment</h2>
 <p>With few basic commands and a CDK script it becomes handy to automate the whole deployment of your AWS infrastructure and create a Lambda function that will use your previously generated zip file containing your Python code with custom dependences.</p>
 <p>Here is an example of deployment script you can write:</p>
 <pre><code># Create the Docker image based on Amazonlinux
@@ -455,7 +457,8 @@ app.run()
 </code></pre><blockquote>
 <p>If some of your dependences require shared objects (<code>*.so</code> files) to work you can also create one or few &ldquo;Layer(s)&rdquo; that contain the <code>*.so</code> files. AWS Lambda will use them and your dependences should work.</p>
 </blockquote>
-<h1 id="conclusion">Conclusion</h1>
+<br/>
+<h2 id="conclusion">Conclusion</h2>
 <p><strong>Firstly use AWS CDK ! Secondly if you need to execute custom packages on Lambda you can ! Docker is great alternative (with AWS Fargate if you want to manage nothing) but it is not always the best solution. It depends on your team, your skills, your budget and above all your use case&hellip;</strong></p>
 <p>Obviously this is a simple example but you could build a pretty cool and modern architecture with these tools. This is especially true if you investigate in the AWS CDK (that use AWS Cloud Formation under the hood)&hellip;</p>
 

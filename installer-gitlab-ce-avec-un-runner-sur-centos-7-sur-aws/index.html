@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages." />
+ Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -295,7 +295,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Installer Gitlab CE avec un runner sur Centos 7 sur AWS">
 <meta itemprop="description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.">
+ Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.">
 <meta itemprop="datePublished" content="2019-09-02T21:21:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-09-02T21:21:00&#43;00:00" />
 <meta itemprop="wordCount" content="287">
@@ -308,7 +308,7 @@ Installation de Gitlab CE yum update yum -y install curl vim policycoreutils ope
 
 <meta name="twitter:title" content="Installer Gitlab CE avec un runner sur Centos 7 sur AWS"/>
 <meta name="twitter:description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages."/>
+ Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages."/>
 
 
 
@@ -387,6 +387,7 @@ Installation de Gitlab CE yum update yum -y install curl vim policycoreutils ope
 
             <div class="post-content">
                 <p>Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.</p>
+<br/>
 <h2 id="installation-de-gitlab-ce">Installation de Gitlab CE</h2>
 <pre><code>yum update
 
@@ -405,7 +406,8 @@ curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/scrip
 # Installer Gitlab
 yum -y install gitlab-ce
 
-</code></pre><h2 id="configuration-du-dns-en-https">Configuration du DNS en HTTPS</h2>
+</code></pre><br/>
+<h2 id="configuration-du-dns-en-https">Configuration du DNS en HTTPS</h2>
 <p>Gitlab est maintenant installé. Pour configurer un DNS et du HTTPS, voici ce qu'il faut modifier dans le fichier <code>/etc/gitlab/gitlab.rb</code>.</p>
 <pre><code>external_url 'https://gitlab.votre_domaine.com'
 
@@ -416,6 +418,7 @@ letsencrypt['auto_renew_hour'] = 0
 </code></pre><p>Une fois ce fichire modifié il faut reconfigurer Gitlab pour que les modifications soient prises en compte avec la commande <code>gitlab-ctl reconfigure</code>.</p>
 <p>Rendez-vous à l'adresse DNS que vous avez spécifié en HTTPS pour voir le Gitlab up and running.</p>
 <p>Redémarrer la machine pour être certain que tout est bien installé et que Gitlab se lance bien au startup.</p>
+<br/>
 <h2 id="installation-du-ci">Installation du CI</h2>
 <pre><code>curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
 
@@ -427,6 +430,7 @@ gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runn
 # Suivez les instructions. Elles sont très simples
 </code></pre><p>Et voilà. Vous avez maintenant un runner pour votre pipeline CICD.</p>
 <p>Rendez-vous maintenant sur le DNS de votre Gitlab, commencez par renseigner un mot de passe superadmin et rendez-vous dans les settings pour voir le nouveau runner enregistré.</p>
+<br/>
 <h2 id="synchroniser-gitlab-avec-dautre-git-providers">Synchroniser Gitlab avec d'autre Git providers</h2>
 <p>J'ai suivi la documentation de cet article et j'ai pu brancher d'autres Git provider (i.e Github ou Bitbucket) à mon Gitlab: <a href="https://docs.gitlab.com/ee/integration/bitbucket.html">https://docs.gitlab.com/ee/integration/bitbucket.html</a></p>
 

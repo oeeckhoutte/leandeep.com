@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Lean Deep">
 <meta name="description" content="In this tutorial we are going to see how to install Jupyter lab. More on this tool here: https://jupyterlab.readthedocs.io/en/stable/
-Install NodeJS We are going to install NVM (Node Version Manager) to manage the install NodeJS version.
+ Install NodeJS We are going to install NVM (Node Version Manager) to manage the install NodeJS version.
 sudo apt-get update sudo apt-get install -y curl curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash Add the following commands in your ~/.zshrc file:
 export NVM_DIR=&amp;quot;$HOME/.nvm&amp;quot; [ -s &amp;quot;$NVM_DIR/nvm.sh&amp;quot; ] &amp;amp;&amp;amp; \. &amp;quot;$NVM_DIR/nvm.sh&amp;quot; # This loads nvm [ -s &amp;quot;$NVM_DIR/bash_completion&amp;quot; ] &amp;amp;&amp;amp; \." />
 <meta name="keywords" content="" />
@@ -297,7 +297,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Install Jupyter Lab on Ubuntu 18.04">
 <meta itemprop="description" content="In this tutorial we are going to see how to install Jupyter lab. More on this tool here: https://jupyterlab.readthedocs.io/en/stable/
-Install NodeJS We are going to install NVM (Node Version Manager) to manage the install NodeJS version.
+ Install NodeJS We are going to install NVM (Node Version Manager) to manage the install NodeJS version.
 sudo apt-get update sudo apt-get install -y curl curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash Add the following commands in your ~/.zshrc file:
 export NVM_DIR=&quot;$HOME/.nvm&quot; [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm [ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \.">
 <meta itemprop="datePublished" content="2019-07-05T12:10:32&#43;00:00" />
@@ -312,7 +312,7 @@ export NVM_DIR=&quot;$HOME/.nvm&quot; [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&a
 
 <meta name="twitter:title" content="Install Jupyter Lab on Ubuntu 18.04"/>
 <meta name="twitter:description" content="In this tutorial we are going to see how to install Jupyter lab. More on this tool here: https://jupyterlab.readthedocs.io/en/stable/
-Install NodeJS We are going to install NVM (Node Version Manager) to manage the install NodeJS version.
+ Install NodeJS We are going to install NVM (Node Version Manager) to manage the install NodeJS version.
 sudo apt-get update sudo apt-get install -y curl curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash Add the following commands in your ~/.zshrc file:
 export NVM_DIR=&quot;$HOME/.nvm&quot; [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm [ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \."/>
 
@@ -394,6 +394,7 @@ export NVM_DIR=&quot;$HOME/.nvm&quot; [ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&a
             <div class="post-content">
                 <p>In this tutorial we are going to see how to install Jupyter lab.
 More on this tool here: <a href="https://jupyterlab.readthedocs.io/en/stable/">https://jupyterlab.readthedocs.io/en/stable/</a></p>
+<br/>
 <h2 id="install-nodejs">Install NodeJS</h2>
 <p>We are going to install NVM (Node Version Manager) to manage the install NodeJS
 version.</p>
@@ -410,16 +411,20 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 # Determine the latest LTS. For me it is v10.16.0 when I am writing this tutorial
 nvm install v10.16.0
 nvm use default v10.16.0
-</code></pre><p><strong>Install python 3</strong></p>
+</code></pre><br/>
+<p><strong>Install python 3</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get install python3
 sudo apt-get install python3-pip
-</code></pre><p><strong>Install jupyterlab</strong></p>
+</code></pre><br/>
+<p><strong>Install jupyterlab</strong></p>
 <pre><code>pip3 install jupyterlab
 </code></pre><p>If you are using ohmyzsh (and you should !) edit your <code>~/.zshrc</code> file and add the line at the end <code>export PATH=$PATH:~/.local/bin/</code>. Then execute <code>source ~/.zshrc</code>.</p>
+<br/>
 <p><strong>Verify jupyterlab works</strong></p>
 <pre><code>jupyter lab --allow-root --ip=0.0.0.0 --no-browser
-</code></pre><p><strong>Install extensions hub</strong></p>
+</code></pre><br/>
+<p><strong>Install extensions hub</strong></p>
 <blockquote>
 <p>Kill the previously launched server with Ctrl-c</p>
 </blockquote>
@@ -428,6 +433,7 @@ jupyter lab build
 jupyter lab --allow-root --ip=0.0.0.0 --no-browser
 </code></pre><p>Go to &ldquo;Settings&rdquo; &ndash;&gt; &ldquo;Enable Extensions manager (Experimental) to enable the extensions manager.
 If you click on the extensions icon that appear on the left menu you should see all available extensions to install.</p>
+<br/>
 <p><strong>Make Jupyterlab a service</strong></p>
 <p>Generate a config file:</p>
 <pre><code>jupyter-lab --generate-config
@@ -459,7 +465,8 @@ EOF
 <pre><code>sudo systemctl start jupyter-lab.service
 </code></pre><p>Verify jupyterlab service is working and get access token:</p>
 <pre><code>sudo systemctl status jupyter-lab.service
-</code></pre><p><strong>Custom jupyter conf</strong></p>
+</code></pre><br/>
+<p><strong>Custom jupyter conf</strong></p>
 <p>It is possible to custom jupyter lab conf with the following commands:</p>
 <pre><code># Incoming connection whitelist. tried with IP &amp; CIDR. not sure about ranges. should be comma separated if more than one.
 sed -i.back &quot;s/#c.NotebookApp.allow_origin = ''/c.NotebookApp.allow_origin = '10.1.0.0\/24'/&quot; ~/.jupyter/jupyter_notebook_config.py
@@ -480,7 +487,8 @@ sed -i &quot;s/^#c.NotebookApp.token .*/c.NotebookApp.token = '$token'/&quot; ~/
 sed -i &quot;s/#c.NotebookApp.cookie_secret = b''/#c.NotebookApp.cookie_secret = ''/&quot; ~/.jupyter/jupyter_notebook_config.py
 sed -i &quot;s/#c.Session.key = b''/#c.Session.key = ''/&quot; ~/.jupyter/jupyter_notebook_config.py
 sed -i &quot;s/#c.NotebookNotary.secret = b''/#c.NotebookNotary.secret = ''/&quot; ~/.jupyter/jupyter_notebook_config.py
-</code></pre><p>Have fun !</p>
+</code></pre><br/>
+<p>Have fun !</p>
 
             </div>
         </article>

@@ -390,6 +390,7 @@ On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natur
 <p>Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n'est pas très grand car ces N-grams apparaissent rarement plusieurs fois.</p>
 <p>On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme <em>features</em> pour représenter nos documents en plus d'utiliser des tokens individuels trouvés dans le corpus.</p>
 <p>Dans cet article, nous allons voir comment générer en Python des N-grams à partir de phrases en entrée.</p>
+<br/>
 <h2 id="n-grams-en-pur-python">N-grams en pur Python</h2>
 <p>Partons de la phrase suivante et transformons la en N-grams:</p>
 <pre><code>s = &quot;On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language &quot; \ 
@@ -445,7 +446,8 @@ bigrams = zip(*sequences)
 # Pour info, cette syntaxe revient au même que zip(sequences[0], sequences[1], sequences[2]).
 # Chaquee tuple que cette fonction zip retourne contient un élément de chaque séquence.
 # Comme il n'y a que 3 éléments dans la dernières séquence, il n'y a que 3 tuples retournés par la fonction zip
-</code></pre><h2 id="n-grams-avec-nltk">N-grams avec NLTK</h2>
+</code></pre><br/>
+<h2 id="n-grams-avec-nltk">N-grams avec NLTK</h2>
 <p>Au lieu d'utiliser la méthode précédente pour générer des N-grams, on peut se simplifier la vie en utilisant la librairie <code>NLTK (Natural Language Toolkit)</code> spécialisée comme son nom l'indique dans le NLP.</p>
 <p>Avec le code suivant, on peut générer des N-grams, tout comme on l'a fait avec la méthode <code>generate_ngrams()</code>.</p>
 <pre><code>import re

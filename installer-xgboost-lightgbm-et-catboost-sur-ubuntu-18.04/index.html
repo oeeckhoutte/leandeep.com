@@ -8,7 +8,7 @@
 <meta name="description" content="Installation de XGBoost Installation simple
 Exécuter la commande suivante:
 pip install xgboost  &amp;ldquo;The default open-source XGBoost packages already include GPU support.&amp;rdquo;
- Build from source
+  Build from source
 Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
 Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
 sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:" />
@@ -302,13 +302,13 @@ function toTitleCase(str) {
 <meta itemprop="description" content="Installation de XGBoost Installation simple
 Exécuter la commande suivante:
 pip install xgboost  &ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;
- Build from source
+  Build from source
 Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
 Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
 sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:">
 <meta itemprop="datePublished" content="2019-07-19T11:14:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-07-19T11:14:00&#43;00:00" />
-<meta itemprop="wordCount" content="1117">
+<meta itemprop="wordCount" content="1121">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -320,7 +320,7 @@ sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pa
 <meta name="twitter:description" content="Installation de XGBoost Installation simple
 Exécuter la commande suivante:
 pip install xgboost  &ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;
- Build from source
+  Build from source
 Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
 Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
 sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pas la bonne version désinstallez le avant de le réinstaller manuellement:"/>
@@ -408,6 +408,7 @@ sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&#39;est pa
 </code></pre><blockquote>
 <p>&ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;</p>
 </blockquote>
+<br/>
 <p><strong>Build from source</strong></p>
 <p>Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.</p>
 <p>Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.</p>
@@ -492,7 +493,8 @@ Result = PASS
 </code></pre><p>Installer XGBoost:</p>
 <pre><code>cd ../python-package
 sudo python3 setup.py install
-</code></pre><p><strong>Vérification du bon fonctionnement d'XGBoost</strong></p>
+</code></pre><br/>
+<p><strong>Vérification du bon fonctionnement d'XGBoost</strong></p>
 <pre><code>git clone https://github.com/dmlc/xgboost
 cd xgboost
 
@@ -510,7 +512,8 @@ bst = xgb.train(param, dtrain, num_round)
 # make prediction
 preds = bst.predict(dtest)
 print(preds)
-</code></pre><h2 id="installation-de-lightgbm">Installation de LightGBM</h2>
+</code></pre><br/>
+<h2 id="installation-de-lightgbm">Installation de LightGBM</h2>
 <p>Installation des dépendances:</p>
 <pre><code>sudo apt install -y \
     libboost-dev \
@@ -559,7 +562,8 @@ Did not meet early stopping. Best iteration is:
 Saving model...
 Starting predicting...
 The rmse of prediction is: 0.44512434910807497
-</code></pre><h2 id="installation-de-catboost">Installation de CatBoost</h2>
+</code></pre><br/>
+<h2 id="installation-de-catboost">Installation de CatBoost</h2>
 <p>Simplement:</p>
 <pre><code>pip install catboost
 </code></pre><p>Installer l'outil de visualisation:</p>
@@ -609,7 +613,7 @@ preds_proba = model.predict_proba(eval_dataset)
 preds_raw = model.predict(eval_dataset,
                           prediction_type='RawFormulaVal')
 
-</code></pre><p>Après l'avoir exécuté le code précédent un training sera réalisé sur GPU (<a href="https://catboost.ai/docs/features/training-on-gpu.html#training-on-gpu)">https://catboost.ai/docs/features/training-on-gpu.html#training-on-gpu)</a>. Si tout est ok vous devriez obtenir le résultat suivant:</p>
+</code></pre><p>Après l'avoir exécuté le code précédent un training sera réalisé sur GPU. <a href="https://catboost.ai/docs/features/training-on-gpu.html#training-on-gpu">Le lien suivant</a> décrit comment faire. Si tout est ok vous devriez obtenir le résultat suivant:</p>
 <pre><code>0:	learn: -0.9623099	total: 8.48ms	remaining: 76.3ms
 1:	learn: -0.7421078	total: 14.6ms	remaining: 58.3ms
 2:	learn: -0.5898572	total: 20.2ms	remaining: 47.2ms
@@ -620,8 +624,9 @@ preds_raw = model.predict(eval_dataset,
 7:	learn: -0.2666318	total: 47.6ms	remaining: 11.9ms
 8:	learn: -0.2358041	total: 53ms	remaining: 5.89ms
 9:	learn: -0.2107419	total: 57.9ms	remaining: 0us
-</code></pre><h2 id="comparaison-des-3-algorithmes-de-boosting">Comparaison des 3 algorithmes de Boosting</h2>
-<p>Un article très intéressant comparant les 3 algorithmes est disponible à l'adresse suivante <a href="https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db">https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db</a></p>
+</code></pre><br/>
+<h2 id="comparaison-des-3-algorithmes-de-boosting">Comparaison des 3 algorithmes de Boosting</h2>
+<p>Un article très intéressant comparant les 3 algorithmes est disponible <a href="https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db">à l'adresse suivante</a>.</p>
 <p>Voici un tableau comparatif extrait de cet article:</p>
 <p><img src="https://leandeep.com/images/lightGBM-vs-CatBoost-vs-XGBoost.png" alt="image"></p>
 <p>Au vu de ces résultats, je pencherais soit sur l'utilisation de CatBoost si les délais d'inférence sont un enjeu. Dans le cas contraire, vue les résultats de LightGBM et sa durée d'entrainement nécessaire par rapport à XGBoost je partirais sur LightGBM.</p>
@@ -636,7 +641,7 @@ preds_raw = model.predict(eval_dataset,
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/boosting">Boosting</a></span><span class="tag"><a href="https://leandeep.com/tags/gpu">GPU</a></span><span class="tag"><a href="https://leandeep.com/tags/xgboost">XGBoost</a></span><span class="tag"><a href="https://leandeep.com/tags/lightgbm">LightGBM</a></span><span class="tag"><a href="https://leandeep.com/tags/catboost">CatBoost</a></span><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/data-science">Data Science</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1117 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1121 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Jul. 2019</p>
         </div>

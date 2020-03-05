@@ -386,18 +386,20 @@ Voici donc la procédure d&#39;installation."/>
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second  est présent pour éviter de perdre nos précieuses données. J'ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d'un système raid.</p>
 <p>Voici donc la procédure d'installation. Dans un prochain article que j'intitulerai &ldquo;Gérer ses datasets comme un pro&rdquo; je parlerai de la manière dont j'organise mes données au sein de mon serveur. J'en ferais peut-être un autre sur le CICD du Data Scientist (différent de celui des développeurs).</p>
-<h1 id="vrification-des-disques">Vérification des disques</h1>
+<br/>
+<h2 id="vrification-des-disques">Vérification des disques</h2>
 <p>Avant de commencer on va vérifier l'état des disques durs:</p>
 <pre><code>sudo apt-get install smartmontools
 </code></pre><p>Lancer le test avec la commande suivante.</p>
 <pre><code>sudo smartctl -t short /dev/sdb
 </code></pre><p>Voir le résultat (après l'heure indiquée par la commande précédente):</p>
 <pre><code>sudo smartctl -l selftest /dev/sdb
-</code></pre><h1 id="installation">Installation</h1>
-<h2 id="prparation-des-disques">Préparation des disques</h2>
+</code></pre><br/>
+<h2 id="installation">Installation</h2>
+<p><strong>Préparation des disques</strong></p>
 <p>Identifier les disques sur lesquels vous voulez créer votre Raid:</p>
 <pre><code>sudo fdisk -l
 sudo fdisk /dev/sdX
@@ -418,7 +420,8 @@ w # save
 y # confirm
 
 # Recommander cette procédure avec /dev/sdc
-</code></pre><h2 id="cration-du-raid">Création du raid</h2>
+</code></pre><br/>
+<p><strong>Création du raid</strong></p>
 <p>Installation de <code>mdadm</code>:</p>
 <pre><code>sudo apt install -y mdadm
 </code></pre><p>Création du raid:</p>
@@ -438,7 +441,8 @@ y # confirm
 <pre><code>sudo update-initramfs -u
 </code></pre><p>Ajouter le disque raid dans fstab:</p>
 <pre><code>echo '/dev/md0 /mnt/md0 ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab
-</code></pre><h2 id="troubleshooting">Troubleshooting</h2>
+</code></pre><br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
 <p>Voir le(s) raid(s) existant(s):</p>
 <pre><code>cat /proc/mdstat
 </code></pre><p>Supprimer un raid:</p>
@@ -454,7 +458,8 @@ mdadm --remove /dev/md0
 <pre><code>lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
 </code></pre><p>Wiping the entire disk:</p>
 <pre><code>dd if=/dev/zero of=/dev/sdX bs=1M
-</code></pre><p>Bonus 1: Wiping the entire disk for security reasons (plus long):</p>
+</code></pre><br/>
+<p>Bonus 1: Wiping the entire disk for security reasons (plus long):</p>
 <pre><code>dd if=/dev/urandom of=/dev/sdX bs=1M
 </code></pre><blockquote>
 <p>When you delete a file or format a hard drive you are basically just telling the computer that it can use this portion of the disk again if it is needed. If that portion of the disk is not every written over again. The data will remain indefinitely. So, in order to make deleted data unrecoverable we must write over it.</p>
@@ -466,7 +471,8 @@ mdadm --remove /dev/md0
 <pre><code>#!/bin/bash 
 for n in `seq 7`; do dd if=/dev/urandom of=/dev/sda bs=8b conv=notrunc; done
 # chmod a+x wipeIt
-</code></pre><p>Bonus 2: Voir la progression de dd</p>
+</code></pre><br/>
+<p>Bonus 2: Voir la progression de dd</p>
 <pre><code>Option 1:
 sudo dd if=/dev/zero of=/dev/sdX bs=1M status=progress
 

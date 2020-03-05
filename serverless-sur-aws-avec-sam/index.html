@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:
-Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3  Installation Créer un bucket S3:
+ Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3   Installation Créer un bucket S3:
 aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
  AWS recommande l&#39;utilisation de Homebrew pour l&#39;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3." />
 <meta name="keywords" content="" />
@@ -297,12 +297,12 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Serverless sur AWS avec SAM">
 <meta itemprop="description" content="Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:
-Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3  Installation Créer un bucket S3:
+ Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3   Installation Créer un bucket S3:
 aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
  AWS recommande l&#39;utilisation de Homebrew pour l&#39;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3.">
 <meta itemprop="datePublished" content="2019-08-17T16:51:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-08-17T16:51:00&#43;00:00" />
-<meta itemprop="wordCount" content="464">
+<meta itemprop="wordCount" content="467">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -312,7 +312,7 @@ aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
 
 <meta name="twitter:title" content="Serverless sur AWS avec SAM"/>
 <meta name="twitter:description" content="Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:
-Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3  Installation Créer un bucket S3:
+ Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3   Installation Créer un bucket S3:
 aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
  AWS recommande l&#39;utilisation de Homebrew pour l&#39;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3."/>
 
@@ -393,6 +393,7 @@ aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
 
             <div class="post-content">
                 <p>Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:</p>
+<br/>
 <h2 id="prrequis">Prérequis</h2>
 <ul>
 <li>AWS Cli</li>
@@ -400,6 +401,7 @@ aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
 <li>Docker (dois-je le préciser ?)</li>
 <li>Python 3</li>
 </ul>
+<br/>
 <h2 id="installation">Installation</h2>
 <p>Créer un bucket S3:</p>
 <pre><code>aws s3 mb s3://votre-sam-bucket --region eu-west-1
@@ -412,7 +414,8 @@ aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
 <pre><code>sam --version
 
 SAM CLI, version 0.19.0
-</code></pre><h2 id="premire-application">Première application</h2>
+</code></pre><br/>
+<h2 id="premire-application">Première application</h2>
 <p>Créer une application squelette qui aura la structure suivante:</p>
 <pre><code>sam init --runtime python3.6
 
@@ -433,13 +436,16 @@ sam-app/
 <pre><code>cd sam-app
 sam build
 </code></pre><p>Une fois que l'application a été buildée on peut la packager et l'envoyer sur AWS ou la tester en local.</p>
+<br/>
 <p><strong>Option 1: Exécuter la fonction sur AWS</strong></p>
 <p>Packager votre application:</p>
 <pre><code>sam package --output-template packaged.yaml --s3-bucket votre-sam-bucket
 </code></pre><p>Déployer votre application:</p>
 <pre><code>sam deploy --template-file packaged.yaml --region eu-west-1 --capabilities CAPABILITY_IAM --stack-name aws-sam-getting-started
-</code></pre><p><strong>Option 2: Exécuter la fonction en local</strong></p>
+</code></pre><br/>
+<p><strong>Option 2: Exécuter la fonction en local</strong></p>
 <p>2 options s'offrent à nous pour tester notre fonction lambda en local. On peut simuler une API REST qui appelera notre fonction si le bon endpoint est appelé ou on peut directement invoquer la fonction lambda via le cli.</p>
+<br/>
 <p><strong>Option 2.1: Simuler une API REST</strong></p>
 <p>Dans un premier terminal lancer l'API:</p>
 <pre><code>sam local start-api
@@ -447,13 +453,14 @@ sam build
 <pre><code>curl http://127.0.0.1:3000/hello
 
 {&quot;message&quot;: &quot;hello world&quot;}%
-</code></pre><p><strong>Option 2.2: Invoquer la fonction directement</strong>*</p>
+</code></pre><br/>
+<p><strong>Option 2.2: Invoquer la fonction directement</strong>*</p>
 <pre><code>sam local invoke &quot;HelloWorldFunction&quot; -e event.json
 
 {&quot;statusCode&quot;: 200, &quot;body&quot;: &quot;{\&quot;message\&quot;: \&quot;hello world\&quot;}&quot;}
-</code></pre><h2 id="events">Events</h2>
-<p>Il est possible de simuler ses events AWS.
-<a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-generate-event.html">https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-generate-event.html</a></p>
+</code></pre><br/>
+<h2 id="events">Events</h2>
+<p>Il est possible de simuler ses events AWS. <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-generate-event.html">L'article suivant</a> décrit comment faire.</p>
 <p>Examples:</p>
 <ul>
 <li>Simuler un event S3:</li>
@@ -476,8 +483,10 @@ sam build
 <li>Simuler un event et invoquer directement la lambda:</li>
 </ul>
 <pre><code>sam local generate-event s3 [put/delete] --bucket &lt;bucket&gt; --key &lt;key&gt; | sam local invoke &lt;function logical id&gt;
-</code></pre><h2 id="exemples-dapplications-sam">Exemples d'applications SAM</h2>
-<p>AWS fourni un grand nombre d'examples d'applications: <a href="https://github.com/awslabs/serverless-application-model/tree/master/examples/apps">https://github.com/awslabs/serverless-application-model/tree/master/examples/apps</a></p>
+</code></pre><br/>
+<h2 id="exemples-dapplications-sam">Exemples d'applications SAM</h2>
+<p>AWS fourni <a href="https://github.com/awslabs/serverless-application-model/tree/master/examples/apps">un grand nombre d'examples d'applications</a>.</p>
+<br/>
 <h2 id="debug">Debug</h2>
 <p>Avec remote_pdb, puisque SAM est basé sur Docker.
 Dans votre code, ajoutez le snippet suivant là où vous voulez debugguer:</p>
@@ -494,7 +503,7 @@ Dans votre code, ajoutez le snippet suivant là où vous voulez debugguer:</p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/aws">AWS</a></span><span class="tag"><a href="https://leandeep.com/tags/sam">SAM</a></span><span class="tag"><a href="https://leandeep.com/tags/serverless">Serverless</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>464 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>467 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>17 Aug. 2019</p>
         </div>
