@@ -10091,6 +10091,54 @@ for v in videos:
         </item>
         
         <item>
+            <title>Commandes utiles Google Dork</title>
+            <link>https://leandeep.com/commandes-utiles-google-dork/</link>
+            <pubDate>Thu, 29 Dec 2016 06:48:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/commandes-utiles-google-dork/</guid>
+            <description>Voici une liste de commandes utiles pour télécharger l&#39;intégralité de directory listings trouvés grâce à des Google Dorks:
+Un google Dork est une signature typique d’une technologie Web parmi tout ce qui est indexé par Google. Ils sont lié à ce qu&#39;on appelle plus généralement les Google Hacks. Vous savez les fameuses commandes comme par exemple intitle:index.of? mkv &amp;lt;Movie Name&amp;gt; ou encore &amp;lt;Movie Name&amp;gt; -inurl:(htm|html|php|pls|txt) intitle:index.of “last modified” (mp4|wma|aac|avi)
+ Le Google hacking est une technique consistant à utiliser un moteur de recherche, généralement Google, en vue de chercher des vulnérabilités ou de récupérer des données sensibles.</description>
+            <content type="html"><![CDATA[<p>Voici une liste de commandes utiles pour télécharger l'intégralité de <em>directory listings</em> trouvés grâce à des Google Dorks:</p>
+<p>Un google Dork est une signature typique d’une technologie Web parmi tout ce qui est indexé par Google. Ils sont lié à ce qu'on appelle plus généralement les Google Hacks. Vous savez les fameuses commandes comme par exemple <code>intitle:index.of? mkv &lt;Movie Name&gt;</code> ou encore <code>&lt;Movie Name&gt; -inurl:(htm|html|php|pls|txt) intitle:index.of “last modified” (mp4|wma|aac|avi)</code></p>
+<blockquote>
+<p>Le Google hacking est une technique consistant à utiliser un moteur de recherche, généralement Google, en vue de chercher des vulnérabilités ou de récupérer des données sensibles. Cette technique s'appuie sur les résultats de l'exploration et de l'indexation des sites internet par le robot Googlebot. Source: Wikipédia</p>
+</blockquote>
+<p>Pour reprendre le téléchargement depuis là où il s'était arrêté:</p>
+<pre><code>wget -c www.myfileserver.com/file1.zip
+</code></pre><p>Pour télécharger depuis différents sites:</p>
+<pre><code>wget -i /path/to/inputfile
+# /path/to/inputfile will contain:
+http://www.myfileserver.com/file1.zip
+http://www.myfileserver.com/file2.zip
+http://www.myfileserver.com/file3.zip
+</code></pre><p>Pour faire 10 retries en cas d'arrêt de téléchargement:</p>
+<pre><code>wget -t 10 -i /path/to/inputfile
+</code></pre><p>Pour faire 10 retries en cas d'arrêt de téléchargement + timeout de 10 secondes entre 2 retries:</p>
+<pre><code>wget -t 10 -T 10 -i /path/to/inputfile
+</code></pre><p>Pour attendre entre 2 téléchargements:</p>
+<pre><code>wget -w 60 -i /path/to/inputfile
+</code></pre><p>Pour ajouter un quota de 100m (en cas de limitation de bandwidth):</p>
+<pre><code>wget -q 100m -i /path/to/inputfile
+</code></pre><p>Pour télécharger tous les fichiers d'un dossier de manière récursive:</p>
+<pre><code>wget -r www.myfileserver.com
+</code></pre><p>Par défaut la profondeur de téléchargement est de 5. Pour avoir un téléchargement de tout le contenu d'un site:</p>
+<pre><code>wget -r -l inf www.myfileserver.com
+</code></pre><p>Pour télécharger tous les fichiers d'un dossier de manière récursive et tout mettre dans le même dossier:</p>
+<pre><code>wget -nd -r
+</code></pre><p>L'inverse (i.e. créer l'arborescence de dossiers):</p>
+<pre><code>wget -x -r
+</code></pre><p>Pour télécharger seulement certains types de fichiers:</p>
+<pre><code>wget -A &quot;*.mp3&quot; -r
+</code></pre><p>L'inverse (télécharger tous les types de fichiers sauf):</p>
+<pre><code>wget -R &quot;*.exe&quot; -r
+</code></pre><p>Fake 302 redirects et Robots.txt</p>
+<pre><code>wget -x -P local_dir -U Mozilla --wait=60 --limit-rate=20K --convert-links -p -m &lt;url-du-site-a-scraper&gt;
+</code></pre><p>Ajouter <code>-nH</code> à la commande précédente pour télécharger uniquement un dossier.</p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Retour d&#39;expérience, Évaluation d’Ionic 2 Beta 11</title>
             <link>https://leandeep.com/retour-dexp%C3%A9rience-%C3%A9valuation-dionic-2-beta-11/</link>
             <pubDate>Wed, 10 Aug 2016 19:16:00 +0000</pubDate>
