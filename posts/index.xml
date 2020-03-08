@@ -5,8 +5,72 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 01 Mar 2020 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 08 Mar 2020 17:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Combiner plusieurs connexions internet pour booster son debit</title>
+            <link>https://leandeep.com/combiner-plusieurs-connexions-internet-pour-booster-son-debit/</link>
+            <pubDate>Sun, 08 Mar 2020 17:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/combiner-plusieurs-connexions-internet-pour-booster-son-debit/</guid>
+            <description>Introduction Dans cet article nous allons voir comment booster son débit internet entrant et sortant en combinant son forfait internet et son forfait mobile.
+ Analyse des réseaux Box ADSL
+Voici un speed test réalisé en connectant mon ordinateur à ma box internet via Wifi.
+ 4G
+Voici un speed test réalisé en connectant mon ordinateur à mon smartphone via USB.
+ Configuration Pour combiner le réseau de votre box et le réseau de votre Smartphone sur votre ordinateur, il vous faut créer un proxy socks local.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article nous allons voir comment booster son débit internet entrant et sortant en combinant son forfait internet et son forfait mobile.</p>
+<br/>
+<h2 id="analyse-des-rseaux">Analyse des réseaux</h2>
+<p><strong>Box ADSL</strong></p>
+<p>Voici un speed test réalisé en connectant mon ordinateur à ma box internet via Wifi.</p>
+<p><img src="/images/speedtest-box.png" alt="image"></p>
+<br/>
+<p><strong>4G</strong></p>
+<p>Voici un speed test réalisé en connectant mon ordinateur à mon smartphone via USB.</p>
+<p><img src="/images/speedtest-4g.png" alt="image"></p>
+<br/>
+<h2 id="configuration">Configuration</h2>
+<p>Pour combiner le réseau de votre box et le réseau de votre Smartphone sur votre ordinateur, il vous faut créer un proxy socks local.</p>
+<p>Pour ce faire, vous pouvez utiliser un utilitaire comme <a href="https://github.com/extremecoders-re/go-dispatch-proxy">go-dispatch-proxy</a> qui agira comme proxy entre vos 2 connexions.</p>
+<pre><code># Lister les connexions disponibles
+./go-dispatch-proxy -list
+
+# Combiner 2 connexions
+./go-dispatch-proxy ip1 ip2
+
+# Combiner 2 connexions avec un ratio de contention
+./go-dispatch-proxy ip1@2 ip2@3
+</code></pre><p>Sur OSX rendez vous dans la section réseau &ndash;&gt; Avancé &ndash;&gt; Proxy et ajoutez 127.0.0.1:8080 comme proxy SOCKS.</p>
+<br/>
+<h2 id="rsultat-box--4g">Résultat Box + 4g</h2>
+<p>En plus de pouvoir observer toutes les URLs externes appelées par votre système, vous pouvez observer que votre débit internet sera plus important car il combinera vos 2 connexions.</p>
+<pre><code>...
+
+[DEBUG] spclient.wg.spotify.com:443 -&gt; 192.168.42.70:0
+[DEBUG] clients4.google.com:443 -&gt; 192.168.0.24:0
+[DEBUG] github.com:443 -&gt; 192.168.0.24:0
+[DEBUG] github.githubassets.com:443 -&gt; 192.168.42.70:0
+[DEBUG] github.com:443 -&gt; 192.168.42.70:0
+[DEBUG] avatars1.githubusercontent.com:443 -&gt; 192.168.0.24:0
+[DEBUG] camo.githubusercontent.com:443 -&gt; 192.168.42.70:0
+[DEBUG] clients1.google.com:443 -&gt; 192.168.0.24:0
+[DEBUG] github.com:443 -&gt; 192.168.42.70:0
+[DEBUG] github.com:443 -&gt; 192.168.42.70:0
+[DEBUG] www.google-analytics.com:443 -&gt; 192.168.0.24:0
+[DEBUG] github.com:443 -&gt; 192.168.42.70:0
+[DEBUG] live.github.com:443 -&gt; 192.168.0.24:0
+[DEBUG] collector.githubapp.com:443 -&gt; 192.168.42.70:0
+[DEBUG] api.github.com:443 -&gt; 192.168.42.70:0
+[DEBUG] secure-us.imrworldwide.com:443 -&gt; 192.168.42.70:0
+[DEBUG] aax.amazon-adsystem.com:443 -&gt; 192.168.0.24:0
+...
+
+</code></pre><p><img src="/images/speedtest-box-4g.png" alt="image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Installer une barre de recherche Algolia sur son blog</title>
