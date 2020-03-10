@@ -5,9 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction L&#39;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
- Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&#39;il n&#39;y a pas d&#39;erreur dans la configuration.
-sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:" />
+<meta name="description" content="Installation sur OSX Rien de plus simple avec Homebrew mais avant d&#39;utiliser cet utilitaire, il est utile d&#39;ajouter les variables d&#39;environnement suivantes dans votre ~/.zshrc.
+export GOPATH=&amp;quot;${HOME}/.go&amp;quot; export GOROOT=&amp;quot;$(brew --prefix golang)/libexec&amp;quot; export PATH=&amp;quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&amp;quot; Recharger son terminal:
+source ~/.zshrc Installer go:
+brew install go Vérifier que l&#39;installation a bien fonctionné:
+go get golang.org/x/tools/cmd/godoc go get golang.org/x/lint/golint Pensez à installer l&#39;extension suivante pour VSCode.
+Installation sur Ubuntu 18.04 Télécharger le binaire go:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -24,7 +27,7 @@ sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte le
 
 
 
-<link rel="canonical" href="https://leandeep.com/mettre-en-place-du-monitoring-simple-sur-ubuntu-et-recevoir-des-alertes-slack/" />
+<link rel="canonical" href="https://leandeep.com/installer-go/" />
 
 
 
@@ -269,7 +272,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack :: Bienvenue sur le site de Lean Deep 
+            Installer Go :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -294,30 +297,36 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack">
-<meta itemprop="description" content="Introduction L&#39;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
- Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&#39;il n&#39;y a pas d&#39;erreur dans la configuration.
-sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:">
-<meta itemprop="datePublished" content="2020-01-19T22:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-01-19T22:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="602">
+<meta itemprop="name" content="Installer Go">
+<meta itemprop="description" content="Installation sur OSX Rien de plus simple avec Homebrew mais avant d&#39;utiliser cet utilitaire, il est utile d&#39;ajouter les variables d&#39;environnement suivantes dans votre ~/.zshrc.
+export GOPATH=&quot;${HOME}/.go&quot; export GOROOT=&quot;$(brew --prefix golang)/libexec&quot; export PATH=&quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&quot; Recharger son terminal:
+source ~/.zshrc Installer go:
+brew install go Vérifier que l&#39;installation a bien fonctionné:
+go get golang.org/x/tools/cmd/godoc go get golang.org/x/lint/golint Pensez à installer l&#39;extension suivante pour VSCode.
+Installation sur Ubuntu 18.04 Télécharger le binaire go:">
+<meta itemprop="datePublished" content="2020-01-01T10:59:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-01-01T10:59:00&#43;00:00" />
+<meta itemprop="wordCount" content="124">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Monitoring,Ubuntu," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack"/>
-<meta name="twitter:description" content="Introduction L&#39;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
- Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&#39;il n&#39;y a pas d&#39;erreur dans la configuration.
-sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:"/>
+<meta name="twitter:title" content="Installer Go"/>
+<meta name="twitter:description" content="Installation sur OSX Rien de plus simple avec Homebrew mais avant d&#39;utiliser cet utilitaire, il est utile d&#39;ajouter les variables d&#39;environnement suivantes dans votre ~/.zshrc.
+export GOPATH=&quot;${HOME}/.go&quot; export GOROOT=&quot;$(brew --prefix golang)/libexec&quot; export PATH=&quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&quot; Recharger son terminal:
+source ~/.zshrc Installer go:
+brew install go Vérifier que l&#39;installation a bien fonctionné:
+go get golang.org/x/tools/cmd/godoc go get golang.org/x/lint/golint Pensez à installer l&#39;extension suivante pour VSCode.
+Installation sur Ubuntu 18.04 Télécharger le binaire go:"/>
 
 
 
 
 
-    <meta property="article:published_time" content="2020-01-19 22:49:00 &#43;0200 &#43;0200" />
+    <meta property="article:published_time" content="2020-01-01 10:59:00 &#43;0000 &#43;0000" />
 
 
 
@@ -374,7 +383,7 @@ sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte le
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
             
 
@@ -383,152 +392,43 @@ sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte le
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/mettre-en-place-du-monitoring-simple-sur-ubuntu-et-recevoir-des-alertes-slack/">Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack</a>
+                <a href="https://leandeep.com/installer-go/">Installer Go</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h2 id="introduction">Introduction</h2>
-<p>L'objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.</p>
-<br/>
-<h3 id="installation-de-monit">Installation de monit</h3>
-<pre><code>sudo apt install monit -y
-</code></pre><br/>
-<h3 id="commandes-utiles">Commandes utiles</h3>
-<p>Vérifier qu'il n'y a pas d'erreur dans la configuration.</p>
-<pre><code>sudo monit -t
-</code></pre><p>Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:</p>
-<pre><code>sudo monit reload
-</code></pre><br/>
-<h3 id="envoi-dalertes-sur-slack">Envoi d'alertes sur Slack</h3>
-<p><strong>Configuration de l'URL du webhook sur le site de Slack</strong></p>
-<ul>
-<li>
-<p>Go to https://<!-- raw HTML omitted -->.slack.com/apps/manage/custom-integrations</p>
-</li>
-<li>
-<p>Click Incoming WebHooks</p>
-</li>
-<li>
-<p>Click Add Configuration</p>
-</li>
-<li>
-<p>Select an existing channel or create a new one (e.g. #monit) - you can change it later</p>
-</li>
-<li>
-<p>Click Add Incoming WebHooks integration</p>
-</li>
-<li>
-<p>Copy the Webhook URL</p>
-</li>
-</ul>
-<br/>
-<p><strong>Création du script permettant d'envoyer des messages sur Slack</strong></p>
-<p>Créer un fichier <code>/usr/local/bin/slack.sh</code> et ajoutez ce contenu:</p>
-<pre><code>#!/bin/bash
+                <h2 id="installation-sur-osx">Installation sur OSX</h2>
+<p>Rien de plus simple avec Homebrew mais avant d'utiliser cet utilitaire, il est utile d'ajouter les variables d'environnement suivantes dans votre <code>~/.zshrc</code>.</p>
+<pre><code>export GOPATH=&quot;${HOME}/.go&quot;
+export GOROOT=&quot;$(brew --prefix golang)/libexec&quot;
+export PATH=&quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&quot;
+</code></pre><p>Recharger son terminal:</p>
+<pre><code>source ~/.zshrc
+</code></pre><p>Installer go:</p>
+<pre><code>brew install go
+</code></pre><p>Vérifier que l'installation a bien fonctionné:</p>
+<pre><code>go get golang.org/x/tools/cmd/godoc
+go get golang.org/x/lint/golint
+</code></pre><p>Pensez à installer <a href="https://marketplace.visualstudio.com/items/lukehoban.Go">l'extension suivante pour VSCode</a>.</p>
+<h2 id="installation-sur-ubuntu-1804">Installation sur Ubuntu 18.04</h2>
+<p>Télécharger le binaire go:</p>
+<pre><code>wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
+</code></pre><p>Décompresser le binaire go dans <code>/usr/local</code>:</p>
+<pre><code>sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+</code></pre><p>Ajouter les lignes suivantes dans le fichier <code>~/.profile</code>:</p>
+<pre><code>export PATH=$PATH:/usr/local/go/bin
 
-URL=$(cat /etc/monit/slack-url)
-
-COLOR=${MONIT_COLOR:-$([[ $MONIT_EVENT == *&quot;succeeded&quot;* ]] &amp;&amp; echo good || echo danger)}
-TEXT=$(echo -e &quot;$MONIT_EVENT: $MONIT_DESCRIPTION&quot; | python3 -c &quot;import json,sys;print(json.dumps(sys.stdin.read()))&quot;)
-
-PAYLOAD=&quot;{
-  \&quot;attachments\&quot;: [
-    {
-      \&quot;text\&quot;: $TEXT,
-      \&quot;color\&quot;: \&quot;$COLOR\&quot;,
-      \&quot;mrkdwn_in\&quot;: [\&quot;text\&quot;],
-      \&quot;fields\&quot;: [
-        { \&quot;title\&quot;: \&quot;Date\&quot;, \&quot;value\&quot;: \&quot;$MONIT_DATE\&quot;, \&quot;short\&quot;: true },
-        { \&quot;title\&quot;: \&quot;Host\&quot;, \&quot;value\&quot;: \&quot;$MONIT_HOST\&quot;, \&quot;short\&quot;: true }
-      ]
-    }
-  ]
-}&quot;
-
-curl -s -X POST --data-urlencode &quot;payload=$PAYLOAD&quot; $URL
+export GOPATH=&quot;${HOME}/.go&quot;
+export PATH=$PATH:/usr/local/go/bin
+</code></pre><p>Recharger le fichier <code>~/.profile</code>:</p>
+<pre><code>source ~/.profile
+</code></pre><p>Vérifier que Go est bien installé:</p>
+<pre><code>go version
 </code></pre><blockquote>
-<p>Ne pas oublier de donner les droits d'exécution sur ce fichier <code>sudo chmod +x /usr/local/bin/slack.sh</code>.</p>
+<p>Installer au moins le package suivant: <code>apt-get install build-essential</code> pour avoir <code>gcc</code>.</p>
 </blockquote>
-<br/>
-<p><strong>Configuration de l'URL du webhook dans un fichier</strong></p>
-<p>Créer un second fichier pour Slack <code>/etc/monit/slack-url</code> et ajouter l'URL du webhook. Ce fichier contiendra uniquement une URL du type <code>https://hooks.slack.com/services/XXXXXX/YYYYYY/XyXyY123xxxZ</code>.</p>
-<br/>
-<p><strong>Test du bon fonctionnement du script Slack:</strong></p>
-<pre><code>MONIT_EVENT=&quot;Oops il y a une erreur&quot; MONIT_DESCRIPTION=&quot;Ceci est un test&quot; MONIT_HOST=`hostname` MONIT_DATE=`date -R` \
-  /usr/local/bin/slack.sh
-</code></pre><br/>
-<h3 id="cration-dalertes">Création d'alertes</h3>
-<p><strong>Running out of disk space</strong></p>
-<p>Créer un fichier <code>/etc/monit/conf.d/diskspace</code> et ajouter le contenu suivant:</p>
-<pre><code>check filesystem rootfs with path /
-  if space usage &gt; 80% then exec &quot;/usr/local/bin/slack.sh&quot; else if succeeded then exec &quot;/usr/local/bin/slack.sh&quot;
-</code></pre><br/>
-<p><strong>High load</strong></p>
-<p>Créer le fichier suivant <code>/etc/monit/conf.d/system</code>:</p>
-<pre><code>check system $HOSTNAME
-  if memory &gt; 80% for 2 cycles then exec &quot;/usr/local/bin/slack.sh&quot; else if succeeded then exec &quot;/usr/local/bin/slack.sh&quot;
-  if swap &gt; 10% for 2 cycles then exec &quot;/usr/local/bin/slack.sh&quot; else if succeeded then exec &quot;/usr/local/bin/slack.sh&quot;
-  if cpu &gt; 80% for 2 cycles then exec &quot;/usr/local/bin/slack.sh&quot; else if succeeded then exec &quot;/usr/local/bin/slack.sh&quot;
-  if loadavg (5min) &gt; 1 for 2 cycles then exec &quot;/usr/local/bin/slack.sh&quot; else if succeeded then exec &quot;/usr/local/bin/slack.sh&quot;
-</code></pre><br/>
-<p><strong>Open ports</strong></p>
-<p>Créer le fichier suivant <code>/etc/monit/conf.d/ports</code>:</p>
-<pre><code>check program port21 with path &quot;/bin/sh -c 'echo Port 21 is open ; nc -z $BLOGHOST 21 -w1'&quot; every &quot;5 * * * *&quot;
-  if status != 1 then exec &quot;/usr/local/bin/slack.sh&quot;
 
-check program port25 with path &quot;/bin/sh -c 'echo Port 25 is open ; nc -z $BLOGHOST 25 -w1'&quot; every &quot;5 * * * *&quot;
-  if status != 1 then exec &quot;/usr/local/bin/slack.sh&quot;
-
-check program port3306 with path &quot;/bin/sh -c 'echo Port 3306 is open ; nc -z $BLOGHOST 3306 -w1'&quot; every &quot;5 * * * *&quot;
-  if status != 1 then exec &quot;/usr/local/bin/slack.sh&quot;
-</code></pre><p>Vérifier la bonne syntaxe du fichier:</p>
-<pre><code>sudo monit -t
-</code></pre><p>Reload monit:</p>
-<pre><code>sudo monit reload
-</code></pre><br/>
-<h3 id="rapports-hebdo">Rapports hebdo</h3>
-<p>Créer le fichier suivant <code>/usr/local/bin/report.sh</code>:</p>
-<pre><code>#!/bin/bash
-
-echo Uptime
-echo '```'
-w
-echo '```'
-
-echo Network
-echo '```'
-sudo netstat -nlput
-echo '```'
-
-echo Disk
-echo '```'
-df -h
-echo '```'
-
-echo Memory
-echo '```'
-free -h
-echo '```'
-
-echo Processes
-echo '```'
-ps auxf | egrep -v '\[.+\]'
-echo '```'
-</code></pre><p>Vérifier le bon fonctionnement du rapport en recevant une alerte Slack:</p>
-<pre><code>MONIT_EVENT=Report MONIT_DESCRIPTION=`/usr/local/bin/report.sh` \
-MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
-  /usr/local/bin/slack.sh
-</code></pre><br/>
-<p><strong>Pour recevoir ce rapport chaque semaine</strong></p>
-<p>Créer un fichier <code>/etc/cron.weekly/slack-report</code> et ajouter ce contenu suivant:</p>
-<pre><code>MONIT_EVENT=Report MONIT_DESCRIPTION=`/usr/local/bin/report.sh` \
-MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
-  /usr/local/bin/slack.sh
-</code></pre><p>Ne pas oublier de donner à ce fichier les droits d'exécution:</p>
-<pre><code>sudo chmod +x /etc/cron.weekly/slack-report
-</code></pre>
             </div>
         </article>
 
@@ -536,12 +436,12 @@ MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/monitoring">Monitoring</a></span><span class="tag"><a href="https://leandeep.com/tags/ubuntu">Ubuntu</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/go">Go</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>602 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>124 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Jan. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 Jan. 2020</p>
         </div>
 
         
@@ -554,17 +454,17 @@ MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/convertir-des-images-dmg-ou-img-en-iso-sur-osx/">
+                            <a href="https://leandeep.com/mettre-en-place-du-monitoring-simple-sur-ubuntu-et-recevoir-des-alertes-slack/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Convertir des images dmg ou img en iso sur OSX</span>
+                                <span class="button__text">Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-go/">
-                                <span class="button__text">Installer Go</span>
+                            <a href="https://leandeep.com/nodejs-osx-catalina-fix-no-receipt-for-com.apple.pkg.../">
+                                <span class="button__text">NodeJS OSX Catalina fix No receipt for &#39;com.apple.pkg...&#39;</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

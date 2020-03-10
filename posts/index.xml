@@ -505,17 +505,19 @@ MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
         </item>
         
         <item>
-            <title>Installer Go sur OSX</title>
-            <link>https://leandeep.com/installer-go-sur-osx/</link>
+            <title>Installer Go</title>
+            <link>https://leandeep.com/installer-go/</link>
             <pubDate>Wed, 01 Jan 2020 10:59:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/installer-go-sur-osx/</guid>
-            <description>Rien de plus simple avec Homebrew mais avant d&#39;utiliser cet utilitaire, il est utile d&#39;ajouter les variables d&#39;environnement suivantes dans votre ~/.zshrc.
+            <guid>https://leandeep.com/installer-go/</guid>
+            <description>Installation sur OSX Rien de plus simple avec Homebrew mais avant d&#39;utiliser cet utilitaire, il est utile d&#39;ajouter les variables d&#39;environnement suivantes dans votre ~/.zshrc.
 export GOPATH=&amp;quot;${HOME}/.go&amp;quot; export GOROOT=&amp;quot;$(brew --prefix golang)/libexec&amp;quot; export PATH=&amp;quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&amp;quot; Recharger son terminal:
 source ~/.zshrc Installer go:
 brew install go Vérifier que l&#39;installation a bien fonctionné:
-go get golang.org/x/tools/cmd/godoc go get golang.org/x/lint/golint Pensez à installer l&#39;extension suivante pour VSCode.</description>
-            <content type="html"><![CDATA[<p>Rien de plus simple avec Homebrew mais avant d'utiliser cet utilitaire, il est utile d'ajouter les variables d'environnement suivantes dans votre <code>~/.zshrc</code>.</p>
+go get golang.org/x/tools/cmd/godoc go get golang.org/x/lint/golint Pensez à installer l&#39;extension suivante pour VSCode.
+Installation sur Ubuntu 18.04 Télécharger le binaire go:</description>
+            <content type="html"><![CDATA[<h2 id="installation-sur-osx">Installation sur OSX</h2>
+<p>Rien de plus simple avec Homebrew mais avant d'utiliser cet utilitaire, il est utile d'ajouter les variables d'environnement suivantes dans votre <code>~/.zshrc</code>.</p>
 <pre><code>export GOPATH=&quot;${HOME}/.go&quot;
 export GOROOT=&quot;$(brew --prefix golang)/libexec&quot;
 export PATH=&quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&quot;
@@ -527,6 +529,23 @@ export PATH=&quot;$PATH:${GOPATH}/bin:${GOROOT}/bin&quot;
 <pre><code>go get golang.org/x/tools/cmd/godoc
 go get golang.org/x/lint/golint
 </code></pre><p>Pensez à installer <a href="https://marketplace.visualstudio.com/items/lukehoban.Go">l'extension suivante pour VSCode</a>.</p>
+<h2 id="installation-sur-ubuntu-1804">Installation sur Ubuntu 18.04</h2>
+<p>Télécharger le binaire go:</p>
+<pre><code>wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
+</code></pre><p>Décompresser le binaire go dans <code>/usr/local</code>:</p>
+<pre><code>sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+</code></pre><p>Ajouter les lignes suivantes dans le fichier <code>~/.profile</code>:</p>
+<pre><code>export PATH=$PATH:/usr/local/go/bin
+
+export GOPATH=&quot;${HOME}/.go&quot;
+export PATH=$PATH:/usr/local/go/bin
+</code></pre><p>Recharger le fichier <code>~/.profile</code>:</p>
+<pre><code>source ~/.profile
+</code></pre><p>Vérifier que Go est bien installé:</p>
+<pre><code>go version
+</code></pre><blockquote>
+<p>Installer au moins le package suivant: <code>apt-get install build-essential</code> pour avoir <code>gcc</code>.</p>
+</blockquote>
 ]]></content>
         </item>
         
