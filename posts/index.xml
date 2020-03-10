@@ -544,7 +544,7 @@ export PATH=$PATH:/usr/local/go/bin
 </code></pre><p>Vérifier que Go est bien installé:</p>
 <pre><code>go version
 </code></pre><blockquote>
-<p>Installer au moins le package suivant: <code>apt-get install build-essential</code> pour avoir <code>gcc</code>.</p>
+<p>Installer au moins le package suivant: <code>apt-get install build-essential</code> pour avoir <code>gcc</code> et <code>g++</code>.</p>
 </blockquote>
 ]]></content>
         </item>
@@ -1128,10 +1128,16 @@ Voir cet article https://leandeep.com/Installer-redis-sur-OSX/
             
             <guid>https://leandeep.com/monter-un-raid-existant-sur-une-nouvelle-installation-dubuntu/</guid>
             <description>Si vous aviez créé votre raid avec l&#39;utilitaire mdadm (comme expliqué dans l&#39;article suivant https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/ ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:
-sudo apt-get install mdadm sudo mdadm --assemble --scan </description>
+sudo apt-get update sudo apt-get install -y mdadm sudo mdadm --assemble --scan sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 df -h </description>
             <content type="html"><![CDATA[<p>Si vous aviez créé votre raid avec l'utilitaire <code>mdadm</code> (comme expliqué dans l'article suivant <a href="https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/">https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/</a> ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:</p>
-<pre><code>sudo apt-get install mdadm
+<pre><code>sudo apt-get update
+sudo apt-get install -y mdadm
 sudo mdadm --assemble --scan
+
+sudo mkdir /mnt/md0
+sudo mount /dev/md0 /mnt/md0
+
+df -h
 </code></pre>]]></content>
         </item>
         
@@ -6490,11 +6496,19 @@ spec:
             <guid>https://leandeep.com/monter-un-dossier-distant-avec-sshfs/</guid>
             <description>SSHFS sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.
 C&#39;est plutôt pratique. Voici la commande:
-sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local </description>
+sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local  Installer sshfs sur Ubuntu: sudo apt install -y sshfs
+  Installer sshfs sur OSX: brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs
+ </description>
             <content type="html"><![CDATA[<p><code>SSHFS</code> sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.</p>
 <p>C'est plutôt pratique. Voici la commande:</p>
 <pre><code>sshfs -p &lt;votre_port_ssh&gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local
-</code></pre>]]></content>
+</code></pre><blockquote>
+<p>Installer sshfs sur Ubuntu: <code>sudo apt install -y sshfs</code></p>
+</blockquote>
+<blockquote>
+<p>Installer sshfs sur OSX: <code>brew cask install osxfuse &amp;&amp; brew install sshfs</code></p>
+</blockquote>
+]]></content>
         </item>
         
         <item>
