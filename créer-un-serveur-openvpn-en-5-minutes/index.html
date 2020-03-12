@@ -781,12 +781,14 @@ verb 3&quot; &gt; /etc/openvpn/server/client-common.txt
 	echo &quot;Your client configuration is available at:&quot; ~/&quot;$CLIENT.ovpn&quot;
 	echo &quot;If you want to add more clients, you simply need to run this script again!&quot;
 fi
-</code></pre><h2 id="configurer-ssh-sur-raspberry-pi-et-ubuntu-mate-facultatif">Configurer SSH sur raspberry pi et Ubuntu Mate (facultatif)</h2>
+</code></pre><br/>
+<h2 id="configurer-ssh-sur-raspberry-pi-et-ubuntu-mate-facultatif">Configurer SSH sur raspberry pi et Ubuntu Mate (facultatif)</h2>
 <pre><code>sudo systemctl enable ssh
 sudo service ssh restart
 
 sudo dpkg-reconfigure openssh-server
-</code></pre><h2 id="configurer-un-client-openvpn">Configurer un client OpenVPN</h2>
+</code></pre><br/>
+<h2 id="configurer-un-client-openvpn">Configurer un client OpenVPN</h2>
 <pre><code>sudo apt-get install openvpn
 sudo openvpn --config /path/to/config.ovpn
 </code></pre><p>Pour rendre la connexion permanente, éditer le fichier <code>/etc/default/openvpn</code> et décommenter la ligne <code>AUTOSTART=&quot;all&quot;</code> et copier le fichier <code>.ovpn</code> comme ceci (attention à bien renommer l'extension): <code>/etc/openvpn/config.conf</code></p>
