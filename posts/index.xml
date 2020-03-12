@@ -5,8 +5,408 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 08 Mar 2020 17:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 12 Mar 2020 19:35:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Créer un serveur OpenVPN en 5 minutes</title>
+            <link>https://leandeep.com/cr%C3%A9er-un-serveur-openvpn-en-5-minutes/</link>
+            <pubDate>Thu, 12 Mar 2020 19:35:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-un-serveur-openvpn-en-5-minutes/</guid>
+            <description>Dans cet article, vous trouverez un script permettant de créer une serveur OpenVPN sur Ubuntu 18.04.
+En sortie du script, un fichier config.ovpn sera créé. Il suffit de l&#39;ajouter à un client VPN (i.e. tunnelblick sur Mac) et d&#39;établir une connexion.
+Vous pourrez vous connecter à la machine sur laquelle est installée le serveur VPN. Il suffit d&#39;exécutez la commande ssh VOTRE_USER@10.8.0.1&amp;hellip;
+Voici le fameux script:
+#!/bin/bash if grep -qs &amp;quot;Ubuntu 16.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, vous trouverez un script permettant de créer une serveur OpenVPN sur Ubuntu 18.04.</p>
+<p>En sortie du script, un fichier config.ovpn sera créé. Il suffit de l'ajouter à un client VPN (i.e. tunnelblick sur Mac) et d'établir une connexion.</p>
+<p>Vous pourrez vous connecter à la machine sur laquelle est installée le serveur VPN. Il suffit d'exécutez la commande <code>ssh VOTRE_USER@10.8.0.1</code>&hellip;</p>
+<p>Voici le fameux script:</p>
+<pre><code>#!/bin/bash
+
+if grep -qs &quot;Ubuntu 16.04&quot; &quot;/etc/os-release&quot;; then
+	echo 'Ubuntu 16.04 is no longer supported in the current version of openvpn-install
+Use an older version if Ubuntu 16.04 support is needed: https://git.io/vpn1604'
+	exit
+fi
+
+# Detect Debian users running the script with &quot;sh&quot; instead of bash
+if readlink /proc/$$/exe | grep -q &quot;dash&quot;; then
+	echo &quot;This script needs to be run with bash, not sh&quot;
+	exit
+fi
+
+if [[ &quot;$EUID&quot; -ne 0 ]]; then
+	echo &quot;Sorry, you need to run this as root&quot;
+	exit
+fi
+
+if [[ ! -e /dev/net/tun ]]; then
+	echo &quot;The TUN device is not available
+You need to enable TUN before running this script&quot;
+	exit
+fi
+
+if [[ -e /etc/debian_version ]]; then
+	OS=debian
+	GROUPNAME=nogroup
+elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
+	OS=centos
+	GROUPNAME=nobody
+else
+	echo &quot;Looks like you aren't running this installer on Debian, Ubuntu or CentOS&quot;
+	exit
+fi
+
+newclient () {
+	# Generates the custom client.ovpn
+	cp /etc/openvpn/server/client-common.txt ~/$1.ovpn
+	echo &quot;&lt;ca&gt;&quot; &gt;&gt; ~/$1.ovpn
+	cat /etc/openvpn/server/easy-rsa/pki/ca.crt &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;/ca&gt;&quot; &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;cert&gt;&quot; &gt;&gt; ~/$1.ovpn
+	sed -ne '/BEGIN CERTIFICATE/,$ p' /etc/openvpn/server/easy-rsa/pki/issued/$1.crt &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;/cert&gt;&quot; &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;key&gt;&quot; &gt;&gt; ~/$1.ovpn
+	cat /etc/openvpn/server/easy-rsa/pki/private/$1.key &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;/key&gt;&quot; &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;tls-auth&gt;&quot; &gt;&gt; ~/$1.ovpn
+	sed -ne '/BEGIN OpenVPN Static key/,$ p' /etc/openvpn/server/ta.key &gt;&gt; ~/$1.ovpn
+	echo &quot;&lt;/tls-auth&gt;&quot; &gt;&gt; ~/$1.ovpn
+}
+
+if [[ -e /etc/openvpn/server/server.conf ]]; then
+	while :
+	do
+	clear
+		echo &quot;Looks like OpenVPN is already installed.&quot;
+		echo
+		echo &quot;What do you want to do?&quot;
+		echo &quot;   1) Add a new user&quot;
+		echo &quot;   2) Revoke an existing user&quot;
+		echo &quot;   3) Remove OpenVPN&quot;
+		echo &quot;   4) Exit&quot;
+		read -p &quot;Select an option [1-4]: &quot; option
+		case $option in
+			1) 
+			echo
+			echo &quot;Tell me a name for the client certificate.&quot;
+			echo &quot;Please, use one word only, no special characters.&quot;
+			read -p &quot;Client name: &quot; -e CLIENT
+			cd /etc/openvpn/server/easy-rsa/
+			EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-client-full $CLIENT nopass
+			# Generates the custom client.ovpn
+			newclient &quot;$CLIENT&quot;
+			echo
+			echo &quot;Client $CLIENT added, configuration is available at:&quot; ~/&quot;$CLIENT.ovpn&quot;
+			exit
+			;;
+			2)
+			# This option could be documented a bit better and maybe even be simplified
+			# ...but what can I say, I want some sleep too
+			NUMBEROFCLIENTS=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c &quot;^V&quot;)
+			if [[ &quot;$NUMBEROFCLIENTS&quot; = '0' ]]; then
+				echo
+				echo &quot;You have no existing clients!&quot;
+				exit
+			fi
+			echo
+			echo &quot;Select the existing client certificate you want to revoke:&quot;
+			tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep &quot;^V&quot; | cut -d '=' -f 2 | nl -s ') '
+			if [[ &quot;$NUMBEROFCLIENTS&quot; = '1' ]]; then
+				read -p &quot;Select one client [1]: &quot; CLIENTNUMBER
+			else
+				read -p &quot;Select one client [1-$NUMBEROFCLIENTS]: &quot; CLIENTNUMBER
+			fi
+			CLIENT=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep &quot;^V&quot; | cut -d '=' -f 2 | sed -n &quot;$CLIENTNUMBER&quot;p)
+			echo
+			read -p &quot;Do you really want to revoke access for client $CLIENT? [y/N]: &quot; -e REVOKE
+			if [[ &quot;$REVOKE&quot; = 'y' || &quot;$REVOKE&quot; = 'Y' ]]; then
+				cd /etc/openvpn/server/easy-rsa/
+				./easyrsa --batch revoke $CLIENT
+				EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
+				rm -f pki/reqs/$CLIENT.req
+				rm -f pki/private/$CLIENT.key
+				rm -f pki/issued/$CLIENT.crt
+				rm -f /etc/openvpn/server/crl.pem
+				cp /etc/openvpn/server/easy-rsa/pki/crl.pem /etc/openvpn/server/crl.pem
+				# CRL is read with each client connection, when OpenVPN is dropped to nobody
+				chown nobody:$GROUPNAME /etc/openvpn/server/crl.pem
+				echo
+				echo &quot;Certificate for client $CLIENT revoked!&quot;
+			else
+				echo
+				echo &quot;Certificate revocation for client $CLIENT aborted!&quot;
+			fi
+			exit
+			;;
+			3) 
+			echo
+			read -p &quot;Do you really want to remove OpenVPN? [y/N]: &quot; -e REMOVE
+			if [[ &quot;$REMOVE&quot; = 'y' || &quot;$REMOVE&quot; = 'Y' ]]; then
+				PORT=$(grep '^port ' /etc/openvpn/server/server.conf | cut -d &quot; &quot; -f 2)
+				PROTOCOL=$(grep '^proto ' /etc/openvpn/server/server.conf | cut -d &quot; &quot; -f 2)
+				if pgrep firewalld; then
+					IP=$(firewall-cmd --direct --get-rules ipv4 nat POSTROUTING | grep '\-s 10.8.0.0/24 '&quot;'&quot;'!'&quot;'&quot;' -d 10.8.0.0/24 -j SNAT --to ' | cut -d &quot; &quot; -f 10)
+					# Using both permanent and not permanent rules to avoid a firewalld reload.
+					firewall-cmd --remove-port=$PORT/$PROTOCOL
+					firewall-cmd --zone=trusted --remove-source=10.8.0.0/24
+					firewall-cmd --permanent --remove-port=$PORT/$PROTOCOL
+					firewall-cmd --permanent --zone=trusted --remove-source=10.8.0.0/24
+					firewall-cmd --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+					firewall-cmd --permanent --direct --remove-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+				else
+					systemctl disable --now openvpn-iptables.service
+					rm -f /etc/systemd/system/openvpn-iptables.service
+				fi
+				if sestatus 2&gt;/dev/null | grep &quot;Current mode&quot; | grep -q &quot;enforcing&quot; &amp;&amp; [[ &quot;$PORT&quot; != '1194' ]]; then
+					semanage port -d -t openvpn_port_t -p $PROTOCOL $PORT
+				fi
+				systemctl disable --now openvpn-server@server.service
+				rm -rf /etc/openvpn/server
+				rm -f /etc/sysctl.d/30-openvpn-forward.conf
+				if [[ &quot;$OS&quot; = 'debian' ]]; then
+					apt-get remove --purge -y openvpn
+				else
+					yum remove openvpn -y
+				fi
+				echo
+				echo &quot;OpenVPN removed!&quot;
+			else
+				echo
+				echo &quot;Removal aborted!&quot;
+			fi
+			exit
+			;;
+			4) exit;;
+		esac
+	done
+else
+	clear
+	echo 'Welcome to this OpenVPN &quot;road warrior&quot; installer!'
+	echo
+	# OpenVPN setup and first user creation
+	echo &quot;I need to ask you a few questions before starting the setup.&quot;
+	echo &quot;You can leave the default options and just press enter if you are ok with them.&quot;
+	echo
+	echo &quot;First, provide the IPv4 address of the network interface you want OpenVPN&quot;
+	echo &quot;listening to.&quot;
+	# Autodetect IP address and pre-fill for the user
+	IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+	read -p &quot;IP address: &quot; -e -i $IP IP
+	# If $IP is a private IP address, the server must be behind NAT
+	if echo &quot;$IP&quot; | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
+		echo
+		echo &quot;This server is behind NAT. What is the public IPv4 address or hostname?&quot;
+		read -p &quot;Public IP address / hostname: &quot; -e PUBLICIP
+	fi
+	echo
+	echo &quot;Which protocol do you want for OpenVPN connections?&quot;
+	echo &quot;   1) UDP (recommended)&quot;
+	echo &quot;   2) TCP&quot;
+	read -p &quot;Protocol [1-2]: &quot; -e -i 1 PROTOCOL
+	case $PROTOCOL in
+		1) 
+		PROTOCOL=udp
+		;;
+		2) 
+		PROTOCOL=tcp
+		;;
+	esac
+	echo
+	echo &quot;What port do you want OpenVPN listening to?&quot;
+	read -p &quot;Port: &quot; -e -i 1194 PORT
+	echo
+	echo &quot;Which DNS do you want to use with the VPN?&quot;
+	echo &quot;   1) Current system resolvers&quot;
+	echo &quot;   2) 1.1.1.1&quot;
+	echo &quot;   3) Google&quot;
+	echo &quot;   4) OpenDNS&quot;
+	echo &quot;   5) Verisign&quot;
+	read -p &quot;DNS [1-5]: &quot; -e -i 1 DNS
+	echo
+	echo &quot;Finally, tell me your name for the client certificate.&quot;
+	echo &quot;Please, use one word only, no special characters.&quot;
+	read -p &quot;Client name: &quot; -e -i client CLIENT
+	echo
+	echo &quot;Okay, that was all I needed. We are ready to set up your OpenVPN server now.&quot;
+	read -n1 -r -p &quot;Press any key to continue...&quot;
+	if [[ &quot;$OS&quot; = 'debian' ]]; then
+		apt-get update
+		apt-get install openvpn iptables openssl ca-certificates -y
+	else
+		# Else, the distro is CentOS
+		yum install epel-release -y
+		yum install openvpn iptables openssl ca-certificates -y
+	fi
+	# Get easy-rsa
+	EASYRSAURL='https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.5/EasyRSA-nix-3.0.5.tgz'
+	wget -O ~/easyrsa.tgz &quot;$EASYRSAURL&quot; 2&gt;/dev/null || curl -Lo ~/easyrsa.tgz &quot;$EASYRSAURL&quot;
+	tar xzf ~/easyrsa.tgz -C ~/
+	mv ~/EasyRSA-3.0.5/ /etc/openvpn/server/
+	mv /etc/openvpn/server/EasyRSA-3.0.5/ /etc/openvpn/server/easy-rsa/
+	chown -R root:root /etc/openvpn/server/easy-rsa/
+	rm -f ~/easyrsa.tgz
+	cd /etc/openvpn/server/easy-rsa/
+	# Create the PKI, set up the CA and the server and client certificates
+	./easyrsa init-pki
+	./easyrsa --batch build-ca nopass
+	EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-server-full server nopass
+	EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-client-full $CLIENT nopass
+	EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
+	# Move the stuff we need
+	cp pki/ca.crt pki/private/ca.key pki/issued/server.crt pki/private/server.key pki/crl.pem /etc/openvpn/server
+	# CRL is read with each client connection, when OpenVPN is dropped to nobody
+	chown nobody:$GROUPNAME /etc/openvpn/server/crl.pem
+	# Generate key for tls-auth
+	openvpn --genkey --secret /etc/openvpn/server/ta.key
+	# Create the DH parameters file using the predefined ffdhe2048 group
+	echo '-----BEGIN DH PARAMETERS-----
+MIIBCAKCAQEA//////////+t+FRYortKmq/cViAnPTzx2LnFg84tNpWp4TZBFGQz
++8yTnc4kmz75fS/jY2MMddj2gbICrsRhetPfHtXV/WVhJDP1H18GbtCFY2VVPe0a
+87VXE15/V8k1mE8McODmi3fipona8+/och3xWKE2rec1MKzKT0g6eXq8CrGCsyT7
+YdEIqUuyyOP7uWrat2DX9GgdT0Kj3jlN9K5W7edjcrsZCwenyO4KbXCeAvzhzffi
+7MA0BM0oNC9hkXL+nOmFg/+OTxIy7vKBg8P+OxtMb61zO7X8vC7CIAXFjvGDfRaD
+ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
+-----END DH PARAMETERS-----' &gt; /etc/openvpn/server/dh.pem
+	# Generate server.conf
+	echo &quot;port $PORT
+proto $PROTOCOL
+dev tun
+sndbuf 0
+rcvbuf 0
+ca ca.crt
+cert server.crt
+key server.key
+dh dh.pem
+auth SHA512
+tls-auth ta.key 0
+topology subnet
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt&quot; &gt; /etc/openvpn/server/server.conf
+	echo 'push &quot;redirect-gateway def1 bypass-dhcp&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+	# DNS
+	case $DNS in
+		1)
+		# Locate the proper resolv.conf
+		# Needed for systems running systemd-resolved
+		if grep -q &quot;127.0.0.53&quot; &quot;/etc/resolv.conf&quot;; then
+			RESOLVCONF='/run/systemd/resolve/resolv.conf'
+		else
+			RESOLVCONF='/etc/resolv.conf'
+		fi
+		# Obtain the resolvers from resolv.conf and use them for OpenVPN
+		grep -v '#' $RESOLVCONF | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read line; do
+			echo &quot;push \&quot;dhcp-option DNS $line\&quot;&quot; &gt;&gt; /etc/openvpn/server/server.conf
+		done
+		;;
+		2)
+		echo 'push &quot;dhcp-option DNS 1.1.1.1&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo 'push &quot;dhcp-option DNS 1.0.0.1&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		;;
+		3)
+		echo 'push &quot;dhcp-option DNS 8.8.8.8&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo 'push &quot;dhcp-option DNS 8.8.4.4&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		;;
+		4)
+		echo 'push &quot;dhcp-option DNS 208.67.222.222&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo 'push &quot;dhcp-option DNS 208.67.220.220&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		;;
+		5)
+		echo 'push &quot;dhcp-option DNS 64.6.64.6&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo 'push &quot;dhcp-option DNS 64.6.65.6&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		;;
+	esac
+	echo &quot;keepalive 10 120
+cipher AES-256-CBC
+user nobody
+group $GROUPNAME
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+crl-verify crl.pem&quot; &gt;&gt; /etc/openvpn/server/server.conf
+	# Enable net.ipv4.ip_forward for the system
+	echo 'net.ipv4.ip_forward=1' &gt; /etc/sysctl.d/30-openvpn-forward.conf
+	# Enable without waiting for a reboot or service restart
+	echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+	if pgrep firewalld; then
+		# Using both permanent and not permanent rules to avoid a firewalld
+		# reload.
+		# We don't use --add-service=openvpn because that would only work with
+		# the default port and protocol.
+		firewall-cmd --add-port=$PORT/$PROTOCOL
+		firewall-cmd --zone=trusted --add-source=10.8.0.0/24
+		firewall-cmd --permanent --add-port=$PORT/$PROTOCOL
+		firewall-cmd --permanent --zone=trusted --add-source=10.8.0.0/24
+		# Set NAT for the VPN subnet
+		firewall-cmd --direct --add-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+		firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+	else
+		# Create a service to set up persistent iptables rules
+		echo &quot;[Unit]
+Before=network.target
+[Service]
+Type=oneshot
+ExecStart=/sbin/iptables -t nat -A POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+ExecStart=/sbin/iptables -I INPUT -p $PROTOCOL --dport $PORT -j ACCEPT
+ExecStart=/sbin/iptables -I FORWARD -s 10.8.0.0/24 -j ACCEPT
+ExecStart=/sbin/iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+ExecStop=/sbin/iptables -t nat -D POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
+ExecStop=/sbin/iptables -D INPUT -p $PROTOCOL --dport $PORT -j ACCEPT
+ExecStop=/sbin/iptables -D FORWARD -s 10.8.0.0/24 -j ACCEPT
+ExecStop=/sbin/iptables -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target&quot; &gt; /etc/systemd/system/openvpn-iptables.service
+		systemctl enable --now openvpn-iptables.service
+	fi
+	# If SELinux is enabled and a custom port was selected, we need this
+	if sestatus 2&gt;/dev/null | grep &quot;Current mode&quot; | grep -q &quot;enforcing&quot; &amp;&amp; [[ &quot;$PORT&quot; != '1194' ]]; then
+		# Install semanage if not already present
+		if ! hash semanage 2&gt;/dev/null; then
+			if grep -qs &quot;CentOS Linux release 7&quot; &quot;/etc/centos-release&quot;; then
+				yum install policycoreutils-python -y
+			else
+				yum install policycoreutils-python-utils -y
+			fi
+		fi
+		semanage port -a -t openvpn_port_t -p $PROTOCOL $PORT
+	fi
+	# And finally, enable and start the OpenVPN service
+	systemctl enable --now openvpn-server@server.service
+	# If the server is behind a NAT, use the correct IP address
+	if [[ &quot;$PUBLICIP&quot; != &quot;&quot; ]]; then
+		IP=$PUBLICIP
+	fi
+	# client-common.txt is created so we have a template to add further users later
+	echo &quot;client
+dev tun
+proto $PROTOCOL
+sndbuf 0
+rcvbuf 0
+remote $IP $PORT
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+auth SHA512
+cipher AES-256-CBC
+setenv opt block-outside-dns
+key-direction 1
+verb 3&quot; &gt; /etc/openvpn/server/client-common.txt
+	# Generates the custom client.ovpn
+	newclient &quot;$CLIENT&quot;
+	echo
+	echo &quot;Finished!&quot;
+	echo
+	echo &quot;Your client configuration is available at:&quot; ~/&quot;$CLIENT.ovpn&quot;
+	echo &quot;If you want to add more clients, you simply need to run this script again!&quot;
+fi
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Combiner plusieurs connexions internet pour booster son debit</title>
@@ -1077,6 +1477,7 @@ car les droits root sont nécessaires</li>
 <li>Code Notes (Pour gérer ses snippets Github (gists) ou en local)</li>
 <li>Lepton (Pour gérer ses snippets Github (gists) uniquement)</li>
 <li><a href="https://github.com/jwise/HoRNDIS">HoRNDIS</a> Android USB tethering driver for Mac OS X</li>
+<li><a href="https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation-pkg.html">MySQL Server</a> Je préfère installer MySQL server via le .dmg plutôt que via brew pour avoir le bouton &ldquo;Start MySQL Server&rdquo; dans System Preferences.</li>
 </ul>
 <br/>
 <p><strong>Packages Homebrew</strong></p>
@@ -1103,6 +1504,10 @@ github-notifier-install
 
 # Installation de Redis
 Voir cet article https://leandeep.com/Installer-redis-sur-OSX/
+
+# Installation de Mysql client (si MySQL server pas installé)
+brew install mysql-client
+echo 'export PATH=&quot;/usr/local/opt/mysql-client/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
 </code></pre><br/>
 <p><strong>Installer virtualenvwrapper</strong></p>
 <p>Puis au minimum <code>pip install awscli ansible</code></p>
@@ -1128,15 +1533,20 @@ Voir cet article https://leandeep.com/Installer-redis-sur-OSX/
             
             <guid>https://leandeep.com/monter-un-raid-existant-sur-une-nouvelle-installation-dubuntu/</guid>
             <description>Si vous aviez créé votre raid avec l&#39;utilitaire mdadm (comme expliqué dans l&#39;article suivant https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/ ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:
-sudo apt-get update sudo apt-get install -y mdadm sudo mdadm --assemble --scan sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 df -h </description>
+# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&#39;il est bien monté df -h </description>
             <content type="html"><![CDATA[<p>Si vous aviez créé votre raid avec l'utilitaire <code>mdadm</code> (comme expliqué dans l'article suivant <a href="https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/">https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/</a> ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:</p>
-<pre><code>sudo apt-get update
+<pre><code># Installation de mdadm
+sudo apt-get update
 sudo apt-get install -y mdadm
+
+# On détecte le raid 
 sudo mdadm --assemble --scan
 
+# On monte le raid en local
 sudo mkdir /mnt/md0
 sudo mount /dev/md0 /mnt/md0
 
+# Vérifier qu'il est bien monté
 df -h
 </code></pre>]]></content>
         </item>
@@ -4540,6 +4950,14 @@ kubectl describe nodes
 </code></pre><br/>
 <p><strong>Voir la consommation cpu et memory des pods les plus gourmands</strong></p>
 <pre><code>kubectl top pods
+</code></pre><br/>
+<p><strong>Lister les containers par pods</strong></p>
+<pre><code>kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{&quot;\n&quot;}{.metadata.name}{&quot;:\t&quot;}{range .spec.containers[*]}{.image}{&quot;, &quot;}{end}{end}' |\
+sort
+
+# Pour un pod particulier, pour avoir les container names dans le pod, on peut aussi exécuter:
+kubectl logs POD_NAME 
+# S'il y a plusieurs containers un message d'erreur apparaîtra indiquant de selectionner un container --&gt; choose one of: [container-name-1 container-name-2]
 </code></pre><br/>
 <p><strong>Entrer dans un pod</strong></p>
 <pre><code>kubectl exec -it shell-demo -- /bin/bash
@@ -8530,6 +8948,28 @@ Vous pouvez cloner mon repository, builder et démarrer l’image sur votre envi
 <p>Pour faire du Deep Learning avec la version optimisée pour GPU de TensorFlow, j’ai rencontré pas mal de difficultés à tout installer et configurer. Même si mon poste de développement est puissant (Mac Pro avec i7, GPU NVIDIA élevé, 32 go RAM), je n’ai pas la patience d’attendre durant les phases d’apprentissage.</p>
 <p>Pour avoir le maximum de puissance (plusieurs GPU en parallèle) et pour ne plus jamais avoir à installer et configurer CUDA, j’exécute directement mes algorithmes dans des containers Docker sur la plateforme AWS. Je loue une machine survitaminée (une machine que je n’aurais jamais chez moi) le temps de l’apprentissage et je l’arrête quand c’est terminé. Cela ne me coûte presque rien. Merci AWS !</p>
 <p>Je parlerai de ce sujet plus en détails dans un prochain article.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Restaurer une base de données Mysql et voir la progression</title>
+            <link>https://leandeep.com/restaurer-une-base-de-donn%C3%A9es-mysql-et-voir-la-progression/</link>
+            <pubDate>Wed, 10 Jan 2018 19:59:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/restaurer-une-base-de-donn%C3%A9es-mysql-et-voir-la-progression/</guid>
+            <description>En pré-requis il vous faut 2 binaires: pv et mysql-client
+Pour les installer, il suffit d&#39;exécuter les commandes suivantes:
+brew install pv mysql-client  Ensuite, pour restaurer le dump d&#39;une base de données et voir la progression, vous pouvez exécuter la commande suivante:
+pv dump.sql | mysql -u DB_USER -h DB_HOST -D DB_NAME -p  Rappel: commande pour dumper une base MySQL: mysqldump -u DB_USER -h DB_HOST -D DB_NAME -p &amp;gt; dump.</description>
+            <content type="html"><![CDATA[<p>En pré-requis il vous faut 2 binaires: <code>pv</code> et <code>mysql-client</code></p>
+<p>Pour les installer, il suffit d'exécuter les commandes suivantes:</p>
+<pre><code>brew install pv mysql-client
+</code></pre><br/>
+<p>Ensuite, pour restaurer le dump d'une base de données et voir la progression, vous pouvez exécuter la commande suivante:</p>
+<pre><code>pv dump.sql | mysql -u DB_USER -h DB_HOST -D DB_NAME -p
+</code></pre><blockquote>
+<p>Rappel: commande pour dumper une base MySQL: <code>mysqldump -u DB_USER -h DB_HOST -D DB_NAME -p &gt; dump.sql</code></p>
+</blockquote>
 ]]></content>
         </item>
         
