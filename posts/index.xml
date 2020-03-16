@@ -5,8 +5,108 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 12 Mar 2020 19:35:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 16 Mar 2020 23:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Reverse Proxy manager Nginx</title>
+            <link>https://leandeep.com/reverse-proxy-manager-nginx/</link>
+            <pubDate>Mon, 16 Mar 2020 23:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/reverse-proxy-manager-nginx/</guid>
+            <description>Introduction Dans cet article nous allons voir comment installer le reverse proxy manager Nginx nginxproxymanager. Ce manager est vraiment très bien. Il permet par exemple de facilement créer des ACLs, définir des proxy hosts, rediretions, page custom 404, d&#39;avoir de l&#39;audit, créer des certificats let&#39;s encrypt, activer l&#39;HTTP/2, l&#39;HSTS. Il est vraiment top gun ce projet. C&#39;est un concurrent de Traefik.
+ Installation Dans un répertoire par exemple mkdir ~/nginxproxymanager &amp;amp;&amp;amp; cd ~/nginxproxymanager, créer les 2 dossiers suivants: data et letsencrypt</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article nous allons voir comment installer le reverse proxy manager Nginx <a href="https://nginxproxymanager.com/">nginxproxymanager</a>. Ce manager est vraiment très bien. Il permet par exemple de facilement créer des ACLs, définir des proxy hosts, rediretions, page custom 404, d'avoir de l'audit, créer des certificats let's encrypt, activer l'HTTP/2, l'HSTS. Il est vraiment top gun ce projet. C'est un concurrent de Traefik.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>Dans un répertoire par exemple <code>mkdir ~/nginxproxymanager &amp;&amp; cd ~/nginxproxymanager</code>, créer les 2 dossiers suivants: <code>data</code> et <code>letsencrypt</code></p>
+<br/>
+<p>Créer ensuite un fichier <code>docker-compose.yml</code>:</p>
+<pre><code>version: &quot;3&quot;
+services:
+  app:
+    image: jc21/nginx-proxy-manager:2
+    restart: always
+    ports:
+      # Public HTTP Port:
+      - '80:80'
+      # Public HTTPS Port:
+      - '443:443'
+      # Admin Web Port:
+      - '81:81'
+    volumes:
+      # Make sure this config.json file exists as per instructions above:
+      - ./config.json:/app/config/production.json
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+  db:
+    image: jc21/mariadb-aria:10.4
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: &quot;npm&quot;
+      MYSQL_DATABASE: &quot;npm&quot;
+      MYSQL_USER: &quot;npm&quot;
+      MYSQL_PASSWORD: &quot;npm&quot;
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+</code></pre><br/>
+<p>Enfin créer un fichier <code>config.json</code>:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;Nginx Proxy Manager&quot;,
+  &quot;version&quot;: &quot;6093335&quot;,
+  &quot;slug&quot;: &quot;nginxproxymanager&quot;,
+  &quot;description&quot;: &quot;Manage Nginx proxy hosts with a simple, powerful interface&quot;,
+  &quot;url&quot;: &quot;https://github.com/hassio-addons/addon-nginx-proxy-manager&quot;,
+  &quot;webui&quot;: &quot;http://[HOST]:[PORT:81]&quot;,
+  &quot;startup&quot;: &quot;application&quot;,
+  &quot;arch&quot;: [
+    &quot;aarch64&quot;,
+    &quot;amd64&quot;,
+    &quot;armhf&quot;,
+    &quot;armv7&quot;,
+    &quot;i386&quot;
+  ],
+  &quot;services&quot;: [
+    &quot;mysql:need&quot;
+  ],
+  &quot;ports&quot;: {
+    &quot;80&quot;: 80,
+    &quot;81&quot;: 81,
+    &quot;443&quot;: 443
+  },
+  &quot;ports_description&quot;: {
+    &quot;80&quot;: &quot;HTTP Entrance port&quot;,
+    &quot;81&quot;: &quot;Proxy management web interface&quot;,
+    &quot;443&quot;: &quot;HTTPS/SSL Entrance port&quot;
+  },
+  &quot;boot&quot;: &quot;auto&quot;,
+  &quot;hassio_api&quot;: true,
+  &quot;hassio_role&quot;: &quot;default&quot;,
+  &quot;map&quot;: [
+    &quot;ssl:rw&quot;,
+    &quot;backup:rw&quot;
+  ],
+  &quot;options&quot;: {},
+  &quot;schema&quot;: {
+    &quot;log_level&quot;: &quot;list(trace|debug|info|notice|warning|error|fatal)?&quot;
+  },
+  &quot;image&quot;: &quot;hassioaddons/nginxproxymanager-{arch}&quot;
+}
+</code></pre><br/>
+<p>Configurer le port forward pour les ports 80 et 443 sur votre box vers le host sur lequel est installé votre reverse proxy.</p>
+<br/>
+<h2 id="dmarrer-du-proxy">Démarrer du proxy</h2>
+<pre><code>docker-compose up -d
+</code></pre><br/>
+<h2 id="rsultat">Résultat</h2>
+<p><img src="/images/reverse-proxy-nginx-gui.png" alt="image"></p>
+<br/>
+<p>Rendez vous à l'adresse suivante pour accéder à l'interface d'admin: http://DNS_HOST:81/nginx/proxy</p>
+]]></content>
+        </item>
         
         <item>
             <title>Créer un serveur OpenVPN en 5 minutes</title>
