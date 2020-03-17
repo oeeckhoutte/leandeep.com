@@ -96,7 +96,7 @@ services:
   &quot;image&quot;: &quot;hassioaddons/nginxproxymanager-{arch}&quot;
 }
 </code></pre><br/>
-<p>Configurer le port forward pour les ports 80 et 443 sur votre box vers le host sur lequel est installé votre reverse proxy.</p>
+<p>Configurer le port forward pour les ports 80 et 443 sur votre box vers le host sur lequel est installé le reverse proxy.</p>
 <br/>
 <h2 id="dmarrer-du-proxy">Démarrer du proxy</h2>
 <pre><code>docker-compose up -d
@@ -1644,7 +1644,7 @@ echo 'export PATH=&quot;/usr/local/opt/mysql-client/bin:$PATH&quot;' &gt;&gt; ~/
             
             <guid>https://leandeep.com/monter-un-raid-existant-sur-une-nouvelle-installation-dubuntu/</guid>
             <description>Si vous aviez créé votre raid avec l&#39;utilitaire mdadm (comme expliqué dans l&#39;article suivant https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/ ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:
-# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&#39;il est bien monté df -h </description>
+# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&#39;il est bien monté df -h  Troubleshooting Avoir des informations (type et disques utilisés) sur les raids existants</description>
             <content type="html"><![CDATA[<p>Si vous aviez créé votre raid avec l'utilitaire <code>mdadm</code> (comme expliqué dans l'article suivant <a href="https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/">https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/</a> ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:</p>
 <pre><code># Installation de mdadm
 sudo apt-get update
@@ -1659,7 +1659,27 @@ sudo mount /dev/md0 /mnt/md0
 
 # Vérifier qu'il est bien monté
 df -h
-</code></pre>]]></content>
+</code></pre><br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Avoir des informations (type et disques utilisés) sur les raids existants</strong></p>
+<pre><code>cat /proc/mdstat
+
+Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10]
+md0 : active raid1 sdb1[0] sdc1[1]
+      976761472 blocks [2/2] [UU]
+      bitmap: 0/8 pages [0KB], 65536KB chunk
+
+</code></pre><br/>
+<p><strong>Lister les disques</strong></p>
+<pre><code>fdisk -l
+</code></pre><br/>
+<p><strong>Obtenir le serial number d'un disque</strong></p>
+<pre><code>sudo hdparm -I /dev/sdb1 | grep 'Serial\ Number'
+
+Serial Number:      S246J9FC405870
+</code></pre><p>Cela peut être pratique si vous avez plein de disques dans une tour et que vous voulez identifier les disques HS.</p>
+<p><img src="/images/serial-disque-dur.png" alt="image"></p>
+]]></content>
         </item>
         
         <item>
