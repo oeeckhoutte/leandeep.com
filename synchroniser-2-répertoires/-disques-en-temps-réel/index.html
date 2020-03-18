@@ -5,9 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
-mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
-settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile = &amp;quot;/var/log/lsyncd/lsyncd.status&amp;quot; } sync{ default.rsync, source=&amp;quot;/mnt/dev0&amp;quot;, target=&amp;quot;/mnt/dev1&amp;quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/" />
+<meta name="description" content="Introduction L&#39;objectif de cet article est de partager comment je backup mon raid /dev/md0 vers /dev/md1 grâce à l&#39;utilitaire lsyncd. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c&#39;est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c&#39;est efficace en terme de stabilité ou performance." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,12 +292,10 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Synchroniser 2 répertoires/ disques en temps réel">
-<meta itemprop="description" content="Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
-mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
-settings { logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;, statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot; } sync{ default.rsync, source=&quot;/mnt/dev0&quot;, target=&quot;/mnt/dev1&quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/">
+<meta itemprop="description" content="Introduction L&#39;objectif de cet article est de partager comment je backup mon raid /dev/md0 vers /dev/md1 grâce à l&#39;utilitaire lsyncd. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c&#39;est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c&#39;est efficace en terme de stabilité ou performance.">
 <meta itemprop="datePublished" content="2020-03-18T19:49:00&#43;02:00" />
 <meta itemprop="dateModified" content="2020-03-18T19:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="56">
+<meta itemprop="wordCount" content="270">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -308,9 +304,7 @@ settings { logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;, statusFile = &quot;
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Synchroniser 2 répertoires/ disques en temps réel"/>
-<meta name="twitter:description" content="Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
-mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
-settings { logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;, statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot; } sync{ default.rsync, source=&quot;/mnt/dev0&quot;, target=&quot;/mnt/dev1&quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/"/>
+<meta name="twitter:description" content="Introduction L&#39;objectif de cet article est de partager comment je backup mon raid /dev/md0 vers /dev/md1 grâce à l&#39;utilitaire lsyncd. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c&#39;est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c&#39;est efficace en terme de stabilité ou performance."/>
 
 
 
@@ -373,7 +367,7 @@ settings { logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;, statusFile = &quot;
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
 
             
 
@@ -388,7 +382,9 @@ settings { logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;, statusFile = &quot;
             
 
             <div class="post-content">
-                <h2 id="installation">Installation</h2>
+                <h2 id="introduction">Introduction</h2>
+<p>L'objectif de cet article est de partager comment je backup mon raid <code>/dev/md0</code> vers <code>/dev/md1</code> grâce à l'utilitaire <code>lsyncd</code>. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c'est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c'est efficace en terme de stabilité ou performance.</p>
+<h2 id="installation">Installation</h2>
 <pre><code>apt install lsyncd
 </code></pre><br/>
 <h2 id="configuration">Configuration</h2>
@@ -396,7 +392,7 @@ settings { logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;, statusFile = &quot;
 <pre><code>mkdir /var/log/lsyncd
 touch /var/log/lsyncd/lsyncd.{log,status}
 </code></pre><br/>
-<p>Modifier le fichier <code>/etc/lsyncd.conf</code> et ajouter les règles décrivant les synchronisations.</p>
+<p>Modifier le fichier <code>/etc/lsyncd/lsyncd.conf.lua</code> et ajouter les règles décrivant les synchronisations.</p>
 <pre><code>settings {
 logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;,
 statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot;
@@ -404,13 +400,35 @@ statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot;
 
 sync{
 default.rsync,
-source=&quot;/mnt/dev0&quot;,
-target=&quot;/mnt/dev1&quot;,
+source=&quot;/mnt/md0&quot;,
+target=&quot;/mnt/md1&quot;,
 }
 </code></pre><br/>
 <h2 id="activation-le-service">Activation le service</h2>
 <pre><code>systemctl enable lsyncd
 systemctl start lsyncd
+# or 'systemctl restart lsyncd' to take into account the last configuration changes if the service was already running.
+
+# Si tout est ok:
+systemctl status lsyncd
+● lsyncd.service - LSB: lsyncd daemon init script
+   Loaded: loaded (/etc/init.d/lsyncd; generated)
+   Active: active (running) since Thu 2020-03-19 00:02:27 CET; 5s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 12729 ExecStop=/etc/init.d/lsyncd stop (code=exited, status=0/SUCCESS)
+  Process: 12747 ExecStart=/etc/init.d/lsyncd start (code=exited, status=0/SUCCESS)
+    Tasks: 4 (limit: 4915)
+   CGroup: /system.slice/lsyncd.service
+           ├─12765 /usr/bin/lsyncd -pidfile /var/run/lsyncd.pid /etc/lsyncd/lsyncd.conf.lua
+           ├─12861 /usr/bin/rsync --delete --ignore-errors -slt -r /mnt/md0/ /mnt/md1/
+           ├─12862 /usr/bin/rsync --delete --ignore-errors -slt -r /mnt/md0/ /mnt/md1/
+           └─12863 /usr/bin/rsync --delete --ignore-errors -slt -r /mnt/md0/ /mnt/md1/
+
+Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Starting LSB: lsyncd daemon init script...
+Mar 19 00:02:27 olivier-NUC7i7BNH lsyncd[12747]:  * Starting synchronization daemon lsyncd
+Mar 19 00:02:27 olivier-NUC7i7BNH lsyncd[12747]:    ...done.
+Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Started LSB: lsyncd daemon init script.
+
 </code></pre><br/>
 <h2 id="ressource">Ressource</h2>
 <p><a href="https://linoxide.com/tools/setup-lsyncd-sync-directories/">https://linoxide.com/tools/setup-lsyncd-sync-directories/</a></p>
@@ -425,7 +443,7 @@ systemctl start lsyncd
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/backup">Backup</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>56 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>270 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Mar. 2020</p>
         </div>

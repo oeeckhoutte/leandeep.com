@@ -17,9 +17,7 @@
       <pubDate>Wed, 18 Mar 2020 19:49:00 +0200</pubDate>
       
       <guid>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</guid>
-      <description>Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
-mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
-settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile = &amp;quot;/var/log/lsyncd/lsyncd.status&amp;quot; } sync{ default.rsync, source=&amp;quot;/mnt/dev0&amp;quot;, target=&amp;quot;/mnt/dev1&amp;quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/</description>
+      <description>Introduction L&#39;objectif de cet article est de partager comment je backup mon raid /dev/md0 vers /dev/md1 grâce à l&#39;utilitaire lsyncd. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c&#39;est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c&#39;est efficace en terme de stabilité ou performance.</description>
     </item>
     
     <item>

@@ -14,10 +14,10 @@
             <pubDate>Wed, 18 Mar 2020 19:49:00 +0200</pubDate>
             
             <guid>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</guid>
-            <description>Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
-mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
-settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile = &amp;quot;/var/log/lsyncd/lsyncd.status&amp;quot; } sync{ default.rsync, source=&amp;quot;/mnt/dev0&amp;quot;, target=&amp;quot;/mnt/dev1&amp;quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/</description>
-            <content type="html"><![CDATA[<h2 id="installation">Installation</h2>
+            <description>Introduction L&#39;objectif de cet article est de partager comment je backup mon raid /dev/md0 vers /dev/md1 grâce à l&#39;utilitaire lsyncd. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c&#39;est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c&#39;est efficace en terme de stabilité ou performance.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>L'objectif de cet article est de partager comment je backup mon raid <code>/dev/md0</code> vers <code>/dev/md1</code> grâce à l'utilitaire <code>lsyncd</code>. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c'est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c'est efficace en terme de stabilité ou performance.</p>
+<h2 id="installation">Installation</h2>
 <pre><code>apt install lsyncd
 </code></pre><br/>
 <h2 id="configuration">Configuration</h2>
@@ -25,7 +25,7 @@ settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile 
 <pre><code>mkdir /var/log/lsyncd
 touch /var/log/lsyncd/lsyncd.{log,status}
 </code></pre><br/>
-<p>Modifier le fichier <code>/etc/lsyncd.conf</code> et ajouter les règles décrivant les synchronisations.</p>
+<p>Modifier le fichier <code>/etc/lsyncd/lsyncd.conf.lua</code> et ajouter les règles décrivant les synchronisations.</p>
 <pre><code>settings {
 logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;,
 statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot;
@@ -33,13 +33,35 @@ statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot;
 
 sync{
 default.rsync,
-source=&quot;/mnt/dev0&quot;,
-target=&quot;/mnt/dev1&quot;,
+source=&quot;/mnt/md0&quot;,
+target=&quot;/mnt/md1&quot;,
 }
 </code></pre><br/>
 <h2 id="activation-le-service">Activation le service</h2>
 <pre><code>systemctl enable lsyncd
 systemctl start lsyncd
+# or 'systemctl restart lsyncd' to take into account the last configuration changes if the service was already running.
+
+# Si tout est ok:
+systemctl status lsyncd
+● lsyncd.service - LSB: lsyncd daemon init script
+   Loaded: loaded (/etc/init.d/lsyncd; generated)
+   Active: active (running) since Thu 2020-03-19 00:02:27 CET; 5s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 12729 ExecStop=/etc/init.d/lsyncd stop (code=exited, status=0/SUCCESS)
+  Process: 12747 ExecStart=/etc/init.d/lsyncd start (code=exited, status=0/SUCCESS)
+    Tasks: 4 (limit: 4915)
+   CGroup: /system.slice/lsyncd.service
+           ├─12765 /usr/bin/lsyncd -pidfile /var/run/lsyncd.pid /etc/lsyncd/lsyncd.conf.lua
+           ├─12861 /usr/bin/rsync --delete --ignore-errors -slt -r /mnt/md0/ /mnt/md1/
+           ├─12862 /usr/bin/rsync --delete --ignore-errors -slt -r /mnt/md0/ /mnt/md1/
+           └─12863 /usr/bin/rsync --delete --ignore-errors -slt -r /mnt/md0/ /mnt/md1/
+
+Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Starting LSB: lsyncd daemon init script...
+Mar 19 00:02:27 olivier-NUC7i7BNH lsyncd[12747]:  * Starting synchronization daemon lsyncd
+Mar 19 00:02:27 olivier-NUC7i7BNH lsyncd[12747]:    ...done.
+Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Started LSB: lsyncd daemon init script.
+
 </code></pre><br/>
 <h2 id="ressource">Ressource</h2>
 <p><a href="https://linoxide.com/tools/setup-lsyncd-sync-directories/">https://linoxide.com/tools/setup-lsyncd-sync-directories/</a></p>
