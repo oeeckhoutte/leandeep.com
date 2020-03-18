@@ -6,10 +6,21 @@
     <description>Recent content in Linux on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 15 Nov 2019 13:31:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2020 19:49:00 +0200</lastBuildDate>
     
 	<atom:link href="https://leandeep.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Synchroniser 2 répertoires/ disques en temps réel</title>
+      <link>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</link>
+      <pubDate>Wed, 18 Mar 2020 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</guid>
+      <description>Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
+mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
+settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile = &amp;quot;/var/log/lsyncd/lsyncd.status&amp;quot; } sync{ default.rsync, source=&amp;quot;/mnt/dev0&amp;quot;, target=&amp;quot;/mnt/dev1&amp;quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/</description>
+    </item>
     
     <item>
       <title>Monter un raid existant sur une nouvelle installation d&#39;Ubuntu</title>

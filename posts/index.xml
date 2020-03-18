@@ -5,8 +5,46 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 16 Mar 2020 23:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Wed, 18 Mar 2020 19:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Synchroniser 2 répertoires/ disques en temps réel</title>
+            <link>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</link>
+            <pubDate>Wed, 18 Mar 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</guid>
+            <description>Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
+mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
+settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile = &amp;quot;/var/log/lsyncd/lsyncd.status&amp;quot; } sync{ default.rsync, source=&amp;quot;/mnt/dev0&amp;quot;, target=&amp;quot;/mnt/dev1&amp;quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/</description>
+            <content type="html"><![CDATA[<h2 id="installation">Installation</h2>
+<pre><code>apt install lsyncd
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
+<p>Créer les répertoires contenants les status et logs de la synchronisation.</p>
+<pre><code>mkdir /var/log/lsyncd
+touch /var/log/lsyncd/lsyncd.{log,status}
+</code></pre><br/>
+<p>Modifier le fichier <code>/etc/lsyncd.conf</code> et ajouter les règles décrivant les synchronisations.</p>
+<pre><code>settings {
+logfile = &quot;/var/log/lsyncd/lsyncd.log&quot;,
+statusFile = &quot;/var/log/lsyncd/lsyncd.status&quot;
+}
+
+sync{
+default.rsync,
+source=&quot;/mnt/dev0&quot;,
+target=&quot;/mnt/dev1&quot;,
+}
+</code></pre><br/>
+<h2 id="activation-le-service">Activation le service</h2>
+<pre><code>systemctl enable lsyncd
+systemctl start lsyncd
+</code></pre><br/>
+<h2 id="ressource">Ressource</h2>
+<p><a href="https://linoxide.com/tools/setup-lsyncd-sync-directories/">https://linoxide.com/tools/setup-lsyncd-sync-directories/</a></p>
+]]></content>
+        </item>
         
         <item>
             <title>Reverse Proxy manager Nginx</title>
@@ -7255,23 +7293,25 @@ alias warnov=&quot;_sys_notify 'Done' 'The long running process is over'&quot;
             <pubDate>Sat, 29 Sep 2018 19:50:00 +0000</pubDate>
             
             <guid>https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/</guid>
-            <description>Installer les dépendances: Installer openjdk 8:
+            <description>Installer les dépendances Installer openjdk 8:
 sudo apt-get install openjdk-8-jdk Installer les autres dépendances:
-sudo apt-get install pkg-config zip g++ zlib1g-dev unzip Installer Bazel: wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh chmod +x bazel-0.17.2-installer-linux-x86_64.sh ./bazel-0.17.2-installer-linux-x86_64.sh --user Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:
-export PATH=&amp;quot;$PATH:$HOME/bin&amp;quot; Install libcudnn Télécharger le binaire directement depuis le site: https://developer.nvidia.com/cudnn. Cette étape nécessite de créer une compte chez Nvidia.
+sudo apt-get install pkg-config zip g++ zlib1g-dev unzip  Installer Bazel wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh chmod +x bazel-0.17.2-installer-linux-x86_64.sh ./bazel-0.17.2-installer-linux-x86_64.sh --user Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:
+export PATH=&amp;quot;$PATH:$HOME/bin&amp;quot;  Install libcudnn Télécharger le binaire directement depuis le site: https://developer.nvidia.com/cudnn. Cette étape nécessite de créer une compte chez Nvidia.
 Pour installer le binaire il suffit d&#39;exécuter la commande suivante:</description>
-            <content type="html"><![CDATA[<h2 id="installer-les-dpendances">Installer les dépendances:</h2>
+            <content type="html"><![CDATA[<h2 id="installer-les-dpendances">Installer les dépendances</h2>
 <p>Installer openjdk 8:</p>
 <pre><code>sudo apt-get install openjdk-8-jdk
 </code></pre><p>Installer les autres dépendances:</p>
 <pre><code>sudo apt-get install pkg-config zip g++ zlib1g-dev unzip
-</code></pre><h2 id="installer-bazel">Installer Bazel:</h2>
+</code></pre><br/>
+<h2 id="installer-bazel">Installer Bazel</h2>
 <pre><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
 chmod +x bazel-0.17.2-installer-linux-x86_64.sh
 ./bazel-0.17.2-installer-linux-x86_64.sh --user
 </code></pre><p>Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:</p>
 <pre><code>export PATH=&quot;$PATH:$HOME/bin&quot;
-</code></pre><h2 id="install-libcudnn">Install libcudnn</h2>
+</code></pre><br/>
+<h2 id="install-libcudnn">Install libcudnn</h2>
 <p>Télécharger le binaire directement depuis le site: <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a>. Cette étape nécessite de créer une compte chez Nvidia.</p>
 <p>Pour installer le binaire il suffit d'exécuter la commande suivante:</p>
 <pre><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
@@ -7291,7 +7331,8 @@ make clean &amp;&amp; make
 $ Test passed!
 </code></pre><p>Maintenons les paquets afin qu'ils ne soient pas updatés ou effacés:</p>
 <pre><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
-</code></pre><h2 id="installer-tensorflow">Installer Tensorflow:</h2>
+</code></pre><br/>
+<h2 id="installer-tensorflow">Installer Tensorflow</h2>
 <p>Commencer par installer les dépendances:</p>
 <pre><code>sudo apt-get install python-numpy swig python-dev git python-pip
 </code></pre><p>Puis cloner Tensorflow repo:</p>
@@ -7352,7 +7393,8 @@ totalMemory: 1.95GiB freeMemory: 1.89GiB
 2018-09-29 17:03:04.240938: I tensorflow/core/common_runtime/gpu/gpu_device.cc:977]      0
 2018-09-29 17:03:04.240950: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990] 0:   N
 2018-09-29 17:03:04.241102: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1103] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1663 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 660 Ti, pci bus id: 0000:01:00.0, compute capability: 3.0)
-</code></pre><p>Perfect! Maintenant je peux utiliser mon GPU sur mon serveur.</p>
+</code></pre><br/>
+<p>Perfect! Maintenant je peux utiliser mon GPU sur mon serveur.</p>
 ]]></content>
         </item>
         

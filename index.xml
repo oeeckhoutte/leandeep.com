@@ -6,10 +6,21 @@
     <description>Recent content on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 16 Mar 2020 23:49:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2020 19:49:00 +0200</lastBuildDate>
     
 	<atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Synchroniser 2 répertoires/ disques en temps réel</title>
+      <link>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</link>
+      <pubDate>Wed, 18 Mar 2020 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/synchroniser-2-r%C3%A9pertoires/-disques-en-temps-r%C3%A9el/</guid>
+      <description>Installation apt install lsyncd  Configuration Créer les répertoires contenants les status et logs de la synchronisation.
+mkdir /var/log/lsyncd touch /var/log/lsyncd/lsyncd.{log,status}  Modifier le fichier /etc/lsyncd.conf et ajouter les règles décrivant les synchronisations.
+settings { logfile = &amp;quot;/var/log/lsyncd/lsyncd.log&amp;quot;, statusFile = &amp;quot;/var/log/lsyncd/lsyncd.status&amp;quot; } sync{ default.rsync, source=&amp;quot;/mnt/dev0&amp;quot;, target=&amp;quot;/mnt/dev1&amp;quot;, }  Activation le service systemctl enable lsyncd systemctl start lsyncd  Ressource https://linoxide.com/tools/setup-lsyncd-sync-directories/</description>
+    </item>
     
     <item>
       <title>Reverse Proxy manager Nginx</title>
@@ -115,17 +126,6 @@ prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_preno
       <description>Ce tip décrit comment slicer (découper) un set de manière Pythonique.
 Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&#39;un sous-ensemble du set de départ.
 import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;, &#39;titi&#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
-    </item>
-    
-    <item>
-      <title>Utiliser zip pour itérer sur deux listes</title>
-      <link>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes/</link>
-      <pubDate>Tue, 14 Jan 2020 21:20:04 -0700</pubDate>
-      
-      <guid>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes/</guid>
-      <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&#39;utiliser zip en passant en paramètre les 2 variables.
-Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
-1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&#39;itérer sur ces 2 listes.</description>
     </item>
     
   </channel>
