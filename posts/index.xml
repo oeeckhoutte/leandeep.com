@@ -1662,6 +1662,9 @@ df -h
 </code></pre><br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>Avoir des informations (type et disques utilisés) sur les raids existants</strong></p>
+<ul>
+<li>Option 1:</li>
+</ul>
 <pre><code>cat /proc/mdstat
 
 Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10]
@@ -1669,6 +1672,11 @@ md0 : active raid1 sdb1[0] sdc1[1]
       976761472 blocks [2/2] [UU]
       bitmap: 0/8 pages [0KB], 65536KB chunk
 
+</code></pre><br/>
+<ul>
+<li>Option 2:</li>
+</ul>
+<pre><code>grep 'md' /proc/mdstat | tr ' ' '\n' | sed -n 's/\[.*//p'
 </code></pre><br/>
 <p><strong>Lister les disques</strong></p>
 <pre><code>fdisk -l
@@ -7522,16 +7530,19 @@ for v in all_vars:
             
             <guid>https://leandeep.com/damn-toujours-pas-dhttps/</guid>
             <description>Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&amp;hellip; J&#39;en profite pour écrire rapidement cet article.
-Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+ Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
 Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</description>
             <content type="html"><![CDATA[<p>Honte à moi, je passe mon temps à jouer avec des serveurs et je n'ai toujours pas configuré d'HTTPS pour mon blog.
 Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J'en profite pour écrire rapidement cet article.</p>
+<br/>
 <p>Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.</p>
 <p>Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</p>
 <pre><code>docker run -d --restart=always -e url=http://leandeep.com -e NODE_ENV=production --name some-ghost-v2 -v /var/lib/ghost:/var/lib/ghost/content -p 80:2368 ghost
 </code></pre><p>C’était plutôt simple et efficace. En effet, je n’ai jamais dû intervenir sur le serveur depuis avril 2015. (Enfin jamais sauf une fois pour upgrader l'OS et passer à Ubuntu 16.04 . Mais c'est un autre sujet)</p>
+<br/>
 <p>Aujourd’hui, pour avoir un certificat HTTPS simplement, je vais utiliser Nginx comme reverse proxy. Ce dernier portera le certificat.</p>
 <p>Pour utiliser Nginx, je vais passer par Docker. C'est beaucoup plus rapide et propre que faire des apt-get install nginx&hellip; Et pour me simplifier la vie, je vais utiliser un docker-compose puisque j’aurais plus d’un container à gérer sur ce serveur.</p>
+<br/>
 <p>Voici ci-dessous à quoi ressemble mon docker-compose.yml. Vous verrez que j'utilise 2 projets opensource que je vous invite à consulter sur Github: <a href="https://github.com/jwilder/nginx-proxy">https://github.com/jwilder/nginx-proxy</a> et <a href="https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion">https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion</a>. C'est grâce à ces projets que mes certificats se génèrent tout seul et que je peux avoir des HTTPS pour mes nouveaux projets sans rien faire.</p>
 <pre><code>version: '3.1'
 services:
@@ -7589,6 +7600,7 @@ volumes:
   nginx.html:
 </code></pre><p>Comme vous pouvez le voir, ce docker-compose définit 2 sites: <a href="https://leandeep.com">https://leandeep.com</a> et <a href="https://www.leandeep.com">https://www.leandeep.com</a>.
 Le premier renvoie vers un blog Ghost et le deuxième vers un dossier statique servi par Nginx.</p>
+<br/>
 <p>Avant de faire un docker-compose up -d , j’ai créé 2 dossiers pour chacun des 2 sites web.
 Le premier dossier blog/ contient le contenu de mon blog Ghost <a href="https://leandeep.com">https://leandeep.com</a>. Il contient donc l’arborescence suivante:</p>
 <pre><code>apps/
@@ -7597,13 +7609,15 @@ images/
 logs/
 settings/
 themes/
-</code></pre><p>Le deuxième dossier staticweb/ pour le site internet <a href="https://www.leandeep.com">https://www.leandeep.com</a> contient une simple page HTML qui redirige vers <a href="https://leandeep.com">https://leandeep.com</a> via ces 3 lignes de code:</p>
+</code></pre><br/>
+<p>Le deuxième dossier staticweb/ pour le site internet <a href="https://www.leandeep.com">https://www.leandeep.com</a> contient une simple page HTML qui redirige vers <a href="https://leandeep.com">https://leandeep.com</a> via ces 3 lignes de code:</p>
 <pre><code>&lt;script&gt;
 window.location.href = 'https://leandeep.com';
 &lt;/script&gt;
 </code></pre><blockquote>
 <p>A la place de cette redirection bête et méchante, on pourrait avoir un tout autre site internet bien plus intéressant. Ici c’est une redirection que j’ai laissé volontairement à titre d'exemple pour montrer comment avoir plusieurs sites web avec cet unique docker-compose.</p>
 </blockquote>
+<br/>
 <p>Enfin, pour générer le certificat, il faudra créer un fichier ./nginx/vhost.d/leandeep.com qui contiendra la configuration pour let's encrypt:</p>
 <pre><code>## Start of configuration add by letsencrypt container
 location ^~ /.well-known/acme-challenge/ {
@@ -7620,7 +7634,8 @@ add_header X-XSS-Protection &quot;1; mode=block&quot;;
 add_header X-Content-Type-Options &quot;nosniff&quot;;
 add_header Referrer-Policy &quot;no-referrer-when-downgrade&quot;;
 server_tokens off;
-</code></pre><p>Voilà. Il n'y a plus qu'à lancer le docker-compose avec la commande:</p>
+</code></pre><br/>
+<p>Voilà. Il n'y a plus qu'à lancer le docker-compose avec la commande:</p>
 <pre><code>docker-compose up -d
 </code></pre>]]></content>
         </item>
@@ -14396,7 +14411,7 @@ for i in range(0,N):
             <pubDate>Tue, 28 Apr 2015 10:52:00 +0000</pubDate>
             
             <guid>https://leandeep.com/synth%C3%A8se-statistiques-descriptives/</guid>
-            <description>Moyenne: Average Mean en anglais Médiane: Median en anglais =&amp;gt; / par 2 =&amp;gt; valeur centrale de la distribution. Example: 3; 5; 7; 9; 10 ==&amp;gt; Mediane = 7 Mode: Mode en anglais =&amp;gt; valeur la plus fréquente dans la distribution Moyenne tronquée: Trimed mean en anglais =&amp;gt; moyenne des données après suppression des 5% des valeurs supérieures et 5% des valeurs inférieure  Dispersion
+            <description>Moyenne: Average Mean en anglais Médiane: Median en anglais =&amp;gt; / par 2 =&amp;gt; valeur centrale de la distribution. Example: 3; 5; 7; 9; 10 ==&amp;gt; Mediane = 7 Mode: Mode en anglais =&amp;gt; valeur la plus fréquente dans la distribution Moyenne tronquée: Trimed mean en anglais =&amp;gt; moyenne des données après suppression des 5% des valeurs supérieures et 5% des valeurs inférieure   Dispersion
  Centile: est chacune des 99 valeurs qui divisent les données triées en 100 parts égales.</description>
             <content type="html"><![CDATA[<ul>
 <li>Moyenne: <em>Average Mean</em> en anglais</li>
@@ -14405,6 +14420,7 @@ Example: 3; 5; 7; 9; 10 ==&gt; Mediane = 7</li>
 <li>Mode: <em>Mode</em> en anglais =&gt; valeur la plus fréquente dans la distribution</li>
 <li>Moyenne tronquée: <em>Trimed mean</em> en anglais =&gt; moyenne des données après suppression des 5% des valeurs supérieures et 5% des valeurs inférieure</li>
 </ul>
+<br/>
 <p><strong>Dispersion</strong></p>
 <ul>
 <li>Centile: est chacune des 99 valeurs qui divisent les données triées en 100 parts égales. Par exemple, le 95ème (quatre-vingt-quinzième) centile est la valeur telle que 95% des valeurs mesurées sont en dessous et 5% sont au-dessus.</li>
@@ -15685,14 +15701,16 @@ Ensuite si mon PC distant est éteint il me suffit d&#39;exécuter la commande s
             <guid>https://leandeep.com/failover-strategies-avec-amazon-ec2/</guid>
             <description>downtime &amp;lt; 10 minutes Pour avoir un downtime &amp;lt; 10 minutes il y a cette première stratégie:
 On crée un clone de l&#39;environnement de production prêt à être lancé à n&#39;importe quel moment sur une autre zone de disponibilité si l&#39;environnement de production venait à crasher. L&#39;outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.
-Un peu de redondance Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit.</description>
+ Un peu de redondance Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit.</description>
             <content type="html"><![CDATA[<h2 id="downtime--10-minutes">downtime &lt; 10 minutes</h2>
 <p>Pour avoir un downtime &lt; 10 minutes il y a cette première stratégie:</p>
 <p><img src="/images/downtime-10-min.png" alt="image"></p>
 <p>On crée un clone de l'environnement de production prêt à être lancé à n'importe quel moment sur une autre zone de disponibilité si l'environnement de production venait à crasher. L'outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.</p>
+<br/>
 <h2 id="un-peu-de-redondance">Un peu de redondance</h2>
 <p>Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit. Par contre, entre 2 zones différentes le coût est de $0.01 par gigabyte.</p>
 <p><img src="/images/un-peu-redondance.png" alt="image"></p>
+<br/>
 <h2 id="redondance-totale">Redondance totale</h2>
 <p><img src="/images/redondance-totale.png" alt="image"></p>
 ]]></content>
@@ -15736,7 +15754,7 @@ Un peu de redondance Remarque: Transférer des données entre instances dans la 
             <guid>https://leandeep.com/commandes-linux-%C3%A0-savoir/</guid>
             <description>Chercher une string dans les fichiers d&#39;un répertoire de manière récursive grep -r &amp;quot;password&amp;quot; ~/Dev i stands for ignore case. r ou R stands for recursive. l stands for &amp;quot;show the file name, not the result itself&amp;quot;.  Alternative: utiliser ack (https://beyondgrep.com/install/) $ ack &amp;quot;http://&amp;quot; ~/Dev/
   Autre alternative: utiliser ag (https://github.com/ggreer/the_silver_searcher) $ ag &amp;quot;password&amp;quot; ~/Dev
- Localiser un fichier sudo find / -name &amp;quot;*filename&amp;quot; Liste des ports par défaut des utilitaires de base vi /etc/services Créer un groupe sudo groupadd -g 4001 mon_groupe Ajouter/ Retirer un groupe à un utilisateur # delete gpasswd –d group user # add gpasswd –a group user # Alternative sudo usermod -aG mon_groupe olivier Ajouter un nouvel utilisateur sans droit de login useradd –s /sbin/nologin user Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:</description>
+  Localiser un fichier sudo find / -name &amp;quot;*filename&amp;quot;  Liste des ports par défaut des utilitaires de base vi /etc/services  Créer un groupe sudo groupadd -g 4001 mon_groupe  Ajouter/ Retirer un groupe à un utilisateur # delete gpasswd –d group user # add gpasswd –a group user # Alternative sudo usermod -aG mon_groupe olivier  Ajouter un nouvel utilisateur sans droit de login useradd –s /sbin/nologin user Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:</description>
             <content type="html"><![CDATA[<h2 id="chercher-une-string-dans-les-fichiers-dun-rpertoire-de-manire-rcursive">Chercher une string dans les fichiers d'un répertoire de manière récursive</h2>
 <pre><code>grep -r &quot;password&quot; ~/Dev
 
@@ -15751,13 +15769,17 @@ l stands for &quot;show the file name, not the result itself&quot;.
 <p>Autre alternative: utiliser ag (<a href="https://github.com/ggreer/the_silver_searcher">https://github.com/ggreer/the_silver_searcher</a>)
 <code>$ ag &quot;password&quot; ~/Dev</code></p>
 </blockquote>
+<br/>
 <h2 id="localiser-un-fichier">Localiser un fichier</h2>
 <pre><code>sudo find / -name &quot;*filename&quot;
-</code></pre><h2 id="liste-des-ports-par-dfaut-des-utilitaires-de-base">Liste des ports par défaut des utilitaires de base</h2>
+</code></pre><br/>
+<h2 id="liste-des-ports-par-dfaut-des-utilitaires-de-base">Liste des ports par défaut des utilitaires de base</h2>
 <pre><code>vi /etc/services
-</code></pre><h2 id="crer-un-groupe">Créer un groupe</h2>
+</code></pre><br/>
+<h2 id="crer-un-groupe">Créer un groupe</h2>
 <pre><code>sudo groupadd -g 4001 mon_groupe
-</code></pre><h2 id="ajouter-retirer-un-groupe--un-utilisateur">Ajouter/ Retirer un groupe à un utilisateur</h2>
+</code></pre><br/>
+<h2 id="ajouter-retirer-un-groupe--un-utilisateur">Ajouter/ Retirer un groupe à un utilisateur</h2>
 <pre><code># delete
 gpasswd –d group user
 
@@ -15767,7 +15789,8 @@ gpasswd –a group user
 # Alternative
 sudo usermod -aG mon_groupe olivier
 
-</code></pre><h2 id="ajouter-un-nouvel-utilisateur-sans-droit-de-login">Ajouter un nouvel utilisateur sans droit de login</h2>
+</code></pre><br/>
+<h2 id="ajouter-un-nouvel-utilisateur-sans-droit-de-login">Ajouter un nouvel utilisateur sans droit de login</h2>
 <pre><code>useradd –s /sbin/nologin user
 </code></pre><p>Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:</p>
 <ul>
@@ -15776,26 +15799,31 @@ sudo usermod -aG mon_groupe olivier
 <li>Créer le répertoire home de l'utilisateur</li>
 <li>Créer le password pour l'utilisateur avec <code>passwd</code></li>
 </ul>
+<br/>
 <h2 id="voir-toutes-les-variables-denvironnement-du-systme">Voir toutes les variables d'environnement du système</h2>
 <pre><code>env
 
 # ou 
 printenv
-</code></pre><h2 id="rediriger-stdout-and-stderr-en-bash">Rediriger STDOUT and STDERR en Bash</h2>
+</code></pre><br/>
+<h2 id="rediriger-stdout-and-stderr-en-bash">Rediriger STDOUT and STDERR en Bash</h2>
 <pre><code>Rediriger STDOUT vers un fichier en ajoutant &gt; entre les commandes. 
 Rediriger STDOUT vers une autre commande STDIN en ajoutant | entre les commandes.
 Rediriger STDERR vers un fichier en ajoutant 2&gt; entre les commandes.
 Rediriger STDERR vers STDOUT en ajoutant 2&gt;&amp;1 entre les commandes.
-</code></pre><h2 id="dupliquer-un-flux-de-donnes">Dupliquer un flux de données</h2>
+</code></pre><br/>
+<h2 id="dupliquer-un-flux-de-donnes">Dupliquer un flux de données</h2>
 <p>Utiliser la commande <code>tee</code></p>
 <pre><code>ifconfig -a | tee net.txt
 </code></pre><p>Exemple:
 Faire tourner un script Bash et à la fois voir son output dans le terminal et l'enregistrer dans une fichier:</p>
 <pre><code>bash_script 2&gt;&amp;1 | tee bash_script.log 
-</code></pre><h2 id="retourner-les-premires-lignes-dun-fichier">Retourner les premières lignes d'un fichier</h2>
+</code></pre><br/>
+<h2 id="retourner-les-premires-lignes-dun-fichier">Retourner les premières lignes d'un fichier</h2>
 <pre><code>head fichier
 # inverse de tail 
-</code></pre><h2 id="diffrence-entre-hardlink-et-symlink">Différence entre hardlink et symlink</h2>
+</code></pre><br/>
+<h2 id="diffrence-entre-hardlink-et-symlink">Différence entre hardlink et symlink</h2>
 <ul>
 <li>
 <p>Symlinks point to another file by name, if you change the contents of the file, but not the name it will point to the file with new content. If you remove the source or change the name to it, the symlink it no longer works.</p>
@@ -15807,17 +15835,23 @@ Faire tourner un script Bash et à la fois voir son output dans le terminal et l
 <blockquote>
 <p>An inodeis a data structure used to represent a filesystem object. Lots of fields are stored in an inode ex: Inode number, direct/indirect disk blocks, number of blocks, change and modification time, File deletiontime, size, type, group, owner, permissions, etc.</p>
 </blockquote>
+<br/>
 <h2 id="forcer-un-check-filesystem-lors-du-prochain-reboot">Forcer un check filesystem lors du prochain reboot</h2>
 <pre><code>touch /forcefsck
-</code></pre><h2 id="voir-les-ports-utiliss-par-les-process">Voir les ports utilisés par les process</h2>
+</code></pre><br/>
+<h2 id="voir-les-ports-utiliss-par-les-process">Voir les ports utilisés par les process</h2>
 <pre><code>netstat -tulpn
-</code></pre><h2 id="utiliser-une-machine-comme-router-entre-2-subnets">Utiliser une machine comme router entre 2 subnets</h2>
+</code></pre><br/>
+<h2 id="utiliser-une-machine-comme-router-entre-2-subnets">Utiliser une machine comme router entre 2 subnets</h2>
 <pre><code>echo &quot;1&quot; &gt; /proc/sys/net/ipv4/ip_forward
-</code></pre><h2 id="diffrence-entre-un-process-et-thread">Différence entre un process et thread?</h2>
+</code></pre><br/>
+<h2 id="diffrence-entre-un-process-et-thread">Différence entre un process et thread?</h2>
 <p>Threads sont utilisées pour des petites tâches alors que les process sont utilisés par des tâches plus &ldquo;lourdes&rdquo; comme l'exécution d'applications.</p>
+<br/>
 <h2 id="diffrence-entre-exec-and-fork">Différence entre exec and fork?</h2>
 <p>Fork duplique le process actuel.
 Exec exécutes un process en utilisant l'executable cible et vous n'avez pas 2 processes qui font tourner le même code ou qui hérite du même état.</p>
+<br/>
 <h2 id="diffrence-entre-les-2-commandes-">Différence entre les 2 commandes ?</h2>
 <pre><code>omyvar=helloo
 export myvar=hello
@@ -15825,27 +15859,36 @@ export myvar=hello
 <li>1er cas: omyvar est restreint uniquement au shell</li>
 <li>2ème cas: exporter la variable la rend accessible à n'importe quel process</li>
 </ul>
+<br/>
 <h2 id="limiter-la-mmoire-utilise-par-un-process">Limiter la mémoire utilisée par un process</h2>
 <p>Soit en utilisant <code>ulimit</code> pour un changement temporaire ou <code>sysctl -a</code> pour un changement permanent</p>
+<br/>
 <h2 id="voir-les-logs-system-systemd">Voir les logs system (systemd)</h2>
 <pre><code>journalctl -f 
-</code></pre><h2 id="voir-les-logs-system-et-filtrer">Voir les logs system et filtrer</h2>
+</code></pre><br/>
+<h2 id="voir-les-logs-system-et-filtrer">Voir les logs system et filtrer</h2>
 <pre><code>journalctl -f -u le_filtre
-</code></pre><h2 id="nettoyer-les-logs-de-plus-de-2-jours-systemd">Nettoyer les logs de plus de 2 jours (systemd)</h2>
+</code></pre><br/>
+<h2 id="nettoyer-les-logs-de-plus-de-2-jours-systemd">Nettoyer les logs de plus de 2 jours (systemd)</h2>
 <pre><code>journalctl --vacuum-time=2d
-</code></pre><h2 id="ne-garder-que-500-mo-de-logs-systemd">Ne garder que 500 Mo de logs (systemd)</h2>
+</code></pre><br/>
+<h2 id="ne-garder-que-500-mo-de-logs-systemd">Ne garder que 500 Mo de logs (systemd)</h2>
 <pre><code>journalctl --vacuum-size=500M
-</code></pre><h2 id="montagedmontage-nfs">Montage/Démontage NFS</h2>
+</code></pre><br/>
+<h2 id="montagedmontage-nfs">Montage/Démontage NFS</h2>
 <pre><code># Montage
 mount -t nfs SERVER:MONTAGE_SUR_BAIE ./dossier_local/
 
 # Démontage
 umount ./dossier_local
-</code></pre><h2 id="afficher-les-paramtres-kernel-configurs-dans-etcsysctlconf">Afficher les paramètres kernel configurés dans /etc/sysctl.conf</h2>
+</code></pre><br/>
+<h2 id="afficher-les-paramtres-kernel-configurs-dans-etcsysctlconf">Afficher les paramètres kernel configurés dans /etc/sysctl.conf</h2>
 <pre><code>sysctl -p
-</code></pre><h2 id="afficher-les-erreurs-kernel-en-mode-readable">Afficher les erreurs kernel en mode readable</h2>
+</code></pre><br/>
+<h2 id="afficher-les-erreurs-kernel-en-mode-readable">Afficher les erreurs kernel en mode readable</h2>
 <pre><code>dmesg -T
-</code></pre><h2 id="debug-rseau-avec-tcpdump">Debug réseau avec TCPdump</h2>
+</code></pre><br/>
+<h2 id="debug-rseau-avec-tcpdump">Debug réseau avec TCPdump</h2>
 <p>Ouvrir dans 1er terminal:</p>
 <pre><code>tcpdump -vnni any host dns_a_filtrer
 
@@ -15860,7 +15903,8 @@ tcpdump -vnni eth0 not dst net 192.168.0.1/8
 docker pull dns_a_filtrer
 
 curl dns_a_filtrer
-</code></pre><h2 id="monitoring-simple-de-host">Monitoring (simple) de host</h2>
+</code></pre><br/>
+<h2 id="monitoring-simple-de-host">Monitoring (simple) de host</h2>
 <pre><code># IO par disque
 sar -d
 
@@ -15878,19 +15922,24 @@ sar -u
 
 # All
 sar -A
-</code></pre><h2 id="copier-tout-un-dossier-et-grer-les-io-errors">Copier tout un dossier et gérer les IO Errors</h2>
+</code></pre><br/>
+<h2 id="copier-tout-un-dossier-et-grer-les-io-errors">Copier tout un dossier et gérer les IO Errors</h2>
 <p>Workaround:</p>
 <pre><code>rsync -auv --delete --ignore-errors /Volumes/Olivier/* /Volumes/LaCie/
-</code></pre><h2 id="redhat">Redhat</h2>
+</code></pre><br/>
+<h2 id="redhat">Redhat</h2>
 <p><strong>Lister les services</strong></p>
 <pre><code>systemctl list-units --type=service
-</code></pre><h2 id="systemd-et-cgroup">Systemd et cgroup</h2>
+</code></pre><br/>
+<h2 id="systemd-et-cgroup">Systemd et cgroup</h2>
 <p><img src="/images/Linux_kernel_unified_hierarchy_cgroups_and_systemd.png" alt="image"></p>
 <!-- raw HTML omitted -->
+<br/>
 <h2 id="linux-filesystem-hierarchy">Linux Filesystem Hierarchy</h2>
 <p><img src="/images/linux_filesystem_hierarchy.png" alt="image"></p>
 <!-- raw HTML omitted -->
 <p>Lien vers le standard: <a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html">https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html</a></p>
+<br/>
 <h2 id="raccourcis-pour-le-terminal">Raccourcis pour le terminal</h2>
 <table>
 <thead>
@@ -15938,6 +15987,7 @@ sar -A
 </tr>
 </tbody>
 </table>
+<br/>
 <h2 id="crer-un-soft-ou-symbolic-link-sur-un-fichier">Créer un soft (ou symbolic) link sur un fichier</h2>
 <pre><code>ln -s dossier_cible nom_du_lien
 </code></pre><p>Par exemple:</p>
@@ -15952,6 +16002,7 @@ localdev.local
 </code></pre><blockquote>
 <p>Si on efface le fichier original sur lequel point le soft link alors ce dernier devient inutile parce qu'il va pointer sur un fichier qui n'existe plus. Les soft links peuvent aussi pointer sur des fichiers dans un autre file system.</p>
 </blockquote>
+<br/>
 <h2 id="crer-un-hard-link">Créer un hard link</h2>
 <p>Exemple:</p>
 <pre><code>$ echo &quot;Hello World!&quot; &gt; hello.txt
@@ -15987,6 +16038,7 @@ lrwxrwxrwx. 1 olivier olivier   13 Jun 16 22:32 name -&gt; /etc/hostname
 </code></pre><p>Dans l'exemple précédent, on a créé un hard link en utilisant la commande <code>ln</code>.
 Quand on a fait un changement dans le fichier original hello.txt file, le changement a été répercuté sur le fichier bye.txt.</p>
 <p>Mais comme bye.txt est un hard link, même si on efface hello.txt le hard link existe toujours et son contenu reste le même que le contenu original.</p>
+<br/>
 <h2 id="fichiers-tar">Fichiers tar</h2>
 <p><strong>Extraire un tar</strong></p>
 <pre><code>$ tar -xzvf files.tar.gz
@@ -15998,14 +16050,16 @@ bye.txt
 <pre><code>$ tar -xjvf files.tar.bz2
 hello.txt
 bye.txt
-</code></pre><p><strong>Créer un tar</strong></p>
+</code></pre><br/>
+<p><strong>Créer un tar</strong></p>
 <pre><code>$ tar -czvf files.tar.gz hello.c bye.txt
 hello.txt
 bye.txt
 
 $ ls
 bye.txt  files.tar.gz  hello.txt
-</code></pre><h2 id="lire-un-fichier-etcpasswd">Lire un fichier /etc/passwd</h2>
+</code></pre><br/>
+<h2 id="lire-un-fichier-etcpasswd">Lire un fichier /etc/passwd</h2>
 <pre><code>root❌0:0:root:/root:/bin/bash
 bin❌1:1:bin:/bin:/sbin/nologin
 daemon❌2:2:daemon:/sbin:/sbin/nologin
@@ -16027,6 +16081,8 @@ sshd❌74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 chrony❌998:995::/var/lib/chrony:/sbin/nologin
 systemd-coredump❌994:994:systemd Core Dumper:/:/sbin/nologin
 olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
+
+# Please note --&gt; &quot;❌&quot; = &quot;: x :&quot; (sans espace)
 </code></pre><table>
 <thead>
 <tr>
@@ -16065,19 +16121,24 @@ olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
 </tr>
 </tbody>
 </table>
+<br/>
 <h2 id="etcgroup">/etc/group</h2>
 <p>Si un utilisateur est membre du groupe <code>wheel</code>cela signifie qu'il a accès à sudo.</p>
 <blockquote>
 <p>To be able to use sudo command, you must have your user mentioned in the /etc/sudoers file. The best way to edit the file is to use visudo command as root user.</p>
 </blockquote>
+<br/>
 <h2 id="she-bang-ou-sha-bang-dans-les-fichiers-excutables">she-bang ou sha-bang dans les fichiers exécutables</h2>
 <p>she-bang ou sha-bang est la première ligne d'un script qui débute par <code>#!</code> suivi du path de l'exécutable du script.</p>
 <p>Example: <code>#!/bin/bash</code></p>
+<br/>
 <h2 id="lister-les-dossiers-les-plus-lourds">Lister les dossiers les plus lourds</h2>
 <pre><code>du --max-depth=7 /* | sort -n
-</code></pre><h2 id="obtenir-mon-ip-externe-via-google">Obtenir mon IP externe via google</h2>
+</code></pre><br/>
+<h2 id="obtenir-mon-ip-externe-via-google">Obtenir mon IP externe via google</h2>
 <pre><code>dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'&quot;' '{ print $2}'
-</code></pre><h2 id="obtenir-le-header-rponse--une-requte">Obtenir le header réponse à une requête</h2>
+</code></pre><br/>
+<h2 id="obtenir-le-header-rponse--une-requte">Obtenir le header réponse à une requête</h2>
 <p>Tout simplement <code>curl -I http://www.example.org</code>.</p>
 ]]></content>
         </item>
@@ -16088,11 +16149,12 @@ olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
             <pubDate>Sat, 22 Dec 2012 19:47:00 +0000</pubDate>
             
             <guid>https://leandeep.com/installer-couchdb-sur-un-raspberry/</guid>
-            <description>Installation de CouchDB sudo apt-get update sudo apt-get install couchdb Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0 Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&#39;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&#39;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1.</description>
+            <description>Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&#39;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&#39;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1.</description>
             <content type="html"><![CDATA[<h2 id="installation-de-couchdb">Installation de CouchDB</h2>
 <pre><code>sudo apt-get update
 sudo apt-get install couchdb
-</code></pre><h2 id="configuration">Configuration</h2>
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
 <ol>
 <li>On configure le port et la bind_address</li>
 </ol>
@@ -16102,11 +16164,13 @@ sudo apt-get install couchdb
 port = 5984
 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout
 bind_address = 0.0.0.0
-</code></pre><ol start="2">
+</code></pre><br/>
+<ol start="2">
 <li>Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier <code> /var/init.d/couchdb</code> et on ajoute cette variable d'environnement pour ne plus être gêné par <code>sudo</code>:</li>
 </ol>
 <pre><code>COUCHDB_USER=couchdb
-</code></pre><ol start="3">
+</code></pre><br/>
+<ol start="3">
 <li>Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l'utilisateur couchdb:</li>
 </ol>
 <pre><code>sudo chown -R couchdb /var/lib/couchdb/1.2.0
@@ -16120,9 +16184,10 @@ bind_address = 0.0.0.0
             
             <guid>https://leandeep.com/static-method-vs-class-method-en-programmation-orient%C3%A9e-objet/</guid>
             <description>Qu&#39;est-ce qu&#39;une class method ? Une méthode de classe est une méthode qui est liée à une classe plutôt qu&#39;à ses objets. Tout comme la méthode statique, il n&#39;est pas nécessaire de créer une instance de classe pour appeler la méthode.
-Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même.</description>
+ Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même.</description>
             <content type="html"><![CDATA[<h2 id="quest-ce-quune-class-method-">Qu'est-ce qu'une class method ?</h2>
 <p>Une méthode de classe est une méthode qui est liée à une classe plutôt qu'à ses objets. Tout comme la méthode statique, il n'est pas nécessaire de créer une instance de classe pour appeler la méthode.</p>
+<br/>
 <h2 id="diffrence-entre-static-method-et-class-method">Différence entre static method et class method</h2>
 <p>Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres.
 Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même.
@@ -16132,7 +16197,8 @@ La class method peut être appelée à la fois par la classe et ses instances.</
 <pre><code>Class().classmethod()
 </code></pre><p>Mais peu importe, la class method est toujours attachée à une classe avec comme premier argument la classe elle-même.</p>
 <pre><code>def classMethod(cls, args...)
-</code></pre><h2 id="quand-utiliser-des-class-methods-">Quand utiliser des class methods ?</h2>
+</code></pre><br/>
+<h2 id="quand-utiliser-des-class-methods-">Quand utiliser des class methods ?</h2>
 <p><strong>Pour créer des factory methods:</strong></p>
 <blockquote>
 <p>Les Factory methods sont ces méthodes qui retournent un objet classe (comme constructor) pour différents use cases.</p>
@@ -16160,10 +16226,12 @@ person.display()
 
 person1 = Person.from_birth_year('John',  1985)
 person1.display()
-</code></pre><p>Output</p>
+</code></pre><br/>
+<p>Output</p>
 <pre><code>Adam a 19 ans
 John a 31 ans
-</code></pre><p><strong>Corriger la création d'une instance en héritage:</strong></p>
+</code></pre><br/>
+<p><strong>Corriger la création d'une instance en héritage:</strong></p>
 <p>Quand on dérive une classe en implémentant une factory méthode comme class méthode, cela permet d'avoir une création d'instance correcte de la classe dérivée.</p>
 <p>On aurait pu créer une static method pour l'exemple précédent mais l'objet qu'elle crée sera hardcodé comme <em>Base class</em>.</p>
 <p>Mais quand on utilise une class method, cela crée une instance correcte de la classe dérivée.</p>
@@ -16194,12 +16262,14 @@ print(isinstance(man, Man))
 
 man1 = Man.from_fathers_age('John', 1965, 20)
 print(isinstance(man1, Man))
-</code></pre><p>Output:</p>
+</code></pre><br/>
+<p>Output:</p>
 <pre><code>True
 False
 </code></pre><p>Ici en utilisant une static method pour créer une instance de classe cela nous oblige à hardcoder le type d'instance pendant sa création: <code>def from_fathers(... return Person(name...</code> .</p>
 <p>Cela pose clairement un problème pour l'héritage Personne à Man.</p>
 <p>La méthode <code>from_fathers_age</code> ne retourne pas un objet <code>Man</code> mais l'objet de classe de base de <code>Person</code>.</p>
+<br/>
 <p>Cela viole le paradigme OOP&hellip;</p>
 ]]></content>
         </item>
@@ -16211,12 +16281,14 @@ False
             
             <guid>https://leandeep.com/h%C3%A9ritage-vs-composition-en-programmation-orient%C3%A9e-objet/</guid>
             <description>Introduction Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.
-Rappel héritage (&amp;ldquo;est un&amp;rdquo;) L&#39;héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère. En d&#39;autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</description>
+ Rappel héritage (&amp;ldquo;est un&amp;rdquo;) L&#39;héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère. En d&#39;autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.</p>
+<br/>
 <h2 id="rappel-hritage-est-un">Rappel héritage (&ldquo;est un&rdquo;)</h2>
 <p>L'héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère.
 En d'autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</p>
+<br/>
 <h2 id="example-dhritage-en-python">Example d'héritage en Python</h2>
 <pre><code>class classeMere:
     &quot;&quot;&quot;une classe mère&quot;&quot;&quot;
@@ -16226,7 +16298,8 @@ class classeFille(classeMere):
     &quot;&quot;&quot;une classe fille qui hérite de la classe mère&quot;&quot;&quot;
     ...
 
-</code></pre><h2 id="constructeur">Constructeur</h2>
+</code></pre><br/>
+<h2 id="constructeur">Constructeur</h2>
 <p>Le constructeur de la classe fille doit faire un appel explicite au constructeur de la classe mère afin d’initialiser les attributs hérités de celle-ci. Pour cela on aura deux syntaxes à notre disposition.</p>
 <p>Dans la première syntaxe possible, on fait précéder <code>__init__</code> du nom de la classe mère :</p>
 <p><strong>1ère syntaxe</strong></p>
@@ -16235,18 +16308,22 @@ class classeFille(classeMere):
     def __init__(self, parametre1, parametre2, ...):
         classeMere.__init__(self, parametre1, ...)
         ...
-</code></pre><p><strong>2ème syntaxe</strong></p>
+</code></pre><br/>
+<p><strong>2ème syntaxe</strong></p>
 <pre><code>class classeFille(classeMere):
     &quot;&quot;&quot;documentation de la classe fille&quot;&quot;&quot;
     def __init__(self, parametre1, parametre2, ...):
         super().__init__(parametre1, ...)
         ...
-</code></pre><h2 id="reprsentation-uml">Représentation UML</h2>
+</code></pre><br/>
+<h2 id="reprsentation-uml">Représentation UML</h2>
 <p><img src="/images/heritage.png" alt="image"></p>
+<br/>
 <h2 id="rappel-composition-a-un">Rappel composition (&ldquo;a un&rdquo;)</h2>
 <p>La relation de composition modélise une relation d’inclusion entre les instances de deux classes. Les objets de la classe conteneur possèdent donc un attribut qui est un objet de la classe contenue.</p>
 <p>Dans certains cas il est tout à fait possible techniquement d’utiliser une relation de composition à la place d’une relation d’héritage.</p>
 <p>Au lieu d’avoir une classe B qui hérite d’une classe A, on déclare dans B un attribut qui sera une instance de la classe A.</p>
+<br/>
 <h2 id="example-de-composition-en-python">Example de composition en Python</h2>
 <pre><code>class point:
     def __init__(self,x,y):
@@ -16269,8 +16346,10 @@ class disque:
 cd = disque(-1, 2, 5)
 print(&quot;abscisse du centre :&quot;,cd.getCentre().getx())
 print(&quot;ordonnée du centre :&quot;,cd.getCentre().gety())
-</code></pre><h2 id="reprsentation-uml-1">Représentation UML</h2>
+</code></pre><br/>
+<h2 id="reprsentation-uml-1">Représentation UML</h2>
 <p><img src="/images/composition-agregation.png" alt="image"></p>
+<br/>
 <h2 id="hritage-vs-composition-en-python">Héritage vs Composition en Python</h2>
 <p><strong>Exemples simples</strong></p>
 <pre><code># Héritage
@@ -16290,14 +16369,16 @@ class Car:
 	def __init__(self):
     	self.engine = Engine()
 
-</code></pre><h2 id="choisir-entre-composition-et-hritage-">Choisir entre composition et héritage ?</h2>
+</code></pre><br/>
+<h2 id="choisir-entre-composition-et-hritage-">Choisir entre composition et héritage ?</h2>
 <p>On choisit l’héritage quand la relation entre classes est bien de la forme <code>est un</code>, ou pour les anglicistes <code>is a</code>.</p>
 <p>On choisit la composition quand la relation entre classes est bien de la forme <code>a un</code>, ou pour les anglicistes <code>has a</code>.</p>
 <p>Si l'on suit les recommandations du best seller &ldquo;Design Patterns - Elements of Reusable Object Oriented Software&rdquo; (du Gang of 4), il vaut mieux utiliser la composition.</p>
 <p><img src="/images/best-seller-design-patterns-OOP.png" alt="image"></p>
 <p>Object composition consiste à voir les objets comme des boites noires. C'est plus simple que de faire de l'héritage où il faut connaître les détails de l'objet pour l'utiliser</p>
-<p>&mdash;&ndash; Mis à jour 21/05/2019 &mdash;&ndash;</p>
+<p>&mdash; Mis à jour 21/05/2019 &mdash;</p>
 <p>La conférence &ldquo;PyCon Cleveland 2019&rdquo; a une vidéo intéressante sur le sujet: <a href="https://www.youtube.com/watch?time_continue=1&amp;v=YXiaWtc0cgE">https://www.youtube.com/watch?time_continue=1&amp;v=YXiaWtc0cgE</a></p>
+<br/>
 <p><strong>Quand utiliser l'héritage ?</strong></p>
 <ol>
 <li>
@@ -16326,10 +16407,11 @@ class Car:
             
             <guid>https://leandeep.com/obliger-les-classes-d%C3%A9riv%C3%A9es-%C3%A0-impl%C3%A9menter-certaines-m%C3%A9thodes-en-python/</guid>
             <description>Pour être notifié dès l&#39;instanciation d&#39;une classe que des méthodes n&#39;ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
-Exemple:
+ Exemple:
 from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &amp;quot;Can&#39;t instantiate abstract class Concrete with abstract methods bar&amp;quot;  Sans le module ABC n&#39;avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée.</description>
             <content type="html"><![CDATA[<p>Pour être notifié dès l'instanciation d'une classe que des méthodes n'ont pas été implémentées on peut utiliser le module <code>ABC</code> (Abstract Base Classes).
 On crée alors avec le module <code>ABC</code> une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.</p>
+<br/>
 <p>Exemple:</p>
 <pre><code>from abc import ABCMeta, abstractmethod
 

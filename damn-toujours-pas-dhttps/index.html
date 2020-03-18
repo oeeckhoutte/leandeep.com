@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&amp;hellip; J&#39;en profite pour écrire rapidement cet article.
-Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+ Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
 Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -295,7 +295,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Damn! Toujours pas d’HTTPS…">
 <meta itemprop="description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J&#39;en profite pour écrire rapidement cet article.
-Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+ Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
 Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:">
 <meta itemprop="datePublished" content="2018-08-06T23:11:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-08-06T23:11:00&#43;00:00" />
@@ -309,7 +309,7 @@ Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:">
 
 <meta name="twitter:title" content="Damn! Toujours pas d’HTTPS…"/>
 <meta name="twitter:description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&#39;ai toujours pas configuré d&#39;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J&#39;en profite pour écrire rapidement cet article.
-Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
+ Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
 Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:"/>
 
 
@@ -390,12 +390,15 @@ Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:"/
             <div class="post-content">
                 <p>Honte à moi, je passe mon temps à jouer avec des serveurs et je n'ai toujours pas configuré d'HTTPS pour mon blog.
 Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J'en profite pour écrire rapidement cet article.</p>
+<br/>
 <p>Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.</p>
 <p>Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</p>
 <pre><code>docker run -d --restart=always -e url=http://leandeep.com -e NODE_ENV=production --name some-ghost-v2 -v /var/lib/ghost:/var/lib/ghost/content -p 80:2368 ghost
 </code></pre><p>C’était plutôt simple et efficace. En effet, je n’ai jamais dû intervenir sur le serveur depuis avril 2015. (Enfin jamais sauf une fois pour upgrader l'OS et passer à Ubuntu 16.04 . Mais c'est un autre sujet)</p>
+<br/>
 <p>Aujourd’hui, pour avoir un certificat HTTPS simplement, je vais utiliser Nginx comme reverse proxy. Ce dernier portera le certificat.</p>
 <p>Pour utiliser Nginx, je vais passer par Docker. C'est beaucoup plus rapide et propre que faire des apt-get install nginx&hellip; Et pour me simplifier la vie, je vais utiliser un docker-compose puisque j’aurais plus d’un container à gérer sur ce serveur.</p>
+<br/>
 <p>Voici ci-dessous à quoi ressemble mon docker-compose.yml. Vous verrez que j'utilise 2 projets opensource que je vous invite à consulter sur Github: <a href="https://github.com/jwilder/nginx-proxy">https://github.com/jwilder/nginx-proxy</a> et <a href="https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion">https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion</a>. C'est grâce à ces projets que mes certificats se génèrent tout seul et que je peux avoir des HTTPS pour mes nouveaux projets sans rien faire.</p>
 <pre><code>version: '3.1'
 services:
@@ -453,6 +456,7 @@ volumes:
   nginx.html:
 </code></pre><p>Comme vous pouvez le voir, ce docker-compose définit 2 sites: <a href="https://leandeep.com">https://leandeep.com</a> et <a href="https://www.leandeep.com">https://www.leandeep.com</a>.
 Le premier renvoie vers un blog Ghost et le deuxième vers un dossier statique servi par Nginx.</p>
+<br/>
 <p>Avant de faire un docker-compose up -d , j’ai créé 2 dossiers pour chacun des 2 sites web.
 Le premier dossier blog/ contient le contenu de mon blog Ghost <a href="https://leandeep.com">https://leandeep.com</a>. Il contient donc l’arborescence suivante:</p>
 <pre><code>apps/
@@ -461,13 +465,15 @@ images/
 logs/
 settings/
 themes/
-</code></pre><p>Le deuxième dossier staticweb/ pour le site internet <a href="https://www.leandeep.com">https://www.leandeep.com</a> contient une simple page HTML qui redirige vers <a href="https://leandeep.com">https://leandeep.com</a> via ces 3 lignes de code:</p>
+</code></pre><br/>
+<p>Le deuxième dossier staticweb/ pour le site internet <a href="https://www.leandeep.com">https://www.leandeep.com</a> contient une simple page HTML qui redirige vers <a href="https://leandeep.com">https://leandeep.com</a> via ces 3 lignes de code:</p>
 <pre><code>&lt;script&gt;
 window.location.href = 'https://leandeep.com';
 &lt;/script&gt;
 </code></pre><blockquote>
 <p>A la place de cette redirection bête et méchante, on pourrait avoir un tout autre site internet bien plus intéressant. Ici c’est une redirection que j’ai laissé volontairement à titre d'exemple pour montrer comment avoir plusieurs sites web avec cet unique docker-compose.</p>
 </blockquote>
+<br/>
 <p>Enfin, pour générer le certificat, il faudra créer un fichier ./nginx/vhost.d/leandeep.com qui contiendra la configuration pour let's encrypt:</p>
 <pre><code>## Start of configuration add by letsencrypt container
 location ^~ /.well-known/acme-challenge/ {
@@ -484,7 +490,8 @@ add_header X-XSS-Protection &quot;1; mode=block&quot;;
 add_header X-Content-Type-Options &quot;nosniff&quot;;
 add_header Referrer-Policy &quot;no-referrer-when-downgrade&quot;;
 server_tokens off;
-</code></pre><p>Voilà. Il n'y a plus qu'à lancer le docker-compose avec la commande:</p>
+</code></pre><br/>
+<p>Voilà. Il n'y a plus qu'à lancer le docker-compose avec la commande:</p>
 <pre><code>docker-compose up -d
 </code></pre>
             </div>

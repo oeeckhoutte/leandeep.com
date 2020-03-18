@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Qu&#39;est-ce qu&#39;une class method ? Une méthode de classe est une méthode qui est liée à une classe plutôt qu&#39;à ses objets. Tout comme la méthode statique, il n&#39;est pas nécessaire de créer une instance de classe pour appeler la méthode.
-Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même." />
+ Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="static method vs class method en programmation orientée objet">
 <meta itemprop="description" content="Qu&#39;est-ce qu&#39;une class method ? Une méthode de classe est une méthode qui est liée à une classe plutôt qu&#39;à ses objets. Tout comme la méthode statique, il n&#39;est pas nécessaire de créer une instance de classe pour appeler la méthode.
-Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même.">
+ Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même.">
 <meta itemprop="datePublished" content="2012-11-12T21:03:00&#43;00:00" />
 <meta itemprop="dateModified" content="2012-11-12T21:03:00&#43;00:00" />
 <meta itemprop="wordCount" content="426">
@@ -307,7 +307,7 @@ Différence entre static method et class method Les static methods ne connaissen
 
 <meta name="twitter:title" content="static method vs class method en programmation orientée objet"/>
 <meta name="twitter:description" content="Qu&#39;est-ce qu&#39;une class method ? Une méthode de classe est une méthode qui est liée à une classe plutôt qu&#39;à ses objets. Tout comme la méthode statique, il n&#39;est pas nécessaire de créer une instance de classe pour appeler la méthode.
-Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même."/>
+ Différence entre static method et class method Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres. Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même."/>
 
 
 
@@ -387,6 +387,7 @@ Différence entre static method et class method Les static methods ne connaissen
             <div class="post-content">
                 <h2 id="quest-ce-quune-class-method-">Qu'est-ce qu'une class method ?</h2>
 <p>Une méthode de classe est une méthode qui est liée à une classe plutôt qu'à ses objets. Tout comme la méthode statique, il n'est pas nécessaire de créer une instance de classe pour appeler la méthode.</p>
+<br/>
 <h2 id="diffrence-entre-static-method-et-class-method">Différence entre static method et class method</h2>
 <p>Les static methods ne connaissent rien à propos de la classe et ne peuvent utiliser que les paramètres.
 Les class methods fonctionnent avec la classe et ses paramètres sont toujours ceux de la classe elle-même.
@@ -396,7 +397,8 @@ La class method peut être appelée à la fois par la classe et ses instances.</
 <pre><code>Class().classmethod()
 </code></pre><p>Mais peu importe, la class method est toujours attachée à une classe avec comme premier argument la classe elle-même.</p>
 <pre><code>def classMethod(cls, args...)
-</code></pre><h2 id="quand-utiliser-des-class-methods-">Quand utiliser des class methods ?</h2>
+</code></pre><br/>
+<h2 id="quand-utiliser-des-class-methods-">Quand utiliser des class methods ?</h2>
 <p><strong>Pour créer des factory methods:</strong></p>
 <blockquote>
 <p>Les Factory methods sont ces méthodes qui retournent un objet classe (comme constructor) pour différents use cases.</p>
@@ -424,10 +426,12 @@ person.display()
 
 person1 = Person.from_birth_year('John',  1985)
 person1.display()
-</code></pre><p>Output</p>
+</code></pre><br/>
+<p>Output</p>
 <pre><code>Adam a 19 ans
 John a 31 ans
-</code></pre><p><strong>Corriger la création d'une instance en héritage:</strong></p>
+</code></pre><br/>
+<p><strong>Corriger la création d'une instance en héritage:</strong></p>
 <p>Quand on dérive une classe en implémentant une factory méthode comme class méthode, cela permet d'avoir une création d'instance correcte de la classe dérivée.</p>
 <p>On aurait pu créer une static method pour l'exemple précédent mais l'objet qu'elle crée sera hardcodé comme <em>Base class</em>.</p>
 <p>Mais quand on utilise une class method, cela crée une instance correcte de la classe dérivée.</p>
@@ -458,12 +462,14 @@ print(isinstance(man, Man))
 
 man1 = Man.from_fathers_age('John', 1965, 20)
 print(isinstance(man1, Man))
-</code></pre><p>Output:</p>
+</code></pre><br/>
+<p>Output:</p>
 <pre><code>True
 False
 </code></pre><p>Ici en utilisant une static method pour créer une instance de classe cela nous oblige à hardcoder le type d'instance pendant sa création: <code>def from_fathers(... return Person(name...</code> .</p>
 <p>Cela pose clairement un problème pour l'héritage Personne à Man.</p>
 <p>La méthode <code>from_fathers_age</code> ne retourne pas un objet <code>Man</code> mais l'objet de classe de base de <code>Person</code>.</p>
+<br/>
 <p>Cela viole le paradigme OOP&hellip;</p>
 
             </div>
