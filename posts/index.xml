@@ -1108,15 +1108,17 @@ go get golang.org/x/lint/golint
 <pre><code>sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
 </code></pre><p>Ajouter les lignes suivantes dans le fichier <code>~/.profile</code>:</p>
 <pre><code>export PATH=$PATH:/usr/local/go/bin
-
-export GOPATH=&quot;${HOME}/.go&quot;
-export PATH=$PATH:/usr/local/go/bin
+export GOPATH=&quot;${HOME}/.go/bin&quot;
+export PATH=$GOPATH:$PATH
 </code></pre><p>Recharger le fichier <code>~/.profile</code>:</p>
 <pre><code>source ~/.profile
 </code></pre><p>Vérifier que Go est bien installé:</p>
 <pre><code>go version
 </code></pre><blockquote>
-<p>Installer au moins le package suivant: <code>apt-get install build-essential</code> pour avoir <code>gcc</code> et <code>g++</code>.</p>
+<p>Installer au moins les packages suivants: <code>apt-get install build-essential git</code> pour avoir <code>gcc</code> et <code>g++</code>.</p>
+</blockquote>
+<blockquote>
+<p>Vérifier le bon fonctionnement de <code>go get</code>. Par exemple: <code>go get github.com/anacrolix/torrent/cmd/torrent</code></p>
 </blockquote>
 ]]></content>
         </item>
@@ -3901,6 +3903,13 @@ EOF
 </code></pre><p>Verify jupyterlab service is working and get access token:</p>
 <pre><code>sudo systemctl status jupyter-lab.service
 </code></pre><br/>
+<p><strong>Add custom Password</strong></p>
+<p>Start a Python repl and enter the following commands:</p>
+<pre><code>from notebook.auth import passwd
+passwd()
+</code></pre><p>Copy the hashed password, uncomment the line <code>c.NotebookApp.password</code> and add the password as value.</p>
+<p>Restart the service (or container).</p>
+<br/>
 <p><strong>Custom jupyter conf</strong></p>
 <p>It is possible to custom jupyter lab conf with the following commands:</p>
 <pre><code># Incoming connection whitelist. tried with IP &amp; CIDR. not sure about ranges. should be comma separated if more than one.
