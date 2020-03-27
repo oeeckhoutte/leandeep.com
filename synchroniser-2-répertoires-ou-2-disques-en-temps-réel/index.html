@@ -295,7 +295,7 @@ function toTitleCase(str) {
 <meta itemprop="description" content="Introduction L&#39;objectif de cet article est de partager comment je backup mon raid /dev/md0 vers /dev/md1 grâce à l&#39;utilitaire lsyncd. Cela peut être pratique si vous avez des données très sensibles que vous ne voulez pas perdre. Je ne sais pas si c&#39;est la meilleure solution mais avec 2 x 2 disques répliquées, je prends peu de risque de voir disparaître mes données. A voir sur le long terme si c&#39;est efficace en terme de stabilité ou performance.">
 <meta itemprop="datePublished" content="2020-03-18T19:49:00&#43;02:00" />
 <meta itemprop="dateModified" content="2020-03-18T19:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="270">
+<meta itemprop="wordCount" content="339">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -431,6 +431,11 @@ Mar 19 00:02:27 olivier-NUC7i7BNH lsyncd[12747]:    ...done.
 Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Started LSB: lsyncd daemon init script.
 
 </code></pre><br/>
+<h2 id="warning">Warning</h2>
+<p><strong>Attention</strong>, lors d'un redémarrage de serveur toutes mes données ont été effacées sur le serveur de backup. Je synchronise le raid md0 vers md1.
+Après un reboot, le raid md1 a été remonté mais pas md0. Ne voyant plus le disque source, <code>lsyncd</code> a effacé le contenu de md1&hellip;</p>
+<p>Pour éviter cela, ajouter l'option <code>delete = false,</code> dans le fichier <code>/etc/lsyncd/lsyncd.conf.lua</code> et redémarrer le service <code>systemctl start lsyncd</code>.</p>
+<br/>
 <h2 id="ressource">Ressource</h2>
 <p><a href="https://linoxide.com/tools/setup-lsyncd-sync-directories/">https://linoxide.com/tools/setup-lsyncd-sync-directories/</a></p>
 
@@ -444,7 +449,7 @@ Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Started LSB: lsyncd daemon init sc
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/backup">Backup</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>270 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>339 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Mar. 2020</p>
         </div>

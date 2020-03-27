@@ -64,6 +64,11 @@ Mar 19 00:02:27 olivier-NUC7i7BNH lsyncd[12747]:    ...done.
 Mar 19 00:02:27 olivier-NUC7i7BNH systemd[1]: Started LSB: lsyncd daemon init script.
 
 </code></pre><br/>
+<h2 id="warning">Warning</h2>
+<p><strong>Attention</strong>, lors d'un redémarrage de serveur toutes mes données ont été effacées sur le serveur de backup. Je synchronise le raid md0 vers md1.
+Après un reboot, le raid md1 a été remonté mais pas md0. Ne voyant plus le disque source, <code>lsyncd</code> a effacé le contenu de md1&hellip;</p>
+<p>Pour éviter cela, ajouter l'option <code>delete = false,</code> dans le fichier <code>/etc/lsyncd/lsyncd.conf.lua</code> et redémarrer le service <code>systemctl start lsyncd</code>.</p>
+<br/>
 <h2 id="ressource">Ressource</h2>
 <p><a href="https://linoxide.com/tools/setup-lsyncd-sync-directories/">https://linoxide.com/tools/setup-lsyncd-sync-directories/</a></p>
 ]]></content>
@@ -1750,6 +1755,12 @@ md0 : active raid1 sdb1[0] sdc1[1]
 Serial Number:      S246J9FC405870
 </code></pre><p>Cela peut être pratique si vous avez plein de disques dans une tour et que vous voulez identifier les disques HS.</p>
 <p><img src="/images/serial-disque-dur.png" alt="image"></p>
+<br/>
+<p><strong>Error: &ldquo;mdadm: Duplicate MD device names in conf file were found&rdquo;</strong></p>
+<p>Editer le fichier <code>/etc/mdadm/mdadm.conf</code> et vérifier qu'un raid n'est pas référencé 2 fois.</p>
+<p>Puis exécuter la commande suivante pour prendre en compte la modification:</p>
+<pre><code>update-initramfs  -u -k all
+</code></pre><p>Vous pouvez ensuite rebooter pour vérifier que cela fonctionne toujours&hellip;</p>
 ]]></content>
         </item>
         
