@@ -1655,7 +1655,7 @@ car les droits root sont nécessaires</li>
 </ul>
 <br/>
 <p><strong>Packages Homebrew</strong></p>
-<pre><code>brew install wget tree python@2 pkg-config poppler kubernetes-helm tmux
+<pre><code>brew install wget tree python@2 pkg-config poppler kubernetes-helm tmux socat
 brew cask update
 brew cask install ip-in-menu-bar betterzipql
 brew cask install qlcolorcode
@@ -3775,7 +3775,11 @@ server {
  nginx: configuration file /etc/nginx/nginx.conf test is successful
 </code></pre><p>Restart Nginx:</p>
 <pre><code>systemctl restart nginx
-</code></pre>]]></content>
+</code></pre><br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><em>Accéder à VNC via le réseau local</em></p>
+<p>Editer le fichier <code>/etc/systemd/system/vncserver@.service</code> et ajouter l'option <code>-localhost no</code> au démarrage du service <code>ExecStart=/usr/bin/vncserver -localhost no ...</code>.</p>
+]]></content>
         </item>
         
         <item>
