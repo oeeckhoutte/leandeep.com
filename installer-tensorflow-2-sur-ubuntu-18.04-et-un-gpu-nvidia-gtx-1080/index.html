@@ -7,8 +7,8 @@
 <meta name="author" content="Lean Deep">
 <meta name="description" content="Introduction Voici la procédure permettant d&#39;installer Tensorflow 2 (RC2) sur Ubuntu 18.04 avec une carte graphique Nvidia GTX 1080 dans un eGPU Razer.
  Installation  Avant de démarrer je conseille de faire un backup de votre machine. On n&#39;est jamais trop prudent avec l&#39;installation des Drivers. Cela prend 1 minutes et en cas de problème, vous pourrez faire un rollback en 2 minutes.
- Créer un snapshot:
-# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;amp;&amp;amp; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &amp;quot;before cuda installation&amp;quot; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore Installation du Driver Nvidia:" />
+  Créer un snapshot:
+# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;amp;&amp;amp; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &amp;quot;before cuda installation&amp;quot; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore  Pour démarrer Timeshift en mode graphique, il suffit d&#39;exécuter la commande sudo timeshift-gtk." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -297,11 +297,11 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Installer Tensorflow 2 sur Ubuntu 18.04 et un GPU Nvidia GTX 1080">
 <meta itemprop="description" content="Introduction Voici la procédure permettant d&#39;installer Tensorflow 2 (RC2) sur Ubuntu 18.04 avec une carte graphique Nvidia GTX 1080 dans un eGPU Razer.
  Installation  Avant de démarrer je conseille de faire un backup de votre machine. On n&#39;est jamais trop prudent avec l&#39;installation des Drivers. Cela prend 1 minutes et en cas de problème, vous pourrez faire un rollback en 2 minutes.
- Créer un snapshot:
-# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &quot;before cuda installation&quot; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore Installation du Driver Nvidia:">
+  Créer un snapshot:
+# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &quot;before cuda installation&quot; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore  Pour démarrer Timeshift en mode graphique, il suffit d&#39;exécuter la commande sudo timeshift-gtk.">
 <meta itemprop="datePublished" content="2019-09-25T22:39:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-09-25T22:39:00&#43;00:00" />
-<meta itemprop="wordCount" content="506">
+<meta itemprop="wordCount" content="536">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -312,8 +312,8 @@ function toTitleCase(str) {
 <meta name="twitter:title" content="Installer Tensorflow 2 sur Ubuntu 18.04 et un GPU Nvidia GTX 1080"/>
 <meta name="twitter:description" content="Introduction Voici la procédure permettant d&#39;installer Tensorflow 2 (RC2) sur Ubuntu 18.04 avec une carte graphique Nvidia GTX 1080 dans un eGPU Razer.
  Installation  Avant de démarrer je conseille de faire un backup de votre machine. On n&#39;est jamais trop prudent avec l&#39;installation des Drivers. Cela prend 1 minutes et en cas de problème, vous pourrez faire un rollback en 2 minutes.
- Créer un snapshot:
-# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &quot;before cuda installation&quot; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore Installation du Driver Nvidia:"/>
+  Créer un snapshot:
+# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &quot;before cuda installation&quot; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore  Pour démarrer Timeshift en mode graphique, il suffit d&#39;exécuter la commande sudo timeshift-gtk."/>
 
 
 
@@ -398,6 +398,7 @@ function toTitleCase(str) {
 <blockquote>
 <p>Avant de démarrer je conseille de faire un backup de votre machine. On n'est jamais trop prudent avec l'installation des Drivers. Cela prend 1 minutes et en cas de problème, vous pourrez faire un rollback en 2 minutes.</p>
 </blockquote>
+<br/>
 <p>Créer un snapshot:</p>
 <pre><code># Installation de Timeshift
 sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift
@@ -407,7 +408,11 @@ sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &am
 sudo timeshift --list
 # Restaurer un snapshot 
 # sudo timeshift --restore
-</code></pre><p>Installation du Driver Nvidia:</p>
+</code></pre><blockquote>
+<p>Pour démarrer Timeshift en mode graphique, il suffit d'exécuter la commande <code>sudo timeshift-gtk</code>. Timeshift est un bon outil mais ne permet pas les raids en backup destination. Je vais donc personnellement en recherche d'une alternative&hellip;</p>
+</blockquote>
+<br/>
+<p>Installer le Driver Nvidia:</p>
 <pre><code># Ajouter le repository Nvidia
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
@@ -422,41 +427,50 @@ sudo apt-get update
 # Installation du driver NVIDIA
 sudo apt-get install --no-install-recommends nvidia-driver-418
 </code></pre><p>Redémarrer votre machine.</p>
+<br/>
 <p>Activer le boitier eGPU branché au câble thunderbolt sur Ubuntu:</p>
 <pre><code>lspci | grep -i nvidia
-# Si rien ne s'affiche alors que votre boitier eGPU est bien branché à votre PC, c'est que le port Thunderbolt n'est pas autorisé à être utilisé. Pour ce faire:
+# Si rien ne s'affiche alors que votre boitier eGPU est bien branché à votre PC, c'est sans doute que le port Thunderbolt n'est pas autorisé à être utilisé. Pour ce faire:
 sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/0-3/authorized'
 # Dans mon cas j'ai exécuté les commandes suivantes:
-# sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/0/authorized'
-# sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/1/authorized'
+# sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/0-0/authorized'
+# sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/0-1/authorized'
 
 lspci | grep -i nvidia
 # Si le thunderbolt est bien activé et que les drivers sont bien pris en compte, vous devriez voir ceci:
 
 06:00.0 VGA compatible controller: NVIDIA Corporation GP104 [GeForce GTX 1080] (rev a1)
 06:00.1 Audio device: NVIDIA Corporation GP104 High Definition Audio Controller (rev a1)
-</code></pre><p>Une fois qu'elle est de nouveau accessible, vérifier que le GPU est bien visible grâce à la commande <code>nvidia-smi</code>.</p>
+</code></pre><p>Vérifier maintenant que le GPU est bien visible via la commande <code>nvidia-smi</code>.</p>
+<br/>
 <p>Installer les librairies de développement et d'exécution de cuda (~4GB)</p>
 <pre><code>sudo apt-get install --no-install-recommends \
     cuda-10-0 \
     libcudnn7=7.6.2.24-1+cuda10.0  \
     libcudnn7-dev=7.6.2.24-1+cuda10.0
-</code></pre><p>Installer TensorRT. (libcudnn7 au-dessus doit être installé)</p>
+</code></pre><br/>
+<p>Installer TensorRT. (libcudnn7 au-dessus doit être installé)</p>
 <pre><code>sudo apt-get install -y --no-install-recommends libnvinfer5=5.1.5-1+cuda10.0 \
     libnvinfer-dev=5.1.5-1+cuda10.0
-</code></pre><p>Installer virtualenvwrapper:</p>
+</code></pre><br/>
+<p>Installer virtualenvwrapper:</p>
 <pre><code>sudo apt install python python-pip python3
 sudo pip uninstall virtualenvwrapper
-</code></pre><p>Ajouter les lignes suivantes dans votre <code>~/.zshrc</code>:</p>
+</code></pre><br/>
+<p>Ajouter les lignes suivantes dans votre <code>~/.zshrc</code>:</p>
 <pre><code>export WORKON_HOME=~/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
-</code></pre><p>Reloader votre shell:</p>
+</code></pre><br/>
+<p>Reloader votre shell:</p>
 <pre><code>source ~/.zshrc
-</code></pre><p>Créer un virtualenv:</p>
+</code></pre><br/>
+<p>Créer un virtualenv:</p>
 <pre><code>mkvirtualenv -p /usr/bin/python3 -a . test_env
-</code></pre><p>Installation de Tensorflow GPU</p>
+</code></pre><br/>
+<p>Installation de Tensorflow GPU</p>
 <pre><code>pip install tensorflow-gpu==2.0.0rc2
-</code></pre><p>Vérifier le bon fonctionnement de Tensorflow 2 en entrant le code suivant de votre Terminal ou dans Jupyter lab:</p>
+</code></pre><br/>
+<p>Vérifier le bon fonctionnement de Tensorflow 2 en entrant le code suivant de votre Terminal ou dans Jupyter lab:</p>
 <pre><code>python
 &gt;&gt;&gt; import tensorflow
 &gt;&gt;&gt; from tensorflow.python.client import device_lib
@@ -504,7 +518,7 @@ physical_device_desc: &quot;device: 0, name: GeForce GTX 1080, pci bus id: 0000:
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tensorflow-2">Tensorflow 2</a></span><span class="tag"><a href="https://leandeep.com/tags/ubuntu">Ubuntu</a></span><span class="tag"><a href="https://leandeep.com/tags/gpu">GPU</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>506 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>536 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 Sep. 2019</p>
         </div>
