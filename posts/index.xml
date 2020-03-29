@@ -5,8 +5,85 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 28 Mar 2020 16:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 29 Mar 2020 00:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Linux sur Android</title>
+            <link>https://leandeep.com/linux-sur-android/</link>
+            <pubDate>Sun, 29 Mar 2020 00:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/linux-sur-android/</guid>
+            <description>Introduction Ce weekend j&#39;ai découvert qu&#39;il était possible d&#39;installer Linux sur Android. Je pensais qu&#39;il était necessaire de rooter son téléphone mais pas du tout. Avec l&#39;application UserLand, on peut installer directement ses distributions préférées. Mon besoin était de pouvoir directement brancher mon téléphone à ma télé pour regarder des films. Les solutions comme Kodi ou Plex sont intéressantes mais j&#39;ai souvent des coupures car je regarde des films en UHD.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Ce weekend j'ai découvert qu'il était possible d'installer Linux sur Android. Je pensais qu'il était necessaire de rooter son téléphone mais pas du tout. Avec l'application <a href="https://play.google.com/store/apps/details?id=tech.ula">UserLand</a>, on peut installer directement ses distributions préférées. Mon besoin était de pouvoir directement brancher mon téléphone à ma télé pour regarder des films. Les solutions comme Kodi ou Plex sont intéressantes mais j'ai souvent des coupures car je regarde des films en UHD. En plus de cela, cela occupe de la bande passante sur mon réseau local (j'en ai besoin pour d'autres choses).</p>
+<p>Avoir un Linux sur mon Android me permet de démarrer quand j'ai en envi et directement de mon téléphone un serveur multimédia maison basé sur Python, JavaScript et NodeJS.</p>
+<p>Mon téléphone est un Huawei p30, (Et oui, bye bye Apple !). L'intérêt de ce téléphone, en plus d'être sous Android, c'est d'avoir un mode desktop nativement. Quand je branche mon téléphone en HDMI ou usb-c sur une télé l'affichage passe en mode desktop. Comme ce téléphone est très puissant, on a presque l'impression d'être sur un PC Linux classique.</p>
+<p>Il est possible de faire &ldquo;transiter&rdquo; des fichiers entre Ubuntu et Android et d'y accéder directement dans l'application &ldquo;Fichiers&rdquo;. Pour ce faire, il suffit d'écrire les fichiers dans le répertoire <code>/storage/internal</code>.</p>
+<h2 id="outils-installs-et-remarques">Outils installés et remarques</h2>
+<ul>
+<li>
+<p>Termux</p>
+</li>
+<li>
+<p>bVNC Free</p>
+</li>
+<li>
+<p>Ubuntu dans Userland</p>
+<ul>
+<li>
+<p>J'ai installé les packages suivants:
+<code>sudo apt-get install python-dev python3-dev nodejs npm vim openssh-server git curl net-tools rsync</code></p>
+</li>
+<li>
+<p>nvm est &ldquo;installable&rdquo; mais les versions de NodeJS installées ne sont pas compatible avec l'architecture arm64 du téléphone.</p>
+</li>
+<li>
+<p><code>/etc/hosts</code> fonctionne parfaitement</p>
+</li>
+<li>
+<p>Démarrer des serveurs Python et Nodejs et y accéder sur le réseau local: ok</p>
+</li>
+<li>
+<p>SSH vers serveurs distants: ok</p>
+</li>
+<li>
+<p>SSH vers Ubuntu dans téléphone: ko. Pas de systemctl. J'ai le message suivant: <code>System has not been booted with systemd as init system (PID 1). Can't operate</code>.</p>
+</li>
+<li>
+<p>Installation de vscode (même procédure que pour Jetson Nano): ko</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>git clone https://github.com/JetsonHacksNano/installVSCode.git
+cd installVSCode
+./installVSCode.sh
+sudo apt install --fix-broken
+sudo apt-get install libasound2
+./installVSCode.sh
+</code></pre><p>L'installation semble aller au bout sans erreur mais au démarrage de <code>code-oss</code> l'erreur suivante apparaît: <code>Error: Cannot find module './bootstrap'</code>. Je ne suis pas le seul à rencontrer le problème. Il y a <a href="https://github.com/headmelted/codebuilds/issues/97">ce bug ouvert sur Github</a>&hellip;</p>
+<ul>
+<li>
+<p>A tester:</p>
+<ul>
+<li>
+<p>Créer une distribution Kali et créer un proxy MITM</p>
+</li>
+<li>
+<p>Docker</p>
+</li>
+<li>
+<p>&ldquo;Durée de vie&rdquo; d'un serveur démarré avant qu'il ne soit coupé automatiquement par Android</p>
+</li>
+<li>
+<p>Créer un hotspot depuis Kali Linux</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Afficher sur Mac l&#39;interface graphique d&#39;une app executée dans Docker</title>
