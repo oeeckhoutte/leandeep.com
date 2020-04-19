@@ -5,8 +5,181 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 29 Mar 2020 16:01:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 18 Apr 2020 15:20:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Manipuler les fréquences radio</title>
+            <link>https://leandeep.com/manipuler-les-fr%C3%A9quences-radio/</link>
+            <pubDate>Sat, 18 Apr 2020 15:20:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/manipuler-les-fr%C3%A9quences-radio/</guid>
+            <description>Introduction Dans cet article, nous allons comment installer des outils permettant d&#39;analyser des fréquences radio.
+L&#39;installation sera faite sur Ubuntu 18.04 avec un user non root. Le hardware permettant de recevoir et émettre des ondes est un HackRF. 
+Les outils sont les suivants:
+ Kalibrate Qspectrum Inspectrum Spectrum Analyzer GUI URH (Universal Radio Hack) Gnuradio   Pourquoi ces outils sont-ils utiles ?
+ Analyser la sécurité de vos objets connectés, ou votre porte de garage, votre portail motorisé&amp;hellip; (malheureusement beaucoup comportent des failles) Comprendre comment fonctionnent les ondes GSM et mieux vous protéger (Attention aux ISMI catchers) Piloter des drones, voitures téléguidées qui n&#39;ont pas d&#39;API et que vous aimez bidouillez.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article, nous allons comment installer des outils permettant d'analyser des fréquences radio.</p>
+<p>L'installation sera faite sur Ubuntu 18.04 avec un user non root. Le hardware permettant de recevoir et émettre des ondes est un HackRF.
+<br/></p>
+<p>Les outils sont les suivants:</p>
+<ul>
+<li>Kalibrate</li>
+<li>Qspectrum</li>
+<li>Inspectrum</li>
+<li>Spectrum Analyzer GUI</li>
+<li>URH (Universal Radio Hack)</li>
+<li>Gnuradio</li>
+</ul>
+<br/>
+<p><strong>Pourquoi ces outils sont-ils utiles ?</strong></p>
+<ul>
+<li>Analyser la sécurité de vos objets connectés, ou votre porte de garage, votre portail motorisé&hellip; (malheureusement beaucoup comportent des failles)</li>
+<li>Comprendre comment fonctionnent les ondes GSM et mieux vous protéger (Attention aux ISMI catchers)</li>
+<li>Piloter des drones, voitures téléguidées qui n'ont pas d'API et que vous aimez bidouillez. Votre HackRF vous permet de les contrôler très simplement.</li>
+<li>Idem avec vos objets connectés propriétaires. Vous pouvez les contrôler même s'ils n'ont pas d'API ou de SDK mis à disposition par les constructeurs.</li>
+<li>Réaliser un projet LORA WAN</li>
+<li>etc.</li>
+</ul>
+<br/>
+<h2 id="installation-des-drivers-pour-hackrf">Installation des drivers pour HackRF</h2>
+<pre><code>sudo apt install build-essential cmake libfftw3-dev libusb-1.0-0-dev pkg-config
+
+sudo apt install hackrf
+</code></pre><br/>
+<p>Si le paquet <code>hackrf</code> ne s'installe pas sur votre OS Linux vous pouvez utiliser les commandes suivantes:</p>
+<pre><code>git clone https://github.com/mossmann/hackrf.git
+cd hackrf/
+mkdir host/build/
+cd host/build/
+cmake ..
+make -j8
+make install
+ldconfig
+</code></pre><br/>
+<p>Pour des raisons de sécurité, un utilisateur normal sur Linux n'a pas les permissions pour accéder à des devices USB arbitraires. Pour accéder au Hackrf sans droit root, on peut créer un fichier <code>/etc/udev/rules.d/52-hackrf.rules</code> et ajouter le contenu suivant:</p>
+<pre><code>ATTR{idVendor}==&quot;1d50&quot;, ATTR{idProduct}==&quot;604b&quot;, SYMLINK+=&quot;hackrf-jawbreaker-%k&quot;, MODE=&quot;660&quot;, GROUP=&quot;plugdev&quot;
+ATTR{idVendor}==&quot;1d50&quot;, ATTR{idProduct}==&quot;6089&quot;, SYMLINK+=&quot;hackrf-one-%k&quot;, MODE=&quot;660&quot;, GROUP=&quot;plugdev&quot;
+ATTR{idVendor}==&quot;1fc9&quot;, ATTR{idProduct}==&quot;000c&quot;, SYMLINK+=&quot;hackrf-dfu-%k&quot;, MODE=&quot;660&quot;, GROUP=&quot;plugdev&quot;
+</code></pre><p><em>Le contenu de ce fichier permet de dire à <code>udev</code> de reconnaitre HackRF grâce au Vendor ID et Product ID
+Il fixe les permissions UNIX à 660 et au groupe plugdev pour /dev. Enfin, il crée un symlink dans /dev pour le device HackRF.</em></p>
+<br/>
+<p>Une fois le fichier de règle précédent créé, il faut reloader <code>udevadm</code>:</p>
+<pre><code>sudo udevadm control --reload-rules
+</code></pre><br/>
+<p>Pour vérifier que HackRF est bien détecté, on peut utiliser la commande <code>hackrf_info</code>.</p>
+<br/>
+<h2 id="kalibrate">Kalibrate</h2>
+<p><strong>Analyse d'ondes GSM avec Kalibrate</strong></p>
+<pre><code>apt install libtool autoconf automake m4
+</code></pre><pre><code>#git clone https://github.com/scateu/kalibrate-hackrf.git
+git clone https://github.com/rxseger/kalibrate-hackrf.git
+cd kalibrate-hackrf/
+./bootstrap
+./configure 
+make -j8
+cd ../
+</code></pre><pre><code>kalibrate-hackrf/src/kal -h
+kalibrate-hackrf/src/kal -s GSM900 -l 32 -g 20 -p 10 | tee GSM900.kal-hackrf
+
+sort -rh -k7,7 GSM900.kal-hackrf
+</code></pre><br/>
+<p>Alternative pour analyser des ondes GSM: utiliser LTE-Cell-Scanner</p>
+<pre><code>git clone https://github.com/rxseger/LTE-Cell-Scanner.git
+cd LTE-Cell-Scanner/build/src/
+./CellSearch -h
+./CellSearch --freq-start 1842.5e6 --freq-end 1842.5e6 --gain 20
+./CellSearch --freq-start 1842.5e6 --freq-end 1842.5e6 --gain 20 --correction 1.000010337027486429
+#1.0000089694805360807
+
+python
+
+&gt;&gt;&gt; 1e6 * (1 - 1.0000101601567139564)
+-10.160156713956425
+
+&gt;&gt;&gt; 1e6 * (1 - 1.0000089694805360807)
+-8.96948053608071
+However - don’t ask me why - it works best without any correction nor PPM
+
+./LTE-Tracker -h
+#./LTE-Tracker --gain 20 --freq 1842.5e6 --correction 1.0000089694805360807 --ppm 20
+./LTE-Tracker --gain 20 --freq 1842.5e6
+</code></pre><br/>
+<h2 id="qspectrum">Qspectrum</h2>
+<pre><code>git clone https://github.com/xmikos/qspectrumanalyzer.git
+#less README.rst #--&gt; Ubuntu
+#apt install python3-pyqt5 python3-pyqtgraph
+
+apt install python3-pip
+pip3 install qspectrumanalyzer
+
+which hackrf_sweep
+qspectrumanalyzer 
+</code></pre><br/>
+<p><strong>Configurer Qspectrum:</strong></p>
+<p>File &gt; Settings</p>
+<p>settings/Backend: hackrf_sweep</p>
+<p>settings/Sample rate: 20 Mhz</p>
+<br/>
+<p>Frequency: 10 or 450 - 7250 Mhz</p>
+<p>Bin size:  1000 kHz</p>
+<br/>
+<p>-MAIN CURVE</p>
+<p>MAX HOLD</p>
+<p>AVERAGE</p>
+<p>SMOOTHING</p>
+<br/>
+<h2 id="inspectrum">Inspectrum</h2>
+<pre><code>git clone https://github.com/miek/inspectrum.git
+cd inspectrum/
+mkdir build/
+cd build/
+cmake ..
+make -j8
+sudo make install
+
+hackrf_transfer -h
+hackrf_transfer -r air.cs8 -f `arfcncalc -a $arfcn -d` -l 32 -g 20 -s 2e6
+hackrf_transfer -r air.cs8 -f 1842.5e6 -l 32 -g 20 -s 11e6
+#-C &quot;$hppm&quot;
+
+inspectrum -h
+inspectrum --rate 2e6 air.cs8
+inspectrum --rate 11e6 air.cs8
+
+</code></pre><p>Si vous avez l'erreur suivante &ldquo;Couldn't transfer any bytes for one second&rdquo;, vous pouvez regarder dans la FAQ de HackRF et les issues ouvertes: <a href="https://github.com/mossmann/hackrf/issues/237">https://github.com/mossmann/hackrf/issues/237</a> &amp; <a href="https://github.com/mossmann/hackrf/wiki/FAQ">https://github.com/mossmann/hackrf/wiki/FAQ</a></p>
+<br/>
+<h2 id="spectrum-analyzer-gui">Spectrum Analyzer GUI</h2>
+<pre><code>sudo apt install build-essential ant git libusb-1.0 libfftw3 libfftw3-dev openjdk-8-jdk
+
+git clone --depth=1 --recurse-submodules https://github.com/pavsa/hackrf-spectrum-analyzer.git
+cd hackrf-spectrum-analyzer/src/hackrf-sweep/
+make -j8
+build/hackrf_sweep_spectrum_analyzer.sh
+</code></pre><br/>
+<h2 id="installation-de-urh">Installation de URH</h2>
+<pre><code>sudo apt install gr-osmosdr
+sudo apt-get install libhackrf-dev
+
+mkvirtualenv -p /usr/bin/python3 -a . sdr_env
+pip install urh
+</code></pre><br/>
+<h2 id="installation-de-gnu-radio">Installation de GNU Radio</h2>
+<pre><code># Pour connaitre le Sample rate d'un WAV pour configurer la transmission 
+sudo apt install mplayer
+# example: 
+# mplayer Jacky-Core-Encore-Plus-Fort-Captain-2015.wav
+
+
+sudo add-apt-repository ppa:gnuradio/gnuradio-releases-3.7
+sudo apt-get update
+sudo apt install gnuradio
+</code></pre><blockquote>
+<p>Note: une fois votre workflow terminé sur Gnuradio, vous pouvez accéder au code Python pour aller plus loin et automatiser son utilisation. Example dans mon cas: <code>/usr/bin/python2 -u /home/olivier/Dev/SDR/top_block.py</code></p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Installer ROS sur Ubuntu 18.04</title>
