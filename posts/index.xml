@@ -13988,17 +13988,20 @@ On considère un système de classification dont le but est de classer du mail (
             <guid>https://leandeep.com/config-commandes-et-tips-utiles-git/</guid>
             <description>Indispensable à savoir Index
 L’index est une zone qui permet de préparer un commit.
-HEAD
+ HEAD
 HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
-Rebase vs Merge Préférer le rebase pour garder un historique propre
-Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.</description>
+ Rebase vs Merge Préférer le rebase pour garder un historique propre
+ Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.</description>
             <content type="html"><![CDATA[<h2 id="indispensable--savoir">Indispensable à savoir</h2>
 <p><strong>Index</strong></p>
 <p>L’index est une zone qui permet de préparer un commit.</p>
+<br/>
 <p><strong>HEAD</strong></p>
 <p>HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.</p>
+<br/>
 <h2 id="rebase-vs-merge">Rebase vs Merge</h2>
 <p>Préférer le rebase pour garder un historique propre</p>
+<br/>
 <h2 id="rebase">Rebase</h2>
 <p>Eviter <code>git pull</code> pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.</p>
 <p>Faire un rebase:</p>
@@ -14007,6 +14010,7 @@ ou
 git rebase origin/master
 </code></pre><p>Les commits qui n’existaient que sur la branche master sont supprimés et réappliqués/ rejoués à la suite des commits de la branche origin/master.</p>
 <p>En rebasant vos branches avant de les fusionner, vous obtiendrez un historique tout plat et bien plus agréable à parcourir.</p>
+<br/>
 <p><strong>Exemple 1</strong></p>
 <pre><code>          F---G ← bug2
          /
@@ -14035,6 +14039,7 @@ git branch -d bug2
 <li>Fusionne bug2 dans master</li>
 <li>Supprime bug2 devenue inutile.</li>
 </ul>
+<br/>
 <p><strong>Exemple 2</strong></p>
 <blockquote>
 <p>Autre manière de faire, peut être plus simple&hellip;</p>
@@ -14049,39 +14054,50 @@ git rebase origin/develop
 Utiliser git rebase --continue une fois que tous les conflits sont traités
 
 git push origin feature_branch --force
-</code></pre><p><strong>Exemple 3 (ultra simple)</strong></p>
+</code></pre><br/>
+<p><strong>Exemple 3 (ultra simple que je recommande)</strong></p>
 <pre><code>git checkout votre_feature_branch
 git fetch
 git rebase origin/master
 </code></pre><p>Et c'est tout!</p>
+<br/>
 <h2 id="merge-quand-mme">Merge (quand même)</h2>
 <pre><code>git checkout master
 git pull
 git checkout your_feature_en_attente
 git merge master
-</code></pre><h2 id="stash">Stash</h2>
+</code></pre><br/>
+<h2 id="stash">Stash</h2>
 <p>Cette commande permet de mettre de côté des modifications de la copie de travail et de l’index.</p>
+<br/>
 <p><strong>Afficher tous les stash</strong></p>
 <pre><code>git stash list
-</code></pre><p><strong>Appliquer un stash</strong></p>
+</code></pre><br/>
+<p><strong>Appliquer un stash</strong></p>
 <pre><code># Exemple:
 git stash apply stash@{0}
-</code></pre><p><strong>Créer un nouveau stash (stasher tous les fichiers)</strong></p>
+</code></pre><br/>
+<p><strong>Créer un nouveau stash (stasher tous les fichiers)</strong></p>
 <pre><code>git stash save &quot;&lt;nom du stash&gt;&quot;
-</code></pre><p><strong>Créer seulement certains fichiers</strong></p>
+</code></pre><br/>
+<p><strong>Créer seulement certains fichiers</strong></p>
 <p>Add to index changes we don't want to stash and then stash with &ndash;keep-index option.</p>
 <pre><code>git add app/controllers/cart_controller.php
 git stash --keep-index
 git reset
-</code></pre><p><strong>Appliquer un stash</strong></p>
+</code></pre><br/>
+<p><strong>Appliquer un stash</strong></p>
 <pre><code>git stash branch myfeature
-</code></pre><p><strong>Appliquer le dernier stash (LIFO)</strong></p>
+</code></pre><br/>
+<p><strong>Appliquer le dernier stash (LIFO)</strong></p>
 <pre><code>git stash pop
-</code></pre><h2 id="cherry-picking">Cherry-picking</h2>
+</code></pre><br/>
+<h2 id="cherry-picking">Cherry-picking</h2>
 <p>Cherry-pick permet de sélectionner un commit quelconque et de l’appliquer sur la branche actuelle.</p>
 <pre><code>git checkout my-feature
 git cherry-pick e32c529d
-</code></pre><h2 id="rsoudre-un-conflit">Résoudre un conflit</h2>
+</code></pre><br/>
+<h2 id="rsoudre-un-conflit">Résoudre un conflit</h2>
 <p><strong>Pendant un merge</strong></p>
 <p>Après un <code>git merge</code> ou <code>git pull</code>, on commence par exécuter la commande:</p>
 <pre><code>git status # ou gss # ou git st # git stp (voir mes alias)
@@ -14103,6 +14119,7 @@ Autre possibilité, faire la correction manuellement, faire un <code>git add</co
 <blockquote>
 <p>Pour configurer git mergetool, il est possible d'utiliser la commande suivante: <code>git config --global merge.tool bc3</code> après avoir téléchargé et installé l'extension <a href="https://marketplace.visualstudio.com/items?itemName=hung-vi.terminal-git-mergetool">vscode-ext-git-mergetool</a> pour OSX .</p>
 </blockquote>
+<br/>
 <p><strong>Pendant un rebase</strong></p>
 <pre><code>git checkout master # ou git co master
 git rebase origin/master # ou git pull --rebase
@@ -14124,10 +14141,12 @@ git rebase --continue
 </blockquote>
 <p>Un schéma vaut mieux qu'un long discours. Voici ce que fait un rebase:</p>
 <p><img src="/images/rebase.png" alt="image"></p>
+<br/>
 <p><strong>Gérer un conflit sur un binaire</strong></p>
 <pre><code>git checkout --ours -- path_binary_file
 git checkout --theirs -- path_binary_file
-</code></pre><h2 id="rcrire-lhistorique">Réécrire l'historique</h2>
+</code></pre><br/>
+<h2 id="rcrire-lhistorique">Réécrire l'historique</h2>
 <pre><code>git rebase --interactive HEAD~3
 # ou 
 # git rebase -i HEAD~3
@@ -14144,7 +14163,8 @@ git checkout --theirs -- path_binary_file
 <p>Pour poursuivre la réécriture de l’historique, terminer avec les commandes suivantes:</p>
 <pre><code>git stage
 git rebase --continue
-</code></pre><h2 id="config-en-plus-de-oh-my-zsh">Config (en plus de oh-my-zsh)</h2>
+</code></pre><br/>
+<h2 id="config-en-plus-de-oh-my-zsh">Config (en plus de oh-my-zsh)</h2>
 <p>A ajouter au fichier ~/.gitconfig:</p>
 <pre><code>[alias]
         st = status
@@ -14168,7 +14188,8 @@ git rebase --continue
         diff = auto
         status = auto
         interactive = auto
-</code></pre><h2 id="tlcharger-en-local-les-pull-requests">Télécharger en local les Pull Requests</h2>
+</code></pre><br/>
+<h2 id="tlcharger-en-local-les-pull-requests">Télécharger en local les Pull Requests</h2>
 <p><strong>Projet par projet</strong></p>
 <p>Dans le fichier .git/config, localiser le code qui ressemble à ceci:</p>
 <pre><code>[remote &quot;origin&quot;]
@@ -14195,31 +14216,43 @@ From github.com:joyent/node
 <pre><code>git checkout pr/999
 Branch pr/999 set up to track remote branch pr/999 from origin.
 Switched to a new branch 'pr/999'
-</code></pre><p><strong>Ajouter automatiquement cette commande à tous les repos</strong></p>
+</code></pre><br/>
+<p><strong>Ajouter automatiquement cette commande à tous les repos</strong></p>
 <pre><code>git config --global --add remote.origin.fetch &quot;+refs/pull/*/head:refs/remotes/origin/pr/*&quot;
-</code></pre><h2 id="diffrences-entre-branches">Différences entre branches</h2>
+</code></pre><br/>
+<h2 id="diffrences-entre-branches">Différences entre branches</h2>
 <p><strong>Différences entre branche actuelle et master:</strong></p>
 <pre><code>git diff master
-</code></pre><p><strong>Différences entre 2 branches (par exemple master et staging):</strong></p>
+</code></pre><br/>
+<p><strong>Différences entre 2 branches (par exemple master et staging):</strong></p>
 <pre><code>git diff master..staging
-</code></pre><p><strong>Seulement montrer les fichiers différents entre 2 branches (sans les changements):</strong></p>
+</code></pre><br/>
+<p><strong>Seulement montrer les fichiers différents entre 2 branches (sans les changements):</strong></p>
 <pre><code>git diff --name-status master..staging
-</code></pre><h2 id="commandes-en-vrac">Commandes en vrac</h2>
+</code></pre><br/>
+<h2 id="commandes-en-vrac">Commandes en vrac</h2>
 <p><strong>Annuler la commande <code>git commit</code> (et donc conserver/ récupérer tous les changements qui étaient prêts à être pushés:</strong></p>
 <pre><code>git reset --soft HEAD^
-</code></pre><p><strong>Modifier le dernier commit:</strong></p>
+</code></pre><br/>
+<p><strong>Modifier le dernier commit:</strong></p>
 <pre><code>git commit --amend
-</code></pre><p><strong>Effacer une branche locale:</strong></p>
+</code></pre><br/>
+<p><strong>Effacer une branche locale:</strong></p>
 <pre><code>git branch -d new-branch
-</code></pre><p><strong>Retourner sur la dernière branche:</strong></p>
+</code></pre><br/>
+<p><strong>Retourner sur la dernière branche:</strong></p>
 <pre><code>git checkout -
-</code></pre><p><strong>Effacer une branche remote:</strong></p>
+</code></pre><br/>
+<p><strong>Effacer une branche remote:</strong></p>
 <pre><code>git push origin --delete new-branch
-</code></pre><p><strong>Contrôler le comportement de git push par default pour éviter de devoir specifier la branch (sur laquelle on est) avant de pusher:</strong></p>
+</code></pre><br/>
+<p><strong>Contrôler le comportement de git push par default pour éviter de devoir specifier la branch (sur laquelle on est) avant de pusher:</strong></p>
 <pre><code>git config --global push.default current
-</code></pre><p><strong>Annuler les changements en local d'un fichier</strong></p>
+</code></pre><br/>
+<p><strong>Annuler les changements en local d'un fichier</strong></p>
 <pre><code>git checkout filename
-</code></pre><p><strong>Pusher un seul commit</strong></p>
+</code></pre><br/>
+<p><strong>Pusher un seul commit</strong></p>
 <pre><code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:&lt;remote_branch_name&gt;
 </code></pre><p>La branche &lt;remote_branch_name&gt; doit exister sur remote. (Si ce n'est pas le cas, il est possible d'utiliser <code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:refs/heads/&lt;remote_branch_name&gt;</code> pour la créer automatiquement.)</p>
 <blockquote>
@@ -14227,6 +14260,7 @@ Switched to a new branch 'pr/999'
 <code>git push --set-upstream origin dev</code> ou <code>git push -u origin dev</code>
 Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. celui dont on a fait un clone au départ), et l'option &ndash;set-upstream permet de dire à Git de se souvenir qu'un « git push » de notre branche « dev » a été fait. Le prochain push pourra donc se faire simplement avec un simple <code>git push</code>.</p>
 </blockquote>
+<br/>
 <p><strong>Annuler le dernier commit</strong></p>
 <p>Les commandes à appliquer dépendent du dernier commit:</p>
 <ul>
@@ -14237,12 +14271,22 @@ Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. ce
 <p>Quand le dernier commit <strong>est</strong> le commit initial, il faut exécuter les commandes suivantes: <code>git update-ref -d HEAD</code> puis <code>git rm --cached -r .</code></p>
 </li>
 </ul>
+<br/>
 <p><strong>Annuler le dernier commit et garder tous les changements staged</strong></p>
 <pre><code>git reset --soft HEAD~
 </code></pre><p><em>C'est différent de <code>git reset HEAD~</code> qui ne garde pas staged les derniers changements.</em></p>
+<br/>
 <p><strong>Voir les derniers commits locaux pas encore pushé sur l'origin:</strong></p>
 <pre><code>git log --branches --not --remotes
-</code></pre><h2 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h2>
+</code></pre><br/>
+<p><strong>Tagguer (le dernier commit d&rsquo;) une branche</strong></p>
+<pre><code>git tag mon_tag
+git push origin mon_tag
+
+# (non recommandé) pousser tous les tags
+git push --tags
+</code></pre><br/>
+<h2 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h2>
 <pre><code>$ git init
 Initialized empty Git repository in .git/
 
@@ -14275,7 +14319,8 @@ HEAD is now at f6e5064... added file2
 
 $ cat file2
 added new file
-</code></pre><h2 id="taille-en-local-du-repo">Taille en local du repo</h2>
+</code></pre><br/>
+<h2 id="taille-en-local-du-repo">Taille en local du repo</h2>
 <pre><code>$ git count-objects -v -H
 
 count: 6
@@ -14286,7 +14331,8 @@ size-pack: 0 bytes
 prune-packable: 0
 garbage: 0
 size-garbage: 0 bytes
-</code></pre><h2 id="bisect">Bisect</h2>
+</code></pre><br/>
+<h2 id="bisect">Bisect</h2>
 <blockquote>
 <p>Le bisect permet de réaliser une dichotimie sur un range de commit afin d'identifier celui qui génère une régression.</p>
 </blockquote>
@@ -14294,9 +14340,11 @@ size-garbage: 0 bytes
 $ git bisect bad            # Identify the end of the range
 $ git bisect good v4.2.0    # Identify the start of the range
 </code></pre><p>Puis après un test sur votre app ou tests unitaires préciser soit <code>git bisect bad</code> ou <code>git bisect good</code></p>
+<br/>
 <h2 id="workflow-pour-travailler-en-quipe">Workflow pour travailler en équipe</h2>
 <p><strong>Gitflow:</strong>
 <a href="http://danielkummer.github.io/git-flow-cheatsheet/">http://danielkummer.github.io/git-flow-cheatsheet/</a></p>
+<br/>
 <p><em>Edited 13 november 2016:</em></p>
 <p><strong>Better method: Github flow:</strong></p>
 <p><a href="https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/">https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/</a></p>
