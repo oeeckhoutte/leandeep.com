@@ -14230,6 +14230,13 @@ Switched to a new branch 'pr/999'
 <p><strong>Seulement montrer les fichiers différents entre 2 branches (sans les changements):</strong></p>
 <pre><code>git diff --name-status master..staging
 </code></pre><br/>
+<p><strong>Différence entre un fichier local (déjà en stage) et le dernier commit (ou l'avant dernier):</strong></p>
+<pre><code>git diff &lt;commit&gt; &lt;path&gt;
+# Dernier commit 
+git diff HEAD^ myfile
+# Avant dernier commit 
+git diff HEAD^^ myfile
+</code></pre><br/>
 <h2 id="commandes-en-vrac">Commandes en vrac</h2>
 <p><strong>Annuler la commande <code>git commit</code> (et donc conserver/ récupérer tous les changements qui étaient prêts à être pushés:</strong></p>
 <pre><code>git reset --soft HEAD^
