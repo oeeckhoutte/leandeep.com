@@ -1834,6 +1834,20 @@ ln -s /usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
 &gt;&gt;&gt; import cv2
 &gt;&gt;&gt; print(cv2.__version__)
 3.3.1
+</code></pre><p>Sinon il peut être intéressant de le réinstaller globalement:</p>
+<pre><code>sudo apt-get install python3-opencv
+
+python3
+Python 3.6.8
+[GCC 8.3.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import cv2
+&gt;&gt;&gt; cv2._version
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+AttributeError: module 'cv2' has no attribute '_version'
+&gt;&gt;&gt; cv2.__version__
+'3.2.0'
 </code></pre><br/>
 <p><strong>Installation de modules de base</strong></p>
 <pre><code>sudo apt-get update
@@ -1864,7 +1878,6 @@ pip install keras
 pip install scikit-learn
 pip install jupyter notebook	
 pip install numpy # and wait forever... 
-sudo apt-get install python3-opencv
 </code></pre><br/>
 <p><strong>Installation de Tensorflow</strong></p>
 <pre><code>pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-gpu version_de_tensorflow 
