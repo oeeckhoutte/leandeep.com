@@ -1872,6 +1872,7 @@ pip install scikit-build
 pip install imutils
 # The Python Imaging Library pillow
 pip install pillow
+sudo apt-get install python3-setuptools
 </code></pre><br/>
 <p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook, opencv-python</strong></p>
 <pre><code>pip install scipy
@@ -1910,6 +1911,20 @@ free -h
 sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 </code></pre><br/>
+<p><strong>Installation de Pytorch</strong></p>
+<p>wget <a href="https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl">https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl</a> -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+sudo apt-get install libopenblas-base
+sudo pip3 install Cython
+sudo pip3 install numpy
+sudo pip3 install torch-1.4.0-cp36-cp36m-linux_aarch64.whl</p>
+<br/>
+<p><strong>Installation de torchvision</strong></p>
+<p>sudo apt-get install libjpeg-dev zlib1g-dev
+git clone &ndash;branch v0.5.0 <a href="https://github.com/pytorch/vision">https://github.com/pytorch/vision</a> torchvision
+cd torchvision
+sudo python setup.py install
+cd ../   # attempting to load torchvision from build dir will result in import error</p>
+<br/>
 <p><strong>Installation du driver GPIO</strong></p>
 <pre><code>pip install Jetson.GPIO
 sudo groupadd -f -r gpio
