@@ -1837,24 +1837,31 @@ ln -s /usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
 <p><strong>Installation de modules de base</strong></p>
 <pre><code>sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install libfreetype6-dev pkg-config -y
+# Installer le moteur de polices FreeType 2
+sudo apt-get install libfreetype6-dev -y
+# Installer le gestionnaire de flags de compilation et d'édition de lien pour les libs
+sudo apt-get install pkg-config -y
 sudo apt-get install zlib1g-dev zip libjpeg8-dev libhdf5-dev -y
 sudo apt-get install libssl-dev libffi-dev python3-dev -y
 sudo apt-get install libhdf5-serial-dev hdf5-tools -y
-sudo apt-get install libblas-dev liblapack-dev
-sudo apt-get install libatlas-base-dev -y
+# For numpy install https://packages.debian.org/jessie/liblapack-dev &amp; https://packages.debian.org/jessie/libblas-dev &amp; https://packages.debian.org/jessie/libatlas-base-dev (see below)
+sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev -y
 sudo apt-get install build-essential cmake libgtk-3-dev libboost-all-dev -y
-sudo apt-get install nano -y
+sudo apt-get install nano vim tmux -y
 pip install matplotlib
 pip install scikit-build
+# To do basic image processing functions
 pip install imutils
+# The Python Imaging Library pillow
 pip install pillow
 </code></pre><br/>
-<p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook</strong></p>
+<p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook, opencv-python</strong></p>
 <pre><code>pip install scipy
 pip install keras
 pip install scikit-learn
 pip install jupyter notebook	
+pip install numpy # and wait forever... 
+sudo apt-get install python3-opencv
 </code></pre><br/>
 <p><strong>Installation de Tensorflow</strong></p>
 <pre><code>pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-gpu version_de_tensorflow 
@@ -1924,11 +1931,11 @@ ntop
 jetson_release
 </code></pre><br/>
 <h2 id="conclusion">Conclusion</h2>
-<p>A part quels petits soucis que j'ai pu rencontrer au niveau de l'alimentation de la carte, je ne lui trouve que des avantages.
-Les petits soucis que j'ai eu au niveau de l'alimentation était dû à un manque de connaissance de ma part sur le fonctionnement de cette carte. Une fois qu'on a compris comment bien aliementer sa carte, tout fonctionne parfaitement.</p>
+<p>A part quels petits soucis rencontrés au niveau de l'alimentation de la carte, je ne lui trouve que des avantages.
+Les soucis au niveau de l'alimentation était dûs à un manque de connaissance de ma part sur le fonctionnement de cette carte. Une fois qu'on a compris comment bien aliementer sa carte, tout fonctionne parfaitement.</p>
 <p>Un GPIO composé de 40 pins est compatible avec celui du Raspberry Pi. Pour moi cela représente un énorme avantage. Si vous avez déjà construit des projets avec des Raspberry Pi vous pouvez reprendre vos montages existants et les porter sur le Nano.</p>
 <p>Et avec le GPU présent, vous pourrez sans doute construire de très beaux projets en y apportant des réseaux de neurones. Et la cela devient vraiment fun.</p>
-<p>Je pense que vous l'aurez compris, je recommande très clairement cette carte.</p>
+<p>Je pense que c'est assez clair, je recommande très fortement cette carte.</p>
 ]]></content>
         </item>
         
