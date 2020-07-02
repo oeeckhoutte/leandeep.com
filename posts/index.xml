@@ -1810,8 +1810,8 @@ Avec un utilitaire comme <a href="https://unetbootin.github.io/">Unetbootin</a> 
 <p><strong>Installation d'un virtualenv</strong></p>
 <pre><code>sudo apt-get install virtualenv -y
 mkdir ~/envs
-cd envs
-virtualenv --p python3 ai_env
+cd ~/envs
+virtualenv --python python3 ai_env
 source ~/envs/ai_env/bin/activate
 echo 'source ~/envs/ai_env/bin/activate' &gt;&gt; ~/.bashrc
 </code></pre><br/>
@@ -1872,7 +1872,9 @@ pip install scikit-build
 pip install imutils
 # The Python Imaging Library pillow
 pip install pillow
-sudo apt-get install python3-setuptools
+sudo apt-get install python3-setuptools -y
+# Librairie d'algèbre linéaire
+sudo apt-get install python3-pip libopenblas-base -y
 </code></pre><br/>
 <p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook, opencv-python</strong></p>
 <pre><code>pip install scipy
@@ -1912,19 +1914,18 @@ sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 </code></pre><br/>
 <p><strong>Installation de Pytorch</strong></p>
-<p>wget <a href="https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl">https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl</a> -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
-sudo apt-get install libopenblas-base
+<pre><code>wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
 sudo pip3 install Cython
 sudo pip3 install numpy
-sudo pip3 install torch-1.4.0-cp36-cp36m-linux_aarch64.whl</p>
-<br/>
+sudo pip3 install torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+</code></pre><br/>
 <p><strong>Installation de torchvision</strong></p>
-<p>sudo apt-get install libjpeg-dev zlib1g-dev
-git clone &ndash;branch v0.5.0 <a href="https://github.com/pytorch/vision">https://github.com/pytorch/vision</a> torchvision
+<pre><code>sudo apt-get install libjpeg-dev zlib1g-dev
+git clone --branch v0.5.0 https://github.com/pytorch/vision torchvision
 cd torchvision
 sudo python setup.py install
-cd ../   # attempting to load torchvision from build dir will result in import error</p>
-<br/>
+cd ../   # attempting to load torchvision from build dir will result in import error
+</code></pre><br/>
 <p><strong>Installation du driver GPIO</strong></p>
 <pre><code>pip install Jetson.GPIO
 sudo groupadd -f -r gpio
@@ -5584,6 +5585,9 @@ kubectl config set-context --current --namespace=NOM_DU_NAMESPACE
 <p><strong>Voir les ressources utilisées par les nodes</strong></p>
 <pre><code># Nécessite heapster
 kubectl top node
+</code></pre><br/>
+<p><strong>Voir les ressources utilisées par les pods</strong></p>
+<pre><code>kubectl top pods
 </code></pre><br/>
 <p><strong>Voir les logs d'une app particulière dans un namespace particulier</strong></p>
 <pre><code>kubectl logs -l app=catalog-catalog-controller-manager -n catalog
