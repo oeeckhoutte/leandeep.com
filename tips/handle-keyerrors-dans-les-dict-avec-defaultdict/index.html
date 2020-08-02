@@ -299,7 +299,7 @@ prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_preno
  soit tester si une clé existe dans le dict ou catcher l&#39;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&#39;avoir du code plus propre, et plus facilement testable.">
 <meta itemprop="datePublished" content="2020-01-16T01:20:04-07:00" />
 <meta itemprop="dateModified" content="2020-01-16T01:20:04-07:00" />
-<meta itemprop="wordCount" content="171">
+<meta itemprop="wordCount" content="178">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -414,6 +414,7 @@ KeyError: 'toto'
 </code></pre><h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
 <p>Utiliser defaultdict du module <code>collections</code>.</p>
 <pre><code>&gt;&gt;&gt; from collections import defaultdict
+&gt;&gt;&gt; prenom_occurrences = {'titi': [], 'tata': []}
 &gt;&gt;&gt; prenoms = defaultdict(dict)
 &gt;&gt;&gt; prenoms.update(prenom_occurrences)
 &gt;&gt;&gt; prenoms['titi']
