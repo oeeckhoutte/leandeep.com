@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Sur Debian :" />
+  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,10 +294,10 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Serveur de musique lossless UPNP">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Sur Debian :">
+  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1.">
 <meta itemprop="datePublished" content="2020-08-13T19:49:00&#43;02:00" />
 <meta itemprop="dateModified" content="2020-08-13T19:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="131">
+<meta itemprop="wordCount" content="210">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -307,7 +307,7 @@ function toTitleCase(str) {
 
 <meta name="twitter:title" content="Serveur de musique lossless UPNP"/>
 <meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Sur Debian :"/>
+  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1."/>
 
 
 
@@ -396,22 +396,36 @@ function toTitleCase(str) {
 brew install gerbera
 </code></pre><br/>
 <h2 id="installation-sur-linux">Installation sur Linux</h2>
-<p><strong>Sur Debian :</strong></p>
+<p><strong>Option 1 sur Debian et Ubuntu (1.0):</strong></p>
 <pre><code>sudo apt install gerbera
-</code></pre><br/>
-<p><strong>Sur Ubuntu :</strong></p>
-<pre><code>sudo add-apt-repository ppa:stephenczetty/gerbera-updates
-sudo apt-get update
-sudo apt install gerbera
-mkdir ~/.config/gerbera
-gerbera --create-config | sed 's/accounts enabled=&quot;no&quot;/accounts enable=&quot;yes&quot;/' &gt; ~/.config/gerbera/config.xml
-gerbera &amp;
-
+</code></pre><p>Le fichier de configuration est situé ici:</p>
+<pre><code>sudo vi /etc/gerbera/config.xml
+</code></pre><p><br/>
+<strong>Option 2 sur Debian et Ubuntu (build pour obtenir la dernière version) :</strong></p>
+<pre><code>sudo apt install cmake
+sudo apt install g++
+sudo apt-get install autoconf
+sudo apt-get install libtool
+sudo apt-get install pkg-config
+sudo apt install libavutil-dev libavcodec-dev libavformat-dev libavdevice-dev \
+libavfilter-dev libavresample-dev libswscale-dev libswresample-dev libpostproc-dev
+sudo apt install uuid-dev libsqlite3-dev libmysqlclient-dev \
+libmagic-dev libexif-dev libcurl4-openssl-dev libspdlog-dev libpugixml-dev
+git clone https://github.com/gerbera/gerbera.git
+cd gerbera
+sudo ./scripts/install-taglib111.sh
+sudo ./scripts/install-pupnp.sh
+mkdir build
+cd build
+cmake ../gerbera -DWITH_MAGIC=1 -DWITH_MYSQL=1 -DWITH_CURL=1 -DWITH_JS=1 \
+-DWITH_TAGLIB=1 -DWITH_AVCODEC=1 -DWITH_FFMPEGTHUMBNAILER=1 -DWITH_EXIF=1 -DWITH_LASTFM=1
+make -j4
+sudo make install
 </code></pre><br/>
 <p><strong>Sur Fedora :</strong></p>
 <pre><code>sudo dnf install gerbera
 </code></pre><br/>
-<h2 id="configuration-et-dmarrage-du-serveur">Configuration et démarrage du serveur</h2>
+<h2 id="configuration-et-dmarrage-du-serveur-pour-version-14">Configuration et démarrage du serveur (pour version 1.4+)</h2>
 <pre><code>mkdir ~/.config/gerbera
 gerbera --create-config | sed 's/accounts enabled=&quot;no&quot;/accounts enable=&quot;yes&quot;/' &gt; ~/.config/gerbera/config.xml
 gerbera &amp;
@@ -429,7 +443,7 @@ open -a Safari http://0.0.0.0:49152/
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/music">Music</a></span><span class="tag"><a href="https://leandeep.com/tags/lossless">Lossless</a></span><span class="tag"><a href="https://leandeep.com/tags/streaming">Streaming</a></span><span class="tag"><a href="https://leandeep.com/tags/upnp">UPNP</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>131 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>210 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 Aug. 2020</p>
         </div>

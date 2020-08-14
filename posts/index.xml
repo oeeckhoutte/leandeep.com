@@ -15,7 +15,7 @@
             
             <guid>https://leandeep.com/serveur-de-musique-lossless-upnp/</guid>
             <description>Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Sur Debian :</description>
+  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1.</description>
             <content type="html"><![CDATA[<br/>
 <h2 id="introduction">Introduction</h2>
 <p>Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d'éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.</p>
@@ -27,22 +27,36 @@
 brew install gerbera
 </code></pre><br/>
 <h2 id="installation-sur-linux">Installation sur Linux</h2>
-<p><strong>Sur Debian :</strong></p>
+<p><strong>Option 1 sur Debian et Ubuntu (1.0):</strong></p>
 <pre><code>sudo apt install gerbera
-</code></pre><br/>
-<p><strong>Sur Ubuntu :</strong></p>
-<pre><code>sudo add-apt-repository ppa:stephenczetty/gerbera-updates
-sudo apt-get update
-sudo apt install gerbera
-mkdir ~/.config/gerbera
-gerbera --create-config | sed 's/accounts enabled=&quot;no&quot;/accounts enable=&quot;yes&quot;/' &gt; ~/.config/gerbera/config.xml
-gerbera &amp;
-
+</code></pre><p>Le fichier de configuration est situé ici:</p>
+<pre><code>sudo vi /etc/gerbera/config.xml
+</code></pre><p><br/>
+<strong>Option 2 sur Debian et Ubuntu (build pour obtenir la dernière version) :</strong></p>
+<pre><code>sudo apt install cmake
+sudo apt install g++
+sudo apt-get install autoconf
+sudo apt-get install libtool
+sudo apt-get install pkg-config
+sudo apt install libavutil-dev libavcodec-dev libavformat-dev libavdevice-dev \
+libavfilter-dev libavresample-dev libswscale-dev libswresample-dev libpostproc-dev
+sudo apt install uuid-dev libsqlite3-dev libmysqlclient-dev \
+libmagic-dev libexif-dev libcurl4-openssl-dev libspdlog-dev libpugixml-dev
+git clone https://github.com/gerbera/gerbera.git
+cd gerbera
+sudo ./scripts/install-taglib111.sh
+sudo ./scripts/install-pupnp.sh
+mkdir build
+cd build
+cmake ../gerbera -DWITH_MAGIC=1 -DWITH_MYSQL=1 -DWITH_CURL=1 -DWITH_JS=1 \
+-DWITH_TAGLIB=1 -DWITH_AVCODEC=1 -DWITH_FFMPEGTHUMBNAILER=1 -DWITH_EXIF=1 -DWITH_LASTFM=1
+make -j4
+sudo make install
 </code></pre><br/>
 <p><strong>Sur Fedora :</strong></p>
 <pre><code>sudo dnf install gerbera
 </code></pre><br/>
-<h2 id="configuration-et-dmarrage-du-serveur">Configuration et démarrage du serveur</h2>
+<h2 id="configuration-et-dmarrage-du-serveur-pour-version-14">Configuration et démarrage du serveur (pour version 1.4+)</h2>
 <pre><code>mkdir ~/.config/gerbera
 gerbera --create-config | sed 's/accounts enabled=&quot;no&quot;/accounts enable=&quot;yes&quot;/' &gt; ~/.config/gerbera/config.xml
 gerbera &amp;
