@@ -5,8 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1." />
+<meta name="description" content="Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.
+ Installation sudo apt install nfs-common  Configuration Créer le répertoire pour le point de montage:
+mkdir -p /mnt/smalldiskspool/Musique  Editer le fichier /etc/fstab et ajouter une ligne comme celle ci par exemple:
+192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0   0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -22,7 +24,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/serveur-de-musique-lossless-upnp/" />
+<link rel="canonical" href="https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/" />
 
 
 
@@ -267,7 +269,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Serveur de musique lossless UPNP :: Bienvenue sur le site de Lean Deep 
+            Monter un disque NFS sur Ubuntu :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -292,28 +294,32 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Serveur de musique lossless UPNP">
-<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1.">
-<meta itemprop="datePublished" content="2020-08-13T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-08-13T19:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="210">
+<meta itemprop="name" content="Monter un disque NFS sur Ubuntu">
+<meta itemprop="description" content="Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.
+ Installation sudo apt install nfs-common  Configuration Créer le répertoire pour le point de montage:
+mkdir -p /mnt/smalldiskspool/Musique  Editer le fichier /etc/fstab et ajouter une ligne comme celle ci par exemple:
+192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0   0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)">
+<meta itemprop="datePublished" content="2020-08-15T19:49:00&#43;02:00" />
+<meta itemprop="dateModified" content="2020-08-15T19:49:00&#43;02:00" />
+<meta itemprop="wordCount" content="68">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Music,Lossless,Streaming,UPNP," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Ubuntu,NFS," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Serveur de musique lossless UPNP"/>
-<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d&#39;éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.
-  Installation sur OSX brew tap gerbera/homebrew-gerbera brew install gerbera  Installation sur Linux Option 1 sur Debian et Ubuntu (1."/>
+<meta name="twitter:title" content="Monter un disque NFS sur Ubuntu"/>
+<meta name="twitter:description" content="Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.
+ Installation sudo apt install nfs-common  Configuration Créer le répertoire pour le point de montage:
+mkdir -p /mnt/smalldiskspool/Musique  Editer le fichier /etc/fstab et ajouter une ligne comme celle ci par exemple:
+192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0   0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)"/>
 
 
 
 
 
-    <meta property="article:published_time" content="2020-08-13 19:49:00 &#43;0200 CEST" />
+    <meta property="article:published_time" content="2020-08-15 19:49:00 &#43;0200 CEST" />
 
 
 
@@ -379,60 +385,30 @@ function toTitleCase(str) {
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/serveur-de-musique-lossless-upnp/">Serveur de musique lossless UPNP</a>
+                <a href="https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/">Monter un disque NFS sur Ubuntu</a>
             </h1>
 
             
 
             <div class="post-content">
                 <br/>
-<h2 id="introduction">Introduction</h2>
-<p>Dans cet article nous allons voir comment installer un serveur UPNP sur OSX et Linux pour streamer des musiques FLAC. Cela peut être utile pour certaines enceintes connectées comme les fameuses KEF LSX. Ce genre de serveur peut vous permettre d'éviter de payer des abonnements Tidal, Spotify ou Deezer pour vos titres favoris.</p>
+<p>Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.</p>
 <br/>
-<p><img src="https://leandeep.com/images/enceintes-kef-lsx.jpg" alt="image"></p>
-<br/>
-<h2 id="installation-sur-osx">Installation sur OSX</h2>
-<pre><code>brew tap gerbera/homebrew-gerbera
-brew install gerbera
+<h2 id="installation">Installation</h2>
+<pre><code>sudo apt install nfs-common
 </code></pre><br/>
-<h2 id="installation-sur-linux">Installation sur Linux</h2>
-<p><strong>Option 1 sur Debian et Ubuntu (1.0):</strong></p>
-<pre><code>sudo apt install gerbera
-</code></pre><p>Le fichier de configuration est situé ici:</p>
-<pre><code>sudo vi /etc/gerbera/config.xml
-</code></pre><p><br/>
-<strong>Option 2 sur Debian et Ubuntu (build pour obtenir la dernière version) :</strong></p>
-<pre><code>sudo apt install cmake
-sudo apt install g++
-sudo apt-get install autoconf
-sudo apt-get install libtool
-sudo apt-get install pkg-config
-sudo apt install libavutil-dev libavcodec-dev libavformat-dev libavdevice-dev \
-libavfilter-dev libavresample-dev libswscale-dev libswresample-dev libpostproc-dev
-sudo apt install uuid-dev libsqlite3-dev libmysqlclient-dev \
-libmagic-dev libexif-dev libcurl4-openssl-dev libspdlog-dev libpugixml-dev
-git clone https://github.com/gerbera/gerbera.git
-cd gerbera
-sudo ./scripts/install-taglib111.sh
-sudo ./scripts/install-pupnp.sh
-mkdir build
-cd build
-cmake ../gerbera -DWITH_MAGIC=1 -DWITH_MYSQL=1 -DWITH_CURL=1 -DWITH_JS=1 \
--DWITH_TAGLIB=1 -DWITH_AVCODEC=1 -DWITH_FFMPEGTHUMBNAILER=1 -DWITH_EXIF=1 -DWITH_LASTFM=1
-make -j4
-sudo make install
+<h2 id="configuration">Configuration</h2>
+<p>Créer le répertoire pour le point de montage:</p>
+<pre><code>mkdir -p /mnt/smalldiskspool/Musique
 </code></pre><br/>
-<p><strong>Sur Fedora :</strong></p>
-<pre><code>sudo dnf install gerbera
+<p>Editer le fichier <code>/etc/fstab</code> et ajouter une ligne comme celle ci par exemple:</p>
+<pre><code>192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0
 </code></pre><br/>
-<h2 id="configuration-et-dmarrage-du-serveur-pour-version-14">Configuration et démarrage du serveur (pour version 1.4+)</h2>
-<pre><code>mkdir ~/.config/gerbera
-gerbera --create-config | sed 's/accounts enabled=&quot;no&quot;/accounts enable=&quot;yes&quot;/' &gt; ~/.config/gerbera/config.xml
-gerbera &amp;
+<blockquote>
+<p>0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)</p>
+</blockquote>
+<p>Rebooter.</p>
 
-# sur OSX
-open -a Safari http://0.0.0.0:49152/
-</code></pre>
             </div>
         </article>
 
@@ -440,12 +416,12 @@ open -a Safari http://0.0.0.0:49152/
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/music">Music</a></span><span class="tag"><a href="https://leandeep.com/tags/lossless">Lossless</a></span><span class="tag"><a href="https://leandeep.com/tags/streaming">Streaming</a></span><span class="tag"><a href="https://leandeep.com/tags/upnp">UPNP</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ubuntu">Ubuntu</a></span><span class="tag"><a href="https://leandeep.com/tags/nfs">NFS</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>210 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>68 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 Aug. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Aug. 2020</p>
         </div>
 
         
@@ -457,18 +433,11 @@ open -a Safari http://0.0.0.0:49152/
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Monter un disque NFS sur Ubuntu</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/manipuler-les-fr%C3%A9quences-radio/">
-                                <span class="button__text">Manipuler les fréquences radio</span>
+                            <a href="https://leandeep.com/serveur-de-musique-lossless-upnp/">
+                                <span class="button__text">Serveur de musique lossless UPNP</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

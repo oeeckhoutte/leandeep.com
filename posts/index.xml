@@ -5,8 +5,38 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 13 Aug 2020 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 15 Aug 2020 19:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Monter un disque NFS sur Ubuntu</title>
+            <link>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</link>
+            <pubDate>Sat, 15 Aug 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</guid>
+            <description>Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.
+ Installation sudo apt install nfs-common  Configuration Créer le répertoire pour le point de montage:
+mkdir -p /mnt/smalldiskspool/Musique  Editer le fichier /etc/fstab et ajouter une ligne comme celle ci par exemple:
+192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0   0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)</description>
+            <content type="html"><![CDATA[<br/>
+<p>Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>sudo apt install nfs-common
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
+<p>Créer le répertoire pour le point de montage:</p>
+<pre><code>mkdir -p /mnt/smalldiskspool/Musique
+</code></pre><br/>
+<p>Editer le fichier <code>/etc/fstab</code> et ajouter une ligne comme celle ci par exemple:</p>
+<pre><code>192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0
+</code></pre><br/>
+<blockquote>
+<p>0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)</p>
+</blockquote>
+<p>Rebooter.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Serveur de musique lossless UPNP</title>
