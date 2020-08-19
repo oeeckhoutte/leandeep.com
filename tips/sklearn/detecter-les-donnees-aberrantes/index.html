@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte ">
-<meta name="description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:" />
+<meta name="description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -292,10 +292,10 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Détecter les données aberrantes">
-<meta itemprop="description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:">
+<meta itemprop="description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:">
 <meta itemprop="datePublished" content="2019-02-04T21:23:04-07:00" />
 <meta itemprop="dateModified" content="2019-02-04T21:23:04-07:00" />
-<meta itemprop="wordCount" content="193">
+<meta itemprop="wordCount" content="197">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -304,7 +304,7 @@ function toTitleCase(str) {
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Détecter les données aberrantes"/>
-<meta name="twitter:description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:"/>
+<meta name="twitter:description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:"/>
 
 
 
@@ -382,7 +382,7 @@ function toTitleCase(str) {
 # va installer numpy 1.19.1 et sklearn 0.0
 
 </code></pre><br/>
-<h2 id="changer-les-librairies">Changer les librairies</h2>
+<h2 id="charger-les-librairies">Charger les librairies</h2>
 <pre><code>import numpy as np
 from sklearn.covariance import EllipticEnvelope
 from sklearn.datasets import make_blobs
@@ -394,7 +394,7 @@ X, _ = make_blobs(n_samples = 10,
                   centers = 1,
                   random_state = 1)
 
-# Replace the first 2 observation's values with extreme values
+# Remplace les valeurs de la première observation avec des données extrèmes
 X[0,0] = 10000
 X[0,1] = 10000
 </code></pre><p>Voici à quoi ressemble notre dataset composé de 10 observations:</p>
@@ -410,13 +410,13 @@ X[0,1] = 10000
        [-1.97451969e-01,  2.34634916e+00]])
 </code></pre><br/>
 <h2 id="dtecter-les-donnes-aberrantes-outliers">Détecter les données aberrantes (outliers)</h2>
-<pre><code># Create detector
+<pre><code># Création du détecteur
 outlier_detector = EllipticEnvelope(contamination=.1)
 
-# Fit detector
+# Fit détecteur
 outlier_detector.fit(X)
 
-# Predict outliers
+# Predire les outliers
 outlier_detector.predict(X)
 </code></pre><br/>
 <p><strong><code>outlier_detector.predict(X)</code> retourne <code>array([-1,  1,  1,  1,  1,  1,  1,  1,  1,  1])</code></strong></p>
