@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte ">
-<meta name="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission). Ce code style suppose que les fichiers, variables existent. Les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. Le code Python est donc généralement concis et rempli de try except.
-Anti-pattern (Pas bien!) import os if os.path.exists(&amp;quot;mon_fichier.txt&amp;quot;): os.unlink(&amp;quot;mon_fichier.txt&amp;quot;) Bonne pratique (Bien!) Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l&#39;utiliser, on suppose qu&#39;il existe bien et on catch les éventuelles exceptions." />
+<meta name="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -293,11 +292,10 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Demander Pardon plutôt que la permission">
-<meta itemprop="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission). Ce code style suppose que les fichiers, variables existent. Les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. Le code Python est donc généralement concis et rempli de try except.
-Anti-pattern (Pas bien!) import os if os.path.exists(&quot;mon_fichier.txt&quot;): os.unlink(&quot;mon_fichier.txt&quot;) Bonne pratique (Bien!) Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l&#39;utiliser, on suppose qu&#39;il existe bien et on catch les éventuelles exceptions.">
+<meta itemprop="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.">
 <meta itemprop="datePublished" content="2020-01-04T21:20:04-07:00" />
 <meta itemprop="dateModified" content="2020-01-04T21:20:04-07:00" />
-<meta itemprop="wordCount" content="86">
+<meta itemprop="wordCount" content="124">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -306,8 +304,7 @@ Anti-pattern (Pas bien!) import os if os.path.exists(&quot;mon_fichier.txt&quot;
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Demander Pardon plutôt que la permission"/>
-<meta name="twitter:description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission). Ce code style suppose que les fichiers, variables existent. Les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. Le code Python est donc généralement concis et rempli de try except.
-Anti-pattern (Pas bien!) import os if os.path.exists(&quot;mon_fichier.txt&quot;): os.unlink(&quot;mon_fichier.txt&quot;) Bonne pratique (Bien!) Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l&#39;utiliser, on suppose qu&#39;il existe bien et on catch les éventuelles exceptions."/>
+<meta name="twitter:description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except."/>
 
 
 
@@ -380,7 +377,7 @@ Anti-pattern (Pas bien!) import os if os.path.exists(&quot;mon_fichier.txt&quot;
             
 
             <div class="post-content">
-                <p>La communauté Python utilise le coding style appelé EAFP (<strong>E</strong>asier to <strong>A</strong>sk for <strong>F</strong>orgiveness than <strong>P</strong>ermission). Ce code style suppose que les fichiers, variables existent. Les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. Le code Python est donc généralement concis et rempli de <code>try</code> <code>except</code>.</p>
+                <p>La communauté Python utilise le coding style appelé EAFP (<strong>E</strong>asier to <strong>A</strong>sk for <strong>F</strong>orgiveness than <strong>P</strong>ermission) au lieu du style LBYL (<strong>L</strong>ook <strong>B</strong>efore <strong>Y</strong>ou <strong>L</strong>eap). Ce coding style suppose que les fichiers et variables existent. En d'autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. <code>EAFP</code> est plus pertinent que <code>LBYL</code> car il est presque impossible d'anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de <code>try</code> <code>except</code>.</p>
 <h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
 <pre><code>import os
 

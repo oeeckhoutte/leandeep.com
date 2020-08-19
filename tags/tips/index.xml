@@ -82,8 +82,7 @@ prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&am
       <pubDate>Sat, 04 Jan 2020 21:20:04 -0700</pubDate>
       
       <guid>https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/</guid>
-      <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission). Ce code style suppose que les fichiers, variables existent. Les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. Le code Python est donc généralement concis et rempli de try except.
-Anti-pattern (Pas bien!) import os if os.path.exists(&amp;quot;mon_fichier.txt&amp;quot;): os.unlink(&amp;quot;mon_fichier.txt&amp;quot;) Bonne pratique (Bien!) Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l&#39;utiliser, on suppose qu&#39;il existe bien et on catch les éventuelles exceptions.</description>
+      <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.</description>
     </item>
     
     <item>
@@ -107,6 +106,16 @@ prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&am
       <description>Petit tip très rapide qui explique comment convertir un nombre décimal de type float en type string tout en gardant n chiffres après la virgule.
 La conversion peut se faire directement avec les f-strings.
 price = float(1000) print(type(price)) new_price = f&amp;quot;{price:.2f}&amp;quot; print(new_price) print(type(new_price)) </description>
+    </item>
+    
+    <item>
+      <title>Eviter les variables temporaires pour intervertir 2 variables</title>
+      <link>https://leandeep.com/tips/eviter-les-variables-temporaires-pour-intervertir-2-variables/</link>
+      <pubDate>Tue, 05 Jun 2018 22:12:03 -0700</pubDate>
+      
+      <guid>https://leandeep.com/tips/eviter-les-variables-temporaires-pour-intervertir-2-variables/</guid>
+      <description>En Python, il n&#39;est pas nécessaire d&#39;utiliser une variable temporaire pour intervertir le contenu de 2 variables.
+Anti-pattern (Pas bien!) enfant_1 = &amp;quot;riri&amp;quot; enfant_2 = &amp;quot;fifi&amp;quot; temp = enfant_1 enfant_2 = enfant_1 enfant_1 = temp  Bonne pratique (Bien!) enfant_1 = &amp;quot;riri&amp;quot; enfant_2 = &amp;quot;fifi&amp;quot; (enfant_1, enfant_2) = (enfant_2, enfant_1) </description>
     </item>
     
   </channel>
