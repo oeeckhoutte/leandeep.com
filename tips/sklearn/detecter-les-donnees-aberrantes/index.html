@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte ">
-<meta name="description" content="" />
+<meta name="description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -21,7 +21,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/tips/" />
+<link rel="canonical" href="https://leandeep.com/tips/sklearn/detecter-les-donnees-aberrantes/" />
 
 
 
@@ -266,7 +266,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Simple Python Tips :: Bienvenue sur le site de Lean Deep 
+            Détecter les données aberrantes :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -291,22 +291,29 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Simple Python Tips">
-<meta itemprop="description" content="Python tips"><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Détecter les données aberrantes">
+<meta itemprop="description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:">
+<meta itemprop="datePublished" content="2019-02-04T21:23:04-07:00" />
+<meta itemprop="dateModified" content="2019-02-04T21:23:04-07:00" />
+<meta itemprop="wordCount" content="193">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="sklearn,tips,ml_tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Simple Python Tips"/>
-<meta name="twitter:description" content="Python tips"/>
+<meta name="twitter:title" content="Détecter les données aberrantes"/>
+<meta name="twitter:description" content="Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:"/>
 
 
 
 
 
-    <meta property="article:published_time" content="2020-01-15 22:20:04 -0700 -0700" />
+    <meta property="article:published_time" content="2019-02-04 21:23:04 -0700 -0700" />
 
 
 
-<link rel="alternate" type="application/rss+xml" href="https://leandeep.com/tips/index.xml" title="Bienvenue sur le site de Lean Deep" />
 
 
 
@@ -357,128 +364,79 @@ function toTitleCase(str) {
 
             <div class="content">
                 
+    <main class="post">
 
-<div class="nav-search">
-    <div class="search-input">
-        <i class="material-icons search-icon">search</i>
-        <input type="text" placeholder="Search..." id="search-input" />
-       <div class="search-dropdown" id="hits-container"></div>
-        <i class="close-search material-icons">close</i>
-    </div>
-</div>
+        <div class="post-info">
+            
+            </p>
+        </div>
 
-    <main class="posts">
-        <h1>Simple Python Tips</h1>
-            <div class="content"><!-- raw HTML omitted -->
-</div>
-            <div class="posts-group">
-                <div class="post-year">2020</div>
+        <article>
+            <h2 class="post-title"><a href="https://leandeep.com/tips/sklearn/detecter-les-donnees-aberrantes/">Détecter les données aberrantes</a></h2>
 
-                <ul class="posts-list">
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/rendre-du-code-plus-propre-avec-des-nametuples/">
-                                <span class="post-title">Rendre du code plus propre avec des namedtuples</span>
-                                <span class="post-day">Aug 18</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/mocker-en-1-minute-les-appels-vers-des-services-externes/">
-                                <span class="post-title">Mocker en 1 minute les appels vers des services externes</span>
-                                <span class="post-day">Jul 4</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/logique-flou-dans-comparaison-de-strings/">
-                                <span class="post-title">Comparaison de strings et logique floue</span>
-                                <span class="post-day">Jan 16</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/handle-keyerrors-dans-les-dict-avec-defaultdict/">
-                                <span class="post-title">Eviter les if ou try/except avec les dictionnaires</span>
-                                <span class="post-day">Jan 16</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/slicer-un-set-de-maniere-pythonique/">
-                                <span class="post-title">Slicer de manière Pythonique un set</span>
-                                <span class="post-day">Jan 15</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes/">
-                                <span class="post-title">Utiliser zip pour itérer sur deux listes</span>
-                                <span class="post-day">Jan 14</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/python/utiliser-une-boucle-non-pythonique/">
-                                <span class="post-title">Utiliser une boucle non Pythonique</span>
-                                <span class="post-day">Jan 11</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/python/demander-pardon-plutot-que-la-permission/">
-                                <span class="post-title">Demander Pardon plutôt que la permission</span>
-                                <span class="post-day">Jan 4</span>
-                            </a>
-                        </li>
-                </ul>
+            
+
+            <div class="post-content">
+                <h2 id="pr-requis">Pré-requis</h2>
+<pre><code>pip install numpy sklearn
+# va installer numpy 1.19.1 et sklearn 0.0
+
+</code></pre><br/>
+<h2 id="changer-les-librairies">Changer les librairies</h2>
+<pre><code>import numpy as np
+from sklearn.covariance import EllipticEnvelope
+from sklearn.datasets import make_blobs
+</code></pre><br/>
+<h2 id="crer-un-faux-dataset">Créer un faux dataset</h2>
+<pre><code># Create simulated data
+X, _ = make_blobs(n_samples = 10,
+                  n_features = 2,
+                  centers = 1,
+                  random_state = 1)
+
+# Replace the first 2 observation's values with extreme values
+X[0,0] = 10000
+X[0,1] = 10000
+</code></pre><p>Voici à quoi ressemble notre dataset composé de 10 observations:</p>
+<pre><code>array([[ 1.00000000e+04,  1.00000000e+04],
+       [-2.76017908e+00,  5.55121358e+00],
+       [-1.61734616e+00,  4.98930508e+00],
+       [-5.25790464e-01,  3.30659860e+00],
+       [ 8.52518583e-02,  3.64528297e+00],
+       [-7.94152277e-01,  2.10495117e+00],
+       [-1.34052081e+00,  4.15711949e+00],
+       [-1.98197711e+00,  4.02243551e+00],
+       [-2.18773166e+00,  3.33352125e+00],
+       [-1.97451969e-01,  2.34634916e+00]])
+</code></pre><br/>
+<h2 id="dtecter-les-donnes-aberrantes-outliers">Détecter les données aberrantes (outliers)</h2>
+<pre><code># Create detector
+outlier_detector = EllipticEnvelope(contamination=.1)
+
+# Fit detector
+outlier_detector.fit(X)
+
+# Predict outliers
+outlier_detector.predict(X)
+</code></pre><br/>
+<p><strong><code>outlier_detector.predict(X)</code> retourne <code>array([-1,  1,  1,  1,  1,  1,  1,  1,  1,  1])</code></strong></p>
+<br/>
+<blockquote>
+<p><code>EllipticEnvelope</code> suppose que les données soient normalement distribuées et dessine une ellipse autour des données. A l'extérieur de l'ellipse les observations sont considérées comme aberrantes (labellisées -1). La limitation de cette approche est qu'il est nécessaire de spécifier le paramètre de contamination du dataset. <strong>Cela suppose que l'on connaisse à l'avance la proportion de données aberrantes dans notre dataset; ce qui est impossible.</strong></p>
+</blockquote>
+
             </div>
-            <div class="posts-group">
-                <div class="post-year">2019</div>
+        </article>
 
-                <ul class="posts-list">
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/python/difference-entre-list-append-et-extend/">
-                                <span class="post-title">Différence entre append et extend</span>
-                                <span class="post-day">Feb 13</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/sklearn/detecter-les-donnees-aberrantes/">
-                                <span class="post-title">Détecter les données aberrantes</span>
-                                <span class="post-day">Feb 4</span>
-                            </a>
-                        </li>
-                </ul>
-            </div>
-            <div class="posts-group">
-                <div class="post-year">2018</div>
+        <hr />
 
-                <ul class="posts-list">
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/f-string-float-to-string-avec-2-decimals/">
-                                <span class="post-title">Convertir un type float en type string avec n decimals</span>
-                                <span class="post-day">Jun 16</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/utiliser-un-dictionnaire-pour-realiser-un-switch-case/">
-                                <span class="post-title">Utiliser un dictionnaire pour réaliser un switch case</span>
-                                <span class="post-day">Jun 7</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/utiliser-operateur-etoile-pour-representer-le-reste-d-une-liste/">
-                                <span class="post-title">Utiliser l&#39;opérateur * pour représenter le reste d&#39;une liste</span>
-                                <span class="post-day">Jun 6</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/eviter-les-variables-temporaires-pour-intervertir-2-variables/">
-                                <span class="post-title">Eviter les variables temporaires pour intervertir 2 variables</span>
-                                <span class="post-day">Jun 5</span>
-                            </a>
-                        </li>
-                        <li class="post-item">
-                            <a href="https://leandeep.com/tips/python/eviter-les-variables-index-dans-les-for-loops/">
-                                <span class="post-title">Eviter les variables index dans les for-loops</span>
-                                <span class="post-day">Jun 4</span>
-                            </a>
-                        </li>
-                </ul>
-            </div>
+        <div class="post-info">
+  				<p>
+  					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/sklearn">sklearn</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/ml_tips">ml_tips</a></span>
+  				</p>
+  			</div>
+
+        
     </main>
 
             </div>

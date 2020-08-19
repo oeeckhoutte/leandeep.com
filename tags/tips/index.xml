@@ -76,30 +76,30 @@ Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;
     
     <item>
       <title>Utiliser une boucle non Pythonique</title>
-      <link>https://leandeep.com/tips/utiliser-une-boucle-non-pythonique/</link>
+      <link>https://leandeep.com/tips/python/utiliser-une-boucle-non-pythonique/</link>
       <pubDate>Sat, 11 Jan 2020 21:20:04 -0700</pubDate>
       
-      <guid>https://leandeep.com/tips/utiliser-une-boucle-non-pythonique/</guid>
+      <guid>https://leandeep.com/tips/python/utiliser-une-boucle-non-pythonique/</guid>
       <description>Pour accéder aux éléments d&#39;une liste et afficher l&#39;index des éléments, il vaut mieux privilégier l&#39;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&#39;incrémenter la valeur de l&#39;index.
-Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom) Bonne pratique (Bien!) Voici la manière plus Pythonique d&#39;itérérer sur une liste.
+ Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom)  Bonne pratique (Bien!) Voici la manière plus Pythonique d&#39;itérérer sur une liste.
 prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx, prenom in enumerate(prenoms): print(idx, prenom) </description>
     </item>
     
     <item>
       <title>Demander Pardon plutôt que la permission</title>
-      <link>https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/</link>
+      <link>https://leandeep.com/tips/python/demander-pardon-plutot-que-la-permission/</link>
       <pubDate>Sat, 04 Jan 2020 21:20:04 -0700</pubDate>
       
-      <guid>https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/</guid>
+      <guid>https://leandeep.com/tips/python/demander-pardon-plutot-que-la-permission/</guid>
       <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.</description>
     </item>
     
     <item>
       <title>Différence entre append et extend</title>
-      <link>https://leandeep.com/tips/difference-entre-list-append-et-extend/</link>
+      <link>https://leandeep.com/tips/python/difference-entre-list-append-et-extend/</link>
       <pubDate>Wed, 13 Feb 2019 21:20:04 -0700</pubDate>
       
-      <guid>https://leandeep.com/tips/difference-entre-list-append-et-extend/</guid>
+      <guid>https://leandeep.com/tips/python/difference-entre-list-append-et-extend/</guid>
       <description>Append Ajoute un object en bout de liste:
 prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] prenoms.append([&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]) print(prenoms) Résultat: [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, [&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]]
  Extend Étend la liste en ajoutant les éléments d&#39;un itérable
@@ -107,14 +107,12 @@ prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&am
     </item>
     
     <item>
-      <title>Convertir un type float en type string avec n decimals</title>
-      <link>https://leandeep.com/tips/f-string-float-to-string-avec-2-decimals/</link>
-      <pubDate>Sat, 16 Jun 2018 21:20:04 -0700</pubDate>
+      <title>Détecter les données aberrantes</title>
+      <link>https://leandeep.com/tips/sklearn/detecter-les-donnees-aberrantes/</link>
+      <pubDate>Mon, 04 Feb 2019 21:23:04 -0700</pubDate>
       
-      <guid>https://leandeep.com/tips/f-string-float-to-string-avec-2-decimals/</guid>
-      <description>Petit tip très rapide qui explique comment convertir un nombre décimal de type float en type string tout en gardant n chiffres après la virgule.
-La conversion peut se faire directement avec les f-strings.
-price = float(1000) print(type(price)) new_price = f&amp;quot;{price:.2f}&amp;quot; print(new_price) print(type(new_price)) </description>
+      <guid>https://leandeep.com/tips/sklearn/detecter-les-donnees-aberrantes/</guid>
+      <description>Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Changer les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Replace the first 2 observation&#39;s values with extreme values X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:</description>
     </item>
     
   </channel>
