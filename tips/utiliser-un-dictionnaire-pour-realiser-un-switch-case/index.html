@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte ">
-<meta name="description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.
- Anti-pattern (Pas bien!) def ma_fonction(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!" />
+<meta name="description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et d&#39;utiliser des dictionnaires.
+ Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -293,11 +293,11 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Utiliser un dictionnaire pour réaliser un switch case">
-<meta itemprop="description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.
- Anti-pattern (Pas bien!) def ma_fonction(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!">
+<meta itemprop="description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et d&#39;utiliser des dictionnaires.
+ Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!">
 <meta itemprop="datePublished" content="2018-06-07T23:43:06-07:00" />
 <meta itemprop="dateModified" content="2018-06-07T23:43:06-07:00" />
-<meta itemprop="wordCount" content="106">
+<meta itemprop="wordCount" content="103">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -306,8 +306,8 @@ function toTitleCase(str) {
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Utiliser un dictionnaire pour réaliser un switch case"/>
-<meta name="twitter:description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.
- Anti-pattern (Pas bien!) def ma_fonction(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!"/>
+<meta name="twitter:description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et d&#39;utiliser des dictionnaires.
+ Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!"/>
 
 
 
@@ -380,10 +380,10 @@ function toTitleCase(str) {
             
 
             <div class="post-content">
-                <p>Contrairement à d'autres langages de programmation, Python ne permet pas de faire des <code>switch</code> <code>case</code>. L'alternative naïve est de faire des <code>if...elif...else</code>. Une autre alternative plus idiomatique est d'utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.</p>
+                <p>Contrairement à d'autres langages de programmation, Python ne permet pas de faire des <code>switch</code> <code>case</code>. L'alternative naïve est de faire des <code>if...elif...else</code>. Une autre alternative plus idiomatique est d'utiliser les fonctions comme des objets et d'utiliser des dictionnaires.</p>
 <br/>
 <h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
-<pre><code>def ma_fonction(var_1, var_2, operator):
+<pre><code>def apply_operator(var_1, var_2, operator):
     if operator == '+':
         return var_1 + var_2
     elif operator == '*':
@@ -396,7 +396,7 @@ function toTitleCase(str) {
 <h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
 <pre><code>import operator as op
 
-def ma_fonction(var_1, var_2, operator):
+def apply_operator(var_1, var_2, operator):
     operator_map = {
         '+': op.add,
         '*': op.mul,
