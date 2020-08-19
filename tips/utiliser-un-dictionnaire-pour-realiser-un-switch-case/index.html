@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte ">
-<meta name="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except." />
+<meta name="description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.
+ Anti-pattern (Pas bien!) def ma_fonction(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -21,7 +22,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/" />
+<link rel="canonical" href="https://leandeep.com/tips/utiliser-un-dictionnaire-pour-realiser-un-switch-case/" />
 
 
 
@@ -266,7 +267,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Demander Pardon plutôt que la permission :: Bienvenue sur le site de Lean Deep 
+            Utiliser un dictionnaire pour réaliser un switch case :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -291,11 +292,12 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Demander Pardon plutôt que la permission">
-<meta itemprop="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.">
-<meta itemprop="datePublished" content="2020-01-04T21:20:04-07:00" />
-<meta itemprop="dateModified" content="2020-01-04T21:20:04-07:00" />
-<meta itemprop="wordCount" content="124">
+<meta itemprop="name" content="Utiliser un dictionnaire pour réaliser un switch case">
+<meta itemprop="description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.
+ Anti-pattern (Pas bien!) def ma_fonction(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!">
+<meta itemprop="datePublished" content="2018-06-07T23:43:06-07:00" />
+<meta itemprop="dateModified" content="2018-06-07T23:43:06-07:00" />
+<meta itemprop="wordCount" content="106">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -303,14 +305,15 @@ function toTitleCase(str) {
 <meta itemprop="keywords" content="python,tips,python_tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Demander Pardon plutôt que la permission"/>
-<meta name="twitter:description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except."/>
+<meta name="twitter:title" content="Utiliser un dictionnaire pour réaliser un switch case"/>
+<meta name="twitter:description" content="Contrairement à d&#39;autres langages de programmation, Python ne permet pas de faire des switch case. L&#39;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&#39;utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.
+ Anti-pattern (Pas bien!) def ma_fonction(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!"/>
 
 
 
 
 
-    <meta property="article:published_time" content="2020-01-04 21:20:04 -0700 -0700" />
+    <meta property="article:published_time" content="2018-06-07 23:43:06 -0700 -0700" />
 
 
 
@@ -372,27 +375,35 @@ function toTitleCase(str) {
         </div>
 
         <article>
-            <h2 class="post-title"><a href="https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/">Demander Pardon plutôt que la permission</a></h2>
+            <h2 class="post-title"><a href="https://leandeep.com/tips/utiliser-un-dictionnaire-pour-realiser-un-switch-case/">Utiliser un dictionnaire pour réaliser un switch case</a></h2>
 
             
 
             <div class="post-content">
-                <p>La communauté Python utilise le coding style appelé EAFP (<strong>E</strong>asier to <strong>A</strong>sk for <strong>F</strong>orgiveness than <strong>P</strong>ermission) au lieu du style LBYL (<strong>L</strong>ook <strong>B</strong>efore <strong>Y</strong>ou <strong>L</strong>eap). Ce coding style suppose que les fichiers et variables existent. En d'autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. <code>EAFP</code> est plus pertinent que <code>LBYL</code> car il est presque impossible d'anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de <code>try</code> <code>except</code>.</p>
+                <p>Contrairement à d'autres langages de programmation, Python ne permet pas de faire des <code>switch</code> <code>case</code>. L'alternative naïve est de faire des <code>if...elif...else</code>. Une autre alternative plus idiomatique est d'utiliser les fonctions comme des objets et de les stocker dans des dictionnaires.</p>
 <br/>
 <h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
-<pre><code>import os
-
-if os.path.exists(&quot;mon_fichier.txt&quot;):
-    os.unlink(&quot;mon_fichier.txt&quot;)
+<pre><code>def ma_fonction(var_1, var_2, operator):
+    if operator == '+':
+        return var_1 + var_2
+    elif operator == '*':
+        return var_1 * var_2
+    elif operator == '/':
+        return var_1 / var_2
+    elif operator == '-':
+        return var_1 - var_2
 </code></pre><br/>
 <h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
-<p>Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l'utiliser, on suppose qu'il existe bien et on catch les éventuelles exceptions.</p>
-<pre><code>import os
+<pre><code>import operator as op
 
-try:
-    os.unlink(&quot;file.txt&quot;)
-except OSError:
-    pass
+def ma_fonction(var_1, var_2, operator):
+    operator_map = {
+        '+': op.add,
+        '*': op.mul,
+        '/': op.truediv,
+        '-': op.sub,
+    }
+    return operator_map[operator](var_1, var_2)
 </code></pre>
             </div>
         </article>

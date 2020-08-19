@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte ">
-<meta name="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except." />
+<meta name="description" content="Python 3 a introduit l&#39;opérateur * permettant d&#39;extraire plusieurs éléments au début ou à la fin d&#39;une liste.
+ Anti-pattern (Pas bien!) my_list = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, &amp;quot;riri&amp;quot;, &amp;quot;fifi&amp;quot;, &amp;quot;loulou&amp;quot;] (enfant_1, enfant_2, reste_enfants) = my_list[0], my_list[1], my_list[2:] print(reste_enfants) (enfant_1, enfants_milieu, dernier_enfant) = my_list[0], my_list[1:-1], my_list[-1] print(enfants_milieu) (premier_enfants, enfants_milieu, dernier_enfants) = my_list[:-2], my_list[-2], my_list[-1] print(premier_enfants)  Bonne pratique (Bien!) my_list = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, &amp;quot;riri&amp;quot;, &amp;quot;fifi&amp;quot;, &amp;quot;loulou&amp;quot;] (enfant_1, enfant_2, *reste_enfants) = my_list print(reste_enfants) (enfant_1, *enfants_milieu, dernier_enfant) = my_list print(enfants_milieu) (*premier_enfants, enfants_milieu, dernier_enfants) = my_list print(premier_enfants) " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -21,7 +22,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/" />
+<link rel="canonical" href="https://leandeep.com/tips/utiliser-operateur-etoile-pour-representer-le-reste-d-une-liste/" />
 
 
 
@@ -266,7 +267,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Demander Pardon plutôt que la permission :: Bienvenue sur le site de Lean Deep 
+            Utiliser l&#39;opérateur * pour représenter le reste d&#39;une liste :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -291,11 +292,12 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Demander Pardon plutôt que la permission">
-<meta itemprop="description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.">
-<meta itemprop="datePublished" content="2020-01-04T21:20:04-07:00" />
-<meta itemprop="dateModified" content="2020-01-04T21:20:04-07:00" />
-<meta itemprop="wordCount" content="124">
+<meta itemprop="name" content="Utiliser l&#39;opérateur * pour représenter le reste d&#39;une liste">
+<meta itemprop="description" content="Python 3 a introduit l&#39;opérateur * permettant d&#39;extraire plusieurs éléments au début ou à la fin d&#39;une liste.
+ Anti-pattern (Pas bien!) my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;] (enfant_1, enfant_2, reste_enfants) = my_list[0], my_list[1], my_list[2:] print(reste_enfants) (enfant_1, enfants_milieu, dernier_enfant) = my_list[0], my_list[1:-1], my_list[-1] print(enfants_milieu) (premier_enfants, enfants_milieu, dernier_enfants) = my_list[:-2], my_list[-2], my_list[-1] print(premier_enfants)  Bonne pratique (Bien!) my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;] (enfant_1, enfant_2, *reste_enfants) = my_list print(reste_enfants) (enfant_1, *enfants_milieu, dernier_enfant) = my_list print(enfants_milieu) (*premier_enfants, enfants_milieu, dernier_enfants) = my_list print(premier_enfants) ">
+<meta itemprop="datePublished" content="2018-06-06T12:20:04-07:00" />
+<meta itemprop="dateModified" content="2018-06-06T12:20:04-07:00" />
+<meta itemprop="wordCount" content="82">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -303,14 +305,15 @@ function toTitleCase(str) {
 <meta itemprop="keywords" content="python,tips,python_tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Demander Pardon plutôt que la permission"/>
-<meta name="twitter:description" content="La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except."/>
+<meta name="twitter:title" content="Utiliser l&#39;opérateur * pour représenter le reste d&#39;une liste"/>
+<meta name="twitter:description" content="Python 3 a introduit l&#39;opérateur * permettant d&#39;extraire plusieurs éléments au début ou à la fin d&#39;une liste.
+ Anti-pattern (Pas bien!) my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;] (enfant_1, enfant_2, reste_enfants) = my_list[0], my_list[1], my_list[2:] print(reste_enfants) (enfant_1, enfants_milieu, dernier_enfant) = my_list[0], my_list[1:-1], my_list[-1] print(enfants_milieu) (premier_enfants, enfants_milieu, dernier_enfants) = my_list[:-2], my_list[-2], my_list[-1] print(premier_enfants)  Bonne pratique (Bien!) my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;] (enfant_1, enfant_2, *reste_enfants) = my_list print(reste_enfants) (enfant_1, *enfants_milieu, dernier_enfant) = my_list print(enfants_milieu) (*premier_enfants, enfants_milieu, dernier_enfants) = my_list print(premier_enfants) "/>
 
 
 
 
 
-    <meta property="article:published_time" content="2020-01-04 21:20:04 -0700 -0700" />
+    <meta property="article:published_time" content="2018-06-06 12:20:04 -0700 -0700" />
 
 
 
@@ -372,27 +375,34 @@ function toTitleCase(str) {
         </div>
 
         <article>
-            <h2 class="post-title"><a href="https://leandeep.com/tips/demander-pardon-plutot-que-la-permission/">Demander Pardon plutôt que la permission</a></h2>
+            <h2 class="post-title"><a href="https://leandeep.com/tips/utiliser-operateur-etoile-pour-representer-le-reste-d-une-liste/">Utiliser l'opérateur * pour représenter le reste d'une liste</a></h2>
 
             
 
             <div class="post-content">
-                <p>La communauté Python utilise le coding style appelé EAFP (<strong>E</strong>asier to <strong>A</strong>sk for <strong>F</strong>orgiveness than <strong>P</strong>ermission) au lieu du style LBYL (<strong>L</strong>ook <strong>B</strong>efore <strong>Y</strong>ou <strong>L</strong>eap). Ce coding style suppose que les fichiers et variables existent. En d'autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. <code>EAFP</code> est plus pertinent que <code>LBYL</code> car il est presque impossible d'anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de <code>try</code> <code>except</code>.</p>
+                <p>Python 3 a introduit l'opérateur <code>*</code> permettant d'extraire plusieurs éléments au début ou à la fin d'une liste.</p>
 <br/>
 <h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
-<pre><code>import os
+<pre><code>my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;]
+(enfant_1, enfant_2, reste_enfants) = my_list[0], my_list[1], my_list[2:]
+print(reste_enfants)
 
-if os.path.exists(&quot;mon_fichier.txt&quot;):
-    os.unlink(&quot;mon_fichier.txt&quot;)
+(enfant_1, enfants_milieu, dernier_enfant) = my_list[0], my_list[1:-1], my_list[-1]
+print(enfants_milieu)
+
+(premier_enfants, enfants_milieu, dernier_enfants) = my_list[:-2], my_list[-2], my_list[-1]
+print(premier_enfants)
 </code></pre><br/>
 <h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
-<p>Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l'utiliser, on suppose qu'il existe bien et on catch les éventuelles exceptions.</p>
-<pre><code>import os
+<pre><code>my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;]
+(enfant_1, enfant_2, *reste_enfants) = my_list
+print(reste_enfants)
 
-try:
-    os.unlink(&quot;file.txt&quot;)
-except OSError:
-    pass
+(enfant_1, *enfants_milieu, dernier_enfant) = my_list
+print(enfants_milieu)
+
+(*premier_enfants, enfants_milieu, dernier_enfants) = my_list
+print(premier_enfants)
 </code></pre>
             </div>
         </article>
