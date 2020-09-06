@@ -5,8 +5,324 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 15 Aug 2020 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 06 Sep 2020 09:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Créer son premier smart contract pour Ethereum</title>
+            <link>https://leandeep.com/cr%C3%A9er-son-premier-smart-contract-pour-ethereum/</link>
+            <pubDate>Sun, 06 Sep 2020 09:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-son-premier-smart-contract-pour-ethereum/</guid>
+            <description>Installation des pré-requis Truffle npm install -g truffle  Ganache Option 1:
+Rendez-vous à l&#39;adresse http://truffleframework.com/ganache et cliquer sur le bouton &amp;ldquo;Download&amp;rdquo;.
+Option 2:
+Installation via le terminal
+npm install ganache-cli -g puis démarrage du server Ganache via la commande:
+ganache-cli -p 7545 -i 47 -l 4700000  Initialisation du projet  Il est possible d&#39;initialiser son project avec la commande truffle init mais des boilerplates prêts à l&#39;emploi existent.</description>
+            <content type="html"><![CDATA[<h2 id="installation-des-pr-requis">Installation des pré-requis</h2>
+<h3 id="truffle">Truffle</h3>
+<pre><code>npm install -g truffle
+</code></pre><br/>
+<h3 id="ganache">Ganache</h3>
+<p><strong>Option 1:</strong></p>
+<p>Rendez-vous à l'adresse <a href="http://truffleframework.com/ganache">http://truffleframework.com/ganache</a> et cliquer sur le bouton &ldquo;Download&rdquo;.</p>
+<p><strong>Option 2:</strong></p>
+<p>Installation via le terminal</p>
+<pre><code>npm install ganache-cli -g
+</code></pre><p>puis démarrage du server Ganache via la commande:</p>
+<pre><code>ganache-cli -p 7545 -i 47 -l 4700000
+</code></pre><br/>
+<h2 id="initialisation-du-projet">Initialisation du projet</h2>
+<blockquote>
+<p>Il est possible d'initialiser son project avec la commande <code>truffle init</code> mais des <a href="https://www.trufflesuite.com/boxes">boilerplates</a> prêts à l'emploi existent.</p>
+</blockquote>
+<pre><code>mkdir amiland-shop
+cd amiland-shop
+truffle unbox pet-shop
+</code></pre><br/>
+<h2 id="structure-du-projet">Structure du projet</h2>
+<pre><code>├── LICENSE
+├── box-img-lg.png
+├── box-img-sm.png
+├── bs-config.json
+├── contracts
+│   └── Migrations.sol
+├── migrations
+│   └── 1_initial_migration.js
+├── node_modules
+├── package-lock.json
+├── package.json
+├── src
+│   ├── css
+│   ├── fonts
+│   ├── images
+│   ├── index.html
+│   ├── js
+│   │   ├── app.js
+│   │   ├── bootstrap.min.js
+│   │   ├── truffle-contract.js
+│   │   └── web3.min.js
+│   └── pets.json
+├── test
+└── truffle-config.js
+</code></pre><br/>
+<ul>
+<li>
+<p><code>contracts/</code> contient le code source Solidity pour un ou plusieurs Smart contracts, ainsi que le fichier de migration <code>Migrations.sol</code>.</p>
+</li>
+<li>
+<p><code>migrations/</code>: truffle possède un système de migration pour déployer des smarts contracts. Une migration est vue comme un smart contract particulier qui permet de suivre tous les changements réalisés.</p>
+</li>
+<li>
+<p><code>test/</code>: contient à la fois les fichiers de tests pour le code JavaScript et Solidity.</p>
+</li>
+<li>
+<p><code>truffle-config.js</code>: Fichier de configuration Truffle.</p>
+</li>
+</ul>
+<blockquote>
+<p>D'autres fichiers ont été créés avec le boilerplate. Nous ne les détaillerons pas dans cet article. Il s'agit principalement des fichiers permettant d'afficher un front pour notre dApp.</p>
+</blockquote>
+<br/>
+<h2 id="smart-contract">Smart contract</h2>
+<p>Créer un fichier appelé <code>AdoptUnChien.sol</code> et ajouter le code suivant:</p>
+<pre><code>pragma solidity ^0.5.0;
+
+contract AdoptUnChien {
+    address[16] public nouveauxParents;
+    
+    function adoptUnChien(uint chienId) public returns (uint) {
+        require(chienId &gt;= 0 &amp;&amp; chienId &lt;= 15);
+        nouveauxParents[chienId] = msg.sender;
+        return chienId;
+    }
+
+    function getNouveauxParents() public view returns (address[16] memory) {
+        return nouveauxParents;
+    }
+}
+</code></pre><blockquote>
+<p>Nous avons défini la variable <code>nouveauxParents</code> qui est un tableau d'adresse Ethereum. Les tableaux contienne un type et ont une taille fixe ou variable. Dans notre cas de notre variable le type est <code>address</code> et la longueur du tableau est <code>16</code>.</p>
+</blockquote>
+<blockquote>
+<p><code>memory</code> dans <code>address[16] memory</code> retourne la location des données d'une variable.</p>
+</blockquote>
+<blockquote>
+<p>Le mot clé <code>view</code> dans la déclaration de la fonction <code>getNouveauxParents</code> signifie que la fonction ne va pas modifier l'état du contrat.</p>
+</blockquote>
+<br/>
+<h2 id="compilation">Compilation</h2>
+<pre><code>truffle compile
+</code></pre><p>Si tout se passe bien, vous devriez voir quelque chose de similaire à ceci:</p>
+<pre><code>Compiling your contracts...
+===========================
+&gt; Compiling ./contracts/AdoptUnChien.sol
+&gt; Compiling ./contracts/Migrations.sol
+&gt; Artifacts written to /Users/olivier/Dev/Leandeep/Ethereum/amiland-shop/build/contracts
+&gt; Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+</code></pre><br/>
+<h2 id="dploiement">Déploiement</h2>
+<p>Pour déployer son smart contract sur la blockchain on utilise une migration.</p>
+<p>Pour ceux qui connaissent Alembic en Python pour migrer le schéma de sa base de données Postgres c'est un peu le même concept.</p>
+<p>Une migration est un script de déploiement qui altère l'état des contrats de son application en le faisant passer d'un état <em>n</em> à un état <em>n+1</em>.</p>
+<p>Pour une première migration, il n'y a pas de changement d'état. On déploie simplement du nouveau code mais pour les autres migrations, il faudra peut être déplacer des données et remplacer un smart contrat par un autre.</p>
+<p>Configurer le fichier <code>truffle-config.js</code>. Eventuellement changez le network-id. La valeur à entrer se trouve dans les settings de Ganache.</p>
+<p>Puis exécuter la commande de migration:</p>
+<pre><code>truffle migrate
+</code></pre><p>Si tout se passe bien, vous devriez avoir un message comme celui ci:</p>
+<pre><code>Compiling your contracts...
+===========================
+&gt; Everything is up to date, there is nothing to compile.
+
+
+
+Starting migrations...
+======================
+&gt; Network name:    'development'
+&gt; Network id:      47
+&gt; Block gas limit: 6721975 (0x6691b7)
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   &gt; transaction hash:    0x84d8f3bfba6820d3555a9036eaee427d7c74c26ccf8f855163e4e3cc56e52060
+   &gt; Blocks: 0            Seconds: 0
+   &gt; contract address:    0x99e87F4bF62117ed6C4f330026FA473570792118
+   &gt; block number:        3
+   &gt; block timestamp:     1599397484
+   &gt; account:             0x52F1292acF383eB82DC4c08A966447D642d8294C
+   &gt; balance:             99.99554203
+   &gt; gas used:            164175 (0x2814f)
+   &gt; gas price:           20 gwei
+   &gt; value sent:          0 ETH
+   &gt; total cost:          0.0032835 ETH
+
+
+   &gt; Saving migration to chain.
+   &gt; Saving artifacts
+   -------------------------------------
+   &gt; Total cost:           0.0032835 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'AdoptUnChien'
+   ------------------------
+   &gt; transaction hash:    0xbdc59be57dc2ff1811aba723905f1f6cfda1bcb86af3f1686934cdb4c8a3803b
+   &gt; Blocks: 0            Seconds: 0
+   &gt; contract address:    0x2be685a572F1bd7AAFdD6fCc00C5A9B6E04CFCE7
+   &gt; block number:        5
+   &gt; block timestamp:     1599397485
+   &gt; account:             0x52F1292acF383eB82DC4c08A966447D642d8294C
+   &gt; balance:             99.99061867
+   &gt; gas used:            203827 (0x31c33)
+   &gt; gas price:           20 gwei
+   &gt; value sent:          0 ETH
+   &gt; total cost:          0.00407654 ETH
+
+
+   &gt; Saving migration to chain.
+   &gt; Saving artifacts
+   -------------------------------------
+   &gt; Total cost:          0.00407654 ETH
+
+
+Summary
+=======
+&gt; Total deployments:   2
+&gt; Final cost:          0.00736004 ETH
+
+</code></pre><br/>
+<h2 id="tests-unitaires">Tests unitaires</h2>
+<h3 id="tests-solidity">Tests Solidity</h3>
+<p>Créer un fichier <code>TestAdoptUnChien.sol</code> dans le répertoire <code>test</code> et ajouter le contenu ci-dessous.</p>
+<p>La liste des assertions disponible pour Solidity est la suivante: <a href="https://github.com/trufflesuite/truffle/blob/master/packages/core/lib/testing/Assert.sol">https://github.com/trufflesuite/truffle/blob/master/packages/core/lib/testing/Assert.sol</a></p>
+<pre><code>pragma solidity ^0.5.0;
+
+import &quot;truffle/Assert.sol&quot;;
+import &quot;truffle/DeployedAddresses.sol&quot;;
+import &quot;../contracts/AdoptUnChien.sol&quot;;
+
+contract TestAdoptUnChien {
+    // The address of the AdoptUnChien contract to be tested
+    AdoptUnChien adoptUnChien = AdoptUnChien(DeployedAddresses.AdoptUnChien());
+
+    // The id of the pet that will be used for testing
+    uint expectedChienId = 8;
+
+    //The expected owner of adopted pet is this contract
+    address expectedNouveauParent = address(this);
+
+
+    function testNouveauParentPeutAdopterUnChien() public {
+        uint returnedId = adoptUnChien.adoptUnChien(expectedChienId);
+        Assert.equal(returnedId, expectedChienId, &quot;AdoptUnChien of the expected chien should match what is returned.&quot;);
+    }
+
+    function testGetNouveauxParentsAddressByChienId() public {
+        address nouveauParent = adoptUnChien.nouveauxParents(expectedChienId);
+        Assert.equal(nouveauParent, expectedNouveauParent, &quot;Owner of the expected pet should be this contract&quot;);
+    }
+
+     function testGetNouveauParentAddressByChienIdInArray() public {
+        // Store nouveauxParents in memory rather than contract's storage
+        address[16] memory nouveauxParents = adoptUnChien.getNouveauxParents();
+        Assert.equal(nouveauxParents[expectedChienId], expectedNouveauParent, &quot;Owner of the expected chien should be this contract&quot;);
+    }
+
+}
+</code></pre><p>Exécuter les tests via la commande:</p>
+<pre><code>truffle test
+</code></pre><p>S'il n'y a pas d'erreur, vous devriez voir quelque chose de similaire:</p>
+<pre><code>Using network 'development'.
+
+
+Compiling your contracts...
+===========================
+&gt; Compiling ./contracts/AdoptUnChien.sol
+&gt; Compiling ./test/TestAdoption.sol
+&gt; Artifacts written to /var/folders/6n/c4hj8zyn21j9pbxdjz86y0kw0000gn/T/test--54639-JZkSvOpCLaWh
+&gt; Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+
+
+
+  TestAdoptUnChien
+    ✓ testNouveauParentPeutAdopterUnChien (147ms)
+    ✓ testGetNouveauxParentsAddressByChienId (113ms)
+    ✓ testGetNouveauParentAddressByChienIdInArray (122ms)
+
+
+  3 passing (8s)
+</code></pre><br/>
+<h3 id="tests-javascript">Tests JavaScript</h3>
+<p>On peut également créer des tests en JavaScript:</p>
+<p>Par exemple, créer un fichier <code>testAdoptUnChien.test.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const AdoptUnChien = artifacts.require(&quot;AdoptUnChien&quot;);
+
+contract(&quot;AdoptUnChien&quot;, (nouveauxParents) =&gt; {
+    let adoptUnChien;
+    let expectedChienId;
+
+    before(async () =&gt; {
+        adoptUnChien = await AdoptUnChien.deployed();
+    });
+
+    describe(&quot;Adopter un chien et recuperer les adresses de son account&quot;, async () =&gt; {
+        before(&quot;adopter un chien en utilisant nouveauxParents[0]&quot;, async () =&gt; {
+            await adoptUnChien.adoptUnChien(8, { from: nouveauxParents[0] });
+            expectedNouveauParent = nouveauxParents[0];
+        });
+    });
+
+    describe(&quot;Adopter un chien et récupérer les adresses du compte&quot;, async () =&gt; {
+        before(&quot;adopter un chien en utilisant nouveauxParents[0]&quot;, async () =&gt; {
+            await adoptUnChien.adoptUnChien(8, { from: nouveauxParents[0] });
+            expectedAdopter = nouveauxParents[0];
+        });
+
+        it(&quot;peut récupérer l'adresse d'un nouveauParent par chien id&quot;, async () =&gt; {
+            const adopteUnChien = await adoptUnChien.nouveauxParents(8);
+            assert.equal(adopteUnChien, expectedAdopter, &quot;The owner of the adopted pet should be the first account.&quot;);
+        });
+
+        it(&quot;peut récupérer la liste des adresses de tous les nouveaux parents&quot;, async () =&gt; {
+            const adopters = await adoptUnChien.getNouveauxParents();
+            assert.equal(adopters[8], expectedAdopter, &quot;The owner of the adopted pet should be in the collection.&quot;);
+        });
+    });
+
+});
+</code></pre><p>Exécuter la même commande que pour les tests Solidity:</p>
+<pre><code>truffle test
+</code></pre><p>Résultat si tout est ok:</p>
+<pre><code>Using network 'development'.
+
+
+Compiling your contracts...
+===========================
+&gt; Compiling ./contracts/AdoptUnChien.sol
+&gt; Artifacts written to /var/folders/6n/c4hj8zyn21j9pbxdjz86y0kw0000gn/T/test--56489-VuSW19vJxhf6
+&gt; Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+
+
+
+  Contract: AdoptUnChien
+    Adopter un chien et récupérer les adresses du compte
+      ✓ peut récupérer l'adresse d'un nouveauParent par chien id
+      ✓ peut récupérer la liste des adresses de tous les nouveaux parents (75ms)
+
+
+  2 passing (300ms)
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Monter un disque NFS sur Ubuntu</title>

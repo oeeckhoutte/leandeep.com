@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Installation des pré-requis Truffle npm install -g truffle  Ganache Option 1:
+Rendez-vous à l&#39;adresse http://truffleframework.com/ganache et cliquer sur le bouton &amp;ldquo;Download&amp;rdquo;.
+Option 2:
+Installation via le terminal
+npm install ganache-cli -g puis démarrage du server Ganache via la commande:
+ganache-cli -p 7545 -i 47 -l 4700000  Initialisation du projet  Il est possible d&#39;initialiser son project avec la commande truffle init mais des boilerplates prêts à l&#39;emploi existent." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/cr%C3%A9er-son-premier-smart-contract-pour-ethereum/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
+<style>
+ 
+
+.nav-search {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  position: relative;
+  width: 90%;
+  height: 47px;
+  margin-top: 20px; 
+  background-color: white;
+  z-index: 1000;
+}
+
+.nav-search.active {
+  box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+}
+.nav-search.active .search-dropdown {
+  display: block;
+}
+
+.nav-search.active .search-input {
+  -webkit-animation: expand-search-box-animation 0.5s forwards;
+  animation: expand-search-box-animation 0.5s forwards;
+}
+
+.nav-search.active .search-input input {
+  border-width: 2px;
+}
+
+.nav-search.active .search-input .close-search {
+  display: inline-block;
+}
+
+.nav-search.active .search-input .search-dropdown {
+  display: block;
+}
+
+.nav-search .search-input {
+  transition: left 0.2s ease-in-out;
+  transition: width 0s ease-in-out;
+}
+
+.nav-search .search-input .search-icon {
+  position: absolute;
+  left: 15px;
+  top: 13px;
+  z-index: 999;
+  color: black;
+}
+
+.nav-search .search-input input {
+  font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+  height: 50px;
+  border: 1px solid #1b98f4;
+  border-radius: 4px;
+  min-width: 200px;
+  width: 100%;
+  padding-left: 50px;
+  background-color: white;
+}
+
+.nav-search .search-input input:focus {
+  outline: none;
+}
+
+.nav-search .search-input i.close-search {
+  color: #1b98f4;
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 13px;
+  cursor: pointer;
+}
+
+.search-dropdown {
+  box-sizing: border-box;
+  color: #B3B3B3;
+  font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+  opacity: 1.00;
+  padding: 20px;
+  width: 100%;
+  -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+  animation: expand-search-dropdown-animation 0.5s forwards;
+  overflow-y: scroll;
+  max-height: 400px;
+  border-radius: 0 0 4px 4px;
+  background-color: #FCFCFC;
+  border: 1px solid #E0E0E0;
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+  display: none;
+  background-color: white;
+}
+
+.search-dropdown .small {
+  -webkit-flex-basis: 35%;
+  -ms-flex-preferred-size: 35%;
+  flex-basis: 35%;
+}
+
+.search-dropdown .search-section .hits-blank {
+  color: #666;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.search-dropdown a {
+  text-decoration: none;
+  color: inherit;
+  z-index: 2000;
+}
+
+.hit {
+  border-bottom: 1px solid #E6E6E6;
+  margin-bottom: 20px;
+}
+
+.hit .hit-title {
+  color: #1b98f4;
+  font-family: 'bt_mono', monospace;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-top: 0;
+  display: inline-block;
+  font-size: 14px;
+}
+.hit .hit-description {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  display: block;
+  margin-top: 3px;
+}
+.hit .hit-anchor {
+  font-size: 13px;
+  color: #666;
+}
+.hit .algolia-docsearch-suggestion--highlight {
+  background-color: #FFE9A4;
+}
+.hit:last-child {
+   
+}
+
+.ais-hits--item:last-child .hit {
+  border: 0;
+}
+
+
+</style>
+
+<script>
+
+    function launchSearchBar() {
+
+        $('#search-input').on('keyup', function() {
+            $('.nav-search').addClass('active');
+            $('#hits-container').scrollTop(0);
+        })
+
+        $('.close-search').on('click', function(evt) {
+            evt.preventDefault();
+            $('#search-input').val('');
+            $('.nav-search').removeClass('active');
+        })
+
+        $('#search-input').on('blur', function(evt) {
+            if(!evt.isDefaultPrevented) {
+                $('.nav-search').removeClass('active');
+            }
+        })
+
+        
+        let search = instantsearch({
+            appId: 'KC81DPHCCC',
+            apiKey: '1370d8f5e296582d1bce517904cbc48d',
+            indexName: 'search-first-index',
+            searchParameters: {replaceSynonymsInHighlight: false},
+            searchFunction: function(helper) {
+                var searchResults = $('.search-results');
+                if (helper.state.query === '') {
+                    searchResults.hide();
+                    return;
+                }
+                helper.search();
+                searchResults.show();
+            }
+        });
+
+        
+        search.addWidget(
+            instantsearch.widgets.searchBox({
+                container: '#search-input',
+                placeholder: 'Search for libraries in France...'
+            })
+        );
+
+        
+            search.addWidget(
+                instantsearch.widgets.hits({
+                    container: '#hits-container',
+                    hitsPerPage: 10,
+                    debug: true,
+                    templates: {
+                    item: '<a href="\{\{url\}\}" target="_blank"><div class="hit"><div class="hit-content"><h2 class="hit-title">\{\{\{_highlightResult.title.value\}\}\}</h2><br><small>\{\{lvl0\}\} \{\{#lvl1\}\}> \{\{\{_highlightResult.lvl1.value\}\}\} \{\{/lvl1\}\}\{\{#lvl2\}\}> \{\{\{_highlightResult.lvl1.value\}\}\} \{\{/lvl2\}\}\{\{#lvl3\}\}> \{\{\{_highlightResult.lvl3.value\}\}\} \{\{/lvl3\}\} \{\{#lvl4\}\}> \{\{\{_highlightResult.lvl4.value\}\}\}\{\{/lvl4\}\}</small><p class="hit-description">\{\{\{_snippetResult.content.value\}\}\}</p></div></div></a>',
+                    empty: '<div id="no-results-message"> <p>We didn`t find any results for the search <em>"\{\{query\}\}"</em>.</p></div>'
+                    }
+                })
+            );
+
+
+
+        
+        search.start();
+    }
+
+$(function() {
+  
+  try {
+    launchSearchBar();
+  } catch(ex) {}
+    
+
+});
+
+function toTitleCase(str) {
+    return str.replace(/(?:^|\s)\w/g, function(match) {
+        return match.toUpperCase();
+    });
+}
+
+</script>
+
+
+
+    <title>
+        
+            Créer son premier smart contract pour Ethereum :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Créer son premier smart contract pour Ethereum">
+<meta itemprop="description" content="Installation des pré-requis Truffle npm install -g truffle  Ganache Option 1:
+Rendez-vous à l&#39;adresse http://truffleframework.com/ganache et cliquer sur le bouton &ldquo;Download&rdquo;.
+Option 2:
+Installation via le terminal
+npm install ganache-cli -g puis démarrage du server Ganache via la commande:
+ganache-cli -p 7545 -i 47 -l 4700000  Initialisation du projet  Il est possible d&#39;initialiser son project avec la commande truffle init mais des boilerplates prêts à l&#39;emploi existent.">
+<meta itemprop="datePublished" content="2020-09-06T09:49:00&#43;02:00" />
+<meta itemprop="dateModified" content="2020-09-06T09:49:00&#43;02:00" />
+<meta itemprop="wordCount" content="1181">
+<meta itemprop="image" content="https://leandeep.com"/>
+
+
+
+<meta itemprop="keywords" content="Blog," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Créer son premier smart contract pour Ethereum"/>
+<meta name="twitter:description" content="Installation des pré-requis Truffle npm install -g truffle  Ganache Option 1:
+Rendez-vous à l&#39;adresse http://truffleframework.com/ganache et cliquer sur le bouton &ldquo;Download&rdquo;.
+Option 2:
+Installation via le terminal
+npm install ganache-cli -g puis démarrage du server Ganache via la commande:
+ganache-cli -p 7545 -i 47 -l 4700000  Initialisation du projet  Il est possible d&#39;initialiser son project avec la commande truffle init mais des boilerplates prêts à l&#39;emploi existent."/>
+
+
+
+
+
+    <meta property="article:published_time" content="2020-09-06 09:49:00 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/cr%C3%A9er-son-premier-smart-contract-pour-ethereum/">Créer son premier smart contract pour Ethereum</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="installation-des-pr-requis">Installation des pré-requis</h2>
+<h3 id="truffle">Truffle</h3>
+<pre><code>npm install -g truffle
+</code></pre><br/>
+<h3 id="ganache">Ganache</h3>
+<p><strong>Option 1:</strong></p>
+<p>Rendez-vous à l'adresse <a href="http://truffleframework.com/ganache">http://truffleframework.com/ganache</a> et cliquer sur le bouton &ldquo;Download&rdquo;.</p>
+<p><strong>Option 2:</strong></p>
+<p>Installation via le terminal</p>
+<pre><code>npm install ganache-cli -g
+</code></pre><p>puis démarrage du server Ganache via la commande:</p>
+<pre><code>ganache-cli -p 7545 -i 47 -l 4700000
+</code></pre><br/>
+<h2 id="initialisation-du-projet">Initialisation du projet</h2>
+<blockquote>
+<p>Il est possible d'initialiser son project avec la commande <code>truffle init</code> mais des <a href="https://www.trufflesuite.com/boxes">boilerplates</a> prêts à l'emploi existent.</p>
+</blockquote>
+<pre><code>mkdir amiland-shop
+cd amiland-shop
+truffle unbox pet-shop
+</code></pre><br/>
+<h2 id="structure-du-projet">Structure du projet</h2>
+<pre><code>├── LICENSE
+├── box-img-lg.png
+├── box-img-sm.png
+├── bs-config.json
+├── contracts
+│   └── Migrations.sol
+├── migrations
+│   └── 1_initial_migration.js
+├── node_modules
+├── package-lock.json
+├── package.json
+├── src
+│   ├── css
+│   ├── fonts
+│   ├── images
+│   ├── index.html
+│   ├── js
+│   │   ├── app.js
+│   │   ├── bootstrap.min.js
+│   │   ├── truffle-contract.js
+│   │   └── web3.min.js
+│   └── pets.json
+├── test
+└── truffle-config.js
+</code></pre><br/>
+<ul>
+<li>
+<p><code>contracts/</code> contient le code source Solidity pour un ou plusieurs Smart contracts, ainsi que le fichier de migration <code>Migrations.sol</code>.</p>
+</li>
+<li>
+<p><code>migrations/</code>: truffle possède un système de migration pour déployer des smarts contracts. Une migration est vue comme un smart contract particulier qui permet de suivre tous les changements réalisés.</p>
+</li>
+<li>
+<p><code>test/</code>: contient à la fois les fichiers de tests pour le code JavaScript et Solidity.</p>
+</li>
+<li>
+<p><code>truffle-config.js</code>: Fichier de configuration Truffle.</p>
+</li>
+</ul>
+<blockquote>
+<p>D'autres fichiers ont été créés avec le boilerplate. Nous ne les détaillerons pas dans cet article. Il s'agit principalement des fichiers permettant d'afficher un front pour notre dApp.</p>
+</blockquote>
+<br/>
+<h2 id="smart-contract">Smart contract</h2>
+<p>Créer un fichier appelé <code>AdoptUnChien.sol</code> et ajouter le code suivant:</p>
+<pre><code>pragma solidity ^0.5.0;
+
+contract AdoptUnChien {
+    address[16] public nouveauxParents;
+    
+    function adoptUnChien(uint chienId) public returns (uint) {
+        require(chienId &gt;= 0 &amp;&amp; chienId &lt;= 15);
+        nouveauxParents[chienId] = msg.sender;
+        return chienId;
+    }
+
+    function getNouveauxParents() public view returns (address[16] memory) {
+        return nouveauxParents;
+    }
+}
+</code></pre><blockquote>
+<p>Nous avons défini la variable <code>nouveauxParents</code> qui est un tableau d'adresse Ethereum. Les tableaux contienne un type et ont une taille fixe ou variable. Dans notre cas de notre variable le type est <code>address</code> et la longueur du tableau est <code>16</code>.</p>
+</blockquote>
+<blockquote>
+<p><code>memory</code> dans <code>address[16] memory</code> retourne la location des données d'une variable.</p>
+</blockquote>
+<blockquote>
+<p>Le mot clé <code>view</code> dans la déclaration de la fonction <code>getNouveauxParents</code> signifie que la fonction ne va pas modifier l'état du contrat.</p>
+</blockquote>
+<br/>
+<h2 id="compilation">Compilation</h2>
+<pre><code>truffle compile
+</code></pre><p>Si tout se passe bien, vous devriez voir quelque chose de similaire à ceci:</p>
+<pre><code>Compiling your contracts...
+===========================
+&gt; Compiling ./contracts/AdoptUnChien.sol
+&gt; Compiling ./contracts/Migrations.sol
+&gt; Artifacts written to /Users/olivier/Dev/Leandeep/Ethereum/amiland-shop/build/contracts
+&gt; Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+</code></pre><br/>
+<h2 id="dploiement">Déploiement</h2>
+<p>Pour déployer son smart contract sur la blockchain on utilise une migration.</p>
+<p>Pour ceux qui connaissent Alembic en Python pour migrer le schéma de sa base de données Postgres c'est un peu le même concept.</p>
+<p>Une migration est un script de déploiement qui altère l'état des contrats de son application en le faisant passer d'un état <em>n</em> à un état <em>n+1</em>.</p>
+<p>Pour une première migration, il n'y a pas de changement d'état. On déploie simplement du nouveau code mais pour les autres migrations, il faudra peut être déplacer des données et remplacer un smart contrat par un autre.</p>
+<p>Configurer le fichier <code>truffle-config.js</code>. Eventuellement changez le network-id. La valeur à entrer se trouve dans les settings de Ganache.</p>
+<p>Puis exécuter la commande de migration:</p>
+<pre><code>truffle migrate
+</code></pre><p>Si tout se passe bien, vous devriez avoir un message comme celui ci:</p>
+<pre><code>Compiling your contracts...
+===========================
+&gt; Everything is up to date, there is nothing to compile.
+
+
+
+Starting migrations...
+======================
+&gt; Network name:    'development'
+&gt; Network id:      47
+&gt; Block gas limit: 6721975 (0x6691b7)
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   &gt; transaction hash:    0x84d8f3bfba6820d3555a9036eaee427d7c74c26ccf8f855163e4e3cc56e52060
+   &gt; Blocks: 0            Seconds: 0
+   &gt; contract address:    0x99e87F4bF62117ed6C4f330026FA473570792118
+   &gt; block number:        3
+   &gt; block timestamp:     1599397484
+   &gt; account:             0x52F1292acF383eB82DC4c08A966447D642d8294C
+   &gt; balance:             99.99554203
+   &gt; gas used:            164175 (0x2814f)
+   &gt; gas price:           20 gwei
+   &gt; value sent:          0 ETH
+   &gt; total cost:          0.0032835 ETH
+
+
+   &gt; Saving migration to chain.
+   &gt; Saving artifacts
+   -------------------------------------
+   &gt; Total cost:           0.0032835 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'AdoptUnChien'
+   ------------------------
+   &gt; transaction hash:    0xbdc59be57dc2ff1811aba723905f1f6cfda1bcb86af3f1686934cdb4c8a3803b
+   &gt; Blocks: 0            Seconds: 0
+   &gt; contract address:    0x2be685a572F1bd7AAFdD6fCc00C5A9B6E04CFCE7
+   &gt; block number:        5
+   &gt; block timestamp:     1599397485
+   &gt; account:             0x52F1292acF383eB82DC4c08A966447D642d8294C
+   &gt; balance:             99.99061867
+   &gt; gas used:            203827 (0x31c33)
+   &gt; gas price:           20 gwei
+   &gt; value sent:          0 ETH
+   &gt; total cost:          0.00407654 ETH
+
+
+   &gt; Saving migration to chain.
+   &gt; Saving artifacts
+   -------------------------------------
+   &gt; Total cost:          0.00407654 ETH
+
+
+Summary
+=======
+&gt; Total deployments:   2
+&gt; Final cost:          0.00736004 ETH
+
+</code></pre><br/>
+<h2 id="tests-unitaires">Tests unitaires</h2>
+<h3 id="tests-solidity">Tests Solidity</h3>
+<p>Créer un fichier <code>TestAdoptUnChien.sol</code> dans le répertoire <code>test</code> et ajouter le contenu ci-dessous.</p>
+<p>La liste des assertions disponible pour Solidity est la suivante: <a href="https://github.com/trufflesuite/truffle/blob/master/packages/core/lib/testing/Assert.sol">https://github.com/trufflesuite/truffle/blob/master/packages/core/lib/testing/Assert.sol</a></p>
+<pre><code>pragma solidity ^0.5.0;
+
+import &quot;truffle/Assert.sol&quot;;
+import &quot;truffle/DeployedAddresses.sol&quot;;
+import &quot;../contracts/AdoptUnChien.sol&quot;;
+
+contract TestAdoptUnChien {
+    // The address of the AdoptUnChien contract to be tested
+    AdoptUnChien adoptUnChien = AdoptUnChien(DeployedAddresses.AdoptUnChien());
+
+    // The id of the pet that will be used for testing
+    uint expectedChienId = 8;
+
+    //The expected owner of adopted pet is this contract
+    address expectedNouveauParent = address(this);
+
+
+    function testNouveauParentPeutAdopterUnChien() public {
+        uint returnedId = adoptUnChien.adoptUnChien(expectedChienId);
+        Assert.equal(returnedId, expectedChienId, &quot;AdoptUnChien of the expected chien should match what is returned.&quot;);
+    }
+
+    function testGetNouveauxParentsAddressByChienId() public {
+        address nouveauParent = adoptUnChien.nouveauxParents(expectedChienId);
+        Assert.equal(nouveauParent, expectedNouveauParent, &quot;Owner of the expected pet should be this contract&quot;);
+    }
+
+     function testGetNouveauParentAddressByChienIdInArray() public {
+        // Store nouveauxParents in memory rather than contract's storage
+        address[16] memory nouveauxParents = adoptUnChien.getNouveauxParents();
+        Assert.equal(nouveauxParents[expectedChienId], expectedNouveauParent, &quot;Owner of the expected chien should be this contract&quot;);
+    }
+
+}
+</code></pre><p>Exécuter les tests via la commande:</p>
+<pre><code>truffle test
+</code></pre><p>S'il n'y a pas d'erreur, vous devriez voir quelque chose de similaire:</p>
+<pre><code>Using network 'development'.
+
+
+Compiling your contracts...
+===========================
+&gt; Compiling ./contracts/AdoptUnChien.sol
+&gt; Compiling ./test/TestAdoption.sol
+&gt; Artifacts written to /var/folders/6n/c4hj8zyn21j9pbxdjz86y0kw0000gn/T/test--54639-JZkSvOpCLaWh
+&gt; Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+
+
+
+  TestAdoptUnChien
+    ✓ testNouveauParentPeutAdopterUnChien (147ms)
+    ✓ testGetNouveauxParentsAddressByChienId (113ms)
+    ✓ testGetNouveauParentAddressByChienIdInArray (122ms)
+
+
+  3 passing (8s)
+</code></pre><br/>
+<h3 id="tests-javascript">Tests JavaScript</h3>
+<p>On peut également créer des tests en JavaScript:</p>
+<p>Par exemple, créer un fichier <code>testAdoptUnChien.test.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const AdoptUnChien = artifacts.require(&quot;AdoptUnChien&quot;);
+
+contract(&quot;AdoptUnChien&quot;, (nouveauxParents) =&gt; {
+    let adoptUnChien;
+    let expectedChienId;
+
+    before(async () =&gt; {
+        adoptUnChien = await AdoptUnChien.deployed();
+    });
+
+    describe(&quot;Adopter un chien et recuperer les adresses de son account&quot;, async () =&gt; {
+        before(&quot;adopter un chien en utilisant nouveauxParents[0]&quot;, async () =&gt; {
+            await adoptUnChien.adoptUnChien(8, { from: nouveauxParents[0] });
+            expectedNouveauParent = nouveauxParents[0];
+        });
+    });
+
+    describe(&quot;Adopter un chien et récupérer les adresses du compte&quot;, async () =&gt; {
+        before(&quot;adopter un chien en utilisant nouveauxParents[0]&quot;, async () =&gt; {
+            await adoptUnChien.adoptUnChien(8, { from: nouveauxParents[0] });
+            expectedAdopter = nouveauxParents[0];
+        });
+
+        it(&quot;peut récupérer l'adresse d'un nouveauParent par chien id&quot;, async () =&gt; {
+            const adopteUnChien = await adoptUnChien.nouveauxParents(8);
+            assert.equal(adopteUnChien, expectedAdopter, &quot;The owner of the adopted pet should be the first account.&quot;);
+        });
+
+        it(&quot;peut récupérer la liste des adresses de tous les nouveaux parents&quot;, async () =&gt; {
+            const adopters = await adoptUnChien.getNouveauxParents();
+            assert.equal(adopters[8], expectedAdopter, &quot;The owner of the adopted pet should be in the collection.&quot;);
+        });
+    });
+
+});
+</code></pre><p>Exécuter la même commande que pour les tests Solidity:</p>
+<pre><code>truffle test
+</code></pre><p>Résultat si tout est ok:</p>
+<pre><code>Using network 'development'.
+
+
+Compiling your contracts...
+===========================
+&gt; Compiling ./contracts/AdoptUnChien.sol
+&gt; Artifacts written to /var/folders/6n/c4hj8zyn21j9pbxdjz86y0kw0000gn/T/test--56489-VuSW19vJxhf6
+&gt; Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+
+
+
+  Contract: AdoptUnChien
+    Adopter un chien et récupérer les adresses du compte
+      ✓ peut récupérer l'adresse d'un nouveauParent par chien id
+      ✓ peut récupérer la liste des adresses de tous les nouveaux parents (75ms)
+
+
+  2 passing (300ms)
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/blog">Blog</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1181 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Sep. 2020</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/">
+                                <span class="button__text">Monter un disque NFS sur Ubuntu</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.ec4c42514df5e7bc2d2614b023f4c0ddad6fcaa76b27f5fbe51724269c8a00ca7cd651e4a756b4eae6d7e9b8eceee8f34239beed1bd1e86e47ca954ff1b63488.js" integrity="sha512-7ExCUU3157wtJhSwI/TA3a1vyqdrJ/X75RckJpyKAMp81lHkp1a06ubX6bjs7ujzQjm&#43;7RvR6G5HypVP8bY0iA=="></script>
+
+    
+    <script type="text/javascript">
+        var _paq = window._paq || [];
+         
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="https://analytics.leandeep.com/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '2']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    
+
+
+
+
+    </body>
+</html>
