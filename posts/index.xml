@@ -5,8 +5,61 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 06 Sep 2020 09:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 12 Sep 2020 19:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Mettre en place un datahub pour organiser ses datasets</title>
+            <link>https://leandeep.com/mettre-en-place-un-datahub-pour-organiser-ses-datasets/</link>
+            <pubDate>Sat, 12 Sep 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/mettre-en-place-un-datahub-pour-organiser-ses-datasets/</guid>
+            <description>Introduction Dans cet article, nous allons créer voir comment créer un datahub pour organiser ses datasets. La solution open source que nous allons utiliser est CKAN. D&#39;après leur site internet, il s&#39;agit de &amp;ldquo;the world’s leading Open Source data portal platform&amp;rdquo;. Je ne sais pas si c&#39;est vrai mais c&#39;est utilisé par pas mal de sites institutionnels comme data.gouv (USA), opendata.swiss, Government of Canada, Berlin open data&amp;hellip; La solution est simple à installer et est très pratique.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article, nous allons créer voir comment créer un datahub pour organiser ses datasets.
+La solution open source que nous allons utiliser est <a href="https://ckan.org/">CKAN</a>. D'après leur site internet, il s'agit de &ldquo;the world’s leading Open Source data portal platform&rdquo;. Je ne sais pas si c'est vrai mais c'est utilisé par pas mal de sites institutionnels comme data.gouv (USA), opendata.swiss, Government of Canada, Berlin open data&hellip; La solution est simple à installer et est très pratique. Elle permet d'organiser, d'avoir des stats d'utilisation et de centraliser tous ses datasets au même endroit.</p>
+<br/>
+<h2 id="installation-sur-ubuntu-18">Installation sur Ubuntu 18+</h2>
+<p><strong>Pré-requis</strong></p>
+<pre><code>sudo apt update
+sudo apt install -y git docker.io docker-compose
+
+# Add your user to the &quot;docker&quot; group
+sudo usermod -aG docker &lt;myUser&gt;
+
+# Restart the system
+sudo shutdown -rf 0
+</code></pre><br/>
+<p><strong>Clonage du repo et configuration:</strong></p>
+<pre><code>mkdir ./ckan
+cd ~/ckan
+
+git clone https://github.com/oeeckhoutte/docker-ckan
+cd docker-ckan
+
+# dupliquer le fichier de config
+cp .env.example .env
+</code></pre><p>Editer le fichier <code>.env</code> et remplacer <code>CKAN_SITE_URL</code> par <code>http://localhost:5000</code>.</p>
+<blockquote>
+<p>Il y a un bug de permission sur l'image Docker: <br/>
+<code>Error - &lt;type 'exceptions.OSError'&gt;: [Errno 13] Permission denied: '/var/lib/ckan/storage/uploads'</code><br/>
+Pour corriger ce problème, éditer le fichier <code>./ckan/Dockerfile</code> et ajouter les 2 lignes suivantes avant la dernière commande:</p>
+<pre><code>RUN mkdir -p /var/lib/ckan/storage/uploads
+RUN chown -R ckan:ckan /var/lib/ckan/storage
+</code></pre></blockquote>
+<p><strong>Builder l'image docker:</strong></p>
+<pre><code>docker-compose build
+</code></pre><br/>
+<p><strong>Démarrer CKAN:</strong></p>
+<pre><code>docker-compose up -d
+</code></pre><br/>
+<p>Une fois les containers initialisés, rendez-vous sur <a href="http://localhost:5000/">http://localhost:5000/</a></p>
+<br/>
+<blockquote>
+<p>Credentials admin par défault: ckan_admin/test1234</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Créer son premier smart contract pour Ethereum</title>
