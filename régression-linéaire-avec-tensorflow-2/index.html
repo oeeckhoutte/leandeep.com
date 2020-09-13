@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST. Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.
- Variational Autoencoders (VAE) Chargement des modules
-from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:" />
+<meta name="description" content="Introduction Pourquoi multiplier les framework Machine Learning quand on peut tout faire avec Tensorflow ? C&#39;est une de mes reflexions du moment. Dans cet article, nous allons voir à quel point il est simple de faire une regression linéaire avec Tensorflow 2 avec le dataset Boston Housing.
+ Régression linéaire Chargement des modules:
+from __future__ import print_function, absolute_import, unicode_literals, division import tensorflow as tf import seaborn as sb import numpy as np import pandas as pd from tensorflow." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -23,7 +23,7 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/premier-mod%C3%A8le-vae-avec-tensorflow-2/" />
+<link rel="canonical" href="https://leandeep.com/r%C3%A9gression-lin%C3%A9aire-avec-tensorflow-2/" />
 
 
 
@@ -268,7 +268,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Premier modèle VAE avec Tensorflow 2 :: Bienvenue sur le site de Lean Deep 
+            Régression linéaire avec Tensorflow 2 :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -293,13 +293,13 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Premier modèle VAE avec Tensorflow 2">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST. Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.
- Variational Autoencoders (VAE) Chargement des modules
-from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:">
-<meta itemprop="datePublished" content="2019-12-20T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2019-12-20T19:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="517">
+<meta itemprop="name" content="Régression linéaire avec Tensorflow 2">
+<meta itemprop="description" content="Introduction Pourquoi multiplier les framework Machine Learning quand on peut tout faire avec Tensorflow ? C&#39;est une de mes reflexions du moment. Dans cet article, nous allons voir à quel point il est simple de faire une regression linéaire avec Tensorflow 2 avec le dataset Boston Housing.
+ Régression linéaire Chargement des modules:
+from __future__ import print_function, absolute_import, unicode_literals, division import tensorflow as tf import seaborn as sb import numpy as np import pandas as pd from tensorflow.">
+<meta itemprop="datePublished" content="2019-12-17T19:49:00&#43;02:00" />
+<meta itemprop="dateModified" content="2019-12-17T19:49:00&#43;02:00" />
+<meta itemprop="wordCount" content="506">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -307,16 +307,16 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 <meta itemprop="keywords" content="Tensorflow2," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Premier modèle VAE avec Tensorflow 2"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST. Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.
- Variational Autoencoders (VAE) Chargement des modules
-from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:"/>
+<meta name="twitter:title" content="Régression linéaire avec Tensorflow 2"/>
+<meta name="twitter:description" content="Introduction Pourquoi multiplier les framework Machine Learning quand on peut tout faire avec Tensorflow ? C&#39;est une de mes reflexions du moment. Dans cet article, nous allons voir à quel point il est simple de faire une regression linéaire avec Tensorflow 2 avec le dataset Boston Housing.
+ Régression linéaire Chargement des modules:
+from __future__ import print_function, absolute_import, unicode_literals, division import tensorflow as tf import seaborn as sb import numpy as np import pandas as pd from tensorflow."/>
 
 
 
 
 
-    <meta property="article:published_time" content="2019-12-20 19:49:00 &#43;0200 &#43;0200" />
+    <meta property="article:published_time" content="2019-12-17 19:49:00 &#43;0200 &#43;0200" />
 
 
 
@@ -382,189 +382,149 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/premier-mod%C3%A8le-vae-avec-tensorflow-2/">Premier modèle VAE avec Tensorflow 2</a>
+                <a href="https://leandeep.com/r%C3%A9gression-lin%C3%A9aire-avec-tensorflow-2/">Régression linéaire avec Tensorflow 2</a>
             </h1>
 
             
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST.
-Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.</p>
+<p>Pourquoi multiplier les framework Machine Learning quand on peut tout faire avec Tensorflow ? C'est une de mes reflexions du moment. Dans cet article, nous allons voir à quel point il est simple de faire une regression linéaire avec Tensorflow 2 avec le dataset Boston Housing.</p>
 <br/>
-<h2 id="variational-autoencoders-vae">Variational Autoencoders (VAE)</h2>
-<p><strong>Chargement des modules</strong></p>
-<pre><code>from __future__ import division, absolute_import, print_function, unicode_literals
+<h2 id="rgression-linaire">Régression linéaire</h2>
+<p><strong>Chargement des modules:</strong></p>
+<pre><code>from __future__ import print_function, absolute_import, unicode_literals, division
+
 import tensorflow as tf
-import time
+import seaborn as sb
 import numpy as np
-import os
-import matplotlib.pyplot as plt
-import PIL
-import glob
-import imageio
-from IPython import display
+import pandas as pd
+from tensorflow.estimator import LinearRegressor
+from tensorflow import keras as ks
+from sklearn import datasets
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
 </code></pre><br/>
-<p><strong>Chargement du dataset MNIST:</strong></p>
-<pre><code>(train_data, _), (test_data, _) = tf.keras.datasets.mnist.load_data()
-train_data = train_data.reshape(train_data.shape[0], 28, 28, 1).astype('float32')
-test_data = test_data.reshape(test_data.shape[0], 28, 28, 1).astype('float32')
+<p><strong>Chargement du dataset:</strong></p>
+<pre><code>boston_load = datasets.load_boston()
+
+feature_columns = boston_load.feature_names
+target_column = boston_load.target
+
+boston_data = pd.DataFrame(boston_load.data, columns=feature_columns).astype(np.float32)
+boston_data['MEDV'] = target_column.astype(np.float32)
 </code></pre><br/>
-<p><strong>Normalisation des images d'entrée entre [0,1]:</strong></p>
-<pre><code>train_data /= 255.
-test_data /= 255.
-</code></pre><br/>
-<p><strong>Binarisation des données normalisées:</strong></p>
-<pre><code>train_data[train_data &gt;= .5] = 1.
-train_data[train_data &lt; .5] = 0.
-test_data[test_data &gt;= .5] = 1.
-test_data[test_data &lt; .5] = 0.
-</code></pre><br/>
-<p><strong>Batching et Shuffling du dataset:</strong></p>
-<pre><code>TRAIN_SIZE = 60000
-BATCH_SIZE = 50
-TEST_SIZE = 10000
-train_batch = tf.data.Dataset.from_tensor_slices(train_data).shuffle(TRAIN_SIZE).batch(BATCH_SIZE)
-test_batch = tf.data.Dataset.from_tensor_slices(test_data).shuffle(TEST_SIZE).batch(BATCH_SIZE)
-</code></pre><br/>
-<p><strong>Construction des CNN:</strong>
+<p><strong>Analyse des corrélations entre les données:</strong></p>
+<pre><code>sb.pairplot(boston_data, diag_kind=&quot;kde&quot;, height=3, aspect=0.6)
+
+correlation_data = boston_data.corr()
+correlation_data.style.background_gradient(cmap='coolwarm', axis=None)
+</code></pre><p><img src="https://leandeep.com/images/correlations.png" alt="correlations"></p>
+<p><img src="https://leandeep.com/images/correlation_pairplot.png" alt="correlations pairplot"></p>
 <br/>
-On va construire 2 réseaux neuronals convolutionnels pour l'Encoder et le Decoder.
+<p><strong>Statistiques sur les données:</strong></p>
+<pre><code>stats = boston_data.describe()
+boston_stats = stats.transpose()
+print(boston_stats)
+</code></pre><p><img src="https://leandeep.com/images/boston_housing_stats.png" alt="correlations"></p>
 <br/>
-Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
-<pre><code>class CONV_VAE(tf.keras.Model):
-  def __init__(self, latent_dim):
-    super(CONV_VAE, self).__init__()
-    self.latent_vec = latent_vec
-    self.encoder_model = tf.keras.Sequential(
-      [
-          tf.keras.layers.InputLayer(input_shape=(28, 28, 1)),
-          tf.keras.layers.Conv2D(
-              filters=25, kernel_size=3, strides=(2, 2), activation='relu'),
-          tf.keras.layers.Conv2D(
-              filters=50, kernel_size=3, strides=(2, 2), activation='relu'),
-          tf.keras.layers.Flatten(),
-          tf.keras.layers.Dense(latent_vec + latent_vec),
-      ]
-    )
-    self.decoder_model = tf.keras.Sequential(
-        [
-          tf.keras.layers.InputLayer(input_shape=(latent_vec,)),
-          tf.keras.layers.Dense(units=7*7*25, activation=tf.nn.relu),
-          tf.keras.layers.Reshape(target_shape=(7, 7, 25)),
-          tf.keras.layers.Conv2DTranspose(
-              filters=50,
-              kernel_size=3,
-              strides=(2, 2),
-              padding=&quot;SAME&quot;,
-              activation='relu'),
-          tf.keras.layers.Conv2DTranspose(
-              filters=25,
-              kernel_size=3,
-              strides=(2, 2),
-              padding=&quot;SAME&quot;,
-              activation='relu'),
-          tf.keras.layers.Conv2DTranspose(
-              filters=1, kernel_size=3, strides=(1, 1), padding=&quot;SAME&quot;),
-        ]
-    )
-
-  @tf.function
-  def sampling(self, sam=None):
-    if sam is None:
-      sam = tf.random.normal(shape=(50, self.latent_vec))
-    return self.decoder(sam, apply_sigmoid=True)
-
-  def encoder(self, inp):
-    mean, logd = tf.split(self.encoder_model(inp), num_or_size_splits=2, axis=1)
-    return mean, logd
-
-  def reparameterization(self, mean, logd):
-    sam = tf.random.normal(shape=mean.shape)
-    return sam * tf.exp(logd * .5) + mean
-
-  def decoder(self, out, apply_sigmoid=False):
-    logout = self.decoder_model(out)
-    if apply_sigmoid:
-      probabs = tf.sigmoid(logout)
-      return probabs
-
-    return logout
-
+<p><strong>Sélection des donneées:</strong></p>
+<pre><code>X_data = boston_data[[i for i in boston_data.columns if i not in ['MEDV']]]
+Y_data = boston_data[['MEDV']]
 </code></pre><br/>
-<p><strong>Construire la fonction d'optimisation:</strong></p>
-<pre><code>optimizer_func = tf.keras.optimizers.Adam(1e-4)
+<p><strong>Split Train Test:</strong></p>
+<pre><code>training_features , test_features ,training_labels, test_labels = train_test_split(X_data , Y_data , test_size=0.2)
 
-def log_normal_prob_dist_func(sample, mean, logd, raxis=1):
-  log2pi = tf.math.log(2. * np.pi)
-  return tf.reduce_sum(-.5 * ((sample - mean) ** 2. * tf.exp(-logd) + logd + log2pi), axis=raxis)
+print('Number of rows in Training Features: ', training_features.shape[0])
+print('Number of rows in Test Features: ', test_features.shape[0])
+print('Number of columns in Training Features: ', training_features.shape[1])
+print('Number of columns in Test Features: ', test_features.shape[1])
 
-@tf.function
-def loss_func(model, inp):
-  mean, logd = model.encoder(inp)
-  out = model.reparameterization(mean, logd)
-  log_inp = model.decoder(out)
-  cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(logits=log_inp, labels=inp)
-  logp_inp_out = -tf.reduce_sum(cross_entropy, axis=[1, 2, 3])
-  logp_out = log_normal_prob_dist_func(out, 0., 0.)
-  logq_out_inp = log_normal_prob_dist_func(out, mean, logd)
-  return -tf.reduce_mean(logp_inp_out + logp_out - logq_out_inp)
+print('Number of rows in Training Label: ', training_labels.shape[0])
+print('Number of rows in Test Label: ', test_labels.shape[0])
+print('Number of columns in Training Label: ', training_labels.shape[1])
+print('Number of columns in Test Label: ', test_labels.shape[1])
 
-@tf.function
-def gradient_func(model, inp, optimizer_func):
-  with tf.GradientTape() as tape:
-    loss = loss_func(model, inp)
-  gradients = tape.gradient(loss, model.trainable_variables)
-  optimizer_func.apply_gradients(zip(gradients, model.trainable_variables))
+stats = training_features.describe()
+stats = stats.transpose()
+print(stats)
 
+stats = test_features.describe()
+stats = stats.transpose()
+print(stats)
 </code></pre><br/>
-<p><strong>Entrainement:</strong></p>
-<pre><code>epochs = 100
-latent_vec = 8
-examples = 8
+<p><strong>Normalisation des données:</strong></p>
+<pre><code>def normalize(x):
+  stats = x.describe()
+  stats = stats.transpose()
+  return (x - stats['mean']) / stats['std']
 
-rand_vec = tf.random.normal(
-    shape=[examples, latent_vec])
-model = CONV_VAE(latent_vec)
+normed_train_features = normalize(training_features)
+normed_test_features = normalize(test_features)
 </code></pre><br/>
-<p><strong>Génération des images à partir du modèle entrainé:</strong></p>
-<pre><code>def generate_and_save_images(model, epochs, input_data):
-  preds = model.sampling(input_data)
-  fig = plt.figure(figsize=(4,4))
+<p><strong>Construction de la pipeline d'input pour construire le modèle TensorFlow:</strong></p>
+<pre><code>def feed_input(features_dataframe, target_dataframe, num_of_epochs=10, shuffle=True, batch_size=32):
+  def input_feed_function():
+    dataset = tf.data.Dataset.from_tensor_slices((dict(features_dataframe), target_dataframe))
+    if shuffle:
+      dataset = dataset.shuffle(2000)
+    dataset = dataset.batch(batch_size).repeat(num_of_epochs)
+    return dataset
+  return input_feed_function
 
-  for i in range(preds.shape[0]):
-      plt.subplot(4, 4, i+1)
-      plt.imshow(preds[i, :, :, 0], cmap='gray')
-      plt.axis('off')
-
-  plt.savefig('img_at_epoch{:04d}.png'.format(epochs))
-  plt.show()
-
-generate_and_save_images(model, 0, rand_vec)
-
-for epoch in range(1, epochs + 1):
-  start_time = time.time()
-  for x in train_batch:
-    gradient_func(model, x, optimizer_func)
-  end_time = time.time()
-
-  if epoch % 1 == 0:
-    loss = tf.keras.metrics.Mean()
-    for y in test_batch:
-      loss(loss_func(model, y))
-    elbo = -loss.result()
-    display.clear_output(wait=False)
-    print('Epoch number: {}, Test batch ELBO: {}, '
-          'elapsed time for current epoch {}'.format(epochs, elbo, end_time - start_time))
-    generate_and_save_images(model, epochs, rand_vec)
+train_feed_input = feed_input(normed_train_features, training_labels)
+train_feed_input_testing = feed_input(normed_train_features, training_labels, num_of_epochs=1, shuffle=False)
+test_feed_input = feed_input(normed_test_features, test_labels, num_of_epochs=1, shuffle=False)
 </code></pre><br/>
-<p><strong>Afficher une image générée:</strong></p>
-<pre><code>def display_image(epoch_no):
-  return PIL.Image.open('img_at_epoch{:04d}.png'.format(epoch_no))
+<p><strong>Entrainement du modèle:</strong></p>
+<pre><code>feature_columns_numeric = [tf.feature_column.numeric_column(m) for m in training_features.columns]
+linear_model = LinearRegressor(feature_columns=feature_columns_numeric, optimizer='RMSProp')
+linear_model.train(train_feed_input)
+</code></pre><br/>
+<p><strong>Prédictions:</strong></p>
+<pre><code>train_predictions = linear_model.predict(train_feed_input_testing)
+test_predictions = linear_model.predict(test_feed_input)
 
-plt.imshow(display_image(epochs))
-plt.axis('off')
-</code></pre><p><img src="https://leandeep.com/images/digit_5.png" alt="image"></p>
+train_predictions_series = pd.Series([p['predictions'][0] for p in train_predictions])
+test_predictions_series = pd.Series([p['predictions'][0] for p in test_predictions])
+
+train_predictions_df = pd.DataFrame(train_predictions_series, columns=['predictions'])
+test_predictions_df = pd.DataFrame(test_predictions_series, columns=['predictions'])
+
+training_labels.reset_index(drop=True, inplace=True)
+train_predictions_df.reset_index(drop=True, inplace=True)
+
+test_labels.reset_index(drop=True, inplace=True)
+test_predictions_df.reset_index(drop=True, inplace=True)
+
+train_labels_with_predictions_df = pd.concat([training_labels, train_predictions_df], axis=1)
+test_labels_with_predictions_df = pd.concat([test_labels, test_predictions_df], axis=1)
+</code></pre><br/>
+<p><strong>Validation:</strong></p>
+<pre><code>def calculate_errors_and_r2(y_true, y_pred):
+  mean_squared_err = (mean_squared_error(y_true, y_pred))
+  root_mean_squared_err = np.sqrt(mean_squared_err)
+  r2 = round(r2_score(y_true, y_pred)*100,0)
+  return mean_squared_err, root_mean_squared_err, r2
+
+train_mean_squared_error, train_root_mean_squared_error, train_r2_score_percentage = calculate_errors_and_r2(training_labels, train_predictions_series)
+test_mean_squared_error, test_root_mean_squared_error, test_r2_score_percentage = calculate_errors_and_r2(test_labels, test_predictions_series)
+
+print('Training Data Mean Squared Error = ', train_mean_squared_error)
+print('Training Data Root Mean Squared Error = ', train_root_mean_squared_error)
+print('Training Data R2 = ', train_r2_score_percentage)
+
+print('Test Data Mean Squared Error = ', test_mean_squared_error)
+print('Test Data Root Mean Squared Error = ', test_root_mean_squared_error)
+print('Test Data R2 = ', test_r2_score_percentage)
+</code></pre><br/>
+<p><strong>Output:</strong></p>
+<p>Training Data Mean Squared Error =  23.667924020459342<br/>
+Training Data Root Mean Squared Error =  4.864969066752567<br/>
+Training Data R2 =  72.0<br/>
+Test Data Mean Squared Error =  20.22803996987049<br/>
+Test Data Root Mean Squared Error =  4.497559334780419<br/>
+Test Data R2 =  77.0<br/></p>
 
             </div>
         </article>
@@ -576,9 +536,9 @@ plt.axis('off')
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tensorflow2">Tensorflow2</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>517 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>506 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20 Dec. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>17 Dec. 2019</p>
         </div>
 
         
@@ -591,17 +551,17 @@ plt.axis('off')
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/diffuser-une-vid%C3%A9o-vlc-sur-chromecast/">
+                            <a href="https://leandeep.com/premier-mod%C3%A8le-vae-avec-tensorflow-2/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Diffuser une vidéo VLC sur Chromecast</span>
+                                <span class="button__text">Premier modèle VAE avec Tensorflow 2</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/r%C3%A9gression-lin%C3%A9aire-avec-tensorflow-2/">
-                                <span class="button__text">Régression linéaire avec Tensorflow 2</span>
+                            <a href="https://leandeep.com/premier-convnet-avec-tensorflow-2/">
+                                <span class="button__text">Premier ConvNet avec Tensorflow 2</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

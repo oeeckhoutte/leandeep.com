@@ -2506,21 +2506,21 @@ Les soucis au niveau de l'alimentation était dûs à un manque de connaissance 
             <guid>https://leandeep.com/premier-mod%C3%A8le-vae-avec-tensorflow-2/</guid>
             <description>Introduction Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST. Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.
  Variational Autoencoders (VAE) Chargement des modules
-from __future__ import absolute_import, division, print_function, unicode_literals import tensorflow as tf import os import time import numpy as np import glob import matplotlib.pyplot as plt import PIL import imageio from IPython import display  Chargement du dataset MNIST:</description>
+from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST.
 Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.</p>
 <br/>
 <h2 id="variational-autoencoders-vae">Variational Autoencoders (VAE)</h2>
 <p><strong>Chargement des modules</strong></p>
-<pre><code>from __future__ import absolute_import, division, print_function, unicode_literals
+<pre><code>from __future__ import division, absolute_import, print_function, unicode_literals
 import tensorflow as tf
-import os
 import time
 import numpy as np
-import glob
+import os
 import matplotlib.pyplot as plt
 import PIL
+import glob
 import imageio
 from IPython import display
 </code></pre><br/>
@@ -2673,7 +2673,7 @@ for epoch in range(1, epochs + 1):
       loss(loss_func(model, y))
     elbo = -loss.result()
     display.clear_output(wait=False)
-    print('Epoch no.: {}, Test batch ELBO: {}, '
+    print('Epoch number: {}, Test batch ELBO: {}, '
           'elapsed time for current epoch {}'.format(epochs, elbo, end_time - start_time))
     generate_and_save_images(model, epochs, rand_vec)
 </code></pre><br/>
@@ -2684,6 +2684,155 @@ for epoch in range(1, epochs + 1):
 plt.imshow(display_image(epochs))
 plt.axis('off')
 </code></pre><p><img src="/images/digit_5.png" alt="image"></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Régression linéaire avec Tensorflow 2</title>
+            <link>https://leandeep.com/r%C3%A9gression-lin%C3%A9aire-avec-tensorflow-2/</link>
+            <pubDate>Tue, 17 Dec 2019 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/r%C3%A9gression-lin%C3%A9aire-avec-tensorflow-2/</guid>
+            <description>Introduction Pourquoi multiplier les framework Machine Learning quand on peut tout faire avec Tensorflow ? C&#39;est une de mes reflexions du moment. Dans cet article, nous allons voir à quel point il est simple de faire une regression linéaire avec Tensorflow 2 avec le dataset Boston Housing.
+ Régression linéaire Chargement des modules:
+from __future__ import print_function, absolute_import, unicode_literals, division import tensorflow as tf import seaborn as sb import numpy as np import pandas as pd from tensorflow.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Pourquoi multiplier les framework Machine Learning quand on peut tout faire avec Tensorflow ? C'est une de mes reflexions du moment. Dans cet article, nous allons voir à quel point il est simple de faire une regression linéaire avec Tensorflow 2 avec le dataset Boston Housing.</p>
+<br/>
+<h2 id="rgression-linaire">Régression linéaire</h2>
+<p><strong>Chargement des modules:</strong></p>
+<pre><code>from __future__ import print_function, absolute_import, unicode_literals, division
+
+import tensorflow as tf
+import seaborn as sb
+import numpy as np
+import pandas as pd
+from tensorflow.estimator import LinearRegressor
+from tensorflow import keras as ks
+from sklearn import datasets
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+</code></pre><br/>
+<p><strong>Chargement du dataset:</strong></p>
+<pre><code>boston_load = datasets.load_boston()
+
+feature_columns = boston_load.feature_names
+target_column = boston_load.target
+
+boston_data = pd.DataFrame(boston_load.data, columns=feature_columns).astype(np.float32)
+boston_data['MEDV'] = target_column.astype(np.float32)
+</code></pre><br/>
+<p><strong>Analyse des corrélations entre les données:</strong></p>
+<pre><code>sb.pairplot(boston_data, diag_kind=&quot;kde&quot;, height=3, aspect=0.6)
+
+correlation_data = boston_data.corr()
+correlation_data.style.background_gradient(cmap='coolwarm', axis=None)
+</code></pre><p><img src="/images/correlations.png" alt="correlations"></p>
+<p><img src="/images/correlation_pairplot.png" alt="correlations pairplot"></p>
+<br/>
+<p><strong>Statistiques sur les données:</strong></p>
+<pre><code>stats = boston_data.describe()
+boston_stats = stats.transpose()
+print(boston_stats)
+</code></pre><p><img src="/images/boston_housing_stats.png" alt="correlations"></p>
+<br/>
+<p><strong>Sélection des donneées:</strong></p>
+<pre><code>X_data = boston_data[[i for i in boston_data.columns if i not in ['MEDV']]]
+Y_data = boston_data[['MEDV']]
+</code></pre><br/>
+<p><strong>Split Train Test:</strong></p>
+<pre><code>training_features , test_features ,training_labels, test_labels = train_test_split(X_data , Y_data , test_size=0.2)
+
+print('Number of rows in Training Features: ', training_features.shape[0])
+print('Number of rows in Test Features: ', test_features.shape[0])
+print('Number of columns in Training Features: ', training_features.shape[1])
+print('Number of columns in Test Features: ', test_features.shape[1])
+
+print('Number of rows in Training Label: ', training_labels.shape[0])
+print('Number of rows in Test Label: ', test_labels.shape[0])
+print('Number of columns in Training Label: ', training_labels.shape[1])
+print('Number of columns in Test Label: ', test_labels.shape[1])
+
+stats = training_features.describe()
+stats = stats.transpose()
+print(stats)
+
+stats = test_features.describe()
+stats = stats.transpose()
+print(stats)
+</code></pre><br/>
+<p><strong>Normalisation des données:</strong></p>
+<pre><code>def normalize(x):
+  stats = x.describe()
+  stats = stats.transpose()
+  return (x - stats['mean']) / stats['std']
+
+normed_train_features = normalize(training_features)
+normed_test_features = normalize(test_features)
+</code></pre><br/>
+<p><strong>Construction de la pipeline d'input pour construire le modèle TensorFlow:</strong></p>
+<pre><code>def feed_input(features_dataframe, target_dataframe, num_of_epochs=10, shuffle=True, batch_size=32):
+  def input_feed_function():
+    dataset = tf.data.Dataset.from_tensor_slices((dict(features_dataframe), target_dataframe))
+    if shuffle:
+      dataset = dataset.shuffle(2000)
+    dataset = dataset.batch(batch_size).repeat(num_of_epochs)
+    return dataset
+  return input_feed_function
+
+train_feed_input = feed_input(normed_train_features, training_labels)
+train_feed_input_testing = feed_input(normed_train_features, training_labels, num_of_epochs=1, shuffle=False)
+test_feed_input = feed_input(normed_test_features, test_labels, num_of_epochs=1, shuffle=False)
+</code></pre><br/>
+<p><strong>Entrainement du modèle:</strong></p>
+<pre><code>feature_columns_numeric = [tf.feature_column.numeric_column(m) for m in training_features.columns]
+linear_model = LinearRegressor(feature_columns=feature_columns_numeric, optimizer='RMSProp')
+linear_model.train(train_feed_input)
+</code></pre><br/>
+<p><strong>Prédictions:</strong></p>
+<pre><code>train_predictions = linear_model.predict(train_feed_input_testing)
+test_predictions = linear_model.predict(test_feed_input)
+
+train_predictions_series = pd.Series([p['predictions'][0] for p in train_predictions])
+test_predictions_series = pd.Series([p['predictions'][0] for p in test_predictions])
+
+train_predictions_df = pd.DataFrame(train_predictions_series, columns=['predictions'])
+test_predictions_df = pd.DataFrame(test_predictions_series, columns=['predictions'])
+
+training_labels.reset_index(drop=True, inplace=True)
+train_predictions_df.reset_index(drop=True, inplace=True)
+
+test_labels.reset_index(drop=True, inplace=True)
+test_predictions_df.reset_index(drop=True, inplace=True)
+
+train_labels_with_predictions_df = pd.concat([training_labels, train_predictions_df], axis=1)
+test_labels_with_predictions_df = pd.concat([test_labels, test_predictions_df], axis=1)
+</code></pre><br/>
+<p><strong>Validation:</strong></p>
+<pre><code>def calculate_errors_and_r2(y_true, y_pred):
+  mean_squared_err = (mean_squared_error(y_true, y_pred))
+  root_mean_squared_err = np.sqrt(mean_squared_err)
+  r2 = round(r2_score(y_true, y_pred)*100,0)
+  return mean_squared_err, root_mean_squared_err, r2
+
+train_mean_squared_error, train_root_mean_squared_error, train_r2_score_percentage = calculate_errors_and_r2(training_labels, train_predictions_series)
+test_mean_squared_error, test_root_mean_squared_error, test_r2_score_percentage = calculate_errors_and_r2(test_labels, test_predictions_series)
+
+print('Training Data Mean Squared Error = ', train_mean_squared_error)
+print('Training Data Root Mean Squared Error = ', train_root_mean_squared_error)
+print('Training Data R2 = ', train_r2_score_percentage)
+
+print('Test Data Mean Squared Error = ', test_mean_squared_error)
+print('Test Data Root Mean Squared Error = ', test_root_mean_squared_error)
+print('Test Data R2 = ', test_r2_score_percentage)
+</code></pre><br/>
+<p><strong>Output:</strong></p>
+<p>Training Data Mean Squared Error =  23.667924020459342<br/>
+Training Data Root Mean Squared Error =  4.864969066752567<br/>
+Training Data R2 =  72.0<br/>
+Test Data Mean Squared Error =  20.22803996987049<br/>
+Test Data Root Mean Squared Error =  4.497559334780419<br/>
+Test Data R2 =  77.0<br/></p>
 ]]></content>
         </item>
         
@@ -2712,9 +2861,9 @@ print(tf.__version__)
 <pre><code>mnist_fashion = ks.datasets.fashion_mnist
 (training_images, training_labels), (test_images, test_labels) = mnist_fashion.load_data()
 print('Training Dataset Shape: {}'.format(training_images.shape))
-print('No. of Training Dataset Labels: {}'. format(len(training_labels)))
+print('Number of Training Dataset Labels: {}'. format(len(training_labels)))
 print('Test Dataset Shape: {}'.format(test_images.shape)) 
-print('No. of Test Dataset Labels: {}'.format(len(test_labels)))
+print('Number of Test Dataset Labels: {}'.format(len(test_labels)))
 </code></pre><p><br/>
 <strong>Normalisation des valeurs:</strong>
 <br/>
@@ -2728,9 +2877,9 @@ On modifie la forme des training et tests matrices en 28x28x1</p>
 <pre><code>training_images = training_images.reshape((60000, 28, 28, 1))
 test_images = test_images.reshape((10000, 28, 28, 1))
 print('Training Dataset Shape: {}'.format(training_images.shape))
-print('No. of Training Dataset Labels: {}'.format(len(training_labels)))
+print('Number of Training Dataset Labels: {}'.format(len(training_labels)))
 print('Test Dataset Shape: {}'.format(test_images.shape))
-print('No. of Test Dataset Labels: {}'.format(len(test_labels)))
+print('Number of Test Dataset Labels: {}'.format(len(test_labels)))
 </code></pre><br/>
 <p><strong>Construction des couches du modèle</strong>
 <br/>
