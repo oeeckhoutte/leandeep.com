@@ -4,11 +4,8 @@
         <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="Lean Deep">
-<meta name="description" content="Petit tip qui explique comment diffuser le contenu d&#39;une vidéo lancée à partir de VLC vers une Chromecast:
-  Lancez VLC 3.0&#43; sur votre ordinateur ou double-cliquez sur une vidéo associée à VLC.
-  Lancer la lecture de la vidéo puis la diffusion sur le Chromecast en cliquant sur le menu Lecture -&amp;gt; Rendu puis sélectionner votre Chromecast.
-   Et voilà, rien de plus simple." />
+<meta name="author" content="Olivier Eeckhoutte">
+<meta name="description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -24,7 +21,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/diffuser-une-vid%C3%A9o-vlc-sur-chromecast/" />
+<link rel="canonical" href="https://leandeep.com/premier-convnet-avec-tensorflow-2/" />
 
 
 
@@ -269,7 +266,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Diffuser une vidéo VLC sur Chromecast :: Bienvenue sur le site de Lean Deep 
+            Premier ConvNet avec Tensorflow 2 :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -294,32 +291,26 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Diffuser une vidéo VLC sur Chromecast">
-<meta itemprop="description" content="Petit tip qui explique comment diffuser le contenu d&#39;une vidéo lancée à partir de VLC vers une Chromecast:
-  Lancez VLC 3.0&#43; sur votre ordinateur ou double-cliquez sur une vidéo associée à VLC.
-  Lancer la lecture de la vidéo puis la diffusion sur le Chromecast en cliquant sur le menu Lecture -&gt; Rendu puis sélectionner votre Chromecast.
-   Et voilà, rien de plus simple.">
-<meta itemprop="datePublished" content="2019-12-21T21:22:17&#43;00:00" />
-<meta itemprop="dateModified" content="2019-12-21T21:22:17&#43;00:00" />
-<meta itemprop="wordCount" content="62">
+<meta itemprop="name" content="Premier ConvNet avec Tensorflow 2">
+<meta itemprop="description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée.">
+<meta itemprop="datePublished" content="2019-12-10T19:49:00&#43;02:00" />
+<meta itemprop="dateModified" content="2019-12-10T19:49:00&#43;02:00" />
+<meta itemprop="wordCount" content="519">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Tensorflow2," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Diffuser une vidéo VLC sur Chromecast"/>
-<meta name="twitter:description" content="Petit tip qui explique comment diffuser le contenu d&#39;une vidéo lancée à partir de VLC vers une Chromecast:
-  Lancez VLC 3.0&#43; sur votre ordinateur ou double-cliquez sur une vidéo associée à VLC.
-  Lancer la lecture de la vidéo puis la diffusion sur le Chromecast en cliquant sur le menu Lecture -&gt; Rendu puis sélectionner votre Chromecast.
-   Et voilà, rien de plus simple."/>
+<meta name="twitter:title" content="Premier ConvNet avec Tensorflow 2"/>
+<meta name="twitter:description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée."/>
 
 
 
 
 
-    <meta property="article:published_time" content="2019-12-21 21:22:17 &#43;0000 &#43;0000" />
+    <meta property="article:published_time" content="2019-12-10 19:49:00 &#43;0200 &#43;0200" />
 
 
 
@@ -376,7 +367,7 @@ function toTitleCase(str) {
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
 
             
 
@@ -385,23 +376,101 @@ function toTitleCase(str) {
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/diffuser-une-vid%C3%A9o-vlc-sur-chromecast/">Diffuser une vidéo VLC sur Chromecast</a>
+                <a href="https://leandeep.com/premier-convnet-avec-tensorflow-2/">Premier ConvNet avec Tensorflow 2</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Petit <em>tip</em> qui explique comment diffuser le contenu d'une vidéo lancée à partir de VLC vers une Chromecast:</p>
-<ul>
-<li>
-<p>Lancez VLC 3.0+ sur votre ordinateur ou double-cliquez sur une vidéo associée à VLC.</p>
-</li>
-<li>
-<p>Lancer la lecture de la vidéo puis la diffusion sur le Chromecast en cliquant sur le menu Lecture -&gt; Rendu puis sélectionner votre Chromecast.</p>
-</li>
-</ul>
+                <h2 id="introduction">Introduction</h2>
+<p>Tensorflow 2 beta est récemment sorti.
+Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser.
+Keras a aussi été pleinement intégré. On peut l'utiliser pour des applications large-scale.
+Le graphe d'exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l'utilisation de Tensorflow a été simplifiée.</p>
 <br/>
-<p>Et voilà, rien de plus simple.</p>
+<h2 id="convnet">ConvNet</h2>
+<p><strong>Chargement des modules:</strong></p>
+<pre><code>from __future__ import absolute_import, division, print_function, unicode_literals
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras as ks
+print(tf.__version__)
+</code></pre><p><br/>
+<strong>Chargement du dataset opensource Zalando Fashion-MNIST:</strong></p>
+<pre><code>mnist_fashion = ks.datasets.fashion_mnist
+(training_images, training_labels), (test_images, test_labels) = mnist_fashion.load_data()
+print('Training Dataset Shape: {}'.format(training_images.shape))
+print('No. of Training Dataset Labels: {}'. format(len(training_labels)))
+print('Test Dataset Shape: {}'.format(test_images.shape)) 
+print('No. of Test Dataset Labels: {}'.format(len(test_labels)))
+</code></pre><p><br/>
+<strong>Normalisation des valeurs:</strong>
+<br/>
+Comme la valeur des pixels varie entre 0 et 255, on va normaliser ces valeurs entre 0 et 1 avant de les pousser dans le modèle. On normalise ces valeurs (training and test data) en les divisant par 255.</p>
+<pre><code>training_images = training_images / 255.0
+test_images = test_images / 255.0
+</code></pre><p><br/>
+<strong>Remaniement des training et tests data</strong>
+<br/>
+On modifie la forme des training et tests matrices en 28x28x1</p>
+<pre><code>training_images = training_images.reshape((60000, 28, 28, 1))
+test_images = test_images.reshape((10000, 28, 28, 1))
+print('Training Dataset Shape: {}'.format(training_images.shape))
+print('No. of Training Dataset Labels: {}'.format(len(training_labels)))
+print('Test Dataset Shape: {}'.format(test_images.shape))
+print('No. of Test Dataset Labels: {}'.format(len(test_labels)))
+</code></pre><br/>
+<p><strong>Construction des couches du modèle</strong>
+<br/>
+Keras est utiliser pour construire les différentes couches de notre CNN. <br/>Pour faire simple, on va créer seulement 3 couches.
+<br/><br/>
+Première couche: couche convolutionnelle avec une fonction d'activation ReLU:</p>
+<ul>
+<li>Cette couche prend un tableau en 2D (28 × 28 pixels) comme input.</li>
+<li>Elle prend 50 kernels (filtres) convolutionnels de forme 3 × 3 pixels.</li>
+<li>La sortie de cette couche qui va passer par une fonction d'activation ReLU avant de passer à la prochaine couche</li>
+</ul>
+<pre><code>cnn_model = ks.models.Sequential()
+cnn_model.add(ks.layers.Conv2D(50, (3, 3), activation='relu', input_shape=(28, 28, 1), name='Conv2D_layer'))
+</code></pre><p><br/>
+Deuxième couche:
+<br/>
+Cette couche prend 50 26x26 tableaux à 2D comme input et les transforme comme 50 tableaux qui ont des dimensions divisés par 2 (c'est-à-dire: de 26×26 à 13×13 pixels).</p>
+<pre><code>cnn_model.add(ks.layers.MaxPooling2D((2, 2), name='Maxpooling_2D'))
+</code></pre><p><br/>
+Troisième couche &ldquo;fully connected layer&rdquo;:
+<br/>
+Cette couche prend 50 13x13 tableaux de 2D comme input et les transform en un tableau à 1D comprenant 8450 élements (50×13×13). Ces 8450 élements d'input sont passés à travers un réseau de neuronne &ldquo;fully connected&rdquo; qui donne des scores de probabilité pour chacune des 10 outputs.</p>
+<pre><code>cnn_model.add(ks.layers.Flatten(name='Flatten'))
+cnn_model.add(ks.layers.Dense(50, activation='relu', name='Hidden_layer'))
+cnn_model.add(ks.layers.Dense(10, activation='softmax', name='Output_layer'))
+</code></pre><br/>
+<p><strong>Synthèse des couches:</strong>
+<br/>
+On observe le détail des différentes couches grâce à la commande suivante:</p>
+<pre><code>cnn_model.summary()
+</code></pre><br/>
+<p><strong>Création de la fonction d'optimisation:</strong>
+<br/>
+Maintenant on utiliser une fonction d'optimisation grâce à la méthode compile. On utiliser un optimiseur Adam avec la fonction d'objectif sparse_categorical_crossentropy pour optimiser la métrique accuracy.</p>
+<pre><code>cnn_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+</code></pre><br/>
+<p><strong>Entraintement du modèle:</strong></p>
+<pre><code>cnn_model.fit(training_images, training_labels, epochs=10)
+</code></pre><br/>
+<p><strong>Modèle évaluation:</strong></p>
+<pre><code># 1. Training évaluation
+training_loss, training_accuracy = cnn_model.evaluate(training_images, training_labels)
+print('Training Accuracy {}'. format(round(float(training_accuracy), 2)))
+
+# 2. Test évaluation
+test_loss, test_accuracy = cnn_model.evaluate(test_images, test_labels)
+print('Test Accuracy {}'.format(round(float (test_accuracy), 2)))
+</code></pre><br/>
+<p><strong>Output:</strong>
+<br/>
+Training Accuracy 0.97<br/>
+Test Accuracy 0.91</p>
 
             </div>
         </article>
@@ -409,10 +478,13 @@ function toTitleCase(str) {
         <hr />
 
         <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tensorflow2">Tensorflow2</a></span>
+                </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>62 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>519 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>21 Dec. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 Dec. 2019</p>
         </div>
 
         
@@ -425,17 +497,17 @@ function toTitleCase(str) {
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/autonomous-3d-printed-car-using-nvidia-jetson-nano-and-torch/">
+                            <a href="https://leandeep.com/diffuser-une-vid%C3%A9o-vlc-sur-chromecast/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Autonomous 3D printed car using Nvidia Jetson Nano and Torch</span>
+                                <span class="button__text">Diffuser une vidéo VLC sur Chromecast</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/premier-convnet-avec-tensorflow-2/">
-                                <span class="button__text">Premier ConvNet avec Tensorflow 2</span>
+                            <a href="https://leandeep.com/utilitaires-utiles-osx-catalina/">
+                                <span class="button__text">Utilitaires utiles OSX Catalina</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

@@ -2499,6 +2499,105 @@ Les soucis au niveau de l'alimentation était dûs à un manque de connaissance 
         </item>
         
         <item>
+            <title>Premier ConvNet avec Tensorflow 2</title>
+            <link>https://leandeep.com/premier-convnet-avec-tensorflow-2/</link>
+            <pubDate>Tue, 10 Dec 2019 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/premier-convnet-avec-tensorflow-2/</guid>
+            <description>Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Tensorflow 2 beta est récemment sorti.
+Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser.
+Keras a aussi été pleinement intégré. On peut l'utiliser pour des applications large-scale.
+Le graphe d'exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l'utilisation de Tensorflow a été simplifiée.</p>
+<br/>
+<h2 id="convnet">ConvNet</h2>
+<p><strong>Chargement des modules:</strong></p>
+<pre><code>from __future__ import absolute_import, division, print_function, unicode_literals
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras as ks
+print(tf.__version__)
+</code></pre><p><br/>
+<strong>Chargement du dataset opensource Zalando Fashion-MNIST:</strong></p>
+<pre><code>mnist_fashion = ks.datasets.fashion_mnist
+(training_images, training_labels), (test_images, test_labels) = mnist_fashion.load_data()
+print('Training Dataset Shape: {}'.format(training_images.shape))
+print('No. of Training Dataset Labels: {}'. format(len(training_labels)))
+print('Test Dataset Shape: {}'.format(test_images.shape)) 
+print('No. of Test Dataset Labels: {}'.format(len(test_labels)))
+</code></pre><p><br/>
+<strong>Normalisation des valeurs:</strong>
+<br/>
+Comme la valeur des pixels varie entre 0 et 255, on va normaliser ces valeurs entre 0 et 1 avant de les pousser dans le modèle. On normalise ces valeurs (training and test data) en les divisant par 255.</p>
+<pre><code>training_images = training_images / 255.0
+test_images = test_images / 255.0
+</code></pre><p><br/>
+<strong>Remaniement des training et tests data</strong>
+<br/>
+On modifie la forme des training et tests matrices en 28x28x1</p>
+<pre><code>training_images = training_images.reshape((60000, 28, 28, 1))
+test_images = test_images.reshape((10000, 28, 28, 1))
+print('Training Dataset Shape: {}'.format(training_images.shape))
+print('No. of Training Dataset Labels: {}'.format(len(training_labels)))
+print('Test Dataset Shape: {}'.format(test_images.shape))
+print('No. of Test Dataset Labels: {}'.format(len(test_labels)))
+</code></pre><br/>
+<p><strong>Construction des couches du modèle</strong>
+<br/>
+Keras est utiliser pour construire les différentes couches de notre CNN. <br/>Pour faire simple, on va créer seulement 3 couches.
+<br/><br/>
+Première couche: couche convolutionnelle avec une fonction d'activation ReLU:</p>
+<ul>
+<li>Cette couche prend un tableau en 2D (28 × 28 pixels) comme input.</li>
+<li>Elle prend 50 kernels (filtres) convolutionnels de forme 3 × 3 pixels.</li>
+<li>La sortie de cette couche qui va passer par une fonction d'activation ReLU avant de passer à la prochaine couche</li>
+</ul>
+<pre><code>cnn_model = ks.models.Sequential()
+cnn_model.add(ks.layers.Conv2D(50, (3, 3), activation='relu', input_shape=(28, 28, 1), name='Conv2D_layer'))
+</code></pre><p><br/>
+Deuxième couche:
+<br/>
+Cette couche prend 50 26x26 tableaux à 2D comme input et les transforme comme 50 tableaux qui ont des dimensions divisés par 2 (c'est-à-dire: de 26×26 à 13×13 pixels).</p>
+<pre><code>cnn_model.add(ks.layers.MaxPooling2D((2, 2), name='Maxpooling_2D'))
+</code></pre><p><br/>
+Troisième couche &ldquo;fully connected layer&rdquo;:
+<br/>
+Cette couche prend 50 13x13 tableaux de 2D comme input et les transform en un tableau à 1D comprenant 8450 élements (50×13×13). Ces 8450 élements d'input sont passés à travers un réseau de neuronne &ldquo;fully connected&rdquo; qui donne des scores de probabilité pour chacune des 10 outputs.</p>
+<pre><code>cnn_model.add(ks.layers.Flatten(name='Flatten'))
+cnn_model.add(ks.layers.Dense(50, activation='relu', name='Hidden_layer'))
+cnn_model.add(ks.layers.Dense(10, activation='softmax', name='Output_layer'))
+</code></pre><br/>
+<p><strong>Synthèse des couches:</strong>
+<br/>
+On observe le détail des différentes couches grâce à la commande suivante:</p>
+<pre><code>cnn_model.summary()
+</code></pre><br/>
+<p><strong>Création de la fonction d'optimisation:</strong>
+<br/>
+Maintenant on utiliser une fonction d'optimisation grâce à la méthode compile. On utiliser un optimiseur Adam avec la fonction d'objectif sparse_categorical_crossentropy pour optimiser la métrique accuracy.</p>
+<pre><code>cnn_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+</code></pre><br/>
+<p><strong>Entraintement du modèle:</strong></p>
+<pre><code>cnn_model.fit(training_images, training_labels, epochs=10)
+</code></pre><br/>
+<p><strong>Modèle évaluation:</strong></p>
+<pre><code># 1. Training évaluation
+training_loss, training_accuracy = cnn_model.evaluate(training_images, training_labels)
+print('Training Accuracy {}'. format(round(float(training_accuracy), 2)))
+
+# 2. Test évaluation
+test_loss, test_accuracy = cnn_model.evaluate(test_images, test_labels)
+print('Test Accuracy {}'.format(round(float (test_accuracy), 2)))
+</code></pre><br/>
+<p><strong>Output:</strong>
+<br/>
+Training Accuracy 0.97<br/>
+Test Accuracy 0.91</p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Utilitaires utiles OSX Catalina</title>
             <link>https://leandeep.com/utilitaires-utiles-osx-catalina/</link>
             <pubDate>Mon, 18 Nov 2019 11:08:00 +0000</pubDate>
