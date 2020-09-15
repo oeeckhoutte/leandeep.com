@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Pipenv est un super utilitaire pour pouvoir gérer facilement les dépendances de ses projets avec des environnements virtuels. C&#39;est l&#39;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
+<meta name="description" content="Introduction Pipenv est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels. C&#39;est l&#39;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
 Voici comment utiliser pipenv avec Visual Studio Code.
 Virtual environment création &amp;amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&#39;excuter la commande pipenv install --dev --python version_installee_par_pyenv." />
 <meta name="keywords" content="" />
@@ -294,12 +294,12 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="VSCode et les pipenv">
-<meta itemprop="description" content="Introduction Pipenv est un super utilitaire pour pouvoir gérer facilement les dépendances de ses projets avec des environnements virtuels. C&#39;est l&#39;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
+<meta itemprop="description" content="Introduction Pipenv est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels. C&#39;est l&#39;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
 Voici comment utiliser pipenv avec Visual Studio Code.
 Virtual environment création &amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&#39;excuter la commande pipenv install --dev --python version_installee_par_pyenv.">
 <meta itemprop="datePublished" content="2019-05-22T18:19:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-05-22T18:19:00&#43;00:00" />
-<meta itemprop="wordCount" content="538">
+<meta itemprop="wordCount" content="536">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -308,7 +308,7 @@ Virtual environment création &amp; pipenv installation Imaginez que vous clonie
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="VSCode et les pipenv"/>
-<meta name="twitter:description" content="Introduction Pipenv est un super utilitaire pour pouvoir gérer facilement les dépendances de ses projets avec des environnements virtuels. C&#39;est l&#39;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
+<meta name="twitter:description" content="Introduction Pipenv est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels. C&#39;est l&#39;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
 Voici comment utiliser pipenv avec Visual Studio Code.
 Virtual environment création &amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&#39;excuter la commande pipenv install --dev --python version_installee_par_pyenv."/>
 
@@ -389,11 +389,11 @@ Virtual environment création &amp; pipenv installation Imaginez que vous clonie
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p><code>Pipenv</code> est un super utilitaire pour pouvoir gérer facilement les dépendances de ses projets avec des environnements virtuels.
+<p><code>Pipenv</code> est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels.
 C'est l'équivalent de <code>npm</code> en NodeJS. Il est un peu plus avancé que les <code>virtualenv</code>.</p>
 <p>Voici comment utiliser pipenv avec Visual Studio Code.</p>
 <h2 id="virtual-environment-cration--pipenv-installation">Virtual environment création &amp; pipenv installation</h2>
-<p>Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d'excuter la commande <code>pipenv install --dev --python version_installee_par_pyenv</code>. Cette commande va créer un environnement virtuel dans le répertoire suivant: <code>~/.local/share/virtualenvs/</code></p>
+<p>Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d'excuter la commande <code>pipenv install --dev --python version_installee_par_pyenv</code>. Cette commande va créer un environnement virtuel dans le répertoire suivant <code>~/.local/share/virtualenvs/</code> ou dans <code>~/.virtualenvs/</code> en fonction de votre OS et paramètres d'installation.</p>
 <blockquote>
 <p>Bien sûr pipenv doit être installé sur votre poste. Pour se faire, il suffit d'exécuter la commande suivante: <code>pip3 install --user pipenv</code>.</p>
 </blockquote>
@@ -426,23 +426,17 @@ export PKG_CONFIG_PATH=&quot;$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfi
 </code></pre><h2 id="vscode-config">VSCode config</h2>
 <p>Exécutez la commande suivante pour configurer VSCode pour votre projet:</p>
 <pre><code>mkdir .vscode &amp;&amp; touch .vscode/settings.json
-</code></pre><p><strong>Contenu du fichier settings.json</strong>. Je suppose que vos tests sont réalisés avec Pytest:</p>
+</code></pre><p><strong>Contenu du fichier <code>.vscode/settings.json</code></strong>. Je suppose que vos tests sont réalisés avec Pytest:</p>
 <pre><code>{
-    &quot;python.testing.unittestEnabled&quot;: false,
-    &quot;python.testing.nosetestsEnabled&quot;: false,
-    &quot;python.testing.pyTestEnabled&quot;: true,
-    &quot;files.exclude&quot;: {
-        &quot;**/.git&quot;: true,
-        &quot;**/.svn&quot;: true,
-        &quot;**/.hg&quot;: true,
-        &quot;**/CVS&quot;: true,
-        &quot;**/.DS_Store&quot;: true,
-        &quot;**/*.pyc&quot;: true,
-        &quot;**/__pycache__&quot;: true
-    },
-    &quot;python.pythonPath&quot;: &quot;/Users/olivier/.local/share/virtualenvs/requests-aKdvsJ14/bin/python&quot;
+    &quot;python.pythonPath&quot;: &quot;/Users/olivier/.virtualenvs/MON_VIRTUAL_ENV/bin/python&quot;,
+    &quot;python.linting.enabled&quot;: true,
+    &quot;python.linting.flake8Enabled&quot;: true,
+    &quot;python.formatting.provider&quot;: &quot;black&quot;,
+    &quot;editor.rulers&quot;: [
+        79
+    ]
 }
-</code></pre><p>Remplacez <code>/Users/olivier/.local/share/virtualenvs/requests-aKdvsJ14/bin/python</code> par votre propre virtualenv créé lors de l'exécution de la commande <code>pipenv install --dev --python version_installee_par_pyenv</code>. Pour connaître le path de votre virtualenv vous pouvez utiliser la commande <code>pipenv --py</code>.</p>
+</code></pre><p>Remplacez <code>/Users/olivier/.virtualenvs/MON_VIRTUAL_ENV/bin/python</code> par votre propre virtualenv créé lors de l'exécution de la commande <code>pipenv install --dev --python version_installee_par_pyenv</code>. Pour connaître le path de votre virtualenv vous pouvez utiliser la commande <code>pipenv --py</code>.</p>
 <blockquote>
 <p>Note: Si un terminal était déjà ouvert dans VSCode et que le virtualenv n'a pas été pris en compte, on peut utiliser la commande <code>pipenv shell</code> pour basculer dessus.</p>
 </blockquote>
@@ -483,7 +477,7 @@ jq -r &quot;.default
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/vscode">VSCode</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>538 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>536 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 May. 2019</p>
         </div>
