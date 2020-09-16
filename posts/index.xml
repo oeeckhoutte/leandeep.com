@@ -17587,7 +17587,7 @@ Faire tourner un script Bash et à la fois voir son output dans le terminal et l
 </li>
 </ul>
 <blockquote>
-<p>An inodeis a data structure used to represent a filesystem object. Lots of fields are stored in an inode ex: Inode number, direct/indirect disk blocks, number of blocks, change and modification time, File deletiontime, size, type, group, owner, permissions, etc.</p>
+<p>An inode is a data structure used to represent a filesystem object. Lots of fields are stored in an inode ex: Inode number, direct/indirect disk blocks, number of blocks, change and modification time, File deletiontime, size, type, group, owner, permissions, etc.</p>
 </blockquote>
 <br/>
 <h2 id="forcer-un-check-filesystem-lors-du-prochain-reboot">Forcer un check filesystem lors du prochain reboot</h2>
@@ -17620,7 +17620,7 @@ export myvar=hello
 <h2 id="voir-les-logs-system-systemd">Voir les logs system (systemd)</h2>
 <pre><code>journalctl -f 
 </code></pre><br/>
-<h2 id="voir-les-logs-system-et-filtrer">Voir les logs system et filtrer</h2>
+<h2 id="voir-les-logs-system-et-filtrer-systemd">Voir les logs system et filtrer (systemd)</h2>
 <pre><code>journalctl -f -u le_filtre
 </code></pre><br/>
 <h2 id="nettoyer-les-logs-de-plus-de-2-jours-systemd">Nettoyer les logs de plus de 2 jours (systemd)</h2>
@@ -17628,6 +17628,9 @@ export myvar=hello
 </code></pre><br/>
 <h2 id="ne-garder-que-500-mo-de-logs-systemd">Ne garder que 500 Mo de logs (systemd)</h2>
 <pre><code>journalctl --vacuum-size=500M
+</code></pre><br/>
+<h2 id="voir-les-logs-dun-service-avec-follow--tail-et-affichage-des-rsultats-sans-pagniation-systemd">Voir les logs d'un service avec follow + tail et affichage des résultats sans pagniation (systemd)</h2>
+<pre><code>journalctl -u blabla.service -n 50000 --no-pager
 </code></pre><br/>
 <h2 id="montagedmontage-nfs">Montage/Démontage NFS</h2>
 <pre><code># Montage
