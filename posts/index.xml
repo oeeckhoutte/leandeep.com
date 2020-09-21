@@ -18201,5 +18201,79 @@ Avec <code>ABC</code> on est alerté dès l'instanciation de la classe que la m�
 ]]></content>
         </item>
         
+        <item>
+            <title>Commandes de base SSH</title>
+            <link>https://leandeep.com/commandes-de-base-ssh/</link>
+            <pubDate>Wed, 10 Oct 2012 09:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/commandes-de-base-ssh/</guid>
+            <description>Connexion Dans un terminal, exécuter la commande suivante:
+ssh user@host  Par défaut le port 22 est utilisé
+  Se connecter sur un port particulier:
+ssh user@host -p port  Créer des raccourcis pour vous connecter plus facilement à différents hosts:
+Créer un fichier de config ~/.ssh/config et gérer vos config comme ceci:
+Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 PubkeyAuthentication yes IdentityFile ~/.ssh/server_vps1 Ensuite, il vous suffit d&#39;utiliser les commandes suivantes pour vous connecter à vos différents hosts:</description>
+            <content type="html"><![CDATA[<h2 id="connexion">Connexion</h2>
+<p>Dans un terminal, exécuter la commande suivante:</p>
+<pre><code>ssh user@host
+</code></pre><blockquote>
+<p>Par défaut le port 22 est utilisé</p>
+</blockquote>
+<br/>
+<p><strong>Se connecter sur un port particulier:</strong></p>
+<pre><code>ssh user@host -p port
+</code></pre><br/>
+<p><strong>Créer des raccourcis pour vous connecter plus facilement à différents hosts:</strong></p>
+<p>Créer un fichier de config <code>~/.ssh/config</code> et gérer vos config comme ceci:</p>
+<pre><code>Host hostname1
+    HostName 192.168.0.10
+    User    olivier
+    Port    1234
+
+Host hostname2
+    PubkeyAuthentication yes
+    IdentityFile ~/.ssh/server_vps1
+</code></pre><p>Ensuite, il vous suffit d'utiliser les commandes suivantes pour vous connecter à vos différents hosts:</p>
+<pre><code>ssh hostname1
+ssh hostname2
+</code></pre><br/>
+<h2 id="cl-ssh">Clé SSH</h2>
+<p>Ajouter votre clé publique sur un serveur distant:</p>
+<pre><code>ssh-keygen -t rsa
+cat id_rsa.pub | ssh user@host 'cat &gt;&gt; .ssh/authorized_keys'
+ssh user@host
+</code></pre><br/>
+<h2 id="remote-commands">Remote Commands</h2>
+<p>Il est possible d'exécuter des commandes à distance. Par exemple:</p>
+<pre><code>ssh user@host &quot;ls&quot;
+</code></pre><p>Le stdin et stdout sera local</p>
+<br/>
+<h2 id="grer-plusieurs-config-pour-le-mme-serveur">Gérer plusieurs config pour le même serveur</h2>
+<pre><code>Host option1.host
+    HostName host
+    User     user1
+
+Host option2.host
+    HostName host
+    User     user2
+
+</code></pre><p>Puis pour vous connecter:</p>
+<pre><code>ssh option1.host
+ssh option2.host
+</code></pre><br/>
+<h2 id="configurer-github-avec-protocol-ssh">Configurer Github avec protocol SSH</h2>
+<pre><code>Host repo1.github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/repo1_rsa
+
+Host repo2.github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/repo2_rsa
+</code></pre><p>Puis <code>git clone repo1.github.com</code></p>
+]]></content>
+        </item>
+        
     </channel>
 </rss>
