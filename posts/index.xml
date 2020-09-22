@@ -3236,6 +3236,7 @@ brew cask install qlcolorcode
 brew cask install qlmarkdown qlstephen quicklook-json qlimagesize suspicious-package 
 brew cask install keepassxc
 brew cask install db-browser-for-sqlite
+brew install tig # Voir l'historique git
 
 brew install hadolint # Dockerfile linter
 
@@ -6795,6 +6796,9 @@ kubectl logs POD_NAME
 </code></pre><br/>
 <p><strong>Entrer dans un pod</strong></p>
 <pre><code>kubectl exec -it shell-demo -- /bin/bash
+</code></pre><br/>
+<p><strong>Effacer tous les pods avec le status Evicted:</strong></p>
+<pre><code>kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod
 </code></pre><br/>
 <h2 id="crer-un-single-node-cluster-avec-kubeadm-sur-ubuntu">Créer un Single node cluster avec kubeadm sur Ubuntu</h2>
 <p><strong>Installer kubeadm:</strong></p>
@@ -15477,6 +15481,36 @@ git push origin mon_tag
 # (non recommandé) pousser tous les tags
 git push --tags
 </code></pre><br/>
+<p><strong>Ajouter un tag sur un commit particulier</strong></p>
+<pre><code>git tag -a v1.0 d613c59
+git push origin v1.0
+</code></pre><br/>
+<p><strong>Lister les commits entre un tag et HEAD</strong></p>
+<pre><code>git log --pretty=oneline HEAD...v1.0
+</code></pre><blockquote>
+<p>Alternative sans les commits de merge: <code>git log --pretty=oneline HEAD...v1.0 --no-merges</code></p>
+</blockquote>
+<blockquote>
+<p>Alternative avec tous les détails: <code>git log HEAD...v1.0</code></p>
+</blockquote>
+<blockquote>
+<p>Autre alternative: <code>git log --pretty=format:&quot;%h; author: %cn; date: %ci; subject:%s&quot; HEAD...v1.0</code></p>
+</blockquote>
+<br/>
+<p><strong>Voir les changements/ commits sur un fichier</strong></p>
+<pre><code>git log --follow -p -- full_path_mon_fichier
+# --follow permet de suivre un fichier s'il a été renommé
+</code></pre><blockquote>
+<p>Alternative:
+<code>find . -name &quot;*mon_fichier&quot; | xargs git log</code></p>
+</blockquote>
+<blockquote>
+<p><strong>Super Alternative:</strong>  <br/>
+<code>tig full_path_mon_fichier</code> ou <code>tig '*mon_fichier'</code> <br/>
+Installation de tig via <code>brew install tig</code> ou <code>apt install tig</code> <br/>
+<a href="http://jonas.nitro.dk/tig/manual.html">Tig Full documentation</a></p>
+</blockquote>
+<br/>
 <h2 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h2>
 <pre><code>$ git init
 Initialized empty Git repository in .git/
