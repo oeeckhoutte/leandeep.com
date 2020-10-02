@@ -49,6 +49,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 <pre><code>mkvirtualenv py3_env -p python3 -a .
 </code></pre><br/>
 <p><strong>Fix OpenSSL issue</strong></p>
+<p><strong>Option 1</strong></p>
 <blockquote>
 <p>Erreur system: <code>&quot;Invalid dylib load. Clients should not load the unversioned libcrypto dylib as it does not have a stable ABI.&quot;</code></p>
 </blockquote>
@@ -61,7 +62,16 @@ mv libcrypto.dylib libcrypto_bak.dylib
 # ou mv libcrypto3.dylib libcrypto3_bak.dylib
 sudo ln -s libcrypto.1.1.dylib libcrypto.dylib
 sudo ln -s libssl.1.1.dylib libssl.dylib
-</code></pre>]]></content>
+</code></pre><br/>
+<p><strong>Option 2</strong></p>
+<p>Rendez-vous sur <a href="https://www.openssl.org/source/old/">https://www.openssl.org/source/old/</a> et télécharger la version d&rsquo;openssl que vous avez besoin.</p>
+<p>Allez dans le dossier un fois avoir extrait le contenu de l&rsquo;archive puis exécuter les commandes suivantes:</p>
+<pre><code>make clean
+./Configure darwin64-x86_64-cc -shared
+make
+make install
+</code></pre><p>Placer enfin <code>libcrypto.1.0.0.dylib</code> et <code>libssl.1.0.0.dylib</code> dans le répertoire <code>/usr/local/Cellar/openssl/lib/</code> ou <code>/usr/local/Cellar/openssl@1.1/lib/</code> si le précédent n&rsquo;existe pas.</p>
+]]></content>
         </item>
         
         <item>
