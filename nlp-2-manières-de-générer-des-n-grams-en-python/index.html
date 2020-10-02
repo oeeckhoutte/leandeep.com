@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&#39;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.
-On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme features pour représenter nos documents en plus d&#39;utiliser des tokens individuels trouvés dans le corpus." />
+<meta name="description" content="Introduction Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&amp;rsquo;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.
+On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme features pour représenter nos documents en plus d&amp;rsquo;utiliser des tokens individuels trouvés dans le corpus." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -293,21 +293,22 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="[NLP] 2 manières de générer des N-grams en Python ">
-<meta itemprop="description" content="Introduction Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&#39;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.
-On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme features pour représenter nos documents en plus d&#39;utiliser des tokens individuels trouvés dans le corpus.">
-<meta itemprop="datePublished" content="2019-09-03T07:48:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-09-03T07:48:00&#43;00:00" />
+<meta itemprop="description" content="Introduction Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&rsquo;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.
+On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme features pour représenter nos documents en plus d&rsquo;utiliser des tokens individuels trouvés dans le corpus.">
+<meta itemprop="datePublished" content="2019-09-03T07:48:00+00:00" />
+<meta itemprop="dateModified" content="2019-09-03T07:48:00+00:00" />
 <meta itemprop="wordCount" content="665">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="NLP,Machine Learning,Ngrams," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="NLP,Machine Learning,Ngrams," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="[NLP] 2 manières de générer des N-grams en Python "/>
-<meta name="twitter:description" content="Introduction Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&#39;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.
-On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme features pour représenter nos documents en plus d&#39;utiliser des tokens individuels trouvés dans le corpus."/>
+<meta name="twitter:description" content="Introduction Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&rsquo;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.
+On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme features pour représenter nos documents en plus d&rsquo;utiliser des tokens individuels trouvés dans le corpus."/>
 
 
 
@@ -386,15 +387,15 @@ On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natur
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n'est pas très grand car ces N-grams apparaissent rarement plusieurs fois.</p>
-<p>On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme <em>features</em> pour représenter nos documents en plus d'utiliser des tokens individuels trouvés dans le corpus.</p>
+<p>Dans une phrase, les N-grams sont des séquences de N-mots adjacents. N peut être 1 ou 2 ou toute autre entier positif. En général N n&rsquo;est pas très grand car ces N-grams apparaissent rarement plusieurs fois.</p>
+<p>On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language Processing. Plus précisément, on les retrouve dans les sujets de classification de textes. On peut utiliser des bi-grams ou tri-grams comme <em>features</em> pour représenter nos documents en plus d&rsquo;utiliser des tokens individuels trouvés dans le corpus.</p>
 <p>Dans cet article, nous allons voir comment générer en Python des N-grams à partir de phrases en entrée.</p>
 <br/>
 <h2 id="n-grams-en-pur-python">N-grams en pur Python</h2>
 <p>Partons de la phrase suivante et transformons la en N-grams:</p>
 <pre><code>s = &quot;On utilise ces N-grams en Machine Learning dans les sujets qui traitent du Natural Language &quot; \ 
     &quot;Processing et en particulier dans les sujets de classification de textes.&quot;
-</code></pre><p>Si on transforme cette phrase en bi-grams on va obtenir l'output suivant:</p>
+</code></pre><p>Si on transforme cette phrase en bi-grams on va obtenir l&rsquo;output suivant:</p>
 <pre><code>[
     &quot;On utilise&quot;,
     &quot;utilise ces&quot;,
@@ -420,7 +421,7 @@ def generate_ngrams(s, n):
     # Concatentate the tokens into ngrams and return
     ngrams = zip(*[token[i:] for i in range(n)])
     return [&quot; &quot;.join(ngram) for ngram in ngrams]
-</code></pre><p>Si on applique la fonction suivante sur notre phrase d'entrée avec N=4, on obtient le résultat suivant:</p>
+</code></pre><p>Si on applique la fonction suivante sur notre phrase d&rsquo;entrée avec N=4, on obtient le résultat suivant:</p>
 <pre><code>&gt;&gt;&gt; generate_ngrams(s, n=4)
 ['on utilise ces n', 'utilise ces n grams', 'ces n grams en', 'n grams en machine', 'grams en machine learning', 'en machine learning dans', 'machine learning dans les', 'learning dans les sujets', 'dans les sujets qui', 'les sujets qui traitent', 'sujets qui traitent du', 'qui traitent du natural', 'traitent du natural language', 'du natural language processing', 'natural language processing et', 'language processing et en', 'processing et en particulier', 'et en particulier dans', 'en particulier dans les', 'particulier dans les sujets', 'dans les sujets de', 'les sujets de classification', 'sujets de classification de', 'de classification de textes']
 </code></pre><p>La fonction précédente utilise la fonction <code>zip</code> qui crée un <em>generator</em> qui aggrége les éléments de plusieurs listes.</p>
@@ -447,8 +448,8 @@ bigrams = zip(*sequences)
 # Comme il n'y a que 3 éléments dans la dernières séquence, il n'y a que 3 tuples retournés par la fonction zip
 </code></pre><br/>
 <h2 id="n-grams-avec-nltk">N-grams avec NLTK</h2>
-<p>Au lieu d'utiliser la méthode précédente pour générer des N-grams, on peut se simplifier la vie en utilisant la librairie <code>NLTK (Natural Language Toolkit)</code> spécialisée comme son nom l'indique dans le NLP.</p>
-<p>Avec le code suivant, on peut générer des N-grams, tout comme on l'a fait avec la méthode <code>generate_ngrams()</code>.</p>
+<p>Au lieu d&rsquo;utiliser la méthode précédente pour générer des N-grams, on peut se simplifier la vie en utilisant la librairie <code>NLTK (Natural Language Toolkit)</code> spécialisée comme son nom l&rsquo;indique dans le NLP.</p>
+<p>Avec le code suivant, on peut générer des N-grams, tout comme on l&rsquo;a fait avec la méthode <code>generate_ngrams()</code>.</p>
 <pre><code>import re
 from nltk.util import ngrams
 
@@ -457,7 +458,7 @@ s = re.sub(r'[^a-zA-Z0-9\s]', ' ', s)
 tokens = [token for token in s.split(&quot; &quot;) if token != &quot;&quot;]
 output = list(ngrams(tokens, 5))
 </code></pre><blockquote>
-<p>Si vous rencontrez l'erreur suivante avec NLTK <code>CERTIFICATE_VERIFY_FAILED] certificate verify failed:</code>, voici les commandes Python à exécuter comme workaround:</p>
+<p>Si vous rencontrez l&rsquo;erreur suivante avec NLTK <code>CERTIFICATE_VERIFY_FAILED] certificate verify failed:</code>, voici les commandes Python à exécuter comme workaround:</p>
 </blockquote>
 <pre><code>import nltk
 import ssl

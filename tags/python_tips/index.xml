@@ -6,18 +6,14 @@
     <description>Recent content in python_tips on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 18 Aug 2020 23:02:09 -0700</lastBuildDate>
-    
-	<atom:link href="https://leandeep.com/tags/python_tips/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 18 Aug 2020 23:02:09 -0700</lastBuildDate><atom:link href="https://leandeep.com/tags/python_tips/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rendre du code plus propre avec des namedtuples</title>
       <link>https://leandeep.com/tips/rendre-du-code-plus-propre-avec-des-nametuples/</link>
       <pubDate>Tue, 18 Aug 2020 23:02:09 -0700</pubDate>
       
       <guid>https://leandeep.com/tips/rendre-du-code-plus-propre-avec-des-nametuples/</guid>
-      <description>Imaginons que nous souhaitions afficher le contenu d&#39;une table de base de données contenant des informations sur les salariés d&#39;une entreprise. On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&#39;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &amp;ldquo;name&amp;rdquo;, &amp;ldquo;birthdate&amp;rdquo;, &amp;ldquo;salary&amp;rdquo; et &amp;ldquo;employment_date&amp;rdquo;, l&#39;index 2 correspond donc au salaire d&#39;un employé. C&#39;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir.</description>
+      <description>Imaginons que nous souhaitions afficher le contenu d&amp;rsquo;une table de base de données contenant des informations sur les salariés d&amp;rsquo;une entreprise. On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&amp;rsquo;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &amp;ldquo;name&amp;rdquo;, &amp;ldquo;birthdate&amp;rdquo;, &amp;ldquo;salary&amp;rdquo; et &amp;ldquo;employment_date&amp;rdquo;, l&#39;index 2 correspond donc au salaire d&amp;rsquo;un employé. C&amp;rsquo;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir.</description>
     </item>
     
     <item>
@@ -48,8 +44,8 @@ import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
       
       <guid>https://leandeep.com/tips/handle-keyerrors-dans-les-dict-avec-defaultdict/</guid>
       <description>Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
-prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&#39;une clé, on peut
- soit tester si une clé existe dans le dict ou catcher l&#39;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&#39;avoir du code plus propre, et plus facilement testable.</description>
+prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
+ soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&amp;rsquo;avoir du code plus propre, et plus facilement testable.</description>
     </item>
     
     <item>
@@ -59,7 +55,7 @@ prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_preno
       
       <guid>https://leandeep.com/tips/slicer-un-set-de-maniere-pythonique/</guid>
       <description>Ce tip décrit comment slicer (découper) un set de manière Pythonique.
-Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&#39;un sous-ensemble du set de départ.
+Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&amp;rsquo;un sous-ensemble du set de départ.
 import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;, &#39;titi&#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
     </item>
     
@@ -69,9 +65,9 @@ import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;
       <pubDate>Tue, 14 Jan 2020 21:20:04 -0700</pubDate>
       
       <guid>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes/</guid>
-      <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&#39;utiliser zip en passant en paramètre les 2 variables.
+      <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
 Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
-1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&#39;itérer sur ces 2 listes.</description>
+1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
     </item>
     
     <item>
@@ -80,8 +76,8 @@ Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;
       <pubDate>Sat, 11 Jan 2020 21:20:04 -0700</pubDate>
       
       <guid>https://leandeep.com/tips/python/utiliser-une-boucle-non-pythonique/</guid>
-      <description>Pour accéder aux éléments d&#39;une liste et afficher l&#39;index des éléments, il vaut mieux privilégier l&#39;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&#39;incrémenter la valeur de l&#39;index.
- Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom)  Bonne pratique (Bien!) Voici la manière plus Pythonique d&#39;itérérer sur une liste.
+      <description>Pour accéder aux éléments d&amp;rsquo;une liste et afficher l&amp;rsquo;index des éléments, il vaut mieux privilégier l&amp;rsquo;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&amp;rsquo;incrémenter la valeur de l&amp;rsquo;index.
+ Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom)  Bonne pratique (Bien!) Voici la manière plus Pythonique d&amp;rsquo;itérérer sur une liste.
 prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx, prenom in enumerate(prenoms): print(idx, prenom) </description>
     </item>
     
@@ -91,7 +87,7 @@ prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&am
       <pubDate>Sat, 04 Jan 2020 21:20:04 -0700</pubDate>
       
       <guid>https://leandeep.com/tips/python/demander-pardon-plutot-que-la-permission/</guid>
-      <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&#39;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&#39;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.</description>
+      <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&amp;rsquo;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&amp;rsquo;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.</description>
     </item>
     
     <item>
@@ -102,7 +98,7 @@ prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&am
       <guid>https://leandeep.com/tips/python/difference-entre-list-append-et-extend/</guid>
       <description>Append Ajoute un object en bout de liste:
 prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] prenoms.append([&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]) print(prenoms) Résultat: [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, [&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]]
- Extend Étend la liste en ajoutant les éléments d&#39;un itérable
+ Extend Étend la liste en ajoutant les éléments d&amp;rsquo;un itérable
 prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] prenoms.extend([&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]) print(prenoms) Résultat: [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, &amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]</description>
     </item>
     

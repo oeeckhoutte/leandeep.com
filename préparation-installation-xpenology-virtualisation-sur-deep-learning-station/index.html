@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Il y a quelques temps j&#39;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&#39;on m&#39;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&#39;enchante guère&amp;hellip;
+<meta name="description" content="Introduction Il y a quelques temps j&amp;rsquo;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&amp;rsquo;on m&amp;rsquo;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&amp;rsquo;enchante guère&amp;hellip;
 Je vais donc expérimenter Xpenology sur ma station de Deep Learning qui possède un grand nombre de disques durs et qui est allumée 24/7." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -293,20 +293,21 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Préparation installation Xpenology - Virtualisation sur Deep Learning Station">
-<meta itemprop="description" content="Introduction Il y a quelques temps j&#39;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&#39;on m&#39;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&#39;enchante guère&hellip;
+<meta itemprop="description" content="Introduction Il y a quelques temps j&rsquo;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&rsquo;on m&rsquo;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&rsquo;enchante guère&hellip;
 Je vais donc expérimenter Xpenology sur ma station de Deep Learning qui possède un grand nombre de disques durs et qui est allumée 24/7.">
-<meta itemprop="datePublished" content="2019-01-04T16:11:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-01-04T16:11:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-01-04T16:11:00+00:00" />
+<meta itemprop="dateModified" content="2019-01-04T16:11:00+00:00" />
 <meta itemprop="wordCount" content="477">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Virtualization," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Virtualization," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Préparation installation Xpenology - Virtualisation sur Deep Learning Station"/>
-<meta name="twitter:description" content="Introduction Il y a quelques temps j&#39;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&#39;on m&#39;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&#39;enchante guère&hellip;
+<meta name="twitter:description" content="Introduction Il y a quelques temps j&rsquo;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&rsquo;on m&rsquo;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&rsquo;enchante guère&hellip;
 Je vais donc expérimenter Xpenology sur ma station de Deep Learning qui possède un grand nombre de disques durs et qui est allumée 24/7."/>
 
 
@@ -386,15 +387,15 @@ Je vais donc expérimenter Xpenology sur ma station de Deep Learning qui possèd
 
             <div class="post-content">
                 <h1 id="introduction">Introduction</h1>
-<p>Il y a quelques temps j'ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu'on m'a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m'enchante guère&hellip;</p>
-<p>Je vais donc expérimenter Xpenology sur ma station de Deep Learning qui possède un grand nombre de disques durs et qui est allumée 24/7. Initialement, je voulais installer Proxmox (hyperviseur type 1) et réinstaller ma config de Deep Learning mais ce dernier n'est pas compatible avec ma carte graphique pour faire du <code>passthrough GPU</code>. Et finalement, après réflexion, c'est <em>overkill</em> pour réaliser une expérimentation. Bref avec cette installation, je vais pouvoir vérifier si ce nouveau NAS maison est bien stable avant d'investir.</p>
-<p>Je vais installer l'hyperviseur type 2 qemu-kvm pour créer une VM sur laquelle j'installerai Xpenology.</p>
-<p>J'ai passé tellement de temps à configurer ma station de Deep Learning que je ne veux pas prendre le risque d'installer n'importe quoi sur mon disque dur actuel. Je commence donc par faire un backup de mon SSD et travailler sur le clone pour vérifier qu'il a bien fonctionné.</p>
-<p>Voici la photo d'un boitier assez pratique qui me sert pour cloner mes disques&hellip;</p>
+<p>Il y a quelques temps j&rsquo;ai investi dans du matériel informatique et me suis construit une station pour faire du Deep Learning. Depuis quelques semaines et surtout depuis qu&rsquo;on m&rsquo;a parlé du projet Xpenology (Synology maison) je pense à me construire un NAS. Mais débourser environ 800 euros (TTC) sans être certain du résultat ne m&rsquo;enchante guère&hellip;</p>
+<p>Je vais donc expérimenter Xpenology sur ma station de Deep Learning qui possède un grand nombre de disques durs et qui est allumée 24/7. Initialement, je voulais installer Proxmox (hyperviseur type 1) et réinstaller ma config de Deep Learning mais ce dernier n&rsquo;est pas compatible avec ma carte graphique pour faire du <code>passthrough GPU</code>. Et finalement, après réflexion, c&rsquo;est <em>overkill</em> pour réaliser une expérimentation. Bref avec cette installation, je vais pouvoir vérifier si ce nouveau NAS maison est bien stable avant d&rsquo;investir.</p>
+<p>Je vais installer l&rsquo;hyperviseur type 2 qemu-kvm pour créer une VM sur laquelle j&rsquo;installerai Xpenology.</p>
+<p>J&rsquo;ai passé tellement de temps à configurer ma station de Deep Learning que je ne veux pas prendre le risque d&rsquo;installer n&rsquo;importe quoi sur mon disque dur actuel. Je commence donc par faire un backup de mon SSD et travailler sur le clone pour vérifier qu&rsquo;il a bien fonctionné.</p>
+<p>Voici la photo d&rsquo;un boitier assez pratique qui me sert pour cloner mes disques&hellip;</p>
 <p><img src="https://leandeep.com/images/IMG_2801.JPG" alt="image"></p>
-<p>Dans cet article, nous allons voir comment installer l'hyperviseur et dans un prochain article voir comment installer Xpenology sur une VM.</p>
+<p>Dans cet article, nous allons voir comment installer l&rsquo;hyperviseur et dans un prochain article voir comment installer Xpenology sur une VM.</p>
 <h1 id="installation">Installation</h1>
-<h2 id="installation-de-lhyperviseur">Installation de l'hyperviseur</h2>
+<h2 id="installation-de-lhyperviseur">Installation de l&rsquo;hyperviseur</h2>
 <p>On vérifie que le hardware est compatible.</p>
 <pre><code>sudo apt-get install cpu-checker
 sudo kvm-ok
@@ -406,14 +407,14 @@ KVM acceleration can be used
 # Si un résultat s'affiche, c'est good !
 </code></pre><p>Installation du paquet <code>qemu-kvm</code></p>
 <pre><code>sudo apt-get install qemu-kvm
-</code></pre><p>On ajoute l'utilisateur courant au groupe kvm</p>
+</code></pre><p>On ajoute l&rsquo;utilisateur courant au groupe kvm</p>
 <pre><code>sudo adduser $USER kvm
 </code></pre><p>On télécharge un ISO pour faire nos tests. Par exemple, Ubuntu server 18.04 LTS: <a href="http://releases.ubuntu.com/bionic/">http://releases.ubuntu.com/bionic/</a></p>
-<p>Il est possible de créer des VMs via le CLI mais il y a tellement d'options possibles avec qemu-kvm qu'il est quand même plus simple d'utiliser le gui <code>virt-manager</code>.</p>
+<p>Il est possible de créer des VMs via le CLI mais il y a tellement d&rsquo;options possibles avec qemu-kvm qu&rsquo;il est quand même plus simple d&rsquo;utiliser le gui <code>virt-manager</code>.</p>
 <blockquote>
-<p>Si comme moi vous vous connectez à votre machine en SSH n'oubliez pas le flag <code>-X</code>.</p>
+<p>Si comme moi vous vous connectez à votre machine en SSH n&rsquo;oubliez pas le flag <code>-X</code>.</p>
 </blockquote>
-<p>Voici néanmoins, si vous êtes curieux, les commandes qu'il est possible d'utiliser:</p>
+<p>Voici néanmoins, si vous êtes curieux, les commandes qu&rsquo;il est possible d&rsquo;utiliser:</p>
 <p>On crée un fichier image:</p>
 <pre><code>cd ~
 mkdir virtual_images

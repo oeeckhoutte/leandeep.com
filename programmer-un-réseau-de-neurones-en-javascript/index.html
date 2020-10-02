@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&#39;est intéressant d&#39;en créer un de toute pièce avant de s&#39;attaquer à des réseaux de neurones profonds ou d&#39;utiliser des frameworks qui masquent toute la complexité.
-Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39;un réseau de dendrites et d&#39;un axone.
+<meta name="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&amp;rsquo;est intéressant d&amp;rsquo;en créer un de toute pièce avant de s&amp;rsquo;attaquer à des réseaux de neurones profonds ou d&amp;rsquo;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&amp;rsquo;un corps cellulaire, d&amp;rsquo;un réseau de dendrites et d&amp;rsquo;un axone.
  Le corps cellulaire contient le patrimoine génétique." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -294,22 +294,23 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Programmer un réseau de neurones en JavaScript">
-<meta itemprop="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&#39;est intéressant d&#39;en créer un de toute pièce avant de s&#39;attaquer à des réseaux de neurones profonds ou d&#39;utiliser des frameworks qui masquent toute la complexité.
-Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39;un réseau de dendrites et d&#39;un axone.
+<meta itemprop="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&rsquo;est intéressant d&rsquo;en créer un de toute pièce avant de s&rsquo;attaquer à des réseaux de neurones profonds ou d&rsquo;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&rsquo;un corps cellulaire, d&rsquo;un réseau de dendrites et d&rsquo;un axone.
  Le corps cellulaire contient le patrimoine génétique.">
-<meta itemprop="datePublished" content="2017-06-03T22:45:00&#43;00:00" />
-<meta itemprop="dateModified" content="2017-06-03T22:45:00&#43;00:00" />
+<meta itemprop="datePublished" content="2017-06-03T22:45:00+00:00" />
+<meta itemprop="dateModified" content="2017-06-03T22:45:00+00:00" />
 <meta itemprop="wordCount" content="2141">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Machine Learning,Javascript," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Machine Learning,Javascript," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Programmer un réseau de neurones en JavaScript"/>
-<meta name="twitter:description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&#39;est intéressant d&#39;en créer un de toute pièce avant de s&#39;attaquer à des réseaux de neurones profonds ou d&#39;utiliser des frameworks qui masquent toute la complexité.
-Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39;un réseau de dendrites et d&#39;un axone.
+<meta name="twitter:description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&rsquo;est intéressant d&rsquo;en créer un de toute pièce avant de s&rsquo;attaquer à des réseaux de neurones profonds ou d&rsquo;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&rsquo;un corps cellulaire, d&rsquo;un réseau de dendrites et d&rsquo;un axone.
  Le corps cellulaire contient le patrimoine génétique."/>
 
 
@@ -388,49 +389,49 @@ Introduction Un neurone biologique est composé d&#39;un corps cellulaire, d&#39
             
 
             <div class="post-content">
-                <p>Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un <em>from scratch</em> en JavaScript. Je pense que c'est intéressant d'en créer un de toute pièce avant de s'attaquer à des réseaux de neurones profonds ou d'utiliser des frameworks qui masquent toute la complexité.</p>
+                <p>Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un <em>from scratch</em> en JavaScript. Je pense que c&rsquo;est intéressant d&rsquo;en créer un de toute pièce avant de s&rsquo;attaquer à des réseaux de neurones profonds ou d&rsquo;utiliser des frameworks qui masquent toute la complexité.</p>
 <h1 id="introduction">Introduction</h1>
-<p>Un neurone biologique est composé d'un corps cellulaire, d'un réseau de dendrites et d'un axone.</p>
+<p>Un neurone biologique est composé d&rsquo;un corps cellulaire, d&rsquo;un réseau de dendrites et d&rsquo;un axone.</p>
 <ul>
 <li>Le corps cellulaire contient le patrimoine génétique.</li>
 <li>Les signaux électriques transitent par le réseau de dendrites. Ces dernières correspondent aux entrées du neurone.</li>
-<li>L'axone à la sortie du neurone permet de véhiculer l'influx nerveux.</li>
+<li>L&rsquo;axone à la sortie du neurone permet de véhiculer l&rsquo;influx nerveux.</li>
 </ul>
-<p>Les neurones artificiels s'inspirent du comportement des neurones biologiques; c'est-à-dire de leur capacité à s'activer à partir d'un seuil.</p>
+<p>Les neurones artificiels s&rsquo;inspirent du comportement des neurones biologiques; c&rsquo;est-à-dire de leur capacité à s&rsquo;activer à partir d&rsquo;un seuil.</p>
 <p><img src="https://leandeep.com/images/neurone-biologique-neurone-artificiel.jpg" alt="image"></p>
-<p>Si on entre plus dans le détail, un neurone calcule la somme pondérée de ses entrées, puis il compare le résultat à un seuil (dit seuil d'activation). Basiquement, si la somme est supérieure au seuil, alors il s'active et sort la valeur 1. Réciproquement, si la somme est inférieure au seuil, alors il ne s'active pas et sort la valeur 0.</p>
+<p>Si on entre plus dans le détail, un neurone calcule la somme pondérée de ses entrées, puis il compare le résultat à un seuil (dit seuil d&rsquo;activation). Basiquement, si la somme est supérieure au seuil, alors il s&rsquo;active et sort la valeur 1. Réciproquement, si la somme est inférieure au seuil, alors il ne s&rsquo;active pas et sort la valeur 0.</p>
 <p>En ce qui concerne la somme pondérée, chaque entrée valant 0 ou 1 est multipliée par un coefficient qui représente son poids (on parle de poids synaptique).
-A noter, que si un signal d'entrée est à 1, alors la valeur ce ce signal prend tout simplement la valeur du coefficient. De même, si le signal d'entrée est à 0, alors sa valeur reste à 0.</p>
-<p>Un neurone fonctionne ainsi: il faut additionner toutes les valeurs obtenues par les sommes pondérées en entrée et comparer le résultat à la valeur d'un seuil.</p>
-<h1 id="prcision-sur-les-seuils-dactivation">Précision sur les seuils d'activation</h1>
-<p>Nous venons de voir dans le paragraphe précédent que la sortie d'un neurone nous donnait 1 ou 0 en fonction du seuil d'activation. C'est tout à fait vrai lorsqu'on utilise une fonction à seuil binaire. Mais en pratique on utilise d'autres fonctions d'activation nous donnant des valeurs numériques comprises entre 0 et 1. La plus répandue est la &ldquo;fonction sigmoïde&rdquo; (aussi appelée &ldquo;fonction logistique&rdquo; ou &ldquo;courbe en S&rdquo;).</p>
+A noter, que si un signal d&rsquo;entrée est à 1, alors la valeur ce ce signal prend tout simplement la valeur du coefficient. De même, si le signal d&rsquo;entrée est à 0, alors sa valeur reste à 0.</p>
+<p>Un neurone fonctionne ainsi: il faut additionner toutes les valeurs obtenues par les sommes pondérées en entrée et comparer le résultat à la valeur d&rsquo;un seuil.</p>
+<h1 id="précision-sur-les-seuils-dactivation">Précision sur les seuils d&rsquo;activation</h1>
+<p>Nous venons de voir dans le paragraphe précédent que la sortie d&rsquo;un neurone nous donnait 1 ou 0 en fonction du seuil d&rsquo;activation. C&rsquo;est tout à fait vrai lorsqu&rsquo;on utilise une fonction à seuil binaire. Mais en pratique on utilise d&rsquo;autres fonctions d&rsquo;activation nous donnant des valeurs numériques comprises entre 0 et 1. La plus répandue est la &ldquo;fonction sigmoïde&rdquo; (aussi appelée &ldquo;fonction logistique&rdquo; ou &ldquo;courbe en S&rdquo;).</p>
 <p>Avec cette fonction, le passage de 0 à 1 est plus progressif comme on peut le voir sur la courbe suivante:</p>
 <p><img src="https://leandeep.com/images/sigmoide.png" alt="image"></p>
-<p>L'équation de la fonction sigmoïde est la suivante:</p>
+<p>L&rsquo;équation de la fonction sigmoïde est la suivante:</p>
 <p><img src="https://leandeep.com/images/equation-sigmoide.png" alt="image"></p>
-<h1 id="initialisation-de-notre-rseau-de-neurones">Initialisation de notre réseau de neurones</h1>
+<h1 id="initialisation-de-notre-réseau-de-neurones">Initialisation de notre réseau de neurones</h1>
 <p>Nous allons créer un réseau simple permettant de résoudre un problème simple.
-Nous allons classifier en 4 catégories des images noir et blanc réduites à seulement 4 pixels. C'est un exemple pédagagique bien sûr.</p>
-<p>Pendant la phase d'apprentissage, nous allons présenter au réseau les images que l'on souhaite reconnaître. Puis pendant la phase de reconnaissance, on présente des images aléatoires afin de vérifier si le réseau a bien appris.</p>
+Nous allons classifier en 4 catégories des images noir et blanc réduites à seulement 4 pixels. C&rsquo;est un exemple pédagagique bien sûr.</p>
+<p>Pendant la phase d&rsquo;apprentissage, nous allons présenter au réseau les images que l&rsquo;on souhaite reconnaître. Puis pendant la phase de reconnaissance, on présente des images aléatoires afin de vérifier si le réseau a bien appris.</p>
 <p>Voici les images dont on va se servir pour entraîner notre réseau.</p>
 <p><img src="https://leandeep.com/images/combinaison-images-apprentissage.png" alt="image"></p>
 <p>Pour se simplifier la vie, nous allons représenter ces images sous forme de tableau.</p>
 <p><img src="https://leandeep.com/images/image-to-tableau.png" alt="image"></p>
-<p>Nous allons les représenter les 4 catégories d'images via un tableau à 2 valeurs.</p>
+<p>Nous allons les représenter les 4 catégories d&rsquo;images via un tableau à 2 valeurs.</p>
 <ul>
-<li>[0, 0] pour les images n'ayant aucun ou tous les pixels noirs</li>
+<li>[0, 0] pour les images n&rsquo;ayant aucun ou tous les pixels noirs</li>
 <li>[0, 1] pour les images comprenant 1 pixel noir</li>
 <li>[1, 0] pour les images comprenant 2 pixels noirs</li>
 <li>[1, 1] pour les images comprenant 3 pixels noirs</li>
 </ul>
 <p>Nous allons construire un réseau comprenant 3 couches:</p>
 <ul>
-<li>La première couche (couche d'entrée) contient 4 neurones en entrée pour les 4 pixels de l'image.</li>
-<li>La deuxième couche est une couche cachée. Elle permet de faire la liaison entre la couche d'entrée et la couche de sortie.</li>
+<li>La première couche (couche d&rsquo;entrée) contient 4 neurones en entrée pour les 4 pixels de l&rsquo;image.</li>
+<li>La deuxième couche est une couche cachée. Elle permet de faire la liaison entre la couche d&rsquo;entrée et la couche de sortie.</li>
 <li>La 3ème couche (couche de sortie) contient 2 neurones pour les 2 valeurs représentant notre catégorie.</li>
 </ul>
 <p><img src="https://leandeep.com/images/Reseau-de-neurones-simple.png" alt="image"></p>
-<p>Pour construire un réseau de neurones avec une structure simple comme celle-ci, il suffit d'assembler les neurones les uns derrières les autres. On connecte les sorties des uns aux entrées des autres.
+<p>Pour construire un réseau de neurones avec une structure simple comme celle-ci, il suffit d&rsquo;assembler les neurones les uns derrières les autres. On connecte les sorties des uns aux entrées des autres.
 Entre chaque couche, nous relions les sorties des neurones de la couche précédente à tous les neurones de la couche suivante.
 Dans notre exemple simple, on appelle ce genre de réseau un réseau totalement connecté.</p>
 <p>En JavaScript, on initialise les couches du réseau via des tableaux:</p>
@@ -443,7 +444,7 @@ let Wo = [];
 </code></pre><p>On va créer un dernier tableau pour notre input:</p>
 <pre><code>// Tableau représentant notre image en input
 let inputData = [0, 1, 0, 1]
-</code></pre><p>On crée une fonction d'initialisation des différents tableaux.</p>
+</code></pre><p>On crée une fonction d&rsquo;initialisation des différents tableaux.</p>
 <pre><code>const reset = () =&gt; {
     input = [0, 0, 0, 0];
     hidden = [0, 0, 0, 0];
@@ -460,11 +461,11 @@ let inputData = [0, 1, 0, 1]
          [0.5, 0.5, 0.5, 0.5]];
 }
 
-</code></pre><p>Chaque neurone de la couche d'entrée est connecté à tous les neurones de la couche cachée. Par conséquent, il y aura 4 poids synaptiques à prendre en compte dans le calcul de la moyenne pondérée pour chaque neurone de la couche cachée. Wh contient donc 4 tableaux de 4 poids.</p>
+</code></pre><p>Chaque neurone de la couche d&rsquo;entrée est connecté à tous les neurones de la couche cachée. Par conséquent, il y aura 4 poids synaptiques à prendre en compte dans le calcul de la moyenne pondérée pour chaque neurone de la couche cachée. Wh contient donc 4 tableaux de 4 poids.</p>
 <p>Pour Wo, on a 2 neurones dans la couche de sortie. Donc on a 2 tableaux. Ces 2 tableaux contiennent les 4 poids de la couche cachée.</p>
-<h1 id="propagation-des-donnes">Propagation des données</h1>
-<p>Les données d'input sont propagées dans le réseau de neurones.
-Pour propager les données de la couche d'entrée vers la couche de sortie, il faut réaliser une succession de calculs de couche en couche et de neurone en neurone. Ces calculs sont simples car ce ne sont que des multiplications et des additions. Par contre, il faut en faire beaucoup. Nous n'allons pas détailler les calculs car cela n'a pas d'intérêt et c'est fastidieux. On va plutôt utiliser des matrices et faire des produits matriciels&hellip;</p>
+<h1 id="propagation-des-données">Propagation des données</h1>
+<p>Les données d&rsquo;input sont propagées dans le réseau de neurones.
+Pour propager les données de la couche d&rsquo;entrée vers la couche de sortie, il faut réaliser une succession de calculs de couche en couche et de neurone en neurone. Ces calculs sont simples car ce ne sont que des multiplications et des additions. Par contre, il faut en faire beaucoup. Nous n&rsquo;allons pas détailler les calculs car cela n&rsquo;a pas d&rsquo;intérêt et c&rsquo;est fastidieux. On va plutôt utiliser des matrices et faire des produits matriciels&hellip;</p>
 <p>Nous allons commencer par créer notre fonction sigmoïde qui permettra de calculer la valeur de sortie des neurones.</p>
 <pre><code>const sigmoid = (x) =&gt; {
     return 1 / (1 + Math.pow(Math.E, (-1 * x)));
@@ -481,7 +482,7 @@ Fin pour;
         // Calcul sur le lien w[j][i]
     }
 }
-</code></pre><p>Après ces quelques explications, nous allons créer une fonction de propagation des données de la couche d'entrée vers la couche de sortie. Cette fonction va appliquer la fonction d'activation sur les sommes pondérées calculées entre les neurones des différentes couches. On va créer une fonction appelée propagate().</p>
+</code></pre><p>Après ces quelques explications, nous allons créer une fonction de propagation des données de la couche d&rsquo;entrée vers la couche de sortie. Cette fonction va appliquer la fonction d&rsquo;activation sur les sommes pondérées calculées entre les neurones des différentes couches. On va créer une fonction appelée propagate().</p>
 <pre><code>const propagate = (d) =&gt; {
 
     // On copie les données dans la couche d'entrée
@@ -519,32 +520,32 @@ Fin pour;
     
 }
 </code></pre><h1 id="test-de-la-propagation">Test de la propagation</h1>
-<p>On va créer une petite interface en HTML permettant de visualiser la propagation. Si la valeur des 2 neurones de la dernière couche ont une valeur différente de [0, 0] (valeur d'initialisation), c'est que la propagation des données s'est bien produite.</p>
+<p>On va créer une petite interface en HTML permettant de visualiser la propagation. Si la valeur des 2 neurones de la dernière couche ont une valeur différente de [0, 0] (valeur d&rsquo;initialisation), c&rsquo;est que la propagation des données s&rsquo;est bien produite.</p>
 <iframe  src='//jsfiddle.net/oeeckhoutte/440La2wz/32/embedded/result/dark/' allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 <h1 id="apprentissage">Apprentissage</h1>
-<p>Nous allons passer à la phase la plus importante qui est l'apprentissage.
-Cette phase est indispensable pour que notre réseau puisse apprendre à reconnaître nos images. Nous allons créer une fonction learn() qui implémente <a href="https://fr.wikipedia.org/wiki/R%C3%A9tropropagation_du_gradient">l'algorithme de rétropropagation du gradient de l'erreur</a>.</p>
-<p>On va commencer par créer 2 nouvelles variables qui vont nous servir à définir le taux d'apprentissage et à définir la cible que l'on souhaite obtenir en sortie du réseau de neurones.</p>
+<p>Nous allons passer à la phase la plus importante qui est l&rsquo;apprentissage.
+Cette phase est indispensable pour que notre réseau puisse apprendre à reconnaître nos images. Nous allons créer une fonction learn() qui implémente <a href="https://fr.wikipedia.org/wiki/R%C3%A9tropropagation_du_gradient">l&rsquo;algorithme de rétropropagation du gradient de l&rsquo;erreur</a>.</p>
+<p>On va commencer par créer 2 nouvelles variables qui vont nous servir à définir le taux d&rsquo;apprentissage et à définir la cible que l&rsquo;on souhaite obtenir en sortie du réseau de neurones.</p>
 <ul>
-<li>Le taux d'apprentissage va être initialisé à 0.5 et sera représenté par la variable <strong>alpha</strong>.</li>
-<li>La cible est un tableau de 2 valeurs. Il va être initialisé à [0, 0] et s'appelera <strong>target</strong>. Il s'agit de la cible à atteindre pour nos neurones de sortie.</li>
+<li>Le taux d&rsquo;apprentissage va être initialisé à 0.5 et sera représenté par la variable <strong>alpha</strong>.</li>
+<li>La cible est un tableau de 2 valeurs. Il va être initialisé à [0, 0] et s&rsquo;appelera <strong>target</strong>. Il s&rsquo;agit de la cible à atteindre pour nos neurones de sortie.</li>
 </ul>
 <pre><code>let alpha = 0.5;
 let target = [0, 0];
-</code></pre><p>Nous allons passer à l'implémentation de l'algorithme de rétropropagation du gradient de l'erreur.
-Pour notre exemple, cet algorithme comporte 4 étapes qui sont exécutées les unes à la suite des autres de manière cyclique. La boucle s'arrête lorsqu'un critère d'arrêt est atteint. On considère donc que l'apprentissage est terminé.
-Le critère d'arrêt peut être soit un seuil d'erreur atteint ou soit un nombre d'itérations maximum atteint.</p>
-<p>Les 4 étapes de l'algorithme sont les suivantes:</p>
+</code></pre><p>Nous allons passer à l&rsquo;implémentation de l&rsquo;algorithme de rétropropagation du gradient de l&rsquo;erreur.
+Pour notre exemple, cet algorithme comporte 4 étapes qui sont exécutées les unes à la suite des autres de manière cyclique. La boucle s&rsquo;arrête lorsqu&rsquo;un critère d&rsquo;arrêt est atteint. On considère donc que l&rsquo;apprentissage est terminé.
+Le critère d&rsquo;arrêt peut être soit un seuil d&rsquo;erreur atteint ou soit un nombre d&rsquo;itérations maximum atteint.</p>
+<p>Les 4 étapes de l&rsquo;algorithme sont les suivantes:</p>
 <ul>
-<li>Calcul de l'erreur en sortie de la propagation des données.</li>
-<li>Calcul des gradients d'erreurs pour corriger les poids synaptiques des neurones de la couche de sortie.</li>
+<li>Calcul de l&rsquo;erreur en sortie de la propagation des données.</li>
+<li>Calcul des gradients d&rsquo;erreurs pour corriger les poids synaptiques des neurones de la couche de sortie.</li>
 </ul>
 <blockquote>
-<p>Voici la formule que nous coderons qui permet de calculer l'erreur propagée:
+<p>Voici la formule que nous coderons qui permet de calculer l&rsquo;erreur propagée:
 <img src="https://leandeep.com/images/derivee-partielle.png" alt="image"></p>
 </blockquote>
 <ul>
-<li>Calcul des gradients d'erreurs pour corriger les poids synaptiques des neurones de la couche cachée.</li>
+<li>Calcul des gradients d&rsquo;erreurs pour corriger les poids synaptiques des neurones de la couche cachée.</li>
 <li>Mise à jour des poids synaptiques de la couche de sortie et de la couche cachée</li>
 </ul>
 <p>Ci dessous, le code JavaScript qui implémente cet algorithme:</p>
@@ -601,15 +602,15 @@ const learn = () =&gt; {
         }
     }
 }
-</code></pre><h1 id="test-de-la-rtropropagation">Test de la rétropropagation</h1>
-<p>Nous allons modifier l'interface que nous avons précédemment codée afin de tester le bon fonctionnement de notre algorithme.</p>
+</code></pre><h1 id="test-de-la-rétropropagation">Test de la rétropropagation</h1>
+<p>Nous allons modifier l&rsquo;interface que nous avons précédemment codée afin de tester le bon fonctionnement de notre algorithme.</p>
 <p>Tout le code est accessible ci-dessous:</p>
 <iframe  src='//jsfiddle.net/oeeckhoutte/bxt2wy25/72/embedded/js,html,result/dark/' allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 <p>Si vous appuyez une dizaine de fois sur les boutons <strong>Propagate</strong> et <strong>Learn</strong> alternativement, vous verrez que le réseau de neurones fonctionne bien. Les erreurs diminuent et les valeurs en output convergent bien vers [1, 0].</p>
 <p><img src="https://leandeep.com/images/front-propagation-neuronal-net.png" alt="image"></p>
 <h1 id="conclusion">Conclusion</h1>
-<p>Si vous prenez le temps de bien lire cet article et de recoder l'ensemble du réseau de neurones, vous comprendrez comment ils fonctionnent. Bien comprendre ces réseaux simples est indispensable pour aller plus loin et faire du <em>Deep Learning</em>.
-L'implémentation de notre réseau pour notre exemple simple était trivial. Par contre, en pratique, les use cases sont beaucoup plus complexes et donc cela se corse rapidement car l'algorithme de rétropropagation du gradient de l'erreur est sensible aux conditions de son exécution. Il faudra faire attention au surapprentissage (<em>overfitting</em>) et à la disparition du gradient (<em>vanishing gradient</em>) en jouant sur les fonctions d'activation, le taux d'apprentissage, pré-traiter les données d'entrée en les normalisant par exemple&hellip;</p>
+<p>Si vous prenez le temps de bien lire cet article et de recoder l&rsquo;ensemble du réseau de neurones, vous comprendrez comment ils fonctionnent. Bien comprendre ces réseaux simples est indispensable pour aller plus loin et faire du <em>Deep Learning</em>.
+L&rsquo;implémentation de notre réseau pour notre exemple simple était trivial. Par contre, en pratique, les use cases sont beaucoup plus complexes et donc cela se corse rapidement car l&rsquo;algorithme de rétropropagation du gradient de l&rsquo;erreur est sensible aux conditions de son exécution. Il faudra faire attention au surapprentissage (<em>overfitting</em>) et à la disparition du gradient (<em>vanishing gradient</em>) en jouant sur les fonctions d&rsquo;activation, le taux d&rsquo;apprentissage, pré-traiter les données d&rsquo;entrée en les normalisant par exemple&hellip;</p>
 
             </div>
         </article>

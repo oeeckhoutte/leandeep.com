@@ -6,18 +6,14 @@
     <description>Recent content in Tensorflow Tip on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 26 Aug 2018 20:49:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://leandeep.com/tags/tensorflow-tip/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 26 Aug 2018 20:49:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/tensorflow-tip/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Comment exporter et restaurer un modèle Tensorflow ?</title>
       <link>https://leandeep.com/comment-exporter-et-restaurer-un-mod%C3%A8le-tensorflow/</link>
       <pubDate>Sun, 26 Aug 2018 20:49:00 +0000</pubDate>
       
       <guid>https://leandeep.com/comment-exporter-et-restaurer-un-mod%C3%A8le-tensorflow/</guid>
-      <description>1. Exporter le modèle Voici le contenu avant l&#39;initialisation du modèle. Il n&#39;y a presque rien.
+      <description>1. Exporter le modèle Voici le contenu avant l&amp;rsquo;initialisation du modèle. Il n&amp;rsquo;y a presque rien.
 $ ls sample_data/ On initialise des variables, on démarre une session Tensorflow et on sauvegarde un premier modèle:
 import tensorflow as tf import os w1 = tf.Variable(tf.truncated_normal(shape=[10]), name=&#39;w1&#39;) w2 = tf.Variable(tf.truncated_normal(shape=[20]), name=&#39;w2&#39;) tf.add_to_collection(&#39;vars&#39;, w1) tf.add_to_collection(&#39;vars&#39;, w2) with tf.Session() as sess: sess.run(tf.global_variables_initializer()) saver = tf.train.Saver() saver.save(sess, os.path.join(os.getcwd(), &#39;trained_variables.ckpt&#39;)) On affiche le contenu du dossier:
 ls -l checkpoint trained_variables.</description>
@@ -32,7 +28,7 @@ ls -l checkpoint trained_variables.</description>
       <description>Exemple avec le jeu de données Iris:
 On importe le dataset:
 !mkdir /content/data !ls !wget https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data -P /content/data Output:
-data sample_data --2018-11-16 09:37:26-- https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data Resolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.249 Connecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.249|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 4551 (4.4K) [text/plain] Saving to: ‘/content/data/iris.data’ iris.data 100%[===================&amp;gt;] 4.44K --.-KB/s in 0s 2018-11-16 09:37:27 (102 MB/s) - ‘/content/data/iris.data’ saved [4551/4551] On crée le modèle Tensorflow en réutilisant les données que l&#39;on vient de télécharger:</description>
+data sample_data --2018-11-16 09:37:26-- https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data Resolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.249 Connecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.249|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 4551 (4.4K) [text/plain] Saving to: ‘/content/data/iris.data’ iris.data 100%[===================&amp;gt;] 4.44K --.-KB/s in 0s 2018-11-16 09:37:27 (102 MB/s) - ‘/content/data/iris.data’ saved [4551/4551] On crée le modèle Tensorflow en réutilisant les données que l&amp;rsquo;on vient de télécharger:</description>
     </item>
     
     <item>
@@ -41,7 +37,7 @@ data sample_data --2018-11-16 09:37:26-- https://archive.ics.uci.edu/ml/machine-
       <pubDate>Wed, 20 Jan 2016 19:05:00 +0000</pubDate>
       
       <guid>https://leandeep.com/r%C3%A9aliser-un-one-hot-encoding-avec-tensorflow/</guid>
-      <description>On exécute la fonction tf.nn.embedding_lookup (qui permet d&#39;exécuter l&#39;opération de recherche tensorielle) entre la matrice identité et ses données:
+      <description>On exécute la fonction tf.nn.embedding_lookup (qui permet d&amp;rsquo;exécuter l&amp;rsquo;opération de recherche tensorielle) entre la matrice identité et ses données:
 import numpy as np a = 5 b = [1, 2, 3] # one hot an integer one_hot_a = tf.nn.embedding_lookup(np.identity(10), a) # one hot a list of integers one_hot_b = tf.nn.embedding_lookup(np.identity(max(b)+1), b) with tf.Session() as sess: print(sess.run([one_hot_a, one_hot_b])) Output:
 [array([0., 0., 0., 0., 0., 1., 0., 0., 0., 0.]), array([[0., 1., 0.</description>
     </item>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&#39;est parfait quand on n&#39;est pas en production.
+<meta name="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&amp;rsquo;est parfait quand on n&amp;rsquo;est pas en production.
 Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -293,20 +293,21 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Provisionner un cluster Kubernetes sur HCloud">
-<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&#39;est parfait quand on n&#39;est pas en production.
+<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.
 Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)">
-<meta itemprop="datePublished" content="2019-01-02T00:45:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-01-02T00:45:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-01-02T00:45:00+00:00" />
+<meta itemprop="dateModified" content="2019-01-02T00:45:00+00:00" />
 <meta itemprop="wordCount" content="1433">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Kubernetes,HCloud," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Kubernetes,HCloud," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Provisionner un cluster Kubernetes sur HCloud"/>
-<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&#39;est parfait quand on n&#39;est pas en production.
+<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.
 Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)"/>
 
 
@@ -387,13 +388,13 @@ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository h
             <div class="post-content">
                 <h1 id="introduction">Introduction</h1>
 <p>Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur <a href="https://console.hetzner.cloud">HCloud</a>.
-Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C'est parfait quand on n'est pas en production.</p>
-<h1 id="pr-requis">Pré-requis</h1>
+Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.</p>
+<h1 id="pré-requis">Pré-requis</h1>
 <ul>
 <li>Installer Go</li>
 <li>Installer le binaire Go disponible sur le repository <a href="https://github.com/xetys/hetzner-kube">https://github.com/xetys/hetzner-kube</a></li>
 </ul>
-<h1 id="dploiement-du-cluster">Déploiement du cluster</h1>
+<h1 id="déploiement-du-cluster">Déploiement du cluster</h1>
 <p>Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</p>
 <p>Ensuite créez un projet sur <a href="https://console.hetzner.cloud">HCloud</a>.</p>
 <p>Une fois le projet créé, créer un token API et gardez le précieusement.</p>
@@ -418,16 +419,16 @@ hetzner-kube cluster kubeconfig demo -f
 NAME             STATUS    ROLES     AGE       VERSION
 demo-master-01   Ready     master    1h        v1.9.6
 demo-worker-01   Ready     &lt;none&gt;    1h        v1.9.6
-</code></pre><h1 id="installation-dopenebs">Installation d'OpenEBS</h1>
-<p>Installation de l'operator et de la storageclass:</p>
+</code></pre><h1 id="installation-dopenebs">Installation d&rsquo;OpenEBS</h1>
+<p>Installation de l&rsquo;operator et de la storageclass:</p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-operator.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-storageclasses.yaml
 </code></pre><p>On définit la nouvelle storageclass comme classe par défaut:</p>
 <pre><code>kubectl patch storageclass openebs-standard -p '{&quot;metadata&quot;: {&quot;annotations&quot;:{&quot;storageclass.kubernetes.io/is-default-class&quot;:&quot;true&quot;}}}'
-</code></pre><h1 id="installation-dun-ingress-controller">Installation d'un Ingress Controller</h1>
+</code></pre><h1 id="installation-dun-ingress-controller">Installation d&rsquo;un Ingress Controller</h1>
 <h2 id="traefik-ingress">Traefik Ingress</h2>
-<h3 id="1-cration-des-rles-rbac">1. Création des Rôles (RBAC):</h3>
+<h3 id="1-création-des-rôles-rbac">1. Création des Rôles (RBAC):</h3>
 <pre><code>kubectl apply -f   https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-rbac.yaml</code> :</p>
 <pre><code>---
@@ -467,7 +468,7 @@ subjects:
 - kind: ServiceAccount
   name: traefik-ingress-controller
   namespace: kube-system
-</code></pre><h3 id="2-dployement-de-traefik-via-deployment-ou-daemonset">2. Déployement de traefik via Deployment ou DaemonSet</h3>
+</code></pre><h3 id="2-déployement-de-traefik-via-deployment-ou-daemonset">2. Déployement de traefik via Deployment ou DaemonSet</h3>
 <p><strong>Option 1: via Deployment (permet de créer un nodePort)</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-deployment.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-deployment.yaml</code>:</p>
@@ -589,9 +590,9 @@ spec:
     - protocol: TCP
       port: 8080
       name: admin
-</code></pre><h3 id="3-vrification-du-dploiement">3. Vérification du déploiement</h3>
+</code></pre><h3 id="3-vérification-du-déploiement">3. Vérification du déploiement</h3>
 <pre><code>kubectl --namespace=kube-system get pods
-</code></pre><h3 id="4-dploiement-de-linterface-dadmin-de-traefik">4. Déploiement de l'interface d'admin de Traefik</h3>
+</code></pre><h3 id="4-déploiement-de-linterface-dadmin-de-traefik">4. Déploiement de l&rsquo;interface d&rsquo;admin de Traefik</h3>
 <p>Via un service:</p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml
 </code></pre><p>Contenu du fichier distant <code>ui.yaml</code> :</p>
@@ -623,9 +624,9 @@ spec:
         backend:
           serviceName: traefik-web-ui
           servicePort: web
-</code></pre><h3 id="5-accs--linterface-traefik-en-dev">5. Accès à l'interface Traefik en dev</h3>
+</code></pre><h3 id="5-accès-à-linterface-traefik-en-dev">5. Accès à l&rsquo;interface Traefik en dev</h3>
 <pre><code>echo &quot;ip_dun_worker traefik-ui.minikube&quot; | sudo tee -a /etc/hosts
-</code></pre><h3 id="6-vrification-du-bon-fonctionnement-de-lingress">6. Vérification du bon fonctionnement de l'ingress</h3>
+</code></pre><h3 id="6-vérification-du-bon-fonctionnement-de-lingress">6. Vérification du bon fonctionnement de l&rsquo;ingress</h3>
 <p><strong>6.1. Déploiement de 3 apps de test</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-deployments.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-deployments.yaml</code> :</p>
@@ -770,7 +771,7 @@ spec:
   selector:
     app: cheese
     task: wensleydale
-</code></pre><p><strong>6.3. Création de l'ingress</strong></p>
+</code></pre><p><strong>6.3. Création de l&rsquo;ingress</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-ingress.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-ingress.yaml</code> :</p>
 <pre><code>apiVersion: extensions/v1beta1
@@ -800,22 +801,22 @@ spec:
         backend:
           serviceName: wensleydale
           servicePort: http
-</code></pre><h3 id="accs-aux-3-apps-en-dev">Accès aux 3 apps en dev</h3>
+</code></pre><h3 id="accès-aux-3-apps-en-dev">Accès aux 3 apps en dev</h3>
 <pre><code>echo &quot;116.203.33.4 stilton.minikube cheddar.minikube wensleydale.minikube&quot; | sudo tee -a /etc/hosts
 </code></pre><h2 id="ingress-nginx">Ingress Nginx</h2>
 <p>Voir le tuto: <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md">https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md</a></p>
-<h1 id="dploiement-dune-app-via-helm">Déploiement d'une app via helm</h1>
+<h1 id="déploiement-dune-app-via-helm">Déploiement d&rsquo;une app via helm</h1>
 <h2 id="installation-du-tiller">Installation du tiller</h2>
 <pre><code>helm init --service-account tiller
-</code></pre><h2 id="cration-dun-service-account">Création d'un service account</h2>
+</code></pre><h2 id="création-dun-service-account">Création d&rsquo;un service account</h2>
 <pre><code>kubectl create serviceaccount --namespace kube-system tiller
 # Ajout des droits sur l'ensemble du cluster pour pouvoir déployer dans les différents namespaces
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceaccount&quot;:&quot;tiller&quot;}}}}'
-</code></pre><h2 id="dploiement">Déploiement</h2>
+</code></pre><h2 id="déploiement">Déploiement</h2>
 <p>Pour accéder à une application il y a différente possibilités.</p>
 <p><strong>Accès via Nodeport</strong></p>
-<p>Déploiement d'un nodeport:
+<p>Déploiement d&rsquo;un nodeport:
 <img src="https://leandeep.com/images/nodeport.png" alt="image"></p>
 <pre><code>kubectl expose deployment hello-world --type=NodePort --name=example-service
 kubectl get svc
@@ -825,27 +826,27 @@ kubernetes        ClusterIP   10.96.0.1    &lt;none&gt;        443/TCP          
 
 curl http://&lt;ip_cluster&gt;:30485
 Hello Kubernetes!
-</code></pre><p><code>NodePort</code> est une option que l'on configure directement dans le service. Kubernetes va allouer un port specifique sur chaque noeud du cluster pour accéder au service. Une requête arrivant sur n'importe quel noeud sera routée vers le service.</p>
-<p>C'est cool car c'est très simple à mettre en place mais ce n'est pas robuste. De plus on ne peut pas savoir quel port sera alloué au service et pas garantir qu'il sera toujours le même&hellip;</p>
-<p>Il y a d'autres solutions:</p>
+</code></pre><p><code>NodePort</code> est une option que l&rsquo;on configure directement dans le service. Kubernetes va allouer un port specifique sur chaque noeud du cluster pour accéder au service. Une requête arrivant sur n&rsquo;importe quel noeud sera routée vers le service.</p>
+<p>C&rsquo;est cool car c&rsquo;est très simple à mettre en place mais ce n&rsquo;est pas robuste. De plus on ne peut pas savoir quel port sera alloué au service et pas garantir qu&rsquo;il sera toujours le même&hellip;</p>
+<p>Il y a d&rsquo;autres solutions:</p>
 <ul>
 <li>LoadBalancer</li>
 <li>Ingress</li>
 </ul>
 <p><strong>Accès via LoadBalancer</strong> (si votre IAAS est capable de vous fournir un Load Balancer à la demande)</p>
 <p><img src="https://leandeep.com/images/loadbalancer.png" alt="image"></p>
-<p>Egalement assez simple à mettre en place, il est possible de spécifier dans le YAML qu'un service est de type LoadBalancer.
-Par contre, la fonctionnalité de load balancing doit être implémentée à l'extérieur par le cloud provider. Attention donc aux coûts (i.e. GKE) car à chaque fois que vous aurez à exposer un service au monde extérieur vous devrez créer un nouveau load balancer et obtenir une adresse IP.</p>
+<p>Egalement assez simple à mettre en place, il est possible de spécifier dans le YAML qu&rsquo;un service est de type LoadBalancer.
+Par contre, la fonctionnalité de load balancing doit être implémentée à l&rsquo;extérieur par le cloud provider. Attention donc aux coûts (i.e. GKE) car à chaque fois que vous aurez à exposer un service au monde extérieur vous devrez créer un nouveau load balancer et obtenir une adresse IP.</p>
 <p><strong>Accès via Ingress</strong></p>
 <p><img src="https://leandeep.com/images/ingress.png" alt="image"></p>
-<p>Contrairement au <code>NodePort</code> and au <code>LoadBalancer</code>, l'<code>Ingress</code> est une ressource complètement indépendante du service. On déclare, crée et détruit l'ingress indépendament des services.</p>
-<p>C'est donc découplé et isolé des services que l'on veut exposer. Cela permet, entre autres, de mieux gérer les rêgles de routage.</p>
+<p>Contrairement au <code>NodePort</code> and au <code>LoadBalancer</code>, l'<code>Ingress</code> est une ressource complètement indépendante du service. On déclare, crée et détruit l&rsquo;ingress indépendament des services.</p>
+<p>C&rsquo;est donc découplé et isolé des services que l&rsquo;on veut exposer. Cela permet, entre autres, de mieux gérer les rêgles de routage.</p>
 <hr>
 <p>Dans notre cas, nous allons utiliser un ingress.
-On commence par déployer l'application en spécifiant <code>ClusterIP</code> comme <code>serviceType</code>:</p>
+On commence par déployer l&rsquo;application en spécifiant <code>ClusterIP</code> comme <code>serviceType</code>:</p>
 <pre><code>helm install --set service.type=ClusterIP stable/ghost
 </code></pre><p>A présent on peut créer notre ingress:</p>
-<p>Note du 02/01/2018 - Procédure suivante à vérifier (validation d'ici peu&hellip; Si cela ne fonctionne pas, voir le contenu du fichier <code>cheese-ingress.yaml</code> plus haut)</p>
+<p>Note du 02/01/2018 - Procédure suivante à vérifier (validation d&rsquo;ici peu&hellip; Si cela ne fonctionne pas, voir le contenu du fichier <code>cheese-ingress.yaml</code> plus haut)</p>
 <pre><code>cat ingress.yaml
 </code></pre><p>Output:</p>
 <pre><code>apiVersion: extensions/v1beta1

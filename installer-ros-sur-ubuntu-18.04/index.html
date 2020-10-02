@@ -8,7 +8,7 @@
 <meta name="description" content="Introduction Dans cet article nous allons voir comment installer ROS sur Ubuntu 18.04 et créer son workspace de travail.
  Installation sur Ubuntu directement (sans Docker) Installation de ROS Melodic
 # Ajouter le repo ROS sudo sh -c &#39;echo &amp;quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&amp;quot; &amp;gt; /etc/apt/sources.list.d/ros-latest.list&#39; # Truster le repo ROS sudo apt-key adv --keyserver &#39;hkp://keyserver.ubuntu.com:80&#39; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 sudo apt install ros-melodic-desktop-full  Installation de rosdep
-sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&#39;environnement au terminal" />
+sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&amp;rsquo;environnement au terminal" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -298,22 +298,23 @@ function toTitleCase(str) {
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment installer ROS sur Ubuntu 18.04 et créer son workspace de travail.
  Installation sur Ubuntu directement (sans Docker) Installation de ROS Melodic
 # Ajouter le repo ROS sudo sh -c &#39;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&#39; # Truster le repo ROS sudo apt-key adv --keyserver &#39;hkp://keyserver.ubuntu.com:80&#39; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 sudo apt install ros-melodic-desktop-full  Installation de rosdep
-sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&#39;environnement au terminal">
-<meta itemprop="datePublished" content="2020-03-29T16:01:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-03-29T16:01:00&#43;02:00" />
+sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&rsquo;environnement au terminal">
+<meta itemprop="datePublished" content="2020-03-29T16:01:00+02:00" />
+<meta itemprop="dateModified" content="2020-03-29T16:01:00+02:00" />
 <meta itemprop="wordCount" content="442">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="ROS," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="ROS," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer ROS sur Ubuntu 18.04"/>
 <meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment installer ROS sur Ubuntu 18.04 et créer son workspace de travail.
  Installation sur Ubuntu directement (sans Docker) Installation de ROS Melodic
 # Ajouter le repo ROS sudo sh -c &#39;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&#39; # Truster le repo ROS sudo apt-key adv --keyserver &#39;hkp://keyserver.ubuntu.com:80&#39; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 sudo apt install ros-melodic-desktop-full  Installation de rosdep
-sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&#39;environnement au terminal"/>
+sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&rsquo;environnement au terminal"/>
 
 
 
@@ -409,7 +410,7 @@ sudo apt install ros-melodic-desktop-full
 sudo rosdep init
 rosdep update
 </code></pre><br/>
-<p><strong>Ajout des variables d'environnement au terminal</strong></p>
+<p><strong>Ajout des variables d&rsquo;environnement au terminal</strong></p>
 <p>Rendez-vous dans le répertoire <code>/opt/ros/melodic/</code> et recherchez les fichiers setup.QUELQUE_CHOSE. Repérez celui qui correspond à votre shell et executez la commande correspondante:</p>
 <pre><code>echo &quot;source /opt/ros/melodic/setup.zsh&quot; &gt;&gt; ~/.zshrc
 
@@ -420,19 +421,19 @@ rosdep update
 <p>Pour gérer les <em>source trees</em> de certains paquets particulier ROS:</p>
 <pre><code>sudo apt install python-rosinstall
 </code></pre><br/>
-<h2 id="vrification-du-bon-fonctionnement">Vérification du bon fonctionnement</h2>
+<h2 id="vérification-du-bon-fonctionnement">Vérification du bon fonctionnement</h2>
 <p>Dans un terminal exécuter la commande suivante:</p>
 <pre><code>roscore
 </code></pre><p>Dans un second terminal exécuter la commande suivante:</p>
 <pre><code>rosrun turtlesim turtlesim_node
-</code></pre><p>Si une tortue apparaît dans une nouvelle fenêtre, c'est que l'installation est correcte.</p>
+</code></pre><p>Si une tortue apparaît dans une nouvelle fenêtre, c&rsquo;est que l&rsquo;installation est correcte.</p>
 <blockquote>
 <p>Même à distance via SSH, vous devriez voir apparaître cette fenêtre. Si vous avez une erreur du genre <code>Could not connect to any X display</code>, ajoutez le flag <code>-X</code> lors de votre connexion <code>SSH</code>.</p>
 </blockquote>
 <br/>
 <h2 id="installation-avec-docker">Installation avec Docker</h2>
-<p>Docker est une option intéressante. Je l'ai testé et cela fonctionne très bien.
-Je préfère néanmoins l'installation directement sur le système pour éviter de me prendre la tête avec le serveur X.</p>
+<p>Docker est une option intéressante. Je l&rsquo;ai testé et cela fonctionne très bien.
+Je préfère néanmoins l&rsquo;installation directement sur le système pour éviter de me prendre la tête avec le serveur X.</p>
 <br/>
 <pre><code>git clone https://github.com/jbnunn/ROSGazeboDesktop
 cd ROSGazeboDesktop
@@ -450,7 +451,7 @@ docker run -it --rm --name=ros_gazebo_desktop -m=4g -p 6080:80 -p 5900:5900 -v $
 <p>Importer un modèle:</p>
 <pre><code>rosrun gazebo_ros spawn_model -file ~/.gazebo/models/create/model-1_4.sdf -sdf -model Create
 </code></pre><br/>
-<p>D'autres mondes sont disponibles:</p>
+<p>D&rsquo;autres mondes sont disponibles:</p>
 <pre><code>roslaunch gazebo_ros willowgarage_world.launch
 roslaunch gazebo_ros mud_world.launch
 roslaunch gazebo_ros shapes_world.launch
@@ -471,9 +472,9 @@ roslaunch gazebo_ros rubble_world.launch
 <p>Faire bouger le robot:</p>
 <pre><code>rostopic pub /gazebo/set_model_state gazebo_msgs/ModelState '{model_name: Create, pose: { position: { x: 0, y: 0, z: 0 }, orientation: {x: 0, y: 0, z: 0} }, twist: { linear: { x: 1, y: 0, z: 0 }, angular: { x: 0, y: 0, z: 0}  }, reference_frame: world }'
 </code></pre><br/>
-<p>D'autres modèles sont disponibles à <a href="https://bitbucket.org/osrf/gazebo_models">l'adresse suivante</a>.</p>
+<p>D&rsquo;autres modèles sont disponibles à <a href="https://bitbucket.org/osrf/gazebo_models">l&rsquo;adresse suivante</a>.</p>
 <br/>
-<h2 id="cration-du-workspace">Création du workspace</h2>
+<h2 id="création-du-workspace">Création du workspace</h2>
 <pre><code>mkdir -p ~/catkin_ws/src
 cd catkin_ws/src
 catkin_init_workspace
@@ -484,7 +485,7 @@ catkin_make
 <pre><code>echo &quot;source ~/catkin_ws/devel/setup.zsh&quot; &gt;&gt; ~/.zshrc
 source ~/.zshrc
 </code></pre><br/>
-<p>Si la commande suivante retourne un path, c'est tout est ok.</p>
+<p>Si la commande suivante retourne un path, c&rsquo;est tout est ok.</p>
 <pre><code>echo $ROS_PACKAGE_PATH
 </code></pre>
             </div>

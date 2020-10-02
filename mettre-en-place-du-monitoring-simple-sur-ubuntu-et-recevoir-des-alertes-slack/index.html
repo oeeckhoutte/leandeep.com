@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction L&#39;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
- Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&#39;il n&#39;y a pas d&#39;erreur dans la configuration.
+<meta name="description" content="Introduction L&amp;rsquo;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
+ Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;erreur dans la configuration.
 sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -294,22 +294,23 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack">
-<meta itemprop="description" content="Introduction L&#39;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
- Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&#39;il n&#39;y a pas d&#39;erreur dans la configuration.
+<meta itemprop="description" content="Introduction L&rsquo;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
+ Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&rsquo;il n&rsquo;y a pas d&rsquo;erreur dans la configuration.
 sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:">
-<meta itemprop="datePublished" content="2020-01-19T22:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-01-19T22:49:00&#43;02:00" />
+<meta itemprop="datePublished" content="2020-01-19T22:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-01-19T22:49:00+02:00" />
 <meta itemprop="wordCount" content="602">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Monitoring,Ubuntu," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Monitoring,Ubuntu," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack"/>
-<meta name="twitter:description" content="Introduction L&#39;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
- Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&#39;il n&#39;y a pas d&#39;erreur dans la configuration.
+<meta name="twitter:description" content="Introduction L&rsquo;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
+ Installation de monit sudo apt install monit -y  Commandes utiles Vérifier qu&rsquo;il n&rsquo;y a pas d&rsquo;erreur dans la configuration.
 sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:"/>
 
 
@@ -389,19 +390,19 @@ sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte le
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>L'objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.</p>
+<p>L&rsquo;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.</p>
 <br/>
 <h3 id="installation-de-monit">Installation de monit</h3>
 <pre><code>sudo apt install monit -y
 </code></pre><br/>
 <h3 id="commandes-utiles">Commandes utiles</h3>
-<p>Vérifier qu'il n'y a pas d'erreur dans la configuration.</p>
+<p>Vérifier qu&rsquo;il n&rsquo;y a pas d&rsquo;erreur dans la configuration.</p>
 <pre><code>sudo monit -t
 </code></pre><p>Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:</p>
 <pre><code>sudo monit reload
 </code></pre><br/>
-<h3 id="envoi-dalertes-sur-slack">Envoi d'alertes sur Slack</h3>
-<p><strong>Configuration de l'URL du webhook sur le site de Slack</strong></p>
+<h3 id="envoi-dalertes-sur-slack">Envoi d&rsquo;alertes sur Slack</h3>
+<p><strong>Configuration de l&rsquo;URL du webhook sur le site de Slack</strong></p>
 <ul>
 <li>
 <p>Go to https://<!-- raw HTML omitted -->.slack.com/apps/manage/custom-integrations</p>
@@ -423,7 +424,7 @@ sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte le
 </li>
 </ul>
 <br/>
-<p><strong>Création du script permettant d'envoyer des messages sur Slack</strong></p>
+<p><strong>Création du script permettant d&rsquo;envoyer des messages sur Slack</strong></p>
 <p>Créer un fichier <code>/usr/local/bin/slack.sh</code> et ajoutez ce contenu:</p>
 <pre><code>#!/bin/bash
 
@@ -448,17 +449,17 @@ PAYLOAD=&quot;{
 
 curl -s -X POST --data-urlencode &quot;payload=$PAYLOAD&quot; $URL
 </code></pre><blockquote>
-<p>Ne pas oublier de donner les droits d'exécution sur ce fichier <code>sudo chmod +x /usr/local/bin/slack.sh</code>.</p>
+<p>Ne pas oublier de donner les droits d&rsquo;exécution sur ce fichier <code>sudo chmod +x /usr/local/bin/slack.sh</code>.</p>
 </blockquote>
 <br/>
-<p><strong>Configuration de l'URL du webhook dans un fichier</strong></p>
-<p>Créer un second fichier pour Slack <code>/etc/monit/slack-url</code> et ajouter l'URL du webhook. Ce fichier contiendra uniquement une URL du type <code>https://hooks.slack.com/services/XXXXXX/YYYYYY/XyXyY123xxxZ</code>.</p>
+<p><strong>Configuration de l&rsquo;URL du webhook dans un fichier</strong></p>
+<p>Créer un second fichier pour Slack <code>/etc/monit/slack-url</code> et ajouter l&rsquo;URL du webhook. Ce fichier contiendra uniquement une URL du type <code>https://hooks.slack.com/services/XXXXXX/YYYYYY/XyXyY123xxxZ</code>.</p>
 <br/>
 <p><strong>Test du bon fonctionnement du script Slack:</strong></p>
 <pre><code>MONIT_EVENT=&quot;Oops il y a une erreur&quot; MONIT_DESCRIPTION=&quot;Ceci est un test&quot; MONIT_HOST=`hostname` MONIT_DATE=`date -R` \
   /usr/local/bin/slack.sh
 </code></pre><br/>
-<h3 id="cration-dalertes">Création d'alertes</h3>
+<h3 id="création-dalertes">Création d&rsquo;alertes</h3>
 <p><strong>Running out of disk space</strong></p>
 <p>Créer un fichier <code>/etc/monit/conf.d/diskspace</code> et ajouter le contenu suivant:</p>
 <pre><code>check filesystem rootfs with path /
@@ -525,7 +526,7 @@ MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
 <pre><code>MONIT_EVENT=Report MONIT_DESCRIPTION=`/usr/local/bin/report.sh` \
 MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
   /usr/local/bin/slack.sh
-</code></pre><p>Ne pas oublier de donner à ce fichier les droits d'exécution:</p>
+</code></pre><p>Ne pas oublier de donner à ce fichier les droits d&rsquo;exécution:</p>
 <pre><code>sudo chmod +x /etc/cron.weekly/slack-report
 </code></pre>
             </div>

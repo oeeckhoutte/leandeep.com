@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Lean Deep">
-<meta name="description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&#39;exécuter automatiquement au démarrage d&#39;une machine. L&#39;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&#39;IP publique sur un de mes DNS.
+<meta name="description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&amp;rsquo;exécuter automatiquement au démarrage d&amp;rsquo;une machine. L&amp;rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&amp;rsquo;IP publique sur un de mes DNS.
 Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 #!/bin/bash echo &amp;quot;Boot script sample&amp;quot; &amp;gt; /var/log/boot_script.log echo &amp;quot;Started at `date`&amp;quot; &amp;gt;&amp;gt; /var/log/boot_script." />
 <meta name="keywords" content="" />
@@ -294,21 +294,22 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Créer un script qui se lance au démarrage de Centos 7">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&#39;exécuter automatiquement au démarrage d&#39;une machine. L&#39;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&#39;IP publique sur un de mes DNS.
+<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&rsquo;exécuter automatiquement au démarrage d&rsquo;une machine. L&rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&rsquo;IP publique sur un de mes DNS.
 Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 #!/bin/bash echo &quot;Boot script sample&quot; &gt; /var/log/boot_script.log echo &quot;Started at `date`&quot; &gt;&gt; /var/log/boot_script.">
-<meta itemprop="datePublished" content="2019-09-10T18:10:11&#43;00:00" />
-<meta itemprop="dateModified" content="2019-09-10T18:10:11&#43;00:00" />
+<meta itemprop="datePublished" content="2019-09-10T18:10:11+00:00" />
+<meta itemprop="dateModified" content="2019-09-10T18:10:11+00:00" />
 <meta itemprop="wordCount" content="185">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Créer un script qui se lance au démarrage de Centos 7"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&#39;exécuter automatiquement au démarrage d&#39;une machine. L&#39;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&#39;IP publique sur un de mes DNS.
+<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&rsquo;exécuter automatiquement au démarrage d&rsquo;une machine. L&rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&rsquo;IP publique sur un de mes DNS.
 Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 #!/bin/bash echo &quot;Boot script sample&quot; &gt; /var/log/boot_script.log echo &quot;Started at `date`&quot; &gt;&gt; /var/log/boot_script."/>
 
@@ -389,13 +390,13 @@ Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans cet article, nous allons voir comment créer un service systemd qui va s'exécuter automatiquement au démarrage d'une machine. L'IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l'IP publique sur un de mes DNS.</p>
+<p>Dans cet article, nous allons voir comment créer un service systemd qui va s&rsquo;exécuter automatiquement au démarrage d&rsquo;une machine. L&rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&rsquo;IP publique sur un de mes DNS.</p>
 <h2 id="steps">Steps</h2>
 <p>Créer un fichier <code>/var/tmp/boot_script.sh</code> qui contient le code suivant:</p>
 <pre><code>#!/bin/bash
 echo &quot;Boot script sample&quot; &gt; /var/log/boot_script.log
 echo &quot;Started at `date`&quot; &gt;&gt; /var/log/boot_script.log
-</code></pre><p>Donner au script des droits d'exécution:</p>
+</code></pre><p>Donner au script des droits d&rsquo;exécution:</p>
 <pre><code>chmod +x /var/tmp/boot_script.sh
 </code></pre><p>Créer une nouveau service systemd. Pour ce faire créer un fichier dans le répertoire <code>/etc/systemd/system/</code> et appelé le <code>boot_script.service</code> par exemple. Insérer le contenu suivant dans votre nouveau fichier:</p>
 <pre><code>[Unit]
@@ -414,7 +415,7 @@ WantedBy=default.target
 </code></pre><blockquote>
 <p>Si vous modifiez ce service, il vous faudra également reloader systemd/</p>
 </blockquote>
-<p>&ldquo;Activer&rdquo; le service pour qu'il se lance automatiquement au démarrage de la machine:</p>
+<p>&ldquo;Activer&rdquo; le service pour qu&rsquo;il se lance automatiquement au démarrage de la machine:</p>
 <pre><code>systemctl enable boot_script.service
 </code></pre><p>Démarrer le service:</p>
 <pre><code>systemctl start boot_script.service

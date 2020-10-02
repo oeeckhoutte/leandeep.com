@@ -295,14 +295,15 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes">
 <meta itemprop="description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Dans le cas présent, le projet est un projet Python.
 Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin">
-<meta itemprop="datePublished" content="2019-04-24T21:56:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-04-24T21:56:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-04-24T21:56:00+00:00" />
+<meta itemprop="dateModified" content="2019-04-24T21:56:00+00:00" />
 <meta itemprop="wordCount" content="135">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Python,Sonar," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Python,Sonar," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes"/>
@@ -389,7 +390,7 @@ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --na
 <p>Voici les étapes à suivre pour ajouter un sonar dans son projet.
 Dans le cas présent, le projet est un projet Python.</p>
 <h1 id="steps">Steps</h1>
-<h2 id="dployer-un-sonar-via-docker">Déployer un sonar via Docker</h2>
+<h2 id="déployer-un-sonar-via-docker">Déployer un sonar via Docker</h2>
 <pre><code>$ docker pull sonarqube
 $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
 
@@ -423,7 +424,7 @@ sonar.host.url=http://IP_DU_SONAR:9000
 </code></pre><h2 id="lancer-le-scan-du-projet">Lancer le scan du projet</h2>
 <pre><code>docker run -ti -v $(pwd):/root/src zaquestion/sonarqube-scanner
 </code></pre><p>(Docker image <code>zaquestion/sonarqube-scanner</code> source: <a href="https://github.com/oeeckhoutte/docker-sonarqube-scanner">https://github.com/oeeckhoutte/docker-sonarqube-scanner</a>)</p>
-<h1 id="rsultat">Résultat</h1>
+<h1 id="résultat">Résultat</h1>
 <p>Voici ce que vous obtiendrez:</p>
 <p><img src="https://leandeep.com/images/sonar-clean.png" alt="image"></p>
 

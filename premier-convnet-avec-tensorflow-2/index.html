@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée." />
+<meta name="description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&amp;rsquo;utiliser pour des applications large-scale. Le graphe d&amp;rsquo;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&amp;rsquo;utilisation de Tensorflow a été simplifiée." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -292,19 +292,20 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Premier ConvNet avec Tensorflow 2">
-<meta itemprop="description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée.">
-<meta itemprop="datePublished" content="2019-12-10T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2019-12-10T19:49:00&#43;02:00" />
+<meta itemprop="description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&rsquo;utiliser pour des applications large-scale. Le graphe d&rsquo;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&rsquo;utilisation de Tensorflow a été simplifiée.">
+<meta itemprop="datePublished" content="2019-12-10T19:49:00+02:00" />
+<meta itemprop="dateModified" content="2019-12-10T19:49:00+02:00" />
 <meta itemprop="wordCount" content="519">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Tensorflow2," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Tensorflow2," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Premier ConvNet avec Tensorflow 2"/>
-<meta name="twitter:description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&#39;utiliser pour des applications large-scale. Le graphe d&#39;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&#39;utilisation de Tensorflow a été simplifiée."/>
+<meta name="twitter:description" content="Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&rsquo;utiliser pour des applications large-scale. Le graphe d&rsquo;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&rsquo;utilisation de Tensorflow a été simplifiée."/>
 
 
 
@@ -385,8 +386,8 @@ function toTitleCase(str) {
                 <h2 id="introduction">Introduction</h2>
 <p>Tensorflow 2 beta est récemment sorti.
 Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser.
-Keras a aussi été pleinement intégré. On peut l'utiliser pour des applications large-scale.
-Le graphe d'exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l'utilisation de Tensorflow a été simplifiée.</p>
+Keras a aussi été pleinement intégré. On peut l&rsquo;utiliser pour des applications large-scale.
+Le graphe d&rsquo;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&rsquo;utilisation de Tensorflow a été simplifiée.</p>
 <br/>
 <h2 id="convnet">ConvNet</h2>
 <p><strong>Chargement des modules:</strong></p>
@@ -424,23 +425,23 @@ print('Number of Test Dataset Labels: {}'.format(len(test_labels)))
 <br/>
 Keras est utiliser pour construire les différentes couches de notre CNN. <br/>Pour faire simple, on va créer seulement 3 couches.
 <br/><br/>
-Première couche: couche convolutionnelle avec une fonction d'activation ReLU:</p>
+Première couche: couche convolutionnelle avec une fonction d&rsquo;activation ReLU:</p>
 <ul>
 <li>Cette couche prend un tableau en 2D (28 × 28 pixels) comme input.</li>
 <li>Elle prend 50 kernels (filtres) convolutionnels de forme 3 × 3 pixels.</li>
-<li>La sortie de cette couche qui va passer par une fonction d'activation ReLU avant de passer à la prochaine couche</li>
+<li>La sortie de cette couche qui va passer par une fonction d&rsquo;activation ReLU avant de passer à la prochaine couche</li>
 </ul>
 <pre><code>cnn_model = ks.models.Sequential()
 cnn_model.add(ks.layers.Conv2D(50, (3, 3), activation='relu', input_shape=(28, 28, 1), name='Conv2D_layer'))
 </code></pre><p><br/>
 Deuxième couche:
 <br/>
-Cette couche prend 50 26x26 tableaux à 2D comme input et les transforme comme 50 tableaux qui ont des dimensions divisés par 2 (c'est-à-dire: de 26×26 à 13×13 pixels).</p>
+Cette couche prend 50 26x26 tableaux à 2D comme input et les transforme comme 50 tableaux qui ont des dimensions divisés par 2 (c&rsquo;est-à-dire: de 26×26 à 13×13 pixels).</p>
 <pre><code>cnn_model.add(ks.layers.MaxPooling2D((2, 2), name='Maxpooling_2D'))
 </code></pre><p><br/>
 Troisième couche &ldquo;fully connected layer&rdquo;:
 <br/>
-Cette couche prend 50 13x13 tableaux de 2D comme input et les transform en un tableau à 1D comprenant 8450 élements (50×13×13). Ces 8450 élements d'input sont passés à travers un réseau de neuronne &ldquo;fully connected&rdquo; qui donne des scores de probabilité pour chacune des 10 outputs.</p>
+Cette couche prend 50 13x13 tableaux de 2D comme input et les transform en un tableau à 1D comprenant 8450 élements (50×13×13). Ces 8450 élements d&rsquo;input sont passés à travers un réseau de neuronne &ldquo;fully connected&rdquo; qui donne des scores de probabilité pour chacune des 10 outputs.</p>
 <pre><code>cnn_model.add(ks.layers.Flatten(name='Flatten'))
 cnn_model.add(ks.layers.Dense(50, activation='relu', name='Hidden_layer'))
 cnn_model.add(ks.layers.Dense(10, activation='softmax', name='Output_layer'))
@@ -450,9 +451,9 @@ cnn_model.add(ks.layers.Dense(10, activation='softmax', name='Output_layer'))
 On observe le détail des différentes couches grâce à la commande suivante:</p>
 <pre><code>cnn_model.summary()
 </code></pre><br/>
-<p><strong>Création de la fonction d'optimisation:</strong>
+<p><strong>Création de la fonction d&rsquo;optimisation:</strong>
 <br/>
-Maintenant on utiliser une fonction d'optimisation grâce à la méthode compile. On utiliser un optimiseur Adam avec la fonction d'objectif sparse_categorical_crossentropy pour optimiser la métrique accuracy.</p>
+Maintenant on utiliser une fonction d&rsquo;optimisation grâce à la méthode compile. On utiliser un optimiseur Adam avec la fonction d&rsquo;objectif sparse_categorical_crossentropy pour optimiser la métrique accuracy.</p>
 <pre><code>cnn_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 </code></pre><br/>
 <p><strong>Entraintement du modèle:</strong></p>

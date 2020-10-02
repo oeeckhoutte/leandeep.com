@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&#39;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&#39;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1." />
+<meta name="description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&amp;rsquo;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&amp;rsquo;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -292,19 +292,20 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer CouchDB sur un Raspberry">
-<meta itemprop="description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&#39;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&#39;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1.">
-<meta itemprop="datePublished" content="2012-12-22T19:47:00&#43;00:00" />
-<meta itemprop="dateModified" content="2012-12-22T19:47:00&#43;00:00" />
+<meta itemprop="description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&rsquo;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&rsquo;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1.">
+<meta itemprop="datePublished" content="2012-12-22T19:47:00+00:00" />
+<meta itemprop="dateModified" content="2012-12-22T19:47:00+00:00" />
 <meta itemprop="wordCount" content="98">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Linux,NoSQL,Raspberry," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Linux,NoSQL,Raspberry," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer CouchDB sur un Raspberry"/>
-<meta name="twitter:description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&#39;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&#39;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1."/>
+<meta name="twitter:description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb  Configuration  On configure le port et la bind_address  sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0  Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier  /var/init.d/couchdb et on ajoute cette variable d&rsquo;environnement pour ne plus être gêné par sudo:  COUCHDB_USER=couchdb  Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&rsquo;utilisateur couchdb:  sudo chown -R couchdb /var/lib/couchdb/1."/>
 
 
 
@@ -398,12 +399,12 @@ port = 5984
 bind_address = 0.0.0.0
 </code></pre><br/>
 <ol start="2">
-<li>Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier <code> /var/init.d/couchdb</code> et on ajoute cette variable d'environnement pour ne plus être gêné par <code>sudo</code>:</li>
+<li>Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier <code> /var/init.d/couchdb</code> et on ajoute cette variable d&rsquo;environnement pour ne plus être gêné par <code>sudo</code>:</li>
 </ol>
 <pre><code>COUCHDB_USER=couchdb
 </code></pre><br/>
 <ol start="3">
-<li>Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l'utilisateur couchdb:</li>
+<li>Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&rsquo;utilisateur couchdb:</li>
 </ol>
 <pre><code>sudo chown -R couchdb /var/lib/couchdb/1.2.0
 </code></pre>

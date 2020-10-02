@@ -300,7 +300,8 @@ function toTitleCase(str) {
 
 
 
-<meta itemprop="keywords" content="sklearn,tips,ml_tips," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="sklearn,tips,ml_tips," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Détecter les données aberrantes"/>
@@ -377,7 +378,7 @@ function toTitleCase(str) {
             
 
             <div class="post-content">
-                <h2 id="pr-requis">Pré-requis</h2>
+                <h2 id="pré-requis">Pré-requis</h2>
 <pre><code>pip install numpy sklearn
 # va installer numpy 1.19.1 et sklearn 0.0
 
@@ -387,7 +388,7 @@ function toTitleCase(str) {
 from sklearn.covariance import EllipticEnvelope
 from sklearn.datasets import make_blobs
 </code></pre><br/>
-<h2 id="crer-un-faux-dataset">Créer un faux dataset</h2>
+<h2 id="créer-un-faux-dataset">Créer un faux dataset</h2>
 <pre><code># Create simulated data
 X, _ = make_blobs(n_samples = 10,
                   n_features = 2,
@@ -409,7 +410,7 @@ X[0,1] = 10000
        [-2.18773166e+00,  3.33352125e+00],
        [-1.97451969e-01,  2.34634916e+00]])
 </code></pre><br/>
-<h2 id="dtecter-les-donnes-aberrantes-outliers">Détecter les données aberrantes (outliers)</h2>
+<h2 id="détecter-les-données-aberrantes-outliers">Détecter les données aberrantes (outliers)</h2>
 <pre><code># Création du détecteur
 outlier_detector = EllipticEnvelope(contamination=.1)
 
@@ -422,7 +423,7 @@ outlier_detector.predict(X)
 <p><strong><code>outlier_detector.predict(X)</code> retourne <code>array([-1,  1,  1,  1,  1,  1,  1,  1,  1,  1])</code></strong></p>
 <br/>
 <blockquote>
-<p><code>EllipticEnvelope</code> suppose que les données soient normalement distribuées et dessine une ellipse autour des données. A l'extérieur de l'ellipse les observations sont considérées comme aberrantes (labellisées -1). La limitation de cette approche est qu'il est nécessaire de spécifier le paramètre de contamination du dataset. <strong>Cela suppose que l'on connaisse à l'avance la proportion de données aberrantes dans notre dataset; ce qui est impossible.</strong></p>
+<p><code>EllipticEnvelope</code> suppose que les données soient normalement distribuées et dessine une ellipse autour des données. A l&rsquo;extérieur de l&rsquo;ellipse les observations sont considérées comme aberrantes (labellisées -1). La limitation de cette approche est qu&rsquo;il est nécessaire de spécifier le paramètre de contamination du dataset. <strong>Cela suppose que l&rsquo;on connaisse à l&rsquo;avance la proportion de données aberrantes dans notre dataset; ce qui est impossible.</strong></p>
 </blockquote>
 
             </div>

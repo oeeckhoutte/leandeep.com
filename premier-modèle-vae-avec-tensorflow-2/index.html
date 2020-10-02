@@ -297,14 +297,15 @@ function toTitleCase(str) {
 <meta itemprop="description" content="Introduction Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST. Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.
  Variational Autoencoders (VAE) Chargement des modules
 from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:">
-<meta itemprop="datePublished" content="2019-12-20T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2019-12-20T19:49:00&#43;02:00" />
+<meta itemprop="datePublished" content="2019-12-20T19:49:00+02:00" />
+<meta itemprop="dateModified" content="2019-12-20T19:49:00+02:00" />
 <meta itemprop="wordCount" content="517">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Tensorflow2," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Tensorflow2," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Premier modèle VAE avec Tensorflow 2"/>
@@ -410,7 +411,7 @@ from IPython import display
 train_data = train_data.reshape(train_data.shape[0], 28, 28, 1).astype('float32')
 test_data = test_data.reshape(test_data.shape[0], 28, 28, 1).astype('float32')
 </code></pre><br/>
-<p><strong>Normalisation des images d'entrée entre [0,1]:</strong></p>
+<p><strong>Normalisation des images d&rsquo;entrée entre [0,1]:</strong></p>
 <pre><code>train_data /= 255.
 test_data /= 255.
 </code></pre><br/>
@@ -429,7 +430,7 @@ test_batch = tf.data.Dataset.from_tensor_slices(test_data).shuffle(TEST_SIZE).ba
 </code></pre><br/>
 <p><strong>Construction des CNN:</strong>
 <br/>
-On va construire 2 réseaux neuronals convolutionnels pour l'Encoder et le Decoder.
+On va construire 2 réseaux neuronals convolutionnels pour l&rsquo;Encoder et le Decoder.
 <br/>
 Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
 <pre><code>class CONV_VAE(tf.keras.Model):
@@ -492,7 +493,7 @@ Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
     return logout
 
 </code></pre><br/>
-<p><strong>Construire la fonction d'optimisation:</strong></p>
+<p><strong>Construire la fonction d&rsquo;optimisation:</strong></p>
 <pre><code>optimizer_func = tf.keras.optimizers.Adam(1e-4)
 
 def log_normal_prob_dist_func(sample, mean, logd, raxis=1):

@@ -6,18 +6,14 @@
     <description>Recent content in AWS on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 06 Sep 2019 11:39:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://leandeep.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 06 Sep 2019 11:39:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get rid of .pem file to SSH on your AWS EC2 instance</title>
       <link>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</link>
       <pubDate>Fri, 06 Sep 2019 11:39:00 +0000</pubDate>
       
       <guid>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</guid>
-      <description>Let&#39;s say you want to setup a Gitlab server on AWS and you need to do a git clone using SSH protocol. You will be annoyed by the .pem file. To get rid of it (or more simply hide it) you can follow this procedure:
+      <description>Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a git clone using SSH protocol. You will be annoyed by the .pem file. To get rid of it (or more simply hide it) you can follow this procedure:
 The pem file contains a private key. Simply extract it and add it to your system.
 Copy the private key to the .ssh folder
 cp /path/to/your/cert.</description>
@@ -42,7 +38,7 @@ cp /path/to/your/cert.</description>
       <description>Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:
  Prérequis  AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3   Installation Créer un bucket S3:
 aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
- AWS recommande l&#39;utilisation de Homebrew pour l&#39;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3.</description>
+ AWS recommande l&amp;rsquo;utilisation de Homebrew pour l&amp;rsquo;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3.</description>
     </item>
     
     <item>
@@ -61,10 +57,10 @@ aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
       
       <guid>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</guid>
       <description>Voici la procédure pour déployer des containers Docker sur Fargate.
-Rôle ecsTaskExecutionRole Vérifier l&#39;existance de ce rôle dans l&#39;IAM. S&#39;il n&#39;existe pas, il faut le créer:
+Rôle ecsTaskExecutionRole Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM. S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:
 Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
-{ &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Principal&amp;quot;: { &amp;quot;Service&amp;quot;: &amp;quot;ecs-tasks.amazonaws.com&amp;quot; }, &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot; } ] } Créer une tâche d&#39;exécution de rôle:
-aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&#39;exécution de rôle:</description>
+{ &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Principal&amp;quot;: { &amp;quot;Service&amp;quot;: &amp;quot;ecs-tasks.amazonaws.com&amp;quot; }, &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot; } ] } Créer une tâche d&amp;rsquo;exécution de rôle:
+aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&amp;rsquo;exécution de rôle:</description>
     </item>
     
     <item>
@@ -73,8 +69,8 @@ aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume
       <pubDate>Wed, 16 Jan 2019 19:33:00 +0000</pubDate>
       
       <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
-      <description>Il n&#39;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
-Dans cet article je vais essayer de résumer les différences qu&#39;il peut y avoir entre ces 3 services.
+      <description>Il n&amp;rsquo;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
+Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.
 Avantages
    ECS EKS Fargate     Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS   Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
     </item>
@@ -106,7 +102,7 @@ J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’
       
       <guid>https://leandeep.com/failover-strategies-avec-amazon-ec2/</guid>
       <description>downtime &amp;lt; 10 minutes Pour avoir un downtime &amp;lt; 10 minutes il y a cette première stratégie:
-On crée un clone de l&#39;environnement de production prêt à être lancé à n&#39;importe quel moment sur une autre zone de disponibilité si l&#39;environnement de production venait à crasher. L&#39;outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.
+On crée un clone de l&amp;rsquo;environnement de production prêt à être lancé à n&amp;rsquo;importe quel moment sur une autre zone de disponibilité si l&amp;rsquo;environnement de production venait à crasher. L&amp;rsquo;outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.
  Un peu de redondance Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit.</description>
     </item>
     

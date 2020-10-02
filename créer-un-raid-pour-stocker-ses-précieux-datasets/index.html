@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&#39;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&#39;un système raid.
-Voici donc la procédure d&#39;installation." />
+<meta name="description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&amp;rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&amp;rsquo;un système raid.
+Voici donc la procédure d&amp;rsquo;installation." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -293,21 +293,22 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Créer un raid pour stocker ses précieux datasets">
-<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&#39;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&#39;un système raid.
-Voici donc la procédure d&#39;installation.">
-<meta itemprop="datePublished" content="2019-09-28T09:51:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-09-28T09:51:00&#43;00:00" />
+<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&rsquo;un système raid.
+Voici donc la procédure d&rsquo;installation.">
+<meta itemprop="datePublished" content="2019-09-28T09:51:00+00:00" />
+<meta itemprop="dateModified" content="2019-09-28T09:51:00+00:00" />
 <meta itemprop="wordCount" content="713">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Raid,Ubuntu,Dataset," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Raid,Ubuntu,Dataset," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Créer un raid pour stocker ses précieux datasets"/>
-<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&#39;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&#39;un système raid.
-Voici donc la procédure d&#39;installation."/>
+<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&rsquo;un système raid.
+Voici donc la procédure d&rsquo;installation."/>
 
 
 
@@ -386,15 +387,15 @@ Voici donc la procédure d&#39;installation."/>
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second  est présent pour éviter de perdre nos précieuses données. J'ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d'un système raid.</p>
-<p>Voici donc la procédure d'installation. Dans un prochain article que j'intitulerai &ldquo;Gérer ses datasets comme un pro&rdquo; je parlerai de la manière dont j'organise mes données au sein de mon serveur. J'en ferais peut-être un autre sur le CICD du Data Scientist (différent de celui des développeurs).</p>
+<p>Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second  est présent pour éviter de perdre nos précieuses données. J&rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&rsquo;un système raid.</p>
+<p>Voici donc la procédure d&rsquo;installation. Dans un prochain article que j&rsquo;intitulerai &ldquo;Gérer ses datasets comme un pro&rdquo; je parlerai de la manière dont j&rsquo;organise mes données au sein de mon serveur. J&rsquo;en ferais peut-être un autre sur le CICD du Data Scientist (différent de celui des développeurs).</p>
 <br/>
-<h2 id="vrification-des-disques">Vérification des disques</h2>
-<p>Avant de commencer on va vérifier l'état des disques durs:</p>
+<h2 id="vérification-des-disques">Vérification des disques</h2>
+<p>Avant de commencer on va vérifier l&rsquo;état des disques durs:</p>
 <pre><code>sudo apt-get install smartmontools
 </code></pre><p>Lancer le test avec la commande suivante.</p>
 <pre><code>sudo smartctl -t short /dev/sdb
-</code></pre><p>Voir le résultat (après l'heure indiquée par la commande précédente):</p>
+</code></pre><p>Voir le résultat (après l&rsquo;heure indiquée par la commande précédente):</p>
 <pre><code>sudo smartctl -l selftest /dev/sdb
 </code></pre><br/>
 <h2 id="installation">Installation</h2>
@@ -402,7 +403,7 @@ Voici donc la procédure d&#39;installation."/>
 <p>Identifier les disques sur lesquels vous voulez créer votre Raid:</p>
 <pre><code>sudo fdisk -l
 sudo fdisk /dev/sdX
-</code></pre><p>Formater ses disques puis créer une partition sur chacun d'eux:</p>
+</code></pre><p>Formater ses disques puis créer une partition sur chacun d&rsquo;eux:</p>
 <pre><code># Exemple de création de partitions avec /dev/sdb et /dev/sdc
 sudo gdisk /dev/sdb
 
@@ -425,14 +426,14 @@ y # confirm
 <pre><code>sudo apt install -y mdadm
 </code></pre><p>Création du raid:</p>
 <pre><code>sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
-</code></pre><p><strong>Attention, l'étape précédente va prendre du temps&hellip;</strong> Vous pouvez voir sa progression avec la commande <code>cat /proc/mdstat</code>.</p>
+</code></pre><p><strong>Attention, l&rsquo;étape précédente va prendre du temps&hellip;</strong> Vous pouvez voir sa progression avec la commande <code>cat /proc/mdstat</code>.</p>
 <p>Créer un filesystem sur le nouvel Array :</p>
 <pre><code>sudo mkfs.ext4 -F /dev/md0
 </code></pre><p>Créer un point de montage pour le nouveau filesystem:</p>
 <pre><code>sudo mkdir -p /mnt/md0
 </code></pre><p>Monter le nouveau filesystem:</p>
 <pre><code>sudo mount /dev/md0 /mnt/md0
-</code></pre><p>Vérifier qu'il est bien accessible:</p>
+</code></pre><p>Vérifier qu&rsquo;il est bien accessible:</p>
 <pre><code>df -h -x devtmpfs -x tmpfs
 </code></pre><p>Pour que le Array soit automatiquement ré-assemblé à chaque reboot, on peut modifier le fichier de configuration de mdadm:</p>
 <pre><code>sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf

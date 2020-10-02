@@ -7,7 +7,7 @@
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Dans cet article, nous allons entrainer un modèle à classifier les Iris avec 2 algorithmes différents présents dans Tensorflow 2:
  Régression logistique Gradient boosting  Nous allons utiliser le dataset opensource Iris.
- Attention l&#39;algorithme &amp;ldquo;Régression logistique&amp;rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.
+ Attention l&amp;rsquo;algorithme &amp;ldquo;Régression logistique&amp;rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.
   Régression logistique Chargement des modules:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -297,22 +297,23 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Classification avec Tensorflow 2">
 <meta itemprop="description" content="Introduction Dans cet article, nous allons entrainer un modèle à classifier les Iris avec 2 algorithmes différents présents dans Tensorflow 2:
  Régression logistique Gradient boosting  Nous allons utiliser le dataset opensource Iris.
- Attention l&#39;algorithme &ldquo;Régression logistique&rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.
+ Attention l&rsquo;algorithme &ldquo;Régression logistique&rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.
   Régression logistique Chargement des modules:">
-<meta itemprop="datePublished" content="2020-01-04T18:12:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-01-04T18:12:00&#43;02:00" />
+<meta itemprop="datePublished" content="2020-01-04T18:12:00+02:00" />
+<meta itemprop="dateModified" content="2020-01-04T18:12:00+02:00" />
 <meta itemprop="wordCount" content="736">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Tensorflow2," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Tensorflow2," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Classification avec Tensorflow 2"/>
 <meta name="twitter:description" content="Introduction Dans cet article, nous allons entrainer un modèle à classifier les Iris avec 2 algorithmes différents présents dans Tensorflow 2:
  Régression logistique Gradient boosting  Nous allons utiliser le dataset opensource Iris.
- Attention l&#39;algorithme &ldquo;Régression logistique&rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.
+ Attention l&rsquo;algorithme &ldquo;Régression logistique&rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.
   Régression logistique Chargement des modules:"/>
 
 
@@ -399,10 +400,10 @@ function toTitleCase(str) {
 </ul>
 <p>Nous allons utiliser le dataset opensource Iris.</p>
 <blockquote>
-<p>Attention l'algorithme &ldquo;Régression logistique&rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.</p>
+<p>Attention l&rsquo;algorithme &ldquo;Régression logistique&rdquo; prête à confusion. Même si le nom de cet algorithme contient régression, il permet de faire de la classification et donc de prédire une catégorie et non une valeur continue.</p>
 </blockquote>
 <br/>
-<h2 id="rgression-logistique">Régression logistique</h2>
+<h2 id="régression-logistique">Régression logistique</h2>
 <p><strong>Chargement des modules:</strong></p>
 <pre><code>from __future__ import print_function, division, unicode_literals, absolute_import
 
@@ -481,7 +482,7 @@ print(stats)
 normed_train_features = normalize(training_features)
 normed_test_features = normalize(test_features)
 </code></pre><br/>
-<p><strong>Construction de la pipeline d'input:</strong></p>
+<p><strong>Construction de la pipeline d&rsquo;input:</strong></p>
 <pre><code>def feed_input(features_dataframe, target_dataframe, num_of_epochs=10, shuffle=True, batch_size=32):
   def input_feed_function():
     dataset = tf.data.Dataset.from_tensor_slices((dict(features_dataframe), target_dataframe))
@@ -549,7 +550,7 @@ Test Data Precision (%) =  80.0<br/>
 Test Data Recall (%) =  100.0</p>
 <br/>
 <h1 id="gradient-boosting">Gradient boosting</h1>
-<p><strong>Second entrainement d'un modèle avec Gradient boosting:</strong></p>
+<p><strong>Second entrainement d&rsquo;un modèle avec Gradient boosting:</strong></p>
 <pre><code>feature_columns_numeric = [tf.feature_column.numeric_column(m) for m in training_features.columns]
 from tensorflow.estimator import BoostedTreesClassifier
 btree_model = BoostedTreesClassifier(feature_columns=feature_columns_numeric, n_batches_per_layer=1)

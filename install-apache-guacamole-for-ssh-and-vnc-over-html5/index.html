@@ -301,14 +301,15 @@ function toTitleCase(str) {
 sudo apt-get install -y ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal tightvncserver We are going to create a VNC startup script:
 cd mkdir ~/.vnc Create a VNC startup script at this location ~/.vnc/xstartup and enter this content:
  Option 1: Pour Ubuntu 18.">
-<meta itemprop="datePublished" content="2019-07-05T15:07:21&#43;00:00" />
-<meta itemprop="dateModified" content="2019-07-05T15:07:21&#43;00:00" />
+<meta itemprop="datePublished" content="2019-07-05T15:07:21+00:00" />
+<meta itemprop="dateModified" content="2019-07-05T15:07:21+00:00" />
 <meta itemprop="wordCount" content="1600">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Install Apache Guacamole for SSH and VNC over HTML5"/>
@@ -435,7 +436,7 @@ vncconfig -iconic &amp;
 x-terminal-emulator -geometry 80x24+10+10 -ls -title &quot;$VNCDESKTOP Desktop&quot; &amp;
 x-window-manager &amp;
 mate-session &amp;
-</code></pre><p>Donner les droits d'exécution sur le fichier <code>~/.vnc/xstartup</code>:</p>
+</code></pre><p>Donner les droits d&rsquo;exécution sur le fichier <code>~/.vnc/xstartup</code>:</p>
 <pre><code>sudo chmod +x ~/.vnc/xstartup
 </code></pre><p>Reconfigure the session manager:</p>
 <pre><code>sudo update-alternatives --config x-session-manager
@@ -849,7 +850,7 @@ server {
 	}
 
 }
-</code></pre><p>Générer un certificat Deffie-Hellman pour avoir une clé d'échange. Le flag <code>-dsaparam</code> est ajouté pour accélérer la génération:</p>
+</code></pre><p>Générer un certificat Deffie-Hellman pour avoir une clé d&rsquo;échange. Le flag <code>-dsaparam</code> est ajouté pour accélérer la génération:</p>
 <pre><code>openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 4096
 </code></pre><p>Activer la configuration Nginx:</p>
 <pre><code>ln -s /etc/nginx/sites-available/nginx-guacamole-ssl /etc/nginx/sites-enabled/
@@ -862,7 +863,7 @@ server {
 </code></pre><br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>Accéder à VNC via le réseau local</strong></p>
-<p>Editer le fichier <code>/etc/systemd/system/vncserver@.service</code> et ajouter l'option <code>-localhost no</code> au démarrage du service <code>ExecStart=/usr/bin/vncserver -localhost no ...</code>.</p>
+<p>Editer le fichier <code>/etc/systemd/system/vncserver@.service</code> et ajouter l&rsquo;option <code>-localhost no</code> au démarrage du service <code>ExecStart=/usr/bin/vncserver -localhost no ...</code>.</p>
 <blockquote>
 <p>Utiliser le port 5900 ou 5901</p>
 </blockquote>

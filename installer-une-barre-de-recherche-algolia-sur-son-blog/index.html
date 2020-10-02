@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction L&#39;objectif de cet article est de voir comment installer un moteur de recherche Algolia sur son blog Hugo pour pouvoir rechercher n&#39;importe quel contenu.
+<meta name="description" content="Introduction L&amp;rsquo;objectif de cet article est de voir comment installer un moteur de recherche Algolia sur son blog Hugo pour pouvoir rechercher n&amp;rsquo;importe quel contenu.
 Le résultat final sur mon blog:
  Création de compte Algolia La première chose à faire est de créer un compte Algolia.
 Vous pouvez souscrire à un plan community. Cela vous permettra de créer une barre de recherche gratuitement.
@@ -297,24 +297,25 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer une barre de recherche Algolia sur son blog">
-<meta itemprop="description" content="Introduction L&#39;objectif de cet article est de voir comment installer un moteur de recherche Algolia sur son blog Hugo pour pouvoir rechercher n&#39;importe quel contenu.
+<meta itemprop="description" content="Introduction L&rsquo;objectif de cet article est de voir comment installer un moteur de recherche Algolia sur son blog Hugo pour pouvoir rechercher n&rsquo;importe quel contenu.
 Le résultat final sur mon blog:
  Création de compte Algolia La première chose à faire est de créer un compte Algolia.
 Vous pouvez souscrire à un plan community. Cela vous permettra de créer une barre de recherche gratuitement.
 Créer une application.
 Créer ensuite un indice.">
-<meta itemprop="datePublished" content="2020-03-01T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-03-01T19:49:00&#43;02:00" />
+<meta itemprop="datePublished" content="2020-03-01T19:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-03-01T19:49:00+02:00" />
 <meta itemprop="wordCount" content="696">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Algolia," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Algolia," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer une barre de recherche Algolia sur son blog"/>
-<meta name="twitter:description" content="Introduction L&#39;objectif de cet article est de voir comment installer un moteur de recherche Algolia sur son blog Hugo pour pouvoir rechercher n&#39;importe quel contenu.
+<meta name="twitter:description" content="Introduction L&rsquo;objectif de cet article est de voir comment installer un moteur de recherche Algolia sur son blog Hugo pour pouvoir rechercher n&rsquo;importe quel contenu.
 Le résultat final sur mon blog:
  Création de compte Algolia La première chose à faire est de créer un compte Algolia.
 Vous pouvez souscrire à un plan community. Cela vous permettra de créer une barre de recherche gratuitement.
@@ -398,35 +399,35 @@ Créer ensuite un indice."/>
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>L'objectif de cet article est de voir comment installer un moteur de recherche <a href="https://www.algolia.com/">Algolia</a> sur son blog Hugo pour pouvoir rechercher n'importe quel contenu.</p>
+<p>L&rsquo;objectif de cet article est de voir comment installer un moteur de recherche <a href="https://www.algolia.com/">Algolia</a> sur son blog Hugo pour pouvoir rechercher n&rsquo;importe quel contenu.</p>
 <p>Le résultat final sur mon blog:</p>
 <p><img src="https://leandeep.com/images/algolia1.png" alt="image"></p>
 <p><img src="https://leandeep.com/images/algolia2.png" alt="image"></p>
 <br/>
-<h2 id="cration-de-compte-algolia">Création de compte Algolia</h2>
+<h2 id="création-de-compte-algolia">Création de compte Algolia</h2>
 <p>La première chose à faire est de créer un compte Algolia.</p>
 <p>Vous pouvez souscrire à un plan community. Cela vous permettra de créer une barre de recherche gratuitement.</p>
 <p>Créer une application.</p>
 <p>Créer ensuite un indice. Un indice peut contenir un ou plusieurs indexes.</p>
 <p>Enfin créer un index.</p>
-<p>Dans l'onglet API Keys, récupérez l'<code>Application ID</code> et l'<code>Admin API Key</code>.</p>
+<p>Dans l&rsquo;onglet API Keys, récupérez l'<code>Application ID</code> et l'<code>Admin API Key</code>.</p>
 <br/>
 <h2 id="indexation-du-contenu-du-blog">Indexation du contenu du blog</h2>
-<p>Nous allons utiliser une librairie NodeJS appelée <code>atomic-algolia</code> permettant de générer et d'envoyer des indices Hugo sur Algolia.</p>
+<p>Nous allons utiliser une librairie NodeJS appelée <code>atomic-algolia</code> permettant de générer et d&rsquo;envoyer des indices Hugo sur Algolia.</p>
 <p>Voici donc les commandes à exécuter dans le dossier racine de votre blog Hugo:</p>
 <pre><code>npm install atomic-algolia --save
 npm init
 </code></pre><p>Ajouter la ligne suivante dans la section <code>scripts</code> du fichier <code>package.json</code>:</p>
 <pre><code>&quot;algolia&quot;: &quot;atomic-algolia&quot;
-</code></pre><p>Créer un fichier <code>.env</code> et renseigner les variables d'environnement suivantes:</p>
+</code></pre><p>Créer un fichier <code>.env</code> et renseigner les variables d&rsquo;environnement suivantes:</p>
 <pre><code>ALGOLIA_APP_ID=YOUR_APPLICATION_ID
 ALGOLIA_ADMIN_KEY=YOUR_ADMIN_API_KEY
 ALGOLIA_INDEX_NAME=YOUR_INDEX_NAME
 ALGOLIA_INDEX_FILE=public/algolia.json
-</code></pre><p>Générer le fichier json d'indexation de contenu de votre blog et envoyer le sur Algolia:</p>
+</code></pre><p>Générer le fichier json d&rsquo;indexation de contenu de votre blog et envoyer le sur Algolia:</p>
 <pre><code>npm run algolia
 </code></pre><br/>
-<h2 id="cration-de-la-barre-de-recherche">Création de la barre de recherche</h2>
+<h2 id="création-de-la-barre-de-recherche">Création de la barre de recherche</h2>
 <p>Nous allons maintenant voir comment ajouter une barre de recherche sur son site.</p>
 <p>Voici le code source de la barre de recherche sur mon site:</p>
 <pre><code>&lt;link href=&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot; rel=&quot;stylesheet&quot;&gt;

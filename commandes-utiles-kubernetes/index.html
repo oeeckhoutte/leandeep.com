@@ -301,14 +301,15 @@ kubectl create ns &lt;new-namespace&gt;  Savoir si une ressource appartient à u
 kubectl api-resources --namespaced=true  Savoir si une ressource appartient PAS à un namespace
 kubectl api-resources --namespaced=false  Switcher de namespace
 # Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx # sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx # sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens kubens &lt;namespace&gt; # Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte kubectl config set-context --current --namespace=NOM_DU_NAMESPACE  Connaître le cluster dans lequel on se situe">
-<meta itemprop="datePublished" content="2019-03-08T17:08:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-03-08T17:08:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-03-08T17:08:00+00:00" />
+<meta itemprop="dateModified" content="2019-03-08T17:08:00+00:00" />
 <meta itemprop="wordCount" content="714">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Kubernetes,AWS EKS," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Kubernetes,AWS EKS," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Commandes utiles Kubernetes"/>
@@ -394,7 +395,7 @@ kubectl api-resources --namespaced=false  Switcher de namespace
             
 
             <div class="post-content">
-                <h2 id="commandes-propres--kubernetes">Commandes propres à Kubernetes</h2>
+                <h2 id="commandes-propres-à-kubernetes">Commandes propres à Kubernetes</h2>
 <p><strong>Créer un namespace</strong></p>
 <pre><code>kubectl create ns &lt;new-namespace&gt;
 </code></pre><br/>
@@ -436,7 +437,7 @@ kubectl top node
 <p><strong>Voir les ressources utilisées par les pods</strong></p>
 <pre><code>kubectl top pods
 </code></pre><br/>
-<p><strong>Voir les logs d'une app particulière dans un namespace particulier</strong></p>
+<p><strong>Voir les logs d&rsquo;une app particulière dans un namespace particulier</strong></p>
 <pre><code>kubectl logs -l app=catalog-catalog-controller-manager -n catalog
 </code></pre><br/>
 <p><strong>Voir le cluster sur lequel kubectl est connecté</strong></p>
@@ -456,15 +457,15 @@ kubectl top node
 </code></pre><br/>
 <p><strong>Port forward un service sur k8s chez vous</strong></p>
 <pre><code>kubectl -n NAMESPACE_DANS_LEQUEL_SE_TROUVE_LE_SERVICE port-forward svc/NOM_DU_SERVICE_AUQUEL_VOUS_VOULEZ_ACCEDER PORT_CHEZ_VOUS_POUR_ACCEDER_AU_SERVICE:PORT_DU_SERVICE_SUR_K8S
-</code></pre><p>Le port sera bindé sur 127.0.0.1. Il est possible d'ajouter le flag <code>--address 0.0.0.0</code>. (Attention à la sécurité)</p>
+</code></pre><p>Le port sera bindé sur 127.0.0.1. Il est possible d&rsquo;ajouter le flag <code>--address 0.0.0.0</code>. (Attention à la sécurité)</p>
 <br/>
 <p><strong>Installer le dashboard k8s et y accéder</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
 kubectl proxy
-</code></pre><p>Maintenant rendez-vous à l'adresse suivante:</p>
+</code></pre><p>Maintenant rendez-vous à l&rsquo;adresse suivante:</p>
 <p>http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login</p>
-<p>Une mire d'authentification va apparaitre pour se connecter au dashboard. Privilégier l'authentification par token. Pour obtenir ce dernier utiliser les commandes suivantes:</p>
+<p>Une mire d&rsquo;authentification va apparaitre pour se connecter au dashboard. Privilégier l&rsquo;authentification par token. Pour obtenir ce dernier utiliser les commandes suivantes:</p>
 <pre><code>TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t' | sed -e 's/^[[:space:]]*//')
 
 echo $TOKEN
@@ -480,7 +481,7 @@ kubectl get services
 NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 hello-nginx   NodePort    10.111.152.236   &lt;none&gt;        80:31256/TCP   58s
 kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP        46m
-</code></pre><p>Se rendre sur l'URL suivante pour accéder au service Nginx (Nodeport):
+</code></pre><p>Se rendre sur l&rsquo;URL suivante pour accéder au service Nginx (Nodeport):
 http://localhost:31256/</p>
 <br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
@@ -505,7 +506,7 @@ kubectl logs POD_NAME
 <p><strong>Effacer tous les pods avec le status Evicted:</strong></p>
 <pre><code>kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod
 </code></pre><br/>
-<h2 id="crer-un-single-node-cluster-avec-kubeadm-sur-ubuntu">Créer un Single node cluster avec kubeadm sur Ubuntu</h2>
+<h2 id="créer-un-single-node-cluster-avec-kubeadm-sur-ubuntu">Créer un Single node cluster avec kubeadm sur Ubuntu</h2>
 <p><strong>Installer kubeadm:</strong></p>
 <pre><code>apt-get update &amp;&amp; apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -536,7 +537,7 @@ kubeadm reset
 # Un reboot permet d'effacer les interfaces réseaux en trop 
 sudo reboot
 </code></pre><br/>
-<h2 id="commandes-propres--eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
+<h2 id="commandes-propres-à-eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
 <p><strong>Se connecter à son cluster EKS nouvellement créé</strong></p>
 <pre><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
 export KUBECONFIG=~/.kube/config-&lt;of-your-cluster&gt;
@@ -544,7 +545,7 @@ export KUBECONFIG=~/.kube/config-&lt;of-your-cluster&gt;
 <p><strong>Lister les clusters EKS</strong></p>
 <pre><code>aws eks list-clusters
 </code></pre><br/>
-<h2 id="commandes-propres--aks-kubernetes-azure">Commandes propres à AKS (Kubernetes Azure)</h2>
+<h2 id="commandes-propres-à-aks-kubernetes-azure">Commandes propres à AKS (Kubernetes Azure)</h2>
 <p><strong>Se connecter à son cluster AKS nouvellement créé</strong></p>
 <pre><code>az login
 

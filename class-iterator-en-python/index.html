@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Après les list, dict, set comprehensions, il est possible de créer des class iterator. Il devient alors possible de boucler sur des objets.
- Ce n&#39;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
+ Ce n&amp;rsquo;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
  Exemple simple:
 class Repeater: def __init__(self, value): self.value = value def __iter__(self): return self def __next__(self): return self.value repeater = Repeater(&#39;Hello&#39;) for item in repeater: print(item) Output:" />
 <meta name="keywords" content="" />
@@ -296,22 +296,23 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Class iterator en Python">
 <meta itemprop="description" content="Après les list, dict, set comprehensions, il est possible de créer des class iterator. Il devient alors possible de boucler sur des objets.
- Ce n&#39;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
+ Ce n&rsquo;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
  Exemple simple:
 class Repeater: def __init__(self, value): self.value = value def __iter__(self): return self def __next__(self): return self.value repeater = Repeater(&#39;Hello&#39;) for item in repeater: print(item) Output:">
-<meta itemprop="datePublished" content="2017-02-09T22:01:00&#43;00:00" />
-<meta itemprop="dateModified" content="2017-02-09T22:01:00&#43;00:00" />
+<meta itemprop="datePublished" content="2017-02-09T22:01:00+00:00" />
+<meta itemprop="dateModified" content="2017-02-09T22:01:00+00:00" />
 <meta itemprop="wordCount" content="192">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Python," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Class iterator en Python"/>
 <meta name="twitter:description" content="Après les list, dict, set comprehensions, il est possible de créer des class iterator. Il devient alors possible de boucler sur des objets.
- Ce n&#39;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
+ Ce n&rsquo;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
  Exemple simple:
 class Repeater: def __init__(self, value): self.value = value def __iter__(self): return self def __next__(self): return self.value repeater = Repeater(&#39;Hello&#39;) for item in repeater: print(item) Output:"/>
 
@@ -393,7 +394,7 @@ class Repeater: def __init__(self, value): self.value = value def __iter__(self)
             <div class="post-content">
                 <p>Après les <em>list, dict, set comprehensions</em>, il est possible de créer des <em>class iterator</em>. Il devient alors possible de boucler sur des objets.</p>
 <blockquote>
-<p>Ce n'est pas pas la seule manière de boucler sur des objets. Il existe aussi les <em>generators</em> et les <em>generator expressions</em>.</p>
+<p>Ce n&rsquo;est pas pas la seule manière de boucler sur des objets. Il existe aussi les <em>generators</em> et les <em>generator expressions</em>.</p>
 </blockquote>
 <p><strong>Exemple simple:</strong></p>
 <pre><code>class Repeater:
@@ -417,7 +418,7 @@ Hello
 Hello
 ...
 
-</code></pre><p>Bravo on vient de créer un iterator qui ne finit jamais d'afficher Hello. Ce n'est pas très utile&hellip; On va maintenant écrire une autre <em>class iterator</em> qui aura un nombre fini de répétitions.</p>
+</code></pre><p>Bravo on vient de créer un iterator qui ne finit jamais d&rsquo;afficher Hello. Ce n&rsquo;est pas très utile&hellip; On va maintenant écrire une autre <em>class iterator</em> qui aura un nombre fini de répétitions.</p>
 <pre><code>class BoundedRepeater:
 	def __init__(self, value, max_repeats):
     	self.value = value
@@ -442,7 +443,7 @@ for item in repeater:
 Hello
 Hello
 
-</code></pre><p>L'appel de la <em>class iterator</em> BoundedRepeater avec le <em>fency</em> for-loop revient à écrire le code suivant beaucoup moins simple et lisible:</p>
+</code></pre><p>L&rsquo;appel de la <em>class iterator</em> BoundedRepeater avec le <em>fency</em> for-loop revient à écrire le code suivant beaucoup moins simple et lisible:</p>
 <pre><code>repeater = BoundedRepeater('Hello', 3)
 iterator = iter(repeater)
 while True:

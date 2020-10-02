@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&#39;est pas nécessaire d&#39;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&#39;un côté c&#39;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&#39;un runner soit disponible. D&#39;un autre côté on ne pollue pas le repository Git distant avec d&#39;innombrables commits de tests (on peut réécrire l&#39;historique je sais bien) ou avec des notifications aux collègues." />
+<meta name="description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&amp;rsquo;est pas nécessaire d&amp;rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&amp;rsquo;un côté c&amp;rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&amp;rsquo;un runner soit disponible. D&amp;rsquo;un autre côté on ne pollue pas le repository Git distant avec d&amp;rsquo;innombrables commits de tests (on peut réécrire l&amp;rsquo;historique je sais bien) ou avec des notifications aux collègues." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -292,19 +292,20 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Tester une tâche Gitlab CI localement sans Gitlab">
-<meta itemprop="description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&#39;est pas nécessaire d&#39;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&#39;un côté c&#39;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&#39;un runner soit disponible. D&#39;un autre côté on ne pollue pas le repository Git distant avec d&#39;innombrables commits de tests (on peut réécrire l&#39;historique je sais bien) ou avec des notifications aux collègues.">
-<meta itemprop="datePublished" content="2018-11-18T21:18:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-11-18T21:18:00&#43;00:00" />
+<meta itemprop="description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues.">
+<meta itemprop="datePublished" content="2018-11-18T21:18:00+00:00" />
+<meta itemprop="dateModified" content="2018-11-18T21:18:00+00:00" />
 <meta itemprop="wordCount" content="220">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Gitlab," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Gitlab," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Tester une tâche Gitlab CI localement sans Gitlab"/>
-<meta name="twitter:description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&#39;est pas nécessaire d&#39;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&#39;un côté c&#39;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&#39;un runner soit disponible. D&#39;un autre côté on ne pollue pas le repository Git distant avec d&#39;innombrables commits de tests (on peut réécrire l&#39;historique je sais bien) ou avec des notifications aux collègues."/>
+<meta name="twitter:description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues."/>
 
 
 
@@ -382,7 +383,7 @@ function toTitleCase(str) {
             
 
             <div class="post-content">
-                <p>Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n'est pas nécessaire d'installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier <code>.gitlab-ci.yml</code> en local est très utile pour 2 raisons. D'un côté c'est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu'un runner soit disponible. D'un autre côté on ne pollue pas le repository Git distant avec d'innombrables commits de tests (on peut réécrire l'historique je sais bien) ou avec des notifications aux collègues.</p>
+                <p>Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier <code>.gitlab-ci.yml</code> en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues.</p>
 <p>Prenons par exemple le fichier <code>.gitlab-ci.yml</code> suivant:</p>
 <pre><code>build:
     image: nodejs:8
@@ -394,7 +395,7 @@ function toTitleCase(str) {
 
 </code></pre><p>Avec la commande suivante on peut directement tester sa tâche build en local:</p>
 <pre><code>gitlab-runner exec docker build
-</code></pre><p>Lorsqu'on utilise Gitlab CI on faut parfois faire appel à du cache entre les stages. C'est possible d'en avoir avec la commande suivante:</p>
+</code></pre><p>Lorsqu&rsquo;on utilise Gitlab CI on faut parfois faire appel à du cache entre les stages. C&rsquo;est possible d&rsquo;en avoir avec la commande suivante:</p>
 <pre><code>gitlab-runner exec docker --docker-volumes `pwd`/cache:/cache build
 </code></pre><p>On peut aussi se faire un petit <code>Makefile</code> pour se simplifier la vie:</p>
 <pre><code>.PHONY: clean
@@ -407,7 +408,7 @@ cache:
 
 clean:
     rm -rf cache
-</code></pre><p>Enfin, si vous voulez passer des variables d'environnement dans un stage de votre pipeline cela se fait ainsi:</p>
+</code></pre><p>Enfin, si vous voulez passer des variables d&rsquo;environnement dans un stage de votre pipeline cela se fait ainsi:</p>
 <pre><code>gitlab-runner exec docker --env YOUR_ENV_VAR=&quot;&quot; build
 </code></pre>
             </div>

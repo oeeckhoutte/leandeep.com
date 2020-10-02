@@ -295,14 +295,15 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Commandes utiles Puppeteer ">
 <meta itemprop="description" content="Introduction &ldquo;Puppeteer ou le remplaçant de Selenium.&quot; Dans cet article plutôt rapide, on retrouve les commandes de base pour créer un premier petit script qui va piloter un Chrome Headless.
 Initialiser un browser non headless try { (async () =&gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) } Naviguer vers une page const page = await browser.newPage() await page.goto(&quot;https://url_du_site&quot;) Ajouter du contenu dans un input type text await page.">
-<meta itemprop="datePublished" content="2019-02-09T21:32:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-02-09T21:32:00&#43;00:00" />
+<meta itemprop="datePublished" content="2019-02-09T21:32:00+00:00" />
+<meta itemprop="dateModified" content="2019-02-09T21:32:00+00:00" />
 <meta itemprop="wordCount" content="127">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Commandes utiles Puppeteer "/>
@@ -409,7 +410,7 @@ await page.goto(&quot;https://url_du_site&quot;)
 <pre><code>await page.type('#input_search', 'text_a_ajouter')
 </code></pre><h2 id="cliquer-sur-un-bouton">Cliquer sur un bouton</h2>
 <pre><code>await page.click('#buttsearch')
-</code></pre><h2 id="chercher-dans-tout-le-corps-dune-page-si-un-pattern-existe">Chercher dans tout le corps d'une page si un pattern existe</h2>
+</code></pre><h2 id="chercher-dans-tout-le-corps-dune-page-si-un-pattern-existe">Chercher dans tout le corps d&rsquo;une page si un pattern existe</h2>
 <pre><code>const found = (await page.content()).match(/Chiffre d\'affaires/) 
 if (found) {
 	
@@ -417,9 +418,9 @@ if (found) {
 
 }
 
-</code></pre><h2 id="slectionner-un-lment-par-href">Sélectionner un élément par href</h2>
+</code></pre><h2 id="sélectionner-un-élément-par-href">Sélectionner un élément par href</h2>
 <pre><code>const elementHandle = await page.$('a[href=&quot;#chiffrecle&quot;]');
-</code></pre><h2 id="obtenir-le-contenu-texte-dun-lment">Obtenir le contenu texte d'un élément</h2>
+</code></pre><h2 id="obtenir-le-contenu-texte-dun-élément">Obtenir le contenu texte d&rsquo;un élément</h2>
 <pre><code>const text = await (await elementHandle.getProperty('textContent')).jsonValue();
 </code></pre>
             </div>
