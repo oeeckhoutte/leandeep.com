@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Introduction Il existe tellement d&amp;rsquo;outils pour gérer son installation de Python sur OSX que cela peut vite devenir un cauchemar. Nous sommes début octobre 2020, peu de temps avant la sortie de OSX Big Sur, cet article dédié à Catalina peut paraître déjà dépassé mais je vous recommande vraiment d&amp;rsquo;attendre avant de l&amp;rsquo;installer. Personnellement j&amp;rsquo;attends toujours minimum 6 mois à 1 an avant d&amp;rsquo;upgrader OSX, le temps que les premiers correctifs en tous genres aient été réalisé." />
+<meta name="description" content="Introduction Parfois lorsqu&amp;rsquo;on tente d&amp;rsquo;effacer un namespace, il ne s&amp;rsquo;efface pas vraiment et reste dans l&amp;rsquo;état terminated. Si vous essayez d&amp;rsquo;exécuter la commande kubectl delete ns mon_namespace et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous: Error from server (Conflict): Operation cannot be fulfilled on namespaces &amp;quot;mon_namespace&amp;quot;: The system is ensuring all content is removed from this namespace. Upon completion, this namespace will automatically be purged by the system." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -21,7 +21,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/installation-de-python-propre-sur-osx-catalina/" />
+<link rel="canonical" href="https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/" />
 
 
 
@@ -266,7 +266,7 @@ function toTitleCase(str) {
 
     <title>
         
-            Installation de Python propre sur OSX Catalina :: Bienvenue sur le site de Lean Deep 
+            Forcer l&#39;effacement d&#39;un namespace Kubernetes :: Bienvenue sur le site de Lean Deep 
         
     </title>
 
@@ -291,27 +291,27 @@ function toTitleCase(str) {
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installation de Python propre sur OSX Catalina">
-<meta itemprop="description" content="Introduction Il existe tellement d&rsquo;outils pour gérer son installation de Python sur OSX que cela peut vite devenir un cauchemar. Nous sommes début octobre 2020, peu de temps avant la sortie de OSX Big Sur, cet article dédié à Catalina peut paraître déjà dépassé mais je vous recommande vraiment d&rsquo;attendre avant de l&rsquo;installer. Personnellement j&rsquo;attends toujours minimum 6 mois à 1 an avant d&rsquo;upgrader OSX, le temps que les premiers correctifs en tous genres aient été réalisé.">
-<meta itemprop="datePublished" content="2020-10-01T19:49:00+02:00" />
-<meta itemprop="dateModified" content="2020-10-01T19:49:00+02:00" />
-<meta itemprop="wordCount" content="312">
+<meta itemprop="name" content="Forcer l&#39;effacement d&#39;un namespace Kubernetes">
+<meta itemprop="description" content="Introduction Parfois lorsqu&rsquo;on tente d&rsquo;effacer un namespace, il ne s&rsquo;efface pas vraiment et reste dans l&rsquo;état terminated. Si vous essayez d&rsquo;exécuter la commande kubectl delete ns mon_namespace et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous: Error from server (Conflict): Operation cannot be fulfilled on namespaces &quot;mon_namespace&quot;: The system is ensuring all content is removed from this namespace. Upon completion, this namespace will automatically be purged by the system.">
+<meta itemprop="datePublished" content="2020-10-05T19:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-10-05T19:49:00+02:00" />
+<meta itemprop="wordCount" content="193">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Python,OSX," />
+<meta itemprop="keywords" content="Kubernetes," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installation de Python propre sur OSX Catalina"/>
-<meta name="twitter:description" content="Introduction Il existe tellement d&rsquo;outils pour gérer son installation de Python sur OSX que cela peut vite devenir un cauchemar. Nous sommes début octobre 2020, peu de temps avant la sortie de OSX Big Sur, cet article dédié à Catalina peut paraître déjà dépassé mais je vous recommande vraiment d&rsquo;attendre avant de l&rsquo;installer. Personnellement j&rsquo;attends toujours minimum 6 mois à 1 an avant d&rsquo;upgrader OSX, le temps que les premiers correctifs en tous genres aient été réalisé."/>
+<meta name="twitter:title" content="Forcer l&#39;effacement d&#39;un namespace Kubernetes"/>
+<meta name="twitter:description" content="Introduction Parfois lorsqu&rsquo;on tente d&rsquo;effacer un namespace, il ne s&rsquo;efface pas vraiment et reste dans l&rsquo;état terminated. Si vous essayez d&rsquo;exécuter la commande kubectl delete ns mon_namespace et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous: Error from server (Conflict): Operation cannot be fulfilled on namespaces &quot;mon_namespace&quot;: The system is ensuring all content is removed from this namespace. Upon completion, this namespace will automatically be purged by the system."/>
 
 
 
 
 
-    <meta property="article:published_time" content="2020-10-01 19:49:00 &#43;0200 CEST" />
+    <meta property="article:published_time" content="2020-10-05 19:49:00 &#43;0200 CEST" />
 
 
 
@@ -368,7 +368,7 @@ function toTitleCase(str) {
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
             
 
@@ -377,68 +377,47 @@ function toTitleCase(str) {
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/installation-de-python-propre-sur-osx-catalina/">Installation de Python propre sur OSX Catalina</a>
+                <a href="https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/">Forcer l&rsquo;effacement d&rsquo;un namespace Kubernetes</a>
             </h1>
 
             
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Il existe tellement d&rsquo;outils pour gérer son installation de Python sur OSX que cela peut vite devenir un cauchemar.
-Nous sommes début octobre 2020, peu de temps avant la sortie de OSX Big Sur, cet article dédié à Catalina peut paraître déjà dépassé mais je vous recommande vraiment d&rsquo;attendre avant de l&rsquo;installer. Personnellement j&rsquo;attends toujours minimum 6 mois à 1 an avant d&rsquo;upgrader OSX, le temps que les premiers correctifs en tous genres aient été réalisé.</p>
-<p>OSX Catalina a souffert d&rsquo;un problème avec openssl. Dans cet article, nous allons voir comment installer proprement Python avec virtualenvwrapper. C&rsquo;est simple et efficace et on peut switcher d&rsquo;environnements en environnements avec 2 versions de Python 3. Nous allons aussi appliquer le fix pour openssl.</p>
+<p>Parfois lorsqu&rsquo;on tente d&rsquo;effacer un namespace, il ne s&rsquo;efface pas vraiment et reste dans l&rsquo;état <strong>terminated</strong>.
+Si vous essayez d&rsquo;exécuter la commande <code>kubectl delete ns mon_namespace</code> et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous:<br/>
+<code>Error from server (Conflict): Operation cannot be fulfilled on namespaces &quot;mon_namespace&quot;: The system is ensuring all content is removed from this namespace.  Upon completion, this namespace will automatically be purged by the system.</code></p>
 <br/>
-<h1 id="installation">Installation</h1>
-<p><strong>Installation de Python et OpenSSL</strong></p>
-<pre><code>brew update &amp;&amp; brew upgrade
-brew doctor
-# S'il y a un problème:
-brew missing
-
-# Installation de openssl@1.1 1.1.1g
-brew install openssl
-
-brew install python@3.7
-brew install python@3.8
+<h2 id="steps">Steps</h2>
+<p><strong>1. Exporter le contenu du namespace au format json</strong></p>
+<pre><code>kubectl get namespace mon_namespace -o json &gt; mon_namespace.json
 </code></pre><br/>
-<p><strong>Installation de virtualenvwrapper</strong></p>
-<pre><code>python3 -m pip install virtualenv
-python3 -m pip install virtualenvwrapper
+<p><strong>2. Ouvrir le fichier <code>mon_namespace.json</code> et retirer <code>kubernetes</code> des <code>finalizers</code></strong></p>
+<br/>
+<p><strong>3. Appelez l&rsquo;API de votre cluster et mettez à jour votre namespace</strong></p>
+<ul>
+<li>Option 1
+<pre><code>kubectl cluster-info
+</code></pre><p>Puis exécuter la commande.</p>
+<pre><code>curl -k -H &quot;Content-Type: application/json&quot; -X PUT --data-binary @/tmp/mon_namespace.json http(s)://[IP]:[PORT]/api/v1/namespaces/[NAMESPACE]/finalize
+</code></pre><p>Si vous n&rsquo;avez pas l&rsquo;erreur suivante, votre namespace va s&rsquo;effacer.</p>
+<pre><code>namespaces &quot;mon_namespace&quot; is forbidden: User &quot;system:anonymous&quot; cannot update namespaces/finalize in the namespace &quot;mon_namespace&quot;
+</code></pre><p>Si vous recevez le message précédent, suivez les instructions de l&rsquo;option 2.</p>
+</li>
+</ul>
+<br/>
+<ul>
+<li>Option 2
+<pre><code>kubectl proxy  
+</code></pre><p>Puis exécuter la commande:</p>
+<pre><code>curl -k -H &quot;Content-Type: application/json&quot; -X PUT --data-binary @/tmp/mon_namespace.json http://127.0.0.1:8001/api/v1/namespaces/[NAMESPACE]/finalize
+</code></pre></li>
+</ul>
+<br/>
+<p><strong>4. Final check</strong></p>
+<pre><code>kubectl get namespaces
 </code></pre><br/>
-<p>Ajouter les lignes suivantes dans <code>~/.zshrc</code>:</p>
-<pre><code>export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
-</code></pre><br/>
-<p>Mettre à jour zsh:</p>
-<pre><code>source ~/.zshrc
-</code></pre><br/>
-<p><strong>Création d&rsquo;un environnement virtuel</strong></p>
-<pre><code>mkvirtualenv py3_env -p python3 -a .
-</code></pre><br/>
-<p><strong>Fix OpenSSL issue</strong></p>
-<p><strong>Option 1</strong></p>
-<blockquote>
-<p>Erreur system: <code>&quot;Invalid dylib load. Clients should not load the unversioned libcrypto dylib as it does not have a stable ABI.&quot;</code></p>
-</blockquote>
-<pre><code>cd /usr/local/Cellar/openssl@1.1/1.1.1g/lib
-sudo cp libssl.*.dylib libcrypto.*.dylib /usr/local/lib/
-cd /usr/local/lib
-mv libssl.dylib libssl_bak.dylib
-# ou mv libssl3.dylib libssl3_bak.dylib
-mv libcrypto.dylib libcrypto_bak.dylib
-# ou mv libcrypto3.dylib libcrypto3_bak.dylib
-sudo ln -s libcrypto.1.1.dylib libcrypto.dylib
-sudo ln -s libssl.1.1.dylib libssl.dylib
-</code></pre><br/>
-<p><strong>Option 2</strong></p>
-<p>Rendez-vous sur <a href="https://www.openssl.org/source/old/">https://www.openssl.org/source/old/</a> et télécharger la version d&rsquo;openssl que vous avez besoin.</p>
-<p>Allez dans le dossier nouvellement créé après avoir extrait l&rsquo;archive. Exécuter ensuite les commandes suivantes:</p>
-<pre><code>make clean
-./Configure darwin64-x86_64-cc -shared
-make
-make install
-</code></pre><p>Placer enfin <code>libcrypto.1.0.0.dylib</code> et <code>libssl.1.0.0.dylib</code> dans le répertoire <code>/usr/local/Cellar/openssl/lib/</code> ou <code>/usr/local/Cellar/openssl@1.1/lib/</code> si le précédent n&rsquo;existe pas.</p>
+<p>Et voilà.</p>
 
             </div>
         </article>
@@ -447,12 +426,12 @@ make install
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/osx">OSX</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>312 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>193 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 Oct. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 Oct. 2020</p>
         </div>
 
         
@@ -465,17 +444,17 @@ make install
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/">
+                            <a href="https://leandeep.com/extraire-et-importer-toutes-ses-cl%C3%A9s-gpg/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Forcer l&#39;effacement d&#39;un namespace Kubernetes</span>
+                                <span class="button__text">Extraire et importer toutes ses clés GPG</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/remote-desktop-over-ssh-avec-x2go-sur-ubuntu-18.04/">
-                                <span class="button__text">Remote Desktop over SSH avec X2GO sur Ubuntu 18.04</span>
+                            <a href="https://leandeep.com/installation-de-python-propre-sur-osx-catalina/">
+                                <span class="button__text">Installation de Python propre sur OSX Catalina</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

@@ -6,7 +6,29 @@
     <description>Recent content on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 01 Oct 2020 19:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Oct 2020 19:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Extraire et importer toutes ses clés GPG</title>
+      <link>https://leandeep.com/extraire-et-importer-toutes-ses-cl%C3%A9s-gpg/</link>
+      <pubDate>Mon, 05 Oct 2020 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/extraire-et-importer-toutes-ses-cl%C3%A9s-gpg/</guid>
+      <description>Export Exporter toutes les clés publiques GPG dans un fichier base64:
+gpg -a --export &amp;gt; /tmp/pub_gpg_keys.asc  Exporter toutes les clés privées:
+gpg -a --export-secret-keys &amp;gt; /tmp/private_gpg_keys.asc  Exporter la trust database:
+gpg --export-ownertrust &amp;gt; trust_gpg_db.txt  Import Après avoir copié les fichiers sur une nouvelle machine et installé GPG, importer les clés:
+gpg --import ./private_gpg_keys.asc gpg --import ./pub_gpg_keys.asc gpg --import-ownertrust ./trust_gpg_db.txt gpg -K gpg -k </description>
+    </item>
+    
+    <item>
+      <title>Forcer l&#39;effacement d&#39;un namespace Kubernetes</title>
+      <link>https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/</link>
+      <pubDate>Mon, 05 Oct 2020 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/</guid>
+      <description>Introduction Parfois lorsqu&amp;rsquo;on tente d&amp;rsquo;effacer un namespace, il ne s&amp;rsquo;efface pas vraiment et reste dans l&amp;rsquo;état terminated. Si vous essayez d&amp;rsquo;exécuter la commande kubectl delete ns mon_namespace et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous: Error from server (Conflict): Operation cannot be fulfilled on namespaces &amp;quot;mon_namespace&amp;quot;: The system is ensuring all content is removed from this namespace. Upon completion, this namespace will automatically be purged by the system.</description>
+    </item>
+    
     <item>
       <title>Installation de Python propre sur OSX Catalina</title>
       <link>https://leandeep.com/installation-de-python-propre-sur-osx-catalina/</link>
@@ -89,31 +111,6 @@ mkdir -p /mnt/smalldiskspool/Musique  Editer le fichier /etc/fstab et ajouter un
       <guid>https://leandeep.com/tips/mocker-en-1-minute-les-appels-vers-des-services-externes/</guid>
       <description>Que ce soit pour du dévelopement ou pour exécuter des tests ou autres, il est très fréquent de vouloir mocker les appels vers des services externes. Si vous utilisez le module requests dans votre projet vous pouvez tout simplement ajouter le module requests_cache pour créer des bouchons. En effet, ce dernier va mettre en cache (dans une base de données sqlite) toutes les réponses aux requêtes faites par requests.
  Mise en place Bien sûr, on install le module: pip install requests_cache.</description>
-    </item>
-    
-    <item>
-      <title>Manipuler les fréquences radio</title>
-      <link>https://leandeep.com/manipuler-les-fr%C3%A9quences-radio/</link>
-      <pubDate>Sat, 18 Apr 2020 15:20:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/manipuler-les-fr%C3%A9quences-radio/</guid>
-      <description>Introduction Dans cet article, nous allons comment installer des outils permettant d&amp;rsquo;analyser des fréquences radio.
-L&amp;rsquo;installation sera faite sur Ubuntu 18.04 avec un user non root. Le hardware permettant de recevoir et émettre des ondes est un HackRF. 
-Les outils sont les suivants:
- Kalibrate Qspectrum Inspectrum Spectrum Analyzer GUI URH (Universal Radio Hack) Gnuradio   Pourquoi ces outils sont-ils utiles ?
- Analyser la sécurité de vos objets connectés, ou votre porte de garage, votre portail motorisé&amp;hellip; (malheureusement beaucoup comportent des failles) Comprendre comment fonctionnent les ondes GSM et mieux vous protéger (Attention aux ISMI catchers) Piloter des drones, voitures téléguidées qui n&amp;rsquo;ont pas d&amp;rsquo;API et que vous aimez bidouillez.</description>
-    </item>
-    
-    <item>
-      <title>Installer ROS sur Ubuntu 18.04</title>
-      <link>https://leandeep.com/installer-ros-sur-ubuntu-18.04/</link>
-      <pubDate>Sun, 29 Mar 2020 16:01:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/installer-ros-sur-ubuntu-18.04/</guid>
-      <description>Introduction Dans cet article nous allons voir comment installer ROS sur Ubuntu 18.04 et créer son workspace de travail.
- Installation sur Ubuntu directement (sans Docker) Installation de ROS Melodic
-# Ajouter le repo ROS sudo sh -c &#39;echo &amp;quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&amp;quot; &amp;gt; /etc/apt/sources.list.d/ros-latest.list&#39; # Truster le repo ROS sudo apt-key adv --keyserver &#39;hkp://keyserver.ubuntu.com:80&#39; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 sudo apt install ros-melodic-desktop-full  Installation de rosdep
-sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential sudo rosdep init rosdep update  Ajout des variables d&amp;rsquo;environnement au terminal</description>
     </item>
     
   </channel>

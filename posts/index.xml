@@ -5,8 +5,84 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 01 Oct 2020 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 05 Oct 2020 19:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Extraire et importer toutes ses clés GPG</title>
+            <link>https://leandeep.com/extraire-et-importer-toutes-ses-cl%C3%A9s-gpg/</link>
+            <pubDate>Mon, 05 Oct 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/extraire-et-importer-toutes-ses-cl%C3%A9s-gpg/</guid>
+            <description>Export Exporter toutes les clés publiques GPG dans un fichier base64:
+gpg -a --export &amp;gt; /tmp/pub_gpg_keys.asc  Exporter toutes les clés privées:
+gpg -a --export-secret-keys &amp;gt; /tmp/private_gpg_keys.asc  Exporter la trust database:
+gpg --export-ownertrust &amp;gt; trust_gpg_db.txt  Import Après avoir copié les fichiers sur une nouvelle machine et installé GPG, importer les clés:
+gpg --import ./private_gpg_keys.asc gpg --import ./pub_gpg_keys.asc gpg --import-ownertrust ./trust_gpg_db.txt gpg -K gpg -k </description>
+            <content type="html"><![CDATA[<h2 id="export">Export</h2>
+<p>Exporter toutes les clés publiques GPG dans un fichier base64:</p>
+<pre><code>gpg -a --export &gt; /tmp/pub_gpg_keys.asc
+</code></pre><br/>
+<p>Exporter toutes les clés privées:</p>
+<pre><code>gpg -a --export-secret-keys &gt; /tmp/private_gpg_keys.asc
+</code></pre><br/>
+<p>Exporter la trust database:</p>
+<pre><code>gpg --export-ownertrust &gt; trust_gpg_db.txt
+</code></pre><br/>
+<h2 id="import">Import</h2>
+<p>Après avoir copié les fichiers sur une nouvelle machine et installé GPG, importer les clés:</p>
+<pre><code>gpg --import ./private_gpg_keys.asc
+gpg --import ./pub_gpg_keys.asc
+gpg --import-ownertrust ./trust_gpg_db.txt
+gpg -K
+gpg -k
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Forcer l&#39;effacement d&#39;un namespace Kubernetes</title>
+            <link>https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/</link>
+            <pubDate>Mon, 05 Oct 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/</guid>
+            <description>Introduction Parfois lorsqu&amp;rsquo;on tente d&amp;rsquo;effacer un namespace, il ne s&amp;rsquo;efface pas vraiment et reste dans l&amp;rsquo;état terminated. Si vous essayez d&amp;rsquo;exécuter la commande kubectl delete ns mon_namespace et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous: Error from server (Conflict): Operation cannot be fulfilled on namespaces &amp;quot;mon_namespace&amp;quot;: The system is ensuring all content is removed from this namespace. Upon completion, this namespace will automatically be purged by the system.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Parfois lorsqu&rsquo;on tente d&rsquo;effacer un namespace, il ne s&rsquo;efface pas vraiment et reste dans l&rsquo;état <strong>terminated</strong>.
+Si vous essayez d&rsquo;exécuter la commande <code>kubectl delete ns mon_namespace</code> et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous:<br/>
+<code>Error from server (Conflict): Operation cannot be fulfilled on namespaces &quot;mon_namespace&quot;: The system is ensuring all content is removed from this namespace.  Upon completion, this namespace will automatically be purged by the system.</code></p>
+<br/>
+<h2 id="steps">Steps</h2>
+<p><strong>1. Exporter le contenu du namespace au format json</strong></p>
+<pre><code>kubectl get namespace mon_namespace -o json &gt; mon_namespace.json
+</code></pre><br/>
+<p><strong>2. Ouvrir le fichier <code>mon_namespace.json</code> et retirer <code>kubernetes</code> des <code>finalizers</code></strong></p>
+<br/>
+<p><strong>3. Appelez l&rsquo;API de votre cluster et mettez à jour votre namespace</strong></p>
+<ul>
+<li>Option 1
+<pre><code>kubectl cluster-info
+</code></pre><p>Puis exécuter la commande.</p>
+<pre><code>curl -k -H &quot;Content-Type: application/json&quot; -X PUT --data-binary @/tmp/mon_namespace.json http(s)://[IP]:[PORT]/api/v1/namespaces/[NAMESPACE]/finalize
+</code></pre><p>Si vous n&rsquo;avez pas l&rsquo;erreur suivante, votre namespace va s&rsquo;effacer.</p>
+<pre><code>namespaces &quot;mon_namespace&quot; is forbidden: User &quot;system:anonymous&quot; cannot update namespaces/finalize in the namespace &quot;mon_namespace&quot;
+</code></pre><p>Si vous recevez le message précédent, suivez les instructions de l&rsquo;option 2.</p>
+</li>
+</ul>
+<br/>
+<ul>
+<li>Option 2
+<pre><code>kubectl proxy  
+</code></pre><p>Puis exécuter la commande:</p>
+<pre><code>curl -k -H &quot;Content-Type: application/json&quot; -X PUT --data-binary @/tmp/mon_namespace.json http://127.0.0.1:8001/api/v1/namespaces/[NAMESPACE]/finalize
+</code></pre></li>
+</ul>
+<br/>
+<p><strong>4. Final check</strong></p>
+<pre><code>kubectl get namespaces
+</code></pre><br/>
+<p>Et voilà.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Installation de Python propre sur OSX Catalina</title>
@@ -3360,7 +3436,7 @@ car les droits root sont nécessaires</li>
 <ul>
 <li><a href="https://pasteapp.me/">Paste</a> (Gestionnaire avancé copier coller. Un must have!)</li>
 <li><a href="https://apps.apple.com/fr/app/inet-network-scanner/id403304796?mt=12">iNet</a> (GUI de scan réseau)</li>
-<li>[Gemini]https://macpaw.com/fr/gemini (Détecteur de doublon très pratique)</li>
+<li><a href="https://macpaw.com/fr/gemini">Gemini</a> (Détecteur de doublon très pratique)</li>
 <li><a href="https://macpaw.com/fr/store/cleanmymac">Clean My Mac X</a> (Permet de nettoyer son Mac)</li>
 <li>Screenflow (Pour enregistrer un screencast)</li>
 <li>AutoDesk (Pour modifier des modèles 3D)</li>
@@ -3384,6 +3460,7 @@ brew install azure-cli
 brew install gpg
 brew install pyenv
 brew install git-crypt
+brew install watch
 
 # Installation de MongoDB 
 # https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
@@ -3438,6 +3515,13 @@ echo 'export PATH=&quot;/usr/local/opt/mysql-client/bin:$PATH&quot;' &gt;&gt; ~/
 <li>Visual Studio Intellicode</li>
 <li>YAML</li>
 </ul>
+<br/>
+<p><strong>Autres</strong></p>
+<ul>
+<li>Désactiver la correction orthographique totalement inutile sur Notes:</li>
+</ul>
+<p><code>Edit &gt; Spelling and Grammar &gt; Correct Spelling Automatically</code><br/>
+<code>Edit &gt; Spelling and Grammar &gt; Check Spelling while typing</code></p>
 ]]></content>
         </item>
         
