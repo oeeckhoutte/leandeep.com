@@ -7,7 +7,7 @@
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Dans la catégorie Scripts Shell:
 Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&amp;rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.
-for VAR in LIST &amp;gt; do &amp;gt; # utilisez $VAR &amp;gt; done Exemple:
+for VAR in LIST &amp;gt; do &amp;gt; # utilisez $VAR &amp;gt; done  Exemple:
 $ for USER in olivier bob bill &amp;gt; do &amp;gt; sudo passwd -l $USER &amp;gt; logger -t bad-boy $USER &amp;gt; done Locking password for user olivier." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -297,7 +297,7 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Utiliser une boucle dans le terminal">
 <meta itemprop="description" content="Dans la catégorie Scripts Shell:
 Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.
-for VAR in LIST &gt; do &gt; # utilisez $VAR &gt; done Exemple:
+for VAR in LIST &gt; do &gt; # utilisez $VAR &gt; done  Exemple:
 $ for USER in olivier bob bill &gt; do &gt; sudo passwd -l $USER &gt; logger -t bad-boy $USER &gt; done Locking password for user olivier.">
 <meta itemprop="datePublished" content="2014-05-01T22:51:00+00:00" />
 <meta itemprop="dateModified" content="2014-05-01T22:51:00+00:00" />
@@ -306,14 +306,14 @@ $ for USER in olivier bob bill &gt; do &gt; sudo passwd -l $USER &gt; logger -t 
 
 
 
-<meta itemprop="keywords" content="Unix Tip," />
+<meta itemprop="keywords" content="Unix Tip,unix_tips," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Utiliser une boucle dans le terminal"/>
 <meta name="twitter:description" content="Dans la catégorie Scripts Shell:
 Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.
-for VAR in LIST &gt; do &gt; # utilisez $VAR &gt; done Exemple:
+for VAR in LIST &gt; do &gt; # utilisez $VAR &gt; done  Exemple:
 $ for USER in olivier bob bill &gt; do &gt; sudo passwd -l $USER &gt; logger -t bad-boy $USER &gt; done Locking password for user olivier."/>
 
 
@@ -398,7 +398,8 @@ $ for USER in olivier bob bill &gt; do &gt; sudo passwd -l $USER &gt; logger -t 
 &gt; do
 &gt; # utilisez $VAR
 &gt; done
-</code></pre><p>Exemple:</p>
+</code></pre><br/>
+<p>Exemple:</p>
 <pre><code>$ for USER in olivier bob bill
 &gt; do
 &gt;  sudo passwd -l $USER
@@ -410,9 +411,11 @@ Locking password for user bob.
 passwd: Success
 Locking password for user bill.
 passwd: Success
-</code></pre><p>Les commandes ci-dessus peuvent être écrites sur une ligne:</p>
+</code></pre><br/>
+<p>Les commandes ci-dessus peuvent être écrites sur une ligne:</p>
 <pre><code>for USER in olivier bob bill; do sudo passwd -l $USER; logger -t bad-boy $USER; done
-</code></pre><p>Autre exemple plus utile: convertir tous les mp4 d&rsquo;un dossier en mp3:</p>
+</code></pre><br/>
+<p>Autre exemple plus utile: convertir tous les mp4 d&rsquo;un dossier en mp3:</p>
 <pre><code>for FILE in *\ *
 do
 ffmpeg -f mp4 -i ${FILE} -f mp3 &quot;${FILE%.mp4}.mp3&quot;
@@ -425,7 +428,7 @@ done
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span><span class="tag"><a href="https://leandeep.com/tags/unix_tips">unix_tips</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>139 Mots</p>
@@ -452,8 +455,8 @@ done
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/d%C3%A9buter-avec-hugo/">
-                                <span class="button__text">Débuter avec Hugo</span>
+                            <a href="https://leandeep.com/cr%C3%A9er-une-variable-denvironnement-multiligne/">
+                                <span class="button__text">Créer une variable d&#39;environnement multiligne</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

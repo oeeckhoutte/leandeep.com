@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Dans le cas présent, le projet est un projet Python.
-Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin" />
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes">
 <meta itemprop="description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Dans le cas présent, le projet est un projet Python.
-Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin">
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin">
 <meta itemprop="datePublished" content="2019-04-24T21:56:00+00:00" />
 <meta itemprop="dateModified" content="2019-04-24T21:56:00+00:00" />
 <meta itemprop="wordCount" content="135">
@@ -308,7 +308,7 @@ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --na
 
 <meta name="twitter:title" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes"/>
 <meta name="twitter:description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Dans le cas présent, le projet est un projet Python.
-Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin"/>
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube # Si nécessaire pour ajouter des plugins $ wget https://binaries.sonarsource.com/Distribution/sonar-python-plugin/sonar-python-plugin-1.13.0.2922.jar $ docker cp ./sonar-python-plugin-1.13.0.2922.jar sonarqube:/opt/sonarqube/extensions/plugins/sonar-python-plugin-1.13.0.2922.jar $ docker restart sonarqube  Note: Mot de passe par défault: admin/admin"/>
 
 
 
@@ -389,6 +389,7 @@ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --na
                 <h1 id="introduction">Introduction</h1>
 <p>Voici les étapes à suivre pour ajouter un sonar dans son projet.
 Dans le cas présent, le projet est un projet Python.</p>
+<br/>
 <h1 id="steps">Steps</h1>
 <h2 id="déployer-un-sonar-via-docker">Déployer un sonar via Docker</h2>
 <pre><code>$ docker pull sonarqube
@@ -404,6 +405,7 @@ $ docker restart sonarqube
 </code></pre><blockquote>
 <p>Note: Mot de passe par défault: admin/admin</p>
 </blockquote>
+<br/>
 <h2 id="configurer-le-projet">Configurer le projet</h2>
 <p>Créer un fichier <code>sonar-project.properties</code> à la racine du projet</p>
 <pre><code># Required metadata
@@ -421,9 +423,11 @@ sonar.language=py
 sonar.sourceEncoding=UTF-8
 
 sonar.host.url=http://IP_DU_SONAR:9000
-</code></pre><h2 id="lancer-le-scan-du-projet">Lancer le scan du projet</h2>
+</code></pre><br/>
+<h2 id="lancer-le-scan-du-projet">Lancer le scan du projet</h2>
 <pre><code>docker run -ti -v $(pwd):/root/src zaquestion/sonarqube-scanner
 </code></pre><p>(Docker image <code>zaquestion/sonarqube-scanner</code> source: <a href="https://github.com/oeeckhoutte/docker-sonarqube-scanner">https://github.com/oeeckhoutte/docker-sonarqube-scanner</a>)</p>
+<br/>
 <h1 id="résultat">Résultat</h1>
 <p>Voici ce que vous obtiendrez:</p>
 <p><img src="https://leandeep.com/images/sonar-clean.png" alt="image"></p>

@@ -8,7 +8,7 @@
 <meta name="description" content="Bonjour à tous,
 Dans cet article nous allons parler de clean architecture en référence à ce que présente Robert C. Martin (alias Oncle Bob) dans cette vidéo. Si vous ne l&amp;rsquo;avez pas vu, je vous la recommande fortement !
 Tous les concepts dont il parle dans sa proposition &amp;ldquo;d&amp;rsquo;Architecture propre&amp;rdquo; ne sont pas nouveaux car déjà utilisés dans d&amp;rsquo;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)
-Voici la proposition d&amp;rsquo;Architecture propre: Partie 1 Le schéma à gauche (en forme d&amp;rsquo;oignon) est la combinaison de 2 architectures plus anciennes:" />
+Voici la proposition d&amp;rsquo;Architecture propre:  Partie 1 Le schéma à gauche (en forme d&amp;rsquo;oignon) est la combinaison de 2 architectures plus anciennes:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -298,7 +298,7 @@ function toTitleCase(str) {
 <meta itemprop="description" content="Bonjour à tous,
 Dans cet article nous allons parler de clean architecture en référence à ce que présente Robert C. Martin (alias Oncle Bob) dans cette vidéo. Si vous ne l&rsquo;avez pas vu, je vous la recommande fortement !
 Tous les concepts dont il parle dans sa proposition &ldquo;d&rsquo;Architecture propre&rdquo; ne sont pas nouveaux car déjà utilisés dans d&rsquo;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)
-Voici la proposition d&rsquo;Architecture propre: Partie 1 Le schéma à gauche (en forme d&rsquo;oignon) est la combinaison de 2 architectures plus anciennes:">
+Voici la proposition d&rsquo;Architecture propre:  Partie 1 Le schéma à gauche (en forme d&rsquo;oignon) est la combinaison de 2 architectures plus anciennes:">
 <meta itemprop="datePublished" content="2016-03-15T21:34:00+00:00" />
 <meta itemprop="dateModified" content="2016-03-15T21:34:00+00:00" />
 <meta itemprop="wordCount" content="1053">
@@ -314,7 +314,7 @@ Voici la proposition d&rsquo;Architecture propre: Partie 1 Le schéma à gauche 
 <meta name="twitter:description" content="Bonjour à tous,
 Dans cet article nous allons parler de clean architecture en référence à ce que présente Robert C. Martin (alias Oncle Bob) dans cette vidéo. Si vous ne l&rsquo;avez pas vu, je vous la recommande fortement !
 Tous les concepts dont il parle dans sa proposition &ldquo;d&rsquo;Architecture propre&rdquo; ne sont pas nouveaux car déjà utilisés dans d&rsquo;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)
-Voici la proposition d&rsquo;Architecture propre: Partie 1 Le schéma à gauche (en forme d&rsquo;oignon) est la combinaison de 2 architectures plus anciennes:"/>
+Voici la proposition d&rsquo;Architecture propre:  Partie 1 Le schéma à gauche (en forme d&rsquo;oignon) est la combinaison de 2 architectures plus anciennes:"/>
 
 
 
@@ -397,23 +397,27 @@ Voici la proposition d&rsquo;Architecture propre: Partie 1 Le schéma à gauche 
 <p>Tous les concepts dont il parle dans sa proposition &ldquo;d&rsquo;Architecture propre&rdquo; ne sont pas nouveaux car déjà utilisés dans d&rsquo;autres architectures antérieures. (Il le dit lui-même dans sa vidéo.)</p>
 <p>Voici la proposition d&rsquo;Architecture propre:
 <img src="https://leandeep.com/images/clean-architecture-diagram.jpg" alt="image"></p>
+<br/>
 <h1 id="partie-1">Partie 1</h1>
 <p>Le schéma à gauche (en forme d&rsquo;oignon) est la combinaison de 2 architectures plus anciennes:</p>
 <ul>
 <li><a href="http://jeffreypalermo.com/blog/the-onion-architecture-part-1/">Onion Architecture</a> de Jeffrey Palermo, 2008</li>
 <li><a href="http://alistair.cockburn.us/Hexagonal+architecture">Ports &amp; Adapters Architecture</a> d&rsquo;Alistair Cockburn, 2005. Cette dernière est également appelée <strong>Architecture Hexagonale</strong>)</li>
 </ul>
+<br/>
 <p>Voici une synthèse des différents concepts présentés.</p>
 <h2 id="externalisation-des-outils-et-des-mécanismes-de-livraison">Externalisation des outils et des mécanismes de livraison</h2>
 <p>Dans une Architecture Hexagonale on se focuse sur l&rsquo;externalisation des outils et mécanismes de livraison de l&rsquo;application en utilisant des interfaces (ports) et des <em>adapters</em>.</p>
 <p>Cette approche est aussi un des fondements de l&rsquo;Onion Architecture comme on peut le voir sur le schéma ci-dessous. Comme on peut le voir, les tests, la couche infrastructure, le UI et la couche d&rsquo;API sont situés à l&rsquo;extrémité du diagramme.</p>
 <p><img src="https://leandeep.com/images/Onion-Architecture.png" alt="image"></p>
 <p>Dans la clean Architecture, c&rsquo;est similaire. Au final tout le <em>core</em> applicatif se retrouve au centre et est agnostique des différents frameworks et librairies.</p>
+<br/>
 <h2 id="direction-des-dépendances">Direction des dépendances</h2>
 <p>Dans l&rsquo;Archictecture Hexagonale rien n&rsquo;explicite la direction des dépendances. Néanmoins on peut facilement la déduire.
 L&rsquo;application a un port (ou interface) qui doit être implémenté ou utilisé par un <em>adpater</em>. Donc l'<em>adapter</em> dépend de l&rsquo;interface qui dépend du <em>core</em> applicatif qui est au centre. Ce qui est à l&rsquo;extérieur dépend de ce qui est à l&rsquo;intérieur. Donc la direction des dépendances est vers le centre.</p>
 <p>In the Hexagonal Architecture, we don’t have anything explicitly telling us the direction of the dependencies. Nevertheless, we can easily infer it: The Application has a port (an interface) which must be implemented or used by an adapter. So the Adapter depends on the interface, it depends on the application which is in the centre. What is outside depends on what is inside, the direction of the dependencies is towards the centre.
 Dans le diagramme de la Clean Architecture c&rsquo;est très explicite. Il y a des flèches en direction du centre. Elles introduisent le principe d&rsquo;inversion de dépendances. Le centre du cercle ne connait rien de ce qu&rsquo;il y a à l&rsquo;extérieur. De plus, lorsque les données circulent entre les couches c&rsquo;est toujours dans une forme qui convient le mieux aux couches les plus proches du centre.</p>
+<br/>
 <h2 id="couches">Couches</h2>
 <p>Le diagramme de l&rsquo;Architecture Hexagonale ne montre que 2 couches: intérieur de l&rsquo;application et extérieur de l&rsquo;application.</p>
 <p><img src="https://leandeep.com/images/archi-hexa.jpeg" alt="image"></p>
@@ -425,8 +429,10 @@ Dans le diagramme de la Clean Architecture c&rsquo;est très explicite. Il y a d
 </ul>
 <p>Quand on compare l&rsquo;Onion Architecture et la Clean Architecture on voit que la Clean Architecture garde toutes les couches de l&rsquo;Onion Architecture sauf la partie <em>Domain Services layer</em>.
 Cependant lorsque l&rsquo;on rentre dans le détail des articles de Robert C. Martin on se rend compte qu&rsquo;il considère les Entities pas simplement comme les Entities en DDD mais comme un Domain Object.</p>
+<br/>
 <h2 id="testabilité-et-isolation">Testabilité et isolation</h2>
 <p>Les 3 types d&rsquo;Architecture pronent l&rsquo;isolation de l&rsquo;application et de la  <em>domain logic</em> . Cela signifie que pour tous les use cases on peut &ldquo;<em>mocker</em>&rdquo; les outils externes et mécanismes de livraison et que les différentes partie de l&rsquo;application peuvent être testées de manière isolée.</p>
+<br/>
 <h1 id="partie-2">Partie 2</h1>
 <p>Dans cette partie on va s&rsquo;intéresser à la partie droite du schéma de la Clean Architecture.</p>
 <p><img src="https://leandeep.com/images/clean-architecture-right-side.png" alt="image"></p>
@@ -453,19 +459,23 @@ Par contre, on retrouve plus d&rsquo;explication avec le schéma suivant:</p>
 <blockquote>
 <p>EBI (Entity-Boundary-Interactor) ou Single Responsibility Principle ?</p>
 </blockquote>
+<br/>
 <h3 id="entity">Entity</h3>
 <p>L&rsquo;objet <em>Entity</em> contient la donnée utilisée par le système ainsi que tous les comportements couplés à cette donnée.
 &ldquo;An Entity object should contain the logic that would change when the Entity itself changes, that is to say: if the data structure it holds changes, the operations on that data will also need to change and therefore they should be located in the Entity as well.&rdquo;, Ivar Jacobson 1992</p>
+<br/>
 <h3 id="boundary-interface">Boundary (Interface)</h3>
 <p>L&rsquo;object Boundary est l&rsquo;interface avec le système.</p>
 <p>&ldquo;Everything concerning the interface of the system is placed in an interface object&rdquo;, Ivar Jacobson 1992</p>
 <p>Toutes les fonctionnalités qui dépendent de l&rsquo;environnement du système (outils et mécanismes de livraison) appartiennent à l&rsquo;objet <em>Boundary</em>.</p>
 <p>Chaque intéraction avec le système au travers d&rsquo;un &ldquo;acteur&rdquo; passe par l&rsquo;objet Boundary. Un &ldquo;acteur&rdquo; peut être un humain (admin, client) ou non (alarme, trigger, API externe).</p>
+<br/>
 <h3 id="interactor-control">Interactor (Control)</h3>
 <p>L&rsquo;objet <em>Interactor</em> va contenir les comportements par naturellement liés aux autres types d&rsquo;objets.</p>
 <p>Ces comportement peuvent typiquement être des opérations sur plusieurs Entities retournant des résultats (qui passeront par l&rsquo;objet boundary).</p>
 <p>&ldquo;Behaviour that remains after the Interface objects and Entity objects have obtained their parts will be placed in the control objects&rdquo; Ivar Jacobson 1992</p>
 <p>Cela signifie que tous les comportements qui ne se situent pas dans les objets Boundary ou Entity seront placés dans un ou plusieurs objets Interactor.</p>
+<br/>
 <h1 id="conclusion">Conclusion</h1>
 <p>Avec cette approche, Robert C. Martin a n&rsquo;a rien inventé mais rappelle et clarifie des <em>patterns</em> importants souvent oubliés. Il explique quand même comment tous ces patterns, règles et concepts peuvent coexister ensemble pour construire de manière standardisée et propre des applications complexes et facilement maintenables. Je dirais donc que c&rsquo;est à adopter&hellip;</p>
 

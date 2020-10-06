@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Qu&amp;rsquo;est-ce qu&amp;rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&amp;rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&amp;rsquo;est opensource&amp;hellip;
-MiniShift Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
+ MiniShift Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
 Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -295,7 +295,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Installer OpenShift sur OSX">
 <meta itemprop="description" content="Qu&rsquo;est-ce qu&rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&rsquo;est opensource&hellip;
-MiniShift Si vous voulez tester l&rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
+ MiniShift Si vous voulez tester l&rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
 Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.">
 <meta itemprop="datePublished" content="2018-02-28T22:13:00+00:00" />
 <meta itemprop="dateModified" content="2018-02-28T22:13:00+00:00" />
@@ -310,7 +310,7 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
 
 <meta name="twitter:title" content="Installer OpenShift sur OSX"/>
 <meta name="twitter:description" content="Qu&rsquo;est-ce qu&rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&rsquo;est opensource&hellip;
-MiniShift Si vous voulez tester l&rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
+ MiniShift Si vous voulez tester l&rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
 Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local."/>
 
 
@@ -391,9 +391,11 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
             <div class="post-content">
                 <h2 id="quest-ce-quopenshift-">Qu&rsquo;est-ce qu&rsquo;OpenShift ?</h2>
 <p>OpenShift est une plateforme de PAAS développée par RedHat qui repose sur <a href="https://kubernetes.io/">Kubernetes</a>. En gros, c&rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&rsquo;est opensource&hellip;</p>
+<br/>
 <h2 id="minishift">MiniShift</h2>
 <p>Si vous voulez tester l&rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.</p>
 <p>Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</p>
+<br/>
 <h2 id="installation-de-minishift">Installation de MiniShift</h2>
 <p>Voici la procédure pour l&rsquo;installer avec les dépendances nécessaires:</p>
 <ul>
@@ -424,7 +426,8 @@ $ brew install --HEAD xhyve
 $ brew install docker-machine-driver-xhyve
 $ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 $ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-</code></pre><h2 id="création-de-la-vm">Création de la VM</h2>
+</code></pre><br/>
+<h2 id="création-de-la-vm">Création de la VM</h2>
 <pre><code># Créer une VM dans xhyve et créer un cluster OpenShift sur cette dernière
 minishift start
 
@@ -432,9 +435,11 @@ minishift start
 # minishift start --vm-driver=virtualbox
 </code></pre><p>Si tout se passe bien, vous devriez avoir ceci:</p>
 <p><img src="https://leandeep.com/images/oc-login.png" alt="image"></p>
+<br/>
 <h2 id="test-avec-une-application-exemple">Test avec une application exemple</h2>
 <p>Dans cette section, nous allons déployer une application NodeJS fournie par OpenShift qui nous permettra de vérifier que tout fonctionne.</p>
 <p>Il y a 3 manières de &ldquo;piloter&rdquo; OpenShift. Vous pouvez le faire avec le CLI, l&rsquo;interface Web ou directement via l&rsquo;API. Bien que l&rsquo;interface Web soit très simple à utiliser, on va utiliser le CLI pour la suite de cet article.</p>
+<br/>
 <p>Pour l&rsquo;installer, il suffit d&rsquo;exécuter la commande suivante:</p>
 <pre><code>$ brew install openshift-cli
 
@@ -447,14 +452,17 @@ features: Basic-Auth
 Server https://192.168.64.5:8443
 openshift v3.7.1+a8deba5-34
 kubernetes v1.7.6+a08f5eeb62
-</code></pre><p>Si vous souhaitez obtenir des informations sur l&rsquo;interface Web, il y a un <a href="https://learn.openshift.com/introduction/getting-started/">très bon tutoriel sur le site d&rsquo;OpenShift</a> qui vous expliquera les points ci-dessous en vous aidant à déployer la webapp qui ressemble à cela:</p>
+</code></pre><br/>
+<p>Si vous souhaitez obtenir des informations sur l&rsquo;interface Web, il y a un <a href="https://learn.openshift.com/introduction/getting-started/">très bon tutoriel sur le site d&rsquo;OpenShift</a> qui vous expliquera les points ci-dessous en vous aidant à déployer la webapp qui ressemble à cela:</p>
 <p><img src="https://leandeep.com/images/map-app-openshift.png" alt="image"></p>
+<br/>
 <ul>
 <li>Comment déployer une image disponible sur dockerhub</li>
 <li>Comment <em>scaler</em> votre application extrèmement rapidement</li>
 <li>Comment fonctionne le Routing HTTP avec HaProxy pour les services créés automatiquement lors du déploiement de l&rsquo;image. (Prenez le temps de regarder, sécuriser vos routes par TLS est vraiment très simple. C&rsquo;est limite une case à cocher&hellip;)</li>
 <li>Comment <em>builder</em> une image à partir de votre code source sur Git (via l&rsquo;outil S2I opensource. La documentation de cet outil est disponible <a href="https://docs.openshift.org/latest/creating_images/s2i.html">ici</a>)</li>
 </ul>
+<br/>
 <pre><code>oc login
 # Utilisez developer/developer comme credentials
 
@@ -467,51 +475,66 @@ oc logs -f bc/nodejs-ex
 # Création d'un service Kubernetes 
 # i.e: Exposer le port 80 en configurant un reverse proxy qui pointe sur le port 8080 du Pod précédement créé. 
 oc expose svc/nodejs-ex
-</code></pre><p>Si tout s&rsquo;est bien passé, une URL &ldquo;publique&rdquo; va être générée et vous permettra d&rsquo;accéder à l&rsquo;application juste déployée. L&rsquo;application d&rsquo;exemple déployée <strong>via le CLI</strong> ressemble à ceci:</p>
+</code></pre><br/>
+<p>Si tout s&rsquo;est bien passé, une URL &ldquo;publique&rdquo; va être générée et vous permettra d&rsquo;accéder à l&rsquo;application juste déployée. L&rsquo;application d&rsquo;exemple déployée <strong>via le CLI</strong> ressemble à ceci:</p>
 <p><img src="https://leandeep.com/images/front-app-example-openshift.png" alt="image"></p>
+<br/>
 <h2 id="commandes-utiles-pour-le-cli">Commandes utiles pour le CLI</h2>
 <p><strong>Switcher de compte OpenShift</strong></p>
 <pre><code>oc login --username developer 
 
 # oc login --username &lt;username&gt; --password &lt;password&gt;
 # oc login --token &lt;token&gt;
-</code></pre><p><strong>Lister les clusters sur lesquels on s&rsquo;est déjà connecté</strong></p>
+</code></pre><br/>
+<p><strong>Lister les clusters sur lesquels on s&rsquo;est déjà connecté</strong></p>
 <pre><code>oc config get-clusters
-</code></pre><p><strong>Se connecter à un cluster spécifique avec un compte particulier</strong></p>
+</code></pre><br/>
+<p><strong>Se connecter à un cluster spécifique avec un compte particulier</strong></p>
 <pre><code>oc login https://clusterA.leandeep.com --username superadmin
-</code></pre><p><strong>Lister tous les contextes</strong></p>
+</code></pre><br/>
+<p><strong>Lister tous les contextes</strong></p>
 <pre><code>oc config get-contexts
-</code></pre><p><strong>Who am I ?</strong></p>
+</code></pre><br/>
+<p><strong>Who am I ?</strong></p>
 <pre><code>oc whoami
 
 # oc whoami --token (voir le token actuel)
 # oc whoami --show-server (voir le cluster actuel)
-</code></pre><p><strong>Lister les projets</strong></p>
+</code></pre><br/>
+<p><strong>Lister les projets</strong></p>
 <pre><code>oc get projects
-</code></pre><p><strong>Créer un projet</strong></p>
+</code></pre><br/>
+<p><strong>Créer un projet</strong></p>
 <pre><code>oc new-project mon_super_projet
-</code></pre><p><strong>Accéder à un projet</strong></p>
+</code></pre><br/>
+<p><strong>Accéder à un projet</strong></p>
 <pre><code>oc project &lt;nom-du-projet&gt;
-</code></pre><p><strong>Créer une app s2i (source 2 image)</strong></p>
+</code></pre><br/>
+<p><strong>Créer une app s2i (source 2 image)</strong></p>
 <pre><code>oc new-app --source-secret &lt;nom-de-votre-secret-pour-se-connecter-a-votre-source-control&gt; &lt;image-docker-permettant-de-faire-du-s2i&gt;~https://bitbucket.org/user/repo-avec-du-nodejs-et-un-dockerfile.git --name nom-de-votre-app-dans-votre-projet
-</code></pre><p>Les ressources suivantes vont être automatiquement créées:</p>
+</code></pre><p><br/>
+Les ressources suivantes vont être automatiquement créées:</p>
 <pre><code>--&gt; Creating resources ...
     imagestream &quot;image-docker-permettant-de-faire-du-s2i&quot; created
     imagestream &quot;nom-de-votre-app-dans-votre-projet&quot; created
     buildconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
     deploymentconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
     service &quot;nom-de-votre-app-dans-votre-projet&quot; created
-</code></pre><p><strong>Update une app s2i</strong></p>
+</code></pre><br/>
+<p><strong>Update une app s2i</strong></p>
 <pre><code>oc start-build &lt;nom-du-build-pour-votre-app&gt;
-</code></pre><p><strong>Delete une app</strong></p>
+</code></pre><br/>
+<p><strong>Delete une app</strong></p>
 <pre><code>oc delete all -l app=bla-bla-bla-https
-</code></pre><p><strong>Donner les droits en lecture à un utilisateur</strong></p>
+</code></pre><br/>
+<p><strong>Donner les droits en lecture à un utilisateur</strong></p>
 <pre><code>oc adm policy add-role-to-user view developer -n mon_super_projet
 
 # oc adm policy add-role-to-user edit &lt;username&gt; -n &lt;project&gt; (donne les droits d'écriture + création de déploiements + effacement d'applications)
 
 # oc adm policy add-role-to-user admin &lt;username&gt; -n &lt;project&gt; (donne tous les droits sur le projet)
-</code></pre><p><strong>Lister toutes les ressources d&rsquo;un projet (dont DNS exposé)</strong></p>
+</code></pre><br/>
+<p><strong>Lister toutes les ressources d&rsquo;un projet (dont DNS exposé)</strong></p>
 <pre><code>oc get all
 
 # Plus direct pour obtenir la route exposée
@@ -519,65 +542,83 @@ oc expose svc/nodejs-ex
 
 # Lister et filtrer sur un label
 oc get all -o name --selector app=apinodejs
-</code></pre><p><strong>Obtenir plus d&rsquo;information sur une ressource</strong></p>
+</code></pre><br/>
+<p><strong>Obtenir plus d&rsquo;information sur une ressource</strong></p>
 <pre><code>oc describe route/apinodejs
 # alternative 
 # oc describe route apinodejs
-</code></pre><p><strong>Comprendre OpenShift (obtenir des informations sur les ressources)</strong></p>
+</code></pre><br/>
+<p><strong>Comprendre OpenShift (obtenir des informations sur les ressources)</strong></p>
 <pre><code>oc get 
 # ou 
 # oc types
 # ou
 # oc explain route.spec.host (utile lorsqu'on sort les réponses au format JSON. Exemple oc get route/apinodejs -o json ==&gt; lire l'arborescence) 
-</code></pre><p><strong>Editer une ressource</strong></p>
+</code></pre><br/>
+<p><strong>Editer une ressource</strong></p>
 <pre><code>oc edit route/apinodejs 
 
 ou 
 oc edit route/apinodejs -o json
-</code></pre><p><strong>Créer une ressource (formats json ou yml acceptés)</strong></p>
+</code></pre><br/>
+<p><strong>Créer une ressource (formats json ou yml acceptés)</strong></p>
 <pre><code>oc create -f apinodejs-fqdn.json
 
 # Commande disponible pour la création de route
 # oc create route edge apinodejs-fqdn --service apinodejs --insecure-policy Allow --hostname www.example.com
-</code></pre><p><strong>Editer une ressource</strong></p>
+</code></pre><br/>
+<p><strong>Editer une ressource</strong></p>
 <pre><code>oc replace -f apinodejs-fqdn.json
 
 # Erreur si la ressource n'existe pas. L'alternative: oc apply 
-</code></pre><p><strong>Editer à la volée</strong></p>
+</code></pre><br/>
+<p><strong>Editer à la volée</strong></p>
 <pre><code>oc patch route/apinodejs-fqdn --patch '{&quot;spec&quot;:{&quot;tls&quot;: {&quot;insecureEdgeTerminationPolicy&quot;: &quot;Allow&quot;}}}'
 
 # Erreur si la ressource n'existe pas. L'alternative: oc apply
-</code></pre><p><strong>Ajouter/Retirer un label sur un service</strong></p>
+</code></pre><br/>
+<p><strong>Ajouter/Retirer un label sur un service</strong></p>
 <pre><code># Ajouter le label
 oc label service/apinodejs web=true
 
 # Retirer le label
 oc label service/apinodejs web-
-</code></pre><p><strong>Effacer une ressource</strong></p>
+</code></pre><br/>
+<p><strong>Effacer une ressource</strong></p>
 <pre><code>oc delete route/apinodejs-fqdn
 
 # Effacer plusieurs ressources
 # oc delete all [--all] --selector app=apinodejs
-</code></pre><p><strong>Créer un environnement from scratch</strong></p>
+</code></pre><br/>
+<p><strong>Créer un environnement from scratch</strong></p>
 <pre><code>conda create --name py35 python=3.5 
-</code></pre><p><strong>Connect as Minishift superadmin</strong></p>
+</code></pre><br/>
+<p><strong>Connect as Minishift superadmin</strong></p>
 <pre><code>oc login -u system:admin
-</code></pre><p><strong>Accéder à Minishift en local</strong></p>
+</code></pre><br/>
+<p><strong>Accéder à Minishift en local</strong></p>
 <pre><code>oc login https://&lt;IP&gt;:8443 -u system:admin --insecure-skip-tls-verify=true
-</code></pre><p><strong>Obtenir l&rsquo;IP de Minishift</strong></p>
+</code></pre><br/>
+<p><strong>Obtenir l&rsquo;IP de Minishift</strong></p>
 <pre><code>minishift ip
-</code></pre><h2 id="troubleshooting">Troubleshooting</h2>
+</code></pre><br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>Un pod en terminating state ne se kill pas</strong></p>
 <pre><code>oc get po 
 oc delete pod &lt;pod-name&gt; -n &lt;pod-namespace&gt; --grace-period=0 --force
-</code></pre><p><strong>Un provisioned service &ldquo;marked for deletion&rdquo; ne s&rsquo;efface pas</strong></p>
+</code></pre><br/>
+<p><strong>Un provisioned service &ldquo;marked for deletion&rdquo; ne s&rsquo;efface pas</strong></p>
 <pre><code>oc edit serviceinstance &lt;provisioned-service&gt; -n &lt;namespace&gt;
 # Effacer metadata.finalizers de l'instance comme workaround
-</code></pre><p><strong>L&rsquo;application ne s&rsquo;affiche pas</strong></p>
+</code></pre><br/>
+<p><strong>L&rsquo;application ne s&rsquo;affiche pas</strong></p>
 <p>Si vous avez l&rsquo;erreur suivante, c&rsquo;est qu&rsquo;il y a un problème de résolution DNS sur votre Mac:</p>
+<br/>
 <p><img src="https://leandeep.com/images/openshift-app-unreachable.png" alt="image"></p>
+<br/>
 <p>Pour corriger le problème, changez le DNS de votre Mac et utilisez celui de Google.
 Pour ce faire, allez dans Préférences Système &ndash;&gt; Network &ndash;&gt; Cliquez sur le bouton avancé en bas à droit après avoir sélectionné l&rsquo;interface réseau que vous utilisez &ndash;&gt; Cliquez sur l&rsquo;onglet DNS &ndash;&gt; Ajoutez 8.8.8.8 dans la section DNS</p>
+<br/>
 <p><strong>Vous avez tout crashé et vous voulez tout recommencer de 0</strong></p>
 <p>En cas d&rsquo;erreur avec votre VM, cette commande peut être utile pour effacer les dossiers en cache. Supprimer la VM dans VirtualBox ne suffit pas.</p>
 <pre><code># Effacer le cache et la VM

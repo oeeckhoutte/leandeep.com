@@ -295,7 +295,7 @@ function toTitleCase(str) {
 <meta itemprop="description" content="Qu&rsquo;est-ce que Conda ? Conda est un outil permettant de gérer les packages scientifiques utiles notamment pour faire du Machine Learning. Il gère aussi les dépendances de ces packages; même celles en dehors de Python (Librairies C, Paquets R&hellip;). Il permet également de gérer des environnements virtuels comme virtualenv. C&rsquo;est un outil très répandu que vous retrouverez dans beaucoup de cours ou tutoriels. Il est donc intéressant de l&rsquo;installer sur votre poste.">
 <meta itemprop="datePublished" content="2017-06-04T20:57:00+00:00" />
 <meta itemprop="dateModified" content="2017-06-04T20:57:00+00:00" />
-<meta itemprop="wordCount" content="403">
+<meta itemprop="wordCount" content="393">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -385,34 +385,47 @@ function toTitleCase(str) {
             <div class="post-content">
                 <h2 id="quest-ce-que-conda-">Qu&rsquo;est-ce que Conda ?</h2>
 <p>Conda est un outil permettant de gérer les packages scientifiques utiles notamment pour faire du Machine Learning. Il gère aussi les dépendances de ces packages; même celles en dehors de Python (Librairies C, Paquets R&hellip;). Il permet également de gérer des environnements virtuels comme virtualenv. C&rsquo;est un outil très répandu que vous retrouverez dans beaucoup de cours ou tutoriels. Il est donc intéressant de l&rsquo;installer sur votre poste.</p>
+<br/>
 <h2 id="quest-ce-quanaconda-">Qu&rsquo;est-ce qu&rsquo;Anaconda ?</h2>
 <p>Conda est le gestionnaire de paquets d&rsquo;Anaconda. Anaconda est une distribution gratuite de Python délivré par la société Continuum Analytics qui contient plus d&rsquo;un milliers de paquets permettant de faire des sciences, des mathématiques, de l&rsquo;ingénierie et de l&rsquo;analyse de données. C&rsquo;est une sorte de gros package incluant tous les outils nécessaires pour faire du Machine Learning.</p>
+<br/>
 <h2 id="quest-ce-que-miniconda-">Qu&rsquo;est-ce que Miniconda ?</h2>
 <p>C&rsquo;est une alternative à Anaconda. C&rsquo;est beaucoup plus léger car il ne contient que Conda et quelques dépendances nécessaires à son fonctionnement.</p>
+<br/>
 <h2 id="installer-miniconda-sur-osx">Installer Miniconda sur OSX</h2>
 <p>Il faut commencer par télécharger un script bash disponible à l'<a href="https://conda.io/miniconda.html">adresse suivante</a>.</p>
-<pre><code>$ wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-</code></pre><p>Une fois téléchargé, il faut exécuter le script dans le terminal et suivre les instructions affichées à l&rsquo;écran:</p>
-<pre><code>$ bash Miniconda3-latest-MacOSX-x86_64.sh
-</code></pre><p>Si comme moi vous utilisez ohmyzsh à la place bash, ajoutez la ligne suivante dans le fichier ~/.zshrc (prenez soin de changer l&rsquo;utilisateur &ldquo;olivier&rdquo; par le votre):</p>
+<pre><code>wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+</code></pre><br/>
+<p>Une fois téléchargé, il faut exécuter le script dans le terminal et suivre les instructions affichées à l&rsquo;écran:</p>
+<pre><code>bash Miniconda3-latest-MacOSX-x86_64.sh
+</code></pre><br/>
+<p>Si comme moi vous utilisez ohmyzsh à la place bash, ajoutez la ligne suivante dans le fichier ~/.zshrc (prenez soin de changer l&rsquo;utilisateur &ldquo;olivier&rdquo; par le votre):</p>
 <pre><code># added by Miniconda3 installer
 export PATH=&quot;/Users/olivier/miniconda3/bin:$PATH&quot;
-</code></pre><p>Rechargez votre terminal pour prendre en compte la modification.</p>
-<pre><code>$ source ~/.zshrc
-</code></pre><p>Vérifiez enfin que l&rsquo;installation s&rsquo;est bien déroulée:</p>
-<pre><code>$ conda -V
-</code></pre><h2 id="commandes-conda-utiles">Commandes Conda utiles</h2>
+</code></pre><br/>
+<p>Rechargez votre terminal pour prendre en compte la modification.</p>
+<pre><code>source ~/.zshrc
+</code></pre><br/>
+<p>Vérifiez enfin que l&rsquo;installation s&rsquo;est bien déroulée:</p>
+<pre><code>conda -V
+</code></pre><br/>
+<h2 id="commandes-conda-utiles">Commandes Conda utiles</h2>
 <p><strong>Lister les environnements virtuels</strong></p>
-<pre><code>$ conda env list
-</code></pre><p><strong>Supprimer un environnement et tous les packages</strong></p>
-<pre><code>$ conda env remove --name nom-environnement
-</code></pre><p><strong>Sortir de l&rsquo;environnement actuel</strong></p>
-<pre><code>$ source deactivate
-</code></pre><p>**Activer un environnement **</p>
-<pre><code>$ conda activate nom-environnement
-</code></pre><p><strong>Créer un environnement à partir d&rsquo;un fichier de config (.yml)</strong></p>
-<pre><code>$ conda env create -f environments.yml 
-</code></pre><p>Le fichier environnement ressemble à ceci:</p>
+<pre><code>conda env list
+</code></pre><br/>
+<p><strong>Supprimer un environnement et tous les packages</strong></p>
+<pre><code>conda env remove --name nom-environnement
+</code></pre><br/>
+<p><strong>Sortir de l&rsquo;environnement actuel</strong></p>
+<pre><code>source deactivate
+</code></pre><br/>
+<p><strong>Activer un environnement</strong></p>
+<pre><code>conda activate nom-environnement
+</code></pre><br/>
+<p><strong>Créer un environnement à partir d&rsquo;un fichier de config (.yml)</strong></p>
+<pre><code>conda env create -f environments.yml 
+</code></pre><br/>
+<p>Le fichier environnement ressemble à ceci:</p>
 <pre><code>name: self-driving
 channels:
     - https://conda.anaconda.org/menpo
@@ -437,7 +450,8 @@ dependencies:
         - moviepy
         - tensorflow==1.1
         - keras==1.2
-</code></pre><p>Voici la spécification des numéros de version des paquets du fichier de configuration:</p>
+</code></pre><br/>
+<p>Voici la spécification des numéros de version des paquets du fichier de configuration:</p>
 <ul>
 <li>Fuzzy: &ldquo;numpy=1.11&rdquo; (1.11.0, 1.11.1, 1.11.2, 1.11.18 etc.)</li>
 <li>Exact: &ldquo;numpy==1.11&rdquo; (1.11.0)</li>
@@ -456,7 +470,7 @@ dependencies:
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>403 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>393 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>04 Jun. 2017</p>
         </div>

@@ -408,6 +408,7 @@ for i in range(128):
     ax.text(0, 7, str(digits.target[i]))
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/mnist.png" alt="image"></p>
+<br/>
 <h1 id="visualisation-des-données">Visualisation des données</h1>
 <p>Pour beaucoup de problème, la première étape est de visualiser les données en utilisant une technique de réduction de dimensions. Pour se faire, l&rsquo;algorithme le plus simple est PCA (Principal Component Analysis)</p>
 <p>Cet algorithme cherche à trouver les combinaisons linéaires orthogonales qui ont la plus grande variance entre les <em>features</em> du dataset. Cela permet d&rsquo;avoir une bonne idée de la structure du dataset.</p>
@@ -419,6 +420,7 @@ plt.scatter(proj[:, 0], proj[:, 1], c=digits.target)
 plt.colorbar()
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/visu1.png" alt="image"></p>
+<br/>
 <h1 id="classifieur-naïf-bayésien">Classifieur naïf bayésien</h1>
 <blockquote>
 <p>A la base de la classification naïve bayésienne se trouve le théorème de Bayes avec l&rsquo;hypothèse simplificatrice, dite naïve, d&rsquo;indépendance entre toutes les paires de variables.
@@ -456,6 +458,7 @@ for i in range(128):
         ax.text(0, 7, str(predicted[i]), color='red')
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/mnist2.png" alt="image"></p>
+<br/>
 <h1 id="mesure-quantitative-de-la-performance-du-classifieur">Mesure quantitative de la performance du classifieur</h1>
 <p>Une première approche simple consisterait à calculer le pourcentage de bonnes prédictions du classifieur.</p>
 <pre><code>matches = (predicted == expected)

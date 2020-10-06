@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Ports accessibles ? Via Telnet Sur les anciens systèmes telnet est installé. Il suffit de faire:
-$ telnet hostname port Alternatives à telnet Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.
-NC $ nc -zv hostname port $ nc -zv 127.0.0.1 22 80 8080 # multiple ports $ nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u" />
+telnet hostname port  Alternatives à telnet Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.
+NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -295,23 +295,23 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Port accessible sur une machine distante et quels ports utilisés ?">
 <meta itemprop="description" content="Ports accessibles ? Via Telnet Sur les anciens systèmes telnet est installé. Il suffit de faire:
-$ telnet hostname port Alternatives à telnet Sur les machines plus récentes, telnet n&rsquo;est plus installé pour une question de sécurité. Il est alors possible d&rsquo;utiliser d&rsquo;autres outils.
-NC $ nc -zv hostname port $ nc -zv 127.0.0.1 22 80 8080 # multiple ports $ nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u">
+telnet hostname port  Alternatives à telnet Sur les machines plus récentes, telnet n&rsquo;est plus installé pour une question de sécurité. Il est alors possible d&rsquo;utiliser d&rsquo;autres outils.
+NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u">
 <meta itemprop="datePublished" content="2015-06-30T07:04:00+00:00" />
 <meta itemprop="dateModified" content="2015-06-30T07:04:00+00:00" />
-<meta itemprop="wordCount" content="234">
+<meta itemprop="wordCount" content="228">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
 
-<meta itemprop="keywords" content="Unix Tip," />
+<meta itemprop="keywords" content="Unix Tip,unix_tips," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Port accessible sur une machine distante et quels ports utilisés ?"/>
 <meta name="twitter:description" content="Ports accessibles ? Via Telnet Sur les anciens systèmes telnet est installé. Il suffit de faire:
-$ telnet hostname port Alternatives à telnet Sur les machines plus récentes, telnet n&rsquo;est plus installé pour une question de sécurité. Il est alors possible d&rsquo;utiliser d&rsquo;autres outils.
-NC $ nc -zv hostname port $ nc -zv 127.0.0.1 22 80 8080 # multiple ports $ nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u"/>
+telnet hostname port  Alternatives à telnet Sur les machines plus récentes, telnet n&rsquo;est plus installé pour une question de sécurité. Il est alors possible d&rsquo;utiliser d&rsquo;autres outils.
+NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u"/>
 
 
 
@@ -393,26 +393,31 @@ NC $ nc -zv hostname port $ nc -zv 127.0.0.1 22 80 8080 # multiple ports $ nc -z
 <h2 id="via-telnet">Via Telnet</h2>
 <p>Sur les anciens systèmes telnet est installé.
 Il suffit de faire:</p>
-<pre><code>$ telnet hostname port
-</code></pre><h2 id="alternatives-à-telnet">Alternatives à telnet</h2>
+<pre><code>telnet hostname port
+</code></pre><br/>
+<h2 id="alternatives-à-telnet">Alternatives à telnet</h2>
 <p>Sur les machines plus récentes, telnet n&rsquo;est plus installé pour une question de sécurité. Il est alors possible d&rsquo;utiliser d&rsquo;autres outils.</p>
 <h3 id="nc">NC</h3>
-<pre><code>$ nc -zv hostname port
-$ nc -zv 127.0.0.1 22 80 8080 # multiple ports
-$ nc -zv 127.0.0.1 20-30 # range of ports
+<pre><code>nc -zv hostname port
+nc -zv 127.0.0.1 22 80 8080 # multiple ports
+nc -zv 127.0.0.1 20-30 # range of ports
 </code></pre><blockquote>
 <p>Note: pour tester une port sur le protocole UDP, utiliser <code>nc -u</code></p>
 </blockquote>
+<br/>
 <h3 id="bash">bash</h3>
-<pre><code>$ cat &lt; /dev/tcp/hostname/port
+<pre><code>cat &lt; /dev/tcp/hostname/port
 -bash: connect: Connection refused # closed
-</code></pre><h3 id="curl">curl</h3>
-<pre><code>$ curl http://hostname:port
+</code></pre><br/>
+<h3 id="curl">curl</h3>
+<pre><code>curl http://hostname:port
+
 curl: (7) couldn't connect to host #closed
 curl: (7) Failed connect to hostname:port; Connection refused #closed
 ou
 curl: (56) Failure when receiving data from the peer #opened
-</code></pre><h2 id="nmap">Nmap</h2>
+</code></pre><br/>
+<h2 id="nmap">Nmap</h2>
 <pre><code># Usage: 
 # nmap [scan type(s)] [Options] {target(s)}
 sudo nmap -Pn -A 192.168.99.100
@@ -423,10 +428,12 @@ sudo nmap -Pn -A 192.168.99.100
 # -A: Aggressive &lt;=&gt; OS fingerprinting, service versions, traceroutes, runs script scans
 # -p &lt;port&gt;: pour scanner un port particulier
 </code></pre><p><img src="https://leandeep.com/images/syn-syn-ack-ack.png" alt="image"></p>
+<br/>
 <h1 id="quel-port-est-utilisé-par-un-service-">Quel port est utilisé par un service ?</h1>
 <p>Exemple avec le service ntp:</p>
 <pre><code>netstat -tulpn | grep ntpd
-</code></pre><p>On voit que le service ntp utilise le port 123:</p>
+</code></pre><br/>
+<p>On voit que le service ntp utilise le port 123:</p>
 <pre><code>udp 0 0 192.168.87.144:123 0.0.0.0:* 1885/ntpd
 udp 0 0 127.0.0.1:123 0.0.0.0:* 1885/ntpd
 udp 0 0 0.0.0.0:123 0.0.0.0:* 1885/ntpd
@@ -441,10 +448,10 @@ udp 0 0 :::123 :::* 1885/ntpd
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span><span class="tag"><a href="https://leandeep.com/tags/unix_tips">unix_tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>234 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>228 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>30 Jun. 2015</p>
         </div>

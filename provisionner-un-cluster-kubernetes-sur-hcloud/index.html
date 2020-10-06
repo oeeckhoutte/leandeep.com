@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&amp;rsquo;est parfait quand on n&amp;rsquo;est pas en production.
-Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)" />
+ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube   Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,10 +294,10 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Provisionner un cluster Kubernetes sur HCloud">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.
-Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)">
+ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube   Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)">
 <meta itemprop="datePublished" content="2019-01-02T00:45:00+00:00" />
 <meta itemprop="dateModified" content="2019-01-02T00:45:00+00:00" />
-<meta itemprop="wordCount" content="1433">
+<meta itemprop="wordCount" content="1442">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -308,7 +308,7 @@ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository h
 
 <meta name="twitter:title" content="Provisionner un cluster Kubernetes sur HCloud"/>
 <meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.
-Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube  Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)"/>
+ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube   Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)"/>
 
 
 
@@ -386,15 +386,17 @@ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository h
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
+                <h2 id="introduction">Introduction</h2>
 <p>Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur <a href="https://console.hetzner.cloud">HCloud</a>.
 Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.</p>
-<h1 id="pré-requis">Pré-requis</h1>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
 <ul>
 <li>Installer Go</li>
 <li>Installer le binaire Go disponible sur le repository <a href="https://github.com/xetys/hetzner-kube">https://github.com/xetys/hetzner-kube</a></li>
 </ul>
-<h1 id="déploiement-du-cluster">Déploiement du cluster</h1>
+<br/>
+<h2 id="déploiement-du-cluster">Déploiement du cluster</h2>
 <p>Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</p>
 <p>Ensuite créez un projet sur <a href="https://console.hetzner.cloud">HCloud</a>.</p>
 <p>Une fois le projet créé, créer un token API et gardez le précieusement.</p>
@@ -419,16 +421,18 @@ hetzner-kube cluster kubeconfig demo -f
 NAME             STATUS    ROLES     AGE       VERSION
 demo-master-01   Ready     master    1h        v1.9.6
 demo-worker-01   Ready     &lt;none&gt;    1h        v1.9.6
-</code></pre><h1 id="installation-dopenebs">Installation d&rsquo;OpenEBS</h1>
+</code></pre><br/>
+<h2 id="installation-dopenebs">Installation d&rsquo;OpenEBS</h2>
 <p>Installation de l&rsquo;operator et de la storageclass:</p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-operator.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-storageclasses.yaml
 </code></pre><p>On définit la nouvelle storageclass comme classe par défaut:</p>
 <pre><code>kubectl patch storageclass openebs-standard -p '{&quot;metadata&quot;: {&quot;annotations&quot;:{&quot;storageclass.kubernetes.io/is-default-class&quot;:&quot;true&quot;}}}'
-</code></pre><h1 id="installation-dun-ingress-controller">Installation d&rsquo;un Ingress Controller</h1>
-<h2 id="traefik-ingress">Traefik Ingress</h2>
-<h3 id="1-création-des-rôles-rbac">1. Création des Rôles (RBAC):</h3>
+</code></pre><br/>
+<h2 id="installation-dun-ingress-controller">Installation d&rsquo;un Ingress Controller</h2>
+<h3 id="traefik-ingress">Traefik Ingress</h3>
+<p><strong>1. Création des Rôles (RBAC):</strong></p>
 <pre><code>kubectl apply -f   https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-rbac.yaml</code> :</p>
 <pre><code>---
@@ -468,7 +472,8 @@ subjects:
 - kind: ServiceAccount
   name: traefik-ingress-controller
   namespace: kube-system
-</code></pre><h3 id="2-déployement-de-traefik-via-deployment-ou-daemonset">2. Déployement de traefik via Deployment ou DaemonSet</h3>
+</code></pre><br/>
+<p><strong>2. Déployement de traefik via Deployment ou DaemonSet</strong></p>
 <p><strong>Option 1: via Deployment (permet de créer un nodePort)</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-deployment.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-deployment.yaml</code>:</p>
@@ -528,7 +533,8 @@ spec:
       port: 8080
       name: admin
   type: NodePort
-</code></pre><p><strong>Option 2: via DaemonSet (sera indispensable pour la suite du tuto)</strong></p>
+</code></pre><br/>
+<p><strong>Option 2: via DaemonSet (sera indispensable pour la suite du tuto)</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-ds.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-ds.yaml</code> :</p>
 <pre><code>---
@@ -590,9 +596,11 @@ spec:
     - protocol: TCP
       port: 8080
       name: admin
-</code></pre><h3 id="3-vérification-du-déploiement">3. Vérification du déploiement</h3>
+</code></pre><br/>
+<p><strong>3. Vérification du déploiement</strong></p>
 <pre><code>kubectl --namespace=kube-system get pods
-</code></pre><h3 id="4-déploiement-de-linterface-dadmin-de-traefik">4. Déploiement de l&rsquo;interface d&rsquo;admin de Traefik</h3>
+</code></pre><br/>
+<p><strong>4. Déploiement de l&rsquo;interface d&rsquo;admin de Traefik</strong></p>
 <p>Via un service:</p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml
 </code></pre><p>Contenu du fichier distant <code>ui.yaml</code> :</p>
@@ -624,9 +632,11 @@ spec:
         backend:
           serviceName: traefik-web-ui
           servicePort: web
-</code></pre><h3 id="5-accès-à-linterface-traefik-en-dev">5. Accès à l&rsquo;interface Traefik en dev</h3>
+</code></pre><br/>
+<p><strong>5. Accès à l&rsquo;interface Traefik en dev</strong></p>
 <pre><code>echo &quot;ip_dun_worker traefik-ui.minikube&quot; | sudo tee -a /etc/hosts
-</code></pre><h3 id="6-vérification-du-bon-fonctionnement-de-lingress">6. Vérification du bon fonctionnement de l&rsquo;ingress</h3>
+</code></pre><br/>
+<p><strong>6. Vérification du bon fonctionnement de l&rsquo;ingress</strong></p>
 <p><strong>6.1. Déploiement de 3 apps de test</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-deployments.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-deployments.yaml</code> :</p>
@@ -729,7 +739,8 @@ spec:
             memory: 50Mi
         ports:
         - containerPort: 80
-</code></pre><p><strong>6.2. Création des 3 services</strong></p>
+</code></pre><br/>
+<p><strong>6.2. Création des 3 services</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-services.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-services.yaml</code> :</p>
 <pre><code>---
@@ -771,7 +782,8 @@ spec:
   selector:
     app: cheese
     task: wensleydale
-</code></pre><p><strong>6.3. Création de l&rsquo;ingress</strong></p>
+</code></pre><br/>
+<p><strong>6.3. Création de l&rsquo;ingress</strong></p>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-ingress.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-ingress.yaml</code> :</p>
 <pre><code>apiVersion: extensions/v1beta1
@@ -801,21 +813,27 @@ spec:
         backend:
           serviceName: wensleydale
           servicePort: http
-</code></pre><h3 id="accès-aux-3-apps-en-dev">Accès aux 3 apps en dev</h3>
+</code></pre><br/>
+<p><strong>Accès aux 3 apps en dev</strong></p>
 <pre><code>echo &quot;116.203.33.4 stilton.minikube cheddar.minikube wensleydale.minikube&quot; | sudo tee -a /etc/hosts
-</code></pre><h2 id="ingress-nginx">Ingress Nginx</h2>
+</code></pre><br/>
+<h3 id="ingress-nginx">Ingress Nginx</h3>
 <p>Voir le tuto: <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md">https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md</a></p>
-<h1 id="déploiement-dune-app-via-helm">Déploiement d&rsquo;une app via helm</h1>
-<h2 id="installation-du-tiller">Installation du tiller</h2>
+<br/>
+<h2 id="déploiement-dune-app-via-helm">Déploiement d&rsquo;une app via helm</h2>
+<p><strong>Installation du tiller</strong></p>
 <pre><code>helm init --service-account tiller
-</code></pre><h2 id="création-dun-service-account">Création d&rsquo;un service account</h2>
+</code></pre><br/>
+<p><strong>Création d&rsquo;un service account</strong></p>
 <pre><code>kubectl create serviceaccount --namespace kube-system tiller
 # Ajout des droits sur l'ensemble du cluster pour pouvoir déployer dans les différents namespaces
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceaccount&quot;:&quot;tiller&quot;}}}}'
-</code></pre><h2 id="déploiement">Déploiement</h2>
+</code></pre><br/>
+<p><strong>Déploiement</strong></p>
 <p>Pour accéder à une application il y a différente possibilités.</p>
-<p><strong>Accès via Nodeport</strong></p>
+<br/>
+<p><strong>Déploiement option 1: Accès via Nodeport</strong></p>
 <p>Déploiement d&rsquo;un nodeport:
 <img src="https://leandeep.com/images/nodeport.png" alt="image"></p>
 <pre><code>kubectl expose deployment hello-world --type=NodePort --name=example-service
@@ -833,11 +851,13 @@ Hello Kubernetes!
 <li>LoadBalancer</li>
 <li>Ingress</li>
 </ul>
-<p><strong>Accès via LoadBalancer</strong> (si votre IAAS est capable de vous fournir un Load Balancer à la demande)</p>
+<br/>
+<p><strong>Déploiement option 2: Accès via LoadBalancer</strong> (si votre IAAS est capable de vous fournir un Load Balancer à la demande)</p>
 <p><img src="https://leandeep.com/images/loadbalancer.png" alt="image"></p>
 <p>Egalement assez simple à mettre en place, il est possible de spécifier dans le YAML qu&rsquo;un service est de type LoadBalancer.
 Par contre, la fonctionnalité de load balancing doit être implémentée à l&rsquo;extérieur par le cloud provider. Attention donc aux coûts (i.e. GKE) car à chaque fois que vous aurez à exposer un service au monde extérieur vous devrez créer un nouveau load balancer et obtenir une adresse IP.</p>
-<p><strong>Accès via Ingress</strong></p>
+<br/>
+<p><strong>Déploiement option 3: Accès via Ingress</strong></p>
 <p><img src="https://leandeep.com/images/ingress.png" alt="image"></p>
 <p>Contrairement au <code>NodePort</code> and au <code>LoadBalancer</code>, l'<code>Ingress</code> est une ressource complètement indépendante du service. On déclare, crée et détruit l&rsquo;ingress indépendament des services.</p>
 <p>C&rsquo;est donc découplé et isolé des services que l&rsquo;on veut exposer. Cela permet, entre autres, de mieux gérer les rêgles de routage.</p>
@@ -859,7 +879,8 @@ spec:
     servicePort: 80
 </code></pre><p>Puis on applique:</p>
 <pre><code>kubectl apply -f ingress.yaml
-</code></pre><h1 id="etendre-le-cluster">Etendre le cluster</h1>
+</code></pre><br/>
+<h2 id="etendre-le-cluster">Etendre le cluster</h2>
 <p>Pour ajouter des workers au cluster existant:</p>
 <pre><code>hetzner-kube cluster add-worker --worker-server-type cx21 --datacenters nbg1-dc3 --name demo --nodes 1
 
@@ -875,7 +896,7 @@ spec:
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span><span class="tag"><a href="https://leandeep.com/tags/hcloud">HCloud</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1433 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1442 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 Jan. 2019</p>
         </div>

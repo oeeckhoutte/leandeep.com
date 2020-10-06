@@ -7,7 +7,7 @@
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Pipenv est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels. C&amp;rsquo;est l&amp;rsquo;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
 Voici comment utiliser pipenv avec Visual Studio Code.
-Virtual environment création &amp;amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&amp;rsquo;excuter la commande pipenv install --dev --python version_installee_par_pyenv." />
+ Virtual environment création &amp;amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&amp;rsquo;excuter la commande pipenv install --dev --python version_installee_par_pyenv." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -296,7 +296,7 @@ function toTitleCase(str) {
 <meta itemprop="name" content="VSCode et les pipenv">
 <meta itemprop="description" content="Introduction Pipenv est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels. C&rsquo;est l&rsquo;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
 Voici comment utiliser pipenv avec Visual Studio Code.
-Virtual environment création &amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&rsquo;excuter la commande pipenv install --dev --python version_installee_par_pyenv.">
+ Virtual environment création &amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&rsquo;excuter la commande pipenv install --dev --python version_installee_par_pyenv.">
 <meta itemprop="datePublished" content="2019-05-22T18:19:00+00:00" />
 <meta itemprop="dateModified" content="2019-05-22T18:19:00+00:00" />
 <meta itemprop="wordCount" content="536">
@@ -311,7 +311,7 @@ Virtual environment création &amp; pipenv installation Imaginez que vous clonie
 <meta name="twitter:title" content="VSCode et les pipenv"/>
 <meta name="twitter:description" content="Introduction Pipenv est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels. C&rsquo;est l&rsquo;équivalent de npm en NodeJS. Il est un peu plus avancé que les virtualenv.
 Voici comment utiliser pipenv avec Visual Studio Code.
-Virtual environment création &amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&rsquo;excuter la commande pipenv install --dev --python version_installee_par_pyenv."/>
+ Virtual environment création &amp; pipenv installation Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&rsquo;excuter la commande pipenv install --dev --python version_installee_par_pyenv."/>
 
 
 
@@ -393,11 +393,13 @@ Virtual environment création &amp; pipenv installation Imaginez que vous clonie
 <p><code>Pipenv</code> est un utilitaire pratique permettant de gérer facilement les dépendances de ses projets avec des environnements virtuels.
 C&rsquo;est l&rsquo;équivalent de <code>npm</code> en NodeJS. Il est un peu plus avancé que les <code>virtualenv</code>.</p>
 <p>Voici comment utiliser pipenv avec Visual Studio Code.</p>
+<br/>
 <h2 id="virtual-environment-création--pipenv-installation">Virtual environment création &amp; pipenv installation</h2>
 <p>Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&rsquo;excuter la commande <code>pipenv install --dev --python version_installee_par_pyenv</code>. Cette commande va créer un environnement virtuel dans le répertoire suivant <code>~/.local/share/virtualenvs/</code> ou dans <code>~/.virtualenvs/</code> en fonction de votre OS et paramètres d&rsquo;installation.</p>
 <blockquote>
 <p>Bien sûr pipenv doit être installé sur votre poste. Pour se faire, il suffit d&rsquo;exécuter la commande suivante: <code>pip3 install --user pipenv</code>.</p>
 </blockquote>
+<br/>
 <h2 id="pyenv">pyenv</h2>
 <p>Pyenv vous permet d&rsquo;installer des versions de Python très facilement. C&rsquo;est l&rsquo;équivalent de <code>nvm</code> en NodeJS.</p>
 <p>Par exemple <code>pyenv install 3.7.1</code> permet de télécharger et d&rsquo;installer Python 3.7.1 sur son poste.</p>
@@ -424,10 +426,12 @@ export CPPFLAGS=&quot;$CPPFLAGS -I/usr/local/opt/sqlite/include&quot;
 # For pkg-config to find zlib and sqlite you may need to set:
 export PKG_CONFIG_PATH=&quot;$PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig&quot;
 export PKG_CONFIG_PATH=&quot;$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfig&quot;
-</code></pre><h2 id="vscode-config">VSCode config</h2>
+</code></pre><br/>
+<h2 id="vscode-config">VSCode config</h2>
 <p>Exécutez la commande suivante pour configurer VSCode pour votre projet:</p>
 <pre><code>mkdir .vscode &amp;&amp; touch .vscode/settings.json
-</code></pre><p><strong>Contenu du fichier <code>.vscode/settings.json</code></strong>. Je suppose que vos tests sont réalisés avec Pytest:</p>
+</code></pre><br/>
+<p><strong>Contenu du fichier <code>.vscode/settings.json</code></strong>. Je suppose que vos tests sont réalisés avec Pytest:</p>
 <pre><code>{
     &quot;python.pythonPath&quot;: &quot;/Users/olivier/.virtualenvs/MON_VIRTUAL_ENV/bin/python&quot;,
     &quot;python.linting.enabled&quot;: true,
@@ -445,22 +449,27 @@ export PKG_CONFIG_PATH=&quot;$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfi
 <blockquote>
 <p>Si vous allez dans l&rsquo;onglet Tests dans VScode et que vos tests sont automatiquement détectés, c&rsquo;est que tout est bien configuré.</p>
 </blockquote>
+<br/>
 <h2 id="alternative-virtualenvwrapper">Alternative (virtualenvwrapper)</h2>
 <p>Utiliser Virtualenvwrapper <a href="https://virtualenvwrapper.readthedocs.io">https://virtualenvwrapper.readthedocs.io</a>. Cela fonctionne extrèmement bien.</p>
+<br/>
 <p>Pour créer un environnement il suffit d&rsquo;utiliser la commande suivante:</p>
 <pre><code>mkvirtualenv -p /usr/local/bin/python3.7 -a . ai_env
-</code></pre><p>Pour dire à VSCode de proposer un interprêteur Python créé dans un virtualenv(wrapper) lorsque l&rsquo;on exécute la commande <code>cmd + shift + p --&gt; Python: Select interpreter</code>, il suffit de lui ajouter la variable globale ci-dessous et de le redémarrer.</p>
+</code></pre><br/>
+<p>Pour dire à VSCode de proposer un interprêteur Python créé dans un virtualenv(wrapper) lorsque l&rsquo;on exécute la commande <code>cmd + shift + p --&gt; Python: Select interpreter</code>, il suffit de lui ajouter la variable globale ci-dessous et de le redémarrer.</p>
 <pre><code>&quot;python.venvPath&quot;: &quot;$HOME/.virtualenvs&quot;,
 
 # ou un autre répertoire si vous avez configuré autre chose comme répertoire par défaut pour virtualenvwrapper dans votre ~/.zshrc...
-</code></pre><h2 id="quick-tip">Quick tip</h2>
+</code></pre><br/>
+<h2 id="quick-tip">Quick tip</h2>
 <p>Il est possible de convertir un fichier <code>Pipfile.lock</code> en <code>requirements.txt</code> grâce à la commande suivante:</p>
 <pre><code>jq -r '.default
         | to_entries[]
         | .key + .value.version' \
     Pipfile.lock &gt; requirements.txt
     
-</code></pre><p>Le petit alias qui va bien pour son <code>~/.zshrc</code>:</p>
+</code></pre><br/>
+<p>Le petit alias qui va bien pour son <code>~/.zshrc</code>:</p>
 <pre><code>alias pipfile_to_requirements='
 jq -r &quot;.default
         | to_entries[]

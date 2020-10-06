@@ -388,6 +388,7 @@ OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développ
             <div class="post-content">
                 <p>Comme l&rsquo;installatin d&rsquo;OpenCV n&rsquo;est vraiment pas aisée. J&rsquo;ai donc décidé d&rsquo;écrire cet article. Si vous suivez cette procédure vous devriez pouvoir faire tourner OpenCV 3 sur OSX High Sierra dans un environnement virtuel.</p>
 <p>OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développeurs Python utilisent encore la version 2, j&rsquo;ai décidé de faire 2 tutoriaux. Il y a celui-ci pour Python 2.7.x et il y en un autre pour <a href="http://blog.leandeep.com/installer-python-3-et-opencv-3-sur-os-x/">installer OpenCV 3 pour Python 3.5.x</a>.</p>
+<br/>
 <h2 id="pré-requis">Pré-requis</h2>
 <ul>
 <li>Xcode doit être installé</li>
@@ -395,6 +396,7 @@ OpenCV 3 est bien sûr compatible avec Python 3 mais comme beaucoup de développ
 <li>Les commandes lines tools ont déjà été installés. Si ce n&rsquo;est pas le cas exécutez la commande suivante: $ sudo xcode-select &ndash;install</li>
 <li><a href="https://brew.sh/index_fr.html">Homebrew</a> doit être installé</li>
 </ul>
+<br/>
 <h2 id="installer-python">Installer Python</h2>
 <p>Même si Python est déjà installé sur votre Mac, installez le une nouvelle fois avec Homebrew:</p>
 <pre><code>$ brew install python
@@ -409,13 +411,15 @@ export PATH=&quot;/usr/local/opt/python/libexec/bin:$PATH&quot;
 Vérifiez aussi que ce sont bien les nouvelles versions de Python et pip qui sont utilisées</p>
 <pre><code>$ which python
 $ which pip
-</code></pre><h2 id="installer-les-packages-de-création-denvironnements-virtuels">Installer les packages de création d&rsquo;environnements virtuels</h2>
+</code></pre><br/>
+<h2 id="installer-les-packages-de-création-denvironnements-virtuels">Installer les packages de création d&rsquo;environnements virtuels</h2>
 <p>Les packages virtualenv et virtualenvwrapper vont vous permettre de créer environnements Python différents. Tout est isolé; vous pouvez avoir des librairies différentes dans chaque environnement. C&rsquo;est extrèmement pratique; je le recommande fortement.</p>
 <pre><code>$ pip install virtualenv virtualenvwrapper # /!\ il se peut que sudo soit nécessaire
 </code></pre><p>Ajoutez les lignes suivantes dans votre ~/.zshrc (ou ~/.bash_profile)</p>
 <pre><code># Support d'environnement virtuel pour Python 2
 source /usr/local/bin/virtualenvwrapper.sh
 </code></pre><p>Une fois ces lignes ajoutées, &ldquo;rechargez&rdquo; votre terminal en exécutant la commande $ source ~/.zshrc ($ source ~/.bash_profile)</p>
+<br/>
 <h2 id="créer-un-environnement-virtuel">Créer un environnement virtuel</h2>
 <p>Pour créer un nouvel environement, il suffit d&rsquo;utiliser la commande suivante. Afin de vous y retrouver avec les différents environnement, je vous conseille d&rsquo;utiliser un nom court et très explicite avec les numéros de version.</p>
 <pre><code>$ mkvirtualenv py2_cv3
@@ -426,17 +430,20 @@ Par défault vous n&rsquo;êtes pas dans l&rsquo;environnement Python que vous a
 <p>Si vous souhaitez quitter votre environnement virtuel utilisez la commande suivante:</p>
 <pre><code>$ deactivate
 </code></pre><p><em>Pour tout ce qui suit, travaillez dans le nouvel environnement virtuel que l&rsquo;on vient de créer</em></p>
+<br/>
 <h2 id="installer-numpy">Installer Numpy</h2>
 <p>Numpy est une bibliothèque très connue de calculs scientiques nécessaire pour OpenCV.</p>
 <pre><code>pip install numpy
-</code></pre><h2 id="installer-les-pré-requis-à-opencv-3">Installer les pré-requis à OpenCV 3</h2>
+</code></pre><br/>
+<h2 id="installer-les-pré-requis-à-opencv-3">Installer les pré-requis à OpenCV 3</h2>
 <p>Pour qu&rsquo;on OpenCV 3 fonctionne certains pré-requis sont nécessaires.
 Heureusement l&rsquo;installation de ces pré-requis est aisée grâce à Homebrew.</p>
 <pre><code>$ brew install cmake pkg-config # Nécessaire pour compiler OpenCV
 $ brew install jpeg libpng libtiff openexr # Nécessaire pour manipuler les images 
 $ brew install eigen # Nécessaire pour faire des calculs algébriques
 $ brew install tbb # Nécessaire pour faire les calculs parallèles
-</code></pre><h2 id="installer-opencv">Installer OpenCV</h2>
+</code></pre><br/>
+<h2 id="installer-opencv">Installer OpenCV</h2>
 <p>Commencez par télécharger OpenCV. Il y a 2 repositories git à cloner.
 (Vous n&rsquo;avez pas besoin de tout l&rsquo;historique du repository)</p>
 <pre><code>$ cd
@@ -471,7 +478,8 @@ $ cd /usr/local/lib/python2.7/site-packages/
 $ ls -l | grep cv2.so # Vérifiez que le fichier cv2.so est bien présent
 $ cd ~/.virtualenvs/py2_cv3/lib/python2.7/site-packages/
 $ ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
-</code></pre><h2 id="vérification-de-linstallation">Vérification de l&rsquo;installation</h2>
+</code></pre><br/>
+<h2 id="vérification-de-linstallation">Vérification de l&rsquo;installation</h2>
 <p>Ouvrez un nouveau terminal et vérifiez que l&rsquo;installation d&rsquo;OpenCV fonctionne dans votre environnement virtuel.</p>
 <pre><code>$ workon py2_cv3
 $ python

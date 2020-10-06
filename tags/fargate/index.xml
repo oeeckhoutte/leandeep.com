@@ -14,7 +14,7 @@
       
       <guid>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</guid>
       <description>Voici la procédure pour déployer des containers Docker sur Fargate.
-Rôle ecsTaskExecutionRole Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM. S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:
+ Rôle ecsTaskExecutionRole Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM. S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:
 Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
 { &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Principal&amp;quot;: { &amp;quot;Service&amp;quot;: &amp;quot;ecs-tasks.amazonaws.com&amp;quot; }, &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot; } ] } Créer une tâche d&amp;rsquo;exécution de rôle:
 aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&amp;rsquo;exécution de rôle:</description>

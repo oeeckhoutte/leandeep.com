@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Lister les utilisateurs ayant le rôle cluster-admin A partir de 3.9:
-oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | startswith(&amp;quot;cluster-admin&amp;quot;)) | .userNames&#39; Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt; Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt; Lister les pods en erreur (ou n&amp;rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &#39;!/Running/ {print}&#39; Lister les pods en erreur par namespace oc get pods --all-namespaces | awk &#39;!" />
+oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | startswith(&amp;quot;cluster-admin&amp;quot;)) | .userNames&#39;  Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt;  Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt;  Lister les pods en erreur (ou n&amp;rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &#39;!" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Commandes custom utiles Openshift">
 <meta itemprop="description" content="Lister les utilisateurs ayant le rôle cluster-admin A partir de 3.9:
-oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | startswith(&quot;cluster-admin&quot;)) | .userNames&#39; Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &lt;cluster-role&gt; &lt;user&gt; Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &lt;cluster-role&gt; &lt;user&gt; Lister les pods en erreur (ou n&rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &#39;!/Running/ {print}&#39; Lister les pods en erreur par namespace oc get pods --all-namespaces | awk &#39;!">
+oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | startswith(&quot;cluster-admin&quot;)) | .userNames&#39;  Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &lt;cluster-role&gt; &lt;user&gt;  Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &lt;cluster-role&gt; &lt;user&gt;  Lister les pods en erreur (ou n&rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &#39;!">
 <meta itemprop="datePublished" content="2019-06-25T09:43:00+00:00" />
 <meta itemprop="dateModified" content="2019-06-25T09:43:00+00:00" />
 <meta itemprop="wordCount" content="123">
@@ -308,7 +308,7 @@ oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | s
 
 <meta name="twitter:title" content="Commandes custom utiles Openshift"/>
 <meta name="twitter:description" content="Lister les utilisateurs ayant le rôle cluster-admin A partir de 3.9:
-oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | startswith(&quot;cluster-admin&quot;)) | .userNames&#39; Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &lt;cluster-role&gt; &lt;user&gt; Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &lt;cluster-role&gt; &lt;user&gt; Lister les pods en erreur (ou n&rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &#39;!/Running/ {print}&#39; Lister les pods en erreur par namespace oc get pods --all-namespaces | awk &#39;!"/>
+oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | startswith(&quot;cluster-admin&quot;)) | .userNames&#39;  Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &lt;cluster-role&gt; &lt;user&gt;  Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &lt;cluster-role&gt; &lt;user&gt;  Lister les pods en erreur (ou n&rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &#39;!"/>
 
 
 
@@ -389,17 +389,23 @@ oc get clusterrolebinding -o json | jq &#39;.items[] | select(.metadata.name | s
                 <h2 id="lister-les-utilisateurs-ayant-le-rôle-cluster-admin">Lister les utilisateurs ayant le rôle cluster-admin</h2>
 <p><em>A partir de 3.9</em>:</p>
 <pre><code>oc get clusterrolebinding -o json | jq '.items[] | select(.metadata.name |  startswith(&quot;cluster-admin&quot;)) | .userNames'
-</code></pre><h2 id="ajouter-un-rôle-cluster-à-un-utilisateur">Ajouter un rôle cluster à un utilisateur</h2>
+</code></pre><br/>
+<h2 id="ajouter-un-rôle-cluster-à-un-utilisateur">Ajouter un rôle cluster à un utilisateur</h2>
 <pre><code>oc adm policy add-cluster-role-to-user &lt;cluster-role&gt; &lt;user&gt;
-</code></pre><h2 id="retirer-un-rôle-cluster-à-un-utilisateur">Retirer un rôle cluster à un utilisateur</h2>
+</code></pre><br/>
+<h2 id="retirer-un-rôle-cluster-à-un-utilisateur">Retirer un rôle cluster à un utilisateur</h2>
 <pre><code>oc adm policy remove-cluster-role-from-user &lt;cluster-role&gt; &lt;user&gt;
-</code></pre><h2 id="lister-les-pods-en-erreur-ou-nayant-pas-le-status-running">Lister les pods en erreur (ou n&rsquo;ayant pas le status Running)</h2>
+</code></pre><br/>
+<h2 id="lister-les-pods-en-erreur-ou-nayant-pas-le-status-running">Lister les pods en erreur (ou n&rsquo;ayant pas le status Running)</h2>
 <pre><code>oc get pods --all-namespaces | awk '!/Running/ {print}'
-</code></pre><h2 id="lister-les-pods-en-erreur-par-namespace">Lister les pods en erreur par namespace</h2>
+</code></pre><br/>
+<h2 id="lister-les-pods-en-erreur-par-namespace">Lister les pods en erreur par namespace</h2>
 <pre><code>oc get pods --all-namespaces | awk '!/Running/ {print}' | awk 'NR&gt;1{arr[$1]++}END{for (a in arr) print a, arr[a]}' | sort -nrk2
-</code></pre><h2 id="ne-garder-que-2-déploiements">Ne garder que 2 déploiements</h2>
+</code></pre><br/>
+<h2 id="ne-garder-que-2-déploiements">Ne garder que 2 déploiements</h2>
 <pre><code>oc adm prune deployments --orphans --keep-failed=2 --keep-complete=2  --confirm
-</code></pre><h2 id="ne-garder-que-2-builds">Ne garder que 2 builds</h2>
+</code></pre><br/>
+<h2 id="ne-garder-que-2-builds">Ne garder que 2 builds</h2>
 <pre><code>oc adm prune builds --orphans --keep-failed=2 --keep-complete=2  --confirm
 </code></pre>
             </div>

@@ -432,7 +432,8 @@ def load_config(config_path):
     assert parsed_config['hello'] == 'olivier'
     assert parsed_config['titi'] == 'tata'
 
-</code></pre><h2 id="parametrize-tests-with-fixtures">Parametrize tests with fixtures</h2>
+</code></pre><br/>
+<h2 id="parametrize-tests-with-fixtures">Parametrize tests with fixtures</h2>
 <p><strong>Option 1</strong></p>
 <p>Exemple:</p>
 <pre><code>import pytest
@@ -476,7 +477,8 @@ E         + 0
 
 test_tmp.py:15: AssertionError
 ============================================================================================== 1 failed, 2 passed in 0.08 seconds ===============================================================================================
-</code></pre><p><strong>Option 2</strong></p>
+</code></pre><br/>
+<p><strong>Option 2</strong></p>
 <p>Example</p>
 <pre><code>import pytest
 
@@ -492,6 +494,7 @@ def test_integer_to_binary(input, expectedResult):
     assert expectedResult == integer_to_binary(input)
     
 </code></pre><p>Same Output.</p>
+<br/>
 <h2 id="scopes-des-fixtures">Scopes des fixtures</h2>
 <p><strong>Une fixture peut avoir plusieurs scopes: test, module ou session.</strong></p>
 <p>Exemple de fixture au niveau des tests:</p>
@@ -520,7 +523,8 @@ def user():
 
 ...
 
-</code></pre><h2 id="tagger-ses-tests-avec-des-fixtures">Tagger ses tests avec des fixtures</h2>
+</code></pre><br/>
+<h2 id="tagger-ses-tests-avec-des-fixtures">Tagger ses tests avec des fixtures</h2>
 <p>Exemple:</p>
 <pre><code>import pytest
 import math_func
@@ -533,7 +537,8 @@ def test_add_strings():
 
 </code></pre><p>Appeler les tests ayant un tag particulier:</p>
 <pre><code>pytest -v -m strings
-</code></pre><h2 id="skipper-un-test-grâce-à-un-tag">Skipper un test (grâce à un tag)</h2>
+</code></pre><br/>
+<h2 id="skipper-un-test-grâce-à-un-tag">Skipper un test (grâce à un tag)</h2>
 <p><strong>Simple skip</strong></p>
 <p>Exemple:</p>
 <pre><code>import pytest
@@ -547,7 +552,8 @@ def test_add_strings():
 
 </code></pre><p>Exécution:</p>
 <pre><code>pytest -v
-</code></pre><p><strong>skipif</strong></p>
+</code></pre><br/>
+<p><strong>skipif</strong></p>
 <p>Exemple:</p>
 <pre><code>import pytest
 import math_func
@@ -561,7 +567,8 @@ def test_add_strings():
 
 </code></pre><p>Exécution:</p>
 <pre><code>pytest -v
-</code></pre><h2 id="code-dinitialisation-et-de-clôture-des-tests">Code d&rsquo;initialisation et de clôture des tests</h2>
+</code></pre><br/>
+<h2 id="code-dinitialisation-et-de-clôture-des-tests">Code d&rsquo;initialisation et de clôture des tests</h2>
 <p><strong>Option 1: Setup and Teardown</strong></p>
 <p>Exemple de code de setup (Connection à une BDD par exemple):</p>
 <p>Au lieu de:</p>
@@ -592,7 +599,8 @@ def test_olivier_data():
 <p>Exemple:</p>
 <pre><code>def teardown_module(module):
 	db.close()
-</code></pre><p><strong>Option 2: Avec des Fixtures avec un scope module et un générateur</strong></p>
+</code></pre><br/>
+<p><strong>Option 2: Avec des Fixtures avec un scope module et un générateur</strong></p>
 <p>On peut réécrire le code précédent avec des fixtures.</p>
 <pre><code>import pytest
 
@@ -611,19 +619,22 @@ def test_olivier_data(db):
     assert olivier_data['id'] == 1
     assert olivier_data['name'] == 'Olivier'
 
-</code></pre><h2 id="exécuter-les-tests-en-parallèle">Exécuter les tests en parallèle</h2>
+</code></pre><br/>
+<h2 id="exécuter-les-tests-en-parallèle">Exécuter les tests en parallèle</h2>
 <p>Le paquet suivant est nécessaire:</p>
 <pre><code>pip install pytest-xdist
 </code></pre><p>Puis pour exécuter les tests en parallèle, il faut spécifier l&rsquo;option suivante au module pytest:</p>
 <pre><code>python -m pytest -v tests/ -n auto
 
 # ou python -m pytest -v tests/ -n 2
-</code></pre><h2 id="ajouter-du-code-coverage">Ajouter du code coverage</h2>
+</code></pre><br/>
+<h2 id="ajouter-du-code-coverage">Ajouter du code coverage</h2>
 <p>Installer le paquet suivant:</p>
 <pre><code>pip install pytest-cov
 </code></pre><p>Puis exécuter la commande:</p>
 <pre><code>python -m pytest -v --cov=path_to_analyze_coverage
-</code></pre><h2 id="configuration-files">Configuration files</h2>
+</code></pre><br/>
+<h2 id="configuration-files">Configuration files</h2>
 <ul>
 <li>
 <p>pytest.ini (permet par exemple de définir le rootdir des tests)</p>
@@ -632,16 +643,19 @@ def test_olivier_data(db):
 <p>conftest.py (exécuté automatiquement, c&rsquo;est un bon endroit pour écrire des fixtures)</p>
 </li>
 </ul>
+<br/>
 <h2 id="useful-commands">Useful commands:</h2>
 <p><strong>Run last failing test:</strong></p>
 <pre><code>python -m pytest -v --lf
 
 # ou pytest -v --lf
-</code></pre><p><strong>Display print statements:</strong></p>
+</code></pre><br/>
+<p><strong>Display print statements:</strong></p>
 <pre><code>python -v -s
 
 # ou pytest -v -s
-</code></pre><p><strong>Run one specific test:</strong></p>
+</code></pre><br/>
+<p><strong>Run one specific test:</strong></p>
 <pre><code>python -m pytest -v -k &quot;nom_du_test_complet_ou_regex&quot;
 
 # ou pytest -v -k &quot;nom_du_test_complet_ou_regex&quot;
@@ -651,23 +665,28 @@ def test_olivier_data(db):
 
 # And est également possible
 # ou pytest -v -k &quot;regex1 and regex2&quot;
-</code></pre><p><strong>Run one specific test in a particular file:</strong></p>
+</code></pre><br/>
+<p><strong>Run one specific test in a particular file:</strong></p>
 <pre><code>python -m pytest -v mon_fichier_de_test::nom_du_test
 
 # ou pytest -v mon_fichier_de_test::nom_du_test
-</code></pre><p><strong>Run one test file:</strong></p>
+</code></pre><br/>
+<p><strong>Run one test file:</strong></p>
 <pre><code>python -m pytest -v tests/votre_fichier_de_test.py
 
 # ou pytest -v tests/votre_fichier_de_test.py
-</code></pre><p><strong>Stopper l&rsquo;exécution des tests dès la première failure:</strong></p>
+</code></pre><br/>
+<p><strong>Stopper l&rsquo;exécution des tests dès la première failure:</strong></p>
 <pre><code>python -m pytest -v -x
 
 # ou pytest -v -x
-</code></pre><p><strong>Stopper l&rsquo;exécution des tests après x failed tests:</strong></p>
+</code></pre><br/>
+<p><strong>Stopper l&rsquo;exécution des tests après x failed tests:</strong></p>
 <pre><code>python -m pytest -v --maxfail=2
 
 # ou pytest -v --maxfail=2
 </code></pre><p>Voir les commandes disponibles: <a href="https://docs.pytest.org/en/latest/usage.html">https://docs.pytest.org/en/latest/usage.html</a></p>
+<br/>
 <h2 id="cool-pytest-plugins">Cool Pytest plugins</h2>
 <table>
 <thead>
@@ -731,6 +750,7 @@ def test_olivier_data(db):
 </tr>
 </tbody>
 </table>
+<br/>
 <h2 id="tricks">Tricks</h2>
 <p><strong>Créer et importer des <em>helper functions</em> dans les tests sans créer de package dans le dossier <code>tests</code></strong></p>
 <p>Par exemple, vous voulez créer ceci:</p>
@@ -759,6 +779,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'helpers'))
 <pre><code>[pytest]
 norecursedirs=tests/helpers
 </code></pre><p>Ce module sera accessible via <code>import utils</code>.</p>
+<br/>
 <p><strong>Avoir des modules de tests qui ont le même nom</strong></p>
 <p>Pour ce faire, il faut ajouter un fichier <code>__init__.py</code> dans le dossier <code>tests</code> ainsi que dans ses sous-répertoires. (Le répertoire <code>tests</code>devient donc un module):</p>
 <pre><code>setup.py
@@ -775,6 +796,7 @@ tests/
 
 </code></pre><p>Maintenant pytest va charger les modules comme ceci: <code>tests.foo.test_view</code> et <code>tests.bar.test_view</code>
 Cela permet d&rsquo;avoir des modules qui ont le même nom.</p>
+<br/>
 <p><strong>Organiser un grand nombre de fixtures</strong></p>
 <p>On peut par exemple ajouter les lignes suivantes dans le fichier <code>tests/unit/conftest.py</code>:</p>
 <pre><code>pytest_plugins = [
@@ -788,6 +810,7 @@ def foo():
     return 'foobar'
 
 </code></pre><p>(Il faudra également créer un fichier <code>__init__.py</code>)</p>
+<br/>
 <h2 id="outils">Outils</h2>
 <ul>
 <li>Reporting: <a href="http://allure.qatools.ru/">Allure</a></li>

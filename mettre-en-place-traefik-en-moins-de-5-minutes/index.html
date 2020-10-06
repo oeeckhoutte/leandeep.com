@@ -7,8 +7,7 @@
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
 Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &amp;quot;3." />
+ Installtion Docker-compose Créer un fichier docker-compose.yml:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -297,8 +296,7 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Mettre en place Traefik en moins de 5 minutes">
 <meta itemprop="description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
 Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &quot;3.">
+ Installtion Docker-compose Créer un fichier docker-compose.yml:">
 <meta itemprop="datePublished" content="2019-03-29T21:44:00+00:00" />
 <meta itemprop="dateModified" content="2019-03-29T21:44:00+00:00" />
 <meta itemprop="wordCount" content="421">
@@ -313,8 +311,7 @@ version: &quot;3.">
 <meta name="twitter:title" content="Mettre en place Traefik en moins de 5 minutes"/>
 <meta name="twitter:description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
 Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &quot;3."/>
+ Installtion Docker-compose Créer un fichier docker-compose.yml:"/>
 
 
 
@@ -395,6 +392,7 @@ version: &quot;3."/>
                 <h1 id="introduction">Introduction</h1>
 <p>Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.</p>
 <p>Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages <code>Hello world 1</code> et <code>Hello world 2</code>. On ne peut pas plus simple !</p>
+<br/>
 <h1 id="installtion">Installtion</h1>
 <h2 id="docker-compose">Docker-compose</h2>
 <p>Créer un fichier <code>docker-compose.yml</code>:</p>
@@ -454,7 +452,8 @@ networks:
   # add this network to a container to make it talk to the rest of the world
   outside-world:
 
-</code></pre><h2 id="contenus-html-des-apps">Contenus HTML des apps</h2>
+</code></pre><br/>
+<h2 id="contenus-html-des-apps">Contenus HTML des apps</h2>
 <p>Créer 2 répertoires <code>app1</code> et <code>app2</code> contenant les fichiers index.html customisés.</p>
 <p>Vous devriez obtenir l&rsquo;arborescence suivante:</p>
 <pre><code>├── app1
@@ -462,13 +461,15 @@ networks:
 ├── app2
 │   └── index.html # Contient le texte: Hello world 2
 └── docker-compose.yml
-</code></pre><h2 id="etchosts">/etc/hosts</h2>
+</code></pre><br/>
+<h2 id="etchosts">/etc/hosts</h2>
 <p>Si vous êtes en local, il vous faudra configurer votre /etc/hosts avec le nom de domaine permettant d&rsquo;accéder aux apps et à Traefik.</p>
 <p>Pour ce faire editez le fichier (en mode root) <code>/etc/hosts</code>, et ajoutez les 3 entrées suivantes:</p>
 <pre><code>127.0.0.1       app.test
 127.0.0.1       app1.test
 127.0.0.1       app2.test
-</code></pre><h2 id="test">Test</h2>
+</code></pre><br/>
+<h2 id="test">Test</h2>
 <p>Exécutez la commande:</p>
 <pre><code>docker-compose up 
 </code></pre><p>Puis rendez-vous sur <code>http://app.test:8080</code> pour accéder à l&rsquo;admin de Traefik et sur vos apps <code>http://app1.test</code> et <code>http://app2.test</code>.</p>
@@ -476,6 +477,7 @@ networks:
 <p><img src="https://leandeep.com/images/traefik.png" alt="image"></p>
 <p>Pour aller plus loin, vous pouvez ajouter un fichier <code>acme.json</code> et le monter comme volume dans votre service Traefik pour avoir de l&rsquo;HTTPS. <code>- ./acme.json:/acme.json</code></p>
 <p>Voici la doc officielle (j&rsquo;en ferais peut-être un article si le temps me le permet :D) <a href="https://docs.traefik.io/configuration/acme/">https://docs.traefik.io/configuration/acme/</a></p>
+<br/>
 <h1 id="htpasswd">htpasswd</h1>
 <p>Il est également possible d&rsquo;ajouter un htpasswd:</p>
 <pre><code>htpasswd -n username

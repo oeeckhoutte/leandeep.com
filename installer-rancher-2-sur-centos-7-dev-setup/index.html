@@ -5,13 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
-<meta name="description" content="Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.
-Docker installation Install needed packages:
-$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
-$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
-$ sudo yum install docker-ce Create Docker group:
-$ sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
-$ ls -l /var/run/docker." />
+<meta name="description" content="Please note that I do not recommend this setup for production. It is convenient for development/demo purposes.
+ Docker installation Install needed packages:
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
+sudo yum install docker-ce Create Docker group:
+sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
+ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -298,16 +298,16 @@ function toTitleCase(str) {
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer Rancher 2 sur Centos 7 (Dev setup)">
-<meta itemprop="description" content="Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.
-Docker installation Install needed packages:
-$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
-$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
-$ sudo yum install docker-ce Create Docker group:
-$ sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
-$ ls -l /var/run/docker.">
+<meta itemprop="description" content="Please note that I do not recommend this setup for production. It is convenient for development/demo purposes.
+ Docker installation Install needed packages:
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
+sudo yum install docker-ce Create Docker group:
+sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
+ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker.">
 <meta itemprop="datePublished" content="2019-05-05T19:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-05-05T19:00:00+00:00" />
-<meta itemprop="wordCount" content="311">
+<meta itemprop="wordCount" content="294">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -317,13 +317,13 @@ $ ls -l /var/run/docker.">
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer Rancher 2 sur Centos 7 (Dev setup)"/>
-<meta name="twitter:description" content="Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.
-Docker installation Install needed packages:
-$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
-$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
-$ sudo yum install docker-ce Create Docker group:
-$ sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
-$ ls -l /var/run/docker."/>
+<meta name="twitter:description" content="Please note that I do not recommend this setup for production. It is convenient for development/demo purposes.
+ Docker installation Install needed packages:
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
+sudo yum install docker-ce Create Docker group:
+sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
+ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker."/>
 
 
 
@@ -401,48 +401,51 @@ $ ls -l /var/run/docker."/>
             
 
             <div class="post-content">
-                <p><strong>Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.</strong></p>
+                <p><strong>Please note that I do not recommend this setup for production. It is convenient for development/demo purposes.</strong></p>
+<br/>
 <h2 id="docker-installation">Docker installation</h2>
 <p><em>Install needed packages:</em></p>
-<pre><code>$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+<pre><code>sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 </code></pre><p><em>Configure the docker-ce repo:</em></p>
-<pre><code>$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+<pre><code>sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 </code></pre><p><em>Install docker-ce:</em></p>
-<pre><code>$ sudo yum install docker-ce
+<pre><code>sudo yum install docker-ce
 </code></pre><p><em>Create Docker group:</em></p>
-<pre><code>$ sudo groupadd docker
+<pre><code>sudo groupadd docker
 </code></pre><p><em>It appeared that docker.sock was owned by root and in the group root:</em></p>
-<pre><code>$ ls -l /var/run/docker.sock
+<pre><code>ls -l /var/run/docker.sock
 
 srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker.sock
 </code></pre><p><em>Changing the group ownership:</em></p>
-<pre><code>$ sudo chown root:docker /var/run/docker.sock
+<pre><code>sudo chown root:docker /var/run/docker.sock
 
-$ ls -l /var/run/docker.sock
+ls -l /var/run/docker.sock
 
 srw-rw---- 1 root docker 0 May 6 15:42 /var/run/docker.sock
 </code></pre><p><em>Add your user to the docker group with the following command.</em></p>
-<pre><code>$ sudo usermod -aG docker $(whoami)
+<pre><code>sudo usermod -aG docker $(whoami)
 </code></pre><p><em>Set Docker to start automatically at boot time:</em></p>
-<pre><code>$ sudo systemctl enable docker.service
+<pre><code>sudo systemctl enable docker.service
 </code></pre><p><em>Finally, start the Docker service:</em></p>
-<pre><code>$ sudo systemctl start docker.service
+<pre><code>sudo systemctl start docker.service
 </code></pre><p><em>Logging back on, now can run docker commands without sudo.</em></p>
+<br/>
 <h2 id="docker-compose-installation">Docker-compose installation</h2>
 <p><em>Install Extra Packages for Enterprise Linux</em></p>
-<pre><code>$ sudo yum install epel-release
+<pre><code>sudo yum install epel-release
 Install python-pip
 
-$ sudo yum install -y python-pip
+sudo yum install -y python-pip
 Then install Docker Compose:
 
-$ sudo pip install docker-compose
+sudo pip install docker-compose
 </code></pre><p><em>You will also need to upgrade your Python packages on CentOS 7 to get docker-compose to run successfully:</em></p>
-<pre><code>$ sudo yum upgrade python*
+<pre><code>sudo yum upgrade python*
 </code></pre><p><em>To verify a successful Docker Compose installation, run:</em></p>
-<pre><code>$ docker-compose version
-</code></pre><h2 id="rancher-2-installation">Rancher 2 installation</h2>
-<pre><code>$ docker run -d --restart=unless-stopped \
+<pre><code>docker-compose version
+</code></pre><br/>
+<h2 id="rancher-2-installation">Rancher 2 installation</h2>
+<pre><code>docker run -d --restart=unless-stopped \
   -p 8080:80 -p 8443:443 \
   -v /opt/rancher:/var/lib/rancher \
   rancher/rancher:latest \
@@ -464,7 +467,7 @@ $ sudo pip install docker-compose
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rancher-2">Rancher 2</a></span><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>311 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>294 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 May. 2019</p>
         </div>

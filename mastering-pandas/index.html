@@ -425,6 +425,7 @@ Voici la liste des tips:
 <li>Filtrer et convenir les series NaN</li>
 <li>Changer les options d&rsquo;affichage</li>
 </ul>
+<br/>
 <h2 id="introduction-à-pandas">Introduction à Pandas</h2>
 <p>C&rsquo;est une librairie opensource d&rsquo;analyse de données qui fourni des structures de données ainsi que des outils d&rsquo;analyse faciles à utiliser.</p>
 <p>Ses avantages sont:</p>
@@ -440,8 +441,10 @@ Voici la liste des tips:
 </li>
 </ul>
 <p>Lien vers la documentation officielle: <a href="http://pandas.pydata.org/">http://pandas.pydata.org/</a></p>
+<br/>
 <h2 id="lire-des-données-tabulaires">Lire des données tabulaires</h2>
 <p><em>Lire des fichiers de données tabulaires dans Pandas</em></p>
+<br/>
 <p><strong>Example de fichiers de données:</strong></p>
 <ul>
 <li>CSV</li>
@@ -455,6 +458,7 @@ url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/c
 orders = pd.read_table(url)
 orders.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-1.png" alt="image"></p>
+<br/>
 <p><strong>Fonctionnement par default de read_table:</strong></p>
 <ul>
 <li>Le fichier à charger doit contenir des tabs entre les colonnes</li>
@@ -464,6 +468,7 @@ orders.head()
 users = pd.read_table(url2)
 users.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-2.png" alt="image"></p>
+<br/>
 <p><strong>Problème:</strong></p>
 <ul>
 <li>Le sepérateur entre les colonnes est le caractère <code>&quot;|&quot;</code>. Il faut donc le spécifier à Pandas avec le paramètre <code>sep=</code></li>
@@ -473,11 +478,14 @@ users.head()
 users = pd.read_table(url2, sep='|', header=None, names=user_cols)
 users.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-3.png" alt="image"></p>
+<br/>
 <p><strong>Note:</strong></p>
 <p>Si vous avez un fichier contenant du texte en haut ou en bas vous pouvez utiliser les paramètres suivants: <code>skiprows=None</code> ou <code>skipfooter=None</code>.</p>
 <p>Lien vers la documentation de read_table: <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_table.html">http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_table.html</a></p>
+<br/>
 <h2 id="sélectionner-une-série-pandas">Sélectionner une série Pandas</h2>
 <p><em>Sélectionner une série Pandas à partir d&rsquo;un dataframe</em></p>
+<br/>
 <p><strong>Qu&rsquo;est-ce qu&rsquo;une série ?</strong></p>
 <ul>
 <li>c&rsquo;est un vecteur m x 1
@@ -575,7 +583,8 @@ type(ufo['City'])
 type(ufo.City)
 </code></pre><p>Jupyter Output:</p>
 <pre><code>pandas.core.series.Series
-</code></pre><p><strong>Comment sélectionner une colonne qui contient des espaces ?</strong></p>
+</code></pre><br/>
+<p><strong>Comment sélectionner une colonne qui contient des espaces ?</strong></p>
 <ul>
 <li>Il n&rsquo;est pas possible d&rsquo;utiliser la méthode 2  <code>ufo.category_name</code></li>
 <li>Il faut utiliser la méthode 1 <code>ufo['category name']</code></li>
@@ -644,13 +653,15 @@ type(ufo.City)
 18239       RED
 18240       NaN
 Name: Colors Reported, dtype: object
-</code></pre><p><strong>Comment créer une nouvelle série Pandas dans un dataframe ?</strong></p>
+</code></pre><br/>
+<p><strong>Comment créer une nouvelle série Pandas dans un dataframe ?</strong></p>
 <pre><code># example of concatenating strings
 'ab' + 'cd'
 </code></pre><pre><code># created a new column called &quot;Location&quot; with a concatenation of &quot;City&quot; and &quot;State&quot;
 ufo['Location'] = ufo.City + ', ' + ufo.State
 ufo.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-5.png" alt="image"></p>
+<br/>
 <h2 id="parenthèses-pandas">Parenthèses Pandas</h2>
 <p><em>Commandes Pandas finissant par des parenthèses</em></p>
 <pre><code>import pandas as pd
@@ -681,7 +692,8 @@ dtype: object
 </code></pre><pre><code>type(movies)
 </code></pre><p>Jupyter Output:</p>
 <pre><code>pandas.core.frame.DataFrame
-</code></pre><p><strong>Les dataframes ont certains attributs et méthodes</strong></p>
+</code></pre><br/>
+<p><strong>Les dataframes ont certains attributs et méthodes</strong></p>
 <ul>
 <li>
 <p>Méthodes: avec parenthèses</p>
@@ -713,6 +725,7 @@ dtype: object
 </ul>
 </li>
 </ul>
+<br/>
 <h2 id="renommer-des-colonnes">Renommer des colonnes</h2>
 <pre><code>import pandas as pd
 </code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
@@ -724,26 +737,31 @@ ufo = pd.read_csv(url)
 ufo.columns
 </code></pre><p>Jupyter Output:</p>
 <pre><code>Index(['City', 'Colors Reported', 'Shape Reported', 'State', 'Time'], dtype='object')
-</code></pre><p><strong>Méthode 1: Renommer une seule colonne:</strong></p>
+</code></pre><br/>
+<p><strong>Méthode 1: Renommer une seule colonne:</strong></p>
 <pre><code># inplace=True to affect DataFrame
 ufo.rename(columns = {'Colors Reported': 'Colors_Reported', 'Shape Reported': 'Shape_Reported'}, inplace=True)
 </code></pre><pre><code>ufo.columns
 </code></pre><p>Jupyter Output:</p>
 <pre><code>Index(['City', 'Colors_Reported', 'Shape_Reported', 'State', 'Time'], dtype='object')
-</code></pre><p><strong>Méthode 2: renommer plusieurs colonnes:</strong></p>
+</code></pre><br/>
+<p><strong>Méthode 2: renommer plusieurs colonnes:</strong></p>
 <pre><code>ufo_cols = ['city', 'colors reported', 'shape reported', 'state', 'time']
 </code></pre><pre><code>ufo.columns = ufo_cols
 </code></pre><pre><code>ufo.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-10.png" alt="image"></p>
+<br/>
 <p><strong>Méthode 3: Changer les colonnes pendant la lecture:</strong></p>
 <pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/ufo.csv'
 ufo = pd.read_csv(url, names=ufo_cols, header=0)
 </code></pre><pre><code>ufo.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-11.png" alt="image"></p>
+<br/>
 <p><strong>Méthode 4: replacer les espaces avec des underscores pour toutes les colonnes:</strong></p>
 <pre><code>ufo.columns = ufo.columns.str.replace(' ', '_')
 </code></pre><pre><code>ufo.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-12.png" alt="image"></p>
+<br/>
 <h2 id="effacer-une-colonne">Effacer une colonne</h2>
 <pre><code>import pandas as pd
 </code></pre><pre><code># Creating pandas DataFrame
@@ -772,6 +790,7 @@ rows = [0, 1]
 ufo.drop(rows, axis=0, inplace=True)
 </code></pre><pre><code>ufo.head()
 </code></pre><p><img src="https://leandeep.com/images/pandas-16.png" alt="image"></p>
+<br/>
 <h2 id="effacer-toutes-les-colonnes-sauf-certaine">Effacer toutes les colonnes sauf certaine</h2>
 <pre><code># df d'origine
 a  b  c  d  e  f  g  
@@ -786,7 +805,8 @@ a  b
 8  9
 
 df = df[['a','b']]
-</code></pre><h2 id="trier">Trier</h2>
+</code></pre><br/>
+<h2 id="trier">Trier</h2>
 <pre><code>import pandas as pd
 </code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/imdb_1000.csv'
 movies = pd.read_csv(url)
@@ -865,7 +885,8 @@ Name: title, dtype: object
 type(movies['title'].sort_values())
 </code></pre><p>Jupyter Output:</p>
 <pre><code>pandas.core.series.Series
-</code></pre><p><strong>Tirer une colonne:</strong></p>
+</code></pre><br/>
+<p><strong>Tirer une colonne:</strong></p>
 <pre><code># sort in ascending=False
 # this does not affect the underlying data
 movies.title.sort_values(ascending=False)
@@ -932,11 +953,13 @@ movies.title.sort_values(ascending=False)
 5                             12 Angry Men
 542                   (500) Days of Summer
 Name: title, dtype: object
-</code></pre><p><strong>Trieer un DataFrame en utilisant une colonne particulière:</strong></p>
+</code></pre><br/>
+<p><strong>Trieer un DataFrame en utilisant une colonne particulière:</strong></p>
 <pre><code>movies.sort_values('title')
 </code></pre><p><img src="https://leandeep.com/images/pandas-18.png" alt="image"></p>
 <pre><code>movies.sort_values('duration', ascending=False)
 </code></pre><p><img src="https://leandeep.com/images/pandas-19.png" alt="image"></p>
+<br/>
 <p><strong>Trier un DataFrame en utilisant plusieurs colonnes:</strong></p>
 <pre><code># create list of columns
 # sort using content_rating
@@ -946,6 +969,7 @@ columns = ['content_rating', 'duration']
 # sort column
 movies.sort_values(columns)
 </code></pre><p><img src="https://leandeep.com/images/pandas-20.png" alt="image"></p>
+<br/>
 <h2 id="filtrer">Filtrer</h2>
 <p><em>Filtrer les lignes d&rsquo;un dataframe Pandas par rapport aux valeurs d&rsquo;une colonne</em></p>
 <pre><code>import pandas as pd
@@ -1064,6 +1088,7 @@ Name: genre, dtype: object
 </code></pre><pre><code># this pulls out duration &gt;= 200mins
 movies[is_long]
 </code></pre><p><img src="https://leandeep.com/images/pandas-22.png" alt="image"></p>
+<br/>
 <p><strong>Méthode plus rapide sans for loop:</strong></p>
 <pre><code># this line of code replaces the for loop
 # when you use a series name using pandas and use a comparison operator, it will loop through each row
@@ -1078,9 +1103,11 @@ is_long.head()
 Name: duration, dtype: bool
 </code></pre><pre><code>movies[is_long]
 </code></pre><p><img src="https://leandeep.com/images/pandas-23.png" alt="image"></p>
+<br/>
 <p><strong>Méthode encore meilleure pour simplifier <code>movies[is_long]</code>:</strong></p>
 <pre><code>movies[movies.duration &gt;= 200]
 </code></pre><p><img src="https://leandeep.com/images/pandas-24.png" alt="image"></p>
+<br/>
 <p><strong>Conseil additionnel: on veut étudier la duration et seulement le genre au lieu de toutes les colonnes</strong></p>
 <pre><code># this is a DataFrame, we use dot or bracket notation to get what we want
 movies[movies.duration &gt;= 200]['genre']
@@ -1115,7 +1142,8 @@ movies.loc[movies.duration &gt;= 200, 'genre']
 630    Biography
 767       Action
 Name: genre, dtype: object
-</code></pre><h2 id="filtres-multi-critères">Filtres multi-critères</h2>
+</code></pre><br/>
+<h2 id="filtres-multi-critères">Filtres multi-critères</h2>
 <p><em>Appliquer des filtres multi-critères sur un dataframe Pandas</em></p>
 <pre><code>import pandas as pd
 </code></pre><pre><code>url = 'https://raw.githubusercontent.com/justmarkham/pandas-videos/master/data/imdb_1000.csv'
@@ -1281,7 +1309,8 @@ dtype: bool
 977    False
 978    False
 dtype: bool
-</code></pre><p><strong>Et si on veut les genres crime, drama, et action?</strong></p>
+</code></pre><br/>
+<p><strong>Et si on veut les genres crime, drama, et action?</strong></p>
 <pre><code># slow method
 movies[(movies.genre == 'Crime') | (movies.genre == 'Drama') | (movies.genre == 'Action')]
 </code></pre><p><img src="https://leandeep.com/images/pandas-29.png" alt="image"></p>
@@ -1289,6 +1318,7 @@ movies[(movies.genre == 'Crime') | (movies.genre == 'Drama') | (movies.genre == 
 filter_list = ['Crime', 'Drama', 'Action']
 movies[movies.genre.isin(filter_list)]
 </code></pre><p><img src="https://leandeep.com/images/pandas-30.png" alt="image"></p>
+<br/>
 <h2 id="examiner-un-dataset">Examiner un dataset</h2>
 <p><em>Lire un sous-ensemble de colonnes ou lignes</em></p>
 <pre><code>import pandas as pd
@@ -1350,7 +1380,8 @@ spirit_servings                   int64
 wine_servings                     int64
 total_litres_of_pure_alcohol    float64
 dtype: object
-</code></pre><h2 id="numéro-index-et-contenu-de-la-ligne-lors-dune-itération">Numéro, index et contenu de la ligne lors d&rsquo;une itération</h2>
+</code></pre><br/>
+<h2 id="numéro-index-et-contenu-de-la-ligne-lors-dune-itération">Numéro, index et contenu de la ligne lors d&rsquo;une itération</h2>
 <p>Pour obtenir le numéro, l&rsquo;index et le contenu de la ligne lors d&rsquo;une itération on peut utiliser le code suivant:</p>
 <pre><code>for line_number, (idx, row) in enumerate(df.iterrows()):
 	...

@@ -17,13 +17,26 @@
     </item>
     
     <item>
+      <title>Lister les process Linux dans une image redhat ubi-minimal</title>
+      <link>https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/</link>
+      <pubDate>Fri, 10 Jan 2020 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/</guid>
+      <description>ps n&amp;rsquo;est pas disponible dans les nouvelles images minimales Redhat ubi8-minimal. Voici un article de RedHat expliquant ce que sont ces images https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
+Pour réaliser un ps aux, cela va être compliqué&amp;hellip;
+2 options s&amp;rsquo;offrent à nous:
+  Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
+  Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois).</description>
+    </item>
+    
+    <item>
       <title>Deployer une image Docker sur AWS Fargate</title>
       <link>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</link>
       <pubDate>Tue, 07 May 2019 21:17:00 +0000</pubDate>
       
       <guid>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</guid>
       <description>Voici la procédure pour déployer des containers Docker sur Fargate.
-Rôle ecsTaskExecutionRole Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM. S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:
+ Rôle ecsTaskExecutionRole Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM. S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:
 Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
 { &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;, &amp;quot;Statement&amp;quot;: [ { &amp;quot;Sid&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;, &amp;quot;Principal&amp;quot;: { &amp;quot;Service&amp;quot;: &amp;quot;ecs-tasks.amazonaws.com&amp;quot; }, &amp;quot;Action&amp;quot;: &amp;quot;sts:AssumeRole&amp;quot; } ] } Créer une tâche d&amp;rsquo;exécution de rôle:
 aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&amp;rsquo;exécution de rôle:</description>
@@ -35,13 +48,13 @@ aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume
       <pubDate>Sun, 05 May 2019 19:00:00 +0000</pubDate>
       
       <guid>https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/</guid>
-      <description>Please note that this setup is not recommended for production use, but can be convenient for development/demo purposes.
-Docker installation Install needed packages:
-$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
-$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
-$ sudo yum install docker-ce Create Docker group:
-$ sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
-$ ls -l /var/run/docker.</description>
+      <description>Please note that I do not recommend this setup for production. It is convenient for development/demo purposes.
+ Docker installation Install needed packages:
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
+sudo yum install docker-ce Create Docker group:
+sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
+ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker.</description>
     </item>
     
     <item>
@@ -52,8 +65,7 @@ $ ls -l /var/run/docker.</description>
       <guid>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</guid>
       <description>Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
 Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &amp;quot;3.</description>
+ Installtion Docker-compose Créer un fichier docker-compose.yml:</description>
     </item>
     
     <item>
@@ -64,7 +76,7 @@ version: &amp;quot;3.</description>
       <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
       <description>Il n&amp;rsquo;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
 Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.
-Avantages
+ Avantages
    ECS EKS Fargate     Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS   Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
     </item>
     
@@ -95,7 +107,7 @@ Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</
       
       <guid>https://leandeep.com/installer-openshift-sur-osx/</guid>
       <description>Qu&amp;rsquo;est-ce qu&amp;rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&amp;rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&amp;rsquo;est opensource&amp;hellip;
-MiniShift Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
+ MiniShift Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
 Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</description>
     </item>
     
@@ -107,16 +119,6 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
       <guid>https://leandeep.com/lancer-un-datalab-en-quelques-minutes/</guid>
       <description>Il m’arrive assez régulièrement de devoir switcher de machine de développement lorsque je travaille sur du Machine ou Deep Learning. C’est d’autant plus vrai lorsque je travaille avec Tensorflow avec support GPU et que je manipule des datasets de plusieurs Go. Pour accélérer la phase d’apprentissage de mes algorithmes, il m’arrive de louer, durant plusieurs heures, des VM survitaminées chez Amazon Web Services.
 Pour éviter de devoir reconfigurer à chaque fois mon environnement de datascience, j’utilise 2 images Docker.</description>
-    </item>
-    
-    <item>
-      <title>Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</title>
-      <link>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</link>
-      <pubDate>Mon, 06 Feb 2017 23:42:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</guid>
-      <description>Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…
-J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS.</description>
     </item>
     
   </channel>

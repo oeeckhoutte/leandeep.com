@@ -384,6 +384,7 @@ function toTitleCase(str) {
 
             <div class="post-content">
                 <p>Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier <code>.gitlab-ci.yml</code> en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues.</p>
+<br/>
 <p>Prenons par exemple le fichier <code>.gitlab-ci.yml</code> suivant:</p>
 <pre><code>build:
     image: nodejs:8
@@ -393,11 +394,14 @@ function toTitleCase(str) {
     script:
         - npm run build
 
-</code></pre><p>Avec la commande suivante on peut directement tester sa tâche build en local:</p>
+</code></pre><br/>
+<p>Avec la commande suivante on peut directement tester sa tâche build en local:</p>
 <pre><code>gitlab-runner exec docker build
-</code></pre><p>Lorsqu&rsquo;on utilise Gitlab CI on faut parfois faire appel à du cache entre les stages. C&rsquo;est possible d&rsquo;en avoir avec la commande suivante:</p>
+</code></pre><p><br/>
+Lorsqu&rsquo;on utilise Gitlab CI on faut parfois faire appel à du cache entre les stages. C&rsquo;est possible d&rsquo;en avoir avec la commande suivante:</p>
 <pre><code>gitlab-runner exec docker --docker-volumes `pwd`/cache:/cache build
-</code></pre><p>On peut aussi se faire un petit <code>Makefile</code> pour se simplifier la vie:</p>
+</code></pre><br/>
+<p>On peut aussi se faire un petit <code>Makefile</code> pour se simplifier la vie:</p>
 <pre><code>.PHONY: clean
 
 .DEFAULT: cache
@@ -408,7 +412,8 @@ cache:
 
 clean:
     rm -rf cache
-</code></pre><p>Enfin, si vous voulez passer des variables d&rsquo;environnement dans un stage de votre pipeline cela se fait ainsi:</p>
+</code></pre><br/>
+<p>Enfin, si vous voulez passer des variables d&rsquo;environnement dans un stage de votre pipeline cela se fait ainsi:</p>
 <pre><code>gitlab-runner exec docker --env YOUR_ENV_VAR=&quot;&quot; build
 </code></pre>
             </div>

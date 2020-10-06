@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Dans cet article nous allons voir comment installer un serveur VNC sur Linux.
-Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino Installer x11vnc: sudo apt-get -y install x11vnc Créer le mot de passe encrypté: r Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&amp;rsquo;intérieur du nouveau fichier:
-[Unit] Description=x11vnc remote desktop server After=multi-user.target [Service] Type=simple ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/olivier/." />
+ Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino  Installer x11vnc: sudo apt-get -y install x11vnc  Créer le mot de passe encrypté: x11vnc -storepasswd &amp;quot;votre_mot_de_passe&amp;quot; ~/.vnc_passwd  Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&amp;rsquo;intérieur du nouveau fichier:
+[Unit] Description=x11vnc remote desktop server After=multi-user." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -295,11 +295,11 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Installer un VNC Server sur Linux">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment installer un serveur VNC sur Linux.
-Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino Installer x11vnc: sudo apt-get -y install x11vnc Créer le mot de passe encrypté: r Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:
-[Unit] Description=x11vnc remote desktop server After=multi-user.target [Service] Type=simple ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/olivier/.">
+ Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino  Installer x11vnc: sudo apt-get -y install x11vnc  Créer le mot de passe encrypté: x11vnc -storepasswd &quot;votre_mot_de_passe&quot; ~/.vnc_passwd  Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:
+[Unit] Description=x11vnc remote desktop server After=multi-user.">
 <meta itemprop="datePublished" content="2014-07-27T23:03:00+00:00" />
 <meta itemprop="dateModified" content="2014-07-27T23:03:00+00:00" />
-<meta itemprop="wordCount" content="228">
+<meta itemprop="wordCount" content="231">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -310,8 +310,8 @@ Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get
 
 <meta name="twitter:title" content="Installer un VNC Server sur Linux"/>
 <meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment installer un serveur VNC sur Linux.
-Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino Installer x11vnc: sudo apt-get -y install x11vnc Créer le mot de passe encrypté: r Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:
-[Unit] Description=x11vnc remote desktop server After=multi-user.target [Service] Type=simple ExecStart=/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/olivier/."/>
+ Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino  Installer x11vnc: sudo apt-get -y install x11vnc  Créer le mot de passe encrypté: x11vnc -storepasswd &quot;votre_mot_de_passe&quot; ~/.vnc_passwd  Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:
+[Unit] Description=x11vnc remote desktop server After=multi-user."/>
 
 
 
@@ -391,14 +391,18 @@ Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get
             <div class="post-content">
                 <h1 id="introduction">Introduction</h1>
 <p>Dans cet article nous allons voir comment installer un serveur VNC sur Linux.</p>
+<br/>
 <h1 id="steps">Steps</h1>
 <h2 id="désinstaller-le-serveur-vino-souvent-présent-par-défaut">Désinstaller le serveur Vino (souvent présent par défaut):</h2>
 <pre><code>sudo apt-get -y remove vino
-</code></pre><h2 id="installer-x11vnc">Installer x11vnc:</h2>
+</code></pre><br/>
+<h2 id="installer-x11vnc">Installer x11vnc:</h2>
 <pre><code>sudo apt-get -y install x11vnc
-</code></pre><h2 id="créer-le-mot-de-passe-encrypté">Créer le mot de passe encrypté:</h2>
-<pre><code>r 
-</code></pre><h2 id="créer-un-service-x11vnc-dans-systemd">Créer un service x11vnc dans systemd:</h2>
+</code></pre><br/>
+<h2 id="créer-le-mot-de-passe-encrypté">Créer le mot de passe encrypté:</h2>
+<pre><code>x11vnc -storepasswd &quot;votre_mot_de_passe&quot; ~/.vnc_passwd
+</code></pre><br/>
+<h2 id="créer-un-service-x11vnc-dans-systemd">Créer un service x11vnc dans systemd:</h2>
 <pre><code>sudo vim /lib/systemd/system/x11vnc.service
 </code></pre><p>Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:</p>
 <pre><code>[Unit]
@@ -413,22 +417,29 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-</code></pre><h2 id="reloader-les-services"><em>Reloader</em> les services:</h2>
+</code></pre><br/>
+<h2 id="reloader-les-services"><em>Reloader</em> les services:</h2>
 <pre><code>sudo systemctl daemon-reload
-</code></pre><h2 id="activer-le-service-x11vnc-au-boot">Activer le service x11vnc au <em>boot</em>:</h2>
+</code></pre><br/>
+<h2 id="activer-le-service-x11vnc-au-boot">Activer le service x11vnc au <em>boot</em>:</h2>
 <pre><code>sudo systemctl enable x11vnc.service
-</code></pre><h2 id="démarrer-le-service-ou-reboot">Démarrer le service (ou reboot):</h2>
+</code></pre><br/>
+<h2 id="démarrer-le-service-ou-reboot">Démarrer le service (ou reboot):</h2>
 <pre><code>sudo systemctl start x11vnc.service
-</code></pre><p>Rebooter puis vérifier que vous pouvez établir une connection VNC sur le port 5900.</p>
-<h1 id="troubleshoot">Troubleshoot</h1>
+</code></pre><br/>
+<p>Rebooter puis vérifier que vous pouvez établir une connection VNC sur le port 5900.</p>
+<br/>
+<h1 id="troubleshooting">Troubleshooting</h1>
 <p>Si vous rencontez l&rsquo;erreur suivante:</p>
 <pre><code>xauth:  unable to generate an authority file name
-</code></pre><p>Utiliser le bureau lightgdm:</p>
+</code></pre><br/>
+<p>Utiliser le bureau lightgdm:</p>
 <pre><code>cat /etc/X11/default-display-manager 
 sudo apt install ubuntu-unity-desktop
 # Si ubuntu-unity-desktop est déjà installé
 # sudo dpkg-reconfigure gdm3 
-</code></pre><p>Selectionner donc le bureau lightgdm puis rebooter pour vérifier que cela fonctionne.</p>
+</code></pre><br/>
+<p>Selectionner donc le bureau lightgdm puis rebooter pour vérifier que cela fonctionne.</p>
 <p>Pour vérifier que le serveur VNC est bien démarré:</p>
 <pre><code>// make sure 5900 port is listening:
 $ netstat -antp | grep 5900
@@ -447,7 +458,7 @@ tcp6       0      0 :::5900                 :::*                    LISTEN      
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>228 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>231 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27 Jul. 2014</p>
         </div>

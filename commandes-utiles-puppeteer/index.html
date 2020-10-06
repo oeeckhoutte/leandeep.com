@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Lean Deep">
 <meta name="description" content="Introduction &amp;ldquo;Puppeteer ou le remplaçant de Selenium.&amp;quot; Dans cet article plutôt rapide, on retrouve les commandes de base pour créer un premier petit script qui va piloter un Chrome Headless.
-Initialiser un browser non headless try { (async () =&amp;gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) } Naviguer vers une page const page = await browser.newPage() await page.goto(&amp;quot;https://url_du_site&amp;quot;) Ajouter du contenu dans un input type text await page." />
+ Initialiser un browser non headless try { (async () =&amp;gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) }  Naviguer vers une page const page = await browser.newPage() await page.goto(&amp;quot;https://url_du_site&amp;quot;)  Ajouter du contenu dans un input type text await page." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Commandes utiles Puppeteer ">
 <meta itemprop="description" content="Introduction &ldquo;Puppeteer ou le remplaçant de Selenium.&quot; Dans cet article plutôt rapide, on retrouve les commandes de base pour créer un premier petit script qui va piloter un Chrome Headless.
-Initialiser un browser non headless try { (async () =&gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) } Naviguer vers une page const page = await browser.newPage() await page.goto(&quot;https://url_du_site&quot;) Ajouter du contenu dans un input type text await page.">
+ Initialiser un browser non headless try { (async () =&gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) }  Naviguer vers une page const page = await browser.newPage() await page.goto(&quot;https://url_du_site&quot;)  Ajouter du contenu dans un input type text await page.">
 <meta itemprop="datePublished" content="2019-02-09T21:32:00+00:00" />
 <meta itemprop="dateModified" content="2019-02-09T21:32:00+00:00" />
 <meta itemprop="wordCount" content="127">
@@ -308,7 +308,7 @@ Initialiser un browser non headless try { (async () =&gt; { const browser = awai
 
 <meta name="twitter:title" content="Commandes utiles Puppeteer "/>
 <meta name="twitter:description" content="Introduction &ldquo;Puppeteer ou le remplaçant de Selenium.&quot; Dans cet article plutôt rapide, on retrouve les commandes de base pour créer un premier petit script qui va piloter un Chrome Headless.
-Initialiser un browser non headless try { (async () =&gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) } Naviguer vers une page const page = await browser.newPage() await page.goto(&quot;https://url_du_site&quot;) Ajouter du contenu dans un input type text await page."/>
+ Initialiser un browser non headless try { (async () =&gt; { const browser = await puppeteer.launch({headless: false}) [...] })() } catch (err) { console.error(err) }  Naviguer vers une page const page = await browser.newPage() await page.goto(&quot;https://url_du_site&quot;)  Ajouter du contenu dans un input type text await page."/>
 
 
 
@@ -389,6 +389,7 @@ Initialiser un browser non headless try { (async () =&gt; { const browser = awai
                 <h1 id="introduction">Introduction</h1>
 <p><strong>&ldquo;Puppeteer ou le remplaçant de Selenium.&quot;</strong>
 Dans cet article plutôt rapide, on retrouve les commandes de base pour créer un premier petit script qui va piloter un Chrome Headless.</p>
+<br/>
 <h2 id="initialiser-un-browser-non-headless">Initialiser un browser non headless</h2>
 <pre><code>try {
     (async () =&gt; {
@@ -400,27 +401,30 @@ Dans cet article plutôt rapide, on retrouve les commandes de base pour créer u
 
 } catch (err) {
     console.error(err)
-} 
-
-</code></pre><h2 id="naviguer-vers-une-page">Naviguer vers une page</h2>
+}
+</code></pre><br/>
+<h2 id="naviguer-vers-une-page">Naviguer vers une page</h2>
 <pre><code>const page = await browser.newPage()
 await page.goto(&quot;https://url_du_site&quot;)
-
-</code></pre><h2 id="ajouter-du-contenu-dans-un-input-type-text">Ajouter du contenu dans un input type text</h2>
+</code></pre><br/>
+<h2 id="ajouter-du-contenu-dans-un-input-type-text">Ajouter du contenu dans un input type text</h2>
 <pre><code>await page.type('#input_search', 'text_a_ajouter')
-</code></pre><h2 id="cliquer-sur-un-bouton">Cliquer sur un bouton</h2>
+</code></pre><br/>
+<h2 id="cliquer-sur-un-bouton">Cliquer sur un bouton</h2>
 <pre><code>await page.click('#buttsearch')
-</code></pre><h2 id="chercher-dans-tout-le-corps-dune-page-si-un-pattern-existe">Chercher dans tout le corps d&rsquo;une page si un pattern existe</h2>
+</code></pre><br/>
+<h2 id="chercher-dans-tout-le-corps-dune-page-si-un-pattern-existe">Chercher dans tout le corps d&rsquo;une page si un pattern existe</h2>
 <pre><code>const found = (await page.content()).match(/Chiffre d\'affaires/) 
 if (found) {
 	
     [...]
 
 }
-
-</code></pre><h2 id="sélectionner-un-élément-par-href">Sélectionner un élément par href</h2>
+</code></pre><br/>
+<h2 id="sélectionner-un-élément-par-href">Sélectionner un élément par href</h2>
 <pre><code>const elementHandle = await page.$('a[href=&quot;#chiffrecle&quot;]');
-</code></pre><h2 id="obtenir-le-contenu-texte-dun-élément">Obtenir le contenu texte d&rsquo;un élément</h2>
+</code></pre><br/>
+<h2 id="obtenir-le-contenu-texte-dun-élément">Obtenir le contenu texte d&rsquo;un élément</h2>
 <pre><code>const text = await (await elementHandle.getProperty('textContent')).jsonValue();
 </code></pre>
             </div>

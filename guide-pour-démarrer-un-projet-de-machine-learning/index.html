@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.
-Un projet de Machine Learning correspond bien souvent à un problème que l&amp;rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&amp;rsquo;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X)." />
+ Un projet de Machine Learning correspond bien souvent à un problème que l&amp;rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&amp;rsquo;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X)." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Guide pour démarrer un projet de Machine Learning">
 <meta itemprop="description" content="Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.
-Un projet de Machine Learning correspond bien souvent à un problème que l&rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&rsquo;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X).">
+ Un projet de Machine Learning correspond bien souvent à un problème que l&rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&rsquo;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X).">
 <meta itemprop="datePublished" content="2015-12-21T23:05:00+00:00" />
 <meta itemprop="dateModified" content="2015-12-21T23:05:00+00:00" />
 <meta itemprop="wordCount" content="1035">
@@ -308,7 +308,7 @@ Un projet de Machine Learning correspond bien souvent à un problème que l&rsqu
 
 <meta name="twitter:title" content="Guide pour démarrer un projet de Machine Learning"/>
 <meta name="twitter:description" content="Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.
-Un projet de Machine Learning correspond bien souvent à un problème que l&rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&rsquo;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X)."/>
+ Un projet de Machine Learning correspond bien souvent à un problème que l&rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&rsquo;immobilier pour faire le plus de rentabilité ? etc. Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X)."/>
 
 
 
@@ -387,12 +387,16 @@ Un projet de Machine Learning correspond bien souvent à un problème que l&rsqu
 
             <div class="post-content">
                 <p>Dans cet article nous allons voir quelles sont les étapes à suivre pour mener à bien un projet de Machine Learning.</p>
+<br/>
 <p>Un projet de Machine Learning correspond bien souvent à un problème que l&rsquo;on souhaite résoudre. Par exemple, comment diminuer la fraude à la Carte Bleue de certains de mes clients ? Où investir dans l&rsquo;immobilier pour faire le plus de rentabilité ? etc.
 Pour résoudre ce problème et atteindre une cible (Y), il faut impérativement des données (X). Nous verrons par la suite de quoi on parle en terme de données.
 Enfin il faudra définir une fonction de coût (f) qui nous permette d&rsquo;évaluer la distance (autrement dit l&rsquo;erreur) entre la prédiction de notre modèle et la cible réelle.</p>
+<br/>
 <p>L&rsquo;objectif final étant de trouver la meilleure fonction f qui permette de prédire Y en fonction de X:
 Y ~ f(X,w) avec w un ensemble de paramètres</p>
+<br/>
 <p>Une fois le problème bien posé, il faut se poser les questions suivantes:</p>
+<br/>
 <h1 id="1-de-quel-type-de-problème-sagit-il-">1. De quel type de problème s&rsquo;agit-il ?</h1>
 <p>Est-ce qu&rsquo;il s&rsquo;agit d&rsquo;un problème d&rsquo;apprentissage supervisé ou de non supervisé ?</p>
 <ul>
@@ -417,6 +421,7 @@ Y ~ f(X,w) avec w un ensemble de paramètres</p>
 </ul>
 <p>Pour simplifier le problème et essayer de donner du sens au modèle prédictif, on essaye de le ramener à un problème d&rsquo;apprentissage supervisé; même si à la base on pensait qu&rsquo;il s&rsquo;agissait d&rsquo;un problème d&rsquo;apprentissage non-supervisé.</p>
 <p>En pratique, ce n&rsquo;est pas si simple. Pour construire un modèle prédictif fiable, il faut assembler différents types de modèles avec parfois des étapes d&rsquo;apprentissage non supervisées intermédiaires.</p>
+<br/>
 <h1 id="2-quelles-données-ai-je-à-ma-disposition-">2. Quelles données ai-je à ma disposition ?</h1>
 <ul>
 <li>Y a-t-il des données temporelles ?</li>
@@ -428,16 +433,19 @@ Y ~ f(X,w) avec w un ensemble de paramètres</p>
 <li>Est-ce quel type de données je travaille ? CSV ? JSON ? BDD relationnelle ? BDD Graph ?..</li>
 <li>Dois-je encoder mes données catégorielles ?</li>
 </ul>
+<br/>
 <h1 id="3-quel-train-test-split-réaliser-sur-mon-dataset-">3. Quel Train/ Test Split réaliser sur mon dataset ?</h1>
 <p>Dans cet partie on va découper notre dataset en 2 parties pour éviter de faire de l&rsquo;overfitting (apprentissage par coeur).
 On va réserver environ entre 70 à 80% du dataset pour la phase d&rsquo;apprentissage et on va utiliser le reste pour déterminer le modèle qui fait le moins d&rsquo;erreurs durant la phase de test.</p>
 <p>Attention toutefois si le problème que l&rsquo;on traite est un problème de classification. Il faut que toutes les classes à prédire soient bien représentées dans les 2 splits. C&rsquo;est d&rsquo;autant plus vrai si l&rsquo;un de nos split comporte peu d&rsquo;exemples.</p>
 <p>Attention aussi si le problème que l&rsquo;on traite comporte des données temporelles. Il faut bien séparer temporellement les splits de données pour prédire le futur avec le passé.</p>
+<br/>
 <h1 id="4-quel-algorithme-dois-je-utiliser-">4. Quel algorithme dois-je utiliser ?</h1>
 <p>Enchaînez l&rsquo;apprentissage avec plusieurs modèles et comparez les résultats. Cela peut même être fait de manière automatique (Grid Search, Tpot, Auto-Sklearn&hellip;). Dès que vous entamez un problème de Machine Learning essayez tout de suite d&rsquo;apprendre un modèle et d&rsquo;observer votre performance. Cela vous permettra d&rsquo;estimer la complexité du sujet.</p>
 <p>Il faudra ensuite itérer en améliorant votre code jusqu&rsquo;à ce que la performance recherchée soit atteinte.</p>
 <p>Si vous souhaitez pouvoir interprêter les prédictions de votre modèle, privilégiez les modèles linéaires ou les arbres de décision.
 Dans le cas contraire privilégiez les random forests. Cela vous simplifiera la vie car vous pourrez travailler avec tout type de données et votre modèle ne sera pas victime d&rsquo;un surapprentissage.</p>
+<br/>
 <h1 id="5-quelle-est-la-performance-de-mon-modèle-">5. Quelle est la performance de mon modèle ?</h1>
 <p>En fonction du type de problème que vous adressez, différents indicateurs peuvent être mesurés à partir du split de test.</p>
 <ul>
@@ -501,6 +509,7 @@ Certains modèles retournent un score de confiance en plus de la prédiction. Pl
 <li>Ai-je laissé des outliers dans ma base d&rsquo;apprentissage ?</li>
 <li>Est-ce que mes données sont bruitées ?</li>
 </ul>
+<br/>
 <h1 id="6-comment-puis-je-optimiser-mon-modèle-">6. Comment puis-je optimiser mon modèle ?</h1>
 <ul>
 <li>Valorisez des valeurs manquantes en utilisant la sortie d&rsquo;autres modèles de machine learning</li>
@@ -510,6 +519,7 @@ Certains modèles retournent un score de confiance en plus de la prédiction. Pl
 <li>Si la performance est mauvaise essayez de comprendre quelle feature est la cause du problème</li>
 <li>Si vos données sont bruitées, voire très bruitées, il est possible d&rsquo;utiliser les premiers axes d&rsquo;une ACP (Analyse en Composante Principale; i.e: prendre le maximum d&rsquo;échantillons du dataset et diminuer le nombre de variables en les compressant) ou un réseau Diabolo.</li>
 </ul>
+<br/>
 <h1 id="7-validation-du-modèle">7. Validation du modèle</h1>
 <p>Pour valider que votre modèle est performant et qu&rsquo;il permette de réellement prédire une cible de manière fiable, réaliser une Cross Validation.</p>
 

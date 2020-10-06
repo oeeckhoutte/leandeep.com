@@ -458,7 +458,8 @@ Data Set Characteristics:
 
     :Missing Attribute Values: None
 ...
-</code></pre><h1 id="visualisation-des-données-et-sélection-des-features">Visualisation des données et sélection des features</h1>
+</code></pre><br/>
+<h1 id="visualisation-des-données-et-sélection-des-features">Visualisation des données et sélection des features</h1>
 <p>On va commencer par visualiser les données pour essayer de comprendre de à quoi ressemble le dataset. L&rsquo;objectif n&rsquo;est pas de tout visualiser et de tout comprendre tout de suite; l&rsquo;objectif est plus d&rsquo;avoir une première idée de ce à quoi ressemblent les données.</p>
 <pre><code>%matplotlib inline
 import matplotlib.pyplot as plt
@@ -479,6 +480,7 @@ plt.ylabel('nombre de maisons')
 <p><img src="https://leandeep.com/images/charts2.png" alt="image"></p>
 <p><img src="https://leandeep.com/images/charts3.png" alt="image"></p>
 <p><img src="https://leandeep.com/images/charts4.png" alt="image"></p>
+<br/>
 <h1 id="prédire-le-prix-de-limmobilier">Prédire le prix de l&rsquo;immobilier</h1>
 <h2 id="régression-linéaire">Régression linéaire</h2>
 <p>A présent nous allons construire notre modèle de régression linéaire (calcul des moindres carrés) sur l&rsquo;ensemble des données.</p>
@@ -508,6 +510,7 @@ print(&quot;RMS:&quot;, np.sqrt(np.mean((predicted - expected) ** 2)))
 <pre><code>RMS: 4.683413955906375
 </code></pre><p><img src="https://leandeep.com/images/predicted-prices.png" alt="image"></p>
 <p>On voit qu&rsquo;il y a une correlation entre le prix prédit et le vrai prix des maisons; même s&rsquo;il y a quand même pas mal de biais.</p>
+<br/>
 <h1 id="arbre-de-décision-gradient-boosting">Arbre de décision Gradient Boosting</h1>
 <p>On va utiliser un meilleur régresseur pour obtenir un meilleur résultat.</p>
 <pre><code>from sklearn.ensemble import GradientBoostingRegressor

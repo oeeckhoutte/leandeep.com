@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>unix_tips on Bienvenue sur le site de Lean Deep</title>
+    <link>https://leandeep.com/tags/unix_tips/</link>
+    <description>Recent content in unix_tips on Bienvenue sur le site de Lean Deep</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 30 Jun 2015 07:04:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/unix_tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Port accessible sur une machine distante et quels ports utilisés ?</title>
+      <link>https://leandeep.com/port-accessible-sur-une-machine-distante-et-quels-ports-utilis%C3%A9s/</link>
+      <pubDate>Tue, 30 Jun 2015 07:04:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/port-accessible-sur-une-machine-distante-et-quels-ports-utilis%C3%A9s/</guid>
+      <description>Ports accessibles ? Via Telnet Sur les anciens systèmes telnet est installé. Il suffit de faire:
+telnet hostname port  Alternatives à telnet Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.
+NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u</description>
+    </item>
+    
+    <item>
+      <title>Réutiliser le N-ième mot de la dernière commande</title>
+      <link>https://leandeep.com/r%C3%A9utiliser-le-n-i%C3%A8me-mot-de-la-derni%C3%A8re-commande/</link>
+      <pubDate>Wed, 05 Nov 2014 20:33:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/r%C3%A9utiliser-le-n-i%C3%A8me-mot-de-la-derni%C3%A8re-commande/</guid>
+      <description>Dans la catégorie Historique Shell:
+Si vous voulez réutiliser un mot particulier de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:
+!!:N Exemple:
+$ du -h ~/Dev ... $ cd !!:2 $ cd ~/Dev Il est également possible de désigner la dernière commande commencée par un string. (Comme abordé en dernière partie de ce tip.)
+$ cd !d:2 $ cd ~/Dev </description>
+    </item>
+    
+    <item>
+      <title>Retirer les commentaires et lignes vides</title>
+      <link>https://leandeep.com/retirer-les-commentaires-et-lignes-vides/</link>
+      <pubDate>Mon, 16 Jun 2014 21:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/retirer-les-commentaires-et-lignes-vides/</guid>
+      <description>Dans la catégorie Manipulation de textes
+Voici une commande permettant de nettoyer un fichier de configuration et retirer les commentaires et lignes vides inutiles.
+grep -E -v &amp;quot;^#|^$&amp;quot; file  Ces commandes utilisent une regex grâce à l&amp;rsquo;option -E de grep.
+ &amp;ldquo;^#&amp;rdquo; permet de trouver toutes lignes qui commencent par un &amp;ldquo;#&amp;rdquo;. &amp;ldquo;^$&amp;rdquo; permet de trouver toutes les lignes vides.  Pour info l&amp;rsquo;option -v permet d&amp;rsquo;inverser la sélection.</description>
+    </item>
+    
+    <item>
+      <title>Réutiliser le dernier argument de la dernière commande</title>
+      <link>https://leandeep.com/r%C3%A9utiliser-le-dernier-argument-de-la-derni%C3%A8re-commande/</link>
+      <pubDate>Sat, 10 May 2014 21:38:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/r%C3%A9utiliser-le-dernier-argument-de-la-derni%C3%A8re-commande/</guid>
+      <description>Dans la catégorie Historique Shell:
+Si vous voulez réutiliser le dernier argument de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:
+!$ Exemple:
+$ mv server.js backend/ $ du -sh !$ $ du -sh backend/ 1.2G backend/ </description>
+    </item>
+    
+    <item>
+      <title>Réutiliser le 1er argument de la dernière commande</title>
+      <link>https://leandeep.com/r%C3%A9utiliser-le-1er-argument-de-la-derni%C3%A8re-commande/</link>
+      <pubDate>Thu, 08 May 2014 15:23:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/r%C3%A9utiliser-le-1er-argument-de-la-derni%C3%A8re-commande/</guid>
+      <description>Dans la catégorie Historique Shell
+Si vous voulez réutiliser le premier argument de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:
+!^ Exemple:
+$ host www.google.com 8.8.8.8 Using domain server: Name: 8.8.8.8 Address: 8.8.8.8#53 Aliases: www.google.com has address ... www.google.com has IPv6 address ... # Envoyer 1 seul ping $ ping -c1 !^ $ ping -c1 www.google.com PING www.google.com ... </description>
+    </item>
+    
+    <item>
+      <title>Utiliser une boucle dans le terminal</title>
+      <link>https://leandeep.com/utiliser-une-boucle-dans-le-terminal/</link>
+      <pubDate>Thu, 01 May 2014 22:51:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/utiliser-une-boucle-dans-le-terminal/</guid>
+      <description>Dans la catégorie Scripts Shell:
+Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&amp;rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.
+for VAR in LIST &amp;gt; do &amp;gt; # utilisez $VAR &amp;gt; done  Exemple:
+$ for USER in olivier bob bill &amp;gt; do &amp;gt; sudo passwd -l $USER &amp;gt; logger -t bad-boy $USER &amp;gt; done Locking password for user olivier.</description>
+    </item>
+    
+  </channel>
+</rss>

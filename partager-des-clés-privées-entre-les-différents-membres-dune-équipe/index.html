@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Lorsqu&amp;rsquo;on travaille dans une équipe de Devops il n&amp;rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&amp;hellip;). Ce sont les fichiers que l&amp;rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&amp;rsquo;entreprise) et que l&amp;rsquo;on ne peut pas mettre sur Git.
-Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&amp;hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter." />
+ Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&amp;hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Partager des clés privées entre les différents membres d&#39;une équipe">
 <meta itemprop="description" content="Lorsqu&rsquo;on travaille dans une équipe de Devops il n&rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&hellip;). Ce sont les fichiers que l&rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&rsquo;entreprise) et que l&rsquo;on ne peut pas mettre sur Git.
-Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter.">
+ Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter.">
 <meta itemprop="datePublished" content="2018-11-01T19:37:00+00:00" />
 <meta itemprop="dateModified" content="2018-11-01T19:37:00+00:00" />
 <meta itemprop="wordCount" content="207">
@@ -308,7 +308,7 @@ Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permet
 
 <meta name="twitter:title" content="Partager des clés privées entre les différents membres d&#39;une équipe"/>
 <meta name="twitter:description" content="Lorsqu&rsquo;on travaille dans une équipe de Devops il n&rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&hellip;). Ce sont les fichiers que l&rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&rsquo;entreprise) et que l&rsquo;on ne peut pas mettre sur Git.
-Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter."/>
+ Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter."/>
 
 
 
@@ -387,14 +387,18 @@ Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permet
 
             <div class="post-content">
                 <p>Lorsqu&rsquo;on travaille dans une équipe de Devops il n&rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&hellip;). Ce sont les fichiers que l&rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&rsquo;entreprise) et que l&rsquo;on ne peut pas mettre sur Git.</p>
+<br/>
 <p>Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter. L&rsquo;intérêt d&rsquo;EncFS est qu&rsquo;il est cross-platforms. Il y a des clients pour Windows, Linux, OSX, Android et iOS&hellip;</p>
+<br/>
 <p>Voici l&rsquo;installation sur OSX.</p>
 <pre><code>brew install osxfuse
 brew install sshfs
 brew install encfs
-</code></pre><p>Ensuite il n&rsquo;y a plus qu&rsquo;à exécuter la commande suivante pour créer un répertoire crypté sur Dropbox par exemple.</p>
+</code></pre><br/>
+<p>Ensuite il n&rsquo;y a plus qu&rsquo;à exécuter la commande suivante pour créer un répertoire crypté sur Dropbox par exemple.</p>
 <pre><code>encfs ~/Dropbox/dossier_securise ~/dossier_securise
-</code></pre><p>Tout ce que vous déposerez dans ~/dossier_securise sera crypté à la volé, copié dans le répertoire Dropbox et donc synchronisé avec les personnes de votre choix.
+</code></pre><br/>
+<p>Tout ce que vous déposerez dans ~/dossier_securise sera crypté à la volé, copié dans le répertoire Dropbox et donc synchronisé avec les personnes de votre choix.
 Tant que ces personnes n&rsquo;auront pas à leur tour monté le dossier de Dropbox dans un répertoire local via encfs, elles ne verront que des fichiers crypté comme ceci:</p>
 <pre><code>.encfs6.xml
 25G6HONULIE75F57UMITNZR2GBEJF

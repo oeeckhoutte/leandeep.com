@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&amp;rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
-Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)  Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt; Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &amp;quot;&amp;lt;nom_de_votre_clé&amp;gt;&amp;quot; --public-key-material file://~/." />
+ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &amp;quot;&amp;lt;nom_de_votre_clé&amp;gt;&amp;quot; --public-key-material file://~/." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -294,7 +294,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Provisionner un cluster Kubernetes avec AWS EKS">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
-Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)  Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt; Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/.">
+ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/.">
 <meta itemprop="datePublished" content="2019-03-07T21:28:00+00:00" />
 <meta itemprop="dateModified" content="2019-03-07T21:28:00+00:00" />
 <meta itemprop="wordCount" content="536">
@@ -308,7 +308,7 @@ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM) 
 
 <meta name="twitter:title" content="Provisionner un cluster Kubernetes avec AWS EKS"/>
 <meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
-Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)  Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt; Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/."/>
+ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/."/>
 
 
 
@@ -389,22 +389,29 @@ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM) 
                 <h2 id="introduction">Introduction</h2>
 <p>Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS.
 Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.</p>
+<br/>
 <h2 id="pré-requis">Pré-requis</h2>
 <ul>
 <li>Compte AWS</li>
 <li>Utilisateur Admin (Policy AdministratorAccess dans IAM)</li>
 </ul>
+<br/>
 <h2 id="installation-via-cloud9">Installation via Cloud9</h2>
 <ol>
 <li>Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;</li>
+</ol>
+<br/>
+<ol start="2">
 <li>Depuis Cloud9, via le terminal générer une clé SSH</li>
 </ol>
 <pre><code>ssh-keygen
-</code></pre><ol start="3">
+</code></pre><br/>
+<ol start="3">
 <li>Uploader sa clé dans la région EC2</li>
 </ol>
 <pre><code>aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/.ssh/id_rsa.pub
-</code></pre><ol start="4">
+</code></pre><br/>
+<ol start="4">
 <li>Installer les outils Kubernetes</li>
 </ol>
 <ul>
@@ -431,7 +438,8 @@ aws-iam-authenticator help
 <li>Installer JQ</li>
 </ul>
 <pre><code>sudo yum -y install jq
-</code></pre><ol start="5">
+</code></pre><br/>
+<ol start="5">
 <li>Créer un rôle IAM pour le workspace Cloud9</li>
 </ol>
 <ul>
@@ -448,6 +456,7 @@ aws-iam-authenticator help
 <p>Entrer &lt;nom_de_votre_projet&gt;-admin comme exemple de nom et cliquer sur Create Role.</p>
 </li>
 </ul>
+<br/>
 <ol start="6">
 <li>Attacher le rôle IAM à votre workspace</li>
 </ol>
@@ -462,6 +471,7 @@ aws-iam-authenticator help
 <p>Sélectionner &lt;nom_de_votre_projet&gt;-admin dans la drop down IAM Role et cliquer sur Apply.</p>
 </li>
 </ul>
+<br/>
 <ol start="7">
 <li>Mettre à jour les préférences IAM du workspace</li>
 </ol>
@@ -479,18 +489,21 @@ aws-iam-authenticator help
 <p>Fermer l&rsquo;onglet des préférences</p>
 </li>
 </ul>
+<br/>
 <ol start="8">
 <li>Pour être certain que des credentials n&rsquo;ont pas déjà été mis en place, exécuter la commande suivante:</li>
 </ol>
 <pre><code>rm -vf ${HOME}/.aws/credentials
-</code></pre><ol start="9">
+</code></pre><br/>
+<ol start="9">
 <li>Configurer l&rsquo;AWS cli avec la région actuelle:</li>
 </ol>
 <pre><code>export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
 echo &quot;export AWS_REGION=${AWS_REGION}&quot; &gt;&gt; ~/.bash_profile
 aws configure set default.region ${AWS_REGION}
 aws configure get default.region
-</code></pre><ol start="10">
+</code></pre><br/>
+<ol start="10">
 <li>Valider le rôle IAM</li>
 </ol>
 <ul>
@@ -513,7 +526,8 @@ aws iam get-instance-profile --instance-profile-name $INSTANCE_PROFILE_NAME --qu
     &quot;UserId&quot;: &quot;AROA1SAMPLEAWSIAMROLE:i-01234567890abcdef&quot;, 
     &quot;Arn&quot;: &quot;arn:aws:sts::123456789012:assumed-role/&lt;nom_de_votre_projet&gt;-admin/i-01234567890abcdef&quot;
 }
-</code></pre><ol start="11">
+</code></pre><br/>
+<ol start="11">
 <li>Installer le binaire <code>eksctl</code>:</li>
 </ol>
 <pre><code>curl --silent --location &quot;https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz&quot; | tar xz -C /tmp
@@ -521,15 +535,19 @@ aws iam get-instance-profile --instance-profile-name $INSTANCE_PROFILE_NAME --qu
 sudo mv -v /tmp/eksctl /usr/local/bin
 </code></pre><p>Et vérifier que l&rsquo;installation est bonne via:</p>
 <pre><code>eksctl version
-</code></pre><ol start="12">
+</code></pre><br/>
+<ol start="12">
 <li>Création du cluster</li>
 </ol>
 <pre><code>eksctl create cluster --name=&lt;nom_de_votre_projet&gt;-eksctl --nodes=3 --node-ami=auto --region=${AWS_REGION}
-</code></pre><h2 id="vérifier-le-bon-fonctionnement-du-cluster">Vérifier le bon fonctionnement du cluster</h2>
+</code></pre><br/>
+<h2 id="vérifier-le-bon-fonctionnement-du-cluster">Vérifier le bon fonctionnement du cluster</h2>
 <pre><code>kubectl get nodes
-</code></pre><h2 id="déployer-le-dashboard-k8s-officiel">Déployer le dashboard k8s officiel</h2>
+</code></pre><br/>
+<h2 id="déployer-le-dashboard-k8s-officiel">Déployer le dashboard k8s officiel</h2>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
-</code></pre><ol start="15">
+</code></pre><br/>
+<ol start="15">
 <li>Accéder au dashboard</li>
 </ol>
 <pre><code>kubectl proxy --port=8080 --address='0.0.0.0' --disable-filter=true &amp;

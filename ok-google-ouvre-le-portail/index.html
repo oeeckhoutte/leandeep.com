@@ -7,7 +7,7 @@
 <meta name="author" content="Olivier Eeckhoutte">
 <meta name="description" content="Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.
 Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.
-Description du fonctionnement Voici un schéma qui décrit globalement le fonctionnement du système.
+ Description du fonctionnement Voici un schéma qui décrit globalement le fonctionnement du système.
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -297,6 +297,7 @@ function toTitleCase(str) {
 <meta itemprop="name" content="« Ok google… Ouvre le portail » !">
 <meta itemprop="description" content="Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.
 Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.
+
 Description du fonctionnement
 Voici un schéma qui décrit globalement le fonctionnement du système.
 ">
@@ -314,6 +315,7 @@ Voici un schéma qui décrit globalement le fonctionnement du système.
 <meta name="twitter:title" content="« Ok google… Ouvre le portail » !"/>
 <meta name="twitter:description" content="Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.
 Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.
+
 Description du fonctionnement
 Voici un schéma qui décrit globalement le fonctionnement du système.
 "/>
@@ -396,14 +398,19 @@ Voici un schéma qui décrit globalement le fonctionnement du système.
             <div class="post-content">
                 <p>Pour bien commencer l’année et ce blog avec ce premier article, voici comment j’ai transformé mon portail en un portail connecté.</p>
 <p>Lorsque je prononce les mots « Ok Google… Ouvre le portail » sur mon Smartphone, ce dernier déclenche une commande qui actionne le moteur du portail. Je peux ainsi en fonction des messages que j’ai programmé, ouvrir ou fermer le portail de n’importe où.</p>
+<br/>
 <h2 id="description-du-fonctionnement">Description du fonctionnement</h2>
 <p>Voici un schéma qui décrit globalement le fonctionnement du système.</p>
 <p><img src="https://leandeep.com/images/article-ok-google-portail.png" alt="image"></p>
+<br/>
 <p>Comme l’indique le schéma ci-dessus, j’ai le choix entre 2 options pour actionner mon portail. Je peux le faire avec les commandes par défaut qui sont les télécommandes ou le visiophone. Et je peux le faire grâce à des commandes vocales.</p>
 <p>Mon portail possède un actionneur de marque BFT (Ultra BT A 400). Ce dernier est fourni avec un moteur et sa carte électronique de commande qui me permettent d’ouvrir ou fermer le portail. Je me suis branché directement sur cette carte électronique et je la pilote grâce à un relais et un Raspberry Pi. Si on regarde le schéma de la carte électronique de commande du moteur ci-dessous, on peut voir qu’il y a deux inputs <code>IC1</code> et <code>IC2</code>.</p>
+<br/>
 <p><img src="https://leandeep.com/images/moteur-1.png" alt="image"></p>
+<br/>
 <p><code>IC1</code> permet d’ouvrir ou fermer le portail en grand et <code>IC2</code> permet de le faire en mode piéton.</p>
 <p>Pour piloter le portail, il faut donc tirer 2 fils entre cette carte de commande et le relais et ensuite piloter le relais avec un Raspberry Pi. Le schéma du câblage est présent dans le paragraphe suivant.</p>
+<br/>
 <h2 id="hardware">Hardware</h2>
 <p>Voici le matériel que j’ai utilisé:</p>
 <ul>
@@ -416,12 +423,15 @@ Voici un schéma qui décrit globalement le fonctionnement du système.
 </ul>
 <p>Finalement il y a assez peu de matériel. La boite de dérivation, n’est pas indispensable mais elle permet de cacher les cables et cartes et ainsi d’avoir quelque chose de propre. En gros, une fois terminé, il n’y a pas des fils qui pendent à côté du tableau électrique. Voici à quoi cela ressemble chez moi:</p>
 <p><img src="https://leandeep.com/images/DSC_0051.jpg" alt="image"></p>
+<br/>
 <p>Voici comment j’ai câblé mon relais et Raspberry Pi avec la commande IC1:</p>
 <p><img src="https://leandeep.com/images/schema-pi-relay.jpeg" alt="image"></p>
+<br/>
 <h2 id="software">Software</h2>
 <p>Pour piloter le GPIO du Raspberry Pi, j’utilise un script que j’ai réalisé en Python. En exécutant le script, la PIN 17 du GPIO prend alternativement la valeur 0 ou 5V. A chaque fois que le relais reçoit une impulsion de 5V, il change d’état; ce qui crée une impulsion sur IC1.</p>
 <p>J’ai également créé une API NodeJS qui me permet d’exposer l’exécution de mon script Python, de sécuriser le tout et de créer une interface WEB de contrôle du portail (je ne la présente pas dans cet article).</p>
 <p>Tout est donc exécuté directement sur le Raspberry Pi qui est accessible sur internet via ma box internet.</p>
+<br/>
 <h2 id="préparation-environnement">Préparation environnement</h2>
 <h3 id="installation-de-nodejs">Installation de NodeJS</h3>
 <pre><code>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
@@ -431,13 +441,15 @@ Voici un schéma qui décrit globalement le fonctionnement du système.
 </code></pre><p>Vous pouvez maintenant utiliser NVM et utiliser la version de NodeJS que vous souhaitez.
 Exécutez simplement la commande suivante:</p>
 <pre><code>nvm use 6.9.1 # sélectionnez la version de NodeJS que vous voulez
-</code></pre><h3 id="installation-de-python">Installation de Python</h3>
+</code></pre><br/>
+<h3 id="installation-de-python">Installation de Python</h3>
 <pre><code>apt-get update
 apt-get install gcc
 apt-get install python-dev
 apt-get install python-pip
 pip install RPi.GPIO
-</code></pre><h2 id="api-nodejs">API NodeJS</h2>
+</code></pre><br/>
+<h3 id="api-nodejs">API NodeJS</h3>
 <p>Voici un extrait de code. C’est le endpoint ExpressJS qui exécute mon script Python via un fork unix.</p>
 <pre><code>router.get('/portail/toggle', (req, res) =&gt; {
   var exec = require('child_process').exec;
@@ -449,7 +461,8 @@ pip install RPi.GPIO
     res.send({msg: 'Yeah it works!'});
   });
 });
-</code></pre><h3 id="script-python">Script Python</h3>
+</code></pre><br/>
+<h3 id="script-python">Script Python</h3>
 <pre><code>#!/usr/bin/python
  
 import sys
@@ -469,13 +482,15 @@ if (int(ctl) == 2):
   GPIO.output(pin,GPIO.HIGH)
   time.sleep(2)
   GPIO.output(pin, GPIO.LOW)
-</code></pre><h3 id="automatisation-sur-android-via-tasker">Automatisation sur Android via Tasker</h3>
+</code></pre><br/>
+<h3 id="automatisation-sur-android-via-tasker">Automatisation sur Android via Tasker</h3>
 <p>Voyons maintenant comment j’ai fait pour que mon téléphone comprenne ce que je lui dis et comment il communique avec  l’API NodeJS pour ouvrir ou fermer mon portail.</p>
 <p>Pour avancer de façon Lean sur ce projet, j’ai commencé par quelque chose de simple. Je vous parlerais de la finalité de ce que je veux faire avec ce projet en conclusion de cet article.</p>
 <p>J’ai utilisé les fonctionnalités de reconnaissance vocale de Google Now sans rien développer.</p>
 <p>Pour ce faire, j’ai utilisé l’application d’automatisation de tâches appelée Tasker ainsi que son plugin AutoVoice.</p>
 <p>Pour que mon téléphone envoie une requête à mon API Node pour ouvrir le portail quand je prononce la phrase: « Sésame ouvre-toi », il suffit de définir une tâche qui permet d’envoyer une requête vers une URL et définir des profils. Un exemple de profil peut être: si Google Now reconnait une phrase en particulier comme par exemple « Sésame ouvre-toi » alors j’exécute une tâche.</p>
 <p>Beaucoup de tutoriaux sont disponibles sur internet. En voici un par exemple: <a href="http://lifehacker.com/how-to-create-custom-voice-commands-with-tasker-and-aut-1282209195">http://lifehacker.com/how-to-create-custom-voice-commands-with-tasker-and-aut-1282209195</a></p>
+<br/>
 <h3 id="tests-et-industrialisation">Tests et industrialisation</h3>
 <p>J’ai eu beaucoup de chance car je n’ai rencontré absolument aucun obstacle et avais tout ce qu’il me fallait sous la main. Après quelques tests tout a très vite fonctionné.</p>
 <p>Ma dernière tâche, avant de ranger tous les câbles proprement dans le tableau électrique, a consisté à créer un script de démarrage et à installer un process manager pour NodeJS (PM2).</p>
@@ -526,7 +541,8 @@ exit 0
  
 #Enregistrement du script pour être lancé au démarrage de la machine une fois qu'il est ok 
 update-rc.d nodeStartupHomeAutomation defaults 
-</code></pre><h2 id="conclusion">Conclusion</h2>
+</code></pre><br/>
+<h2 id="conclusion">Conclusion</h2>
 <p>Voilà c’est à peu près tout pour cet article. Il n’en faut pas beaucoup plus pour piloter un portail avec des commandes vocales sur un Smartphone.</p>
 <p>Pour ce projet, je ne veux pas en rester là. Je vais passer le tout sur Docker si bien sûr je peux accéder au GPIO depuis un container.</p>
 <p>De plus aujourd’hui je dépends d’internet. Si je n’ai plus internet sur mon Smartphone, aucune commande ne peut être envoyée vers mon Raspberry Pi.</p>
@@ -557,9 +573,9 @@ update-rc.d nodeStartupHomeAutomation defaults
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/style-guide-pep8-en-python/">
+                            <a href="https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Style guide PEP8 en Python</span>
+                                <span class="button__text">Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</span>
                             </a>
                         </span>
                     

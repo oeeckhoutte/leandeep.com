@@ -412,6 +412,7 @@ On peut éviter cela en:
 <p>Pour déterminer le bon algorithme à utiliser par rapport à notre jeu de données, il faut pouvoir identifier quantitativement le bias et la variance pour pouvoir optimiser les metaparamètres.</p>
 </blockquote>
 <p><em>C&rsquo;est faisable grâce au process de <code>cross-validation</code>.</em></p>
+<br/>
 <h2 id="détecter-loverfitting-grâce-à-la-cross-validation">Détecter l&rsquo;overfitting grâce à la cross-validation</h2>
 <p>Pour quantifier les effets du biais et de la variance et construire le meilleur estimateur possible, on va découper notre dataset en 3 parties:</p>
 <ul>
@@ -436,6 +437,7 @@ On peut éviter cela en:
 <blockquote>
 <p>De manière générale, plus on a données d&rsquo;entraînement et plus on peut utiliser un modèle complexe. <em><code>The learning curve</code></em>&hellip;</p>
 </blockquote>
+<br/>
 <h2 id="la-courbe-dapprentissage">La courbe d&rsquo;apprentissage</h2>
 <p>La courbe d&rsquo;apprentissage est l&rsquo;affichage des erreurs de training et de cross-validation en fonction du nombre de <em>training points</em>.</p>
 <p><img src="https://leandeep.com/images/plot_bias_variance_examples_learning_curve.png" alt="image"></p>
@@ -448,6 +450,7 @@ On peut éviter cela en:
 <p>Sur la droite, le polynôme est de degré 20. L&rsquo;erreur d&rsquo;entrainement est beaucoup plus faible que l&rsquo;erreur de cross-validation. Plus on ajoute de données dans le training set et plus l&rsquo;erreur d&rsquo;entrainement augmente alors que l&rsquo;erreur de cross-validation diminue.</p>
 </li>
 </ul>
+<br/>
 <h2 id="conclusion">Conclusion</h2>
 <p><strong>Fort biais</strong></p>
 <p>Si notre algorithme montre un fort biais, il faut:</p>
@@ -457,12 +460,14 @@ On peut éviter cela en:
 <li>Diminuer le training set pour booster la durée d&rsquo;entrainement. On arrivera à la même erreur plus rapidement; avec moins de données d&rsquo;entrainement. Par contre, cela ne va pas améliorer la classification.</li>
 <li>Diminuer la régularisation: la régularisation est une technique utilisée pour simplifier certains modèles de Machine Learning en ajoutant des termes de pénalité qui dépendent des caractéristiques des paramètres.</li>
 </ul>
+<br/>
 <p><strong>Forte variance</strong></p>
 <ul>
 <li>Utiliser moins de features</li>
 <li>Augmenter le training set. Ajouter des données dans le training set peut réduire l&rsquo;effet d&rsquo;over-fitting et conduire à diminuer la variance de l&rsquo;estimateur.</li>
 <li>Augmenter la régularisation qui est faite justement pour éviter l&rsquo;over-fitting.</li>
 </ul>
+<br/>
 <h2 id="code-des-graphs">Code des graphs</h2>
 <pre><code>import pylab as pl
 from matplotlib import ticker
@@ -664,8 +669,8 @@ pl.show()
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/class-iterator-en-python/">
-                                <span class="button__text">Class iterator en Python</span>
+                            <a href="https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/">
+                                <span class="button__text">Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
