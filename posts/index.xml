@@ -3525,6 +3525,7 @@ brew install gpg
 brew install pyenv
 brew install git-crypt
 brew install watch
+brew install sshfs
 
 # Installation de MongoDB 
 # https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
@@ -17962,7 +17963,52 @@ Host repo2.github.com
     User git
     IdentityFile ~/.ssh/repo2_rsa
 </code></pre><p>Puis <code>git clone repo1.github.com</code></p>
-]]></content>
+<br/>
+<h2 id="copier-des-fichier-over-ssh-avec-scp">Copier des fichier over SSH avec SCP</h2>
+<pre><code>scp mon_image.png olivier@remoteserver:/media/data/mon_image.png
+</code></pre><blockquote>
+<p>Le paramètre port est <code>-P</code> et pas <code>-p</code> contrairement à <code>SSH</code></p>
+</blockquote>
+<br/>
+<h2 id="copier-votre-clé-publique-ssh-sur-une-machine-distante">Copier votre clé publique SSH sur une machine distante</h2>
+<pre><code>ssh-copy-id user@remoteserver
+</code></pre><br/>
+<p>Alternative:</p>
+<pre><code>cat ~/.ssh/id_rsa.pub | ssh remoteserver 'cat &gt;&gt; .ssh/authorized_keys'
+</code></pre><br/>
+<h2 id="exécuter-uen-commande-à-distance">Exécuter uen commande à distance</h2>
+<pre><code>ssh remoteserver &quot;cat /var/log/nginx/access.log&quot; | grep &quot;string_to_find&quot;
+</code></pre><blockquote>
+<p><code>| grep ...</code> est exécuté localement</p>
+</blockquote>
+<br/>
+<h2 id="copier-des-fichiers-à-distance-avec-rsync">Copier des fichiers à distance avec rsync</h2>
+<pre><code>rsync -az /home/olivier/data remoteserver:backup/
+</code></pre><blockquote>
+<p><code>-z</code> permet d&rsquo;avoir la compression gzip et <code>-a</code> permet d&rsquo;être en mode archive; ce qui revient à copier recursivement des fichiers</p>
+</blockquote>
+<br/>
+<h2 id="ssh-sur-une--instance-ec2">SSH sur une  instance EC2</h2>
+<pre><code>chmod 400 my-ec2-ssh-key.pem
+ssh -i ~/.ssh/my-ec2-key.pem ubuntu@my-ec2-public
+</code></pre><br/>
+<h2 id="mount-remote-ssh-location-comme-dossier-local-avec-sshfs">Mount remote SSH location comme dossier local avec SSHFS</h2>
+<pre><code># apt install sshfs # sur linux
+# brew install sshfs # sur OSX
+mkdir /tmp/data
+sshfs user@remoteserver:/media/data /tmp/data/
+
+# Umount with: 
+## On OSX
+sudo diskutil umount force /tmp/data
+
+## On Linux
+killall sshfs
+sudo umount -l /tmp/data
+</code></pre><br/>
+<h2 id="jump-box">Jump box</h2>
+<pre><code>ssh -J host1,host2,host3 user@host4.internal
+</code></pre>]]></content>
         </item>
         
     </channel>
