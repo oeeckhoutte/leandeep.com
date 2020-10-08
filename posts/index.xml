@@ -5,8 +5,25 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 05 Oct 2020 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 08 Oct 2020 18:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Regarder un film sur vlc over SSH</title>
+            <link>https://leandeep.com/regarder-un-film-sur-vlc-over-ssh/</link>
+            <pubDate>Thu, 08 Oct 2020 18:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/regarder-un-film-sur-vlc-over-ssh/</guid>
+            <description>Tout est dans le titre. Avec la commande ci-dessous, vous pouvez visionner sur VLC un film présent sur une machine distante via SFTP (Secure File Transfer Protocol). C&amp;rsquo;est très pratique si vous avez du contenu vidéo sur une autre machine et vous ne voulez pas attendre de le télécharger pour le regarder.
+ vlc sftp://user@host:/path/to/file  Bon visionnage.</description>
+            <content type="html"><![CDATA[<p>Tout est dans le titre. Avec la commande ci-dessous, vous pouvez visionner sur VLC un film présent sur une machine distante via SFTP (Secure File Transfer Protocol).
+C&rsquo;est très pratique si vous avez du contenu vidéo sur une autre machine et vous ne voulez pas attendre de le télécharger pour le regarder.</p>
+<br/>
+<pre><code>vlc sftp://user@host:/path/to/file
+</code></pre><br/>
+<p>Bon visionnage.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Extraire et importer toutes ses clés GPG</title>
@@ -3498,6 +3515,7 @@ brew cask install qlmarkdown qlstephen quicklook-json qlimagesize suspicious-pac
 brew cask install keepassxc
 brew cask install db-browser-for-sqlite
 brew cask install vagrant
+brew cask install vlc
 
 brew install tig # Voir l'historique git
 brew install hadolint # Dockerfile linter
@@ -15519,14 +15537,19 @@ git diff HEAD^^ myfile
 <p><strong>Modifier le dernier commit:</strong></p>
 <pre><code>git commit --amend
 </code></pre><br/>
+<p><strong>Renommer une branche locale:</strong></p>
+<pre><code>git checkout ancien_nom
+git branch -m nouveau_nom
+git push origin nouveau_nom
+</code></pre><br/>
 <p><strong>Effacer une branche locale:</strong></p>
 <pre><code>git branch -d new-branch
 </code></pre><br/>
-<p><strong>Retourner sur la dernière branche:</strong></p>
-<pre><code>git checkout -
-</code></pre><br/>
 <p><strong>Effacer une branche remote:</strong></p>
 <pre><code>git push origin --delete new-branch
+</code></pre><br/>
+<p><strong>Retourner sur la dernière branche:</strong></p>
+<pre><code>git checkout -
 </code></pre><br/>
 <p><strong>Contrôler le comportement de git push par default pour éviter de devoir specifier la branch (sur laquelle on est) avant de pusher:</strong></p>
 <pre><code>git config --global push.default current
@@ -15567,6 +15590,9 @@ git push origin mon_tag
 
 # (non recommandé) pousser tous les tags
 git push --tags
+</code></pre><br/>
+<p><strong>Lister les fichiers modifiés dans une branche par rapport à master:</strong></p>
+<pre><code>git diff --name-only ma_branche $(git merge-base ma_branche master)
 </code></pre><br/>
 <p><strong>Ajouter un tag sur un commit particulier</strong></p>
 <pre><code>git tag -a v1.0 d613c59
