@@ -17966,6 +17966,14 @@ Host repo2.github.com
 <br/>
 <h2 id="copier-des-fichier-over-ssh-avec-scp">Copier des fichier over SSH avec SCP</h2>
 <pre><code>scp mon_image.png olivier@remoteserver:/media/data/mon_image.png
+
+# ou dans l'autre sens
+scp olivier@remoteserver:/media/data/mon_image.png mon_image.png
+
+# Si votre fichier contient des espaces
+file=&quot;foo bar/baz&quot;
+file=${file// /\\ }
+scp vps:&quot;$file&quot; .
 </code></pre><blockquote>
 <p>Le paramètre port est <code>-P</code> et pas <code>-p</code> contrairement à <code>SSH</code></p>
 </blockquote>
