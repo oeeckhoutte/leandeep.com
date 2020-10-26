@@ -17860,24 +17860,29 @@ $ cd ~/Dev
             
             <guid>https://leandeep.com/installer-un-vnc-server-sur-linux/</guid>
             <description>Introduction Dans cet article nous allons voir comment installer un serveur VNC sur Linux.
- Steps Désinstaller le serveur Vino (souvent présent par défaut): sudo apt-get -y remove vino  Installer x11vnc: sudo apt-get -y install x11vnc  Créer le mot de passe encrypté: x11vnc -storepasswd &amp;quot;votre_mot_de_passe&amp;quot; ~/.vnc_passwd  Créer un service x11vnc dans systemd: sudo vim /lib/systemd/system/x11vnc.service Et copier/coller le code suivant à l&amp;rsquo;intérieur du nouveau fichier:
+ Steps Désinstaller le serveur Vino (souvent présent par défaut)
+sudo apt-get -y remove vino  Installer x11vnc
+sudo apt-get -y install x11vnc  Créer le mot de passe encrypté
+x11vnc -storepasswd &amp;quot;votre_mot_de_passe&amp;quot; ~/.vnc_passwd  Créer un service x11vnc dans systemd
+sudo vim /lib/systemd/system/x11vnc.service  Et copier/coller le code suivant à l&amp;rsquo;intérieur du nouveau fichier:
 [Unit] Description=x11vnc remote desktop server After=multi-user.</description>
-            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Dans cet article nous allons voir comment installer un serveur VNC sur Linux.</p>
 <br/>
-<h1 id="steps">Steps</h1>
-<h2 id="désinstaller-le-serveur-vino-souvent-présent-par-défaut">Désinstaller le serveur Vino (souvent présent par défaut):</h2>
+<h2 id="steps">Steps</h2>
+<p><strong>Désinstaller le serveur Vino (souvent présent par défaut)</strong></p>
 <pre><code>sudo apt-get -y remove vino
 </code></pre><br/>
-<h2 id="installer-x11vnc">Installer x11vnc:</h2>
+<p><strong>Installer x11vnc</strong></p>
 <pre><code>sudo apt-get -y install x11vnc
 </code></pre><br/>
-<h2 id="créer-le-mot-de-passe-encrypté">Créer le mot de passe encrypté:</h2>
+<p><strong>Créer le mot de passe encrypté</strong></p>
 <pre><code>x11vnc -storepasswd &quot;votre_mot_de_passe&quot; ~/.vnc_passwd
 </code></pre><br/>
-<h2 id="créer-un-service-x11vnc-dans-systemd">Créer un service x11vnc dans systemd:</h2>
+<p><strong>Créer un service x11vnc dans systemd</strong></p>
 <pre><code>sudo vim /lib/systemd/system/x11vnc.service
-</code></pre><p>Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:</p>
+</code></pre><br/>
+<p>Et copier/coller le code suivant à l&rsquo;intérieur du nouveau fichier:</p>
 <pre><code>[Unit]
 Description=x11vnc remote desktop server
 After=multi-user.target
@@ -17891,18 +17896,18 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 </code></pre><br/>
-<h2 id="reloader-les-services"><em>Reloader</em> les services:</h2>
+<p><strong>Reloader les services</strong></p>
 <pre><code>sudo systemctl daemon-reload
 </code></pre><br/>
-<h2 id="activer-le-service-x11vnc-au-boot">Activer le service x11vnc au <em>boot</em>:</h2>
+<p><strong>Activer le service x11vnc au boot</strong></p>
 <pre><code>sudo systemctl enable x11vnc.service
 </code></pre><br/>
-<h2 id="démarrer-le-service-ou-reboot">Démarrer le service (ou reboot):</h2>
+<p><strong>Démarrer le service (ou reboot)</strong></p>
 <pre><code>sudo systemctl start x11vnc.service
 </code></pre><br/>
 <p>Rebooter puis vérifier que vous pouvez établir une connection VNC sur le port 5900.</p>
 <br/>
-<h1 id="troubleshooting">Troubleshooting</h1>
+<h2 id="troubleshooting">Troubleshooting</h2>
 <p>Si vous rencontez l&rsquo;erreur suivante:</p>
 <pre><code>xauth:  unable to generate an authority file name
 </code></pre><br/>
