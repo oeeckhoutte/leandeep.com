@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Lean Deep">
 <meta name="description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&amp;rsquo;exécuter automatiquement au démarrage d&amp;rsquo;une machine. L&amp;rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&amp;rsquo;IP publique sur un de mes DNS.
-Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
+ Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 #!/bin/bash echo &amp;quot;Boot script sample&amp;quot; &amp;gt; /var/log/boot_script.log echo &amp;quot;Started at `date`&amp;quot; &amp;gt;&amp;gt; /var/log/boot_script." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -295,7 +295,7 @@ function toTitleCase(str) {
 
 <meta itemprop="name" content="Créer un script qui se lance au démarrage de Centos 7">
 <meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&rsquo;exécuter automatiquement au démarrage d&rsquo;une machine. L&rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&rsquo;IP publique sur un de mes DNS.
-Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
+ Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 #!/bin/bash echo &quot;Boot script sample&quot; &gt; /var/log/boot_script.log echo &quot;Started at `date`&quot; &gt;&gt; /var/log/boot_script.">
 <meta itemprop="datePublished" content="2019-09-10T18:10:11+00:00" />
 <meta itemprop="dateModified" content="2019-09-10T18:10:11+00:00" />
@@ -310,7 +310,7 @@ Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 
 <meta name="twitter:title" content="Créer un script qui se lance au démarrage de Centos 7"/>
 <meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment créer un service systemd qui va s&rsquo;exécuter automatiquement au démarrage d&rsquo;une machine. L&rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&rsquo;IP publique sur un de mes DNS.
-Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
+ Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
 #!/bin/bash echo &quot;Boot script sample&quot; &gt; /var/log/boot_script.log echo &quot;Started at `date`&quot; &gt;&gt; /var/log/boot_script."/>
 
 
@@ -391,6 +391,7 @@ Steps Créer un fichier /var/tmp/boot_script.sh qui contient le code suivant:
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
 <p>Dans cet article, nous allons voir comment créer un service systemd qui va s&rsquo;exécuter automatiquement au démarrage d&rsquo;une machine. L&rsquo;IP de ma machine étant renouvelée à chaque redémarrage, je me sers de ce type de service pour mettre à jour automatiquement l&rsquo;IP publique sur un de mes DNS.</p>
+<br/>
 <h2 id="steps">Steps</h2>
 <p>Créer un fichier <code>/var/tmp/boot_script.sh</code> qui contient le code suivant:</p>
 <pre><code>#!/bin/bash
@@ -410,16 +411,20 @@ TimeoutStartSec=0
 
 [Install]
 WantedBy=default.target
-</code></pre><p>Reloader le process systemd pour que notre nouveau service soit pris en compte:</p>
+</code></pre><br/>
+<p>Reloader le process systemd pour que notre nouveau service soit pris en compte:</p>
 <pre><code>systemctl daemon-reload
 </code></pre><blockquote>
 <p>Si vous modifiez ce service, il vous faudra également reloader systemd/</p>
 </blockquote>
+<br/>
 <p>&ldquo;Activer&rdquo; le service pour qu&rsquo;il se lance automatiquement au démarrage de la machine:</p>
 <pre><code>systemctl enable boot_script.service
-</code></pre><p>Démarrer le service:</p>
+</code></pre><br/>
+<p>Démarrer le service:</p>
 <pre><code>systemctl start boot_script.service
-</code></pre><p>Redémarrer votre machine pour vérifier que tout fonctionne bien.</p>
+</code></pre><br/>
+<p>Redémarrer votre machine pour vérifier que tout fonctionne bien.</p>
 <pre><code>systemctl reboot
 </code></pre>
             </div>

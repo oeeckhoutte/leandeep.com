@@ -37,6 +37,18 @@
     </item>
     
     <item>
+      <title>Monter un disque NFS sur Ubuntu</title>
+      <link>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</link>
+      <pubDate>Sat, 15 Aug 2020 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</guid>
+      <description>Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.
+ Installation sudo apt install nfs-common  Configuration Créer le répertoire pour le point de montage:
+mkdir -p /mnt/smalldiskspool/Musique  Editer le fichier /etc/fstab et ajouter une ligne comme celle ci par exemple:
+192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0   0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)</description>
+    </item>
+    
+    <item>
       <title>Mocker en 1 minute les appels vers des services externes</title>
       <link>https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/</link>
       <pubDate>Sat, 04 Jul 2020 21:20:04 -0700</pubDate>
@@ -44,6 +56,17 @@
       <guid>https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/</guid>
       <description>Que ce soit pour du dévelopement ou pour exécuter des tests ou autres, il est très fréquent de vouloir mocker les appels vers des services externes. Si vous utilisez le module requests dans votre projet vous pouvez tout simplement ajouter le module requests_cache pour créer des bouchons. En effet, ce dernier va mettre en cache (dans une base de données sqlite) toutes les réponses aux requêtes faites par requests.
  Mise en place Bien sûr, on install le module: pip install requests_cache.</description>
+    </item>
+    
+    <item>
+      <title>Convertir des images dmg ou img en iso sur OSX</title>
+      <link>https://leandeep.com/convertir-des-images-dmg-ou-img-en-iso-sur-osx/</link>
+      <pubDate>Thu, 23 Jan 2020 20:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/convertir-des-images-dmg-ou-img-en-iso-sur-osx/</guid>
+      <description>Convertir une image img en iso
+hdiutil convert input.img -format UDTO -o output.iso  Convertir une image dmg en iso
+hdiutil convert input.dmg -format UDTO -o output.iso </description>
     </item>
     
     <item>
@@ -88,28 +111,6 @@ import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;
       <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
 Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
 1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
-    </item>
-    
-    <item>
-      <title>Utiliser zip pour itérer sur deux listes</title>
-      <link>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes-copy/</link>
-      <pubDate>Tue, 14 Jan 2020 21:20:04 -0700</pubDate>
-      
-      <guid>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes-copy/</guid>
-      <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
-Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
-1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
-    </item>
-    
-    <item>
-      <title>Utiliser une boucle non Pythonique</title>
-      <link>https://leandeep.com/utiliser-une-boucle-non-pythonique/</link>
-      <pubDate>Sat, 11 Jan 2020 21:20:04 -0700</pubDate>
-      
-      <guid>https://leandeep.com/utiliser-une-boucle-non-pythonique/</guid>
-      <description>Pour accéder aux éléments d&amp;rsquo;une liste et afficher l&amp;rsquo;index des éléments, il vaut mieux privilégier l&amp;rsquo;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&amp;rsquo;incrémenter la valeur de l&amp;rsquo;index.
- Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom)  Bonne pratique (Bien!) Voici la manière plus Pythonique d&amp;rsquo;itérérer sur une liste.
-prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx, prenom in enumerate(prenoms): print(idx, prenom) </description>
     </item>
     
   </channel>
