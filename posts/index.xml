@@ -5,8 +5,42 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 08 Oct 2020 18:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 26 Oct 2020 20:44:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Créer un proxy MITM pour mesurer la performance des APIs</title>
+            <link>https://leandeep.com/cr%C3%A9er-un-proxy-mitm-pour-mesurer-la-performance-des-apis/</link>
+            <pubDate>Mon, 26 Oct 2020 20:44:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-un-proxy-mitm-pour-mesurer-la-performance-des-apis/</guid>
+            <description>Introduction Nous allons voir dans cet article comment mettre en place un proxy MITM pour mesurer la performance d&amp;rsquo;une API. Nous parlons ici d&amp;rsquo;une solution basique &amp;ldquo;quick win&amp;rdquo; à mettre en place en 5 minutes. Je ne parle pas d&amp;rsquo;une solution APM évoluée où il faut installer un SDK&amp;hellip;
+ Installation docker run --rm -it \ -p 8080:8080 \ -p 8081:8081 \ oeeckhoutte/mitmproxy mitmweb \ --web-host 0.0.0.0  Usage watch -n 5 &amp;quot;curl -k --proxy http://127.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Nous allons voir dans cet article comment mettre en place un proxy MITM pour mesurer la performance d&rsquo;une API.
+Nous parlons ici d&rsquo;une solution basique &ldquo;quick win&rdquo; à mettre en place en 5 minutes. Je ne parle pas d&rsquo;une solution APM évoluée où il faut installer un SDK&hellip;</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>docker run --rm -it \
+ -p 8080:8080 \
+ -p 8081:8081 \
+ oeeckhoutte/mitmproxy mitmweb \
+  --web-host 0.0.0.0
+</code></pre><br/>
+<h2 id="usage">Usage</h2>
+<pre><code>watch -n 5 &quot;curl -k --proxy http://127.0.0.1:8080 http://192.168.0.24:8000/&quot;
+</code></pre><br/>
+<p>Rendez-vous sur <a href="http://localhost:8081">http://localhost:8081</a> pour accéder à l&rsquo;interface MITM proxy.</p>
+<br/>
+<pre><code>watch -n 1 &quot;ab -n 3 -v 3 https://mon_api/endpoint &gt;&gt; ab.txt&quot;
+</code></pre><br/>
+<p>Pour compter le nombre d&rsquo;erreurs 5xx, on peut utiliser vim:</p>
+<pre><code>:%s/HTTP\/1.1 5//n
+</code></pre><br/>
+<p>On peut compte aussi les &ldquo;permanent moves&rdquo; 3xx:</p>
+<pre><code>:%s/HTTP\/1.1 3//n
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Regarder un film sur vlc over SSH</title>
