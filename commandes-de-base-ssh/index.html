@@ -282,7 +282,7 @@ function toTitleCase(str) {
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.76b2f8e1bc1c6e8b40b499ecd059c58ca8f1651ea64d3dbd8aecaf5ea0278c20.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.548d1b91b7b906c9b25bea45c3e80bf1042db77b75242f39657d4a76afa77939.css">
 
 
 
@@ -305,7 +305,7 @@ Créer un fichier de config ~/.ssh/config et gérer vos config comme ceci:
 Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 PubkeyAuthentication yes IdentityFile ~/.ssh/server_vps1 Ensuite, il vous suffit d&rsquo;utiliser les commandes suivantes pour vous connecter à vos différents hosts:">
 <meta itemprop="datePublished" content="2012-10-10T09:49:00+02:00" />
 <meta itemprop="dateModified" content="2012-10-10T09:49:00+02:00" />
-<meta itemprop="wordCount" content="359">
+<meta itemprop="wordCount" content="377">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -356,7 +356,7 @@ Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 Pubke
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/cv/">CV</a></li><li><a href="https://leandeep.com/twitter/">Twitter</a></li><li><a href="https://leandeep.com/tips/">Tips</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/trading/">Trading</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
     </ul>
 </nav>
 
@@ -485,9 +485,13 @@ scp vps:&quot;$file&quot; .
 </blockquote>
 <br/>
 <h2 id="copier-des-fichiers-à-distance-avec-rsync">Copier des fichiers à distance avec rsync</h2>
-<pre><code>rsync -az /home/olivier/data remoteserver:backup/
+<pre><code>rsync -azcrv --progress /home/olivier/data remoteserver:backup/
 </code></pre><blockquote>
-<p><code>-z</code> permet d&rsquo;avoir la compression gzip et <code>-a</code> permet d&rsquo;être en mode archive; ce qui revient à copier recursivement des fichiers</p>
+<p><code>-z</code> permet d&rsquo;avoir la compression gzip <br/>
+<code>-a</code> permet d&rsquo;être en mode archive; ce qui revient à copier recursivement des fichiers
+<code>-c</code> check checksum. Si le contenu du fichier est différent, le fichier est recopié
+<code>-r</code> recursif
+<code>-v</code> verbose</p>
 </blockquote>
 <br/>
 <h2 id="ssh-sur-une--instance-ec2">SSH sur une  instance EC2</h2>
@@ -521,7 +525,7 @@ sudo umount -l /tmp/data
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ssh">SSH</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>359 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>377 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 Oct. 2012</p>
         </div>

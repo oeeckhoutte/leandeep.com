@@ -35,7 +35,7 @@ C&rsquo;est très pratique si vous avez du contenu vidéo sur une autre machine 
 gpg -a --export &amp;gt; /tmp/pub_gpg_keys.asc  Exporter toutes les clés privées:
 gpg -a --export-secret-keys &amp;gt; /tmp/private_gpg_keys.asc  Exporter la trust database:
 gpg --export-ownertrust &amp;gt; trust_gpg_db.txt  Import Après avoir copié les fichiers sur une nouvelle machine et installé GPG, importer les clés:
-gpg --import ./private_gpg_keys.asc gpg --import ./pub_gpg_keys.asc gpg --import-ownertrust ./trust_gpg_db.txt gpg -K gpg -k </description>
+gpg --import ./private_gpg_keys.asc gpg --import ./pub_gpg_keys.asc gpg --import-ownertrust ./trust_gpg_db.txt gpg -K gpg -k  Commandes utiles   Lister ses clés publiques: gpg --list-keys</description>
             <content type="html"><![CDATA[<h2 id="export">Export</h2>
 <p>Exporter toutes les clés publiques GPG dans un fichier base64:</p>
 <pre><code>gpg -a --export &gt; /tmp/pub_gpg_keys.asc
@@ -53,7 +53,23 @@ gpg --import ./pub_gpg_keys.asc
 gpg --import-ownertrust ./trust_gpg_db.txt
 gpg -K
 gpg -k
-</code></pre>]]></content>
+</code></pre><br/>
+<h2 id="commandes-utiles">Commandes utiles</h2>
+<ul>
+<li>
+<p>Lister ses clés publiques: <code>gpg --list-keys</code></p>
+</li>
+<li>
+<p>Lister ses clés privées: <code>gpg --list-secret-keys</code></p>
+</li>
+<li>
+<p>Effacer une clé publique: <code>gpg --delete-key ...</code></p>
+</li>
+<li>
+<p>Effacer une clé privée: <code>gpg --delete-secret-key ...</code></p>
+</li>
+</ul>
+]]></content>
         </item>
         
         <item>
@@ -607,6 +623,44 @@ Compiling your contracts...
         </item>
         
         <item>
+            <title>Rendre du code plus propre avec des namedtuples</title>
+            <link>https://leandeep.com/rendre-du-code-plus-propre-avec-des-namedtuples/</link>
+            <pubDate>Tue, 18 Aug 2020 23:02:09 -0700</pubDate>
+            
+            <guid>https://leandeep.com/rendre-du-code-plus-propre-avec-des-namedtuples/</guid>
+            <description>Imaginons que nous souhaitions afficher le contenu d&amp;rsquo;une table de base de données contenant des informations sur les salariés d&amp;rsquo;une entreprise. On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&amp;rsquo;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &amp;ldquo;name&amp;rdquo;, &amp;ldquo;birthdate&amp;rdquo;, &amp;ldquo;salary&amp;rdquo; et &amp;ldquo;employment_date&amp;rdquo;, l&#39;index 2 correspond donc au salaire d&amp;rsquo;un employé. C&amp;rsquo;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir.</description>
+            <content type="html"><![CDATA[<p>Imaginons que nous souhaitions afficher le contenu d&rsquo;une table de base de données contenant des informations sur les salariés d&rsquo;une entreprise.
+On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&rsquo;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &ldquo;name&rdquo;, &ldquo;birthdate&rdquo;, &ldquo;salary&rdquo; et &ldquo;employment_date&rdquo;, <code>l'index 2</code> correspond donc au salaire d&rsquo;un employé. C&rsquo;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir. Et même si la table ne possède que 4 colonnes, <code>row[2]</code> n&rsquo;est pas très parlant pour le développeur qui relira le code.
+En utilisant les collections namedtuple, on peut apporter plus de clarté au code.</p>
+<br/>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>def print_employee_info(db_cursor):
+    results = db_cursor.execute('SELECT * from employees').fetchall()
+    for row in results:
+        print(f&quot;{row[0]}, born on {row[1]} was hired on {row[3]}. His salary is {row[2]}&quot;)
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<pre><code>from collections import namedtuple
+
+EmployeeRow = namedtuple('EmployeeRow', [
+    'name',
+    'birthdate',
+    'salary',
+    'employment_date'
+])
+
+EMPLOYEE_INFO = f&quot;{name}, born on {birthdate} was hired on {employment_date}. His salary is {salary}&quot;
+
+def print_employee_info(db_cursor):
+    results = db_cursor.execute('SELECT * from employees').fetchall()
+    for row in results:
+        employee = EmployeeRow._make(row)
+
+        print(EMPLOYEE_INFO.format(**employee._asdict()))
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Monter un disque NFS sur Ubuntu</title>
             <link>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</link>
             <pubDate>Sat, 15 Aug 2020 19:49:00 +0200</pubDate>
@@ -691,6 +745,29 @@ gerbera &amp;
 # sur OSX
 open -a Safari http://0.0.0.0:49152/
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Mocker en 1 minute les appels vers des services externes</title>
+            <link>https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/</link>
+            <pubDate>Sat, 04 Jul 2020 21:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/</guid>
+            <description>Que ce soit pour du dévelopement ou pour exécuter des tests ou autres, il est très fréquent de vouloir mocker les appels vers des services externes. Si vous utilisez le module requests dans votre projet vous pouvez tout simplement ajouter le module requests_cache pour créer des bouchons. En effet, ce dernier va mettre en cache (dans une base de données sqlite) toutes les réponses aux requêtes faites par requests.
+ Mise en place Bien sûr, on install le module: pip install requests_cache.</description>
+            <content type="html"><![CDATA[<p>Que ce soit pour du dévelopement ou pour exécuter des tests ou autres, il est très fréquent de vouloir mocker les appels vers des services externes.
+Si vous utilisez le module <code>requests</code> dans votre projet vous pouvez tout simplement ajouter le module <code>requests_cache</code> pour créer des bouchons. En effet, ce dernier va mettre en cache (dans une base de données sqlite) toutes les réponses aux requêtes faites par <code>requests</code>.</p>
+<br/>
+<h2 id="mise-en-place">Mise en place</h2>
+<p>Bien sûr, on install le module: <code>pip install requests_cache</code>. Puis on ajoute le code suivant dans son projet:</p>
+<pre><code>import requests 
+
+import requests_cache
+requests_cache.install_cache(&quot;non_fichier_bdd_sqlite&quot;)
+</code></pre><p>Comme vous le voyez c&rsquo;est excessivement simple.</p>
+<p><br/>
+Notez que ce système peut permettre de travailler efficacement en mode déconnecté ou de travailler sur des systèmes sécurisés non exposés sur internet.</p>
+]]></content>
         </item>
         
         <item>
@@ -2174,6 +2251,223 @@ MONIT_HOST=`hostname` MONIT_DATE=`date -R` MONIT_COLOR=&quot;#808080&quot; \
         </item>
         
         <item>
+            <title>Comparaison de strings et logique floue</title>
+            <link>https://leandeep.com/comparaison-de-strings-et-logique-floue/</link>
+            <pubDate>Thu, 16 Jan 2020 16:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/comparaison-de-strings-et-logique-floue/</guid>
+            <description>Pour implémenter dans la logique floue pour comparer deux strings, on peut utiliser la distance de Levenshtein.
+Voici le code permettant de calculer cette distance. Rien de particulier, on retrouve partout ce code sur internet.
+import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False): &amp;quot;&amp;quot;&amp;quot; levenshtein_ratio_and_distance: Calculates levenshtein distance between two strings. If ratio_calc = True, the function computes the levenshtein distance ratio of similarity between two strings For all i and j, distance[i,j] will contain the Levenshtein distance between the first i characters of s and the first j characters of t &amp;quot;&amp;quot;&amp;quot; # Initialize matrix of zeros rows = len(s)+1 cols = len(t)+1 distance = np.</description>
+            <content type="html"><![CDATA[<p>Pour implémenter dans la logique floue pour comparer deux strings, on peut utiliser la distance de Levenshtein.</p>
+<p>Voici le code permettant de calculer cette distance. Rien de particulier, on retrouve partout ce code sur internet.</p>
+<pre><code>import numpy as np
+def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
+    &quot;&quot;&quot; levenshtein_ratio_and_distance:
+        Calculates levenshtein distance between two strings.
+        If ratio_calc = True, the function computes the
+        levenshtein distance ratio of similarity between two strings
+        For all i and j, distance[i,j] will contain the Levenshtein
+        distance between the first i characters of s and the
+        first j characters of t
+    &quot;&quot;&quot;
+    # Initialize matrix of zeros
+    rows = len(s)+1
+    cols = len(t)+1
+    distance = np.zeros((rows,cols),dtype = int)
+
+    # Populate matrix of zeros with the indeces of each character of both strings
+    for i in range(1, rows):
+        for k in range(1,cols):
+            distance[i][0] = i
+            distance[0][k] = k
+
+    # Iterate over the matrix to compute the cost of deletions,insertions and/or substitutions    
+    for col in range(1, cols):
+        for row in range(1, rows):
+            if s[row-1] == t[col-1]:
+                cost = 0 # If the characters are the same in the two strings in a given position [i,j] then the cost is 0
+            else:
+                # In order to align the results with those of the Python Levenshtein package, if we choose to calculate the ratio
+                # the cost of a substitution is 2. If we calculate just distance, then the cost of a substitution is 1.
+                if ratio_calc == True:
+                    cost = 2
+                else:
+                    cost = 1
+            distance[row][col] = min(distance[row-1][col] + 1,      # Cost of deletions
+                                 distance[row][col-1] + 1,          # Cost of insertions
+                                 distance[row-1][col-1] + cost)     # Cost of substitutions
+    if ratio_calc == True:
+        # Computation of the Levenshtein Distance Ratio
+        Ratio = ((len(s)+len(t)) - distance[row][col]) / (len(s)+len(t))
+        return Ratio
+    else:
+        # print(distance) # Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,
+        # insertions and/or substitutions
+        # This is the minimum number of edits needed to convert string a to string b
+        return &quot;The strings are {} edits away&quot;.format(distance[row][col])
+</code></pre><p>Il existe aussi un package appelé <code>Levenshtein</code> qui nous simplifie la vie.</p>
+<pre><code>&gt;&gt;&gt; import Levenshtein as lev
+
+&gt;&gt;&gt; string_1 = &quot;Lean Deep.&quot;
+&gt;&gt;&gt; string_2 = &quot;leandeep&quot;
+
+&gt;&gt;&gt; distance = lev.distance(string_1.lower(), string_2.lower()),
+&gt;&gt;&gt; print(distance)
+
+(1,)
+
+&gt;&gt;&gt; ratio = lev.ratio(Str1.lower(),Str2.lower())
+&gt;&gt;&gt; print(ratio)
+
+0.9473684210526315
+</code></pre><p><strong>Et surtout il existe le package <code>fuzzywuzzy</code></strong> qui contient des fonctions avancées pas présentes dans le package <code>Levenshtein</code> qui vont nous permettre de gérer des cas plus complexes comme le &ldquo;substring matching&rdquo;; très utile pour extraire des bribes d&rsquo;informations de textes.</p>
+<pre><code>&gt;&gt;&gt; from fuzzywuzzy import fuzz
+
+&gt;&gt;&gt; string_1 = &quot;Lean Deep&quot;
+&gt;&gt;&gt; string_2 = &quot;deep&quot;
+&gt;&gt;&gt; ratio = fuzz.ratio(string_1.lower(), string_2.lower())
+&gt;&gt;&gt; partial_ratio = fuzz.partial_ratio(string_1.lower(), string_2.lower())
+&gt;&gt;&gt; print(ratio)
+&gt;&gt;&gt; print(partial_ratio)
+
+50
+100
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Eviter les if ou try/except avec les dictionnaires</title>
+            <link>https://leandeep.com/eviter-les-if-ou-try/except-avec-les-dictionnaires/</link>
+            <pubDate>Thu, 16 Jan 2020 01:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/eviter-les-if-ou-try/except-avec-les-dictionnaires/</guid>
+            <description>Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
+prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
+ soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&amp;rsquo;avoir du code plus propre, et plus facilement testable.</description>
+            <content type="html"><![CDATA[<p>Manipuler des dictionnaires Python est facile.
+Pour les transformer on peut utiliser des <em>dict comprehension</em>. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.</p>
+<pre><code>prenoms = {'titi': 1, 'tata': 2, 'toto': 3}
+invert_prenoms = {v: k for k, v in prenoms.iteritems()}
+print(invert_prenoms)
+{1: 'titi', 2: 'tata', 3: 'toto'}
+</code></pre><p>Pour sélectionner une valeur à partir d&rsquo;une clé, on peut</p>
+<ul>
+<li>soit tester si une clé existe dans le dict ou catcher l&rsquo;exception <code>KeyError</code> avec <code>try</code>/<code>except</code></li>
+<li><strong>ou on peut utiliser un <code>defaultdict</code></strong>, ce qui permet d&rsquo;avoir du code plus propre, et plus facilement testable.</li>
+</ul>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>&gt;&gt;&gt; prenom_occurrences = {'titi': [], 'tata': []}
+&gt;&gt;&gt; prenom_occurrences['toto']
+KeyError: 'toto'
+
+# Option 1
+&gt;&gt;&gt; if 'toto' not in prenom_occurrences:
+    prenom_occurrences['c'] = []
+
+&gt;&gt;&gt; prenom_occurrences['toto']
+[]
+
+# Option 2
+&gt;&gt;&gt; try:
+        print(prenom_occurrences['tutu'])
+    except: 
+        print(&quot;There is no character 'tutu' in the string&quot;)
+</code></pre><h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<p>Utiliser defaultdict du module <code>collections</code>.</p>
+<pre><code>&gt;&gt;&gt; from collections import defaultdict
+&gt;&gt;&gt; prenom_occurrences = {'titi': [], 'tata': []}
+&gt;&gt;&gt; prenoms = defaultdict(dict)
+&gt;&gt;&gt; prenoms.update(prenom_occurrences)
+&gt;&gt;&gt; prenoms['titi']
+[]
+
+&gt;&gt;&gt; prenoms['tata'].append('toto')
+&gt;&gt;&gt; prenoms['tata'].append('tutu')
+&gt;&gt;&gt; prenoms['tata']
+['toto', 'tutu']
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Slicer de manière Pythonique un set</title>
+            <link>https://leandeep.com/slicer-de-mani%C3%A8re-pythonique-un-set/</link>
+            <pubDate>Wed, 15 Jan 2020 15:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/slicer-de-mani%C3%A8re-pythonique-un-set/</guid>
+            <description>Ce tip décrit comment slicer (découper) un set de manière Pythonique.
+Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&amp;rsquo;un sous-ensemble du set de départ.
+import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;, &#39;titi&#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
+            <content type="html"><![CDATA[<p>Ce tip décrit comment slicer (découper) un set de manière Pythonique.</p>
+<p>Les sets sont des <em>iterables</em>. On peut donc utiliser la méthode <code>itertools.islice</code> qui va nous permettre de créer un <em>iterator</em> construit à partir d&rsquo;un sous-ensemble du set de départ.</p>
+<pre><code>import itertools
+
+prenoms_list = ['titi', 'tata', 'totot', 'titi']
+prenoms_set = set(prenoms_list)
+small_prenoms_set = set(itertools.islice(prenoms_set, 2))
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Utiliser zip pour itérer sur deux listes</title>
+            <link>https://leandeep.com/utiliser-zip-pour-it%C3%A9rer-sur-deux-listes/</link>
+            <pubDate>Tue, 14 Jan 2020 21:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/utiliser-zip-pour-it%C3%A9rer-sur-deux-listes/</guid>
+            <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
+Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
+1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
+            <content type="html"><![CDATA[<p>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple <code>liste_un</code> et <code>liste_deux</code> et d&rsquo;utiliser <code>zip</code> en passant en paramètre les 2 variables.</p>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>nombres = [1, 2, 3]
+prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+
+
+for idx in range(len(nombres)):
+    print(nombres[idx], prenoms[idx])
+</code></pre><h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<p>Dans les 2 cas, le résultat est identique à savoir:</p>
+<pre><code>1 titi
+2 tata
+3 toto
+</code></pre><p>Mais voici une manière plus Pythonique d&rsquo;itérer sur ces 2 listes.</p>
+<pre><code>nombres = [1, 2, 3]
+prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+
+for nombre, prenom in zip(nombres, prenoms):
+    print(nombre, prenom)
+
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Utiliser une boucle non Pythonique</title>
+            <link>https://leandeep.com/utiliser-une-boucle-non-pythonique/</link>
+            <pubDate>Sat, 11 Jan 2020 21:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/utiliser-une-boucle-non-pythonique/</guid>
+            <description>Pour accéder aux éléments d&amp;rsquo;une liste et afficher l&amp;rsquo;index des éléments, il vaut mieux privilégier l&amp;rsquo;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&amp;rsquo;incrémenter la valeur de l&amp;rsquo;index.
+ Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom)  Bonne pratique (Bien!) Voici la manière plus Pythonique d&amp;rsquo;itérérer sur une liste.
+prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx, prenom in enumerate(prenoms): print(idx, prenom) </description>
+            <content type="html"><![CDATA[<p>Pour accéder aux éléments d&rsquo;une liste et afficher l&rsquo;index des éléments, il vaut mieux privilégier l&rsquo;utilisation d'<code>enumerate()</code> sur la liste plutôt que de créer une boucle et d&rsquo;incrémenter la valeur de l&rsquo;index.</p>
+<br/>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+
+for idx in range(0, len(prenoms)):
+    prenom = l[idx]
+    print(idx, prenom)
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<p>Voici la manière plus Pythonique d&rsquo;itérérer sur une liste.</p>
+<pre><code>prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+
+for idx, prenom in enumerate(prenoms):
+    print(idx, prenom)
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Lister les process Linux dans une image redhat ubi-minimal</title>
             <link>https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/</link>
             <pubDate>Fri, 10 Jan 2020 19:49:00 +0200</pubDate>
@@ -2210,6 +2504,32 @@ microdnf update &amp;&amp; microdnf install procps
 <h2 id="jouer-avec-ps">Jouer avec ps</h2>
 <p>Voir l&rsquo;utilisation de la mémoire des processes:</p>
 <pre><code>ps -o pid,user,%mem,command ax | sort -b -k3 -r
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Demander Pardon plutôt que la permission</title>
+            <link>https://leandeep.com/demander-pardon-plut%C3%B4t-que-la-permission/</link>
+            <pubDate>Sat, 04 Jan 2020 21:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/demander-pardon-plut%C3%B4t-que-la-permission/</guid>
+            <description>La communauté Python utilise le coding style appelé EAFP (Easier to Ask for Forgiveness than Permission) au lieu du style LBYL (Look Before You Leap). Ce coding style suppose que les fichiers et variables existent. En d&amp;rsquo;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &amp;ldquo;catchés&amp;rdquo; comme des exceptions. EAFP est plus pertinent que LBYL car il est presque impossible d&amp;rsquo;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de try except.</description>
+            <content type="html"><![CDATA[<p>La communauté Python utilise le coding style appelé EAFP (<strong>E</strong>asier to <strong>A</strong>sk for <strong>F</strong>orgiveness than <strong>P</strong>ermission) au lieu du style LBYL (<strong>L</strong>ook <strong>B</strong>efore <strong>Y</strong>ou <strong>L</strong>eap). Ce coding style suppose que les fichiers et variables existent. En d&rsquo;autres termes, plutôt que de tester toutes les pré-conditions, les problèmes éventuels sont &ldquo;catchés&rdquo; comme des exceptions. <code>EAFP</code> est plus pertinent que <code>LBYL</code> car il est presque impossible d&rsquo;anticiper tous les problèmes. Le code Python est donc généralement plus concis, plus clair et rempli de <code>try</code> <code>except</code>.</p>
+<br/>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>import os
+
+if os.path.exists(&quot;mon_fichier.txt&quot;):
+    os.unlink(&quot;mon_fichier.txt&quot;)
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<p>Contrairement au code ci-dessus qui check si mon_fichier.txt existe avant de l&rsquo;utiliser, on suppose qu&rsquo;il existe bien et on catch les éventuelles exceptions.</p>
+<pre><code>import os
+
+try:
+    os.unlink(&quot;file.txt&quot;)
+except OSError:
+    pass
 </code></pre>]]></content>
         </item>
         
@@ -3489,9 +3809,9 @@ car les droits root sont nécessaires</li>
 <li><a href="https://objective-see.com/products/taskexplorer.html">TaskExplorer</a> (Analyse les processus ouverts et effectue une analyse antivirus)</li>
 <li><a href="https://wiki.x2go.org/doku.php">X2Go Client</a> Client pour X2GO</li>
 <li><a href="https://calibre-ebook.com/">Calibre</a> (Gestionnaire d&rsquo;ebooks et PDF. Synchronisation possible avec Kindle)</li>
-<li><a href="https://getbitbar.com/">Bitbar</a> (Ajoute des fonctionnalités à sa barre de tâches OSX)</li>
 <li>Metatrader 4 et 5</li>
 <li>Spotify</li>
+<li><a href="https://www.monkeybreadsoftware.de/Software/IPinmenubar.shtml">IP in menu bar</a></li>
 </ul>
 <br/>
 <p><strong>Packages Payant très utiles</strong></p>
@@ -3516,6 +3836,7 @@ brew cask install keepassxc
 brew cask install db-browser-for-sqlite
 brew cask install vagrant
 brew cask install vlc
+brew cask install bitbar # https://getbitbar.com/ Ajoute des fonctionnalités à sa barre de tâches OSX
 
 brew install tig # Voir l'historique git
 brew install hadolint # Dockerfile linter
@@ -3526,6 +3847,11 @@ brew install pyenv
 brew install git-crypt
 brew install watch
 brew install sshfs
+brew install wakeonlan
+
+# EOS Blockchain
+brew tap eosio/eosio
+brew install eosio
 
 # Installation de MongoDB 
 # https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
@@ -3587,6 +3913,11 @@ echo 'export PATH=&quot;/usr/local/opt/mysql-client/bin:$PATH&quot;' &gt;&gt; ~/
 </ul>
 <p><code>Edit &gt; Spelling and Grammar &gt; Correct Spelling Automatically</code><br/>
 <code>Edit &gt; Spelling and Grammar &gt; Check Spelling while typing</code></p>
+<br/>
+<ul>
+<li>Augmenter le buffer Iterm2</li>
+</ul>
+<p>Dans <code>Preferences &gt; Profiles &gt; Terminal</code> changer la valeur de &ldquo;Scrollback lines&rdquo; de 1000 à 100000.</p>
 ]]></content>
         </item>
         
@@ -7128,6 +7459,12 @@ kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP        46
 <pre><code>kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl describe nodes
 </code></pre><br/>
+<p><strong>Voir un &ldquo;disk pressure&rdquo;</strong></p>
+<pre><code>kubectl describe nodes 2&gt;&amp;1 | grep -i Disk
+</code></pre><blockquote>
+<p>Configurer le trigger diskPressure (et autres) sur le <a href="https://fr.wikipedia.org/wiki/Kubernetes#Kubelet">kubelet</a> (et donc les events pour &ldquo;evicter&rdquo; les pods) lors de l&rsquo;installation d&rsquo;un cluster k8s avec le flag <code>--eviction-hard&quot;: &quot;memory.available&lt;100Mi,nodefs.available&lt;10%,nodefs.inodesFree&lt;5%</code>. <a href="https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/">More here</a></p>
+</blockquote>
+<br/>
 <p><strong>Voir la consommation cpu et memory des pods les plus gourmands</strong></p>
 <pre><code>kubectl top pods
 </code></pre><br/>
@@ -7138,6 +7475,9 @@ sort
 # Pour un pod particulier, pour avoir les container names dans le pod, on peut aussi exécuter:
 kubectl logs POD_NAME 
 # S'il y a plusieurs containers un message d'erreur apparaîtra indiquant de selectionner un container --&gt; choose one of: [container-name-1 container-name-2]
+</code></pre><br/>
+<p><strong>Lister les containers par pods et les trier par AGE</strong></p>
+<pre><code>kubectl get po --sort-by=.status.startTime
 </code></pre><br/>
 <p><strong>Entrer dans un pod</strong></p>
 <pre><code>kubectl exec -it shell-demo -- /bin/bash
@@ -8408,6 +8748,34 @@ dtype: object
         </item>
         
         <item>
+            <title>Différence entre append et extend</title>
+            <link>https://leandeep.com/diff%C3%A9rence-entre-append-et-extend/</link>
+            <pubDate>Wed, 13 Feb 2019 21:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/diff%C3%A9rence-entre-append-et-extend/</guid>
+            <description>Append Ajoute un object en bout de liste:
+prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] prenoms.append([&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]) print(prenoms) Résultat: [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, [&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]]
+ Extend Étend la liste en ajoutant les éléments d&amp;rsquo;un itérable
+prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] prenoms.extend([&amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]) print(prenoms) Résultat: [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, &amp;quot;tete&amp;quot;, &amp;quot;tutu&amp;quot;]</description>
+            <content type="html"><![CDATA[<h2 id="append">Append</h2>
+<p>Ajoute un object en bout de liste:</p>
+<pre><code>prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+prenoms.append([&quot;tete&quot;, &quot;tutu&quot;])
+print(prenoms)
+</code></pre><p>Résultat:
+<code>[&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, [&quot;tete&quot;, &quot;tutu&quot;]]</code></p>
+<br/>
+<h2 id="extend">Extend</h2>
+<p>Étend la liste en ajoutant les éléments d&rsquo;un itérable</p>
+<pre><code>prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+prenoms.extend([&quot;tete&quot;, &quot;tutu&quot;])
+print(prenoms)
+</code></pre><p>Résultat:
+<code>[&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;tete&quot;, &quot;tutu&quot;]</code></p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Comment réduire la durée d&#39;entrainement d&#39;un modèle ?</title>
             <link>https://leandeep.com/comment-r%C3%A9duire-la-dur%C3%A9e-dentrainement-dun-mod%C3%A8le/</link>
             <pubDate>Wed, 13 Feb 2019 20:11:00 +0000</pubDate>
@@ -8495,6 +8863,109 @@ AWK à la rescousse pour par exemple extraire toutes les entreprises situées da
 </code></pre><blockquote>
 <p>Note: On peut aussi passer par un Dataframe Pandas et lire le fichier CSV par <em>chunks</em> avec ceci <code>pd.read_csv(csv_url,chunksize=500)</code> mais c&rsquo;est quand même beaucoup plus long et lourd&hellip;
 Je dirais que cela dépend du use case dans lequel on se trouve. Dans mon cas, générer ce fichier est du one-shot&hellip;</p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Détecter les données aberrantes</title>
+            <link>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes/</link>
+            <pubDate>Mon, 04 Feb 2019 21:23:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes/</guid>
+            <description>Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:</description>
+            <content type="html"><![CDATA[<h2 id="pré-requis">Pré-requis</h2>
+<pre><code>pip install numpy sklearn
+# va installer numpy 1.19.1 et sklearn 0.0
+
+</code></pre><br/>
+<h2 id="charger-les-librairies">Charger les librairies</h2>
+<pre><code>import numpy as np
+from sklearn.covariance import EllipticEnvelope
+from sklearn.datasets import make_blobs
+</code></pre><br/>
+<h2 id="créer-un-faux-dataset">Créer un faux dataset</h2>
+<pre><code># Create simulated data
+X, _ = make_blobs(n_samples = 10,
+                  n_features = 2,
+                  centers = 1,
+                  random_state = 1)
+
+# Remplace les valeurs de la première observation avec des données extrèmes
+X[0,0] = 10000
+X[0,1] = 10000
+</code></pre><p>Voici à quoi ressemble notre dataset composé de 10 observations:</p>
+<pre><code>array([[ 1.00000000e+04,  1.00000000e+04],
+       [-2.76017908e+00,  5.55121358e+00],
+       [-1.61734616e+00,  4.98930508e+00],
+       [-5.25790464e-01,  3.30659860e+00],
+       [ 8.52518583e-02,  3.64528297e+00],
+       [-7.94152277e-01,  2.10495117e+00],
+       [-1.34052081e+00,  4.15711949e+00],
+       [-1.98197711e+00,  4.02243551e+00],
+       [-2.18773166e+00,  3.33352125e+00],
+       [-1.97451969e-01,  2.34634916e+00]])
+</code></pre><br/>
+<h2 id="détecter-les-données-aberrantes-outliers">Détecter les données aberrantes (outliers)</h2>
+<pre><code># Création du détecteur
+outlier_detector = EllipticEnvelope(contamination=.1)
+
+# Fit détecteur
+outlier_detector.fit(X)
+
+# Predire les outliers
+outlier_detector.predict(X)
+</code></pre><br/>
+<p><strong><code>outlier_detector.predict(X)</code> retourne <code>array([-1,  1,  1,  1,  1,  1,  1,  1,  1,  1])</code></strong></p>
+<br/>
+<blockquote>
+<p><code>EllipticEnvelope</code> suppose que les données soient normalement distribuées et dessine une ellipse autour des données. A l&rsquo;extérieur de l&rsquo;ellipse les observations sont considérées comme aberrantes (labellisées -1). La limitation de cette approche est qu&rsquo;il est nécessaire de spécifier le paramètre de contamination du dataset. <strong>Cela suppose que l&rsquo;on connaisse à l&rsquo;avance la proportion de données aberrantes dans notre dataset; ce qui est impossible.</strong></p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Convertir les données catégorielles en integer pour sklearn</title>
+            <link>https://leandeep.com/convertir-les-donn%C3%A9es-cat%C3%A9gorielles-en-integer-pour-sklearn/</link>
+            <pubDate>Sat, 02 Feb 2019 22:13:18 -0700</pubDate>
+            
+            <guid>https://leandeep.com/convertir-les-donn%C3%A9es-cat%C3%A9gorielles-en-integer-pour-sklearn/</guid>
+            <description>Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0  Charger les librairies from sklearn import preprocessing import pandas as pd  Création d&amp;rsquo;un faux dataset raw_data = { &#39;patient&#39;: [1, 1, 1, 2, 2], &#39;observation&#39;: [1, 2, 3, 1, 2], &#39;traitement&#39;: [0, 1, 0, 1, 0], &#39;etat&#39;: [&#39;vivant&#39;, &#39;mort&#39;, &#39;zombie&#39;, &#39;vivant&#39;, &#39;mort&#39;] } df = pd.DataFrame(raw_data, columns = [&#39;patient&#39;, &#39;observation&#39;, &#39;traitement&#39;, &#39;etat&#39;])  Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.</description>
+            <content type="html"><![CDATA[<h2 id="pré-requis">Pré-requis</h2>
+<pre><code>pip install pandas sklearn
+# va installer pandas 1.1.0 et sklearn 0.0
+</code></pre><br/>
+<h2 id="charger-les-librairies">Charger les librairies</h2>
+<pre><code>from sklearn import preprocessing
+import pandas as pd
+</code></pre><br/>
+<h2 id="création-dun-faux-dataset">Création d&rsquo;un faux dataset</h2>
+<pre><code>raw_data = {
+   'patient': [1, 1, 1, 2, 2],
+   'observation': [1, 2, 3, 1, 2],
+   'traitement': [0, 1, 0, 1, 0],
+   'etat': ['vivant', 'mort', 'zombie', 'vivant', 'mort']
+}
+
+df = pd.DataFrame(raw_data, columns = ['patient', 'observation', 'traitement', 'etat'])
+</code></pre><br/>
+<h2 id="fit-the-label-encoder">Fit the Label Encoder</h2>
+<pre><code># Créer un objet label (catégorie) encoder
+le = preprocessing.LabelEncoder()
+
+# Remplir l'encoder avec la colonne pandas
+le.fit(df['state'])
+</code></pre><br/>
+<h2 id="voir-les-labels-debug">Voir les labels (debug)</h2>
+<pre><code>list(le.classes_)
+</code></pre><br/>
+<h2 id="transformer-les-catégories-en-integers">Transformer les catégories en integers</h2>
+<pre><code># Appliquer l'objet encoder rempli à la colonne Pandas
+le.transform(df['state'])
+</code></pre><br/>
+<blockquote>
+<p>Inverse: Transformer les integers en catégories: <br/>
+<code>list(le.inverse_transform([2, 2, 1]))</code></p>
 </blockquote>
 ]]></content>
         </item>
@@ -9177,6 +9648,56 @@ spec:
 <pre><code>hetzner-kube cluster add-worker --worker-server-type cx21 --datacenters nbg1-dc3 --name demo --nodes 1
 
 #hetzner-kube cluster add-worker --worker-server-type cx21 --datacenters nbg1-dc3 --name &lt;cluster-name&gt; --nodes 1
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Effacer les données manquantes</title>
+            <link>https://leandeep.com/effacer-les-donn%C3%A9es-manquantes/</link>
+            <pubDate>Sun, 30 Dec 2018 22:13:18 -0700</pubDate>
+            
+            <guid>https://leandeep.com/effacer-les-donn%C3%A9es-manquantes/</guid>
+            <description>Pré-requis pip install numpy pandas # va installer numpy 1.19.1 et pandas 1.1.0  Charger les librairies import numpy as np import pandas as pd  Création d&amp;rsquo;une matrice de données # Création de la feature matrice X = np.array([[1, 2], [6, 3], [8, 4], [9, 5], [np.nan, 4]])  Effacer les données manquantes Avec Numpy
+X[~np.isnan(X).any(axis=1)] Résultat:
+array([[1., 2.], [6., 3.], [8., 4.], [9., 5.]])  Avec Pandas
+# On transforme les données en dataframe Pandas df = pd.</description>
+            <content type="html"><![CDATA[<h2 id="pré-requis">Pré-requis</h2>
+<pre><code>pip install numpy pandas
+# va installer numpy 1.19.1 et pandas 1.1.0
+</code></pre><br/>
+<h2 id="charger-les-librairies">Charger les librairies</h2>
+<pre><code>import numpy as np
+import pandas as pd
+</code></pre><br/>
+<h2 id="création-dune-matrice-de-données">Création d&rsquo;une matrice de données</h2>
+<pre><code># Création de la feature matrice
+X = np.array([[1, 2], 
+              [6, 3], 
+              [8, 4], 
+              [9, 5], 
+              [np.nan, 4]])
+</code></pre><br/>
+<h2 id="effacer-les-données-manquantes">Effacer les données manquantes</h2>
+<p><strong>Avec Numpy</strong></p>
+<pre><code>X[~np.isnan(X).any(axis=1)]
+</code></pre><p>Résultat:</p>
+<pre><code>array([[1., 2.],
+       [6., 3.],
+       [8., 4.],
+       [9., 5.]])
+</code></pre><br/>
+<p><strong>Avec Pandas</strong></p>
+<pre><code># On transforme les données en dataframe Pandas
+df = pd.DataFrame(X, columns=['feature_1', 'feature_2'])
+
+# On efface les observations avec des données manquantes
+df.dropna()
+</code></pre><p>Résultat:</p>
+<pre><code>   feature_1  feature_2
+0        1.0        2.0
+1        6.0        3.0
+2        8.0        4.0
+3        9.0        5.0
 </code></pre>]]></content>
         </item>
         
@@ -9951,6 +10472,148 @@ sudo mv -v kubectl /usr/local/bin
 <pre><code>minikube start
 kubectl run dh-nginx --image=nginx --port=80
 kubectl expose deployment dh-nginx --type=NodePort
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Convertir un type float en type string avec n decimals</title>
+            <link>https://leandeep.com/convertir-un-type-float-en-type-string-avec-n-decimals/</link>
+            <pubDate>Sat, 16 Jun 2018 21:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/convertir-un-type-float-en-type-string-avec-n-decimals/</guid>
+            <description>Petit tip très rapide qui explique comment convertir un nombre décimal de type float en type string tout en gardant n chiffres après la virgule.
+La conversion peut se faire directement avec les f-strings.
+price = float(1000) print(type(price)) new_price = f&amp;quot;{price:.2f}&amp;quot; print(new_price) print(type(new_price)) </description>
+            <content type="html"><![CDATA[<p>Petit tip très rapide qui explique comment convertir un nombre décimal de type float en type string tout en gardant n chiffres après la virgule.</p>
+<p>La conversion peut se faire directement avec les f-strings.</p>
+<pre><code>price = float(1000)
+print(type(price))
+new_price = f&quot;{price:.2f}&quot;
+print(new_price)
+print(type(new_price))
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Utiliser un dictionnaire pour réaliser un switch case</title>
+            <link>https://leandeep.com/utiliser-un-dictionnaire-pour-r%C3%A9aliser-un-switch-case/</link>
+            <pubDate>Thu, 07 Jun 2018 23:43:06 -0700</pubDate>
+            
+            <guid>https://leandeep.com/utiliser-un-dictionnaire-pour-r%C3%A9aliser-un-switch-case/</guid>
+            <description>Contrairement à d&amp;rsquo;autres langages de programmation, Python ne permet pas de faire des switch case. L&amp;rsquo;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&amp;rsquo;utiliser les fonctions comme des objets et d&amp;rsquo;utiliser des dictionnaires.
+ Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;+&#39;: return var_1 + var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2  Bonne pratique (Bien!</description>
+            <content type="html"><![CDATA[<p>Contrairement à d&rsquo;autres langages de programmation, Python ne permet pas de faire des <code>switch</code> <code>case</code>. L&rsquo;alternative naïve est de faire des <code>if...elif...else</code>. Une autre alternative plus idiomatique est d&rsquo;utiliser les fonctions comme des objets et d&rsquo;utiliser des dictionnaires.</p>
+<br/>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>def apply_operator(var_1, var_2, operator):
+    if operator == '+':
+        return var_1 + var_2
+    elif operator == '*':
+        return var_1 * var_2
+    elif operator == '/':
+        return var_1 / var_2
+    elif operator == '-':
+        return var_1 - var_2
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<pre><code>import operator as op
+
+def apply_operator(var_1, var_2, operator):
+    operator_map = {
+        '+': op.add,
+        '*': op.mul,
+        '/': op.truediv,
+        '-': op.sub,
+    }
+    return operator_map[operator](var_1, var_2)
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Utiliser l&#39;opérateur * pour représenter le reste d&#39;une liste</title>
+            <link>https://leandeep.com/utiliser-lop%C3%A9rateur-pour-repr%C3%A9senter-le-reste-dune-liste/</link>
+            <pubDate>Wed, 06 Jun 2018 12:20:04 -0700</pubDate>
+            
+            <guid>https://leandeep.com/utiliser-lop%C3%A9rateur-pour-repr%C3%A9senter-le-reste-dune-liste/</guid>
+            <description>Python 3 a introduit l&amp;rsquo;opérateur * permettant d&amp;rsquo;extraire plusieurs éléments au début ou à la fin d&amp;rsquo;une liste.
+ Anti-pattern (Pas bien!) my_list = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, &amp;quot;riri&amp;quot;, &amp;quot;fifi&amp;quot;, &amp;quot;loulou&amp;quot;] (enfant_1, enfant_2, reste_enfants) = my_list[0], my_list[1], my_list[2:] print(reste_enfants) (enfant_1, enfants_milieu, dernier_enfant) = my_list[0], my_list[1:-1], my_list[-1] print(enfants_milieu) (premier_enfants, enfants_milieu, dernier_enfants) = my_list[:-2], my_list[-2], my_list[-1] print(premier_enfants)  Bonne pratique (Bien!) my_list = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;, &amp;quot;riri&amp;quot;, &amp;quot;fifi&amp;quot;, &amp;quot;loulou&amp;quot;] (enfant_1, enfant_2, *reste_enfants) = my_list print(reste_enfants) (enfant_1, *enfants_milieu, dernier_enfant) = my_list print(enfants_milieu) (*premier_enfants, enfants_milieu, dernier_enfants) = my_list print(premier_enfants) </description>
+            <content type="html"><![CDATA[<p>Python 3 a introduit l&rsquo;opérateur <code>*</code> permettant d&rsquo;extraire plusieurs éléments au début ou à la fin d&rsquo;une liste.</p>
+<br/>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;]
+(enfant_1, enfant_2, reste_enfants) = my_list[0], my_list[1], my_list[2:]
+print(reste_enfants)
+
+(enfant_1, enfants_milieu, dernier_enfant) = my_list[0], my_list[1:-1], my_list[-1]
+print(enfants_milieu)
+
+(premier_enfants, enfants_milieu, dernier_enfants) = my_list[:-2], my_list[-2], my_list[-1]
+print(premier_enfants)
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<pre><code>my_list = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;, &quot;riri&quot;, &quot;fifi&quot;, &quot;loulou&quot;]
+(enfant_1, enfant_2, *reste_enfants) = my_list
+print(reste_enfants)
+
+(enfant_1, *enfants_milieu, dernier_enfant) = my_list
+print(enfants_milieu)
+
+(*premier_enfants, enfants_milieu, dernier_enfants) = my_list
+print(premier_enfants)
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Eviter les variables temporaires pour intervertir 2 variables</title>
+            <link>https://leandeep.com/eviter-les-variables-temporaires-pour-intervertir-2-variables/</link>
+            <pubDate>Tue, 05 Jun 2018 22:12:03 -0700</pubDate>
+            
+            <guid>https://leandeep.com/eviter-les-variables-temporaires-pour-intervertir-2-variables/</guid>
+            <description>En Python, il n&amp;rsquo;est pas nécessaire d&amp;rsquo;utiliser une variable temporaire pour intervertir le contenu de 2 variables.
+Anti-pattern (Pas bien!) enfant_1 = &amp;quot;riri&amp;quot; enfant_2 = &amp;quot;fifi&amp;quot; temp = enfant_1 enfant_2 = enfant_1 enfant_1 = temp  Bonne pratique (Bien!) enfant_1 = &amp;quot;riri&amp;quot; enfant_2 = &amp;quot;fifi&amp;quot; (enfant_1, enfant_2) = (enfant_2, enfant_1) </description>
+            <content type="html"><![CDATA[<p>En Python, il n&rsquo;est pas nécessaire d&rsquo;utiliser une variable temporaire pour intervertir le contenu de 2 variables.</p>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>enfant_1 = &quot;riri&quot;
+enfant_2 = &quot;fifi&quot;
+temp = enfant_1
+enfant_2 = enfant_1
+enfant_1 = temp
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<pre><code>enfant_1 = &quot;riri&quot;
+enfant_2 = &quot;fifi&quot;
+(enfant_1, enfant_2) = (enfant_2, enfant_1)
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Eviter les variables index dans les for-loops</title>
+            <link>https://leandeep.com/eviter-les-variables-index-dans-les-for-loops/</link>
+            <pubDate>Mon, 04 Jun 2018 21:28:06 -0700</pubDate>
+            
+            <guid>https://leandeep.com/eviter-les-variables-index-dans-les-for-loops/</guid>
+            <description>Les développeurs venant des langages comme JavaScript ont l&amp;rsquo;habitude de déclarer des variables pour suivre les indexes des conteneurs (liste, générateurs, dictionnaires&amp;hellip;) dans une boucle.
+Par exemple en JavaScript:
+for (let i = 0; i &amp;lt; mon_conteneur.length; i++) { // suite du code }  En Python, il est plus propre d&amp;rsquo;utiliser la fonction enumerate.
+Anti-pattern (Pas bien!) my_list = [&amp;quot;toto&amp;quot;, &amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;] index = 0 for el in my_list: print(f&amp;quot;{index} {el}&amp;quot;) index += 1  Bonne pratique (Bien!</description>
+            <content type="html"><![CDATA[<p>Les développeurs venant des langages comme JavaScript ont l&rsquo;habitude de déclarer des variables pour suivre les indexes des conteneurs (liste, générateurs, dictionnaires&hellip;) dans une boucle.</p>
+<p>Par exemple en JavaScript:</p>
+<pre><code>for (let i = 0; i &lt; mon_conteneur.length; i++) {
+    // suite du code
+}
+</code></pre><br/>
+<p>En Python, il est plus propre d&rsquo;utiliser la fonction <code>enumerate</code>.</p>
+<h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
+<pre><code>my_list = [&quot;toto&quot;, &quot;titi&quot;, &quot;tata&quot;]
+index = 0
+for el in my_list:
+    print(f&quot;{index} {el}&quot;)
+    index += 1
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+<pre><code>my_list = [&quot;toto&quot;, &quot;titi&quot;, &quot;tata&quot;]
+for index, el in enumerate(my_list):
+    print(f&quot;{index} {el}&quot;)
 </code></pre>]]></content>
         </item>
         
@@ -12277,6 +12940,80 @@ pl.show()
         </item>
         
         <item>
+            <title>Class iterator en Python</title>
+            <link>https://leandeep.com/class-iterator-en-python/</link>
+            <pubDate>Thu, 09 Feb 2017 22:01:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/class-iterator-en-python/</guid>
+            <description>Après les list, dict, set comprehensions, il est possible de créer des class iterator. Il devient alors possible de boucler sur des objets.
+ Ce n&amp;rsquo;est pas pas la seule manière de boucler sur des objets. Il existe aussi les generators et les generator expressions.
+ Exemple simple:
+class Repeater: def __init__(self, value): self.value = value def __iter__(self): return self def __next__(self): return self.value repeater = Repeater(&#39;Hello&#39;) for item in repeater: print(item) Output:</description>
+            <content type="html"><![CDATA[<p>Après les <em>list, dict, set comprehensions</em>, il est possible de créer des <em>class iterator</em>. Il devient alors possible de boucler sur des objets.</p>
+<blockquote>
+<p>Ce n&rsquo;est pas pas la seule manière de boucler sur des objets. Il existe aussi les <em>generators</em> et les <em>generator expressions</em>.</p>
+</blockquote>
+<p><strong>Exemple simple:</strong></p>
+<pre><code>class Repeater:
+	def __init__(self, value):
+		self.value = value
+	
+    def __iter__(self):
+		return self
+
+	def __next__(self):
+		return self.value
+
+repeater = Repeater('Hello')
+for item in repeater:
+	print(item)
+
+</code></pre><p>Output:</p>
+<pre><code>...
+Hello
+Hello
+Hello
+...
+
+</code></pre><p>Bravo on vient de créer un iterator qui ne finit jamais d&rsquo;afficher Hello. Ce n&rsquo;est pas très utile&hellip; On va maintenant écrire une autre <em>class iterator</em> qui aura un nombre fini de répétitions.</p>
+<pre><code>class BoundedRepeater:
+	def __init__(self, value, max_repeats):
+    	self.value = value
+        self.max_repeats = max_repeats
+        self.count = 0
+        
+	def __iter__(self):
+    	return self
+        
+	def __next__(self):
+    	if self.count &gt;= self.max_repeats:
+        	raise StopIteration
+		self.count += 1
+        return self.value
+
+repeater = BoundedRepeater('Hello', 3)
+for item in repeater:
+	print(item)
+    
+</code></pre><p>Output:</p>
+<pre><code>Hello
+Hello
+Hello
+
+</code></pre><p>L&rsquo;appel de la <em>class iterator</em> BoundedRepeater avec le <em>fency</em> for-loop revient à écrire le code suivant beaucoup moins simple et lisible:</p>
+<pre><code>repeater = BoundedRepeater('Hello', 3)
+iterator = iter(repeater)
+while True:
+	try:
+    	item = next(iterator)
+    except StopIteration:
+    	break
+    print(item)
+    
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</title>
             <link>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</link>
             <pubDate>Mon, 06 Feb 2017 23:42:00 +0000</pubDate>
@@ -12343,6 +13080,450 @@ $ rm nvidia-docker_1.0.0-1_amd64.deb
 <pre><code>$ apt-get purge docker-engine
 $ apt-get autoremove --purge docker-engine
 $ rm -rf /var/lib/docker
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>List, set et dict comprehensions en Python</title>
+            <link>https://leandeep.com/list-set-et-dict-comprehensions-en-python/</link>
+            <pubDate>Sun, 05 Feb 2017 21:12:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/list-set-et-dict-comprehensions-en-python/</guid>
+            <description>Voici quelques exemples de list et dict comprehensions en Python.
+Le pattern des &amp;ldquo;X comprehensions&amp;rdquo; est le suivant: values = [expression for item in collection]
+Il est possible d&amp;rsquo;ajouter un filtre sur les éléments de l&amp;rsquo;itération avant qu&amp;rsquo;ils soient utilisés dans l&amp;rsquo;évaluation de l&amp;rsquo;expression: values = [expression for item in collection if condition]
+Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions.</description>
+            <content type="html"><![CDATA[<p>Voici quelques exemples de <em>list et dict comprehensions</em> en Python.</p>
+<p>Le pattern des &ldquo;X comprehensions&rdquo; est le suivant: <code>values = [expression for item in collection]</code></p>
+<p>Il est possible d&rsquo;ajouter un filtre sur les éléments de l&rsquo;itération avant qu&rsquo;ils soient utilisés dans l&rsquo;évaluation de l&rsquo;expression: <code>values = [expression for item in collection if condition]</code></p>
+<h2 id="listes">Listes</h2>
+<pre><code># Python provides compact syntax for deriving one list from another. These
+# expressions are called list comprehensions. For example, say you want to
+# compute the square of each number in a list. You can do this by providing
+# the expression for your computation and the input sequence to loop over.
+
+
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+squares = [x*x for x in a]
+print(squares)
+# [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><pre><code># Unless you're applying a single-argument functions, list comprehensions are
+# clearer than map built-in function cases, map requires creating a lambda
+# function for the computation, which is visually noisy.
+
+
+squares = map(lambda x: x*x, a)
+print(squares)
+# Python 2
+# [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+# Python 3
+print(list(squares))
+# [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre><pre><code># Unlike may, list comprehensions let you easily filter items from the input
+# list, removing corresponding outputs from the result. For example, say you
+# only want to compute the squares of the numbers that are divisible by 2.
+# Here, I do this by adding a conditional expression to the list
+# comprehension after the loop:
+
+
+even_squares = [x*x for x in a if x % 2 == 0]
+print(even_squares)
+# [4, 16, 36, 64, 100]
+</code></pre><pre><code># The filter built-in function can be used along with map to achieve the same
+# outcome, but it is much harder to read.
+
+
+alt = map(lambda x: x*x, filter(lambda x: x % 2 == 0, a))
+assert even_squares == list(alt)
+</code></pre><br/>
+<h2 id="sets">Sets</h2>
+<blockquote>
+<p>Attention, l&rsquo;ordre des éléments n&rsquo;est pas gardé.</p>
+</blockquote>
+<br/>
+<p><strong>Exemple simple:</strong></p>
+<pre><code>&gt;&gt;&gt; {x * x for x in range(-9, 10) }
+set([61, 1, 36, 0, 49, 9, 16, 81, 25, 4])
+</code></pre><br/>
+<h2 id="dictionnaires">Dictionnaires</h2>
+<p><strong>Exemple simple:</strong></p>
+<pre><code>&gt;&gt;&gt; { x: x * x for x in range(5) }
+{0: 0, 1: 1, 2: 4, 3: 9, 4: 16} 
+</code></pre><pre><code># Dictionaries and sets have their own equivalents of list comprehensions.
+# These make it easy to create derivative data structures when writing
+# algorithms.
+
+chile_ranks = {'ghost': 1, 'habanero': 2, 'cayenne': 3}
+
+rank_dict = {rank: name for name, rank in chile_ranks.items()}
+
+print(rank_dict)
+# {1: 'ghost', 2: 'habanero', 3: 'cayenne'}
+
+chile_len_set = {len(name) for name in rank_dict.values()}
+
+print(chile_len_set)
+# {8, 5, 7}
+</code></pre><br/>
+<h2 id="listes-à-2-niveaux">Listes à 2 niveaux</h2>
+<p>Il est possible d&rsquo;avoir des <em>lists comprehensions</em> avec 2 expressions. Il est possible d&rsquo;aller au-delà mais ce n&rsquo;est pas recommandé pour la lisibilité.</p>
+<pre><code>matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flat = [x for array in matrix for x in array]
+print(flat)
+
+# [1, 2, 3, 4, 5, 6, 7, 8, 9]
+</code></pre><pre><code># The example above is simple, readable, and a reasonable usage of multiple
+# loops. Another reasonable usage of multiple loops is replicating the
+# two-level deep layout of the input list. For example, say you want to square
+# the value in each cell of a two-dimensional matrix. This expression is
+# noisier because of the extra [] characters, but it's still easy to read.
+
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+data = [[x*x for x in row] for row in matrix]
+print(data)
+# [[1, 4, 9], [16, 25, 36], [49, 64, 81]]
+</code></pre><pre><code># If this expression included another loop, the list comprehension would get
+# so long that you'd have to split it over multiple lines.
+
+my_lists = [
+    [[1, 2, 3], [4, 5, 6]],
+    # ...
+    [[11, 22, 33], [44, 55, 66]]
+]
+flat = [x for sublist1 in my_lists
+        for sublist2 in sublist1
+        for x in sublist2]
+print(flat)
+# [1, 2, 3, 4, 5, 6, 11, 22, 33, 44, 55, 66]
+</code></pre><pre><code># At this point, the multiline comprehension isn't much shorter thant the
+# alternative. Here, I produce the same using normal loop statements. The
+# indentation of this version makes the looping clearer than the list
+# comprehension.
+
+
+flat = []
+for sublist1 in my_lists:
+    for sublist2 in sublist1:
+        flat.extend(sublist2)
+print(flat)
+# [1, 2, 3, 4, 5, 6, 11, 22, 33, 44, 55, 66]
+</code></pre><pre><code># List comprehensions also support multiple if conditions. Multiple
+# conditions at the same loop level are an implicit and expression. For
+# example, say you want to filter a list of numbers to only even values
+# greater than four. These only list comprehensions are equivalent.
+
+
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+b = [x for x in a if x &gt; 4 if x % 2 == 0]
+c = [x for x in a if x &gt; 4 and x % 2 == 0]
+print(b)
+print(c)
+# [6, 8, 10]
+# [6, 8, 10]
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Slicing dans tous les sens en Python</title>
+            <link>https://leandeep.com/slicing-dans-tous-les-sens-en-python/</link>
+            <pubDate>Sat, 04 Feb 2017 21:16:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/slicing-dans-tous-les-sens-en-python/</guid>
+            <description>Voici quelques exemples d&amp;rsquo;utilisation de slicing en Python. Cela fonctionne très bien sur les list, str et bytes. On peut ajouter du slicing sur des classes qui implémentent __getitem__ et __setitem__ magic methods.
+a = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] print(&#39;First four: &#39;, a[:4]) print(&#39;Last four: &#39;, a[-4:]) print(&#39;Middle two: &#39;, a[3:-3]) # First four: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;] # Last four: [&#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;] # Middle two: [&#39;d&#39;, &#39;e&#39;] # When slicing from the start of a list, you should leave out the zero index # to reduce visual noise.</description>
+            <content type="html"><![CDATA[<p>Voici quelques exemples d&rsquo;utilisation de <em>slicing</em> en Python.
+Cela fonctionne très bien sur les <code>list</code>, <code>str</code> et <code>bytes</code>.
+On peut ajouter du <em>slicing</em> sur des classes qui implémentent <code>__getitem__</code> et <code>__setitem__</code> <em>magic methods</em>.</p>
+<pre><code>a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+print('First four: ', a[:4])
+print('Last four:  ', a[-4:])
+print('Middle two: ', a[3:-3])
+# First four:  ['a', 'b', 'c', 'd']
+# Last four:   ['e', 'f', 'g', 'h']
+# Middle two:  ['d', 'e']
+</code></pre><pre><code># When slicing from the start of a list, you should leave out the zero index
+# to reduce visual noise.
+
+
+assert a[:5] == a[0:5]
+
+
+# When slicing to the end of a list, you should leave out the final index
+# because it's redundant.
+
+
+assert a[5:] == a[5:len(a)]
+</code></pre><pre><code># Using negative numbers for slicing is helpful for doing offsets relative
+# to the end of a list. All of these forms of slicing would be clear to a new
+# reader of your code. There are no surprises, and I encourage you to use
+# these variations.
+
+
+print(a[:])
+print(a[:5])
+print(a[:-1])
+print(a[4:])
+print(a[-3:])
+print(a[2:5])
+print(a[2:-1])
+print(a[-3:-1])
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+# ['a', 'b', 'c', 'd', 'e']
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+# ['e', 'f', 'g', 'h']
+# ['f', 'g', 'h']
+# ['c', 'd', 'e']
+# ['c', 'd', 'e', 'f', 'g']
+# ['f', 'g']
+</code></pre><pre><code># Slicing deals properly with start and end indexes that are beyond the
+# boundaries of the list. That makes it easy for your code to establish
+# a maximum length to consider for an input sequence.
+
+
+first_twenty_items = a[:20]
+last_twenty_items = a[-20:]
+print(first_twenty_items)
+print(last_twenty_items)
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+# ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
+# In contrast, accessing the same index directly causes an exception.
+# print(a[20])
+# IndexError: list index out of range
+
+
+# Note
+# Beware that indexing a list by a negative variable is one of the few
+# situations in which you can get surprising results from slicing. For
+# example, the expression somelist[-n:] will work fine when n is greater
+# than one (e.g. somelist[-3:]). However, when n is zero, the expression
+# somelist[-0:] will result in a copy of the original list.
+</code></pre><pre><code># The result of slicing a list is a whole new list. References to the objects
+# from the original list are maintained. Modifying the result of slicing won't
+# affect the original list.
+
+b = a[4:]
+print('Before:    ', b)
+b[1] = 99
+print('After:     ', b)
+print('No change: ', a)
+# Before:     ['e', 'f', 'g', 'h']
+# After:      ['e', 99, 'g', 'h']
+# No change:  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+</code></pre><pre><code># When used in assignments, slices will replace the specified range in the
+# original list. Unlike tuple assignments (like a, b = c[:2), the length of
+# slice assignments don't need to be the same. The values before and after
+# the assigned slice will be preserved. The list will grow or shrink to
+# accommodate the new values.
+
+print('Before: ', a)
+a[2:7] = [99, 22, 14]
+print('After:  ', a)
+# Before:  ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+# After:   ['a', 'b', 99, 22, 14, 'h']
+</code></pre><pre><code># If you leave out both the start and the end indexes when slicing, you'll end
+# up with a copy of the original list.
+
+b = a[:]
+assert b == a and b is not a
+</code></pre><pre><code># if you assign a slice with no start or end indexes, you'll replace its
+# entire contents with a copy of what's referenced (instead of allocating a
+# new list).
+
+
+b = a
+print('Before: ', a)
+a[:] = [101, 102, 103]
+assert a is b
+print('After:  ', a)
+# Before:  ['a', 'b', 99, 22, 14, 'h']
+# After:   [101, 102, 103]
+</code></pre><pre><code># In addition to basic slicing (see Item 5: Knowing how to slice sequences),
+# Python has special syntax for the stride of a slice in the form
+# somelist[start🔚stride]. This lets you take every n-th item when slicing
+# a sequence. For example, the stride makes it easy to group by even and odd
+# indexes in a list.
+
+a = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+odds = a[::2]
+evens = a[1::2]
+print(odds)
+print(evens)
+# ['red', 'yellow', 'blue']
+# ['orange', 'green', 'purple']
+</code></pre><pre><code># The problem is that the stride syntax ofter cause unexpected behavior that
+# can introduce bugs. For example, a common Python trick for reversing a byte
+# string is to slice the string with a stride of -1.
+
+
+x = b'mongoose'
+y = x[::-1]
+print(y)
+# b'esoognom'
+</code></pre><pre><code># That works well for byte strings and ASCII characters, but it will break for
+# Unicode characters encoded as UTF-8 byte strings.
+
+
+w = '谢谢谢谢'
+# x = w.enocde('utf-8')
+# y = x[::-1]
+# z = y.decode('utf-8')
+# print(y)
+# print(z)
+# AttributeError: 'str' object has no attribute 'enocde'
+</code></pre><pre><code># Are negative strides besides -1 useful? Consider the following examples.
+
+
+a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+print(a[::2])
+print(a[::-2])
+# ['a', 'c', 'e', 'g']
+# ['h', 'f', 'd', 'b']
+</code></pre><pre><code># Here, ::2 means select every second item starting at the beginning.
+# Trickier, ::-2 means select every second item starting at the end and moving
+# backwards.
+
+
+# What do you think 2::2 means? What about -2::-2 vs. -2:2:-2 vs. 2:2:-2?
+print(a[2::2])
+print(a[-2::-2])
+print(a[-2:2:-2])
+print(a[2:2:-2])
+# ['c', 'e', 'g']
+# ['g', 'e', 'c', 'a']
+# ['g', 'e']
+# []
+
+
+# The point is that the stride part of the slicing syntax can be extremely
+# confusing. Having three numbers within the brackets is hard enough to read
+# because of its density. Then it's not obvious when the start and end indexes
+# come into effect relative to the stride value, especially when stride is
+# negative.
+
+
+# To prevent problems, avoid using stride along with start and end indexes. If
+# you must use a stride, prefer making it a positive value and omit start and
+# end indexes. If you must use stride with start and end indexes, consider
+# using one assignment to stride and another to slice.
+
+
+b = a[::2]
+c = b[1:-1]
+print(b)
+print(c)
+# ['a', 'c', 'e', 'g']
+# ['c', 'e']
+</code></pre><pre><code># Slicing and then striding will create an extra shallow copy of the data.
+# The first operation should try to reduce the size of the resulting slice by
+# as much as possible. If your program can't afford the time or memory
+# required for two steps, consider using the itertools built-in module's
+# islice method (see Item 46: Use built-in algorithms and data structures),
+# which doesn't permit negative values for start, end or stride.
+</code></pre><pre><code># Things to remember
+
+# 1. Avoid being verbose: Don't supply 0 for the start index or the length of
+#     the sequence for the end index.
+# 2. Slicing is forgiving of start or end indexes that are out of bounds,
+#     making it easy to express slices on the front or back boundaries of a
+#     sequence (like a[:20] or a[-20:]).
+# 3. Assigning to a list slice will replace that range in the original
+#     sequence with what's referenced even if their lengths are different.
+# 4. Specifying start, end, and stride in a slice can be extremely confusing.
+# 5. Prefer using positive stride values in slices without start or end
+#     indexes. Avoid negative stride values if possible.
+# 6. Avoid using start, end and stride together in a single slice. If you need
+#     all three parameters, consider doing two assignments (one to slice,
+#     another to stride) or using islice form itertools built-in module.
+</code></pre><p>Source: Livre &ldquo;Effective Python: 59 Specific Ways to Write Better Python&rdquo; par Brett Slatkin. Je vous recommande grandement de l&rsquo;acheter et de le lire.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Style guide PEP8 en Python</title>
+            <link>https://leandeep.com/style-guide-pep8-en-python/</link>
+            <pubDate>Wed, 01 Feb 2017 21:54:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/style-guide-pep8-en-python/</guid>
+            <description>Je recommande de suivre le style guide PEP 8 pour coder en Python.
+# Whitespace: In Python, whitespace is syntactically significant. Python # programmers are especially sensitive to the effects of whitespace on # code clarity. # 1. Use spaces instead of tabs for indentation. # 2. Use four spaces for each level of syntactically significant indenting. # 3. Lines should be 79 characters in length or less. # 4. Continuations of long expressions onto additional lines should be # indented by four extra spaces from their normal indentation level.</description>
+            <content type="html"><![CDATA[<p>Je recommande de suivre le style guide PEP 8 pour coder en Python.</p>
+<pre><code># Whitespace: In Python, whitespace is syntactically significant. Python
+# programmers are especially sensitive to the effects of whitespace on
+# code clarity.
+
+# 1. Use spaces instead of tabs for indentation.
+# 2. Use four spaces for each level of syntactically significant indenting.
+# 3. Lines should be 79 characters in length or less.
+# 4. Continuations of long expressions onto additional lines should be
+#     indented by four extra spaces from their normal indentation level.
+# 5. In a file, functions and classes should be separated by two blank lines.
+# 6. In a class, methods should be separated by one blank line.
+# 7. Don't put spaces around list indexes, function calls, or keyword
+#     argument assignments.
+# 8. Put one-and only one-space before and after variable assignments.
+</code></pre><pre><code># Naming: PEP 8 suggests unique styles of naming for different part in the
+# language.
+
+# 1. Functions, variables, and attributs should be in lovercase_underscore
+#     format.
+# 2. Protected instance attributes should be in _leading_underscore format.
+# 3. Private instance attributes should be in __double_leading_underscore
+#     format.
+# 4. Classes and exceptions should be in CapitalizedWord format.
+# 5. Module-level constants should be in ALL_CAPS format.
+# 6. Instance methods in classes should use self as the name of the first
+#     parameter (which refers to the object).
+# 7. Class methods should use cls as the name of the first parameter (which
+# refers to the class).
+</code></pre><pre><code># Expressions and Statements: The Zen of Python states: &quot;There should be one-
+# and preferably only one-obvious way to do it.&quot;
+
+# 1. Use inline negation (if a is not b) instead of negative of positive
+#     expressions (if not a is b)
+# 2. Don't check for empty value (like [] or '') by checking the length
+#     (if len(somelist) == 0). Use if not somelist and assume empty values
+#     implicitly evaluate to False.
+# 3. The same thing goes for non-empty values (like [1] or 'hi'). The statement
+#     if somelist is implicitly True for non-empty values.
+# 4. Avoid single-line if statements, for and while loops, and except compound
+#     statements. Spread these over multiple lines for clarity.
+# 5. Always put import statements as the top of a file.
+# 6. Always use absolute names for modules when importing them, not names
+#     relative to the current module's own path. For example, to import the foo
+#     module for the bar package, you should do from bar import foo, not just
+#     import foo.
+# 7. If you must do relative imports, use the explicit syntax from . import foo.
+# 8. Imports should be in sections in the following order: standard library
+#     modules, third-party modules, your own modules. Each subsection should
+#     have imports in alphabetical order.
+</code></pre><p>&hellip; Ceci n&rsquo;est qu&rsquo;un aperçu.</p>
+<p>Avec de bons outils comme flake8, il est facile de linter son code pour faire en sorte qu&rsquo;il respecte certains style guides. Le slogan de Flake8 est parlant: &ldquo;Your Tool For Style Guide Enforcement&rdquo;.</p>
+<blockquote>
+<p>Attention à ceci:
+&ldquo;It is very important to install Flake8 on the correct version of Python for your needs. If you want Flake8 to properly parse new language features in Python 3.5 (for example), you need it to be installed on 3.5 for Flake8 to understand those features. In many ways, Flake8 is tied to the version of Python on which it runs.&rdquo; Source <a href="http://flake8.pycqa.org">http://flake8.pycqa.org</a></p>
+</blockquote>
+<br/>
+<p>Flake8 est un outil qui vérifie grâce à pyflakes la conformité du code Python avec pep8 et la <em>circular complexity</em>.</p>
+<p>Pour utiliser flake8 avec VScode, il suffit de créer un fichier <code>.flake8</code> à la racine de votre projet et de coller le contenu suivant:</p>
+<pre><code>[flake8]
+filename = *.py,*.pyx,*.pxd,*.pxi
+ignore = E402,E731,D100,D101,D102,D103,D104,D105,W503,W504,E252
+exclude = .git,__pycache__,build,dist,.eggs,postgres,vendor
+
+per-file-ignores = *.pyx,*.pxd,*.pxi: E211, E222, E225, E226, E227, E999
+
+max-line-length = 160
+</code></pre><br/>
+<p>Remarque, il est possible d&rsquo;ignorer certaines rêgles.</p>
+<p>Il faut aussi créer un fichier <code>.vscode/settings.json</code> pour dire à VScode d&rsquo;utiliser flake8 comme linter.</p>
+<p>Voici un exemple de fichier settings.</p>
+<pre><code>{
+    &quot;python.pythonPath&quot;: &quot;.venv/bin/python3.5&quot;,
+    &quot;python.linting.pylintEnabled&quot;: false,
+    &quot;python.linting.flake8Enabled&quot;: true,
+    &quot;python.linting.enabled&quot;: true
+}
 </code></pre>]]></content>
         </item>
         
@@ -15680,6 +16861,9 @@ $ git bisect bad            # Identify the end of the range
 $ git bisect good v4.2.0    # Identify the start of the range
 </code></pre><p>Puis après un test sur votre app ou tests unitaires préciser soit <code>git bisect bad</code> ou <code>git bisect good</code></p>
 <br/>
+<h2 id="pull-git-submodules-après-avoir-cloné-un-projet-sur-github">Pull git submodules après avoir cloné un projet sur GitHub</h2>
+<pre><code>git submodule update --init
+</code></pre><br/>
 <h2 id="gitignore-global">.gitignore global</h2>
 <pre><code>touch ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
@@ -17991,9 +19175,13 @@ scp vps:&quot;$file&quot; .
 </blockquote>
 <br/>
 <h2 id="copier-des-fichiers-à-distance-avec-rsync">Copier des fichiers à distance avec rsync</h2>
-<pre><code>rsync -az /home/olivier/data remoteserver:backup/
+<pre><code>rsync -azcrv --progress /home/olivier/data remoteserver:backup/
 </code></pre><blockquote>
-<p><code>-z</code> permet d&rsquo;avoir la compression gzip et <code>-a</code> permet d&rsquo;être en mode archive; ce qui revient à copier recursivement des fichiers</p>
+<p><code>-z</code> permet d&rsquo;avoir la compression gzip <br/>
+<code>-a</code> permet d&rsquo;être en mode archive; ce qui revient à copier recursivement des fichiers
+<code>-c</code> check checksum. Si le contenu du fichier est différent, le fichier est recopié
+<code>-r</code> recursif
+<code>-v</code> verbose</p>
 </blockquote>
 <br/>
 <h2 id="ssh-sur-une--instance-ec2">SSH sur une  instance EC2</h2>
