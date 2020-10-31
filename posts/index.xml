@@ -271,10 +271,21 @@ sudo yum install x2goclient
 <p>Rendez-vous sur <a href="https://wiki.x2go.org/doku.php/doc:installation:x2goclient">https://wiki.x2go.org/doku.php/doc:installation:x2goclient</a> pour avoir de la documentation.
 Les packages .dmg sont disponibles ici: <a href="https://code.x2go.org/releases/binary-macosx/x2goclient/">https://code.x2go.org/releases/binary-macosx/x2goclient/</a></p>
 <br/>
+<p>Il est également nécessaire d&rsquo;installer (XQuartz)[https://www.xquartz.org/]</p>
+<br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Si lors de la connexion à votre serveur vous obtenez le message suivant <code>Connection failed. stdin: is not a tty</code>, éditez le fichier <code>/home/votre_user/.profile</code> et changer la ligne <code>mesg n</code>
+par <code>tty -s &amp;&amp; mesg n</code>.</p>
+<br/>
 <h2 id="autres">Autres</h2>
 <ul>
 <li>Connexion SSH et forward X11: <code>ssh -X</code>. Il est ensuite possible de démarrer n&rsquo;importe quelle application avec interface graphique.</li>
 <li>Lister les desktop environments: <code>ls -l /usr/share/xsessions/</code></li>
+<li>Sur Debian 8 (cf &ldquo;jessie&rdquo; via la commande <code>lsb_release -a</code>), l&rsquo;installation de X2GO se fait via les commandes suivantes:
+<pre><code>sudo apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E
+echo 'deb http://packages.x2go.org/debian jessie main' | sudo tee /etc/apt/sources.list.d/x2go.list
+sudo apt-get install x2goserver x2goserver-xsession
+</code></pre></li>
 </ul>
 ]]></content>
         </item>
@@ -17433,10 +17444,10 @@ $ python3 -m http.server
             
             <guid>https://leandeep.com/conversion-de-structure-de-donn%C3%A9es-%C3%A0-une-autre/</guid>
             <description>Lorsque l&amp;rsquo;on fait du preprocessing sur les données en Python, il est utile de transformer des structures de données en d&amp;rsquo;autres. Voici quelques snippets utiles:
-Liste vers dictionnaire¶ list = [&amp;quot;lun&amp;quot;, &amp;quot;mer&amp;quot;, &amp;quot;mar&amp;quot;, &amp;quot;mer&amp;quot;, &amp;quot;jeu&amp;quot;, &amp;quot;jeu&amp;quot;] dict = {} for el in list: dict[e] = dict.get(el, 0) + 1 print(dict) {&#39;lun&#39;: 1, &#39;mer&#39;: 2, &#39;mar&#39;: 1, &#39;jeu&#39;: 2} L&amp;rsquo;usage de la méthode get regarde si une clé appartient au dictionnaire, retourne la valeur associée ou une valeur par défault dans le cas contraire.</description>
+Liste vers dictionnaire list = [&amp;quot;lun&amp;quot;, &amp;quot;mer&amp;quot;, &amp;quot;mar&amp;quot;, &amp;quot;mer&amp;quot;, &amp;quot;jeu&amp;quot;, &amp;quot;jeu&amp;quot;] dict = {} for el in list: dict[e] = dict.get(el, 0) + 1 print(dict) {&#39;lun&#39;: 1, &#39;mer&#39;: 2, &#39;mar&#39;: 1, &#39;jeu&#39;: 2} L&amp;rsquo;usage de la méthode get regarde si une clé appartient au dictionnaire, retourne la valeur associée ou une valeur par défault dans le cas contraire.</description>
             <content type="html"><![CDATA[<p>Lorsque l&rsquo;on fait du preprocessing sur les données en Python, il est utile de transformer des structures de données en d&rsquo;autres.
 Voici quelques snippets utiles:</p>
-<h1 id="liste-vers-dictionnaire">Liste vers dictionnaire¶</h1>
+<h2 id="liste-vers-dictionnaire">Liste vers dictionnaire</h2>
 <pre><code>list = [&quot;lun&quot;, &quot;mer&quot;, &quot;mar&quot;, &quot;mer&quot;, &quot;jeu&quot;, &quot;jeu&quot;]
 dict = {}
 for el in list:
@@ -17453,7 +17464,8 @@ for el in list:
     else:
         dict[el] = 1
 print(dict)
-</code></pre><h1 id="dictionnaire-vers-liste">Dictionnaire vers liste</h1>
+</code></pre><br/>
+<h2 id="dictionnaire-vers-liste">Dictionnaire vers liste</h2>
 <pre><code>dict = {'lun': 1, 'mer': 2, 'mar': 1, 'jeu': 2}
 list = []
 for key, value in dict.items():
@@ -17461,7 +17473,8 @@ for key, value in dict.items():
         list.append(key)
 print(list)
 </code></pre><pre><code>[&quot;lun&quot;, &quot;mer&quot;, &quot;mar&quot;, &quot;mer&quot;, &quot;jeu&quot;, &quot;jeu&quot;]
-</code></pre><h1 id="dictionnaire-vers-2-listes">Dictionnaire vers 2 listes</h1>
+</code></pre><br/>
+<h2 id="dictionnaire-vers-2-listes">Dictionnaire vers 2 listes</h2>
 <pre><code>dict = {'lun': 1, 'mer': 2, 'mar': 1, 'jeu': 2}
 keys = []
 values = []
@@ -17473,12 +17486,14 @@ print(keys)
 print(values)
 </code></pre><pre><code>['mer', 'jeu', 'lun', 'mar']
 [2, 2, 1, 1]
-</code></pre><h1 id="2-listes-vers-1-dictionnaire">2 listes vers 1 dictionnaire</h1>
+</code></pre><br/>
+<h2 id="2-listes-vers-1-dictionnaire">2 listes vers 1 dictionnaire</h2>
 <pre><code>keys, values = ['mer', 'jeu', 'lun', 'mar'], [2, 2, 1, 1]
 dict = {x:y for x, y in zip(keys, values)}
 print(dict)
 </code></pre><pre><code>{'lun': 1, 'mer': 2, 'mar': 1, 'jeu': 2}
-</code></pre><h1 id="dictionnaire-vers-2-listes-1">Dictionnaire vers 2 listes</h1>
+</code></pre><br/>
+<h2 id="dictionnaire-vers-2-listes-1">Dictionnaire vers 2 listes</h2>
 <pre><code>dict = {'lun': 1, 'mer': 2, 'mar': 1, 'jeu': 2}
 keys = []
 values = []
