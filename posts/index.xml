@@ -271,7 +271,7 @@ sudo yum install x2goclient
 <p>Rendez-vous sur <a href="https://wiki.x2go.org/doku.php/doc:installation:x2goclient">https://wiki.x2go.org/doku.php/doc:installation:x2goclient</a> pour avoir de la documentation.
 Les packages .dmg sont disponibles ici: <a href="https://code.x2go.org/releases/binary-macosx/x2goclient/">https://code.x2go.org/releases/binary-macosx/x2goclient/</a></p>
 <br/>
-<p>Il est également nécessaire d&rsquo;installer (XQuartz)[https://www.xquartz.org/]</p>
+<p>Il est également nécessaire d&rsquo;installer (XQuartz)[https://www.xquartz.org/] et de rebooter votre Mac!</p>
 <br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>Si lors de la connexion à votre serveur vous obtenez le message suivant <code>Connection failed. stdin: is not a tty</code>, éditez le fichier <code>/home/votre_user/.profile</code> et changer la ligne <code>mesg n</code>
@@ -9761,12 +9761,12 @@ df.dropna()
             <pubDate>Sat, 29 Dec 2018 21:24:00 +0000</pubDate>
             
             <guid>https://leandeep.com/monter-un-dossier-distant-avec-sshfs/</guid>
-            <description>SSHFS sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.
+            <description>(Classique) Monter un disque remote en local SSHFS sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.
 C&amp;rsquo;est plutôt pratique. Voici la commande:
 sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local  Installer sshfs sur Ubuntu: sudo apt install -y sshfs
-  Installer sshfs sur OSX: brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs
- </description>
-            <content type="html"><![CDATA[<p><code>SSHFS</code> sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.</p>
+  Installer sshfs sur OSX: brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs</description>
+            <content type="html"><![CDATA[<h2 id="classique-monter-un-disque-remote-en-local">(Classique) Monter un disque remote en local</h2>
+<p><code>SSHFS</code> sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.</p>
 <p>C&rsquo;est plutôt pratique. Voici la commande:</p>
 <pre><code>sshfs -p &lt;votre_port_ssh&gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local
 </code></pre><blockquote>
@@ -9775,7 +9775,32 @@ sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier
 <blockquote>
 <p>Installer sshfs sur OSX: <code>brew cask install osxfuse &amp;&amp; brew install sshfs</code></p>
 </blockquote>
-]]></content>
+<br/>
+<h2 id="linverse-plus-cool-monter-un-disque-local-sur-un-serveur-remote">(L&rsquo;inverse, plus cool) Monter un disque local sur un serveur remote</h2>
+<pre><code>export REMOTE_USER=root
+export IP_REMOTE_SERVEUR=vps
+export LOCAL_USER=olivier
+export REMOTE_BASE_PATH=/root # pas très secure mais j'utilise une trash machine
+
+# Pré-requis:
+# Le répertoire $REMOTE_BASE_PATH/disk_remote doit exister sur le serveur distant
+
+# Lancé depuis un MAC vers serveur Linux
+mkdir -p /Users/$LOCAL_USER/shared_data
+ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
+
+# Example:
+# ssh -t -p 22 root@vps -R 10000:localhost:22 &quot;sshfs -o allow_other,cache=no,no_readahead,no_remote_lock,compression=no,uid=1000,gid=1000,NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 olivier@localhost:/Users/olivier/shared_data /root/disk_remote;bash&quot;
+
+# Checker si le disque local a bien été monté
+# Normalement vous devriez être connecté à votre serveur distant après l'exécution de la commande précédente
+mount
+touch toto
+
+# disconnect 
+cd /Users/$LOCAL_USER/shared_data
+ls
+</code></pre>]]></content>
         </item>
         
         <item>
