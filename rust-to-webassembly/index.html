@@ -303,7 +303,7 @@ function toTitleCase(str) {
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh  Création d&rsquo;une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib.">
 <meta itemprop="datePublished" content="2019-12-22T18:28:03+00:00" />
 <meta itemprop="dateModified" content="2019-12-22T18:28:03+00:00" />
-<meta itemprop="wordCount" content="602">
+<meta itemprop="wordCount" content="621">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -512,18 +512,22 @@ document.body.append(
 <h2 id="bonus---accéder-à-un-wasm-depuis-python">Bonus - Accéder à un wasm depuis Python</h2>
 <p>Créer une nouvelle librairie:</p>
 <pre><code>cargo new --lib simple
-</code></pre><p>Modifier le fichier <code>simple/src/lib.rs</code> et ajouter la fonction Rust suivante:</p>
+</code></pre><br/>
+<p>Modifier le fichier <code>simple/src/lib.rs</code> et ajouter la fonction Rust suivante:</p>
 <pre><code>#[no_mangle]
 pub extern fn simple_add(a: i32, b: i32) -&gt; i32 { a + b}
-</code></pre><p>Ajouter la target suivante en exécutant cette commande dans votre terminal:</p>
+</code></pre><br/>
+<p>Ajouter la target suivante en exécutant cette commande dans votre terminal:</p>
 <pre><code>rustup target add wasm32-unknown-unknown
-</code></pre><p>Modifier le fichier <code>Cargo.toml</code> et ajouter le contenu suivant:</p>
+</code></pre><br/>
+<p>Modifier le fichier <code>Cargo.toml</code> et ajouter le contenu suivant:</p>
 <pre><code>[dependencies]
 wasm-bindgen = &quot;0.2&quot;
 
 [lib]
 crate-type = [&quot;cdylib&quot;]
-</code></pre><p>Créer un fichier simple.py qui va appeler notre binaire wasm:</p>
+</code></pre><br/>
+<p>Créer un fichier simple.py qui va appeler notre binaire wasm:</p>
 <pre><code>from wasmer import Instance
 path = './target/wasm32-unknown-unknown/release/simple.wasm'
 with open(path, ‘rb’) as bytecode:
@@ -534,12 +538,16 @@ with open(path, ‘rb’) as bytecode:
     print(instance.exports)  # this will print function's name
     print('call simple_add(12, 12): ')
     print(result)  # 24
-</code></pre><p>Exécuter le fichier python: <code>python simple.py</code> et observer le résultat.</p>
+</code></pre><br/>
+<p>Exécuter le fichier python: <code>python simple.py</code> et observer le résultat.</p>
 <pre><code>Modules exported from Rust:
 [&quot;simple_add&quot;]
 call simple_add(12, 12):
 24
-</code></pre><p>Et voilà.</p>
+</code></pre><br/>
+<blockquote>
+<p>Notes: pour installer un package cargo, il faut ajouter la dépendance dans le fichier <code>Cargo.toml</code> et exécuter la commande <code>cargo build</code>.</p>
+</blockquote>
 
             </div>
         </article>
@@ -551,7 +559,7 @@ call simple_add(12, 12):
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span><span class="tag"><a href="https://leandeep.com/tags/webassembly">Webassembly</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>602 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>621 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 Dec. 2019</p>
         </div>

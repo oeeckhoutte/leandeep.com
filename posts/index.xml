@@ -3008,18 +3008,22 @@ document.body.append(
 <h2 id="bonus---accéder-à-un-wasm-depuis-python">Bonus - Accéder à un wasm depuis Python</h2>
 <p>Créer une nouvelle librairie:</p>
 <pre><code>cargo new --lib simple
-</code></pre><p>Modifier le fichier <code>simple/src/lib.rs</code> et ajouter la fonction Rust suivante:</p>
+</code></pre><br/>
+<p>Modifier le fichier <code>simple/src/lib.rs</code> et ajouter la fonction Rust suivante:</p>
 <pre><code>#[no_mangle]
 pub extern fn simple_add(a: i32, b: i32) -&gt; i32 { a + b}
-</code></pre><p>Ajouter la target suivante en exécutant cette commande dans votre terminal:</p>
+</code></pre><br/>
+<p>Ajouter la target suivante en exécutant cette commande dans votre terminal:</p>
 <pre><code>rustup target add wasm32-unknown-unknown
-</code></pre><p>Modifier le fichier <code>Cargo.toml</code> et ajouter le contenu suivant:</p>
+</code></pre><br/>
+<p>Modifier le fichier <code>Cargo.toml</code> et ajouter le contenu suivant:</p>
 <pre><code>[dependencies]
 wasm-bindgen = &quot;0.2&quot;
 
 [lib]
 crate-type = [&quot;cdylib&quot;]
-</code></pre><p>Créer un fichier simple.py qui va appeler notre binaire wasm:</p>
+</code></pre><br/>
+<p>Créer un fichier simple.py qui va appeler notre binaire wasm:</p>
 <pre><code>from wasmer import Instance
 path = './target/wasm32-unknown-unknown/release/simple.wasm'
 with open(path, ‘rb’) as bytecode:
@@ -3030,12 +3034,16 @@ with open(path, ‘rb’) as bytecode:
     print(instance.exports)  # this will print function's name
     print('call simple_add(12, 12): ')
     print(result)  # 24
-</code></pre><p>Exécuter le fichier python: <code>python simple.py</code> et observer le résultat.</p>
+</code></pre><br/>
+<p>Exécuter le fichier python: <code>python simple.py</code> et observer le résultat.</p>
 <pre><code>Modules exported from Rust:
 [&quot;simple_add&quot;]
 call simple_add(12, 12):
 24
-</code></pre><p>Et voilà.</p>
+</code></pre><br/>
+<blockquote>
+<p>Notes: pour installer un package cargo, il faut ajouter la dépendance dans le fichier <code>Cargo.toml</code> et exécuter la commande <code>cargo build</code>.</p>
+</blockquote>
 ]]></content>
         </item>
         
@@ -3893,6 +3901,7 @@ brew install git-crypt
 brew install watch
 brew install sshfs
 brew install wakeonlan
+brew install nmap
 
 # EOS Blockchain
 brew tap eosio/eosio
@@ -18648,6 +18657,9 @@ tcpdump -vnni eth0 not dst net 192.168.0.1/8
 docker pull dns_a_filtrer
 
 curl dns_a_filtrer
+</code></pre><br/>
+<h2 id="scanner-son-réseau-avec-nmap">Scanner son réseau avec nmap</h2>
+<pre><code>nmap -sn 192.168.0.0/24
 </code></pre><br/>
 <h2 id="monitoring-simple-de-host">Monitoring (simple) de host</h2>
 <pre><code># IO par disque
