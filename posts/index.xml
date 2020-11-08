@@ -22,6 +22,8 @@ Je préfère utiliser un amorçage PXE qui me permet de charger des ISOs depuis 
 Dans cet article, nous allons rester simple et nous contenter de mettre à disposition des distro Linux.
 je skip volontairement les machines Windows ou les machines Linux prêtes à l&rsquo;emploi avec serveur NFS&hellip;</p>
 <br/>
+<p><img src="/images/pxe.png" alt="pxe"></p>
+<br/>
 <h2 id="installation-du-serveur-pxe">Installation du serveur PXE</h2>
 <p><strong>Pré-requis</strong></p>
 <ul>
@@ -362,11 +364,11 @@ make install
         </item>
         
         <item>
-            <title>Remote Desktop over SSH avec X2GO sur Ubuntu 18.04</title>
-            <link>https://leandeep.com/remote-desktop-over-ssh-avec-x2go-sur-ubuntu-18.04/</link>
+            <title>Remote Desktop over SSH avec X2GO sur Ubuntu</title>
+            <link>https://leandeep.com/remote-desktop-over-ssh-avec-x2go-sur-ubuntu/</link>
             <pubDate>Fri, 25 Sep 2020 18:59:00 +0200</pubDate>
             
-            <guid>https://leandeep.com/remote-desktop-over-ssh-avec-x2go-sur-ubuntu-18.04/</guid>
+            <guid>https://leandeep.com/remote-desktop-over-ssh-avec-x2go-sur-ubuntu/</guid>
             <description>Introduction Dans cet article, nous allons voir comment mettre en place du remote desktop sur Ubuntu 18.04. On ne va pas installer un serveur VNC. Ici, on va faire du X11 forwarding. Le protocole NX va nous permettre de transmettre des données vidéos, audio, etc. via une connexion SSH.
  Installation de la partie serveur sur Ubuntu Installation de X2GO
 # On ajoute le package permettant d&#39;ajouter des PPA sudo apt-get install software-properties-common # On ajoute X2Go PPA sudo add-apt-repository ppa:x2go/stable # On met à jour la base de données contenant les packages disponibles sudo apt-get update # On installe X2GO sudo apt-get install x2goserver x2goserver-xsession  Installation d&amp;rsquo;un desktop environment</description>
@@ -427,6 +429,7 @@ par <code>tty -s &amp;&amp; mesg n</code>.</p>
 echo 'deb http://packages.x2go.org/debian jessie main' | sudo tee /etc/apt/sources.list.d/x2go.list
 sudo apt-get install x2goserver x2goserver-xsession
 </code></pre></li>
+<li>Si vous installez X2GO sur Kubuntu 20.04+ et que vous démarrez une session vous aurez sans doute l&rsquo;erreur suivante: <code>Unable to execute: startkde</code>. La commande <code>startkde</code> n&rsquo;existe plus dans Kubuntu 20.04. Si vous avez cette erreur, changez le type de session en sélectionnant <code>Custom desktop</code> et  entrez <code>/usr/bin/startplasma-x11</code> dans le champ commande.</li>
 </ul>
 ]]></content>
         </item>
@@ -9940,7 +9943,10 @@ export REMOTE_BASE_PATH=/root # pas très secure mais j'utilise une trash machin
 
 # Lancé depuis un MAC vers serveur Linux
 mkdir -p /Users/$LOCAL_USER/shared_data
-ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
+ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect,allow_other,nonempty -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
+
+# Lancé depuis un serveur linux vers un autre serveur linux (en mode background)
+# autossh -M 0 -f -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,allow_other,nonempty,reconnect -p 10000 $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
 
 # Example:
 # ssh -t -p 22 root@vps -R 10000:localhost:22 &quot;sshfs -o allow_other,cache=no,no_readahead,no_remote_lock,compression=no,uid=1000,gid=1000,NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 olivier@localhost:/Users/olivier/shared_data /root/disk_remote;bash&quot;
@@ -9951,7 +9957,7 @@ mount
 touch toto
 
 # disconnect 
-cd /Users/$LOCAL_USER/shared_data
+umount -f $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data
 ls
 </code></pre>]]></content>
         </item>

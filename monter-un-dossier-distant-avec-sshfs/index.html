@@ -301,7 +301,7 @@ sshfs -p &lt;votre_port_ssh&gt; -o allow_other,defer_permissions olivier@ip_serv
   Installer sshfs sur OSX: brew cask install osxfuse &amp;&amp; brew install sshfs">
 <meta itemprop="datePublished" content="2018-12-29T21:24:00+00:00" />
 <meta itemprop="dateModified" content="2018-12-29T21:24:00+00:00" />
-<meta itemprop="wordCount" content="183">
+<meta itemprop="wordCount" content="216">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -377,7 +377,7 @@ sshfs -p &lt;votre_port_ssh&gt; -o allow_other,defer_permissions olivier@ip_serv
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
 
             
 
@@ -414,7 +414,10 @@ export REMOTE_BASE_PATH=/root # pas très secure mais j'utilise une trash machin
 
 # Lancé depuis un MAC vers serveur Linux
 mkdir -p /Users/$LOCAL_USER/shared_data
-ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
+ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect,allow_other,nonempty -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
+
+# Lancé depuis un serveur linux vers un autre serveur linux (en mode background)
+# autossh -M 0 -f -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &quot;sshfs -o NoHostAuthenticationForLocalhost=yes,allow_other,nonempty,reconnect -p 10000 $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&quot;
 
 # Example:
 # ssh -t -p 22 root@vps -R 10000:localhost:22 &quot;sshfs -o allow_other,cache=no,no_readahead,no_remote_lock,compression=no,uid=1000,gid=1000,NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 olivier@localhost:/Users/olivier/shared_data /root/disk_remote;bash&quot;
@@ -425,7 +428,7 @@ mount
 touch toto
 
 # disconnect 
-cd /Users/$LOCAL_USER/shared_data
+umount -f $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data
 ls
 </code></pre>
             </div>
@@ -438,7 +441,7 @@ ls
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>183 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>216 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>29 Dec. 2018</p>
         </div>
