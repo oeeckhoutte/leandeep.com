@@ -5,8 +5,154 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 06 Nov 2020 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 15 Nov 2020 12:19:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Tensorflow 2 avec GPU backend avec un eGPU, Kubuntu 20.04 et Docker</title>
+            <link>https://leandeep.com/installer-tensorflow-2-avec-gpu-backend-avec-un-egpu-kubuntu-20.04-et-docker/</link>
+            <pubDate>Sun, 15 Nov 2020 12:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-tensorflow-2-avec-gpu-backend-avec-un-egpu-kubuntu-20.04-et-docker/</guid>
+            <description>Introduction Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
+ J&amp;rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud).</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.</p>
+<br/>
+<p>J&rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud). D&rsquo;un point de vue économique, c&rsquo;est beaucoup plus rentable d&rsquo;avoir sa propre station. Il vous faut juste un boitier EGPU 300€ (pour un haut de gamme type Razer), un PC (gratuit, quel dev ou data engineer n&rsquo;en a pas? Idéalement il vous faudrait un PC secondaire) et un GPU (entre 150€ et 700€ pour une bête voire 1500€ pour un monstre).
+La location d&rsquo;une machine avec GPU sur AWS vous revient à minimum $300 par mois (min $0.5/heure * 24h * 7 jours * 4 semaines). Il n&rsquo;y a pas photo&hellip;
+Après AWS vous permet d&rsquo;avoir des instances avec plusieurs GPUs, cela peut être utile dans certains cas. Peut-être qu&rsquo;un build avec plusieurs eGPU pourrait faire l&rsquo;affaire pour ce use case&hellip; Je ne ferai pas l&rsquo;essai, je n&rsquo;ai pas ce besoin&hellip;</p>
+<br/>
+<p><strong>Dans cet article nous allons voir comment installer Tensorflow 2 sur sa propre machine reliée a un EGPU Nvidia Geforce GTX 1080, Kubuntu 20.04 et Docker. Il n&rsquo;y a plus l&rsquo;installation complexe de Cuda à gérer :) .</strong></p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>sudo apt-get update
+sudo apt-get dist-upgrade
+</code></pre><br/>
+<p><strong>Autoriser la communication via Thunderbolt, et donc le EGPU</strong></p>
+<pre><code>sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/0-0/authorized'
+sudo sh -c 'echo 1 &gt; /sys/bus/thunderbolt/devices/0-1/authorized'
+</code></pre><br/>
+<p>Vérifier que le EGPU est détecté:</p>
+<pre><code>lspci | grep -i nvidia
+</code></pre><br/>
+<p><strong>Installation de Cuda toolkit (ce n&rsquo;est pas Cuda)</strong></p>
+<pre><code>sudo apt-get install nvidia-cuda-toolkit
+</code></pre><blockquote>
+<p>Si vous utilisez Ubuntu 20.04 et pas Kubuntu 20.04 vous devrez désactiver l&rsquo;utilisation de Wayland en commmentant la ligne suivante <code>#WaylandEnable=false</code> dans le fichier <code>/etc/gdm3/custom.conf</code>.</p>
+</blockquote>
+<br/>
+<p><strong>Installation le driver Nvidia</strong></p>
+<pre><code># Désinstaller les drivers déjà installés
+sudo dpkg -P $(dpkg -l | grep nvidia-driver | awk '{print $2}')
+sudo apt autoremove
+# Installer les nouveaux drivers Nvidia propriétaire (pas les &quot;nouveau&quot; opensource)
+sudo apt-get install --no-install-recommends nvidia-driver-418
+</code></pre><br/>
+<p><strong>Configurer Grub pour booter en mode runlevel 3</strong></p>
+<p>Le fichier grub original <code>/etc/default/grub</code> ressemble à ceci:</p>
+<pre><code>#If you change this file, run 'update-grub' afterwards to update
+# /boot/grub/grub.cfg.
+# For full documentation of the options in this file, see:
+#   info -f grub -n 'Simple configuration'
+ 
+GRUB_DEFAULT=0
+GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;
+GRUB_CMDLINE_LINUX=&quot;&quot;
+</code></pre><p>Remplacer la variable <code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;</code> par <code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;3&quot;</code>.</p>
+<br/>
+<p>Mettre à jour Grub et redémarrer</p>
+<pre><code>sudo update-grub
+sudo reboot
+</code></pre><br/>
+<h2 id="autoriser-le-driver-nvidia-a-accélérer-le-server-x">Autoriser le Driver Nvidia a accélérer le server X.</h2>
+<p>Pour se faire, éditer le fichier <code>/usr/share/X11/xorg.conf.d/10-nvidia.conf</code> et ajouter les lignes suivantes:</p>
+<pre><code>Section &quot;OutputClass&quot;
+   Identifier &quot;nvidia&quot;
+   MatchDriver &quot;nvidia-drm&quot;
+   Driver &quot;nvidia&quot;
+   Option &quot;AllowExternalGpus&quot; &quot;True&quot;
+   Option &quot;AllowEmptyInitialConfiguration&quot;
+   ModulePath &quot;/usr/lib/x86_64-linux-gnu/nvidia/xorg&quot;
+EndSection
+</code></pre><br/>
+<p>Redémarrer votre machine pour vérifier que tout est bon. Après identification et exécution de la commande <code>startx</code>, le X server doit démarrer et vous devriez voir le desktop KDE.</p>
+<br/>
+<h2 id="optionel-reconfigurer-grub">(Optionel) Reconfigurer GRUB</h2>
+<p>Vous pouvez éventuellement reconfigurer GRUB et &ldquo;setter&rdquo; la variable <code>GRUB_CMDLINE_LINUX_DEFAULT</code> à <code>&quot;quiet splash&quot;</code>.</p>
+<br/>
+<h2 id="vérifier-le-bon-fonctionnement-des-drivers-nvidia">Vérifier le bon fonctionnement des Drivers Nvidia</h2>
+<p>Après le redémarrage du PC, le X server ne va plus démarrer, c&rsquo;est normal. Identifiez-vous puis vérifier que les drivers Nvidia fonctionnent.</p>
+<pre><code>nvidia-smi
+</code></pre><br/>
+<p>Si vous avez un output qui ressemble à ceci, vous êtes bon:</p>
+<pre><code>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 455.38       Driver Version: 455.38       CUDA Version: 11.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1080    Off  | 00000000:06:00.0 Off |                  N/A |
+| 27%   27C    P8     5W / 180W |    441MiB /  8119MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1487      G   /usr/lib/xorg/Xorg                215MiB |
++-----------------------------------------------------------------------------+
+</code></pre><br/>
+<h2 id="installer-docker">Installer Docker</h2>
+<p>Si ce n&rsquo;est pas déjà fait, installer Docker:</p>
+<pre><code>curl https://get.docker.com | sh \
+  &amp;&amp; sudo systemctl start docker \
+  &amp;&amp; sudo systemctl enable docker
+</code></pre><br/>
+<h2 id="installer-nvidia-docker">Installer Nvidia-docker</h2>
+<pre><code>sudo apt-get install -y nvidia-docker2
+sudo systemctl restart docker
+</code></pre><br/>
+<h2 id="démarrer-un-base-container-cuda-et-vérifier-que-tout-est-ok">Démarrer un base container CUDA et vérifier que tout est ok</h2>
+<pre><code>sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+</code></pre><br/>
+<p>Si vous avez le même output que moi, c&rsquo;est que tout est bon</p>
+<pre><code>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 455.38       Driver Version: 455.38       CUDA Version: 11.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1080    Off  | 00000000:06:00.0 Off |                  N/A |
+| 27%   27C    P8     6W / 180W |    443MiB /  8119MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
++-----------------------------------------------------------------------------+
+</code></pre><br/>
+<h2 id="installer-tensorflow-2">Installer Tensorflow 2</h2>
+<pre><code>sudo docker run --rm -it --gpus all nvidia/cuda:11.0-base /bin/bash
+apt-get update
+apt-get install python3-dev python3-pip
+pip3 install tensorflow-gpu
+python3 
+&gt;&gt;&gt; import tensorflow
+&gt;&gt;&gt; from tensorflow.python.client import device_lib
+&gt;&gt;&gt; print(device_lib.list_local_devices())
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer les dernières distros Linux avec PXE</title>
@@ -3944,9 +4090,9 @@ Test Accuracy 0.91</p>
 Oh-my-zsh
 sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;  Installer Node version manager (NVM)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash Puis au moins les paquets suivants:
-nvm install v12.13.0 nvm use v12.13.0 nvm use default v12.13.0 npm i -g hexo http-server  Homebrew
-/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;  Packages gratuits ou OpenSource Mac utiles pour travailler
- Synology Drive (Peut être la plus importante) Onyx (Optimiser le Finder OSX) Docker - Puis activer Kubernetes dans les settings Iterm 2 Xcode via l&amp;rsquo;App Store et l&amp;rsquo;utilitaire command line via la commande suivante xcode-select --install Vuze pour télécharger des Torrents.</description>
+nvm install v12.13.0 nvm use v12.13.0 nvm use default v12.13.0 npm i -g hexo http-server  Installer Xcode CLI
+xcode-select --install sudo xcodebuild -license accept  Homebrew
+/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;  Packages gratuits ou OpenSource Mac utiles pour travailler</description>
             <content type="html"><![CDATA[<p>Voici certains (le minimum vital) utilitaires de développement que j&rsquo;utilise sur Mac.</p>
 <p><strong><a href="https://ohmyz.sh/">Oh-my-zsh</a></strong></p>
 <pre><code>sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
@@ -3958,6 +4104,10 @@ nvm install v12.13.0 nvm use v12.13.0 nvm use default v12.13.0 npm i -g hexo htt
 nvm use v12.13.0
 nvm use default v12.13.0
 npm i -g hexo http-server
+</code></pre><br/>
+<p><strong>Installer Xcode CLI</strong></p>
+<pre><code>xcode-select --install
+sudo xcodebuild -license accept
 </code></pre><br/>
 <p><strong><a href="https://brew.sh/">Homebrew</a></strong></p>
 <pre><code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
@@ -4009,6 +4159,9 @@ car les droits root sont nécessaires</li>
 <li>Metatrader 4 et 5</li>
 <li>Spotify</li>
 <li><a href="https://www.monkeybreadsoftware.de/Software/IPinmenubar.shtml">IP in menu bar</a></li>
+<li><a href="https://developer.android.com/studio">Android Studio</a> + flutter plugin depuis la marketplace + SDK 28, 29 et 30</li>
+<li><a href="https://developer.android.com/ndk/downloads">Android NDK</a></li>
+<li><a href="https://distfiles.macports.org/MacPorts/MacPorts-2.6.3-10.15-Catalina.pkg">MacPorts</a></li>
 </ul>
 <br/>
 <p><strong>Packages Payant très utiles</strong></p>
@@ -4049,6 +4202,35 @@ brew install sshfs
 brew install wakeonlan
 brew install nmap
 brew install yarn
+brew install git-lfs
+brew install bazel
+brew install p7zip
+
+# Opencv 3.4.x
+# Sur Python 3.9 (example avec brew)
+brew install python@3.9
+brew link python@3.9
+brew install opencv@3
+# Check:
+# pip install virtualenv virtualenvwrapper
+# echo &quot;export WORKON_HOME=$HOME/.virtualenvs&quot; &gt;&gt; ~/.zshrc
+# echo &quot;export WORKON_HOME=$HOME/.virtualenvs&quot; &gt;&gt; ~/.bashrc
+# echo &quot;export PROJECT_HOME=$HOME/Devel&quot; &gt;&gt; ~/.zshrc
+# echo &quot;export PROJECT_HOME=$HOME/Devel&quot; &gt;&gt; ~/.bashrc
+# echo &quot;source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.zshrc
+# echo &quot;source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.bashrc
+# mkvirtualenv -p python3 cv_env
+# pip install numpy scipy matplotlib scikit-image scikit-learn ipython pandas
+# ln -s /usr/local/opt/opencv@3/lib/python3.9/site-packages/cv2/python-3.9/cv2.cpython-39-darwin.so cv2.so
+# python
+# &gt;&gt;&gt; import cv2
+# &gt;&gt;&gt; cv2._version_
+
+# Sur Python 3.8 (example avec package pip)
+brew install python@3.8
+brew link python@3.8
+pip install opencv-contrib-python==3.4.11.45
+# &gt;&gt;&gt; cv2.__version__
 
 # EOS Blockchain
 brew tap eosio/eosio
