@@ -5,8 +5,230 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 15 Nov 2020 12:19:00 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 19 Nov 2020 23:12:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2</title>
+            <link>https://leandeep.com/installer-un-cluster-kubernetes-sur-baremetal-avec-metallb-et-rancher-2/</link>
+            <pubDate>Thu, 19 Nov 2020 23:12:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-un-cluster-kubernetes-sur-baremetal-avec-metallb-et-rancher-2/</guid>
+            <description>Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &amp;ldquo;physiques&amp;rdquo;. On est sur de l&amp;rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &amp;ldquo;clouders&amp;rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
+ Pré-requis  Docker   Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher  Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créer un cluster Kubernetes.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &ldquo;physiques&rdquo;. On est sur de l&rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &ldquo;clouders&rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard.
+Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.</p>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<ul>
+<li>Docker</li>
+</ul>
+<br/>
+<h2 id="lancer-rancher-2-via-docker">Lancer Rancher 2 via Docker</h2>
+<pre><code>sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher
+</code></pre><br/>
+<h2 id="provisionner-un-cluster-k8s">Provisionner un cluster k8s</h2>
+<p>Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créer un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases <code>etcd</code>, <code>controle-plane</code>, <code>worker</code>. Cela va générer une commande Docker qu&rsquo;il suffira d&rsquo;exécuter sur le noeud qui vous souhaitez utiliser.</p>
+<br/>
+<p>La commande va ressembler à ceci:</p>
+<pre><code>export IP_LOCAL=
+export TOKEN=6r5q7w5wnzk95g84bv2zclc4qn5k5dwvc8m9vxgdqjgcvf2vgxbcm8
+export CA_CHECKSUM=e768299cdfb443db9b772a23519030f49ad93deaeaedb8064d9aaf2e9b260f77
+sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.5.2 --server https://$IP_LOCAL:8443 --token $TOKEN --ca-checksum $CA_CHECKSUM --etcd --controlplane --worker
+</code></pre><br/>
+<h2 id="installer-helm-3">Installer helm 3+</h2>
+<p>Télécharger le package helm 3.4.1 depuis <a href="https://github.com/helm/helm/releases">l&rsquo;adresse suivante</a> puis exécutez les commandes suivantes:</p>
+<pre><code>tar -zxvf helm-v3.4.1-linux-amd64.tar.gz
+sudo chmod +x linux-amd64/helm
+mv linux-amd64/helm /usr/local/bin/helm
+</code></pre><br/>
+<h2 id="installer-kubectl">Installer kubectl</h2>
+<pre><code>curl -LO &quot;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl&quot;
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+kubectl version --client
+</code></pre><br/>
+<p>Depuis l&rsquo;interface admin de Rancher récupérer le kubectl config. Collez le dans le fichier <code>~/.kube/config</code> de votre poste local. Cela vous permettra d&rsquo;exécuter des commandes kubernetes et installer metalLB.</p>
+<br/>
+<h2 id="installer-et-configurer-metallb">Installer et configurer metalLB</h2>
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+
+# On first install only
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey=&quot;$(openssl rand -base64 128)&quot;
+</code></pre><br/>
+<p>Vérifier que metalLB tourne bien:</p>
+<pre><code>kubectl get pods -n metallb-system
+</code></pre><br/>
+<p>Créer un confimap <code>config.yaml</code> permettant de configurer metalLB en mode Layer 2. Ce mode est le plus simple à configurer. Il suffit de configurer uniquement les adresses IP.
+Le mode Layer 2 ne requiert pas d&rsquo;avoir les adresses IP attachées à l&rsquo;interface réseau du noeud worker.</p>
+<br/>
+<p>Remplacer <em><code>- 192.168.15.120-192.168.15.250</code></em> du configmap ci-dessous par le range d&rsquo;IP de votre réseau.</p>
+<pre><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 192.168.15.120-192.168.15.250
+</code></pre><br/>
+<p>Appliquer le configmap</p>
+<pre><code>kubectl apply -f config.yaml
+</code></pre><br/>
+<p>Maintenant, retourner dans l&rsquo;interface Rancher, Cluster, Namespaces et déplacer metallb-system dnas le project &ldquo;System&rdquo;.</p>
+<p><img src="/images/rancher1.png" alt="image"></p>
+<p><img src="/images/rancher2.png" alt="image"></p>
+<p><img src="/images/rancher3.png" alt="image"></p>
+<br/>
+<h2 id="test-demo-app">Test demo app</h2>
+<pre><code>git clone https://github.com/jodykpw/metallb-nginx-demo.git
+cd metallb-nginx-demo
+helm install --name nginx-demo ./
+</code></pre><blockquote>
+<p>Facultatif: éditer <code>values.yaml</code>, changer le type de service à <code>LoadBalancer</code>. Je n&rsquo;ai pas eu besoin de faire cela mais c&rsquo;est recommandé. J&rsquo;ai suivi la procédure qui suit.</p>
+</blockquote>
+<br/>
+<p><strong>Deployer Nginx comme Ingress Controller</strong></p>
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+</code></pre><br/>
+<p>Editer l&rsquo;ingress-controller et changer <code>spec.type</code> de <strong>NodePort à LoadBalancer</strong>.</p>
+<pre><code>kubectl edit svc ingress-nginx-controller -n ingress-nginx
+</code></pre><br/>
+<p>Créer un ingress via l&rsquo;interface Rancher. J&rsquo;ai associé un hostname dans l&rsquo;ingress. Créer soit une entrée dans votre <code>/etc/hosts</code> ou un CNAME sur votre DNS.</p>
+<p><img src="/images/ingress1.png" alt="image"></p>
+<p><img src="/images/ingress2.png" alt="image"></p>
+<br/>
+<p>Vérifier que le pod est bien &ldquo;running&rdquo;:</p>
+<pre><code>kubectl get svc --all-namespaces
+</code></pre><br/>
+<p>Depuis votre navigateur, rendez-vous sur <code>nuc.com</code> pour voir le résultat suivant:</p>
+<p><img src="/images/demo.png" alt="image"></p>
+<br/>
+<h2 id="test-grafana-app">Test grafana app</h2>
+<p>Il vous est possible de provisionner un grafana directement depuis le catalogue Rancher. Instanciez en un puis créer un ingress avec un hostname comme par example <code>grafana.leandeep.com</code> et ajoutez l&rsquo;entrée dans votre <code>/etc/hosts</code></p>
+<p><img src="/images/ingress3.png" alt="image"></p>
+<p><img src="/images/grafana.png" alt="image"></p>
+<br/>
+<h2 id="facultatif-lets-encrypt">Facultatif: Let&rsquo;s encrypt</h2>
+<p>Installer le cert-manager</p>
+<pre><code>kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
+</code></pre><br/>
+<p>Vérifier que les pods sont running:</p>
+<pre><code>kubectl get pods --namespace cert-manager
+</code></pre><br/>
+<p><strong>Configurer l&rsquo;env staging</strong>. Créer un fichier <code>staging_issuer.yaml</code> et ajouter le contenu suivant:</p>
+<pre><code>apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+ name: letsencrypt-staging
+spec:
+ acme:
+   # The ACME server URL
+   server: https://acme-staging-v02.api.letsencrypt.org/directory
+   # Email address used for ACME registration
+   email: john@example.com
+   # Name of a secret used to store the ACME account private key
+   privateKeySecretRef:
+     name: letsencrypt-staging
+   # Enable the HTTP-01 challenge provider
+   solvers:
+   - http01:
+       ingress:
+         class:  nginx
+</code></pre><br/>
+<p>Appliquer la ressource:</p>
+<pre><code>kubectl apply -f staging_issuer.yaml
+</code></pre><br/>
+<p>Mettez à jour l&rsquo;ingress. Voici un example:</p>
+<pre><code>apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: letsencrypt-staging
+  name: home-ingress
+  namespace: default
+spec:
+  tls:
+  - hosts:
+    - example.io
+    secretName: home-example-io-tls
+  rules:
+  - host: example.io
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
+        path: /
+</code></pre><br/>
+<p>Vérifier le bon fonctionnement:</p>
+<pre><code>kubectl describe certificate
+</code></pre><br/>
+<p><strong>Configurer le certif de prod.</strong></p>
+<p>Créer le fichier <code>production-issuer.yaml</code> et ajouter le contenu suivant:</p>
+<pre><code>apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+ name: letsencrypt-prod
+spec:
+ acme:
+   # The ACME server URL
+   server: https://acme-v02.api.letsencrypt.org/directory
+   # Email address used for ACME registration
+   email: user@example.com
+   # Name of a secret used to store the ACME account private key
+   privateKeySecretRef:
+     name: letsencrypt-prod
+   # Enable the HTTP-01 challenge provider
+   solvers:
+   - http01:
+       ingress:
+         class:  nginx
+</code></pre><br/>
+<p>Appliquer le issuer:</p>
+<pre><code>kubectl apply -f production-issuer.yaml
+</code></pre><br/>
+<p>Editer votre ingress. Voici un example:</p>
+<pre><code>apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: letsencrypt-prod
+  name: home-ingress
+  namespace: default
+spec:
+  tls:
+  - hosts:
+    - example.io
+    secretName: home-example-io-tls
+  rules:
+  - host: example.io
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
+        path: /
+</code></pre><br/>
+<blockquote>
+<p>Attention, l&rsquo;obtention du certificat peut prendre entre 2 et 5 minutes.</p>
+</blockquote>
+<br/>
+<p>Checker le certificat:</p>
+<pre><code>kubectl describe certificate
+</code></pre><br/>
+<h2 id="alternative">Alternative:</h2>
+<p><strong>pfSense + Let’s Encrypt Wildcard + HA Proxy comme Reverse Proxy:</strong> solution prometteuse à tester</p>
+]]></content>
+        </item>
         
         <item>
             <title>Installer Tensorflow 2 avec GPU backend avec un eGPU, Kubuntu 20.04 et Docker</title>
@@ -14,10 +236,9 @@
             <pubDate>Sun, 15 Nov 2020 12:19:00 +0000</pubDate>
             
             <guid>https://leandeep.com/installer-tensorflow-2-avec-gpu-backend-avec-un-egpu-kubuntu-20.04-et-docker/</guid>
-            <description>Introduction Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
+            <description>Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
  J&amp;rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud).</description>
-            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.</p>
+            <content type="html"><![CDATA[<p>Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.</p>
 <br/>
 <p>J&rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud). D&rsquo;un point de vue économique, c&rsquo;est beaucoup plus rentable d&rsquo;avoir sa propre station. Il vous faut juste un boitier EGPU 300€ (pour un haut de gamme type Razer), un PC (gratuit, quel dev ou data engineer n&rsquo;en a pas? Idéalement il vous faudrait un PC secondaire) et un GPU (entre 150€ et 700€ pour une bête voire 1500€ pour un monstre).
 La location d&rsquo;une machine avec GPU sur AWS vous revient à minimum $300 par mois (min $0.5/heure * 24h * 7 jours * 4 semaines). Il n&rsquo;y a pas photo&hellip;
