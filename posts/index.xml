@@ -15,7 +15,7 @@
             
             <guid>https://leandeep.com/installer-un-cluster-kubernetes-sur-baremetal-avec-metallb-et-rancher-2/</guid>
             <description>Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &amp;ldquo;physiques&amp;rdquo;. On est sur de l&amp;rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &amp;ldquo;clouders&amp;rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
- Pré-requis  Docker   Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher  Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créer un cluster Kubernetes.</description>
+ Pré-requis  Docker   Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher  Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes.</description>
             <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &ldquo;physiques&rdquo;. On est sur de l&rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &ldquo;clouders&rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard.
 Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.</p>
 <br/>
@@ -28,7 +28,7 @@ Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette sol
 <pre><code>sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher
 </code></pre><br/>
 <h2 id="provisionner-un-cluster-k8s">Provisionner un cluster k8s</h2>
-<p>Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créer un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases <code>etcd</code>, <code>controle-plane</code>, <code>worker</code>. Cela va générer une commande Docker qu&rsquo;il suffira d&rsquo;exécuter sur le noeud qui vous souhaitez utiliser.</p>
+<p>Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases <code>etcd</code>, <code>controle-plane</code>, <code>worker</code>. Cela va générer une commande Docker qu&rsquo;il suffira d&rsquo;exécuter sur le noeud que vous avez à disposition pour installer votre cluster.</p>
 <br/>
 <p>La commande va ressembler à ceci:</p>
 <pre><code>export IP_LOCAL=
@@ -48,7 +48,7 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
 </code></pre><br/>
-<p>Depuis l&rsquo;interface admin de Rancher récupérer le kubectl config. Collez le dans le fichier <code>~/.kube/config</code> de votre poste local. Cela vous permettra d&rsquo;exécuter des commandes kubernetes et installer metalLB.</p>
+<p>Depuis l&rsquo;interface admin de Rancher, récupérez le <code>kubectl</code> config. Collez le dans le fichier <code>~/.kube/config</code> de votre poste local pour que kubectl puisse communiquer avec votre cluster. Cela vous permettra d&rsquo;exécuter des commandes kubernetes et installer metalLB depuis votre poste local.</p>
 <br/>
 <h2 id="installer-et-configurer-metallb">Installer et configurer metalLB</h2>
 <pre><code>kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
@@ -111,7 +111,7 @@ helm install --name nginx-demo ./
 <p><img src="/images/demo.png" alt="image"></p>
 <br/>
 <h2 id="test-grafana-app">Test grafana app</h2>
-<p>Il vous est possible de provisionner un grafana directement depuis le catalogue Rancher. Instanciez en un puis créer un ingress avec un hostname comme par example <code>grafana.leandeep.com</code> et ajoutez l&rsquo;entrée dans votre <code>/etc/hosts</code></p>
+<p>Il vous est possible de provisionner un grafana directement depuis le catalogue Rancher. Instanciez en un puis créez un ingress avec un hostname comme par example <code>grafana.leandeep.com</code> et ajoutez l&rsquo;entrée dans votre <code>/etc/hosts</code></p>
 <p><img src="/images/ingress3.png" alt="image"></p>
 <p><img src="/images/grafana.png" alt="image"></p>
 <br/>
