@@ -5,8 +5,37 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 02 Dec 2020 23:52:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 08 Dec 2020 21:01:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Fonctions avec plusieurs types en Python 3.10</title>
+            <link>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</link>
+            <pubDate>Tue, 08 Dec 2020 21:01:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</guid>
+            <description>Python 3.10, sorti officiellement le 04 octobre 2021, permet d&amp;rsquo;écrire de manière plus lisible les différentes types que peuvent prendre les arguments et données retournées par les fonctions.
+ Example pour une fonction qui prend un argument de type int ou str et qui retourne un objet de type int ou str:
+def ma_fonction(argument: int | str) -&amp;gt; int | str: pass On utilise le caractère: |.
+ Avant, de Python 3.</description>
+            <content type="html"><![CDATA[<p>Python 3.10, sorti officiellement le 04 octobre 2021, permet d&rsquo;écrire de manière plus lisible les différentes types que peuvent prendre les arguments et données retournées par les fonctions.</p>
+<br/>
+<p>Example pour une fonction qui prend un argument de type <code>int</code> ou <code>str</code> et qui retourne un objet de type <code>int</code> ou <code>str</code>:</p>
+<pre><code>def ma_fonction(argument: int | str) -&gt; int | str:
+	pass
+
+</code></pre><p><strong>On utilise le caractère: <code>|</code>.</strong></p>
+<br/>
+<p>Avant, de Python 3.5 à 3.9, il fallait utiliser <code>Union</code> du package <code>typing</code>:</p>
+<pre><code>from typing import Union
+def ma_fonction(argument: Union[int, str]) -&gt; Union[int, str]:
+	pass
+
+</code></pre><blockquote>
+<p>Si la fonction peut retourner None et un autre type comme <code>int</code> par example, on continue à utiliser <code>Optional[int]</code></p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Calculs dans un réseau de neurones</title>
@@ -142,7 +171,7 @@ ou suivre ce cours en ligne: <a href="https://www.manning.com/livevideo/rust-in-
 </ul>
 <p><br/>
 <br/>
-Je m&rsquo;arrête là, 14 sujets (+1 bonus) pour 12 mois, c&rsquo;est suffisant. Ce n&rsquo;est pas l&rsquo;envi qui m&rsquo;en manque d&rsquo;ajouter des sujets mais il faut rester réaliste. Et vous qu&rsquo;avez-vous prévu d&rsquo;apprendre l&rsquo;année prochaine ?</p>
+Je m&rsquo;arrête là, 14 sujets (+2 bonus) pour 12 mois, c&rsquo;est suffisant. Ce n&rsquo;est pas l&rsquo;envi qui m&rsquo;en manque d&rsquo;ajouter des sujets mais il faut rester réaliste. Et vous qu&rsquo;avez-vous prévu d&rsquo;apprendre l&rsquo;année prochaine ?</p>
 ]]></content>
         </item>
         
@@ -4566,6 +4595,7 @@ brew install yarn
 brew install git-lfs
 brew install bazel
 brew install p7zip
+brew install postgresql
 
 # Opencv 3.4.x
 # Sur Python 3.9 (example avec brew)
@@ -4609,6 +4639,9 @@ Voir cet article https://leandeep.com/Installer-redis-sur-OSX/
 # Installation de Mysql client (si MySQL server pas installé)
 brew install mysql-client
 echo 'export PATH=&quot;/usr/local/opt/mysql-client/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
+
+# Poetry
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 </code></pre><br/>
 <p><strong>Installer virtualenvwrapper</strong></p>
 <p>Puis au minimum <code>pip install awscli ansible</code></p>
