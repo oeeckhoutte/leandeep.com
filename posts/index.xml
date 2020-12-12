@@ -9654,11 +9654,11 @@ Je dirais que cela dépend du use case dans lequel on se trouve. Dans mon cas, g
         </item>
         
         <item>
-            <title>Détecter les données aberrantes</title>
-            <link>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes/</link>
+            <title>Détecter les données aberrantes (outliers)</title>
+            <link>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes-outliers/</link>
             <pubDate>Mon, 04 Feb 2019 21:23:04 -0700</pubDate>
             
-            <guid>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes/</guid>
+            <guid>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes-outliers/</guid>
             <description>Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:</description>
             <content type="html"><![CDATA[<h2 id="pré-requis">Pré-requis</h2>
 <pre><code>pip install numpy sklearn
@@ -17038,16 +17038,16 @@ zip -r &amp;lt;name&amp;gt;.zip . -x &amp;quot;*.DS_Store&amp;quot;  .DS_Store e
         </item>
         
         <item>
-            <title>Commandes Python de base pour Scikit-Learn</title>
-            <link>https://leandeep.com/commandes-python-de-base-pour-scikit-learn/</link>
+            <title>Commandes Python de base pour Sklearn (Regression, Classification, Regularisation)</title>
+            <link>https://leandeep.com/commandes-python-de-base-pour-sklearn-regression-classification-regularisation/</link>
             <pubDate>Thu, 15 Oct 2015 22:34:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/commandes-python-de-base-pour-scikit-learn/</guid>
+            <guid>https://leandeep.com/commandes-python-de-base-pour-sklearn-regression-classification-regularisation/</guid>
             <description>1. L&amp;rsquo;objet estimator Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &amp;ldquo;estimator&amp;rdquo;.
 Exemple pour une régression linéaire:
 from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
 LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&amp;rsquo;interface des méthodes de scikit-learn sont uniformes.
-Pour tous les estimators:
+ Pour tous les estimators:
  model.fit() : remplit le modèle avec des données d&amp;rsquo;entrainement.</description>
             <content type="html"><![CDATA[<h1 id="1-lobjet-estimator">1. L&rsquo;objet <em>estimator</em></h1>
 <p>Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés <em>&ldquo;estimator&rdquo;</em>.</p>
@@ -17061,16 +17061,19 @@ print(model)
 </code></pre><p><em>Résultat:</em></p>
 <pre><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True)
 </code></pre><p>L&rsquo;interface des méthodes de scikit-learn sont uniformes.</p>
+<br/>
 <p><strong>Pour tous les <em>estimators</em>:</strong></p>
 <ul>
 <li>model.fit() : remplit le modèle avec des données d&rsquo;entrainement. Pour un apprentissage supervisé, la méthode accepte 2 arguments: les données X et les labels y (i.e. model.fit(X, y)). Pour une apprentissage non supervisé, la méthode ne prend qu&rsquo;un seul arguement, les données X (i.e. model.fit(X)).</li>
 </ul>
+<br/>
 <p><strong>Pour les <em>estimators</em> en apprentissage supervisé:</strong></p>
 <ul>
 <li>model.predict() : prédire le label d&rsquo;un ensemble de features à partir d&rsquo;un modèle entrainé. La méthode accepte un argument, les nouvelles données X_new (i.e. model.predict(X_new) et retourne les labels prédits pour chaque objet du tableau.</li>
 <li>model.predict_proba() : Pour les problèmes de classification, certains <em>estimators</em> fournissent cette méthode qui retourne la probabilité qu&rsquo;une nouvelle observation possède chaque label. La label qui la plus forte probabilité est retourné par model.predict().</li>
 <li>model.score() : Pour les problèmes de régession ou de classification, les <em>estimators</em> implémentent une méthode de score. Cette dernière permet d&rsquo;indiquer si le fit est bon ou pas. Le score peut varier entre 0 et 1.</li>
 </ul>
+<br/>
 <h1 id="2-ajouter-des-données-à-lestimator">2. Ajouter des données à l'<em>estimator</em></h1>
 <pre><code>%matplotlib inline
 import numpy as np
@@ -17080,17 +17083,20 @@ x = np.array([0, 1, 2])
 y = np.array([0, 1, 2])
 
 _ = plt.plot(x, y, marker='o')
-</code></pre><p><em>Résultat:</em></p>
+</code></pre><br/>
+<p><em>Résultat:</em></p>
 <p><img src="/images/plot1.png" alt="image"></p>
 <pre><code>X = x[:, np.newaxis] # On incrémente la dimension car scikit prend un tableau à 2 dimensions en input: (samples == 3 x features == 1)
 
 model.fit(X, y)
 
 model.coef_ # Paramètre estimé par scikit à partir des données ajoutées. Tous les paramètres estimés par scikit se terminent un _.
-</code></pre><h1 id="3-apprentissage-supervisé-classification-et-régression">3. Apprentissage supervisé: Classification et Régression</h1>
+</code></pre><br/>
+<h1 id="3-apprentissage-supervisé-classification-et-régression">3. Apprentissage supervisé: Classification et Régression</h1>
 <p>En apprentissage supervisé, on a un dataset qui contient à la fois des <em>features</em> et des <em>labels</em>.
 L&rsquo;objectif est de construire un <em>estimator</em> qui est capable de prédire le <em>label</em> d&rsquo;un objet à partir d&rsquo;un ensemble de <em>features</em>.
 En classification, le <em>label</em> est valeur discrète alors qu&rsquo;en régression le <em>label</em> est une valeur continue.</p>
+<br/>
 <h2 id="31-classification">3.1. Classification</h2>
 <p>KNN (K Nearest Neighbors) ou &ldquo;K voisins les plus proches&rdquo; en français est un des algorithmes les plus simples à appréhender:
 Pour une toute nouvelle observation, regarder dans une base de référence, quelle observation a ses <em>features</em> les plus proches et  lui assigner la classe prédominante.</p>
@@ -17114,7 +17120,8 @@ knn.fit(X, y)
 print(iris.target_names[knn.predict([[4, 3, 5, 2]])])
 </code></pre><p><em>Résultat:</em></p>
 <pre><code>['virginica']
-</code></pre><h3 id="afficher-un-scatter-plot-des-features-longeur-et-largeur-des-sépales-ainsi-que-la-préduction-du-knn">Afficher un scatter plot des features longeur et largeur des sépales ainsi que la préduction du KNN</h3>
+</code></pre><br/>
+<h3 id="afficher-un-scatter-plot-des-features-longeur-et-largeur-des-sépales-ainsi-que-la-préduction-du-knn">Afficher un scatter plot des features longeur et largeur des sépales ainsi que la préduction du KNN</h3>
 <p>Exemple complet:</p>
 <pre><code># On charge le dataset
 from sklearn import neighbors, datasets
@@ -17149,8 +17156,10 @@ plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold)
 plt.xlabel('sepal length (cm)')
 plt.ylabel('sepal width (cm)')
 plt.axis('tight')
-</code></pre><p><em>Résultat:</em></p>
+</code></pre><br/>
+<p><em>Résultat:</em></p>
 <p><img src="/images/scatter-plot.png" alt="image"></p>
+<br/>
 <h2 id="32-régression">3.2. Régression</h2>
 <p>La régression la plus simple est la régression linéaire. Voici un exemple:</p>
 <p>On crée des données aléatoires:</p>
@@ -17195,7 +17204,8 @@ model = LinearRegression(fit_intercept=True)
 model.fit(X, y)
 print(&quot;Model coefficient: %.5f, and intercept: %.5f&quot;
       % (model.coef_, model.intercept_))
-</code></pre><p><em>Résultat:</em></p>
+</code></pre><br/>
+<p><em>Résultat:</em></p>
 <pre><code>Model coefficient: 3.93491, and intercept: 1.46229
 </code></pre><p>On affiche le graphique et le modèle prédictif</p>
 <pre><code># On affiche les données d'entrainement
@@ -17206,8 +17216,10 @@ plt.plot(X[:, 0], y, 'o')
 X_test = np.linspace(0, 1, 100)[:, np.newaxis]
 y_test = model.predict(X_test)
 plt.plot(X_test[:, 0], y_test)
-</code></pre><p><em>Résultat:</em></p>
+</code></pre><br/>
+<p><em>Résultat:</em></p>
 <p><img src="/images/regression.png" alt="image"></p>
+<br/>
 <h1 id="4-régularisation">4. Régularisation</h1>
 <p>Cela permet de, comme son nom d&rsquo;indique, régulariser les erreurs d&rsquo;apprentissage. Supposez que vous créez un <em>estimator</em> KNN avec k=1, il est évident qu&rsquo;il y aura des erreurs sur vos données d&rsquo;apprentissage.</p>
 <blockquote>
@@ -17215,7 +17227,10 @@ plt.plot(X_test[:, 0], y_test)
 &ldquo;La régularisation fait référence à un processus consistant à ajouter de l&rsquo;information à un problème pour éviter le surapprentissage&rdquo;</p>
 </blockquote>
 <p>L&rsquo;idée principale de la régularisation est qu&rsquo;il est préférable de construire des modèles plus simples même s&rsquo;ils conduisent à plus d&rsquo;erreurs sur les données d&rsquo;apprentissage.</p>
+<br/>
 <p><strong>Un schéma vaut mieux qu&rsquo;un long discours</strong></p>
+<p><img src="/images/regularisation.png" alt="image"></p>
+<br/>
 <p>On part des données suivantes:</p>
 <pre><code>import numpy as np
 rng = np.random.RandomState(0)
@@ -17226,7 +17241,8 @@ y = f(x) + .4 * rng.normal(size=100)
 
 plt.figure()
 plt.scatter(x, y, s=4)
-</code></pre><p><em>Résultat:</em></p>
+</code></pre><br/>
+<p><em>Résultat:</em></p>
 <p><img src="/images/scatter-plot2.png" alt="image"></p>
 <p>On remplit 2 estimateurs avec des données ayant des polynômes 4 et 9.</p>
 <pre><code>x_test = np.linspace(-1, 1, 100)
@@ -17251,11 +17267,42 @@ plt.axis('tight')
 plt.title('Fitting a 4th and a 9th order polynomial')
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="/images/polynomes.png" alt="image"></p>
+<br/>
 <p>Quelle courbe préférez-vous ?</p>
 <p>Le polynôme de degré 9 a tendance à passer par tous les points du graphique. Il va intégrer le bruit spécifique à l’échantillon d’entraînement; ce qui conduira notre modèle à ne pas avoir une bonne performance sur de nouveaux exemples.</p>
 <p>Un des risques majeurs avec ce type de modèles est le surapprentissage.
 La régularisation donc, est une technique permettant de (régulariser) rêgler ce phénomène.</p>
-]]></content>
+<br/>
+<h1 id="5-régularisation-l2">5. Régularisation L2</h1>
+<p>Example de calcul de la distance Euclidienne entre 2 points de chaque pair X et Y:</p>
+<p><img src="/images/distance_euclidienne.png" alt="image"></p>
+<pre><code>lower_boundary = 0
+upper_boundary = 1
+n = 5 # dimension
+sample_size = 10000
+
+np.random.seed(9001) # set the seed to yield reproducible results
+
+X = np.random.uniform( low=lower_boundary, high=upper_boundary, size=(sample_size, n) )
+Y = np.random.uniform( low=lower_boundary, high=upper_boundary, size=(sample_size, n) )
+
+print( 'X: ', X )
+print( 'Y: ', Y )
+</code></pre><p><img src="/images/paire_x_y.png" alt="image"></p>
+<br/>
+<pre><code>from sklearn.metrics.pairwise import euclidean_distances
+
+euclidean_distances_vector_l = []
+for index, x in enumerate(X):
+    euclidean_distances_vector_l.append(euclidean_distances(x.reshape(1, -1), Y[index].reshape(1, -1)))
+</code></pre><br/>
+<blockquote>
+<p><code>x.reshape(1, -1)</code> permet d&rsquo;un vecteur à une matrice de dimension 2 ayant autant de colonnes que d&rsquo;éléments dans le vecteur</p>
+</blockquote>
+<br/>
+<p>Alternative en utilisant des calculs matriciels:</p>
+<pre><code>euclidean_distances_vector_l_vectorized = np.sqrt(np.sum((X - Y) * (X - Y), axis=1))
+</code></pre>]]></content>
         </item>
         
         <item>
