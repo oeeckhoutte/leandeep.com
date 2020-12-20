@@ -5,8 +5,50 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 08 Dec 2020 21:01:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 16 Dec 2020 21:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Faire tourner un noeud Ethereum</title>
+            <link>https://leandeep.com/faire-tourner-un-noeud-ethereum/</link>
+            <pubDate>Wed, 16 Dec 2020 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/faire-tourner-un-noeud-ethereum/</guid>
+            <description>Ce court article décrit comment faire tourner un noeud Ethereum sur n&amp;rsquo;importe quel OS.
+ Noeud sur Rinkeby docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \ ethereum/client-go --rinkeby --ws --ipcdisable \ --wsaddr 0.0.0.0 --wsorigins=&amp;quot;*&amp;quot; --datadir /geth Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: Ctrl + P, Ctrl + Q
+ Si le container est stoppé, vous pouvez le relancer avec la commande suivante: docker start -i eth</description>
+            <content type="html"><![CDATA[<p>Ce court article décrit comment faire tourner un noeud Ethereum sur n&rsquo;importe quel OS.</p>
+<br/>
+<h2 id="noeud-sur-rinkeby">Noeud sur Rinkeby</h2>
+<pre><code>docker pull ethereum/client-go:latest
+mkdir ~/.geth-rinkeby
+docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \
+           ethereum/client-go --rinkeby --ws --ipcdisable \
+           --wsaddr 0.0.0.0 --wsorigins=&quot;*&quot; --datadir /geth
+</code></pre><p>Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: <code>Ctrl + P, Ctrl + Q</code></p>
+<blockquote>
+<p>Si le container est stoppé, vous pouvez le relancer avec la commande suivante: <code>docker start -i eth</code></p>
+</blockquote>
+<br/>
+<p>Si vous avez un résultat similaire à ceci dans le terminal, vous êtes tout bon:</p>
+<pre><code>INFO [12-16|21:24:32.532] Block synchronisation started
+INFO [12-16|21:24:32.589] Looking for peers                        peercount=1 tried=61 static=0
+INFO [12-16|21:24:36.260] Imported new block headers               count=192 elapsed=52.722ms  number=192 hash=&quot;8c570c…ba360c&quot; age=3y8mo3w
+INFO [12-16|21:24:36.262] Downloader queue stats                   receiptTasks=0 blockTasks=0 itemSize=639.74B throttle=8192
+INFO [12-16|21:24:36.262] Migrated ancient blocks                  count=1   elapsed=&quot;111.458µs&quot;
+INFO [12-16|21:24:36.283] Imported new block receipts              count=54  elapsed=20.916ms    number=54  hash=&quot;dafe6e…02bf13&quot; age=3y8mo3w size=34.33KiB
+INFO [12-16|21:24:36.684] Imported new state entries               count=222 elapsed=&quot;4.869µs&quot;   processed=222 pending=3553 trieretry=0 coderetry=0 duplicate=0 unexpected=0
+INFO [12-16|21:24:36.694] Imported new block receipts              count=138 elapsed=40.089ms    number=192 hash=&quot;8c570c…ba360c&quot; age=3y8mo3w size=86.38KiB
+INFO [12-16|21:24:36.725] Imported new block headers               count=192 elapsed=77.269ms    number=384 hash=&quot;6d95fa…a59e49&quot; age=3y8mo3w
+</code></pre><br/>
+<h2 id="mainnet">Mainnet</h2>
+<pre><code>docker pull ethereum/client-go:latest
+mkdir ~/.geth
+docker run --name eth -p 8546:8546 -v ~/.geth:/geth -it \
+           ethereum/client-go --syncmode fast --ws --ipcdisable \
+           --wsaddr 0.0.0.0 --wsorigins=&quot;*&quot; --datadir /geth
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Fonctions avec plusieurs types en Python 3.10</title>
@@ -4478,9 +4520,9 @@ Test Accuracy 0.91</p>
 Oh-my-zsh
 sh -c &amp;quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;quot;  Installer Node version manager (NVM)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash Puis au moins les paquets suivants:
-nvm install v12.13.0 nvm use v12.13.0 nvm use default v12.13.0 npm i -g hexo http-server  Installer Xcode CLI
-xcode-select --install sudo xcodebuild -license accept  Homebrew
-/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;  Packages gratuits ou OpenSource Mac utiles pour travailler</description>
+nvm install v12.13.0 nvm use v12.13.0 nvm alias default v12.13.0 npm i -g hexo http-server  Installer Blockchain tools
+npm install -g truffle npm install -g ganache-cli  Installer Xcode CLI
+xcode-select --install sudo xcodebuild -license accept  Homebrew</description>
             <content type="html"><![CDATA[<p>Voici certains (le minimum vital) utilitaires de développement que j&rsquo;utilise sur Mac.</p>
 <p><strong><a href="https://ohmyz.sh/">Oh-my-zsh</a></strong></p>
 <pre><code>sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
@@ -4490,8 +4532,12 @@ xcode-select --install sudo xcodebuild -license accept  Homebrew
 </code></pre><p>Puis au moins les paquets suivants:</p>
 <pre><code>nvm install v12.13.0
 nvm use v12.13.0
-nvm use default v12.13.0
+nvm alias default v12.13.0
 npm i -g hexo http-server
+</code></pre><br/>
+<p><strong>Installer Blockchain tools</strong></p>
+<pre><code>npm install -g truffle
+npm install -g ganache-cli
 </code></pre><br/>
 <p><strong>Installer Xcode CLI</strong></p>
 <pre><code>xcode-select --install
@@ -4596,6 +4642,7 @@ brew install git-lfs
 brew install bazel
 brew install p7zip
 brew install postgresql
+brew install opedirenv
 
 # Opencv 3.4.x
 # Sur Python 3.9 (example avec brew)

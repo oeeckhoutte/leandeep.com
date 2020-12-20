@@ -6,7 +6,18 @@
     <description>Recent content on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Dec 2020 21:01:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Dec 2020 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Faire tourner un noeud Ethereum</title>
+      <link>https://leandeep.com/faire-tourner-un-noeud-ethereum/</link>
+      <pubDate>Wed, 16 Dec 2020 21:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/faire-tourner-un-noeud-ethereum/</guid>
+      <description>Ce court article décrit comment faire tourner un noeud Ethereum sur n&amp;rsquo;importe quel OS.
+ Noeud sur Rinkeby docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \ ethereum/client-go --rinkeby --ws --ipcdisable \ --wsaddr 0.0.0.0 --wsorigins=&amp;quot;*&amp;quot; --datadir /geth Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: Ctrl + P, Ctrl + Q
+ Si le container est stoppé, vous pouvez le relancer avec la commande suivante: docker start -i eth</description>
+    </item>
+    
     <item>
       <title>Fonctions avec plusieurs types en Python 3.10</title>
       <link>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</link>
@@ -99,15 +110,6 @@ gpg -a --export &amp;gt; /tmp/pub_gpg_keys.asc  Exporter toutes les clés privé
 gpg -a --export-secret-keys &amp;gt; /tmp/private_gpg_keys.asc  Exporter la trust database:
 gpg --export-ownertrust &amp;gt; trust_gpg_db.txt  Import Après avoir copié les fichiers sur une nouvelle machine et installé GPG, importer les clés:
 gpg --import ./private_gpg_keys.asc gpg --import ./pub_gpg_keys.asc gpg --import-ownertrust ./trust_gpg_db.txt gpg -K gpg -k  Commandes utiles   Lister ses clés publiques: gpg --list-keys</description>
-    </item>
-    
-    <item>
-      <title>Forcer l&#39;effacement d&#39;un namespace Kubernetes</title>
-      <link>https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/</link>
-      <pubDate>Mon, 05 Oct 2020 19:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/</guid>
-      <description>Introduction Parfois lorsqu&amp;rsquo;on tente d&amp;rsquo;effacer un namespace, il ne s&amp;rsquo;efface pas vraiment et reste dans l&amp;rsquo;état terminated. Si vous essayez d&amp;rsquo;exécuter la commande kubectl delete ns mon_namespace et que vous recevez un message comme ci-dessous, ce tutoriel est fait pour vous: Error from server (Conflict): Operation cannot be fulfilled on namespaces &amp;quot;mon_namespace&amp;quot;: The system is ensuring all content is removed from this namespace. Upon completion, this namespace will automatically be purged by the system.</description>
     </item>
     
   </channel>
