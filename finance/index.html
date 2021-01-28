@@ -294,7 +294,7 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Finance">
 <meta itemprop="description" content="I am really interested in DeFI (and blockchain more generally) and Machine Learning for Finance.   I am convinced insurance companies and banks are going to be transformed pretty soon thanks to all the enablers brought by the Blockchain technology. DeFi is booming and is already changing the world. Have a look at Google trends or the investments figures made by companies in crypto assets or investments in projects by capital ventures.">
 
-<meta itemprop="wordCount" content="446">
+<meta itemprop="wordCount" content="800">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -388,41 +388,110 @@ Todo: develop and organize this page&hellip;</p>
 <p><br/>
 <strong>Raw notes Bourse: (#toClean #toOrganize)</strong></p>
 <p>Voici les indicateurs financiers que j&rsquo;utilise pour analyser la santé d&rsquo;une entreprise avant d&rsquo;investir:</p>
+<ol>
+<li>Dividende / BNA Bénéfice Net Par Action (avec BNA = Résultat net / Nombre d&rsquo;actions) &lt; 60%
+<br/></li>
+<li>Rendement dividende = dividende / cours de l&rsquo;action actuel le plus récent de l&rsquo;année &gt; 2%</li>
+</ol>
 <ul>
 <li>
-<p>Dividende / BNA (avec BNA = Résultat net / Nombre d&rsquo;actions) &lt; 60%</p>
-</li>
-<li>
-<p>Rendement dividende = dividende / cours de l&rsquo;action actuel le plus récent de l&rsquo;année &gt; 2%</p>
-</li>
-<li>
-<p>Du compte de résultat, j&rsquo;extrais:</p>
-<ul>
-<li>Croissance du résultat net (ou croissance du bénéfice net) &gt; 15% sur 4 ans</li>
-<li>Marge nette (= Résultat net / CA) &gt; 10%</li>
-<li>Marge brute (= Résultat brut (ou bénéfice brut) / CA) &gt; 40% (= Avantage concurrentiel durable car l&rsquo;entreprise aura du levier pour grossir rapidement)</li>
-<li>VDA (Ventes Dépenses Administratives ~ Marketing) / résultat brut &lt; 30% (cf Apple, l&rsquo;entreprise n&rsquo;a pas besoin de faire de la publicité et donc de rogner sur sa marge pour faire de nouvelles ventes)</li>
-<li>R&amp;D / Résultat brut &lt; 5%</li>
-<li>Charge intérêt / revenu d&rsquo;exploitation (ou frais d&rsquo;exploitation) &lt; 15%</li>
-</ul>
-</li>
-<li>
-<p>Bilan:</p>
-<ul>
-<li>Gestion de la dette à LT &lt; 4 &lt;=&gt; Dette à LT &lt; 4 x bénéfices nets</li>
-<li>ROE (Return On Equity (= Retour sur capitaux propres) = Résultat Net / Capitaux propres &gt; 15% -&gt; A combiner avec l&rsquo;analyse du taux de croissance des bénéfices non distribués &gt; 0</li>
-<li>Total des Passifs / capitaux propres et actions ordinaires &lt; 0.8</li>
-</ul>
-</li>
-<li>
-<p>Flux de trésorerie:</p>
-<ul>
-<li>CAPEX / benefice net &lt; 25%</li>
-</ul>
-</li>
-</ul>
+<p>Du compte de résultat, j&rsquo;extrais:
 <br/>
-<p>Glossaire:</p>
+3. Croissance du résultat net (ou croissance du bénéfice net) &gt; 15% sur 4 ans
+<br/>
+4. Marge nette (= Résultat net / CA) &gt; 10%
+<br/>
+5. Marge brute (= Résultat brut (ou bénéfice brut) / CA) &gt; 40% (= Avantage concurrentiel durable car l&rsquo;entreprise aura du levier pour grossir rapidement)
+<br/>
+6. VDA (Ventes Dépenses Administratives ~ Marketing) / résultat brut &lt; 30% (cf Apple, l&rsquo;entreprise n&rsquo;a pas besoin de faire de la publicité et donc de rogner sur sa marge pour faire de nouvelles ventes)
+<br/>
+7. R&amp;D / Résultat brut &lt; 5%
+<br/>
+8. Charge intérêt / revenu d&rsquo;exploitation (ou frais d&rsquo;exploitation) &lt; 15%
+<br/></p>
+</li>
+<li>
+<p>Bilan:
+<br/>
+9. Gestion de la dette à LT &lt; 4 &lt;=&gt; Dette à LT &lt; 4 x bénéfices nets
+<br/>
+10. ROE (Return On Equity (= Retour sur capitaux propres) = Résultat Net / Capitaux propres &gt; 15% -&gt; A combiner avec l&rsquo;analyse du taux de croissance des bénéfices non distribués &gt; 0
+<br/>
+11. Total des Passifs / capitaux propres et actions ordinaires &lt; 0.8
+<br/>
+12. Trésorerie &gt; 0 /!\ à la vente d&rsquo;actifs -&gt; Regarder la variation des capitaux propres
+<br/>
+13. Croissance des stocks et bénéfices nets (En effet, augementation des stocks car augementation des ventes. /!\ aux fluctuations fortes de stocks -&gt; Signe de concurrence)
+<br/></p>
+</li>
+<li>
+<p>Flux de trésorerie:
+<br/>
+14. CAPEX / bénéfice net &lt; 25%</p>
+</li>
+</ul>
+<p><br/>
+<br/>
+<br/>
+Automatisation:</p>
+<p>Inputs en Français pour indicateur #:</p>
+<ul>
+<li>1: Dividende / BNA = Dividende / (résultat net / nombre actions)</li>
+<li>2: Rendement dividende</li>
+</ul>
+<p>Compte de résultat</p>
+<ul>
+<li>3: Résultat net</li>
+<li>4: Marge nette (= Résultat net / CA)</li>
+<li>5: Marge brute (= Résultat brut (ou bénéfice brut) / CA)</li>
+<li>6: VDA (Ventes Dépenses Administratives ~ Marketing) / résultat brut</li>
+<li>7: R&amp;D (= Développement de la recherche) / Résultat brut</li>
+<li>8: Charge intérêt / revenu d&rsquo;exploitation (ou frais d&rsquo;exploitation)</li>
+</ul>
+<p>Bilan</p>
+<ul>
+<li>9: Dette à LT &lt; 4 x bénéfices nets</li>
+<li>10: ROE Return On Equity = Résultat Net / Capitaux propres</li>
+<li>11: Total des passifs / (Total des capitaux propres + Action ordinaire) ????</li>
+<li>12: Trésorerie</li>
+<li>13: Croissance des stocks et bénéfices nets</li>
+</ul>
+<p>Flux de trésorerie</p>
+<ul>
+<li>14: CAPEX / Bénéfice Net</li>
+</ul>
+<p><br/>
+<br/></p>
+<p>Traduction en anglais des data précédentes #:</p>
+<ul>
+<li>1: Forward Dividend [Found Scraping] / Earnings Per Share EPS [Found Scraping]</li>
+<li>2: Yield [Found Scraping] (= Forward Dividend [Found Scraping] / Previous Close [Found Scraping])</li>
+</ul>
+<p>Income Statement</p>
+<ul>
+<li>3: Net income [Found Scraping]</li>
+<li>4: Net margin = Net profit margin (= Net income [Found Scraping] / Sales or Total Revenue [Found Scraping])</li>
+<li>5: Gross margin = Gross profit margin (= Gross Profit [Found Scraping] / Sales [Found Scraping])</li>
+<li>6: Selling General and Administrative [Found Scraping] / Gross Profit [Found Scraping]</li>
+<li>7: R&amp;D [Found Scraping] / Gross Profit [Found Scraping]</li>
+<li>8: Net Interest Income [Found Scraping] / Operating Expense [Found Scraping]</li>
+</ul>
+<p>Balance sheet</p>
+<ul>
+<li>9: Long Term Debt [Found Scraping] &lt; 4 x Net income [Found Scraping]</li>
+<li>10: ROE = Net income [Found Scraping] / Stockholders' Equity [Found Scraping]</li>
+<li>11: Total Liabilities Net Minority Interest / (Common Stock Equity + Capital Stock) ????</li>
+<li>12: Cash And Cash Equivalents [Found Scraping]</li>
+<li>13: Inventory [Found Scraping]</li>
+</ul>
+<p>Cash flow</p>
+<ul>
+<li>14: Capital Expenditure [Found Scraping] / Net income [Found Scraping]</li>
+</ul>
+<p><br/>
+<br/>
+<br/>
+Glossaire:</p>
 <ul>
 <li>Le BNA (Bénéfice net par action (= Earning Per Share)): c’est ce que l’actionnaire gagne en théorie pour une action.</li>
 </ul>
