@@ -294,7 +294,7 @@ function toTitleCase(str) {
 <meta itemprop="name" content="Finance">
 <meta itemprop="description" content="I am really interested in DeFI (and blockchain more generally) and Machine Learning for Finance.   I am convinced insurance companies and banks are going to be transformed pretty soon thanks to all the enablers brought by the Blockchain technology. DeFi is booming and is already changing the world. Have a look at Google trends or the investments figures made by companies in crypto assets or investments in projects by capital ventures.">
 
-<meta itemprop="wordCount" content="800">
+<meta itemprop="wordCount" content="844">
 <meta itemprop="image" content="https://leandeep.com"/>
 
 
@@ -385,11 +385,12 @@ In this section we are going to cover this fascinating DeFi subject <strong>in F
 <br/>
 <br/>
 Todo: develop and organize this page&hellip;</p>
-<p><br/>
-<strong>Raw notes Bourse: (#toClean #toOrganize)</strong></p>
-<p>Voici les indicateurs financiers que j&rsquo;utilise pour analyser la santé d&rsquo;une entreprise avant d&rsquo;investir:</p>
+<br/>
+<h1 id="raw-notes-bourse-toclean-toorganize">Raw notes Bourse: (#toClean #toOrganize)</h1>
+<h2 id="indicateurs-financiers">Indicateurs financiers</h2>
+<p>Voici les indicateurs financiers que j&rsquo;utilise pour analyser la santé d&rsquo;une entreprise avant d&rsquo;investir. Je scrape toutes les données qui m&rsquo;intéressent depuis <strong>2 organismes financiers différents</strong>. En effet, j&rsquo;ai pu observer que pour certaines données &ldquo;secondaires&rdquo; (pas le résultat net bien sûr), les valeurs fournies sur des certains sites n&rsquo;ont rien à voir. Pourtant, je ne scrape que des géants du genre Investing, Google&hellip;</p>
 <ol>
-<li>Dividende / BNA Bénéfice Net Par Action (avec BNA = Résultat net / Nombre d&rsquo;actions) &lt; 60%
+<li>Dividende / BNA (avec BNA = Résultat net / Nombre d&rsquo;actions) &lt; 60%
 <br/></li>
 <li>Rendement dividende = dividende / cours de l&rsquo;action actuel le plus récent de l&rsquo;année &gt; 2%</li>
 </ol>
@@ -403,7 +404,7 @@ Todo: develop and organize this page&hellip;</p>
 <br/>
 5. Marge brute (= Résultat brut (ou bénéfice brut) / CA) &gt; 40% (= Avantage concurrentiel durable car l&rsquo;entreprise aura du levier pour grossir rapidement)
 <br/>
-6. VDA (Ventes Dépenses Administratives ~ Marketing) / résultat brut &lt; 30% (cf Apple, l&rsquo;entreprise n&rsquo;a pas besoin de faire de la publicité et donc de rogner sur sa marge pour faire de nouvelles ventes)
+6. VDA / résultat brut &lt; 30% (cf Apple, l&rsquo;entreprise n&rsquo;a pas besoin de faire de la publicité et donc de rogner sur sa marge pour faire de nouvelles ventes)
 <br/>
 7. R&amp;D / Résultat brut &lt; 5%
 <br/>
@@ -415,13 +416,15 @@ Todo: develop and organize this page&hellip;</p>
 <br/>
 9. Gestion de la dette à LT &lt; 4 &lt;=&gt; Dette à LT &lt; 4 x bénéfices nets
 <br/>
-10. ROE (Return On Equity (= Retour sur capitaux propres) = Résultat Net / Capitaux propres &gt; 15% -&gt; A combiner avec l&rsquo;analyse du taux de croissance des bénéfices non distribués &gt; 0
+10. Retour sur capitaux propres = Résultat Net / Capitaux propres &gt; 15%
+-&gt; A combiner avec l&rsquo;analyse du taux de croissance des bénéfices non distribués &gt; 0
 <br/>
 11. Total des Passifs / capitaux propres et actions ordinaires &lt; 0.8
 <br/>
-12. Trésorerie &gt; 0 /!\ à la vente d&rsquo;actifs -&gt; Regarder la variation des capitaux propres
+12. Trésorerie &gt; 0 ⚠️ à la vente d&rsquo;actifs -&gt; Regarder la variation des capitaux propres
 <br/>
-13. Croissance des stocks et bénéfices nets (En effet, augementation des stocks car augementation des ventes. /!\ aux fluctuations fortes de stocks -&gt; Signe de concurrence)
+13. Croissance des stocks et bénéfices nets (En effet, augementation des stocks car augementation des ventes. ⚠️
+aux fluctuations fortes de stocks -&gt; Signe de concurrence)
 <br/></p>
 </li>
 <li>
@@ -432,9 +435,9 @@ Todo: develop and organize this page&hellip;</p>
 </ul>
 <p><br/>
 <br/>
-<br/>
-Automatisation:</p>
-<p>Inputs en Français pour indicateur #:</p>
+<br/></p>
+<h2 id="automatisation">Automatisation:</h2>
+<p><strong>Inputs en Français pour indicateur #:</strong></p>
 <ul>
 <li>1: Dividende / BNA = Dividende / (résultat net / nombre actions)</li>
 <li>2: Rendement dividende</li>
@@ -451,7 +454,7 @@ Automatisation:</p>
 <p>Bilan</p>
 <ul>
 <li>9: Dette à LT &lt; 4 x bénéfices nets</li>
-<li>10: ROE Return On Equity = Résultat Net / Capitaux propres</li>
+<li>10: Retour sur capitaux propres = Résultat Net / Capitaux propres</li>
 <li>11: Total des passifs / (Total des capitaux propres + Action ordinaire) ????</li>
 <li>12: Trésorerie</li>
 <li>13: Croissance des stocks et bénéfices nets</li>
@@ -462,48 +465,60 @@ Automatisation:</p>
 </ul>
 <p><br/>
 <br/></p>
-<p>Traduction en anglais des data précédentes #:</p>
+<p><strong>Traduction en anglais des data précédentes #:</strong></p>
 <ul>
-<li>1: Forward Dividend [Found Scraping] / Earnings Per Share EPS [Found Scraping]</li>
-<li>2: Yield [Found Scraping] (= Forward Dividend [Found Scraping] / Previous Close [Found Scraping])</li>
+<li>1: Forward Dividend ✅ / Earnings Per Share EPS ✅</li>
+<li>2: Yield ✅ (= Forward Dividend ✅ / Previous Close ✅)</li>
 </ul>
 <p>Income Statement</p>
 <ul>
-<li>3: Net income [Found Scraping]</li>
-<li>4: Net margin = Net profit margin (= Net income [Found Scraping] / Sales or Total Revenue [Found Scraping])</li>
-<li>5: Gross margin = Gross profit margin (= Gross Profit [Found Scraping] / Sales [Found Scraping])</li>
-<li>6: Selling General and Administrative [Found Scraping] / Gross Profit [Found Scraping]</li>
-<li>7: R&amp;D [Found Scraping] / Gross Profit [Found Scraping]</li>
-<li>8: Net Interest Income [Found Scraping] / Operating Expense [Found Scraping]</li>
+<li>3: Net income ✅</li>
+<li>4: Net margin = Net profit margin (= Net income ✅ / Sales or Total Revenue ✅)</li>
+<li>5: Gross margin = Gross profit margin (= Gross Profit ✅ / Sales ✅)</li>
+<li>6: Selling General and Administrative ✅ / Gross income ✅</li>
+<li>7: R&amp;D ✅ / Gross income ✅</li>
+<li>8: Net Interest Income ✅ / Operating Expense ✅</li>
 </ul>
 <p>Balance sheet</p>
 <ul>
-<li>9: Long Term Debt [Found Scraping] &lt; 4 x Net income [Found Scraping]</li>
-<li>10: ROE = Net income [Found Scraping] / Stockholders' Equity [Found Scraping]</li>
+<li>9: Long Term Debt ✅ &lt; 4 x Net income ✅</li>
+<li>10: ROE = Net income ✅ / Stockholders' Equity ✅</li>
 <li>11: Total Liabilities Net Minority Interest / (Common Stock Equity + Capital Stock) ????</li>
-<li>12: Cash And Cash Equivalents [Found Scraping]</li>
-<li>13: Inventory [Found Scraping]</li>
+<li>12: Cash And Cash Equivalents ✅</li>
+<li>13: Inventory ✅</li>
 </ul>
 <p>Cash flow</p>
 <ul>
-<li>14: Capital Expenditure [Found Scraping] / Net income [Found Scraping]</li>
+<li>14: CAPEX ✅ / Net income ✅</li>
 </ul>
 <p><br/>
 <br/>
-<br/>
-Glossaire:</p>
+<br/></p>
+<p><strong>Acronymes:</strong></p>
 <ul>
-<li>Le BNA (Bénéfice net par action (= Earning Per Share)): c’est ce que l’actionnaire gagne en théorie pour une action.</li>
+<li>🇨🇵 BNA = Bénéfice Net Par Action &lt;=&gt; 🇺🇸 EPS</li>
+<li>🇺🇸 CAPEX = Capital Expenditure</li>
+<li>🇺🇸 EPS = Earning Per Share</li>
+<li>🇺🇸 PER = Price Earning Ratio</li>
+<li>🇺🇸 ROE = Return On Equity</li>
+<li>🇨🇵 VDA = Ventes Dépenses Administratives ~= Marketing</li>
+</ul>
+<p><br/>
+<br/>
+<br/></p>
+<p><strong>Glossaire:</strong></p>
+<ul>
+<li>Le BNA, c’est ce que l’actionnaire gagne en théorie pour une action.</li>
 </ul>
 <blockquote>
 <p>Le BNA  ne correspond pas aux dividendes versés aux actionnaires, car les sociétés conservent une partie de leurs bénéfices en vue d’investir&hellip;</p>
 </blockquote>
 <ul>
 <li>
-<p>Le dividende: c’est ce que l’actionnaire gagne en réalité pour une action.</p>
+<p>Le dividende, c’est ce que l’actionnaire gagne en réalité pour une action.</p>
 </li>
 <li>
-<p>Le PER (Price Earning Ratio): c’est le prix de l’action divisé par le BNA. D’un côté vous avez la valeur de l’action, de l’autre la valeur de votre rente sur l’action.</p>
+<p>Le PER: c’est le prix de l’action divisé par le BNA. D’un côté vous avez la valeur de l’action, de l’autre la valeur de votre rente sur l’action.</p>
 </li>
 </ul>
 <blockquote>
