@@ -6,7 +6,19 @@
     <description>Recent content in tips on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Dec 2020 21:01:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Feb 2021 21:01:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mocker un datetime .now() dans un test unitaire Python</title>
+      <link>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</link>
+      <pubDate>Tue, 23 Feb 2021 21:01:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</guid>
+      <description>La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires. En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini expected, cela peut poser problème&amp;hellip;
+ Si on essaye de patcher la fonction today() ou now() comme ceci
+@mock.patch(&#39;datetime.date.today&#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
+On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.</description>
+    </item>
+    
     <item>
       <title>Fonctions avec plusieurs types en Python 3.10</title>
       <link>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</link>
@@ -101,17 +113,6 @@ import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
       <description>Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
 prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
  soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&amp;rsquo;avoir du code plus propre, et plus facilement testable.</description>
-    </item>
-    
-    <item>
-      <title>Slicer de manière Pythonique un set</title>
-      <link>https://leandeep.com/slicer-de-mani%C3%A8re-pythonique-un-set/</link>
-      <pubDate>Wed, 15 Jan 2020 15:20:04 -0700</pubDate>
-      
-      <guid>https://leandeep.com/slicer-de-mani%C3%A8re-pythonique-un-set/</guid>
-      <description>Ce tip décrit comment slicer (découper) un set de manière Pythonique.
-Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&amp;rsquo;un sous-ensemble du set de départ.
-import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;, &#39;titi&#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
     </item>
     
   </channel>

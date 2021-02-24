@@ -6,7 +6,19 @@
     <description>Recent content in Python on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Dec 2020 21:01:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Feb 2021 21:01:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mocker un datetime .now() dans un test unitaire Python</title>
+      <link>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</link>
+      <pubDate>Tue, 23 Feb 2021 21:01:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</guid>
+      <description>La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires. En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini expected, cela peut poser problème&amp;hellip;
+ Si on essaye de patcher la fonction today() ou now() comme ceci
+@mock.patch(&#39;datetime.date.today&#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
+On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.</description>
+    </item>
+    
     <item>
       <title>Fonctions avec plusieurs types en Python 3.10</title>
       <link>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</link>
@@ -100,17 +112,6 @@ Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;
       <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
 Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
 1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
-    </item>
-    
-    <item>
-      <title>Utiliser une boucle non Pythonique</title>
-      <link>https://leandeep.com/utiliser-une-boucle-non-pythonique/</link>
-      <pubDate>Sat, 11 Jan 2020 21:20:04 -0700</pubDate>
-      
-      <guid>https://leandeep.com/utiliser-une-boucle-non-pythonique/</guid>
-      <description>Pour accéder aux éléments d&amp;rsquo;une liste et afficher l&amp;rsquo;index des éléments, il vaut mieux privilégier l&amp;rsquo;utilisation d&#39;enumerate() sur la liste plutôt que de créer une boucle et d&amp;rsquo;incrémenter la valeur de l&amp;rsquo;index.
- Anti-pattern (Pas bien!) prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(0, len(prenoms)): prenom = l[idx] print(idx, prenom)  Bonne pratique (Bien!) Voici la manière plus Pythonique d&amp;rsquo;itérérer sur une liste.
-prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx, prenom in enumerate(prenoms): print(idx, prenom) </description>
     </item>
     
   </channel>

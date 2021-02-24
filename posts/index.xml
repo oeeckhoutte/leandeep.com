@@ -5,8 +5,44 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 02 Jan 2021 21:51:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 23 Feb 2021 21:01:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Mocker un datetime .now() dans un test unitaire Python</title>
+            <link>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</link>
+            <pubDate>Tue, 23 Feb 2021 21:01:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</guid>
+            <description>La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires. En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini expected, cela peut poser problème&amp;hellip;
+ Si on essaye de patcher la fonction today() ou now() comme ceci
+@mock.patch(&#39;datetime.date.today&#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
+On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.</description>
+            <content type="html"><![CDATA[<p>La fonction datetime.now() peut parfois &ldquo;poser problème&rdquo; dans les tests unitaires.
+En effet, lorsqu&rsquo;on veut comparer le résultat d&rsquo;une fonction comportant une date (now) à un objet pré-défini <em>expected</em>, cela peut poser problème&hellip;</p>
+<br/>
+<p>Si on essaye de patcher la fonction today() ou now() comme ceci</p>
+<pre><code>@mock.patch('datetime.date.today')
+def test():
+    datetime.date.today.return_value = date(2010, 1, 1)
+    print datetime.date.today()
+</code></pre><p>cela ne fonctionnera pas car les types <em>built-in</em> sont immutables.</p>
+<p>On aura alors une erreur du genre: <code>TypeError: can't set attributes of built-in/extension type 'datetime.date'</code></p>
+<p><strong>Pour contourner ce &ldquo;problème&rdquo;, on peut utiliser le module <code>freezegun</code>.</strong></p>
+<br/>
+<p>Example:</p>
+<pre><code>from freezegun import freeze_time
+
+@freeze_time(&quot;2021-02-23&quot;)
+def test_my_function():
+
+    from datetime import datetime
+    print(datetime.now()) #  2021-02-23 00:00:00
+
+    from datetime import date
+    print(date.today()) #  2021-02-23
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Régler son imprimante 3D Creality cr10s pro</title>
