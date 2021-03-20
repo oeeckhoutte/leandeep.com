@@ -6,7 +6,17 @@
     <description>Recent content on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 23 Feb 2021 21:01:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Mar 2021 09:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Virtualbox headless sur Ubuntu 20.04</title>
+      <link>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</link>
+      <pubDate>Sat, 20 Mar 2021 09:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</guid>
+      <description>Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;quot;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;quot; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER  Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&amp;rsquo;extension Oracle.
+VBOXVER=`vboxmanage -v | cut -dr -f1` wget -P /tmp https://download.virtualbox.org/virtualbox/$VBOXVER/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack vboxmanage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.</description>
+    </item>
+    
     <item>
       <title>Mocker un datetime .now() dans un test unitaire Python</title>
       <link>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</link>
@@ -101,16 +111,6 @@ Les calculs sont finalement très simples.</description>
       
       <guid>https://leandeep.com/installer-les-derni%C3%A8res-distros-linux-avec-pxe/</guid>
       <description>Introduction Aujourd&amp;rsquo;hui j&amp;rsquo;ai besoin de réinstaller mon système. Je vais installer Ubuntu 20.04. Etant donné que c&amp;rsquo;est une tâche que je répète régulièrement car j&amp;rsquo;expérimente beaucoup, je préfère me passer de clés USB car cela me fait perdre du temps. Je préfère utiliser un amorçage PXE qui me permet de charger des ISOs depuis mon réseau local. Dans cet article, nous allons rester simple et nous contenter de mettre à disposition des distro Linux.</description>
-    </item>
-    
-    <item>
-      <title>Créer un proxy MITM pour mesurer la performance des APIs</title>
-      <link>https://leandeep.com/cr%C3%A9er-un-proxy-mitm-pour-mesurer-la-performance-des-apis/</link>
-      <pubDate>Mon, 26 Oct 2020 20:44:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/cr%C3%A9er-un-proxy-mitm-pour-mesurer-la-performance-des-apis/</guid>
-      <description>Introduction Nous allons voir dans cet article comment mettre en place un proxy MITM pour mesurer la performance d&amp;rsquo;une API. Nous parlons ici d&amp;rsquo;une solution basique &amp;ldquo;quick win&amp;rdquo; à mettre en place en 5 minutes. Je ne parle pas d&amp;rsquo;une solution APM évoluée où il faut installer un SDK&amp;hellip;
- Installation docker run --rm -it \ -p 8080:8080 \ -p 8081:8081 \ oeeckhoutte/mitmproxy mitmweb \ --web-host 0.0.0.0  Usage watch -n 5 &amp;quot;curl -k --proxy http://127.</description>
     </item>
     
   </channel>

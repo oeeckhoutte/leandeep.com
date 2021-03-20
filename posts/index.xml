@@ -5,8 +5,135 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 23 Feb 2021 21:01:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 20 Mar 2021 09:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Virtualbox headless sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</link>
+            <pubDate>Sat, 20 Mar 2021 09:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</guid>
+            <description>Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;quot;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;quot; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER  Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&amp;rsquo;extension Oracle.
+VBOXVER=`vboxmanage -v | cut -dr -f1` wget -P /tmp https://download.virtualbox.org/virtualbox/$VBOXVER/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack vboxmanage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.</description>
+            <content type="html"><![CDATA[<h2 id="installation">Installation</h2>
+<pre><code>sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+echo &quot;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&quot; | sudo tee /etc/apt/sources.list.d/virtualbox.list
+sudo apt update
+sudo apt-get install --yes virtualbox-6.1
+sudo systemctl status vboxdrv
+
+sudo usermod -aG vboxusers $USER
+</code></pre><br/>
+<p>Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&rsquo;extension Oracle.</p>
+<pre><code>VBOXVER=`vboxmanage -v | cut -dr -f1`
+wget -P /tmp https://download.virtualbox.org/virtualbox/$VBOXVER/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack
+vboxmanage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack
+</code></pre><br/>
+<h2 id="création-première-vm">Création première VM</h2>
+<pre><code>sudo mkdir -p /srv/virtualbox
+
+# Création VM
+sudo vboxmanage createvm \
+    --ostype Ubuntu_64 \
+    --basefolder &quot;/srv/virtualbox&quot; \
+    --register \
+    --name &quot;Test_to_delete&quot;
+
+# Modification de la config de la VM (NAT network, mémoire, VRDE pour accéder à la VM via rdp)
+sudo vboxmanage modifyvm &quot;Test_to_delete&quot; \
+    --memory 1024 \
+    --nic1 nat \
+    --vrde on 
+    --vrdeport 33890
+
+# Création d'un disque
+sudo vboxmanage createhd \
+    --filename &quot;/srv/virtualbox/Test_to_delete/Test_to_delete.vdi&quot; \
+    --format VDI --size 10240
+
+sudo vboxmanage storagectl &quot;Test_to_delete&quot; \
+    --name &quot;SATA&quot; \
+    --add sata
+
+sudo vboxmanage storageattach &quot;Test_to_delete&quot; \
+    --storagectl SATA --port 0 --type hdd \
+    --medium &quot;/srv/virtualbox/Test_to_delete/Test_to_delete.vdi&quot;
+
+# Démarrage de la VM
+sudo vboxmanage startvm &quot;Test_to_delete&quot; --type headless
+
+</code></pre><br/>
+<h2 id="bridge-avec-host">Bridge avec host</h2>
+<pre><code>sudo VBoxManage modifyvm &quot;Test_to_delete&quot; --nic1 bridged
+</code></pre><br/>
+<h2 id="bridge-privé">Bridge privé</h2>
+<pre><code>sudo brctl addbr vmtestbr1 
+sudo ifconfig testtodeletebr1 192.168.222.1 netmask 255.255.255.0 up
+sudo ping -c 2 192.168.222.1
+sudo vboxmanage modifyvm &quot;Test_to_delete&quot; --nic1 bridged --nictype1 82545EM --bridgeadapter1 testtodeletebr1
+
+# Supprimer le bridge
+sudo ifconfig testtodeletebr1 0.0.0.0 down
+sudo brctl delbr testtodeletebr1
+</code></pre><br/>
+<p>Ping from guest to host</p>
+<pre><code>sudo ifconfig -a  
+# interface name may be different 
+sudo ifconfig eth0 192.168.222.2 netmask 255.255.255.0
+sudo ping -c 4  192.168.222.1
+</code></pre><br/>
+<h2 id="autres-commandes">Autres commandes</h2>
+<p><strong>Stopper VM</strong></p>
+<pre><code>sudo vboxmanage controlvm &quot;Test_to_delete&quot; poweroff
+</code></pre><br/>
+<p><strong>Lister toutes les VMs</strong></p>
+<pre><code>sudo VBoxManage list vms
+</code></pre><br/>
+<p><strong>Lister les VMs qui tournent</strong></p>
+<pre><code>sudo VBoxManage list runningvms
+</code></pre><br/>
+<p><strong>Entrer dans une machine virtuelle</strong></p>
+<pre><code>sudo VBoxManage showvminfo &quot;Test_to_delete&quot; | grep Rule
+sudo VBoxManage modifyvm &quot;Test_to_delete&quot; --natpf1 &quot;ssh,tcp,,3022,,22&quot;
+ssh -p 3022 &lt;user&gt;@127.0.0.1
+</code></pre><br/>
+<p><strong>Effacer une VM</strong></p>
+<pre><code>sudo VBoxManage unregistervm --delete &quot;Test_to_delete&quot;
+
+</code></pre><br/>
+<h2 id="script-auto">Script auto</h2>
+<p>Créer un fichier <code>createDebian.sh</code> et exécuter la commande suivante <code>chmod +x ./createDebian.sh &amp;&amp; ./createDebian.sh TestDebian</code></p>
+<pre><code>#!/bin/bash
+MACHINENAME=$1
+
+# Download debian.iso
+if [ ! -f ./debian.iso ]; then
+    wget https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.8.0-amd64-netinst.iso -O debian.iso
+fi
+
+#Create VM
+VBoxManage createvm --name $MACHINENAME --ostype &quot;Debian_64&quot; --register --basefolder `pwd`
+#Set memory and network
+VBoxManage modifyvm $MACHINENAME --ioapic on
+VBoxManage modifyvm $MACHINENAME --memory 1024 --vram 128
+VBoxManage modifyvm $MACHINENAME --nic1 nat
+#Create Disk and connect Debian Iso
+VBoxManage createhd --filename `pwd`/$MACHINENAME/$MACHINENAME_DISK.vdi --size 80000 --format VDI
+VBoxManage storagectl $MACHINENAME --name &quot;SATA Controller&quot; --add sata --controller IntelAhci
+VBoxManage storageattach $MACHINENAME --storagectl &quot;SATA Controller&quot; --port 0 --device 0 --type hdd --medium  `pwd`/$MACHINENAME/$MACHINENAME_DISK.vdi
+VBoxManage storagectl $MACHINENAME --name &quot;IDE Controller&quot; --add ide --controller PIIX4
+VBoxManage storageattach $MACHINENAME --storagectl &quot;IDE Controller&quot; --port 1 --device 0 --type dvddrive --medium `pwd`/debian.iso
+VBoxManage modifyvm $MACHINENAME --boot1 dvd --boot2 disk --boot3 none --boot4 none
+
+#Enable RDP
+VBoxManage modifyvm $MACHINENAME --vrde on
+VBoxManage modifyvm $MACHINENAME --vrdemulticon on --vrdeport 10001
+
+#Start the VM
+VBoxHeadless --startvm $MACHINENAME
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Mocker un datetime .now() dans un test unitaire Python</title>
@@ -1067,6 +1194,9 @@ sudo apt-get install xfce4
 
 # Ou LXDE
 # sudo apt-get install lxde
+
+# Ou Mate
+sudo apt install mate-core mate-desktop-environment mate-notification-daemon
 </code></pre><blockquote>
 <p>Si vous trouvez XFCE ou LXDE trop moches, vous pouvez toujours installer Mate Desktop ou KDE Plasma Desktop:
 <br/><code>sudo apt-get install mate-core mate-desktop-environment mate-notification-daemon</code> <br/> ou <br/> <code>sudo apt install kde-plasma-desktop</code></p>
