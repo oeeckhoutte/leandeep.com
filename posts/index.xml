@@ -14,9 +14,11 @@
             <pubDate>Sat, 20 Mar 2021 09:25:00 +0000</pubDate>
             
             <guid>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</guid>
-            <description>Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;quot;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;quot; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER  Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&amp;rsquo;extension Oracle.
-VBOXVER=`vboxmanage -v | cut -dr -f1` wget -P /tmp https://download.virtualbox.org/virtualbox/$VBOXVER/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack vboxmanage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.</description>
-            <content type="html"><![CDATA[<h2 id="installation">Installation</h2>
+            <description>Bien sûr il y a Docker mais parfois on ne peut pas faire autrement que d&amp;rsquo;utiliser une VM&amp;hellip;
+ Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;quot;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;quot; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER  Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&amp;rsquo;extension Oracle.</description>
+            <content type="html"><![CDATA[<p>Bien sûr il y a Docker mais parfois on ne peut pas faire autrement que d&rsquo;utiliser une VM&hellip;</p>
+<br/>
+<h2 id="installation">Installation</h2>
 <pre><code>sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 echo &quot;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&quot; | sudo tee /etc/apt/sources.list.d/virtualbox.list
 sudo apt update
