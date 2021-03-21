@@ -3084,6 +3084,213 @@ ALGOLIA_INDEX_FILE=public/algolia.json
         </item>
         
         <item>
+            <title>Solidity fondamentals</title>
+            <link>https://leandeep.com/solidity-fondamentals/</link>
+            <pubDate>Thu, 13 Feb 2020 16:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/solidity-fondamentals/</guid>
+            <description>Deploy a first smart contract. The base For rapid prototyping use Remix and select &amp;ldquo;Javascript VM&amp;rdquo;.
+ Simplest commented Contract example
+pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix.</description>
+            <content type="html"><![CDATA[<h2 id="deploy-a-first-smart-contract-the-base">Deploy a first smart contract. The base</h2>
+<p>For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.</p>
+<br/>
+<p><strong>Simplest commented Contract example</strong></p>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version
+
+contract ExampleOne { // Contract definition
+  uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits
+  
+  function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed
+    myVar = _myVar;
+  }
+
+}
+</code></pre><br/>
+<p>Compile, deploy and interact with the Smart Contract still via Remix.</p>
+<br/>
+<h2 id="second-commented-contract-example">Second commented Contract example</h2>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version
+
+contract MyContract  { // Contract definition
+  
+  uint256 public myVar; // storage varible. Can only store positive integer with a max value of 256 bits. The public keywork automatically generates the get Method.
+  
+  constructor(uint256 _myVar) public { // Cannot be pure or view. As a normal constructor, it is automatically called. Not prefixed by function keywork. Called during contract deployment.
+    myVar = _myVar; // Used to pass a variable during the deployment
+  }
+
+  function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed
+    myVar = _myVar;
+  }
+
+  // For information
+  //function getMyVar() public pure { // Will not interact with other part of the smart contract excepted other pure methods. An example could be a method that multiples 2 numbers.
+  //  return myVar;
+  //}
+
+  // Optional
+  function getMyVar() view public returns(uint256) { // It is a pure reading funciton (Free on Ethereum). It is a &quot;call&quot; not a &quot;transact&quot;
+    return myVar;
+  }
+
+  function() public { // Anonymous function. Used when we interact with a Smart Contract but we do not specify any function. Often used to transfer Eth. This anonymous function can also be explicitely called. It is a fallback function. We should keen it as simple as possible (for gas).
+    myVar = 2;
+  }
+
+}
+</code></pre><br/>
+<h2 id="other-variable-types">Other variable types</h2>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version 
+
+contract MyContract  { // Contract definition
+
+  uint8  myUint8;
+  int8 myInt8;
+
+  uint myUint256; // = uint256 
+
+  function divideInteger() public pure returns(uint8) { // The remainer of 5/2 (0.5) will be discard. The return type uint8 rounds the return value. 
+    uint five = 5;
+    uint two = 2;
+    return five/two;
+  }
+
+  function wrapAround() public pure returns(uint8) { // The remainer of 5/2 (0.5) will be discard. The return type uint8 rounds the return value. 
+    uint8 zero = 0;
+    zero--;
+    return zero; //The result won't be -1 here since the return type is uint8. The value will be 255.
+  }
+
+  function getBalance() public view returns(uint) { // Returns the balance in Wei.
+    // 1 Ether 
+    //  = 10^18 Wei
+    //  = 10^15 KWei
+    //  = 10^12 MWei
+    //  = 10^9 GWei
+    //  = 10^6 Szabo
+    //  = 10^3 Finney
+    return address(this).balance;
+  }
+
+  function() public payable { //Payable is mandatory if we want to pass a Ether value to the smart contract after deployment
+    uint balance = msg.value;
+  }
+
+  function withdrawEverything() public { //Send back money received in Smart Contract
+    msg.sender.transfer(getBalance());
+  }
+}
+</code></pre><br/>
+<h2 id="modifiers">Modifiers</h2>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version 
+
+contract MyContract  { // Contract definition
+  uint public myVarOne;
+  uint public myVarTwo;
+  bool writable;
+  
+  modifier mustBeWritable() { // Modifiers can be used to avoid the require() in functions like below
+    require(writable);
+    _;
+  }
+
+  function setWritable(bool _writeable) {
+    writeable = _writeable;
+  }
+
+  //function updateMyVarOne(uint _myVar) public {
+  //  require(writable);
+  //  myVarOne = _myVar;
+  //}
+
+  //function updateMyVarTwo(uint _myVar) public {
+  //  require(writable);
+  //  myVarTwo = _myVar;
+  //}
+  
+  function updateMyVarOne(uint _myVar) public mustBeWritable {
+    myVarOne = _myVar;
+  }
+
+  function updateMyVarTwo(uint _myVar) public mustBeWritable {
+    myVarTwo = _myVar;
+  }
+   
+}
+</code></pre><br/>
+<h2 id="mappings">Mappings</h2>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version 
+
+contract MyContract { // Contract definition
+  mapping(uint =&gt; bool) public myMapping; // key value pairs. All values are false by default. (true for all 256 values)
+
+  function writeSomethingInTheMapping(uint _myInt) public {
+    myMapping[_myInt] = true
+  }
+
+}
+</code></pre><br/>
+<h2 id="structs">Structs</h2>
+<p>With structs we can define our own data types.</p>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version 
+
+contract MyContract { // Contract definition
+  
+  struct MyStruct {
+    uint timestamp;
+    uint counter;
+  }
+
+  mapping(address =&gt; MyStruct) public myMapping;
+
+  function myFunction() public {
+    myMapping[msg.sender].timestamp = now;
+    myMapping[msg.sender].counter++;
+  }
+
+}
+</code></pre><br/>
+<h2 id="notary-app">Notary app</h2>
+<p>Create a file called <code>notary.sol</code>.</p>
+<pre><code>pragma solidity ^0.4.24; // Specify compiler version 
+
+contract Notary { // Contract definition
+  struct MyNotaryEntry {
+    string fileName;
+    uint timestamp;
+    bytes32 checkSum; // Hash of the file
+    string comments;
+    bool isSet;
+    address setBy;
+  }
+
+  mapping(bytes32 =&gt; myNotaryEntry) public myMapping;
+
+  event NewEntry(bytes32 _checksum, string fileName, address indexed _setBy); // indexed so that we can search by _setBy later (only 3)
+
+  function addEntry(bytes32 _checksum, string _fileName, string comments) public {
+    require(!myMapping[_checksum].isSet);
+
+    myMapping[_checksum].isSet = true;
+    myMapping[_checksum].fileName = _fileName;
+    myMapping[_checksum].timestamp = now;
+    myMapping[_checksum].comments = _comments;
+    myMapping[_checksum].setBy = msg.sender;
+
+    emit NewEntry(_checksum, _fileName, msg.sender)
+  }
+
+  function entrySet(bytes32 _checksum) public view returns(string, uint, string, address) {
+    require(myMapping[_checksum].isSet);
+    return (myMapping[_checksum].fileName, myMapping[_checksum].timestamp, myMapping[_checksum].comments, myMapping[_checksum].setBy);
+  }
+}
+</code></pre><br/>
+]]></content>
+        </item>
+        
+        <item>
             <title>Convertir des images dmg ou img en iso sur OSX</title>
             <link>https://leandeep.com/convertir-des-images-dmg-ou-img-en-iso-sur-osx/</link>
             <pubDate>Thu, 23 Jan 2020 20:49:00 +0200</pubDate>
