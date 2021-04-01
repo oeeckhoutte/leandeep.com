@@ -321,7 +321,42 @@ sudo apt-get install ethereum
 <p><strong>Vérifier l&rsquo;état de synchronisation</strong></p>
 <pre><code>geth attach
 eth.syncing
-</code></pre>]]></content>
+</code></pre><br/>
+<p><strong>Se connecter à son noeud local via Javascript</strong></p>
+<pre><code># Installer NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+echo &quot;export NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+nvm ls-remote
+
+# Installer NodeJS
+nvm install v12.22.0
+nvm use v12.22.0
+nvm use default v12.22.0
+
+# Installer Web3
+npm install web3 --save
+</code></pre><br/>
+<p>Créer un fichier <code>test.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const Web3 = require(&quot;web3&quot;)
+const web3 = new Web3(&quot;http://localhost:8545&quot;)
+
+web3.eth.isSyncing((error, sync) =&gt; {
+  if (!error &amp;&amp; sync) {
+    console.log(sync.currentBlock);
+    console.log(sync.highestBlock);
+  }
+});
+
+async function getBlockNumber() {
+  const latestBlockNumber = await web3.eth.getBlockNumber()
+  console.log(latestBlockNumber)
+  return latestBlockNumber
+}
+getBlockNumber()
+
+</code></pre><p>Exécuter la commande suivante <code>node test.js</code></p>
+]]></content>
         </item>
         
         <item>
