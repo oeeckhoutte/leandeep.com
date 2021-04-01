@@ -339,14 +339,17 @@ npm install web3 --save
 </code></pre><br/>
 <p>Créer un fichier <code>test.js</code> et ajouter le contenu suivant:</p>
 <pre><code>const Web3 = require(&quot;web3&quot;)
+//const web3 = new Web3(&quot;https://cloudflare-eth.com&quot;)
 const web3 = new Web3(&quot;http://localhost:8545&quot;)
 
+/*
 web3.eth.isSyncing((error, sync) =&gt; {
   if (!error &amp;&amp; sync) {
     console.log(sync.currentBlock);
     console.log(sync.highestBlock);
   }
 });
+*/
 
 async function getBlockNumber() {
   const latestBlockNumber = await web3.eth.getBlockNumber()
@@ -356,6 +359,71 @@ async function getBlockNumber() {
 getBlockNumber()
 
 </code></pre><p>Exécuter la commande suivante <code>node test.js</code></p>
+<br/>
+<p><strong>Lire les informations d&rsquo;un Smart Contract (CALL)</strong></p>
+<p>Ajouter le code suivant avant de relancer la commande <code>node test.js</code>:</p>
+<pre><code>const ERC20TransferABI = [
+  {
+    constant: false,
+    inputs: [
+      {
+        name: &quot;_to&quot;,
+        type: &quot;address&quot;,
+      },
+      {
+        name: &quot;_value&quot;,
+        type: &quot;uint256&quot;,
+      },
+    ],
+    name: &quot;transfer&quot;,
+    outputs: [
+      {
+        name: &quot;&quot;,
+        type: &quot;bool&quot;,
+      },
+    ],
+    payable: false,
+    stateMutability: &quot;nonpayable&quot;,
+    type: &quot;function&quot;,
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: &quot;_owner&quot;,
+        type: &quot;address&quot;,
+      },
+    ],
+    name: &quot;balanceOf&quot;,
+    outputs: [
+      {
+        name: &quot;balance&quot;,
+        type: &quot;uint256&quot;,
+      },
+    ],
+    payable: false,
+    stateMutability: &quot;view&quot;,
+    type: &quot;function&quot;,
+  },
+]
+const DAI_ADDRESS = &quot;0x6b175474e89094c44da98b954eedeac495271d0f&quot;
+const daiToken = new web3.eth.Contract(ERC20TransferABI, DAI_ADDRESS)
+const senderAddress = &quot;0x8bfb847d85b7bde4596888ae08fa7863752ffcf6&quot;
+daiToken.methods.balanceOf(senderAddress).call(function (err, res) {
+  if (err) {
+    console.log(&quot;An error occured&quot;, err)
+    return
+  }
+  console.log(&quot;The balance is: &quot;, res)
+})
+</code></pre><br/>
+<p>Output:</p>
+<p>12154947
+The balance is:  12558880673328618209762</p>
+<p>Adresse prise au hasard sur Etherscan.
+Cela correspond à environ 12,558.880673328618209762 DAI</p>
+<br/>
+<p>Voilà, nous avons vu comment démarrer un noeud Ethereum sur différents réseaux et comment s&rsquo;y connecter via du code JS.</p>
 ]]></content>
         </item>
         
