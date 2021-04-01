@@ -274,11 +274,53 @@ INFO [12-16|21:24:36.694] Imported new block receipts              count=138 ela
 INFO [12-16|21:24:36.725] Imported new block headers               count=192 elapsed=77.269ms    number=384 hash=&quot;6d95fa…a59e49&quot; age=3y8mo3w
 </code></pre><br/>
 <h2 id="mainnet">Mainnet</h2>
+<p><strong>With Docker</strong></p>
 <pre><code>docker pull ethereum/client-go:latest
 mkdir ~/.geth
 docker run --name eth -p 8546:8546 -v ~/.geth:/geth -it \
            ethereum/client-go --syncmode fast --ws --ipcdisable \
            --wsaddr 0.0.0.0 --wsorigins=&quot;*&quot; --datadir /geth
+</code></pre><br/>
+<blockquote>
+<p>Dev purpose below. Attention <code>--rpcaddr &quot;0.0.0.0&quot;</code> n&rsquo;est pas secure dans une environnement live</p>
+</blockquote>
+<pre><code>mkdir -p ~/ethereum/data
+cd ~/ethereum
+sudo docker run --name geth -itd -p 8546:8546 -p 8545:8545 -p 30303:30303 -v data:/root/.ethereum ethereum/client-go:latest --rpc --rpcaddr &quot;0.0.0.0&quot;
+sudo docker update --restart unless-stopped geth
+sudo docker logs -f geth
+</code></pre><br/>
+<ul>
+<li>8545 TCP: HTTP JSON RPC API</li>
+<li>8546 TCP: WebSocket JSON RPC API</li>
+<li>30303 TCP et UDP: P2P protocol running the network</li>
+<li>30304 UDP: P2P protocol&rsquo;s new peer discovery overlay</li>
+</ul>
+<p><br/>
+<br/></p>
+<p><strong>Without Docker</strong></p>
+<pre><code>sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install ethereum
+</code></pre><pre><code>geth --syncmode &quot;fast&quot;
+# Pour un récupérer un testnet
+# geth --ropsten --syncmode &quot;fast&quot; 
+
+#geth --syncmode &quot;fast&quot; --cache=2048 --maxpeers=128 --metrics --rpc --rpcapi &quot;db,eth,net,web3,personal,web3&quot; --rpcaddr &quot;0.0.0.0&quot; --rpcport 8545 
+
+# --rpcvhosts &quot;geth.domain.com&quot;
+
+</code></pre><br/>
+<p>&ldquo;Full&rdquo; Sync: Récupère les block headers, les block bodies et valide chaque élément depuis le block genesis.</p>
+<p>Fast Sync: Récupère les block headers, les block bodies, et ne process que les transactions à partir du block actuel - 64. Ensuite il récupère un snapshot state et réalise une sorte synchronization  full.</p>
+<p>Light Sync: Ne récupère que le current state. Pour vérifier les éléments, il a besoin de demander aux full (archive) nodes les 3 feuilles correspondantes.</p>
+<blockquote>
+<p>Dans les dernières version de Geth <code>- 64</code> est paramétrable avec le paramètre <code>fsMinFullBlocks</code>.</p>
+</blockquote>
+<br/>
+<p><strong>Vérifier l&rsquo;état de synchronisation</strong></p>
+<pre><code>geth attach
+eth.syncing
 </code></pre>]]></content>
         </item>
         
