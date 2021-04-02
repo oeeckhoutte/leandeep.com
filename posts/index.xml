@@ -3466,37 +3466,77 @@ contract MyContract { // Contract definition
 <pre><code>pragma solidity ^0.4.24; // Specify compiler version 
 
 contract Notary { // Contract definition
-  struct MyNotaryEntry {
-    string fileName;
-    uint timestamp;
+  struct MyNotaryDocument {
     bytes32 checkSum; // Hash of the file
     string comments;
+    string fileName;
     bool isSet;
     address setBy;
+    uint timestamp;
   }
 
-  mapping(bytes32 =&gt; myNotaryEntry) public myMapping;
+  mapping(bytes32 =&gt; myNotaryDocument) public docMapping;
 
-  event NewEntry(bytes32 _checksum, string fileName, address indexed _setBy); // indexed so that we can search by _setBy later (only 3)
+  event NewDocument(bytes32 _checksum, string fileName, address indexed _setBy); // indexed so that we can search by _setBy later (only 3)
 
-  function addEntry(bytes32 _checksum, string _fileName, string comments) public {
-    require(!myMapping[_checksum].isSet);
+  function addDocument(bytes32 _checksum, string _fileName, string comments) public {
+    require(!docMapping[_checksum].isSet);
 
-    myMapping[_checksum].isSet = true;
-    myMapping[_checksum].fileName = _fileName;
-    myMapping[_checksum].timestamp = now;
-    myMapping[_checksum].comments = _comments;
-    myMapping[_checksum].setBy = msg.sender;
+    docMapping[_checksum].isSet = true;
+    docMapping[_checksum].fileName = _fileName;
+    docMapping[_checksum].timestamp = now;
+    docMapping[_checksum].comments = _comments;
+    docMapping[_checksum].setBy = msg.sender;
 
-    emit NewEntry(_checksum, _fileName, msg.sender)
+    emit NewDocument(_checksum, _fileName, msg.sender);
   }
 
-  function entrySet(bytes32 _checksum) public view returns(string, uint, string, address) {
-    require(myMapping[_checksum].isSet);
-    return (myMapping[_checksum].fileName, myMapping[_checksum].timestamp, myMapping[_checksum].comments, myMapping[_checksum].setBy);
+  function documentSet(bytes32 _checksum) public view returns(string, uint, string, address) {
+    require(docMapping[_checksum].isSet);
+
+    return (docMapping[_checksum].fileName, docMapping[_checksum].timestamp, docMapping[_checksum].comments, docMapping[_checksum].setBy);
   }
 }
 </code></pre><br/>
+<h2 id="truffle-framework">Truffle Framework</h2>
+<p>Truffle is useful when you work with a blockchain development team.</p>
+<p><strong>Installation</strong></p>
+<pre><code># Install NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+echo &quot;export NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+nvm ls-remote
+
+# Install NodeJS
+nvm install v12.22.0
+nvm use v12.22.0
+nvm use default v12.22.0
+
+# Install truffle
+npm i -g truffle
+
+# Create an empty folder and create an empty project
+truffle init
+
+# Other Truffle commands
+truffle compile
+truffle migrate
+truffle test
+
+# Install Ganache
+git clone --depth=1 https://github.com/trufflesuite/ganache.git &amp;&amp; cd ganache
+npm install
+npm start
+</code></pre><br/>
+<p><strong>Truffle project configuration</strong></p>
+<p>Edit the <code>truffle-config.js</code> and add the Ganache development network. So inside <code>module.exports = {networks:{}}</code> add the following lines of code:</p>
+<pre><code>    development: {
+      host: &quot;127.0.0.1&quot;,
+      port: 8545,
+      network_id: &quot;*&quot;, // match any network
+      websockets: true
+    },
+</code></pre><p>Then run <code>truffle migrate</code> to deploy the basic smart contract to your dev blockchain.</p>
 ]]></content>
         </item>
         

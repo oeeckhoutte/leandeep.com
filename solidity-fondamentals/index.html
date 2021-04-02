@@ -298,7 +298,7 @@ function toTitleCase(str) {
  Simplest commented Contract example
 pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."><meta itemprop="datePublished" content="2020-02-13T16:49:00&#43;02:00" />
 <meta itemprop="dateModified" content="2020-02-13T16:49:00&#43;02:00" />
-<meta itemprop="wordCount" content="799"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="938"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Ethereum,Solidity," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -368,7 +368,7 @@ pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Co
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
 
             
 
@@ -547,37 +547,77 @@ contract MyContract { // Contract definition
 <pre><code>pragma solidity ^0.4.24; // Specify compiler version 
 
 contract Notary { // Contract definition
-  struct MyNotaryEntry {
-    string fileName;
-    uint timestamp;
+  struct MyNotaryDocument {
     bytes32 checkSum; // Hash of the file
     string comments;
+    string fileName;
     bool isSet;
     address setBy;
+    uint timestamp;
   }
 
-  mapping(bytes32 =&gt; myNotaryEntry) public myMapping;
+  mapping(bytes32 =&gt; myNotaryDocument) public docMapping;
 
-  event NewEntry(bytes32 _checksum, string fileName, address indexed _setBy); // indexed so that we can search by _setBy later (only 3)
+  event NewDocument(bytes32 _checksum, string fileName, address indexed _setBy); // indexed so that we can search by _setBy later (only 3)
 
-  function addEntry(bytes32 _checksum, string _fileName, string comments) public {
-    require(!myMapping[_checksum].isSet);
+  function addDocument(bytes32 _checksum, string _fileName, string comments) public {
+    require(!docMapping[_checksum].isSet);
 
-    myMapping[_checksum].isSet = true;
-    myMapping[_checksum].fileName = _fileName;
-    myMapping[_checksum].timestamp = now;
-    myMapping[_checksum].comments = _comments;
-    myMapping[_checksum].setBy = msg.sender;
+    docMapping[_checksum].isSet = true;
+    docMapping[_checksum].fileName = _fileName;
+    docMapping[_checksum].timestamp = now;
+    docMapping[_checksum].comments = _comments;
+    docMapping[_checksum].setBy = msg.sender;
 
-    emit NewEntry(_checksum, _fileName, msg.sender)
+    emit NewDocument(_checksum, _fileName, msg.sender);
   }
 
-  function entrySet(bytes32 _checksum) public view returns(string, uint, string, address) {
-    require(myMapping[_checksum].isSet);
-    return (myMapping[_checksum].fileName, myMapping[_checksum].timestamp, myMapping[_checksum].comments, myMapping[_checksum].setBy);
+  function documentSet(bytes32 _checksum) public view returns(string, uint, string, address) {
+    require(docMapping[_checksum].isSet);
+
+    return (docMapping[_checksum].fileName, docMapping[_checksum].timestamp, docMapping[_checksum].comments, docMapping[_checksum].setBy);
   }
 }
 </code></pre><br/>
+<h2 id="truffle-framework">Truffle Framework</h2>
+<p>Truffle is useful when you work with a blockchain development team.</p>
+<p><strong>Installation</strong></p>
+<pre><code># Install NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+echo &quot;export NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+nvm ls-remote
+
+# Install NodeJS
+nvm install v12.22.0
+nvm use v12.22.0
+nvm use default v12.22.0
+
+# Install truffle
+npm i -g truffle
+
+# Create an empty folder and create an empty project
+truffle init
+
+# Other Truffle commands
+truffle compile
+truffle migrate
+truffle test
+
+# Install Ganache
+git clone --depth=1 https://github.com/trufflesuite/ganache.git &amp;&amp; cd ganache
+npm install
+npm start
+</code></pre><br/>
+<p><strong>Truffle project configuration</strong></p>
+<p>Edit the <code>truffle-config.js</code> and add the Ganache development network. So inside <code>module.exports = {networks:{}}</code> add the following lines of code:</p>
+<pre><code>    development: {
+      host: &quot;127.0.0.1&quot;,
+      port: 8545,
+      network_id: &quot;*&quot;, // match any network
+      websockets: true
+    },
+</code></pre><p>Then run <code>truffle migrate</code> to deploy the basic smart contract to your dev blockchain.</p>
 
             </div>
         </article>
@@ -589,7 +629,7 @@ contract Notary { // Contract definition
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/solidity">Solidity</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>799 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>938 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 Feb. 2020</p>
         </div>
