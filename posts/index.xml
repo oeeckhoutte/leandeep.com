@@ -3461,7 +3461,7 @@ contract MyContract { // Contract definition
 
 }
 </code></pre><br/>
-<h2 id="notary-app">Notary app</h2>
+<h2 id="notary-app-example-code">Notary app example code</h2>
 <p>Create a file called <code>notary.sol</code>.</p>
 <pre><code>pragma solidity ^0.4.24; // Specify compiler version 
 
@@ -3498,6 +3498,76 @@ contract Notary { // Contract definition
   }
 }
 </code></pre><br/>
+<h2 id="notary-smart-contract-unit-test-in-js-example">Notary smart contract unit test in JS example</h2>
+<p>Under test directory create a new file called <code>notaryTest.js</code> and add the following content:</p>
+<pre><code>var NotaryArtifact = artifacts.require(&quot;./notary.sol&quot;);
+
+contract(&quot;NotaryContract&quot;, function(accounts) {
+  it(&quot;This is my first test&quot;, function() {
+    return NotaryArtifact.deployed().then(function(instance) {
+      console.log(instance);
+    })
+  });
+
+  it(&quot;should not be able to find a hash for an unexisting document&quot;, async function() {
+    return NotaryArtifact.deployed().then(async function(instance) {
+      try {
+        await instance.documentSet(0x1111111111111111111111111111111111111111111111111111111111111111);
+        assert.fail(true, true, &quot;Exception expected while calling documentSet with non existing hash&quot;)
+      } catch(error) {
+        if (error.message.search(&quot;revert&quot;) &gt;= 0) {
+          assert.equal(error.message.search(&quot;revert&quot;) &gt;= 0, true, &quot;Error Message does not reflect expected Exception Message&quot;);
+        } else {
+          throw error;
+        }
+      }
+    })
+  });
+
+  it(&quot;should not be able to create the read a document&quot;, async () =&gt; {
+    let instance = await NotaryArtifact.deployed();
+    await instance.addDocument(0x2222222222222222222222222222222222222222222222222222222222222222, &quot;test&quot;, &quot;test&quot;);
+    let entry = await instance.documentSet(0x2222222222222222222222222222222222222222222222222222222222222222);
+    //console.log(entry)
+    assert.equal(entry[0], &quot;test&quot;, &quot;Filename should be equal to test&quot;);
+    assert.equal(entry[1].toNumber() &gt;= 1, true, &quot;Timestamp should be bigger than 1&quot;);
+    assert.equal(entry[2], &quot;test&quot;, &quot;Comment should be equal to test&quot;);
+    assert.equal(entry[3, accounts[0], &quot;The transaction should have been passed by account 0&quot;);
+
+  });
+});
+</code></pre><p>Then execute <code>truffle test</code>.</p>
+<br/>
+<h2 id="notary-smart-contract-unit-test-in-solidity-example">Notary smart contract unit test in Solidity example</h2>
+<p>Under test directory create a new file called <code>notaryTest.sol</code> and add the following content:</p>
+<pre><code>pragma solidity ^0.4.23;
+
+import &quot;truffle/Assert.sol&quot;;
+import &quot;truffle/DeployedAddresses.sol&quot;;
+import &quot;../contracts/Notary.sol&quot;;
+
+contract NotaryTest {
+  function testAddAndRead() public {
+    Notary notaryContract = Notary(DeployedAddresses.Notary());
+    notaryContract.addDocument(0x3333333333333333333333333333333333333333333333333333333333333333, &quot;test&quot;, &quot;test&quot;);
+    string memory fileName;
+    uint timestamp;
+    string memory comment;
+    address sender;
+    (fileName, timestamp, comment, sender) = notaryContract.documentSet(0x3333333333333333333333333333333333333333333333333333333333333333);
+    Assert.equal(fileName, &quot;test&quot;, &quot;Filename should be equal to test&quot;);
+    Assert.equal(sender, address(this), &quot;The caller and the address of the smart contract creator should be the same&quot;)
+
+  }
+
+  function testException() public {
+    address notaryAddress = address(DeployedAddresses.Notary());
+    bool transactionOk = notaryAddress.call(bytes4(keccak256(&quot;documentSet(bytes32)&quot;)) &quot;0x4444444444444444444444444444444444444444444444444444444444444444&quot;);
+    Assert.equal(transactionOk, false, &quot;Transaction should fail&quot;);
+  }
+}
+</code></pre><p>Then execute <code>truffle test</code>.</p>
+<br/>
 <h2 id="truffle-framework">Truffle Framework</h2>
 <p>Truffle is useful when you work with a blockchain development team.</p>
 <p><strong>Installation</strong></p>
