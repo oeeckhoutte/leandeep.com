@@ -5,8 +5,85 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 20 Mar 2021 09:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 10 Apr 2021 14:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Anatomie d&#39;un fichier tsconfig.json</title>
+            <link>https://leandeep.com/anatomie-dun-fichier-tsconfig.json/</link>
+            <pubDate>Sat, 10 Apr 2021 14:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/anatomie-dun-fichier-tsconfig.json/</guid>
+            <description>Dans cet article nous allons voir comment configurer correctement le compilateur Typescript.  Voici un grand nombre d&amp;rsquo;options possibles pour configurer convenablement votre projet Typescript. J&amp;rsquo;ai essayé de décrire chacune d&amp;rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&amp;rsquo;outils et un projet vous permettant d&amp;rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&amp;rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&amp;hellip;</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment configurer correctement le compilateur Typescript.
+<br/>
+Voici un grand nombre d&rsquo;options possibles pour configurer convenablement votre projet Typescript. J&rsquo;ai essayé de décrire chacune d&rsquo;entre elle.
+Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;</p>
+<br/>
+<p><strong>tsconfig.json</strong></p>
+<pre><code>{
+  &quot;extends: &quot;./tsconfig.base&quot;, // Il est possible de faire de l'héritage de fichier tsconfig.js
+  &quot;compilerOptions&quot;: { // contient toutes les rêgles permettant de configurer la compilation de notre projet Typescript
+    &quot;allowJs&quot;: false,
+    &quot;allowSyntheticDefaultImports&quot;: false,
+    &quot;allowUnreachableCode&quot;: false,
+    &quot;allowUnusedLabels&quot;: false,
+    &quot;outDir&quot;: &quot;./dist&quot;, // Dossier dans lequel sera contenu l'output de la compilation
+    &quot;noEmitOnError&quot;: true, // Recommandé. Ne crée pas de fichier d'output s'il y a une erreur Typescript
+    &quot;declaration&quot;: true, // permet de générer le fichier de déclaration (*.d.ts) pour créer des libs/packages importable dans d'autres projets par exemple
+    &quot;declarationDir&quot;: &quot;./typings&quot;, // Spécifie le dossier dans lequel seront générés les fichiers *.d.ts
+    &quot;stripInternal&quot;: true, // Si l'annotation /** @internal */ est présente au-dessus d'une fonction, le fichier de *.d.ts généré ne contiendra pas de déclaration pour cette fonction
+    &quot;sourceMap&quot;: true, // Permet de générer les fichier *.map
+    &quot;inlineSources&quot;: true, // Permet d'inclure le code source Typescript dans les sourcemap
+    &quot;mapRoot&quot;: &quot;./source-maps&quot;, // Spécifie le dossier dans lequel seront générés les fichiers sourceMaps
+    &quot;inlineSourcesMap&quot;: true, // Génére le contenu du sourceMap au format base64 inclus dans le fichier transpilé *.js
+    &quot;noImplicitAny&quot;: true, // Indispensable, sans quoi il suffit de faire du JS. Indique à Typescript que l'on ne veut pas type any implicite automatiquement ajouté
+    &quot;strictNullChecks&quot;: true, // Indispensable, sans quoi il suffit de faire du JS. undefined et null sont historiquement des sous-types de tous les types. Il faut donc faire en sorte qu'ils soient considérés comme des types à part entière. 
+    &quot;suppressImplicitAnyIndexError&quot;: false, // Recommandé à false. Si à true, on n'aurait pas d'erreur de compilation lorsqu'on voudrait ajouter un attribut à un objet dont le type n'a pas été définit dès le départ
+    &quot;suppressExcessPropertyErrors&quot;: false, // Recommandé à false. Si à true, on pourrait avoir des attributs facultatifs non déclarés dans les interface et ne pas avoir d'erreur de compilation
+    &quot;allowUnreachableCode&quot;: false, // Recommandé à false. Protège des code morts par exemple un return; puis du code
+    &quot;allowUnusedLabels&quot;: false, // Recommandé à false. Si un label n'est pas utilisée on aura une erreur de compilation 
+    &quot;noUnusedLocals&quot;: true, // Recommandé à true. Idem. Si une variable déclarée n'est pas utilisée on aura une erreur lors de la compilation
+    &quot;noUnusedParameters&quot;: true, // Recommandé à true. Idem. Si un paramètre d'une fonction n'est pas utilisé on aura une erreur lors de la compilation
+    &quot;noFallthroughCasesInSwitch&quot; : true, // Personnellement j'ai bien. Ce paramètre force à utiliser un break; après être passé dans un case d'un switch.
+    &quot;noImplicitReturns&quot;: true, // Assez clair. Il faut absolument spécifier les return dans les fonctions; même les undefined. En effet &quot;return undefined&quot; doit être spécifié même dans les fonctions qui ne retournent rien
+    &quot;module&quot;: &quot;es2015&quot;, // Définit la manière dont sont chargé les modules. Les instructions import et export sont préservées dans le JS généré avec es2015. 
+    &quot;target&quot;: &quot;es2015&quot;, // Définit la version de JS dans lequel sera transpilé le code Typescript (en dehors de la gestion des modules)
+    &quot;moduleResolution&quot;: &quot;node&quot;, // On gère les imports comme en NodeJS
+    &quot;traceResolution&quot;: true, // Ajoute des informations de debugging sur l'import des modules lors de la compilation Typescript
+    &quot;diagnostics&quot;: false, // Affiche des informations de debugging permettant d'optimiser éventuellement la performance de la compilation
+    &quot;listFiles&quot;: false, // Affiche les fichiers Typescript transpilés
+    &quot;listEmittedFiles&quot;: false, // Affiche les fichiers JS générés lors de la compilation
+    &quot;noImplicitUseStrict&quot;: false,
+    &quot;alwaysStrict&quot;: true, // Tous les fichiers modules ou globaux (sans import ou export) seront considérés comme des fichiers en strict mode
+    &quot;skipLibCheck&quot;: true // pour les libs comme Angular
+    &quot;removeComments&quot;: true, // Retire les commentaires
+    &quot;experimentalDecorators&quot;: true // Permet de créer ses propres décorateurs
+  },
+  &quot;exclude&quot;: [], // Permet d'exclure des paths de la compilation (cf. node_modules, tmp_file, &quot;src/**/*.tmp&quot;)
+  &quot;include&quot;: [], // idem que exclude mais l'inverse. Permet d'inclure des paths dans la compilation. 
+  &quot;files&quot;: [], // Permet de dire au compilateur quels paths charger. Cette config est prioritaire sur include et exclude
+  &quot;typeAcquisition&quot;: { // permet de configurer l'auto-complete et le type-checking des modules externes
+    &quot;enable&quot;: false
+  },
+  &quot;compileOnSave&quot;: false,
+  &quot;atom&quot;: { // Atom ajoute ses propres propriétés. On peut les modifier
+
+  },
+  &quot;angularCompilerOptions&quot;: { // Pour configurer les applications Angular
+
+  }
+}
+</code></pre><blockquote>
+<p>Installation de typescript: <code>npm install typescript --save-dev</code> ou <code>yarn add -D typescript</code>.</p>
+</blockquote>
+<br/>
+<p>Ce fichier <code>tsconfig.json</code> est pris en compte lorsque la commande <code>npx tsc [-w]</code> est exécutée.</p>
+<blockquote>
+<p>Ajouter l&rsquo;annotation suivante au-dessus d&rsquo;une fonction <code>/** @internal */</code> permet de ne pas générer sa déclaration dans le fichier <code>*.d.ts</code>.</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Virtualbox headless sur Ubuntu 20.04</title>
@@ -489,6 +566,11 @@ In [8]: w3.eth.get_balance('0x742d35Cc6634C0532925a3b844Bc454e4438f44e')
 Out [8]: 0
 </code></pre><br/>
 <p>Voilà, nous avons vu comment démarrer un noeud Ethereum sur différents réseaux et comment nous y connecter via du code JS ou du code Python. Nous verrons dans un prochain article comment suivre les changements dans des Smart Contracts avec des WebSockets.</p>
+<br/>
+<h2 id="monitoring">Monitoring</h2>
+<p>Je vous recommande d&rsquo;installer une solution de monitoring comme Grafana InfluxDB pour monitorer et avoir de l&rsquo;alerting sur votre noeud.</p>
+<p><img src="/images/ethereum-node-monitoring.png" alt="image"></p>
+<p>Il faudra alors démarrer Geth avec les flags suivants: <code>--metrics --metrics.influxdb --metrics.influxdb.endpoint &quot;http://0.0.0.0:8086&quot; --metrics.influxdb.username &quot;&quot; --metrics.influxdb.password &quot;&quot;</code></p>
 ]]></content>
         </item>
         

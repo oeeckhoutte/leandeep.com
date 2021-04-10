@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Olivier Eeckhoutte ">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+    
+    
+    if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+        if (window.location.protocol != "https:") {
+            console.log("Redirecting to https...")
+            window.location.protocol = "https";
+        }
+    }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/tags/typescript/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
+<style>
+ 
+
+.nav-search {
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  position: relative;
+  width: 90%;
+  height: 47px;
+  margin-top: 20px; 
+  background-color: white;
+  z-index: 1000;
+}
+
+.nav-search.active {
+  box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+}
+.nav-search.active .search-dropdown {
+  display: block;
+}
+
+.nav-search.active .search-input {
+  -webkit-animation: expand-search-box-animation 0.5s forwards;
+  animation: expand-search-box-animation 0.5s forwards;
+}
+
+.nav-search.active .search-input input {
+  border-width: 2px;
+}
+
+.nav-search.active .search-input .close-search {
+  display: inline-block;
+}
+
+.nav-search.active .search-input .search-dropdown {
+  display: block;
+}
+
+.nav-search .search-input {
+  transition: left 0.2s ease-in-out;
+  transition: width 0s ease-in-out;
+}
+
+.nav-search .search-input .search-icon {
+  position: absolute;
+  left: 15px;
+  top: 13px;
+  z-index: 999;
+  color: black;
+}
+
+.nav-search .search-input input {
+  font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+  height: 50px;
+  border: 1px solid #1b98f4;
+  border-radius: 4px;
+  min-width: 200px;
+  width: 100%;
+  padding-left: 50px;
+  background-color: white;
+}
+
+.nav-search .search-input input:focus {
+  outline: none;
+}
+
+.nav-search .search-input i.close-search {
+  color: #1b98f4;
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 13px;
+  cursor: pointer;
+}
+
+.search-dropdown {
+  box-sizing: border-box;
+  color: #B3B3B3;
+  font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+  opacity: 1.00;
+  padding: 20px;
+  width: 100%;
+  -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+  animation: expand-search-dropdown-animation 0.5s forwards;
+  overflow-y: scroll;
+  max-height: 400px;
+  border-radius: 0 0 4px 4px;
+  background-color: #FCFCFC;
+  border: 1px solid #E0E0E0;
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+  display: none;
+  background-color: white;
+}
+
+.search-dropdown .small {
+  -webkit-flex-basis: 35%;
+  -ms-flex-preferred-size: 35%;
+  flex-basis: 35%;
+}
+
+.search-dropdown .search-section .hits-blank {
+  color: #666;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.search-dropdown a {
+  text-decoration: none;
+  color: inherit;
+  z-index: 2000;
+}
+
+.hit {
+  border-bottom: 1px solid #E6E6E6;
+  margin-bottom: 20px;
+}
+
+.hit .hit-title {
+  color: #1b98f4;
+  font-family: 'bt_mono', monospace;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-top: 0;
+  display: inline-block;
+  font-size: 14px;
+}
+.hit .hit-description {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  display: block;
+  margin-top: 3px;
+}
+.hit .hit-anchor {
+  font-size: 13px;
+  color: #666;
+}
+.hit .algolia-docsearch-suggestion--highlight {
+  background-color: #FFE9A4;
+}
+.hit:last-child {
+   
+}
+
+.ais-hits--item:last-child .hit {
+  border: 0;
+}
+
+
+</style>
+
+<script>
+
+    function launchSearchBar() {
+
+        $('#search-input').on('keyup', function() {
+            $('.nav-search').addClass('active');
+            $('#hits-container').scrollTop(0);
+        })
+
+        $('.close-search').on('click', function(evt) {
+            evt.preventDefault();
+            $('#search-input').val('');
+            $('.nav-search').removeClass('active');
+        })
+
+        $('#search-input').on('blur', function(evt) {
+            if(!evt.isDefaultPrevented) {
+                $('.nav-search').removeClass('active');
+            }
+        })
+
+        
+        let search = instantsearch({
+            appId: 'KC81DPHCCC',
+            apiKey: '1370d8f5e296582d1bce517904cbc48d',
+            indexName: 'search-first-index',
+            searchParameters: {replaceSynonymsInHighlight: false},
+            searchFunction: function(helper) {
+                var searchResults = $('.search-results');
+                if (helper.state.query === '') {
+                    searchResults.hide();
+                    return;
+                }
+                helper.search();
+                searchResults.show();
+            }
+        });
+
+        
+        search.addWidget(
+            instantsearch.widgets.searchBox({
+                container: '#search-input',
+                placeholder: 'Search for libraries in France...'
+            })
+        );
+
+        
+            search.addWidget(
+                instantsearch.widgets.hits({
+                    container: '#hits-container',
+                    hitsPerPage: 10,
+                    debug: true,
+                    templates: {
+                    item: '<a href="\{\{url\}\}" target="_blank"><div class="hit"><div class="hit-content"><h2 class="hit-title">\{\{\{_highlightResult.title.value\}\}\}</h2><br><small>\{\{lvl0\}\} \{\{#lvl1\}\}> \{\{\{_highlightResult.lvl1.value\}\}\} \{\{/lvl1\}\}\{\{#lvl2\}\}> \{\{\{_highlightResult.lvl1.value\}\}\} \{\{/lvl2\}\}\{\{#lvl3\}\}> \{\{\{_highlightResult.lvl3.value\}\}\} \{\{/lvl3\}\} \{\{#lvl4\}\}> \{\{\{_highlightResult.lvl4.value\}\}\}\{\{/lvl4\}\}</small><p class="hit-description">\{\{\{_snippetResult.content.value\}\}\}</p></div></div></a>',
+                    empty: '<div id="no-results-message"> <p>We didn`t find any results for the search <em>"\{\{query\}\}"</em>.</p></div>'
+                    }
+                })
+            );
+
+
+
+        
+        search.start();
+    }
+
+$(function() {
+  
+  try {
+    launchSearchBar();
+  } catch(ex) {}
+    
+
+});
+
+function toTitleCase(str) {
+    return str.replace(/(?:^|\s)\w/g, function(match) {
+        return match.toUpperCase();
+    });
+}
+
+</script>
+
+
+
+    <title>
+        
+            Typescript :: Bienvenue sur le site de Lean Deep 
+        
+    </title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.260bfe94a10bb330807ca1d7b98670bb05bdd416e508a28ebd3dc1cecb370b02.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Typescript">
+<meta itemprop="description" content="Le blog d&#39;un Architecte Solutions/ Expert technique passionné par son métier."><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Typescript"/>
+<meta name="twitter:description" content="Le blog d&#39;un Architecte Solutions/ Expert technique passionné par son métier."/>
+
+
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" href="https://leandeep.com/tags/typescript/index.xml" title="Bienvenue sur le site de Lean Deep" />
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+
+<div class="nav-search">
+    <div class="search-input">
+        <i class="material-icons search-icon">search</i>
+        <input type="text" placeholder="Search..." id="search-input" />
+        <div class="search-dropdown" id="hits-container"></div>
+        <i class="close-search material-icons">close</i>
+    </div>
+</div>
+
+<main class="posts">
+    <h1>Typescript</h1>
+    <div class="posts-group">
+        <div class="post-year">2021</div>
+
+        <ul class="posts-list">
+            <li class="post-item">
+                <a href="https://leandeep.com/anatomie-dun-fichier-tsconfig.json/">
+                    <span class="post-title">Anatomie d&#39;un fichier tsconfig.json
+                        
+                        
+                        
+                        
+                    </span>
+                    <span
+                        class="post-day">Apr 10</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>, gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+    
+    <script type="text/javascript">
+        var _paq = window._paq || [];
+         
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="https://analytics.leandeep.com/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '2']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    
+
+
+
+
+    </body>
+</html>
