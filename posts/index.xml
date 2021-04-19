@@ -42,7 +42,8 @@ arpspoof -t 192.168.43.5 192.168.43.1 &amp;&amp; arpspoof -t 192.168.43.1 192.16
 <p>Donner au fichier localisé dans <code>/var/www/html/index.html</code> le contenu HTML que vous voulez que votre cible voit.
 Example sans intérêt, dont un hacker ne se contentera pas:</p>
 <pre><code>&lt;h1&gt;Hello World&lt;/h1&gt;
-</code></pre><br/>
+</code></pre><p>Puis exécuter la commande suivante: <code>sudo apache2ctl start</code></p>
+<br/>
 <h1 id="démarrage-du-serveur-dns">Démarrage du serveur DNS</h1>
 <pre><code>dnsspoof -f Desktop/spoof_url.txt host 192.168.43.5 and udp port 53
 </code></pre><br/>
@@ -50,7 +51,7 @@ Example sans intérêt, dont un hacker ne se contentera pas:</p>
 <p>Sur la machine cible/victime, ouvrez votre navigateur et rendez-vous sur le site que vous avez &ldquo;spoofé&rdquo;. Vous verrez que le contenu de votre serveur web. <strong>Au lieu d&rsquo;avoir Hello World, si un hacker avait mis un clone du site que vous vouliez voiret que vous aviez tenté de vous y connecter, il aurait pu récupérer vos credentials.</strong> C&rsquo;est aussi simple que cela et créer un clone d&rsquo;un site existant ne prend que quelques minutes. Il suffit de l&rsquo;aspirer automatiquement avec des outils dédiés à cela et modifier 2 ou 3 choses et c&rsquo;est tout!</p>
 <p><img src="/images/spoof-dns.png" alt="image"></p>
 <p><strong>La prochaine fois que vous vous connecterez à un réseau publique gratuit, réfléchissez bien à ce que vous faites 😜</strong></p>
-<p>Personnellement, j&rsquo;utilise un secured VPN dès que je sors de chez moi.</p>
+<p>Personnellement, j&rsquo;utilise un secured VPN ou travaille en 4G dès que je sors de chez moi et j&rsquo;ai sécurisé mon Smartphone pour détecter les fausses bornes 4G.</p>
 ]]></content>
         </item>
         
@@ -476,7 +477,7 @@ sudo apt-get install ethereum
 # Pour un récupérer un testnet
 # geth --ropsten --syncmode &quot;fast&quot; 
 
-#geth --syncmode &quot;fast&quot; --cache=2048 --maxpeers=128 --metrics --rpc --rpcapi &quot;db,eth,net,web3,personal,web3&quot; --rpcaddr &quot;0.0.0.0&quot; --rpcport 8545 
+#geth --syncmode &quot;fast&quot; --graphql --cache=2048 --maxpeers=128 --metrics --rpc --rpcapi &quot;db,eth,net,web3,personal,web3&quot; --rpcaddr &quot;0.0.0.0&quot; --rpcport 8545 --ws --ws.addr &quot;0.0.0.0&quot;
 
 # --rpcvhosts &quot;geth.domain.com&quot;
 
