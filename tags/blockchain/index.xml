@@ -6,7 +6,17 @@
     <description>Recent content in Blockchain on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 16 Dec 2020 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Apr 2021 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Faire tourner un noeud Binance Smart Chain</title>
+      <link>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</link>
+      <pubDate>Sat, 24 Apr 2021 21:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</guid>
+      <description>Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
+ Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;quot; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod +x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.</description>
+    </item>
+    
     <item>
       <title>Faire tourner un noeud Ethereum</title>
       <link>https://leandeep.com/faire-tourner-un-noeud-ethereum/</link>
@@ -14,7 +24,8 @@
       
       <guid>https://leandeep.com/faire-tourner-un-noeud-ethereum/</guid>
       <description>Ce court article décrit comment faire tourner un noeud Ethereum sur n&amp;rsquo;importe quel OS.
- Noeud sur Rinkeby docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \ ethereum/client-go --rinkeby --ws --ipcdisable \ --wsaddr 0.0.0.0 --wsorigins=&amp;quot;*&amp;quot; --datadir /geth Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: Ctrl + P, Ctrl + Q
+ Noeud sur Rinkeby With Docker
+docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \ ethereum/client-go --rinkeby --ws --ipcdisable \ --wsaddr 0.0.0.0 --wsorigins=&amp;quot;*&amp;quot; --datadir /geth Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: Ctrl + P, Ctrl + Q
  Si le container est stoppé, vous pouvez le relancer avec la commande suivante: docker start -i eth</description>
     </item>
     
