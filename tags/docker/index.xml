@@ -6,7 +6,20 @@
     <description>Recent content in Docker on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 16 Dec 2020 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 20:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer InfluxDB 1.8 via Docker</title>
+      <link>https://leandeep.com/installer-influxdb-1.8-via-docker/</link>
+      <pubDate>Sun, 25 Apr 2021 20:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-influxdb-1.8-via-docker/</guid>
+      <description>Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.
+ Docker-compose
+Créer un fichier docker-compose.yml et ajouter le contenu suivant:
+ Remplacer 192.168.43.5 par votre IP.
+ version: &amp;quot;2&amp;quot; services: grafana: image: grafana/grafana container_name: grafana restart: always ports: - 3000:3000 networks: - monitoring volumes: - grafana-volume:/vol01/Docker/monitoring influxdb: image: influxdb:1.8 container_name: influxdb restart: always ports: - 8086:8086 networks: - monitoring volumes: - influxdb-volume:/vol01/Docker/monitoring environment: - INFLUXDB_DB=telegraf - INFLUXDB_USER=telegraf - INFLUXDB_ADMIN_ENABLED=true - INFLUXDB_ADMIN_USER=admin - INFLUXDB_ADMIN_PASSWORD=Welcome1 telegraf: image: telegraf container_name: telegraf restart: always extra_hosts: - &amp;quot;influxdb:192.</description>
+    </item>
+    
     <item>
       <title>Faire tourner un noeud Ethereum</title>
       <link>https://leandeep.com/faire-tourner-un-noeud-ethereum/</link>
@@ -110,17 +123,6 @@ Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il pe
       <description>Honte à moi, je passe mon temps à jouer avec des serveurs et je n&amp;rsquo;ai toujours pas configuré d&amp;rsquo;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&amp;hellip; J&amp;rsquo;en profite pour écrire rapidement cet article.
  Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
 Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</description>
-    </item>
-    
-    <item>
-      <title>Installer OpenShift sur OSX</title>
-      <link>https://leandeep.com/installer-openshift-sur-osx/</link>
-      <pubDate>Wed, 28 Feb 2018 22:13:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/installer-openshift-sur-osx/</guid>
-      <description>Qu&amp;rsquo;est-ce qu&amp;rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&amp;rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&amp;rsquo;est opensource&amp;hellip;
- MiniShift Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
-Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</description>
     </item>
     
   </channel>

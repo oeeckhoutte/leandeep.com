@@ -5,8 +5,210 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 24 Apr 2021 21:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Sun, 25 Apr 2021 20:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer InfluxDB 1.8 via Docker</title>
+            <link>https://leandeep.com/installer-influxdb-1.8-via-docker/</link>
+            <pubDate>Sun, 25 Apr 2021 20:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-influxdb-1.8-via-docker/</guid>
+            <description>Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.
+ Docker-compose
+Créer un fichier docker-compose.yml et ajouter le contenu suivant:
+ Remplacer 192.168.43.5 par votre IP.
+ version: &amp;quot;2&amp;quot; services: grafana: image: grafana/grafana container_name: grafana restart: always ports: - 3000:3000 networks: - monitoring volumes: - grafana-volume:/vol01/Docker/monitoring influxdb: image: influxdb:1.8 container_name: influxdb restart: always ports: - 8086:8086 networks: - monitoring volumes: - influxdb-volume:/vol01/Docker/monitoring environment: - INFLUXDB_DB=telegraf - INFLUXDB_USER=telegraf - INFLUXDB_ADMIN_ENABLED=true - INFLUXDB_ADMIN_USER=admin - INFLUXDB_ADMIN_PASSWORD=Welcome1 telegraf: image: telegraf container_name: telegraf restart: always extra_hosts: - &amp;quot;influxdb:192.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&rsquo;installation fonctionne bien.</p>
+<br/>
+<p><strong>Docker-compose</strong></p>
+<p>Créer un fichier <code>docker-compose.yml</code> et ajouter le contenu suivant:</p>
+<blockquote>
+<p>Remplacer <code>192.168.43.5</code> par votre IP.</p>
+</blockquote>
+<pre><code>version: &quot;2&quot;
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - monitoring
+    volumes:
+      - grafana-volume:/vol01/Docker/monitoring
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    restart: always
+    ports:
+      - 8086:8086
+    networks:
+      - monitoring
+    volumes:
+      - influxdb-volume:/vol01/Docker/monitoring
+    environment:
+      - INFLUXDB_DB=telegraf
+      - INFLUXDB_USER=telegraf
+      - INFLUXDB_ADMIN_ENABLED=true
+
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=Welcome1 
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    restart: always
+    extra_hosts:
+     - &quot;influxdb:192.168.43.5&quot;
+    environment:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    volumes:
+     - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+     - /sys:/rootfs/sys:ro
+     - /proc:/rootfs/proc:ro
+     - /etc:/rootfs/etc:ro
+networks:
+  monitoring:
+volumes:
+  grafana-volume:
+  influxdb-volume:
+</code></pre><br/>
+<p><strong>Configuration Telegraf</strong></p>
+<p>Créer un fichier <code>telegraf.conf</code> et ajouter le contenu suivant:</p>
+<blockquote>
+<p>Une fois encore remplacer <code>192.168.43.5</code> par votre IP.</p>
+</blockquote>
+<pre><code>[global_tags]
+
+[agent]
+  interval = &quot;60s&quot;
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = &quot;0s&quot;
+  flush_interval = &quot;10s&quot;
+  flush_jitter = &quot;0s&quot;
+  precision = &quot;&quot;
+  hostname = &quot;192.168.43.5&quot;
+  omit_hostname = false
+
+[[outputs.influxdb]]
+urls = [&quot;http://192.168.43.5:8086&quot;]
+database = &quot;telegraf&quot;
+timeout = &quot;5s&quot;
+username = &quot;telegraf&quot;
+password = &quot;Welcome1&quot;
+
+
+[[inputs.ping]]
+interval = &quot;5s&quot;
+urls = [&quot;192.168.0.44&quot;, &quot;192.168.0.131&quot;, &quot;192.168.0.130&quot;, &quot;google.com&quot;, &quot;amazon.com&quot;, &quot;github.com&quot;]
+count = 4
+ping_interval = 1.0
+timeout = 2.0
+
+
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+
+
+[[inputs.disk]]
+  ignore_fs = [&quot;tmpfs&quot;, &quot;devtmpfs&quot;, &quot;devfs&quot;, &quot;iso9660&quot;, &quot;overlay&quot;, &quot;aufs&quot;, &quot;squashfs&quot;]
+
+[[inputs.diskio]]
+
+[[inputs.kernel]]
+
+[[inputs.mem]]
+
+[[inputs.processes]]
+
+[[inputs.swap]]
+
+[[inputs.system]]
+</code></pre><br/>
+<p><strong>Démarrage et configuration du service</strong></p>
+<p>Démarrer les containers Docker avec <code>docker-compose up</code>.</p>
+<p>Rendez-vous sur Grafana 
+<a target="_blank" href="http://localhost:3000">http://localhost:3000</a> et ajouter la data source &ldquo;InfluxDB&rdquo; contenant les données générées par Telegraf.</p>
+<br/>
+<p><img src="/images/add-telegraf-datasource.png" alt="image"></p>
+<p>Cliquer sur &ldquo;Save &amp; Test&rdquo;.</p>
+<br/>
+<p><strong>Vérification de l&rsquo;existance des données</strong></p>
+<p>Dans un terminal, exécuter les commandes suivantes:</p>
+<pre><code># Installer influxdb cli sur OSX
+# brew install influxdb@1 
+
+influx
+&gt; SHOW DATABASES
+&gt; USE telegraf
+&gt; show measurements
+&gt; select * from cpu limit 5
+
+# Output si ok
+name: cpu
+time                cpu       host         usage_guest usage_guest_nice usage_idle        usage_iowait         usage_irq usage_nice usage_softirq        usage_steal usage_system       usage_user
+----                ---       ----         ----------- ---------------- ----------        ------------         --------- ---------- -------------        ----------- ------------       ----------
+1619382480000000000 cpu-total 192.168.43.5 0           0                98.37529772028607 0.034025178632189054 0         0          0.025518883974126678 0           1.1993875467839268 0.3657706702958993
+1619382480000000000 cpu0      192.168.43.5 0           0                98.43670348345952 0                    0         0          0.03398470688191586  0           1.1554800339848859 0.37383177570112885
+1619382480000000000 cpu1      192.168.43.5 0           0                98.33049403741326 0.05110732538324606  0         0          0.03407155025550141  0           1.2436115843252507 0.3407155025549415
+1619382540000000000 cpu-total 192.168.43.5 0           0                98.59011381006363 0.04246645150323513  0         0          0.02547987090196522  0           1.087141158483978  0.2547987090196039
+1619382540000000000 cpu0      192.168.43.5 0           0                98.6591989138166  0                    0         0          0.016972165648342568 0           1.0692464358456948 0.25458248472508277
+
+</code></pre><br/>
+<p><strong>Création des Diagrammes</strong></p>
+<p>Si tout se passe bien et que vous avez des data, vous pouvez retourner sur la page d&rsquo;accueil de Grafana et créer un nouveau Dashboard.</p>
+<p>Créer ensuite un diagramme et utilisez les data Telegraf à disposition. Par exemple:</p>
+<p><img src="/images/telegraf-example.png" alt="image"></p>
+<br/>
+<p><strong>Autres diagrammes</strong></p>
+<p>Voilà, maintenant que vous avez vérifié que votre installation fonctionne correctement, vous pouvez créer une nouvelle DB Influx et commencer à écrire des data.</p>
+<pre><code>influx
+&gt; CREATE DATABASE test
+&gt; SHOW DATABASES
+</code></pre><br/>
+<p>Exemple de code NodeJS:</p>
+<blockquote>
+<p>Installation le package influx: <code>npm i --save influx</code>. Doc officielle: <a href="https://node-influx.github.io/">https://node-influx.github.io/</a></p>
+</blockquote>
+<pre><code>    const influx = new Influx.InfluxDB({
+        host: '192.168.43.5',
+        database: 'test',
+        port: 8086
+    });
+    
+    /*
+    influx.getDatabaseNames()
+        .then(names =&gt; {
+            if (!names.include('test')) {
+                return influx.createDatabase('test');
+            }
+        });
+    */
+
+    influx.writePoints([
+        {
+            measurement: 'price',
+            tags: { exchange: &quot;uniswap&quot;, pool: &quot;dai/weth&quot; },
+            fields: { dai: amount, weth: 2300 }
+        }])
+        .then(() =&gt; {
+            console.log('Added data to the Db');
+
+        });
+</code></pre><br/>
+<p>Et amusez vous à créer des charts. Par exemple, voici un chart (créé ultra rapidement) qui affiche les montants des transactions effectuées en DAI sur un smart contract dans la Blockchain&hellip;</p>
+<p><img src="/images/DAI-chart.png" alt="image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Faire tourner un noeud Binance Smart Chain</title>

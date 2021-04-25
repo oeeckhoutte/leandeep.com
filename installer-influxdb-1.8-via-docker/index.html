@@ -7,8 +7,11 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
- Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;quot; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0." />
+  content="Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.
+ Docker-compose
+Créer un fichier docker-compose.yml et ajouter le contenu suivant:
+ Remplacer 192.168.43.5 par votre IP.
+ version: &amp;quot;2&amp;quot; services: grafana: image: grafana/grafana container_name: grafana restart: always ports: - 3000:3000 networks: - monitoring volumes: - grafana-volume:/vol01/Docker/monitoring influxdb: image: influxdb:1.8 container_name: influxdb restart: always ports: - 8086:8086 networks: - monitoring volumes: - influxdb-volume:/vol01/Docker/monitoring environment: - INFLUXDB_DB=telegraf - INFLUXDB_USER=telegraf - INFLUXDB_ADMIN_ENABLED=true - INFLUXDB_ADMIN_USER=admin - INFLUXDB_ADMIN_PASSWORD=Welcome1 telegraf: image: telegraf container_name: telegraf restart: always extra_hosts: - &amp;quot;influxdb:192." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -24,7 +27,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/" />
+<link rel="canonical" href="https://leandeep.com/installer-influxdb-1.8-via-docker/" />
 
 
 
@@ -233,7 +236,7 @@
 
 <title>
   
-  Faire tourner un noeud Binance Smart Chain :: Bienvenue sur le site de Lean Deep 
+  Installer InfluxDB 1.8 via Docker :: Bienvenue sur le site de Lean Deep 
   
 </title>
 
@@ -258,23 +261,29 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Faire tourner un noeud Binance Smart Chain">
-<meta itemprop="description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
- Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&quot; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0."><meta itemprop="datePublished" content="2021-04-24T21:25:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-04-24T21:25:00&#43;00:00" />
-<meta itemprop="wordCount" content="86"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="BSC,Binance Smart Chain,Node Hosting,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Installer InfluxDB 1.8 via Docker">
+<meta itemprop="description" content="Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&rsquo;installation fonctionne bien.
+ Docker-compose
+Créer un fichier docker-compose.yml et ajouter le contenu suivant:
+ Remplacer 192.168.43.5 par votre IP.
+ version: &quot;2&quot; services: grafana: image: grafana/grafana container_name: grafana restart: always ports: - 3000:3000 networks: - monitoring volumes: - grafana-volume:/vol01/Docker/monitoring influxdb: image: influxdb:1.8 container_name: influxdb restart: always ports: - 8086:8086 networks: - monitoring volumes: - influxdb-volume:/vol01/Docker/monitoring environment: - INFLUXDB_DB=telegraf - INFLUXDB_USER=telegraf - INFLUXDB_ADMIN_ENABLED=true - INFLUXDB_ADMIN_USER=admin - INFLUXDB_ADMIN_PASSWORD=Welcome1 telegraf: image: telegraf container_name: telegraf restart: always extra_hosts: - &quot;influxdb:192."><meta itemprop="datePublished" content="2021-04-25T20:25:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-04-25T20:25:00&#43;00:00" />
+<meta itemprop="wordCount" content="577"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Influxdb,Timeseries,Docker," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Faire tourner un noeud Binance Smart Chain"/>
-<meta name="twitter:description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
- Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&quot; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0."/>
+<meta name="twitter:title" content="Installer InfluxDB 1.8 via Docker"/>
+<meta name="twitter:description" content="Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&rsquo;installation fonctionne bien.
+ Docker-compose
+Créer un fichier docker-compose.yml et ajouter le contenu suivant:
+ Remplacer 192.168.43.5 par votre IP.
+ version: &quot;2&quot; services: grafana: image: grafana/grafana container_name: grafana restart: always ports: - 3000:3000 networks: - monitoring volumes: - grafana-volume:/vol01/Docker/monitoring influxdb: image: influxdb:1.8 container_name: influxdb restart: always ports: - 8086:8086 networks: - monitoring volumes: - influxdb-volume:/vol01/Docker/monitoring environment: - INFLUXDB_DB=telegraf - INFLUXDB_USER=telegraf - INFLUXDB_ADMIN_ENABLED=true - INFLUXDB_ADMIN_USER=admin - INFLUXDB_ADMIN_PASSWORD=Welcome1 telegraf: image: telegraf container_name: telegraf restart: always extra_hosts: - &quot;influxdb:192."/>
 
 
 
 
 
-<meta property="article:published_time" content="2021-04-24 21:25:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-04-25 20:25:00 &#43;0000 &#43;0000" />
 
 
 
@@ -329,7 +338,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
 
             
 
@@ -338,32 +347,201 @@
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/">Faire tourner un noeud Binance Smart Chain</a>
+                <a href="https://leandeep.com/installer-influxdb-1.8-via-docker/">Installer InfluxDB 1.8 via Docker</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux</p>
+                <p>Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&rsquo;installation fonctionne bien.</p>
 <br/>
-<h2 id="mainnet">Mainnet</h2>
-<pre><code>mkdir ~/bsc &amp;&amp; cd $_
-wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux
-wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&quot; -f4)
-mv ./geth_linux ./geth_bsc
+<p><strong>Docker-compose</strong></p>
+<p>Créer un fichier <code>docker-compose.yml</code> et ajouter le contenu suivant:</p>
+<blockquote>
+<p>Remplacer <code>192.168.43.5</code> par votre IP.</p>
+</blockquote>
+<pre><code>version: &quot;2&quot;
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - monitoring
+    volumes:
+      - grafana-volume:/vol01/Docker/monitoring
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    restart: always
+    ports:
+      - 8086:8086
+    networks:
+      - monitoring
+    volumes:
+      - influxdb-volume:/vol01/Docker/monitoring
+    environment:
+      - INFLUXDB_DB=telegraf
+      - INFLUXDB_USER=telegraf
+      - INFLUXDB_ADMIN_ENABLED=true
 
-# Note: you can eventually move the binary to /usr/bin/ 
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=Welcome1 
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    restart: always
+    extra_hosts:
+     - &quot;influxdb:192.168.43.5&quot;
+    environment:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    volumes:
+     - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+     - /sys:/rootfs/sys:ro
+     - /proc:/rootfs/proc:ro
+     - /etc:/rootfs/etc:ro
+networks:
+  monitoring:
+volumes:
+  grafana-volume:
+  influxdb-volume:
+</code></pre><br/>
+<p><strong>Configuration Telegraf</strong></p>
+<p>Créer un fichier <code>telegraf.conf</code> et ajouter le contenu suivant:</p>
+<blockquote>
+<p>Une fois encore remplacer <code>192.168.43.5</code> par votre IP.</p>
+</blockquote>
+<pre><code>[global_tags]
 
-sudo chmod +x ./geth_bsc
-./geth_bsc --datadir node init genesis.json
+[agent]
+  interval = &quot;60s&quot;
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = &quot;0s&quot;
+  flush_interval = &quot;10s&quot;
+  flush_jitter = &quot;0s&quot;
+  precision = &quot;&quot;
+  hostname = &quot;192.168.43.5&quot;
+  omit_hostname = false
 
-# Start the full Node
-./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192
+[[outputs.influxdb]]
+urls = [&quot;http://192.168.43.5:8086&quot;]
+database = &quot;telegraf&quot;
+timeout = &quot;5s&quot;
+username = &quot;telegraf&quot;
+password = &quot;Welcome1&quot;
 
-# Dans un autre terminal
-cd ~/bsc/node
-tail -f ./bsc.log
-</code></pre>
+
+[[inputs.ping]]
+interval = &quot;5s&quot;
+urls = [&quot;192.168.0.44&quot;, &quot;192.168.0.131&quot;, &quot;192.168.0.130&quot;, &quot;google.com&quot;, &quot;amazon.com&quot;, &quot;github.com&quot;]
+count = 4
+ping_interval = 1.0
+timeout = 2.0
+
+
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+
+
+[[inputs.disk]]
+  ignore_fs = [&quot;tmpfs&quot;, &quot;devtmpfs&quot;, &quot;devfs&quot;, &quot;iso9660&quot;, &quot;overlay&quot;, &quot;aufs&quot;, &quot;squashfs&quot;]
+
+[[inputs.diskio]]
+
+[[inputs.kernel]]
+
+[[inputs.mem]]
+
+[[inputs.processes]]
+
+[[inputs.swap]]
+
+[[inputs.system]]
+</code></pre><br/>
+<p><strong>Démarrage et configuration du service</strong></p>
+<p>Démarrer les containers Docker avec <code>docker-compose up</code>.</p>
+<p>Rendez-vous sur Grafana 
+<a target="_blank" href="http://localhost:3000">http://localhost:3000</a> et ajouter la data source &ldquo;InfluxDB&rdquo; contenant les données générées par Telegraf.</p>
+<br/>
+<p><img src="https://leandeep.com/images/add-telegraf-datasource.png" alt="image"></p>
+<p>Cliquer sur &ldquo;Save &amp; Test&rdquo;.</p>
+<br/>
+<p><strong>Vérification de l&rsquo;existance des données</strong></p>
+<p>Dans un terminal, exécuter les commandes suivantes:</p>
+<pre><code># Installer influxdb cli sur OSX
+# brew install influxdb@1 
+
+influx
+&gt; SHOW DATABASES
+&gt; USE telegraf
+&gt; show measurements
+&gt; select * from cpu limit 5
+
+# Output si ok
+name: cpu
+time                cpu       host         usage_guest usage_guest_nice usage_idle        usage_iowait         usage_irq usage_nice usage_softirq        usage_steal usage_system       usage_user
+----                ---       ----         ----------- ---------------- ----------        ------------         --------- ---------- -------------        ----------- ------------       ----------
+1619382480000000000 cpu-total 192.168.43.5 0           0                98.37529772028607 0.034025178632189054 0         0          0.025518883974126678 0           1.1993875467839268 0.3657706702958993
+1619382480000000000 cpu0      192.168.43.5 0           0                98.43670348345952 0                    0         0          0.03398470688191586  0           1.1554800339848859 0.37383177570112885
+1619382480000000000 cpu1      192.168.43.5 0           0                98.33049403741326 0.05110732538324606  0         0          0.03407155025550141  0           1.2436115843252507 0.3407155025549415
+1619382540000000000 cpu-total 192.168.43.5 0           0                98.59011381006363 0.04246645150323513  0         0          0.02547987090196522  0           1.087141158483978  0.2547987090196039
+1619382540000000000 cpu0      192.168.43.5 0           0                98.6591989138166  0                    0         0          0.016972165648342568 0           1.0692464358456948 0.25458248472508277
+
+</code></pre><br/>
+<p><strong>Création des Diagrammes</strong></p>
+<p>Si tout se passe bien et que vous avez des data, vous pouvez retourner sur la page d&rsquo;accueil de Grafana et créer un nouveau Dashboard.</p>
+<p>Créer ensuite un diagramme et utilisez les data Telegraf à disposition. Par exemple:</p>
+<p><img src="https://leandeep.com/images/telegraf-example.png" alt="image"></p>
+<br/>
+<p><strong>Autres diagrammes</strong></p>
+<p>Voilà, maintenant que vous avez vérifié que votre installation fonctionne correctement, vous pouvez créer une nouvelle DB Influx et commencer à écrire des data.</p>
+<pre><code>influx
+&gt; CREATE DATABASE test
+&gt; SHOW DATABASES
+</code></pre><br/>
+<p>Exemple de code NodeJS:</p>
+<blockquote>
+<p>Installation le package influx: <code>npm i --save influx</code>. Doc officielle: <a href="https://node-influx.github.io/">https://node-influx.github.io/</a></p>
+</blockquote>
+<pre><code>    const influx = new Influx.InfluxDB({
+        host: '192.168.43.5',
+        database: 'test',
+        port: 8086
+    });
+    
+    /*
+    influx.getDatabaseNames()
+        .then(names =&gt; {
+            if (!names.include('test')) {
+                return influx.createDatabase('test');
+            }
+        });
+    */
+
+    influx.writePoints([
+        {
+            measurement: 'price',
+            tags: { exchange: &quot;uniswap&quot;, pool: &quot;dai/weth&quot; },
+            fields: { dai: amount, weth: 2300 }
+        }])
+        .then(() =&gt; {
+            console.log('Added data to the Db');
+
+        });
+</code></pre><br/>
+<p>Et amusez vous à créer des charts. Par exemple, voici un chart (créé ultra rapidement) qui affiche les montants des transactions effectuées en DAI sur un smart contract dans la Blockchain&hellip;</p>
+<p><img src="https://leandeep.com/images/DAI-chart.png" alt="image"></p>
+
             </div>
         </article>
 
@@ -371,12 +549,12 @@ tail -f ./bsc.log
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/bsc">BSC</a></span><span class="tag"><a href="https://leandeep.com/tags/binance-smart-chain">Binance Smart Chain</a></span><span class="tag"><a href="https://leandeep.com/tags/node-hosting">Node Hosting</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/influxdb">Influxdb</a></span><span class="tag"><a href="https://leandeep.com/tags/timeseries">Timeseries</a></span><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>86 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>577 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>24 Apr. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 Apr. 2021</p>
         </div>
 
         
@@ -388,18 +566,11 @@ tail -f ./bsc.log
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/installer-influxdb-1.8-via-docker/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Installer InfluxDB 1.8 via Docker</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/comment-un-hacker-peut-vous-voler-vos-credentials-en-5-minutes/">
-                                <span class="button__text">Comment un hacker peut vous voler vos credentials en 5 minutes</span>
+                            <a href="https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/">
+                                <span class="button__text">Faire tourner un noeud Binance Smart Chain</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
