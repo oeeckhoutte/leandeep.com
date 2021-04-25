@@ -14,12 +14,14 @@
             <pubDate>Sun, 25 Apr 2021 20:25:00 +0000</pubDate>
             
             <guid>https://leandeep.com/installer-influxdb-1.8-via-docker/</guid>
-            <description>Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.
- Docker-compose
-Créer un fichier docker-compose.yml et ajouter le contenu suivant:
- Remplacer 192.168.43.5 par votre IP.
- version: &amp;quot;2&amp;quot; services: grafana: image: grafana/grafana container_name: grafana restart: always ports: - 3000:3000 networks: - monitoring volumes: - grafana-volume:/vol01/Docker/monitoring influxdb: image: influxdb:1.8 container_name: influxdb restart: always ports: - 8086:8086 networks: - monitoring volumes: - influxdb-volume:/vol01/Docker/monitoring environment: - INFLUXDB_DB=telegraf - INFLUXDB_USER=telegraf - INFLUXDB_ADMIN_ENABLED=true - INFLUXDB_ADMIN_USER=admin - INFLUXDB_ADMIN_PASSWORD=Welcome1 telegraf: image: telegraf container_name: telegraf restart: always extra_hosts: - &amp;quot;influxdb:192.</description>
-            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer InfluxDB et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&rsquo;installation fonctionne bien.</p>
+            <description>Dans cet article, nous allons voir comment installer InfluxDB 1.8 et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.
+ Pour me simplifier la vie, je suis resté sur la version 1.8. La v2 est déjà disponible mais la doc étant peu fournie ou fausse, j&amp;rsquo;ai préféré ne pas me prendre la tête. (Dev perso)
+  Docker-compose
+Créer un fichier docker-compose.yml et ajouter le contenu suivant:</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer InfluxDB 1.8 et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&rsquo;installation fonctionne bien.</p>
+<blockquote>
+<p>Pour me simplifier la vie, je suis resté sur la version 1.8. La v2 est déjà disponible mais la doc étant peu fournie ou fausse, j&rsquo;ai préféré ne pas me prendre la tête. (Dev perso)</p>
+</blockquote>
 <br/>
 <p><strong>Docker-compose</strong></p>
 <p>Créer un fichier <code>docker-compose.yml</code> et ajouter le contenu suivant:</p>
