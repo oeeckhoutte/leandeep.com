@@ -5,8 +5,42 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 25 Apr 2021 20:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Sun, 02 May 2021 21:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer MongoDB en tant que service sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/installer-mongodb-en-tant-que-service-sur-ubuntu-20.04/</link>
+            <pubDate>Sun, 02 May 2021 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-mongodb-en-tant-que-service-sur-ubuntu-20.04/</guid>
+            <description>Installation Importer la clé GPG
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add - # Vérifier qu&#39;elle est bien installée # apt-key list  Ajouter la source dans APT en créant un fichier relatif à MongoDB dans le répertoire sources.list.d
+echo &amp;quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse&amp;quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list  Installer MongoDB
+sudo apt update sudo apt install mongodb-org  Démarrer le service
+sudo systemctl start mongod.service sudo systemctl status mongod sudo systemctl enable mongod  Vérifier le bon fonctionnement</description>
+            <content type="html"><![CDATA[<h1 id="installation">Installation</h1>
+<p>Importer la clé GPG</p>
+<pre><code>curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+# Vérifier qu'elle est bien installée
+# apt-key list
+</code></pre><br/>
+<p>Ajouter la source dans APT en créant un fichier relatif à MongoDB dans le répertoire <code>sources.list.d</code></p>
+<pre><code>echo &quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+</code></pre><br/>
+<p>Installer MongoDB</p>
+<pre><code>sudo apt update
+sudo apt install mongodb-org
+</code></pre><br/>
+<p>Démarrer le service</p>
+<pre><code>sudo systemctl start mongod.service
+sudo systemctl status mongod
+sudo systemctl enable mongod
+</code></pre><br/>
+<p>Vérifier le bon fonctionnement</p>
+<pre><code>mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer InfluxDB 1.8 via Docker</title>
@@ -9667,6 +9701,11 @@ az aks update-credentials \
     --reset-service-principal \
     --service-principal $SERVICE_PRINCIPAL_ID \
     --client-secret &quot;$SERVICE_PRINCIPAL_SECRET&quot;
+</code></pre><br/>
+<p><strong>Générer un secret TLS (simple sans root CA)</strong></p>
+<p>Certificat simple pour &ldquo;pinnage&rdquo;:</p>
+<pre><code>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj &quot;/CN=${HOST}/O=${HOST}&quot;
+kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
 </code></pre>]]></content>
         </item>
         
@@ -19497,12 +19536,20 @@ $ eval $(cat .env | sed 's/^/export /')
             <guid>https://leandeep.com/debug-des-certificats-ssl/</guid>
             <description>Voir tous les SAN (Subjects Alternative Names) d&amp;rsquo;un CSR (Certificate Signing Request):
 openssl req -noout -text -in my_csr.csr | grep DNS  Voir tous les SAN dans un certificat pem:
-cat my_pem.pem | openssl x509 -text | grep DNS </description>
+cat my_pem.pem | openssl x509 -text | grep DNS  Voir le certificat d&amp;rsquo;un site web:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts  Sauvegarder le certificat d&amp;rsquo;un site web dans un fichier PEM:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null|openssl x509 -outform PEM &amp;gt; dl_cert_file.</description>
             <content type="html"><![CDATA[<p>Voir tous les SAN (Subjects Alternative Names) d&rsquo;un CSR (Certificate Signing Request):</p>
 <pre><code>openssl req -noout -text -in my_csr.csr | grep DNS
 </code></pre><br/>
 <p>Voir tous les SAN dans un certificat pem:</p>
 <pre><code>cat my_pem.pem | openssl x509 -text | grep DNS
+</code></pre><br/>
+<p>Voir le certificat d&rsquo;un site web:</p>
+<pre><code>openssl s_client -connect {HOSTNAME}:{PORT} -showcerts
+</code></pre><br/>
+<p>Sauvegarder le certificat d&rsquo;un site web dans un fichier PEM:</p>
+<pre><code>openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &lt;/dev/null 2&gt;/dev/null|openssl x509 -outform PEM &gt; dl_cert_file.pem
 </code></pre>]]></content>
         </item>
         

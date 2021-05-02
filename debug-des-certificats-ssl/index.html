@@ -9,7 +9,9 @@
 <meta name="description"
   content="Voir tous les SAN (Subjects Alternative Names) d&amp;rsquo;un CSR (Certificate Signing Request):
 openssl req -noout -text -in my_csr.csr | grep DNS  Voir tous les SAN dans un certificat pem:
-cat my_pem.pem | openssl x509 -text | grep DNS " />
+cat my_pem.pem | openssl x509 -text | grep DNS  Voir le certificat d&amp;rsquo;un site web:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts  Sauvegarder le certificat d&amp;rsquo;un site web dans un fichier PEM:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null|openssl x509 -outform PEM &amp;gt; dl_cert_file." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -262,16 +264,20 @@ cat my_pem.pem | openssl x509 -text | grep DNS " />
 <meta itemprop="name" content="Debug des certificats SSL">
 <meta itemprop="description" content="Voir tous les SAN (Subjects Alternative Names) d&rsquo;un CSR (Certificate Signing Request):
 openssl req -noout -text -in my_csr.csr | grep DNS  Voir tous les SAN dans un certificat pem:
-cat my_pem.pem | openssl x509 -text | grep DNS "><meta itemprop="datePublished" content="2015-07-01T19:43:00&#43;00:00" />
+cat my_pem.pem | openssl x509 -text | grep DNS  Voir le certificat d&rsquo;un site web:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts  Sauvegarder le certificat d&rsquo;un site web dans un fichier PEM:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &lt;/dev/null 2&gt;/dev/null|openssl x509 -outform PEM &gt; dl_cert_file."><meta itemprop="datePublished" content="2015-07-01T19:43:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-07-01T19:43:00&#43;00:00" />
-<meta itemprop="wordCount" content="38"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="71"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Unix Tip,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Debug des certificats SSL"/>
 <meta name="twitter:description" content="Voir tous les SAN (Subjects Alternative Names) d&rsquo;un CSR (Certificate Signing Request):
 openssl req -noout -text -in my_csr.csr | grep DNS  Voir tous les SAN dans un certificat pem:
-cat my_pem.pem | openssl x509 -text | grep DNS "/>
+cat my_pem.pem | openssl x509 -text | grep DNS  Voir le certificat d&rsquo;un site web:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts  Sauvegarder le certificat d&rsquo;un site web dans un fichier PEM:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &lt;/dev/null 2&gt;/dev/null|openssl x509 -outform PEM &gt; dl_cert_file."/>
 
 
 
@@ -352,6 +358,12 @@ cat my_pem.pem | openssl x509 -text | grep DNS "/>
 </code></pre><br/>
 <p>Voir tous les SAN dans un certificat pem:</p>
 <pre><code>cat my_pem.pem | openssl x509 -text | grep DNS
+</code></pre><br/>
+<p>Voir le certificat d&rsquo;un site web:</p>
+<pre><code>openssl s_client -connect {HOSTNAME}:{PORT} -showcerts
+</code></pre><br/>
+<p>Sauvegarder le certificat d&rsquo;un site web dans un fichier PEM:</p>
+<pre><code>openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &lt;/dev/null 2&gt;/dev/null|openssl x509 -outform PEM &gt; dl_cert_file.pem
 </code></pre>
             </div>
         </article>
@@ -363,7 +375,7 @@ cat my_pem.pem | openssl x509 -text | grep DNS "/>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>38 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>71 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 Jul. 2015</p>
         </div>

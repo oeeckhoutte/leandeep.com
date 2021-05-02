@@ -6,7 +6,20 @@
     <description>Recent content on Bienvenue sur le site de Lean Deep</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 25 Apr 2021 20:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 May 2021 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer MongoDB en tant que service sur Ubuntu 20.04</title>
+      <link>https://leandeep.com/installer-mongodb-en-tant-que-service-sur-ubuntu-20.04/</link>
+      <pubDate>Sun, 02 May 2021 21:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-mongodb-en-tant-que-service-sur-ubuntu-20.04/</guid>
+      <description>Installation Importer la clé GPG
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add - # Vérifier qu&#39;elle est bien installée # apt-key list  Ajouter la source dans APT en créant un fichier relatif à MongoDB dans le répertoire sources.list.d
+echo &amp;quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse&amp;quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list  Installer MongoDB
+sudo apt update sudo apt install mongodb-org  Démarrer le service
+sudo systemctl start mongod.service sudo systemctl status mongod sudo systemctl enable mongod  Vérifier le bon fonctionnement</description>
+    </item>
+    
     <item>
       <title>Installer InfluxDB 1.8 via Docker</title>
       <link>https://leandeep.com/installer-influxdb-1.8-via-docker/</link>
@@ -104,18 +117,6 @@ Visser toutes les vis du plateau à fond sans forcer et desserrer de 1 tour.</de
  Noeud sur Rinkeby With Docker
 docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \ ethereum/client-go --rinkeby --ws --ipcdisable \ --wsaddr 0.0.0.0 --wsorigins=&amp;quot;*&amp;quot; --datadir /geth Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: Ctrl + P, Ctrl + Q
  Si le container est stoppé, vous pouvez le relancer avec la commande suivante: docker start -i eth</description>
-    </item>
-    
-    <item>
-      <title>Fonctions avec plusieurs types en Python 3.10</title>
-      <link>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</link>
-      <pubDate>Tue, 08 Dec 2020 21:01:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</guid>
-      <description>Python 3.10, sorti officiellement le 04 octobre 2021, permet d&amp;rsquo;écrire de manière plus lisible les différentes types que peuvent prendre les arguments et données retournées par les fonctions.
- Example pour une fonction qui prend un argument de type int ou str et qui retourne un objet de type int ou str:
-def ma_fonction(argument: int | str) -&amp;gt; int | str: pass On utilise le caractère: |.
- Avant, de Python 3.</description>
     </item>
     
   </channel>
