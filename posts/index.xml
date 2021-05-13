@@ -65,7 +65,7 @@ fn update_cloudflare_a_record(ip: IpAddr) {
 
         // Get zones
         // curl -s -X GET &quot;https://api.cloudflare.com/client/v4/zones/?per_page=100&quot; \
-        -H &quot;Authorization: Bearer ${CLOUDFLARE_API_KEY}&quot; 
+        -H &quot;Authorization: Bearer ${CLOUDFLARE_API_KEY}&quot; \
         -H &quot;Content-Type: application/json&quot;| jq -r '.result[] | &quot;\(.id) \(.name)&quot;'
 
         // Get DNS informations
