@@ -5,8 +5,133 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 02 May 2021 21:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 13 May 2021 18:20:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Premier programme en Rust</title>
+            <link>https://leandeep.com/premier-programme-en-rust/</link>
+            <pubDate>Thu, 13 May 2021 18:20:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/premier-programme-en-rust/</guid>
+            <description>J&amp;rsquo;ai voulu créer un premier programme en Rust; sans avoir jamais suivi de tutoriel ou de formation. Suite à cette première expérience, je pense que c&amp;rsquo;est très compliqué de coder quelque chose de propre et de comprendre ce que l&amp;rsquo;on fait sans lire un livre sur le sujet.
+J&amp;rsquo;ai donc craqué et me suis prévu un peu de lecture pour ce mois ci 😜&amp;hellip;
+ Premier hello world Créer un fichier main.</description>
+            <content type="html"><![CDATA[<p>J&rsquo;ai voulu créer un premier programme en Rust; sans avoir jamais suivi de tutoriel ou de formation. Suite à cette première expérience, je pense que c&rsquo;est très compliqué de coder quelque chose de propre et de comprendre ce que l&rsquo;on fait sans lire un livre sur le sujet.</p>
+<p>J&rsquo;ai donc craqué et me suis prévu un peu de lecture pour ce mois ci 😜&hellip;</p>
+<p><img src="/images/rust-book.png" alt="image"></p>
+<br/>
+<h2 id="premier-hello-world">Premier hello world</h2>
+<p>Créer un fichier main.rs</p>
+<pre><code>fn main() {
+    println!(&quot;Hello, world!&quot;);
+}
+</code></pre><p>Puis exécuter la commande <code>rustc main.rs</code> pour créer un binaire. Puis exécutez le <code>./main</code></p>
+<br/>
+<h2 id="mon-premier-utilitaire">Mon premier utilitaire</h2>
+<p>J&rsquo;ai créé un utilitaire système permettant de mettre à jour un record DNS de type A sur Cloudflare avec l&rsquo;IP dynamique d&rsquo;une box internet. Je voulais un petit utilitaire simple transformé en binaire pour ne pas avoir à gérer de dépendances Python ou Node sur le système et ne pas avoir gérer de pipeline CICD. C&rsquo;était aussi un petit use case très simple pour expérimenter Rust.</p>
+<br/>
+<p>Création de la structure du projet:</p>
+<pre><code>cargo new update-cloudflare-A-DNS-record
+</code></pre><br/>
+<p>Ajouter le contenu suivant dans le fichier <code>./src/main.rs</code>: (je rappelle que c&rsquo;est la première fois que je fais du Rust et j&rsquo;ai bien galéré. Donc c&rsquo;est sans doute loin d&rsquo;être clean et optimisé. Bon par contre, cela fonctionne très bien). Pensez à remplacer <code>VOTRE_DNS</code> par votre propre DNS cloudflare si vous voulez faire la même chose.</p>
+<pre><code>use std::net::{IpAddr};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+
+fn main() {
+    println!(&quot;Getting public IP&quot;);
+    let ip = get_public_ip();
+    println!(&quot;Public IP address: {:?}&quot;, ip);
+    println!(&quot;Updating DNS A record with public IP&quot;);
+    update_cloudflare_a_record(ip)
+}
+
+fn get_public_ip() -&gt; IpAddr {
+    tokio::runtime::Runtime::new().unwrap().block_on(async {
+        let ip: IpAddr = &quot;127.0.0.1&quot;.parse().unwrap();
+        if let Some(ip) = public_ip::addr().await {
+            return ip
+        } else {
+            println!(&quot;couldn't get an IP address&quot;);
+        }
+        return ip;
+    })
+}
+
+fn update_cloudflare_a_record(ip: IpAddr) {
+    tokio::runtime::Runtime::new().unwrap().block_on(async {
+        let client = reqwest::Client::new();
+
+        // Get zones
+        // curl -s -X GET &quot;https://api.cloudflare.com/client/v4/zones/?per_page=100&quot; -H &quot;Authorization: Bearer ${CLOUDFLARE_API_KEY}&quot; -H &quot;Content-Type: application/json&quot;| jq -r '.result[] | &quot;\(.id) \(.name)&quot;'
+
+        // Get DNS informations
+        // curl -X GET &quot;https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records&quot; \
+        // -H &quot;Content-Type:application/json&quot; \
+        // -H &quot;Authorization: Bearer ${CLOUDFLARE_API_KEY}&quot;
+
+        // Update DNS record
+        // curl -X PUT &quot;https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${DNS_ID}&quot; \
+        // -H &quot;Authorization: Bearer ${CLOUDFLARE_API_KEY}&quot; \
+        // -H &quot;Content-Type: application/json&quot; \
+        // --data '{&quot;type&quot;:&quot;A&quot;,&quot;name&quot;:&quot;VOTRE_DNS&quot;,&quot;content&quot;:&quot;127.0.0.1&quot;,&quot;ttl&quot;:1,&quot;proxied&quot;:false}'
+
+        let s: String = ip.to_string();
+
+        let mut map = HashMap::new();
+        map.insert(&quot;type&quot;, &quot;A&quot;);
+        map.insert(&quot;name&quot;,&quot;VOTRE_DNS&quot;);
+        map.insert(&quot;content&quot;, &amp;s);
+
+        let res = client.put(&quot;https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/dns_records/${DNS_ID}&quot;)
+            .bearer_auth(&quot;${CLOUDFLARE_API_KEY}&quot;)
+            .json(&amp;map)
+            .send()
+            .await.unwrap();
+
+        let t = res
+            .text()
+            .await.unwrap();
+
+        println!(&quot;{}&quot;, t);
+
+    })
+}
+</code></pre><br/>
+<p>Ajouter les packages permettant de faire les calls externes. Editer le fichier <code>Cargo.toml</code> et ajouter le contenu suivant:</p>
+<pre><code>[package]
+name = &quot;update-cloudflare-A-DNS-record&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;Olivier Eeckhoutte &lt;olivier.eeckhoutte@gmail.com&gt;&quot;]
+edition = &quot;2018&quot;
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = &quot;0.11.3&quot;, features = [&quot;json&quot;] }
+tokio = { version = &quot;1&quot;, features = [&quot;full&quot;] }
+public-ip = &quot;0.2&quot;
+serde = &quot;1.0.8&quot;
+serde_derive = &quot;1.0.8&quot;
+serde_json = &quot;1.0&quot;
+</code></pre><br/>
+<p>Télécharger les packages externes, compiler et builder le projet:</p>
+<pre><code>cargo build (debug mode)
+# cargo build --release (for prod)
+</code></pre><br/>
+<p>Voir le résultat (exécuter le binaire):</p>
+<pre><code>./target/debug/update-cloudflare-A-DNS-record
+</code></pre><br/>
+<h2 id="build-for-linux-from-mac">Build for Linux from Mac</h2>
+<p>Je travaille sur Mac, du coup pour obtenir un binaire compatible avec Linux, je usis passé par Docker. J&rsquo;ai créé une image qui contient tout le nécessaire pour builder mon programme Rust sur Linux. Maintenant je n&rsquo;ai plus qu&rsquo;à exécuter la commande ci-dessous et un dossier <code>linux</code> se crée dans le répertoire target.</p>
+<pre><code>docker run --rm \
+    --volume &quot;${PWD}&quot;:/root/src \
+    --workdir /root/src \
+    build_from_mac_for_linux:latest \
+    sh -c &quot;cargo build --release&quot;
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer MongoDB en tant que service sur Ubuntu 20.04</title>
@@ -14,12 +139,13 @@
             <pubDate>Sun, 02 May 2021 21:25:00 +0000</pubDate>
             
             <guid>https://leandeep.com/installer-mongodb-en-tant-que-service-sur-ubuntu-20.04/</guid>
-            <description>Installation Importer la clé GPG
+            <description>Installation
+Importer la clé GPG
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add - # Vérifier qu&#39;elle est bien installée # apt-key list  Ajouter la source dans APT en créant un fichier relatif à MongoDB dans le répertoire sources.list.d
 echo &amp;quot;deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse&amp;quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list  Installer MongoDB
 sudo apt update sudo apt install mongodb-org  Démarrer le service
 sudo systemctl start mongod.service sudo systemctl status mongod sudo systemctl enable mongod  Vérifier le bon fonctionnement</description>
-            <content type="html"><![CDATA[<h1 id="installation">Installation</h1>
+            <content type="html"><![CDATA[<p><strong>Installation</strong></p>
 <p>Importer la clé GPG</p>
 <pre><code>curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 # Vérifier qu'elle est bien installée
@@ -363,7 +489,7 @@ J&amp;rsquo;ai éteint le daemon IPFS qui tourait sur mon Mac, vidé mon cache e
 <li><a href="https://maidsafe.net/">https://maidsafe.net/</a></li>
 <li><a href="https://www.ethereum.org/">https://www.ethereum.org/</a> (related storage layer)</li>
 <li><a href="https://ethersphere.github.io/swarm-home/">https://ethersphere.github.io/swarm-home/</a></li>
-<li>Chia</li>
+<li>Chia (Je l&rsquo;ai miné quelque temps)</li>
 </ul>
 <br/>
 <p><strong>Conclusion</strong>
@@ -625,11 +751,11 @@ def test_my_function():
         </item>
         
         <item>
-            <title>Régler son imprimante 3D Creality cr10s pro</title>
-            <link>https://leandeep.com/r%C3%A9gler-son-imprimante-3d-creality-cr10s-pro/</link>
+            <title>Régler une imprimante 3D Creality cr10s pro</title>
+            <link>https://leandeep.com/r%C3%A9gler-une-imprimante-3d-creality-cr10s-pro/</link>
             <pubDate>Sat, 02 Jan 2021 21:51:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/r%C3%A9gler-son-imprimante-3d-creality-cr10s-pro/</guid>
+            <guid>https://leandeep.com/r%C3%A9gler-une-imprimante-3d-creality-cr10s-pro/</guid>
             <description>Réglage de l&amp;rsquo;axe X
 Pour le réglage de l&amp;rsquo;axe X, il faut utiliser la cale de 10cm fournie, la caler bien droite sous la courroie, et régler l&amp;rsquo;axe en faisant tourner la vis sans fin à l&amp;rsquo;arrière. (Tenez l&amp;rsquo;autre vis sans fin pour ne pas qu&amp;rsquo;elle tourne en même temps)
  Réglage de l&amp;rsquo;axe Z
