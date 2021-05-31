@@ -9798,6 +9798,20 @@ kubeadm reset
 # Un reboot permet d'effacer les interfaces réseaux en trop 
 sudo reboot
 </code></pre><br/>
+<p><strong>Générer un secret TLS (simple sans root CA)</strong></p>
+<p>Certificat simple pour &ldquo;pinnage&rdquo;:</p>
+<pre><code>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj &quot;/CN=${HOST}/O=${HOST}&quot;
+kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+</code></pre><br/>
+<p><strong>Scaler UP or Down un deployment/statefulset</strong></p>
+<blockquote>
+<p>Pour restart un pod avec un PVC c&rsquo;est idéal. Fonctionne bcp mieux qu&rsquo;un <code>kubectl edit ...</code> avec modification du <code>replicas</code>.</p>
+</blockquote>
+<pre><code>kubectl scale statefulset statefulset_name --replicas=0
+kubectl scale statefulset statefulset_name --replicas=1
+kubectl scale deployment deployment_name --replicas=0
+kubectl scale deployment deployment_name --replicas=1
+</code></pre><br/>
 <h2 id="commandes-propres-à-eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
 <p><strong>Se connecter à son cluster EKS nouvellement créé</strong></p>
 <pre><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
@@ -9805,6 +9819,13 @@ export KUBECONFIG=~/.kube/config-&lt;of-your-cluster&gt;
 </code></pre><br/>
 <p><strong>Lister les clusters EKS</strong></p>
 <pre><code>aws eks list-clusters
+</code></pre><br/>
+<p><strong>Démarrer un pod Ubuntu pour debug</strong></p>
+<blockquote>
+<p>Pour tester le réseau, services&hellip;</p>
+</blockquote>
+<pre><code>kubectl run -it --rm debug-pod --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11
+# apt install iputils-ping
 </code></pre><br/>
 <h2 id="commandes-propres-à-aks-kubernetes-azure">Commandes propres à AKS (Kubernetes Azure)</h2>
 <p><strong>Se connecter à son cluster AKS nouvellement créé</strong></p>
@@ -9829,10 +9850,9 @@ az aks update-credentials \
     --service-principal $SERVICE_PRINCIPAL_ID \
     --client-secret &quot;$SERVICE_PRINCIPAL_SECRET&quot;
 </code></pre><br/>
-<p><strong>Générer un secret TLS (simple sans root CA)</strong></p>
-<p>Certificat simple pour &ldquo;pinnage&rdquo;:</p>
-<pre><code>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj &quot;/CN=${HOST}/O=${HOST}&quot;
-kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+<p><strong>Troubleshooting disk not seen in AKS node</strong></p>
+<p>Ou resynchroniser AKS avec l&rsquo;état des diques montés dans la VM/ Node.</p>
+<pre><code>az vm update -g resource_group -n node_name
 </code></pre>]]></content>
         </item>
         
@@ -19409,6 +19429,46 @@ ou
 
 A.reshape(A.shape + (1,))  # équivaut à A[:, np.newaxis]
 A.reshape((1,) + A.shape)  # équivaut à A[np.newaxis, :]
+</code></pre><br/>
+<h3 id="36-convertir-une-liste-python-en-numpy-array">3.6. Convertir une liste Python en Numpy Array</h3>
+<pre><code>ma_liste = [1,2,3]
+x = np.array(ma_liste)
+</code></pre><br/>
+<h3 id="37-créer-un-tableau-de-20-zéros">3.7. Créer un tableau de 20 zéros</h3>
+<pre><code>np.zeros(20)
+</code></pre><br/>
+<h3 id="38-créer-un-tableau-de-20-uns">3.8. Créer un tableau de 20 uns</h3>
+<pre><code>np.ones(20)
+</code></pre><br/>
+<h3 id="39-créer-un-tableau-de-20-neuf">3.9. Créer un tableau de 20 neuf</h3>
+<pre><code>np.ones(20) * 9
+</code></pre><br/>
+<h3 id="310-créer-un-tableau-dentiers-de-20-à-50">3.10. Créer un tableau d&rsquo;entiers de 20 à 50</h3>
+<pre><code>np.arange(20,51)
+</code></pre><br/>
+<h3 id="311-créer-un-tableau-dentiers-pairs-entre-20-et-50">3.11. Créer un tableau d&rsquo;entiers pairs entre 20 et 50</h3>
+<pre><code>np.arange(20,51,2)
+</code></pre><br/>
+<h3 id="312-créer-une-matrice-3x3-avec-les-valeurs-de-0-à-8">3.12. Créer une matrice 3x3 avec les valeurs de 0 à 8</h3>
+<pre><code>np.arange(0,9).reshape(3,3)
+</code></pre><br/>
+<h3 id="313-créer-une-matrice-identité-3x3">3.13. Créer une matrice identité 3x3</h3>
+<pre><code>np.eye(3)
+</code></pre><br/>
+<h3 id="314-générer-un-nombre-aléatoire-entre-0-et-1">3.14. Générer un nombre aléatoire entre 0 et 1</h3>
+<pre><code>np.random.rand(1)
+</code></pre><br/>
+<h3 id="315-générer-un-tableau-de-25-nombres-aléatoires-échantillonnés-à-partir-dune-distribution-normale-standard">3.15. Générer un tableau de 25 nombres aléatoires échantillonnés à partir d&rsquo;une distribution normale standard</h3>
+<pre><code>np.random.randn(25)
+</code></pre><br/>
+<h3 id="316-créer-un-tableau-de-50-points-espacés-linéairement-entre-0-et-1">3.16. Créer un tableau de 50 points espacés linéairement entre 0 et 1</h3>
+<pre><code>np.linspace(0,1,20)
+</code></pre><br/>
+<h3 id="317-calculer-la-somme-de-toutes-les-colonnes-dune-matrice">3.17. Calculer la somme de toutes les colonnes d&rsquo;une matrice</h3>
+<pre><code>ma_matrice.sum(axis=0)
+</code></pre><br/>
+<h3 id="318-calculer-lécart-type-des-valeurs-dune-matrice">3.18. Calculer l&rsquo;écart-type des valeurs d&rsquo;une matrice</h3>
+<pre><code>ma_matrice.std()
 </code></pre><br/>
 <h2 id="4-manipuler-des-scipy-sparse-matrices">4. Manipuler des Scipy Sparse Matrices</h2>
 <p>Ces matrices sont parfois utiles lorsque le dataset est extrèmement grand (millions de features) et qu&rsquo;il n&rsquo;y a presque que des 0 pour un échantillon donné.</p>
