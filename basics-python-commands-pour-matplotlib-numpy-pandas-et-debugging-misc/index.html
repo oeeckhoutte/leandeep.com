@@ -8,7 +8,7 @@
   content="Olivier Eeckhoutte ">
 <meta name="description"
   content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
-Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
+1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
 from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -261,16 +261,16 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 
 <meta itemprop="name" content="Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc">
 <meta itemprop="description" content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
-Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
+1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
 from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."><meta itemprop="datePublished" content="2015-09-14T19:24:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-09-14T19:24:00&#43;00:00" />
-<meta itemprop="wordCount" content="1385"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1386"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Python,pandas,Numpy,Matplotlib," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc"/>
 <meta name="twitter:description" content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
-Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
+1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
 from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."/>
 
 
@@ -349,7 +349,6 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
             <div class="post-content">
                 <p>Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy.
 <br/></p>
-<h1 id="numpy">Numpy</h1>
 <h2 id="1-charger-un-dataset">1. Charger un dataset</h2>
 <p>On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.</p>
 <pre><code>from sklearn.datasets import load_iris
@@ -383,7 +382,7 @@ plt.ylabel(iris.feature_names[y_index])
 <p><img src="https://leandeep.com/images/plot-basics.png" alt="image"></p>
 <br/>
 <h2 id="3-manipuler-des-numpy-arrays">3. Manipuler des Numpy Arrays</h2>
-<h3 id="31-générer-un-tableau-aléatoire">3.1. Générer un tableau aléatoire</h3>
+<p><strong>3.1. Générer un tableau aléatoire</strong></p>
 <pre><code>import numpy as np
 
 X = np.random.random((3,5))
@@ -393,7 +392,7 @@ print(X)
  [0.32855405 0.11656708 0.63427992 0.51111629 0.53846283]
  [0.99568791 0.44366564 0.0842925  0.12422041 0.38149375]]
 </code></pre><br/>
-<h3 id="32-accéder-à-des-éléments-dun-numpy-array">3.2. Accéder à des éléments d&rsquo;un numpy array</h3>
+<p><strong>3.2. Accéder à des éléments d&rsquo;un numpy array</strong></p>
 <pre><code># Accéder à un seul élément
 print(X[0,0])
 
@@ -407,7 +406,7 @@ print(X[:,0]
 [0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
 [0.74271281 0.32855405 0.99568791]
 </code></pre><br/>
-<h3 id="33-faire-une-transposée-de-matrice-les-lignes-deviennent-les-colonnes">3.3. Faire une transposée de Matrice (les lignes deviennent les colonnes)</h3>
+<p><strong>3.3. Faire une transposée de Matrice (les lignes deviennent les colonnes)</strong></p>
 <pre><code>print(X.T)
 </code></pre><p><em>Résultat:</em></p>
 <pre><code>[[0.74271281 0.32855405 0.99568791]
@@ -416,15 +415,15 @@ print(X[:,0]
  [0.48770972 0.51111629 0.12422041]
  [0.3841344  0.53846283 0.38149375]]
 </code></pre><br/>
-<h3 id="34-faire-un-range-sans-être-gêné-par-le-dernier-élement">3.4. Faire un range sans être gêné par le dernier élement</h3>
+<p><strong>3.4. Faire un range sans être gêné par le dernier élement</strong></p>
 <p>Cette méthode permet d’obtenir un tableau à une dimension allant d’une valeur de départ à une valeur de fin avec un nombre donné d’éléments.</p>
 <pre><code># la fonction linspace(premier, dernier, n) évite tout désagrément
 np.linspace(1., 4., 6)
 </code></pre><p><em>Résultat:</em></p>
 <pre><code># array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
 </code></pre><br/>
-<h3 id="35-incrémenter-la-dimension-dun-array">3.5. Incrémenter la dimension d&rsquo;un array</h3>
-<p>(Permet également de <strong>convertir explicitement un array à 1 dimension</strong> en un vecteur ligne ou vecteur colonne.)</p>
+<p>**3.5. Incrémenter la dimension d&rsquo;un array **
+(Permet également de <strong>convertir explicitement un array à 1 dimension</strong> en un vecteur ligne ou vecteur colonne.)</p>
 <pre><code>A = np.array([2, 0, 1, 8])
 print(A)
 A.shape
@@ -459,44 +458,44 @@ ou
 A.reshape(A.shape + (1,))  # équivaut à A[:, np.newaxis]
 A.reshape((1,) + A.shape)  # équivaut à A[np.newaxis, :]
 </code></pre><br/>
-<h3 id="36-convertir-une-liste-python-en-numpy-array">3.6. Convertir une liste Python en Numpy Array</h3>
+<p><strong>3.6. Convertir une liste Python en Numpy Array</strong></p>
 <pre><code>ma_liste = [1,2,3]
 x = np.array(ma_liste)
 </code></pre><br/>
-<h3 id="37-créer-un-tableau-de-20-zéros">3.7. Créer un tableau de 20 zéros</h3>
+<p><strong>3.7. Créer un tableau de 20 zéros</strong></p>
 <pre><code>np.zeros(20)
 </code></pre><br/>
-<h3 id="38-créer-un-tableau-de-20-uns">3.8. Créer un tableau de 20 uns</h3>
+<p><strong>3.8. Créer un tableau de 20 uns</strong></p>
 <pre><code>np.ones(20)
 </code></pre><br/>
-<h3 id="39-créer-un-tableau-de-20-neuf">3.9. Créer un tableau de 20 neuf</h3>
+<p><strong>3.9. Créer un tableau de 20 neuf</strong></p>
 <pre><code>np.ones(20) * 9
 </code></pre><br/>
-<h3 id="310-créer-un-tableau-dentiers-de-20-à-50">3.10. Créer un tableau d&rsquo;entiers de 20 à 50</h3>
+<p><strong>3.10. Créer un tableau d&rsquo;entiers de 20 à 50</strong></p>
 <pre><code>np.arange(20,51)
 </code></pre><br/>
-<h3 id="311-créer-un-tableau-dentiers-pairs-entre-20-et-50">3.11. Créer un tableau d&rsquo;entiers pairs entre 20 et 50</h3>
+<p><strong>3.11. Créer un tableau d&rsquo;entiers pairs entre 20 et 50</strong></p>
 <pre><code>np.arange(20,51,2)
 </code></pre><br/>
-<h3 id="312-créer-une-matrice-3x3-avec-les-valeurs-de-0-à-8">3.12. Créer une matrice 3x3 avec les valeurs de 0 à 8</h3>
+<p><strong>3.12. Créer une matrice 3x3 avec les valeurs de 0 à 8</strong></p>
 <pre><code>np.arange(0,9).reshape(3,3)
 </code></pre><br/>
-<h3 id="313-créer-une-matrice-identité-3x3">3.13. Créer une matrice identité 3x3</h3>
+<p><strong>3.13. Créer une matrice identité 3x3</strong></p>
 <pre><code>np.eye(3)
 </code></pre><br/>
-<h3 id="314-générer-un-nombre-aléatoire-entre-0-et-1">3.14. Générer un nombre aléatoire entre 0 et 1</h3>
+<p><strong>3.14. Générer un nombre aléatoire entre 0 et 1</strong></p>
 <pre><code>np.random.rand(1)
 </code></pre><br/>
-<h3 id="315-générer-un-tableau-de-25-nombres-aléatoires-échantillonnés-à-partir-dune-distribution-normale-standard">3.15. Générer un tableau de 25 nombres aléatoires échantillonnés à partir d&rsquo;une distribution normale standard</h3>
+<p><strong>3.15. Générer un tableau de 25 nombres aléatoires échantillonnés à partir d&rsquo;une distribution normale standard</strong></p>
 <pre><code>np.random.randn(25)
 </code></pre><br/>
-<h3 id="316-créer-un-tableau-de-50-points-espacés-linéairement-entre-0-et-1">3.16. Créer un tableau de 50 points espacés linéairement entre 0 et 1</h3>
+<p><strong>3.16. Créer un tableau de 50 points espacés linéairement entre 0 et 1</strong></p>
 <pre><code>np.linspace(0,1,20)
 </code></pre><br/>
-<h3 id="317-calculer-la-somme-de-toutes-les-colonnes-dune-matrice">3.17. Calculer la somme de toutes les colonnes d&rsquo;une matrice</h3>
+<p><strong>3.17. Calculer la somme de toutes les colonnes d&rsquo;une matrice</strong></p>
 <pre><code>ma_matrice.sum(axis=0)
 </code></pre><br/>
-<h3 id="318-calculer-lécart-type-des-valeurs-dune-matrice">3.18. Calculer l&rsquo;écart-type des valeurs d&rsquo;une matrice</h3>
+<p><strong>3.18. Calculer l&rsquo;écart-type des valeurs d&rsquo;une matrice</strong></p>
 <pre><code>ma_matrice.std()
 </code></pre><br/>
 <h2 id="4-manipuler-des-scipy-sparse-matrices">4. Manipuler des Scipy Sparse Matrices</h2>
@@ -567,7 +566,7 @@ print(X_csr)
  [0.90195641 0.         0.95517067 0.86300827 0.        ]]
 </code></pre><br/>
 <h2 id="5-visualisation-des-données-avec-matplotlib">5. Visualisation des données avec Matplotlib</h2>
-<h3 id="51-afficher-une-fonction-simple">5.1. Afficher une fonction simple</h3>
+<p>**5.1. Afficher une fonction simple **</p>
 <pre><code>import matplotlib.pyplot as plt
 
 # Afficher une ligne
@@ -576,7 +575,7 @@ plt.plot(x, np.sin(x))
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/plot2-basics.png" alt="image"></p>
 <br/>
-<h3 id="52-afficher-un-nuage-de-points-scatter-plot">5.2. Afficher un nuage de points (scatter plot)</h3>
+<p><strong>5.2. Afficher un nuage de points (scatter plot)</strong></p>
 <pre><code>import matplotlib.pyplot as plt
 
 x = np.random.normal(size=500)
@@ -585,7 +584,7 @@ plt.scatter(x, y)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/scatter-plot-basics.png" alt="image"></p>
 <br/>
-<h3 id="53-tracer-une-image">5.3. Tracer une image</h3>
+<p><strong>5.3. Tracer une image</strong></p>
 <pre><code>import matplotlib.pyplot as plt
 
 x = np.linspace(1, 12, 100)
@@ -597,7 +596,7 @@ plt.imshow(im)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/draw-image-basics.png" alt="image"></p>
 <br/>
-<h3 id="54-tracer-les-contours">5.4. Tracer les contours</h3>
+<p><strong>5.4. Tracer les contours</strong></p>
 <pre><code>import matplotlib.pyplot as plt
 
 x = np.linspace(1, 12, 100)
@@ -609,12 +608,12 @@ plt.contour(im)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/contour-basics.png" alt="image"></p>
 <br/>
-<h3 id="55-gallerie-dexemples">5.5. Gallerie d&rsquo;exemples</h3>
+<p><strong>5.5. Gallerie d&rsquo;exemples</strong></p>
 <p>Des centaines d&rsquo;exemples sont disponibles sur le <a href="http://matplotlib.org/gallery.html">site de Matplotlib</a>.
 En exécutant la commande suivante dans votre notebook, le code source sera téléchargé. Vous n&rsquo;aurez plus qu&rsquo;à le ré-excuter pour qu&rsquo;un graphique s&rsquo;affiche.</p>
 <pre><code>%load http://matplotlib.org/mpl_examples/pylab_examples/ellipse_collection.py
 </code></pre><br/>
-<h3 id="56-graphique-3d">5.6. Graphique 3D</h3>
+<p><strong>5.6. Graphique 3D</strong></p>
 <pre><code># 3D 
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -624,7 +623,7 @@ ax.plot_surface(xgrid, ygrid, im, cmap=plt.cm.jet, cstride=2, rstride=2, linewid
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/3d-plots-basics.png" alt="image"></p>
 <br/>
-<h3 id="57-afficher-matplotlib-dans-jupyter-notebook-et-tracer-un-chart-façon-objet">5.7. Afficher matplotlib dans Jupyter Notebook et tracer un chart façon objet</h3>
+<p><strong>5.7. Afficher matplotlib dans Jupyter Notebook et tracer un chart façon objet</strong></p>
 <pre><code>import matplotlib.pyplot as plt
 %matplotlib inline
 
@@ -643,7 +642,7 @@ ax.set_title('title')
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/matplotlib-jupyter.png" alt="image"></p>
 <br/>
-<h3 id="58-afficher-une-petit-chart-à-lintérieur-dun-grand-chart">5.8. Afficher une petit chart à l&rsquo;intérieur d&rsquo;un (grand) chart</h3>
+<p><strong>5.8. Afficher une petit chart à l&rsquo;intérieur d&rsquo;un (grand) chart</strong></p>
 <pre><code>import matplotlib.pyplot as plt
 %matplotlib inline
 
@@ -666,48 +665,48 @@ ax2.set_ylabel('y')
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/matplotlib-chart-in-chart.png" alt="image"></p>
 <br/>
-<h3 id="59-zoomer-sur-une-partir-du-chart">5.9. Zoomer sur une partir du chart</h3>
+<p><strong>5.9. Zoomer sur une partir du chart</strong></p>
 <pre><code>ax2.set_xlim([20,22])
 ax2.set_ylim([30,50])
 </code></pre><br/>
-<h3 id="510-afficher-2-charts-les-uns-à-côté-des-autres">5.10. Afficher 2 charts les uns à côté des autres</h3>
+<p><strong>5.10. Afficher 2 charts les uns à côté des autres</strong></p>
 <pre><code>fig, axes = plt.subplots(nrows=1, ncols=2,figsize=(12,2))
 
 axes[0].plot(x,y,color=&quot;purple&quot;, lw=3, ls='-')
 axes[1].plot(x,z,color=&quot;red&quot;, lw=3, ls='--')
 </code></pre><br/>
 <h2 id="6-pandas">6. Pandas</h2>
-<h3 id="61-charger-convertir-un-csv-en-dataframe-et-afficher-ses-5ère-lignes">6.1. Charger, convertir un CSV en dataframe et afficher ses 5ère lignes</h3>
+<p><strong>6.1. Charger, convertir un CSV en dataframe et afficher ses 5ère lignes</strong></p>
 <pre><code>import pandas as pd
 df = pd.read_csv('mon_dataset.csv')
 df.head()
 </code></pre><br/>
-<h3 id="62-afficher-le-nom-des-colonnes-du-dataframe">6.2. Afficher le nom des colonnes du dataframe</h3>
+<p><strong>6.2. Afficher le nom des colonnes du dataframe</strong></p>
 <pre><code>df.columns
 </code></pre><br/>
-<h3 id="63-afficher-le-nombre-déléments-uniques-dune-colonne-dun-dataframe">6.3. Afficher le nombre d&rsquo;éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</h3>
+<p><strong>6.3. Afficher le nombre d&rsquo;éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</strong></p>
 <pre><code>len(df['colonne_name'].unique())
 # Or
 df['colonne_name'].nunique()
 </code></pre><br/>
-<h3 id="64-afficher-les-éléments-uniques-dune-colonne-dun-dataframe">6.4. Afficher les éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</h3>
+<p><strong>6.4. Afficher les éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</strong></p>
 <pre><code>df['colonne_name'].unique()
 </code></pre><br/>
-<h3 id="65-afficher-les-5-groupes-de-données-ayant-le-plus-déléments-dans-la-colonne-x">6.5. Afficher les 5 groupes de données ayant le plus d&rsquo;éléments dans la colonne X</h3>
+<p><strong>6.5. Afficher les 5 groupes de données ayant le plus d&rsquo;éléments dans la colonne X</strong></p>
 <pre><code>df.groupby(&quot;GroupByGroupe&quot;).count().sort_values('X', ascending=False).iloc[:5]['X']
 </code></pre><br/>
-<h3 id="66-afficher-le-nombre-de-fois-que-des-valeurs-sont-retournées-dans-les-éléments-dune-colonne">6.6. Afficher le nombre de fois que des valeurs sont retournées dans les éléments d&rsquo;une colonne</h3>
+<p><strong>6.6. Afficher le nombre de fois que des valeurs sont retournées dans les éléments d&rsquo;une colonne</strong></p>
 <pre><code>df['ma_colonne'].value_counts()
 # Pour afficher le top 5
 df['ma_colonne'].value_counts().iloc[:5]
 </code></pre><br/>
-<h3 id="67-combien-de-ligne-dune-dataframe-nont-pas-la-string-blabla-dans-les-valeur-de-la-colonne-ma_colonne">6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</h3>
+<p><strong>6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</strong></p>
 <pre><code>sum(df['ma_colonne'].apply(lambda nom: 'blabla' not in nom))
 </code></pre><br/>
-<h3 id="68-afficher-le-nombre-de-lignes-que-possède-un-dataframe-ayant-la-valeur-toto-dans-la-colonne-ma_colonne">6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</h3>
+<p><strong>6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</strong></p>
 <pre><code>df[df[&quot;ma_colonne&quot;] == &quot;toto&quot;]
 </code></pre><br/>
-<h3 id="69-pour-une-série-temporelle-combien-déléments-y-a-t-il-dans-notre-dataframe-avec-une-date-supérieure-à-lannéee-2020">6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</h3>
+<p><strong>6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</strong></p>
 <pre><code>sum(pd.to_datetime(df['date']).apply(lambda date: date.year) == 2020)
 
 </code></pre><br/>
@@ -749,7 +748,7 @@ print_format_table()
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/pandas">pandas</a></span><span class="tag"><a href="https://leandeep.com/tags/numpy">Numpy</a></span><span class="tag"><a href="https://leandeep.com/tags/matplotlib">Matplotlib</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1385 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1386 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 Sep. 2015</p>
         </div>
