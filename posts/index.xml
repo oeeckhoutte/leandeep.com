@@ -10053,7 +10053,7 @@ sudo mv -v /tmp/eksctl /usr/local/bin
             <guid>https://leandeep.com/mastering-pandas/</guid>
             <description>Cela fait pas mal de temps que j&amp;rsquo;utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp;amp; tricks à savoir (comme si j&amp;rsquo;utilisais Jupyter Notebook).
 Voici la liste des tips:
- Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&amp;rsquo;une itération  A compléter&amp;hellip;</description>
+ Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&amp;rsquo;une itération   Introduction à Pandas C&amp;rsquo;est une librairie opensource d&amp;rsquo;analyse de données qui fourni des structures de données ainsi que des outils d&amp;rsquo;analyse faciles à utiliser.</description>
             <content type="html"><![CDATA[<p>Cela fait pas mal de temps que j&rsquo;utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp; tricks à savoir (comme si j&rsquo;utilisais Jupyter Notebook).</p>
 <p>Voici la liste des tips:</p>
 <ul>
@@ -10069,26 +10069,6 @@ Voici la liste des tips:
 <li>Filtres multi-critères</li>
 <li>Examiner un dataset</li>
 <li>Numéro, index et contenu de la ligne lors d&rsquo;une itération</li>
-</ul>
-<p>A compléter&hellip;</p>
-<ul>
-<li>Utiliser le paramètre Axis</li>
-<li>Utiliser les méthodes String</li>
-<li>Changer le type de donnée</li>
-<li>Utiliser groupeby</li>
-<li>Explorer les séries</li>
-<li>Gérer les données manquantes</li>
-<li>Utiliser l&rsquo;index Pandas</li>
-<li>Sélectionner plusieurs lignes et colonnes</li>
-<li>Utiliser le paramètre inplace</li>
-<li>Réduire le dataset plus petit et plus rapide</li>
-<li>Pandas et Scikit-learn</li>
-<li>Echantillonner aléatoirement</li>
-<li>Créer des dummy variables</li>
-<li>Manipuler des dates et heures</li>
-<li>Retirer les lignes en doublon</li>
-<li>Filtrer et convenir les series NaN</li>
-<li>Changer les options d&rsquo;affichage</li>
 </ul>
 <br/>
 <h2 id="introduction-à-pandas">Introduction à Pandas</h2>
@@ -19310,17 +19290,17 @@ git config --global core.excludesfile ~/.gitignore_global
         </item>
         
         <item>
-            <title>Basics Python commands pour Matplotlib, Numpy et debugging misc</title>
-            <link>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/</link>
+            <title>Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc</title>
+            <link>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-pandas-et-debugging-misc/</link>
             <pubDate>Mon, 14 Sep 2015 19:24:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/</guid>
-            <description>Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.
- Matplotlib &amp;amp; Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
+            <guid>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-pandas-et-debugging-misc/</guid>
+            <description>Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
+Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
 from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4).</description>
-            <content type="html"><![CDATA[<p>Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.</p>
-<br/>
-<h1 id="matplotlib--numpy">Matplotlib &amp; Numpy</h1>
+            <content type="html"><![CDATA[<p>Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy.
+<br/></p>
+<h1 id="numpy">Numpy</h1>
 <h2 id="1-charger-un-dataset">1. Charger un dataset</h2>
 <p>On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.</p>
 <pre><code>from sklearn.datasets import load_iris
@@ -19595,6 +19575,93 @@ ax.plot_surface(xgrid, ygrid, im, cmap=plt.cm.jet, cstride=2, rstride=2, linewid
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="/images/3d-plots-basics.png" alt="image"></p>
 <br/>
+<h3 id="57-afficher-matplotlib-dans-jupyter-notebook-et-tracer-un-chart-façon-objet">5.7. Afficher matplotlib dans Jupyter Notebook et tracer un chart façon objet</h3>
+<pre><code>import matplotlib.pyplot as plt
+%matplotlib inline
+
+import numpy as np
+x = np.arange(0,100)
+y = x*2
+z = x**2
+
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+ax.plot(x,y)
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('title')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="/images/matplotlib-jupyter.png" alt="image"></p>
+<br/>
+<h3 id="58-afficher-une-petit-chart-à-lintérieur-dun-grand-chart">5.8. Afficher une petit chart à l&rsquo;intérieur d&rsquo;un (grand) chart</h3>
+<pre><code>import matplotlib.pyplot as plt
+%matplotlib inline
+
+import numpy as np
+x = np.arange(0,100)
+y = x*2
+z = x**2
+
+fig = plt.figure()
+
+ax1 = fig.add_axes([0,0,1,1])
+ax1.plot(x,y,color='r')
+ax1.set_xlabel('x')
+ax1.set_ylabel('y')
+
+ax2 = fig.add_axes([.2,.5,.2,.2])
+ax2.plot(x,y,color='r')
+ax2.set_xlabel('x')
+ax2.set_ylabel('y')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="/images/matplotlib-chart-in-chart.png" alt="image"></p>
+<br/>
+<h3 id="59-zoomer-sur-une-partir-du-chart">5.9. Zoomer sur une partir du chart</h3>
+<pre><code>ax2.set_xlim([20,22])
+ax2.set_ylim([30,50])
+</code></pre><br/>
+<h3 id="510-afficher-2-charts-les-uns-à-côté-des-autres">5.10. Afficher 2 charts les uns à côté des autres</h3>
+<pre><code>fig, axes = plt.subplots(nrows=1, ncols=2,figsize=(12,2))
+
+axes[0].plot(x,y,color=&quot;purple&quot;, lw=3, ls='-')
+axes[1].plot(x,z,color=&quot;red&quot;, lw=3, ls='--')
+</code></pre><br/>
+<h2 id="6-pandas">6. Pandas</h2>
+<h3 id="61-charger-convertir-un-csv-en-dataframe-et-afficher-ses-5ère-lignes">6.1. Charger, convertir un CSV en dataframe et afficher ses 5ère lignes</h3>
+<pre><code>import pandas as pd
+df = pd.read_csv('mon_dataset.csv')
+df.head()
+</code></pre><br/>
+<h3 id="62-afficher-le-nom-des-colonnes-du-dataframe">6.2. Afficher le nom des colonnes du dataframe</h3>
+<pre><code>df.columns
+</code></pre><br/>
+<h3 id="63-afficher-le-nombre-déléments-uniques-dune-colonne-dun-dataframe">6.3. Afficher le nombre d&rsquo;éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</h3>
+<pre><code>len(df['colonne_name'].unique())
+# Or
+df['colonne_name'].nunique()
+</code></pre><br/>
+<h3 id="64-afficher-les-éléments-uniques-dune-colonne-dun-dataframe">6.4. Afficher les éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</h3>
+<pre><code>df['colonne_name'].unique()
+</code></pre><br/>
+<h3 id="65-afficher-les-5-groupes-de-données-ayant-le-plus-déléments-dans-la-colonne-x">6.5. Afficher les 5 groupes de données ayant le plus d&rsquo;éléments dans la colonne X</h3>
+<pre><code>df.groupby(&quot;GroupByGroupe&quot;).count().sort_values('X', ascending=False).iloc[:5]['X']
+</code></pre><br/>
+<h3 id="66-afficher-le-nombre-de-fois-que-des-valeurs-sont-retournées-dans-les-éléments-dune-colonne">6.6. Afficher le nombre de fois que des valeurs sont retournées dans les éléments d&rsquo;une colonne</h3>
+<pre><code>df['ma_colonne'].value_counts()
+# Pour afficher le top 5
+df['ma_colonne'].value_counts().iloc[:5]
+</code></pre><br/>
+<h3 id="67-combien-de-ligne-dune-dataframe-nont-pas-la-string-blabla-dans-les-valeur-de-la-colonne-ma_colonne">6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</h3>
+<pre><code>sum(df['ma_colonne'].apply(lambda nom: 'blabla' not in nom))
+</code></pre><br/>
+<h3 id="68-afficher-le-nombre-de-lignes-que-possède-un-dataframe-ayant-la-valeur-toto-dans-la-colonne-ma_colonne">6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</h3>
+<pre><code>df[df[&quot;ma_colonne&quot;] == &quot;toto&quot;]
+</code></pre><br/>
+<h3 id="69-pour-une-série-temporelle-combien-déléments-y-a-t-il-dans-notre-dataframe-avec-une-date-supérieure-à-lannéee-2020">6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</h3>
+<pre><code>sum(pd.to_datetime(df['date']).apply(lambda date: date.year) == 2020)
+
+</code></pre><br/>
 <h1 id="debugging-misc">Debugging Misc</h1>
 <h2 id="dumper-un-objet">&ldquo;Dumper&rdquo; un objet:</h2>
 <pre><code>def dump(obj):

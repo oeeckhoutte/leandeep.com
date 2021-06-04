@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte ">
+<meta name="description"
+  content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
+Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-pandas-et-debugging-misc/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc :: Bienvenue sur le site de Lean Deep 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.d2f1520314f6ed44294e3470e12a1ce769fd57c66fe05dcc2f752b6630c81647.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc">
+<meta itemprop="description" content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
+Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."><meta itemprop="datePublished" content="2015-09-14T19:24:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-09-14T19:24:00&#43;00:00" />
+<meta itemprop="wordCount" content="1385"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Python,pandas,Numpy,Matplotlib," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc"/>
+<meta name="twitter:description" content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
+Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."/>
+
+
+
+
+
+<meta property="article:published_time" content="2015-09-14 19:24:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-pandas-et-debugging-misc/">Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy.
+<br/></p>
+<h1 id="numpy">Numpy</h1>
+<h2 id="1-charger-un-dataset">1. Charger un dataset</h2>
+<p>On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.</p>
+<pre><code>from sklearn.datasets import load_iris
+iris = load_iris()
+
+n_samples, n_features = iris.data.shape
+print(n_samples)
+print(n_features)
+
+# 150
+# 4
+</code></pre><br/>
+<h2 id="2-afficher-un-nuage-de-points-scatter-plot">2. Afficher un nuage de points (scatter plot)</h2>
+<p>On considère travailler avec un array (150,4). Voir point 1.</p>
+<pre><code># La commande qui suit permet de ne pas avoir de problème avec l'affichage de graphiques dans Jupyter Notebook 
+%matplotlib inline
+</code></pre><p>Affichage du scratter plot:</p>
+<pre><code>from matplotlib import pyplot as plt
+
+x_index = 1
+y_index = 3
+
+# Ce formateur permet de remplacer les index des classes d'iris par leur nom dans la légende
+formatter = plt.FuncFormatter(lambda i, *args: iris.target_names[int(i)])
+
+plt.scatter(iris.data[:, x_index], iris.data[:, y_index], c=iris.target)
+plt.colorbar(ticks=[0, 1, 2], format=formatter)
+plt.xlabel(iris.feature_names[x_index])
+plt.ylabel(iris.feature_names[y_index])
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/plot-basics.png" alt="image"></p>
+<br/>
+<h2 id="3-manipuler-des-numpy-arrays">3. Manipuler des Numpy Arrays</h2>
+<h3 id="31-générer-un-tableau-aléatoire">3.1. Générer un tableau aléatoire</h3>
+<pre><code>import numpy as np
+
+X = np.random.random((3,5))
+print(X)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
+ [0.32855405 0.11656708 0.63427992 0.51111629 0.53846283]
+ [0.99568791 0.44366564 0.0842925  0.12422041 0.38149375]]
+</code></pre><br/>
+<h3 id="32-accéder-à-des-éléments-dun-numpy-array">3.2. Accéder à des éléments d&rsquo;un numpy array</h3>
+<pre><code># Accéder à un seul élément
+print(X[0,0])
+
+# Accéder à une ligne
+print(X[0,:]) ou print(X[0])
+
+# Accéder à une colonne
+print(X[:,0]
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>0.7427128108295802
+[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
+[0.74271281 0.32855405 0.99568791]
+</code></pre><br/>
+<h3 id="33-faire-une-transposée-de-matrice-les-lignes-deviennent-les-colonnes">3.3. Faire une transposée de Matrice (les lignes deviennent les colonnes)</h3>
+<pre><code>print(X.T)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74271281 0.32855405 0.99568791]
+ [0.89627097 0.11656708 0.44366564]
+ [0.95309957 0.63427992 0.0842925 ]
+ [0.48770972 0.51111629 0.12422041]
+ [0.3841344  0.53846283 0.38149375]]
+</code></pre><br/>
+<h3 id="34-faire-un-range-sans-être-gêné-par-le-dernier-élement">3.4. Faire un range sans être gêné par le dernier élement</h3>
+<p>Cette méthode permet d’obtenir un tableau à une dimension allant d’une valeur de départ à une valeur de fin avec un nombre donné d’éléments.</p>
+<pre><code># la fonction linspace(premier, dernier, n) évite tout désagrément
+np.linspace(1., 4., 6)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code># array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
+</code></pre><br/>
+<h3 id="35-incrémenter-la-dimension-dun-array">3.5. Incrémenter la dimension d&rsquo;un array</h3>
+<p>(Permet également de <strong>convertir explicitement un array à 1 dimension</strong> en un vecteur ligne ou vecteur colonne.)</p>
+<pre><code>A = np.array([2, 0, 1, 8])
+print(A)
+A.shape
+
+# [2 0 1 8]
+# (4,)
+
+
+B = A[np.newaxis, :]
+print(B)
+B.shape
+
+# [[2 0 1 8]]
+# (1, 4)
+
+C = A[:, np.newaxis]
+print(C)
+C.shape
+
+# [[2]
+  [0]
+  [1]
+  [8]]
+# (4,1)
+</code></pre><br/>
+<p><strong>Alternatives:</strong></p>
+<pre><code>np.expand_dims(A, 1)  # équivaut à A[:, np.newaxis]
+np.expand_dims(A, 0)  # équivaut à A[np.newaxis, :]
+
+ou
+
+A.reshape(A.shape + (1,))  # équivaut à A[:, np.newaxis]
+A.reshape((1,) + A.shape)  # équivaut à A[np.newaxis, :]
+</code></pre><br/>
+<h3 id="36-convertir-une-liste-python-en-numpy-array">3.6. Convertir une liste Python en Numpy Array</h3>
+<pre><code>ma_liste = [1,2,3]
+x = np.array(ma_liste)
+</code></pre><br/>
+<h3 id="37-créer-un-tableau-de-20-zéros">3.7. Créer un tableau de 20 zéros</h3>
+<pre><code>np.zeros(20)
+</code></pre><br/>
+<h3 id="38-créer-un-tableau-de-20-uns">3.8. Créer un tableau de 20 uns</h3>
+<pre><code>np.ones(20)
+</code></pre><br/>
+<h3 id="39-créer-un-tableau-de-20-neuf">3.9. Créer un tableau de 20 neuf</h3>
+<pre><code>np.ones(20) * 9
+</code></pre><br/>
+<h3 id="310-créer-un-tableau-dentiers-de-20-à-50">3.10. Créer un tableau d&rsquo;entiers de 20 à 50</h3>
+<pre><code>np.arange(20,51)
+</code></pre><br/>
+<h3 id="311-créer-un-tableau-dentiers-pairs-entre-20-et-50">3.11. Créer un tableau d&rsquo;entiers pairs entre 20 et 50</h3>
+<pre><code>np.arange(20,51,2)
+</code></pre><br/>
+<h3 id="312-créer-une-matrice-3x3-avec-les-valeurs-de-0-à-8">3.12. Créer une matrice 3x3 avec les valeurs de 0 à 8</h3>
+<pre><code>np.arange(0,9).reshape(3,3)
+</code></pre><br/>
+<h3 id="313-créer-une-matrice-identité-3x3">3.13. Créer une matrice identité 3x3</h3>
+<pre><code>np.eye(3)
+</code></pre><br/>
+<h3 id="314-générer-un-nombre-aléatoire-entre-0-et-1">3.14. Générer un nombre aléatoire entre 0 et 1</h3>
+<pre><code>np.random.rand(1)
+</code></pre><br/>
+<h3 id="315-générer-un-tableau-de-25-nombres-aléatoires-échantillonnés-à-partir-dune-distribution-normale-standard">3.15. Générer un tableau de 25 nombres aléatoires échantillonnés à partir d&rsquo;une distribution normale standard</h3>
+<pre><code>np.random.randn(25)
+</code></pre><br/>
+<h3 id="316-créer-un-tableau-de-50-points-espacés-linéairement-entre-0-et-1">3.16. Créer un tableau de 50 points espacés linéairement entre 0 et 1</h3>
+<pre><code>np.linspace(0,1,20)
+</code></pre><br/>
+<h3 id="317-calculer-la-somme-de-toutes-les-colonnes-dune-matrice">3.17. Calculer la somme de toutes les colonnes d&rsquo;une matrice</h3>
+<pre><code>ma_matrice.sum(axis=0)
+</code></pre><br/>
+<h3 id="318-calculer-lécart-type-des-valeurs-dune-matrice">3.18. Calculer l&rsquo;écart-type des valeurs d&rsquo;une matrice</h3>
+<pre><code>ma_matrice.std()
+</code></pre><br/>
+<h2 id="4-manipuler-des-scipy-sparse-matrices">4. Manipuler des Scipy Sparse Matrices</h2>
+<p>Ces matrices sont parfois utiles lorsque le dataset est extrèmement grand (millions de features) et qu&rsquo;il n&rsquo;y a presque que des 0 pour un échantillon donné.</p>
+<p>On crée une matrice avec des données aléatoires</p>
+<pre><code>from scipy import sparse
+
+X = np.random.random((10, 5))
+print(X)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74668664 0.28468523 0.31235423 0.85889384 0.44178508]
+ [0.42935032 0.12811469 0.10010876 0.44757517 0.85568623]
+ [0.52500676 0.81764407 0.32380153 0.41696393 0.46913849]
+ [0.38276909 0.93648265 0.19733164 0.42392672 0.75220776]
+ [0.71149141 0.21479105 0.93260534 0.44922132 0.1069613 ]
+ [0.81701    0.85721634 0.43327147 0.07404298 0.00268589]
+ [0.41816508 0.45835663 0.13466681 0.65741327 0.19939561]
+ [0.87886815 0.90599216 0.60680106 0.52665484 0.69824682]
+ [0.75469648 0.89312007 0.10350947 0.48109062 0.61979146]
+ [0.90195641 0.48118575 0.95517067 0.86300827 0.36144463]]
+</code></pre><p>On fixe la majorité des éléments à 0</p>
+<pre><code>X[X &lt; 0.7] = 0
+print(X)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code> [[0.74668664 0.         0.         0.85889384 0.        ]
+ [0.         0.         0.         0.         0.85568623]
+ [0.         0.81764407 0.         0.         0.        ]
+ [0.         0.93648265 0.         0.         0.75220776]
+ [0.71149141 0.         0.93260534 0.         0.        ]
+ [0.81701    0.85721634 0.         0.         0.        ]
+ [0.         0.         0.         0.         0.        ]
+ [0.87886815 0.90599216 0.         0.         0.        ]
+ [0.75469648 0.89312007 0.         0.         0.        ]
+ [0.90195641 0.         0.95517067 0.86300827 0.        ]]
+</code></pre><p>On convertit X en une Matrice CSR (Compressed-Sparse-Row)</p>
+<pre><code>X_csr = sparse.csr_matrix(X)
+print(X_csr)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>  (0, 0)	0.7466866354064811
+  (0, 3)	0.858893836600347
+  (1, 4)	0.8556862339513924
+  (2, 1)	0.8176440715795563
+  (3, 1)	0.9364826540107359
+  (3, 4)	0.7522077587621511
+  (4, 0)	0.7114914132345445
+  (4, 2)	0.9326053405778985
+  (5, 0)	0.8170100021133657
+  (5, 1)	0.8572163407003378
+  (7, 0)	0.8788681533625899
+  (7, 1)	0.9059921645080171
+  (8, 0)	0.7546964834006666
+  (8, 1)	0.893120069181746
+  (9, 0)	0.9019564067395904
+  (9, 2)	0.9551706684658897
+  (9, 3)	0.8630082740227074
+</code></pre><p>On rétablit la Matrice Sparse en numpy array</p>
+<pre><code>print(X_csr.toarray())
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.74668664 0.         0.         0.85889384 0.        ]
+ [0.         0.         0.         0.         0.85568623]
+ [0.         0.81764407 0.         0.         0.        ]
+ [0.         0.93648265 0.         0.         0.75220776]
+ [0.71149141 0.         0.93260534 0.         0.        ]
+ [0.81701    0.85721634 0.         0.         0.        ]
+ [0.         0.         0.         0.         0.        ]
+ [0.87886815 0.90599216 0.         0.         0.        ]
+ [0.75469648 0.89312007 0.         0.         0.        ]
+ [0.90195641 0.         0.95517067 0.86300827 0.        ]]
+</code></pre><br/>
+<h2 id="5-visualisation-des-données-avec-matplotlib">5. Visualisation des données avec Matplotlib</h2>
+<h3 id="51-afficher-une-fonction-simple">5.1. Afficher une fonction simple</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+# Afficher une ligne
+x = np.linspace(0, 10, 100)
+plt.plot(x, np.sin(x))
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/plot2-basics.png" alt="image"></p>
+<br/>
+<h3 id="52-afficher-un-nuage-de-points-scatter-plot">5.2. Afficher un nuage de points (scatter plot)</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+x = np.random.normal(size=500)
+y = np.random.normal(size=500)
+plt.scatter(x, y)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/scatter-plot-basics.png" alt="image"></p>
+<br/>
+<h3 id="53-tracer-une-image">5.3. Tracer une image</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+x = np.linspace(1, 12, 100)
+y = x[:, np.newaxis]
+
+im = y * np.sin(x) * np.cos(y)
+
+plt.imshow(im)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/draw-image-basics.png" alt="image"></p>
+<br/>
+<h3 id="54-tracer-les-contours">5.4. Tracer les contours</h3>
+<pre><code>import matplotlib.pyplot as plt
+
+x = np.linspace(1, 12, 100)
+y = x[:, np.newaxis]
+
+im = y * np.sin(x) * np.cos(y)
+
+plt.contour(im)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/contour-basics.png" alt="image"></p>
+<br/>
+<h3 id="55-gallerie-dexemples">5.5. Gallerie d&rsquo;exemples</h3>
+<p>Des centaines d&rsquo;exemples sont disponibles sur le <a href="http://matplotlib.org/gallery.html">site de Matplotlib</a>.
+En exécutant la commande suivante dans votre notebook, le code source sera téléchargé. Vous n&rsquo;aurez plus qu&rsquo;à le ré-excuter pour qu&rsquo;un graphique s&rsquo;affiche.</p>
+<pre><code>%load http://matplotlib.org/mpl_examples/pylab_examples/ellipse_collection.py
+</code></pre><br/>
+<h3 id="56-graphique-3d">5.6. Graphique 3D</h3>
+<pre><code># 3D 
+from mpl_toolkits.mplot3d import Axes3D
+
+ax = plt.axes(projection='3d')
+xgrid, ygrid = np.meshgrid(x, y.ravel())
+ax.plot_surface(xgrid, ygrid, im, cmap=plt.cm.jet, cstride=2, rstride=2, linewidth=0)
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/3d-plots-basics.png" alt="image"></p>
+<br/>
+<h3 id="57-afficher-matplotlib-dans-jupyter-notebook-et-tracer-un-chart-façon-objet">5.7. Afficher matplotlib dans Jupyter Notebook et tracer un chart façon objet</h3>
+<pre><code>import matplotlib.pyplot as plt
+%matplotlib inline
+
+import numpy as np
+x = np.arange(0,100)
+y = x*2
+z = x**2
+
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+ax.plot(x,y)
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('title')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/matplotlib-jupyter.png" alt="image"></p>
+<br/>
+<h3 id="58-afficher-une-petit-chart-à-lintérieur-dun-grand-chart">5.8. Afficher une petit chart à l&rsquo;intérieur d&rsquo;un (grand) chart</h3>
+<pre><code>import matplotlib.pyplot as plt
+%matplotlib inline
+
+import numpy as np
+x = np.arange(0,100)
+y = x*2
+z = x**2
+
+fig = plt.figure()
+
+ax1 = fig.add_axes([0,0,1,1])
+ax1.plot(x,y,color='r')
+ax1.set_xlabel('x')
+ax1.set_ylabel('y')
+
+ax2 = fig.add_axes([.2,.5,.2,.2])
+ax2.plot(x,y,color='r')
+ax2.set_xlabel('x')
+ax2.set_ylabel('y')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/matplotlib-chart-in-chart.png" alt="image"></p>
+<br/>
+<h3 id="59-zoomer-sur-une-partir-du-chart">5.9. Zoomer sur une partir du chart</h3>
+<pre><code>ax2.set_xlim([20,22])
+ax2.set_ylim([30,50])
+</code></pre><br/>
+<h3 id="510-afficher-2-charts-les-uns-à-côté-des-autres">5.10. Afficher 2 charts les uns à côté des autres</h3>
+<pre><code>fig, axes = plt.subplots(nrows=1, ncols=2,figsize=(12,2))
+
+axes[0].plot(x,y,color=&quot;purple&quot;, lw=3, ls='-')
+axes[1].plot(x,z,color=&quot;red&quot;, lw=3, ls='--')
+</code></pre><br/>
+<h2 id="6-pandas">6. Pandas</h2>
+<h3 id="61-charger-convertir-un-csv-en-dataframe-et-afficher-ses-5ère-lignes">6.1. Charger, convertir un CSV en dataframe et afficher ses 5ère lignes</h3>
+<pre><code>import pandas as pd
+df = pd.read_csv('mon_dataset.csv')
+df.head()
+</code></pre><br/>
+<h3 id="62-afficher-le-nom-des-colonnes-du-dataframe">6.2. Afficher le nom des colonnes du dataframe</h3>
+<pre><code>df.columns
+</code></pre><br/>
+<h3 id="63-afficher-le-nombre-déléments-uniques-dune-colonne-dun-dataframe">6.3. Afficher le nombre d&rsquo;éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</h3>
+<pre><code>len(df['colonne_name'].unique())
+# Or
+df['colonne_name'].nunique()
+</code></pre><br/>
+<h3 id="64-afficher-les-éléments-uniques-dune-colonne-dun-dataframe">6.4. Afficher les éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</h3>
+<pre><code>df['colonne_name'].unique()
+</code></pre><br/>
+<h3 id="65-afficher-les-5-groupes-de-données-ayant-le-plus-déléments-dans-la-colonne-x">6.5. Afficher les 5 groupes de données ayant le plus d&rsquo;éléments dans la colonne X</h3>
+<pre><code>df.groupby(&quot;GroupByGroupe&quot;).count().sort_values('X', ascending=False).iloc[:5]['X']
+</code></pre><br/>
+<h3 id="66-afficher-le-nombre-de-fois-que-des-valeurs-sont-retournées-dans-les-éléments-dune-colonne">6.6. Afficher le nombre de fois que des valeurs sont retournées dans les éléments d&rsquo;une colonne</h3>
+<pre><code>df['ma_colonne'].value_counts()
+# Pour afficher le top 5
+df['ma_colonne'].value_counts().iloc[:5]
+</code></pre><br/>
+<h3 id="67-combien-de-ligne-dune-dataframe-nont-pas-la-string-blabla-dans-les-valeur-de-la-colonne-ma_colonne">6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</h3>
+<pre><code>sum(df['ma_colonne'].apply(lambda nom: 'blabla' not in nom))
+</code></pre><br/>
+<h3 id="68-afficher-le-nombre-de-lignes-que-possède-un-dataframe-ayant-la-valeur-toto-dans-la-colonne-ma_colonne">6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</h3>
+<pre><code>df[df[&quot;ma_colonne&quot;] == &quot;toto&quot;]
+</code></pre><br/>
+<h3 id="69-pour-une-série-temporelle-combien-déléments-y-a-t-il-dans-notre-dataframe-avec-une-date-supérieure-à-lannéee-2020">6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</h3>
+<pre><code>sum(pd.to_datetime(df['date']).apply(lambda date: date.year) == 2020)
+
+</code></pre><br/>
+<h1 id="debugging-misc">Debugging Misc</h1>
+<h2 id="dumper-un-objet">&ldquo;Dumper&rdquo; un objet:</h2>
+<pre><code>def dump(obj):
+   for attr in dir(obj):
+       if hasattr( obj, attr ):
+           print( &quot;obj.%s = %s&quot; % (attr, getattr(obj, attr)))
+</code></pre><br/>
+<h2 id="afficher-des-couleurs-dans-le-terminal">Afficher des couleurs dans le terminal</h2>
+<pre><code>print('\x1b[6;30;42m' + 'Success!' + '\x1b[0m')
+</code></pre><p><img src="https://leandeep.com/images/colors-terminal-basics.png" alt="image"></p>
+<p>Voir toutes les couleurs disponibles:</p>
+<pre><code>def print_format_table():
+    &quot;&quot;&quot;
+    prints table of formatted text format options
+    &quot;&quot;&quot;
+    for style in range(8):
+        for fg in range(30,38):
+            s1 = ''
+            for bg in range(40,48):
+                format = ';'.join([str(style), str(fg), str(bg)])
+                s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
+            print(s1)
+        print('\n')
+
+print_format_table()
+</code></pre><p>Voici quelques examples:</p>
+<p><img src="https://leandeep.com/images/terminal_few_colors.png" alt="image"></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/pandas">pandas</a></span><span class="tag"><a href="https://leandeep.com/tags/numpy">Numpy</a></span><span class="tag"><a href="https://leandeep.com/tags/matplotlib">Matplotlib</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1385 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 Sep. 2015</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/config-commandes-et-tips-utiles-git/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Config, Commandes et tips utiles Git</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/formater-un-markdown-dans-le-terminal/">
+                                <span class="button__text">Formater un markdown dans le terminal </span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/%20posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    class App extends React.Component {
+        constructor(options) {
+            console.log("data")
+            console.log(options.data)
+            super();
+            this.state = {
+                data: options.data,
+
+                appName: 'Search Bar (Algolia replacement under dev with React)',
+                list: undefined
+            };
+
+        }
+        searchData(e) {
+            var queryData = [];
+            if (e.target.value != '') {
+                this.state.data.forEach(function (person) {
+
+                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
+                        if (queryData.length < 10) {
+                            queryData.push(person);
+                        }
+                    }
+                });
+            }
+            this.setState({ list: queryData });
+        }
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement(Header, { name: this.state.appName }),  
+                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
+                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
+
+
+        }
+    }
+
+
+    class Header extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("h1", null, this.props.name)));
+
+
+        }
+    }
+
+
+    class SearchBar extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
+
+
+        }
+    }
+
+
+    class SearchResult extends React.Component {
+
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("ul", null,
+                        this.props.data.map(function (value) {
+                            return  React.createElement(Item, { key: value, val: value });
+                        }))));
+
+
+
+
+        }
+    }
+
+
+
+    class Item extends React.Component {
+        render() {
+            return  (
+                React.createElement("li", null,
+                    this.props.val));
+
+
+        }
+    }
+
+
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log(event.data.msg, event.data.url, event.data.files);
+        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
+    });
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: '.'
+    }).then(function (registration) {
+        console.log('The service worker has been registered ', registration);
+    });
+    
+
+    
+    setTimeout(function () {
+        console.log("unregister sws")
+        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
+    }, 10000);
+
+
+
+
+</script>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
