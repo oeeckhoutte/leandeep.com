@@ -5,8 +5,75 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 13 May 2021 18:20:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 11 Jun 2021 15:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Créer des NFTs sur Ethereum</title>
+            <link>https://leandeep.com/cr%C3%A9er-des-nfts-sur-ethereum/</link>
+            <pubDate>Fri, 11 Jun 2021 15:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-des-nfts-sur-ethereum/</guid>
+            <description>Dans cet article, nous allons voir comment créer des NFT sur Ethereum en utilisant le projet Python Brownie. L&amp;rsquo;ensemble du tutorial a été réalisé avec Python 3.8. NodeJS sera également nécessaire pour installer Ganache. Dans cet article, j&amp;rsquo;ai utilisé la v10.23.3 ainsi qu&amp;rsquo;NPM 6.14.11.
+ Qu&amp;rsquo;est-ce que Brownie ? Similaire au framework Truffle, Brownie permet de développer, tester et déployer des Smart Contracts. A la différence de Truffle, il est écrit en Python 3.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment créer des NFT sur Ethereum en utilisant le projet Python Brownie. L&rsquo;ensemble du tutorial a été réalisé avec Python 3.8. NodeJS sera également nécessaire pour installer Ganache. Dans cet article, j&rsquo;ai utilisé la v10.23.3 ainsi qu&rsquo;NPM 6.14.11.</p>
+<br/>
+<h2 id="quest-ce-que-brownie-">Qu&rsquo;est-ce que Brownie ?</h2>
+<p>Similaire au framework Truffle, Brownie permet de développer, tester et déployer des Smart Contracts. A la différence de Truffle, il est écrit en Python 3. De ce que j&rsquo;ai pu voir, il est un peu plus complet que Truffle en terme de tooling (en qu&rsquo;il y a des plugins) et peut fonctionner aussi avec Vyper qui permet d&rsquo;écrire des Smart Contracts en Python typé façon Mypy.</p>
+<p>En résumé il peut faire ceci:</p>
+<ul>
+<li>Programmer des smart contract dans différents langages: Solidity ou Vyper</li>
+<li>&ldquo;Builder&rdquo; des contracts</li>
+<li>Tester les smart contracts avec Pytest</li>
+<li>Intéragir avec les contracts</li>
+<li>Il y a des scripts pour intéragir avec les smart contracts</li>
+<li>If offre des templates de smart contract</li>
+<li>Intégration avec Ganache</li>
+</ul>
+<p>Source du projet: <a href="https://github.com/eth-brownie/brownie">https://github.com/eth-brownie/brownie</a></p>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<p>Installer le package Brownie et Ganache</p>
+<pre><code>pip install eth-brownie
+# Installed version 1.14.6
+
+npm install -g ganache-cli
+# Installed version 6.12.2
+</code></pre><br/>
+<p>Posséder des ETH sur Rinkeby.</p>
+<blockquote>
+<p>Si vous n&rsquo;en avez pas, ces Faucets sont à disposition:</p>
+<ul>
+<li>Testnet ETH: <a href="https://faucet.rinkeby.io/">https://faucet.rinkeby.io/</a></li>
+</ul>
+</blockquote>
+<br/>
+<h2 id="configuration">Configuration</h2>
+<p>Créer un fichier <code>.env</code> contenant les variables d&rsquo;environnement de votre projet.  Pour la PRIVATE_KEY utilisez un compte sur Rinkeby (<a href="https://rinkeby.etherscan.io">https://rinkeby.etherscan.io</a>) qui possède des ETH.</p>
+<pre><code>export PRIVATE_KEY=blablabla
+export WEB3_INFURA_PROJECT_ID=blablabla
+export ETHERSCAN_TOKEN=blablabla
+</code></pre><p>Ensuite sourcer votre fichier <code>source .env</code>.</p>
+<br/>
+<h2 id="déployer-la-nft-factory">Déployer la NFT factory</h2>
+<p>Exécuter les commandes suivantes:</p>
+<pre><code>brownie run scripts/simple_collectible/deploy_simple.py --network rinkeby
+# Une fois la vérification passée &quot;Verification complete. Result: Pass - Verified&quot;:
+brownie run scripts/simple_collectible/create_collectible.py --network rinkeby
+</code></pre><br/>
+<h2 id="visualisation-du-déploiement">Visualisation du déploiement</h2>
+<p><img src="/images/nft-sur-opensea.png" alt="image"></p>
+<p><a href="https://testnets.opensea.io/assets/0xE62800C18D25AA2742d4e9d4dA2a9B18b19B5552/4">https://testnets.opensea.io/assets/0xE62800C18D25AA2742d4e9d4dA2a9B18b19B5552/4</a></p>
+<br/>
+<h2 id="fonctionnement">Fonctionnement</h2>
+<p>OpenSea est une plateforme &ldquo;non-custodial&rdquo;. Les NFTs des utilisateurs ne sont pas sur OpenSea. Les NFTs vivent sur une adresse ETH et les wallets (comme MetaMask) permettent de les manipuler.</p>
+<p>Dans le détail:</p>
+<p>Les NFT sont comme des peintures. Votre adresse Ethereum est une galerie dont vous être le propriétaire. Metamask est un conservateur de galerie qu&rsquo;on peut utiliser pour déplacer les peintures. OpenSea est une fenêtre donnant sur votre galerie.</p>
+<p>On peut embaucher un autre conservateur de galerie en changeant de Wallet. Le NFT/la peinture n&rsquo;a pas à sortir de votre galerie et vous pouvez toujours le/la voir à travers la fenêtre OpenSea. Rien ne change vraiment, sauf la façon dont vous interagissez avec l&rsquo;élément.</p>
+<p>On peut utiliser une autre fenêtre pour votre votre NFT/peinture comme Rarible or Mintable. Le NFT/la peinture ne bouge pas et la &ldquo;galerie&rdquo; (votre adresse ETH) ne change pas.</p>
+<p>La vente ou le transfert du NFT/ de la peinture le/la déplace vers une autre adresse ETH (galerie). OpenSea et d&rsquo;autres plates-formes peuvent afficher n&rsquo;importe quel NFT en ouvrant simplement une autre fenêtre, rien n&rsquo;a à être fait par le propriétaire.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Premier programme en Rust</title>
