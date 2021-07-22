@@ -5,8 +5,90 @@
         <description>Recent content in Posts on Bienvenue sur le site de Lean Deep</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 16 Jul 2021 11:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 20 Jul 2021 21:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Charger automatiquement les variables d&#39;environnement et virtualenv des projets Python</title>
+            <link>https://leandeep.com/charger-automatiquement-les-variables-denvironnement-et-virtualenv-des-projets-python/</link>
+            <pubDate>Tue, 20 Jul 2021 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/charger-automatiquement-les-variables-denvironnement-et-virtualenv-des-projets-python/</guid>
+            <description>Dans cet article, nous allons voir comment charger (et décharger) automatiquement les variables d&amp;rsquo;environnements de vous projets lors d&amp;rsquo;un cd (et accessoirement comment sourcer et désactiver les virtualenv Python).
+ D&amp;rsquo;autres solutions alternatives que je ne recommande pas existent: pipenv, autoenv
+  direnv Pour ce faire, nous allons utilise un utilitaire appelé direnv qui est disponible pour pas mal de distributions.
+ Le projet est accessible à l&amp;rsquo;adresse suivante: https://github.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment charger (et décharger) automatiquement les variables d&rsquo;environnements de vous projets lors d&rsquo;un <code>cd</code> (et accessoirement comment sourcer et désactiver les virtualenv Python).</p>
+<blockquote>
+<p>D&rsquo;autres solutions alternatives que je ne recommande pas existent: pipenv, autoenv</p>
+</blockquote>
+<br/>
+<h2 id="direnv">direnv</h2>
+<p>Pour ce faire, nous allons utilise un utilitaire appelé <strong>direnv</strong> qui est disponible pour pas mal de distributions.</p>
+<blockquote>
+<p>Le projet est accessible à l&rsquo;adresse suivante: <a href="https://github.com/direnv/direnv">https://github.com/direnv/direnv</a></p>
+</blockquote>
+<br/>
+<p>Installation sur OSX:</p>
+<pre><code>brew install direnv
+</code></pre><br/>
+<p>Pour finir l&rsquo;installation, il faut ajouter ensuite le code suivant dans votre fichier <code>~/.zshrc</code>:</p>
+<pre><code>eval &quot;$(direnv hook zsh)&quot;
+
+realpath() {
+    [[ $1 = /* ]] &amp;&amp; echo &quot;$1&quot; || echo &quot;$PWD/${1#./}&quot;
+}
+layout_python-venv() {
+    local python=${1:-python3}
+    [[ $# -gt 0 ]] &amp;&amp; shift
+    unset PYTHONHOME
+    if [[ -n $VIRTUAL_ENV ]]; then
+        VIRTUAL_ENV=$(realpath &quot;${VIRTUAL_ENV}&quot;)
+    else
+        local python_version
+        python_version=$(&quot;$python&quot; -c &quot;import platform; print(platform.python_version())&quot;)
+        if [[ -z $python_version ]]; then
+            log_error &quot;Could not detect Python version&quot;
+            return 1
+        fi
+        VIRTUAL_ENV=$PWD/.direnv/python-venv-$python_version
+    fi
+    export VIRTUAL_ENV
+    if [[ ! -d $VIRTUAL_ENV ]]; then
+        log_status &quot;no venv found; creating $VIRTUAL_ENV&quot;
+        &quot;$python&quot; -m venv &quot;$VIRTUAL_ENV&quot;
+    fi
+
+    PATH=&quot;${VIRTUAL_ENV}/bin:${PATH}&quot;
+    export PATH
+}
+
+# Customiser le prompt
+setopt PROMPT_SUBST
+
+show_virtual_env() {
+  if [[ -n &quot;$VIRTUAL_ENV&quot; &amp;&amp; -n &quot;$DIRENV_DIR&quot; ]]; then
+    echo &quot;($(basename $VIRTUAL_ENV))&quot;
+  fi
+}
+PS1='$(show_virtual_env) '$PS1
+</code></pre><br/>
+<p>L&rsquo;installation est maintenant terminée. Il vous suffit de créer un fichier <code>.envrc</code> dans votre dossier/ projet et il sera automatiquement chargé (après une autorisation de sécurité via la commande <code>direnv allow</code>).</p>
+<p>Exemple de contenu pour le fichier <code>.envrc</code>:</p>
+<pre><code>export MA_VAR0=...
+export MA_VAR1=...
+export MA_VAR2=...
+# Charger un virtualenv
+layout python
+</code></pre><p><br/>
+Avec la ligne <code>layout python</code>, un virtualenv sera automatiquement créé dans le path <code>.direnv/python-3.9.5/bin/python</code> de votre projet.</p>
+<blockquote>
+<p>Plus d&rsquo;info sur le virtualenv; comme par exemple le support de poetry ou pyenv à l&rsquo;adresse suivante: <a href="https://github.com/direnv/direnv/wiki/Python">https://github.com/direnv/direnv/wiki/Python</a></p>
+</blockquote>
+<br/>
+<p>En conclusion, c&rsquo;est un projet simple et efficace.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Faire tourner un noeud Polygon Matic</title>
@@ -10011,7 +10093,7 @@ export KUBECONFIG=~/.kube/config-&lt;of-your-cluster&gt;
 <pre><code>kubectl run -it --rm debug-pod --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11
 # apt install iputils-ping
 </code></pre><br/>
-<h2 id="commandes-propres-à-aks-kubernetes-azure">Commandes propres à AKS (Kubernetes Azure)</h2>
+<h2 id="commandes-propres-à-aks-kubernetes-azure-et-infos-utiles">Commandes propres à AKS (Kubernetes Azure) et infos utiles</h2>
 <p><strong>Se connecter à son cluster AKS nouvellement créé</strong></p>
 <pre><code>az login
 
@@ -10053,6 +10135,15 @@ az aks update-credentials --resource-group myResourceGroup --name myAKSCluster -
     --query servicePrincipalProfile.clientId -o tsv)
 az ad sp credential list --id $SP_ID --query &quot;[].endDate&quot; -o tsv
 </code></pre><br/>
+<p><strong>Les solutions des stockages persistentes sur AKS</strong></p>
+<ul>
+<li>
+<p>Azure disk: <strong>Attention seulement ReadWriteOnce</strong></p>
+</li>
+<li>
+<p>Azure files: ReadWriteMany mais attention aux performances</p>
+</li>
+</ul>
 ]]></content>
         </item>
         
