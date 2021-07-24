@@ -86,6 +86,19 @@ Avec la ligne <code>layout python</code>, un virtualenv sera automatiquement cr�
 <p>Plus d&rsquo;info sur le virtualenv; comme par exemple le support de poetry ou pyenv à l&rsquo;adresse suivante: <a href="https://github.com/direnv/direnv/wiki/Python">https://github.com/direnv/direnv/wiki/Python</a></p>
 </blockquote>
 <br/>
+<h2 id="pyenv">pyenv</h2>
+<p><code>direnv</code> est compatible avec <code>pyenv</code>. A la place de la ligne <code>layout python</code> on peut spécifier la version de Python que l&rsquo;on veut utiliser dans son projet. Par exemple: <code>layout pyenv 3.7.11</code>.</p>
+<blockquote>
+<p>Rappel pour installer pyenv:</p>
+<pre><code>curl -L https://pyenv.run | bash
+echo 'export PATH=&quot;~/.pyenv/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
+$ echo 'eval &quot;$(pyenv init -)&quot;' &gt;&gt; ~/.zshrc
+$ echo 'eval &quot;$(pyenv virtualenv-init -)&quot;' &gt;&gt; ~/.zshrc
+$ source ~/.zshrc
+pyenv install -l
+pyenv install 3.7.11
+</code></pre></blockquote>
+<br/>
 <p>En conclusion, c&rsquo;est un projet simple et efficace.</p>
 ]]></content>
         </item>
