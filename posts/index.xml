@@ -134,6 +134,24 @@ docker–compose –version
 # sudo apt remove docker-compose
 # sudo apt autoremove
 </code></pre><br/>
+<p><strong>Optionnel: créer et monter une partition de 4TB</strong></p>
+<pre><code>parted /dev/sda
+(parted) mklabel gpt
+(parted) Warning: The existing disk label on /dev/sda will be destroyed and all data on this disk will be lost. Do you want to continue? Yes/No? yes
+(parted) unit TB
+(parted) mkpart primary 0.00TB 4.00TB
+(parted) print
+(parted) quit
+# Information: You may need to update /etc/fstab.
+mkfs.ext4 /dev/sda1
+mkdir /data
+mount /dev/sda1 /data
+
+# Update /etc/fstab
+lsblk -fe7
+# sudo vim /etc/fstab et ajouter la ligne suivante:
+UUID=YOUR_DISK_UUID /data ext4 defaults 0 0
+</code></pre><br/>
 <p>Télécharger le dernier snapshot full</p>
 <pre><code>wget -c https://matic-blockchain-snapshots.s3.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2021-06-16.tar.gz
 wget -c https://matic-blockchain-snapshots.s3.amazonaws.com/matic-mainnet/heimdall-fullnode-snapshot-2021-06-16.tar.gz
@@ -22319,7 +22337,7 @@ scp vps:&quot;$file&quot; .
 <p>Alternative:</p>
 <pre><code>cat ~/.ssh/id_rsa.pub | ssh remoteserver 'cat &gt;&gt; .ssh/authorized_keys'
 </code></pre><br/>
-<h2 id="exécuter-uen-commande-à-distance">Exécuter uen commande à distance</h2>
+<h2 id="exécuter-une-commande-à-distance">Exécuter une commande à distance</h2>
 <pre><code>ssh remoteserver &quot;cat /var/log/nginx/access.log&quot; | grep &quot;string_to_find&quot;
 </code></pre><blockquote>
 <p><code>| grep ...</code> est exécuté localement</p>
