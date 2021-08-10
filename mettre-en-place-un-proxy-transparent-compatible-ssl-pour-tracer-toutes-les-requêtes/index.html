@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &amp;ldquo;logguer&amp;rdquo; tous les sites appelés par un device. C&amp;rsquo;est extrèmement pratique lorsqu&amp;rsquo;on fait du développement mobile lorsqu&amp;rsquo;on veut analyser les requêtes faites par notre application. (Je n&amp;rsquo;ai pas encore d&amp;rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&amp;hellip; Bref il y a beaucoup de use cases.
+L&amp;rsquo;idée ici est de créer un hotspot Wifi." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/mettre-en-place-un-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Mettre en place un proxy transparent compatible SSL pour tracer toutes les requêtes :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.91ebfb31ca960c00659accdcb98033689e597bbcd9252909c476325662ba777f.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Mettre en place un proxy transparent compatible SSL pour tracer toutes les requêtes">
+<meta itemprop="description" content="Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;logguer&rdquo; tous les sites appelés par un device. C&rsquo;est extrèmement pratique lorsqu&rsquo;on fait du développement mobile lorsqu&rsquo;on veut analyser les requêtes faites par notre application. (Je n&rsquo;ai pas encore d&rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.
+L&rsquo;idée ici est de créer un hotspot Wifi."><meta itemprop="datePublished" content="2018-12-06T22:22:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-06T22:22:00&#43;00:00" />
+<meta itemprop="wordCount" content="616"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Security,Web,Dev,Mobile," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Mettre en place un proxy transparent compatible SSL pour tracer toutes les requêtes"/>
+<meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;logguer&rdquo; tous les sites appelés par un device. C&rsquo;est extrèmement pratique lorsqu&rsquo;on fait du développement mobile lorsqu&rsquo;on veut analyser les requêtes faites par notre application. (Je n&rsquo;ai pas encore d&rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.
+L&rsquo;idée ici est de créer un hotspot Wifi."/>
+
+
+
+
+
+<meta property="article:published_time" content="2018-12-06 22:22:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/mettre-en-place-un-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/">Mettre en place un proxy transparent compatible SSL pour tracer toutes les requêtes</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="introduction">Introduction</h2>
+<p>Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;<em>logguer</em>&rdquo; tous les sites appelés par un device.
+C&rsquo;est extrèmement pratique lorsqu&rsquo;on fait du développement mobile lorsqu&rsquo;on veut analyser les requêtes faites par notre application. (Je n&rsquo;ai pas encore d&rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.</p>
+<p>L&rsquo;idée ici est de créer un hotspot Wifi. Lorsqu&rsquo;un device s&rsquo;y connecte tout le traffic qu&rsquo;il va générer sera &ldquo;<em>loggué</em>&rdquo;. Il sera alors facile de voir toutes les requetes et réponses faites par le device.</p>
+<p>Ce proxy permet de tracker le traffic HTTP et HTTPS.
+Pour la partie HTTPS il faudra installer un Root CA sur le device.</p>
+<p>J&rsquo;ai utilisé un dongle USB type Atheros Alfa AWUS&hellip;</p>
+<br/>
+<h2 id="installation-du-proxy-man-in-the-middle">Installation du proxy Man-In-The-Middle</h2>
+<ul>
+<li>
+<p>Commencez par télécharger la version complète de kali linux (~3Go) <a href="https://kali.org/downloads/">https://kali.org/downloads/</a></p>
+</li>
+<li>
+<p>Je suis sur Mac du coup j&rsquo;ai créé une VM avec VirtualBox (outil simple et gratuit). Faites de même et n&rsquo;oubliez pas de brancher votre dongle et de l&rsquo;associer à votre VM. Pour le réseau, montez le en mode Bridge (cela permettra de facilement faire un SSH sur la VM)</p>
+</li>
+<li>
+<p>Démarrez votre VM et donc Kali en mode Live.</p>
+</li>
+<li>
+<p>Après le démarrage de Kali, vous pourrez vous y connecter en utilisant les credentials par défaut: <code>root/toor</code>.</p>
+</li>
+<li>
+<p>Créer un hotspot Wifi. Pour cela, cliquez sur l&rsquo;icône réseau en haut à droite puis cliquez sur &ldquo;Wi-Fi&rdquo;, puis &ldquo;Wi-Fi Settings&rdquo;, sélectionnez la carte sans fil que vous souhaitez utiliser pour le hotspot et enfin cliquez sur &ldquo;Use as Hotspot&rdquo;. Bravo vous avez créé en quelques minutes un hotspot wifi avec avec des rêgles de routage. Vous pouvez d&rsquo;ors et déjà utiliser Wireshark ou d&rsquo;autres outils du genre&hellip;</p>
+</li>
+<li>
+<p>Connectez votre device au hotspot &ldquo;kali&rdquo;.</p>
+</li>
+<li>
+<p>De retour sur votre Kali, activez l&rsquo;IP forwarding dans le kernel avec la commande suivante <code>sysctl -w net.ipv4.ip_forward=1</code>.</p>
+</li>
+<li>
+<p>En supposant que votre hotspot utilise <code>wlan0</code>, on va configurer des rêgles <code>iptables</code> qui vont rediriger tout le traffic TCP des ports 80 et 443 sur le proxy Mitmproxy.</p>
+</li>
+</ul>
+<pre><code>iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+</code></pre><ul>
+<li>Maintenant vous pouvez démarrer le proxy avec la commande suivante:</li>
+</ul>
+<pre><code>mitmproxy --mode transparent --listen-port 8080
+</code></pre><ul>
+<li>Mitmproxy va démarrer et vous pourrez voir tout le traffic HTTP.
+Par contre dès que vous essayerez de voir le contenu des sites en HTTPS vous aurez une erreur comme celle-ci:</li>
+</ul>
+<p><img src="https://leandeep.com/images/https-error.png" alt="image"></p>
+<br/>
+<h2 id="configuration-https-pour-ios">Configuration HTTPS pour iOS</h2>
+<ul>
+<li>
+<p>Lorsque Mitmproxy démarre pour la première fois il crée automatiquement des CA certificates dans le répertoire ~/.mitmproxy.</p>
+</li>
+<li>
+<p>Récupérer les CA de la VM sur votre Host via scp. Pour cela démarrez le service SSH:</p>
+</li>
+</ul>
+<pre><code>systemctl start ssh.service
+# scp... ou faite un cat (il n'y a que 2 fichiers)
+</code></pre><ul>
+<li>
+<p>Une fois les 2 CA <code>mitmproxy-ca.pem</code> et <code>mitmproxy-ca-cert.pem</code> récupérés, créez un server web (un simple directory listing) et exposez les CA. L&rsquo;idée est de vous rendre sur le serveur web avec votre device (iPhone) et de cliquer sur les CA. Une fois que vous aurez cliqué dessus vous pourrez les &ldquo;truster&rdquo;.</p>
+</li>
+<li>
+<p>Une fois que vous les aurez &ldquo;trusté&rdquo;, vous pourrez lire le contenu des requêtes HTTPS dans l&rsquo;interface mitmproxy :D. Voici à quoi cela ressemble lorsque je me rends avec mon iPhone sur la page &ldquo;Tweets&rdquo; de ce site.</p>
+</li>
+</ul>
+<br/>
+<p><img src="https://leandeep.com/images/leandeep-browsing-ios.png" alt="image"></p>
+<!-- raw HTML omitted -->
+<br/>
+<p><img src="https://leandeep.com/images/mitmproxy-demo.png" alt="image"></p>
+<!-- raw HTML omitted -->
+<br/>
+<ul>
+<li>Pour Android je n&rsquo;ai pas encore testé. Il semblerait qu&rsquo;il y ait un domaine permettant d&rsquo;installer plus facilement les CA. <a href="http://mitm.it">http://mitm.it</a> (cela ne fonctionnait pas pour iOS mais pour Android il faudrait tester). Si cette URL ne nous aide pas à installer les CA, la méthode ci-dessus devrait fonctionner également sur Android.</li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/security">Security</a></span><span class="tag"><a href="https://leandeep.com/tags/web">Web</a></span><span class="tag"><a href="https://leandeep.com/tags/dev">Dev</a></span><span class="tag"><a href="https://leandeep.com/tags/mobile">Mobile</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>616 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Dec. 2018</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/coding-coneways-game-of-life-en-tdd/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Coding Coneway&#39;s Game of Life en TDD</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/convertir-une-video-.webm-en-.mp4/">
+                                <span class="button__text">Convertir une video .webm en .mp4</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    class App extends React.Component {
+        constructor(options) {
+            console.log("data")
+            console.log(options.data)
+            super();
+            this.state = {
+                data: options.data,
+
+                appName: 'Search Bar (Algolia replacement under dev with React)',
+                list: undefined
+            };
+
+        }
+        searchData(e) {
+            var queryData = [];
+            if (e.target.value != '') {
+                this.state.data.forEach(function (person) {
+
+                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
+                        if (queryData.length < 10) {
+                            queryData.push(person);
+                        }
+                    }
+                });
+            }
+            this.setState({ list: queryData });
+        }
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement(Header, { name: this.state.appName }),  
+                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
+                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
+
+
+        }
+    }
+
+
+    class Header extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("h1", null, this.props.name)));
+
+
+        }
+    }
+
+
+    class SearchBar extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
+
+
+        }
+    }
+
+
+    class SearchResult extends React.Component {
+
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("ul", null,
+                        this.props.data.map(function (value) {
+                            return  React.createElement(Item, { key: value, val: value });
+                        }))));
+
+
+
+
+        }
+    }
+
+
+
+    class Item extends React.Component {
+        render() {
+            return  (
+                React.createElement("li", null,
+                    this.props.val));
+
+
+        }
+    }
+
+
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log(event.data.msg, event.data.url, event.data.files);
+        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
+    });
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: '.'
+    }).then(function (registration) {
+        console.log('The service worker has been registered ', registration);
+    });
+    
+
+    
+    setTimeout(function () {
+        console.log("unregister sws")
+        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
+    }, 10000);
+
+
+
+
+</script>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>

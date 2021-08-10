@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>security on Lean Deep Tech blog</title>
+    <title>Security on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/security/</link>
-    <description>Recent content in security on Lean Deep Tech blog</description>
+    <description>Recent content in Security on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 17 Apr 2021 19:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
@@ -17,14 +17,23 @@
     </item>
     
     <item>
-      <title>Comprendre les failles de certains APKs Android</title>
-      <link>https://leandeep.com/comprendre-les-failles-de-certains-apks-android/</link>
+      <title>Comprendre les failles de certains APKs Android (Payload injection avec Metasploit)</title>
+      <link>https://leandeep.com/comprendre-les-failles-de-certains-apks-android-payload-injection-avec-metasploit/</link>
       <pubDate>Fri, 13 Nov 2020 16:49:00 +0200</pubDate>
       
-      <guid>https://leandeep.com/comprendre-les-failles-de-certains-apks-android/</guid>
+      <guid>https://leandeep.com/comprendre-les-failles-de-certains-apks-android-payload-injection-avec-metasploit/</guid>
       <description>Introduction L&amp;rsquo;objectif de cet article est de sensibiliser à la sécurité sur Android. Ce n&amp;rsquo;est pas très compliqué d&amp;rsquo;injecter des virus (très) néfastes dans des APKs disponibles sur internet. Surtout n&amp;rsquo;installez pas des APKs qui ne proviennent pas des Stores Officiels d&amp;rsquo;Apple ou Google sans savoir ce que vous faites.
  Installation sur Kali apktool
 mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar mv apktool_*.jar apktool.jar wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool mv * /usr/local/bin chmod +x /usr/local/bin/apktool.</description>
+    </item>
+    
+    <item>
+      <title>Analyser le code source d&#39;une app ElectronJS</title>
+      <link>https://leandeep.com/analyser-le-code-source-dune-app-electronjs/</link>
+      <pubDate>Thu, 12 Nov 2020 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/analyser-le-code-source-dune-app-electronjs/</guid>
+      <description>Introduction Parfois pour vérifier qu&amp;rsquo;une application dénichée sur internet (et pas sur les stores officiels Google ou Apple) ne comporte pas de virus, le plus simple est d&amp;rsquo;analyser son code source. C&amp;rsquo;était mon cas pour une application utilisant le framework ElectronJS que je trouvais géniale. J&amp;rsquo;ai voulu vérifier qu&amp;rsquo;elle ne contenait pas de faille de sécurité avant de l&amp;rsquo;installer sur mon Mac. Les applications ElectronJS sont &amp;ldquo;protégées&amp;rdquo; par une archive et le code est offusqué.</description>
     </item>
     
     <item>
@@ -38,6 +47,74 @@ L&amp;rsquo;installation sera faite sur Ubuntu 18.04 avec un user non root. Le h
 Les outils sont les suivants:
  Kalibrate Qspectrum Inspectrum Spectrum Analyzer GUI URH (Universal Radio Hack) Gnuradio   Pourquoi ces outils sont-ils utiles ?
  Analyser la sécurité de vos objets connectés, ou votre porte de garage, votre portail motorisé&amp;hellip; (malheureusement beaucoup comportent des failles) Comprendre comment fonctionnent les ondes GSM et mieux vous protéger (Attention aux ISMI catchers) Piloter des drones, voitures téléguidées qui n&amp;rsquo;ont pas d&amp;rsquo;API et que vous aimez bidouillez.</description>
+    </item>
+    
+    <item>
+      <title>Sortir dans un pays particulier avec Tor </title>
+      <link>https://leandeep.com/sortir-dans-un-pays-particulier-avec-tor/</link>
+      <pubDate>Sat, 24 Aug 2019 20:38:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/sortir-dans-un-pays-particulier-avec-tor/</guid>
+      <description>Si vous avez besoin de sortir dans un pays particulier avec Tor c&amp;rsquo;est faisable facile. Voici la procédure pour OSX.
+Pour ce faire, éditez le fichier ~/Library/Application\ Support/TorBrowser-Data/Tor/torrc et ajoutez la ligne suivante:
+ExitNodes {us} StrictNodes 1 # StrictNodes 0 est plus permissif # Il est possible d&#39;avoir plusieurs pays {us},{fr} Dans l&amp;rsquo;exemple précédent, on sort aux US mais il est possible de sortir ailleurs. Il suffit de changer le code pays.</description>
+    </item>
+    
+    <item>
+      <title>Run Kali in headless mode via Virtualbox on Ubuntu 18.04</title>
+      <link>https://leandeep.com/run-kali-in-headless-mode-via-virtualbox-on-ubuntu-18.04/</link>
+      <pubDate>Sat, 06 Jul 2019 14:51:23 +0000</pubDate>
+      
+      <guid>https://leandeep.com/run-kali-in-headless-mode-via-virtualbox-on-ubuntu-18.04/</guid>
+      <description>I needed to create a Wifi hotspot. Here are the necessary commands to install Kali on Virtualbox on Ubuntu 18.04.
+ Install Virtualbox sudo apt update sudo apt upgrade  Import the Oracle public key to your system:
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -  Add Oracle VirtualBox PPA. The command below will add an entry at the end of the file /etc/apt/sources.</description>
+    </item>
+    
+    <item>
+      <title>Changer d&#39;adresse MAC sur Android</title>
+      <link>https://leandeep.com/changer-dadresse-mac-sur-android/</link>
+      <pubDate>Thu, 17 Jan 2019 21:59:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/changer-dadresse-mac-sur-android/</guid>
+      <description>1. Qu&amp;rsquo;est-ce qu&amp;rsquo;une adresse MAC ? Une Media Access Control address (adresse MAC) est un identifiant unique composé de 12 caractères assigné aux cartes réseau. En d&amp;rsquo;autres termes, une adresse MAC peut être utilisée pour identifier de manière unique votre téléphone Android phone sur Internet ou dans un réseau local.
+ 2. Spoof Mac Address Nous allons maintenant votre comment spoofer (modifier) votre adresse MAC.
+ Il faut que votre Smartphone soit rooté sinon le changement sera temporaire.</description>
+    </item>
+    
+    <item>
+      <title>Mettre en place un proxy transparent compatible SSL pour tracer toutes les requêtes</title>
+      <link>https://leandeep.com/mettre-en-place-un-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/</link>
+      <pubDate>Thu, 06 Dec 2018 22:22:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/mettre-en-place-un-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/</guid>
+      <description>Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &amp;ldquo;logguer&amp;rdquo; tous les sites appelés par un device. C&amp;rsquo;est extrèmement pratique lorsqu&amp;rsquo;on fait du développement mobile lorsqu&amp;rsquo;on veut analyser les requêtes faites par notre application. (Je n&amp;rsquo;ai pas encore d&amp;rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&amp;hellip; Bref il y a beaucoup de use cases.
+L&amp;rsquo;idée ici est de créer un hotspot Wifi.</description>
+    </item>
+    
+    <item>
+      <title>Créer une VM de dev sec avec Vagrant</title>
+      <link>https://leandeep.com/cr%C3%A9er-une-vm-de-dev-sec-avec-vagrant/</link>
+      <pubDate>Fri, 01 Dec 2017 13:49:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/cr%C3%A9er-une-vm-de-dev-sec-avec-vagrant/</guid>
+      <description>Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &amp;ldquo;jetable&amp;rdquo; vous pouvez utiliser Vagrant.
+Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&amp;rsquo;exécuter la commande vagrant up.
+Sur votre machine il faudra que Virtualbox soit installé en amont.
+Voici à quoi ressmeble mon Vagrantfile:</description>
+    </item>
+    
+    <item>
+      <title>Debug des certificats SSL</title>
+      <link>https://leandeep.com/debug-des-certificats-ssl/</link>
+      <pubDate>Wed, 01 Jul 2015 19:43:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/debug-des-certificats-ssl/</guid>
+      <description>Voir tous les SAN (Subjects Alternative Names) d&amp;rsquo;un CSR (Certificate Signing Request):
+openssl req -noout -text -in my_csr.csr | grep DNS  Voir tous les SAN dans un certificat pem:
+cat my_pem.pem | openssl x509 -text | grep DNS  Voir le certificat d&amp;rsquo;un site web:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts  Sauvegarder le certificat d&amp;rsquo;un site web dans un fichier PEM:
+openssl s_client -connect {HOSTNAME}:{PORT} -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null|openssl x509 -outform PEM &amp;gt; dl_cert_file.</description>
     </item>
     
   </channel>

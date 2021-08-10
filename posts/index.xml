@@ -1932,11 +1932,11 @@ python3
         </item>
         
         <item>
-            <title>Comprendre les failles de certains APKs Android</title>
-            <link>https://leandeep.com/comprendre-les-failles-de-certains-apks-android/</link>
+            <title>Comprendre les failles de certains APKs Android (Payload injection avec Metasploit)</title>
+            <link>https://leandeep.com/comprendre-les-failles-de-certains-apks-android-payload-injection-avec-metasploit/</link>
             <pubDate>Fri, 13 Nov 2020 16:49:00 +0200</pubDate>
             
-            <guid>https://leandeep.com/comprendre-les-failles-de-certains-apks-android/</guid>
+            <guid>https://leandeep.com/comprendre-les-failles-de-certains-apks-android-payload-injection-avec-metasploit/</guid>
             <description>Introduction L&amp;rsquo;objectif de cet article est de sensibiliser à la sécurité sur Android. Ce n&amp;rsquo;est pas très compliqué d&amp;rsquo;injecter des virus (très) néfastes dans des APKs disponibles sur internet. Surtout n&amp;rsquo;installez pas des APKs qui ne proviennent pas des Stores Officiels d&amp;rsquo;Apple ou Google sans savoir ce que vous faites.
  Installation sur Kali apktool
 mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar mv apktool_*.jar apktool.jar wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool mv * /usr/local/bin chmod +x /usr/local/bin/apktool.</description>
@@ -2038,6 +2038,38 @@ help
 <li>Utiliser un reverse shell anonyme avec Ngrok et connect-back avec Tor entre les deux (ie: <code>socks5_proxy: &quot;socks5://127.0.0.1:9050&quot;</code> dans <code>ngrok.yml</code>)</li>
 </ul>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Analyser le code source d&#39;une app ElectronJS</title>
+            <link>https://leandeep.com/analyser-le-code-source-dune-app-electronjs/</link>
+            <pubDate>Thu, 12 Nov 2020 22:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/analyser-le-code-source-dune-app-electronjs/</guid>
+            <description>Introduction Parfois pour vérifier qu&amp;rsquo;une application dénichée sur internet (et pas sur les stores officiels Google ou Apple) ne comporte pas de virus, le plus simple est d&amp;rsquo;analyser son code source. C&amp;rsquo;était mon cas pour une application utilisant le framework ElectronJS que je trouvais géniale. J&amp;rsquo;ai voulu vérifier qu&amp;rsquo;elle ne contenait pas de faille de sécurité avant de l&amp;rsquo;installer sur mon Mac. Les applications ElectronJS sont &amp;ldquo;protégées&amp;rdquo; par une archive et le code est offusqué.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Parfois pour vérifier qu&rsquo;une application dénichée sur internet (et pas sur les stores officiels Google ou Apple) ne comporte pas de virus, le plus simple est d&rsquo;analyser son code source.
+C&rsquo;était mon cas pour une application utilisant le framework ElectronJS que je trouvais géniale. J&rsquo;ai voulu vérifier qu&rsquo;elle ne contenait pas de faille de sécurité avant de l&rsquo;installer sur mon Mac.
+Les applications ElectronJS sont &ldquo;protégées&rdquo; par une archive et le code est offusqué. Dans cet court article, nous allons voir comment décompresser ces App Electron et comment rendre le code plus lisible.
+Cet article peut aussi intéresser tout développeur souhaitant comprendre comment est codée une application Electron.</p>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<ul>
+<li>NodeJS v12+ installé</li>
+</ul>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>npm install -g asar js-beautify
+</code></pre><br/>
+<h2 id="décompresser-larchive-asar">Décompresser l&rsquo;archive Asar</h2>
+<pre><code>cd /Applications/AppAAnalyser.app/Contents/Resources
+asar extract app.asar app 
+</code></pre><br/>
+<h2 id="rendre-le-code-lisible">Rendre le code lisible</h2>
+<pre><code>mv app/js/app.js app/js/app.min.js
+js-beautify app/js/app.min.js -o app/js/app.js
+code .
+</code></pre>]]></content>
         </item>
         
         <item>
@@ -2992,6 +3024,43 @@ requests_cache.install_cache(&quot;non_fichier_bdd_sqlite&quot;)
 <p><br/>
 Notez que ce système peut permettre de travailler efficacement en mode déconnecté ou de travailler sur des systèmes sécurisés non exposés sur internet.</p>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Deployer un package sur github via curl</title>
+            <link>https://leandeep.com/deployer-un-package-sur-github-via-curl/</link>
+            <pubDate>Mon, 20 Apr 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/deployer-un-package-sur-github-via-curl/</guid>
+            <description>Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
+ Dans notre cas, il s&amp;rsquo;agit d&amp;rsquo;un jar mais cela s&amp;rsquo;applique à tous les types de packages supportés par Github:
+ Docker Maven Nuget Ruby gem npm   Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&amp;ndash;&amp;gt; Settings &amp;ndash;&amp;gt; Developer settings &amp;ndash;&amp;gt; Personal access tokens)
+export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Cet bref article montre comment déployer un package sur Github via une simple commande <code>curl</code>.</p>
+<br/>
+<p>Dans notre cas, il s&rsquo;agit d&rsquo;un jar mais cela s&rsquo;applique à tous les types de packages supportés par Github:</p>
+<ul>
+<li>Docker</li>
+<li>Maven</li>
+<li>Nuget</li>
+<li>Ruby gem</li>
+<li>npm</li>
+</ul>
+<br/>
+<h2 id="commande">Commande</h2>
+<p>En pré-requis, il sera nécessaire de générer un Github personal access tocken (&ndash;&gt; Settings &ndash;&gt; Developer settings &ndash;&gt; Personal access tokens)</p>
+<pre><code>export MON_REPO_GIT=oeeckhoutte/mon-package
+export PACKAGE_NAME=mon-package
+export PACKAGE_VERSION=0.0.1
+export JAR_FILENAME=mon-package-0.0.1.jar
+export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar
+
+curl -X PUT \
+&quot;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&quot; \
+-H &quot;Authorization: token YOUR_TOKEN&quot; \
+--upload-file $LOCAL_JAR_PACKAGE_PATH -vvv
+</code></pre>]]></content>
         </item>
         
         <item>
@@ -7486,6 +7555,26 @@ adb shell settings put global airplane_mode_on 0
         </item>
         
         <item>
+            <title>Sortir dans un pays particulier avec Tor </title>
+            <link>https://leandeep.com/sortir-dans-un-pays-particulier-avec-tor/</link>
+            <pubDate>Sat, 24 Aug 2019 20:38:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/sortir-dans-un-pays-particulier-avec-tor/</guid>
+            <description>Si vous avez besoin de sortir dans un pays particulier avec Tor c&amp;rsquo;est faisable facile. Voici la procédure pour OSX.
+Pour ce faire, éditez le fichier ~/Library/Application\ Support/TorBrowser-Data/Tor/torrc et ajoutez la ligne suivante:
+ExitNodes {us} StrictNodes 1 # StrictNodes 0 est plus permissif # Il est possible d&#39;avoir plusieurs pays {us},{fr} Dans l&amp;rsquo;exemple précédent, on sort aux US mais il est possible de sortir ailleurs. Il suffit de changer le code pays.</description>
+            <content type="html"><![CDATA[<p>Si vous avez besoin de sortir dans un pays particulier avec Tor c&rsquo;est faisable facile. Voici la procédure pour OSX.</p>
+<p>Pour ce faire, éditez le fichier <code>~/Library/Application\ Support/TorBrowser-Data/Tor/torrc</code> et ajoutez la ligne suivante:</p>
+<pre><code>ExitNodes {us} StrictNodes 1
+
+# StrictNodes 0 est plus permissif
+# Il est possible d'avoir plusieurs pays {us},{fr}
+</code></pre><p>Dans l&rsquo;exemple précédent, on sort aux US mais il est possible de sortir ailleurs. Il suffit de changer le code pays. <a href="https://web.archive.org/web/20180328074444/http://www.b3rn3d.com/blog/2014/03/05/tor-country-codes/">https://web.archive.org/web/20180328074444/http://www.b3rn3d.com/blog/2014/03/05/tor-country-codes/</a></p>
+<p>Vous pouvez vérifier si cela a bien fonctionné en vous rendant sur ce site: <a href="https://www.where-am-i.co/my-ip-location">https://www.where-am-i.co/my-ip-location</a></p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Commandes utiles Kafka</title>
             <link>https://leandeep.com/commandes-utiles-kafka/</link>
             <pubDate>Sun, 18 Aug 2019 17:53:00 +0000</pubDate>
@@ -8194,6 +8283,79 @@ unzip allCountries.zip
 <pre><code>java -Xmx2048m -jar clavin-rest.jar server clavin-rest.yml 
 </code></pre><p>The API will be available at: http://localhost:9090/api/v0/geotag</p>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Run Kali in headless mode via Virtualbox on Ubuntu 18.04</title>
+            <link>https://leandeep.com/run-kali-in-headless-mode-via-virtualbox-on-ubuntu-18.04/</link>
+            <pubDate>Sat, 06 Jul 2019 14:51:23 +0000</pubDate>
+            
+            <guid>https://leandeep.com/run-kali-in-headless-mode-via-virtualbox-on-ubuntu-18.04/</guid>
+            <description>I needed to create a Wifi hotspot. Here are the necessary commands to install Kali on Virtualbox on Ubuntu 18.04.
+ Install Virtualbox sudo apt update sudo apt upgrade  Import the Oracle public key to your system:
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -  Add Oracle VirtualBox PPA. The command below will add an entry at the end of the file /etc/apt/sources.</description>
+            <content type="html"><![CDATA[<p>I needed to create a Wifi hotspot.
+Here are the necessary commands to install Kali on Virtualbox on Ubuntu 18.04.</p>
+<br/>
+<h2 id="install-virtualbox">Install Virtualbox</h2>
+<pre><code>sudo apt update
+sudo apt upgrade
+</code></pre><br/>
+<p>Import the Oracle public key to your system:</p>
+<pre><code>wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+</code></pre><br/>
+<p>Add Oracle VirtualBox PPA. The command below will add an entry at the end of the file  <code>/etc/apt/sources.list</code>.</p>
+<pre><code>sudo add-apt-repository &quot;deb http://download.virtualbox.org/virtualbox/debian bionic contrib&quot;
+</code></pre><br/>
+<p>Install:</p>
+<pre><code>sudo apt update
+sudo apt install virtualbox-6.0
+</code></pre><br/>
+<h2 id="install-network-tools">Install Network tools</h2>
+<pre><code>apt-get install inetutils-tools bridge-utils -y
+</code></pre><br/>
+<h2 id="create-vm-via-command-lines">Create VM via command lines</h2>
+<pre><code>vboxmanage createvm --name &quot;kalivm&quot; --ostype Ubuntu_64 --register
+vboxmanage modifyvm &quot;kalivm&quot; --memory 4096 --acpi on --cpus 2
+vboxmanage modifyvm &quot;kalivm&quot; --nic1 bridged --nictype1 82545EM --bridgeadapter1 eno1
+vboxmanage storagectl &quot;kalivm&quot; --name &quot;IDE Controller&quot; --add ide --controller PIIX4
+vboxmanage createhd --filename &quot;/home/olivier/VirtualBox VMs/kalivm/kalivm.vdi&quot; --size 20000
+vboxmanage storageattach &quot;kalivm&quot; --storagectl &quot;IDE Controller&quot; --port 0 --device 0 --type hdd --medium &quot;/home/olivier/VirtualBox VMs/kalivm/kalivm.vdi&quot;
+vboxmanage storageattach &quot;kalivm&quot; --storagectl &quot;IDE Controller&quot; --port 1 --device 0 --type dvddrive --medium /home/olivier/Downloads/kali-linux-2019.2-amd64.iso
+vboxmanage startvm &quot;kalivm&quot; --type headless
+
+# stop vm
+vboxmanage controlvm &quot;kalivm&quot; poweroff
+# delete vm
+vboxmanage unregistervm &quot;kalivm&quot; --delete
+</code></pre><br/>
+<h2 id="enable-ssh-on-kali">Enable ssh on Kali</h2>
+<pre><code>sudo apt-get update
+sudo apt-get install -y ssh
+
+systemctl enable ssh
+systemctl start ssh
+</code></pre><br/>
+<h2 id="change-password">Change password</h2>
+<p>Kali use root/toor as default linux credentials. Do not forget to change them&hellip;</p>
+<br/>
+<h2 id="ssh-with-password">SSH with password</h2>
+<p>If you want to SSH to your Kali VM with a password you need to edit the <code>/etc/ssh/sshd_config</code> file and change the line <code>PermitRootLogin prohibit-password</code> by this one <code>PermitRootLogin yes</code>. (Uncomment it also&hellip;)</p>
+<p>Once it is done restart the ssh service <code>service ssh restart</code>.</p>
+<br/>
+<h2 id="install-extension-pack">Install extension pack</h2>
+<p>To access USB devices from the Host inside the VM the extension pack is necessary.</p>
+<pre><code>vboxversion=$(wget -qO - https://download.virtualbox.org/virtualbox/LATEST.TXT)
+
+wget &quot;https://download.virtualbox.org/virtualbox/${vboxversion}/Oracle_VM_VirtualBox_Extension_Pack-${vboxversion}.vbox-extpack&quot;
+
+sudo vboxmanage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-${vboxversion}.vbox-extpack
+
+</code></pre><p>Once it is installed it is important that your host user belongs to the <code>vboxusers</code> group. If it does not Virtualbox won&rsquo;t ba able to access the host USB.</p>
+<p>To add your user in the <code>vboxusers</code> group just execute:</p>
+<pre><code>sudo usermod -a -G vboxusers your_user
+</code></pre>]]></content>
         </item>
         
         <item>
@@ -11703,6 +11865,47 @@ le.transform(df['state'])
         </item>
         
         <item>
+            <title>Changer d&#39;adresse MAC sur Android</title>
+            <link>https://leandeep.com/changer-dadresse-mac-sur-android/</link>
+            <pubDate>Thu, 17 Jan 2019 21:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/changer-dadresse-mac-sur-android/</guid>
+            <description>1. Qu&amp;rsquo;est-ce qu&amp;rsquo;une adresse MAC ? Une Media Access Control address (adresse MAC) est un identifiant unique composé de 12 caractères assigné aux cartes réseau. En d&amp;rsquo;autres termes, une adresse MAC peut être utilisée pour identifier de manière unique votre téléphone Android phone sur Internet ou dans un réseau local.
+ 2. Spoof Mac Address Nous allons maintenant votre comment spoofer (modifier) votre adresse MAC.
+ Il faut que votre Smartphone soit rooté sinon le changement sera temporaire.</description>
+            <content type="html"><![CDATA[<h2 id="1-quest-ce-quune-adresse-mac-">1. Qu&rsquo;est-ce qu&rsquo;une adresse MAC ?</h2>
+<p>Une <em>Media Access Control address</em> (adresse MAC) est un identifiant unique composé de 12 caractères assigné aux cartes réseau. En d&rsquo;autres termes, une adresse MAC peut être utilisée pour identifier de manière unique votre téléphone Android phone sur Internet ou dans un réseau local.</p>
+<br/>
+<h2 id="2-spoof-mac-address">2. Spoof Mac Address</h2>
+<p>Nous allons maintenant votre comment spoofer (modifier) votre adresse MAC.</p>
+<blockquote>
+<p>Il faut que votre Smartphone soit rooté sinon le changement sera temporaire.</p>
+</blockquote>
+<p>Allez dans Settings&gt; System&gt; About phone&gt; Status&gt; WiFi MAC Address pour votre l&rsquo;adresse MAC de la carte Wifi de votre Smartphone. Notez la, nous allons la modifier.</p>
+<p>Téléchargez et installez l&rsquo;application Busybox <a href="https://play.google.com/store/apps/details?id=stericson.busybox">https://play.google.com/store/apps/details?id=stericson.busybox</a> .</p>
+<p>Allez sur l&rsquo;application Busybox et cliquez sur le bouton Install en bas à gauche. Cela va installer un binaire (busybox) dans votre Smartphone que nous allons utiliser via un terminal directement sur Android.</p>
+<br/>
+<h3 id="21-option-1">2.1. Option 1</h3>
+<p>Téléchargez et installez maintenant le fameux terminal dont je viens de parler appelé &ldquo;Su / Root Command&rdquo; et disponible à l&rsquo;adresse suivante: <a href="https://play.google.com/store/apps/details?id=com.myapkapp.surootcommand">https://play.google.com/store/apps/details?id=com.myapkapp.surootcommand</a></p>
+<p>Démarrez le terminal sur votre Smartphone et entrez les commandes suivantes:</p>
+<pre><code>busybox ip link show wlan0
+
+# si wlan0 n'existe pas vous pouvez lister toutes les interfaces via la commande: ip link show
+
+busybox ifconfig wlan0 hw ether XX:XX:XX:YY:YY:YY # Remplacez YY:YY:YY par ce que vous voulez et gardez comme avant la partie XX:XX:XX
+</code></pre><p>Pour vérifier que cela a fonctionné:</p>
+<p>Soit en entrant la commande:</p>
+<pre><code>busybox iplink show wlan0
+</code></pre><p>Ou en retournant dans Settings&gt; System&gt; About phone&gt; Status&gt; WiFi MAC Address</p>
+<br/>
+<h3 id="22-option-2">2.2. Option 2</h3>
+<p>Téléchargez l&rsquo;app <a href="https://play.google.com/store/apps/details?id=net.xnano.android.changemymac&amp;rdid=net.xnano.android.changemymac">https://play.google.com/store/apps/details?id=net.xnano.android.changemymac&amp;rdid=net.xnano.android.changemymac</a></p>
+<p>C&rsquo;est une bonne alternative qui permet de créer des profils, restaurer votre ancienne MAC&hellip;</p>
+<p>Vérifiez que cela a fonctionné en allant dans Settings&gt; System&gt; About phone&gt; Status&gt; WiFi MAC Address</p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Comparaison des services de conteneurisation AWS (ECS, Fargate et EKS) </title>
             <link>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</link>
             <pubDate>Wed, 16 Jan 2019 19:33:00 +0000</pubDate>
@@ -12560,6 +12763,93 @@ En faisant un npm i ou yarn le module gol-kata dont le code est ci-dessus et que
     </iframe>
 
 
+]]></content>
+        </item>
+        
+        <item>
+            <title>Mettre en place un proxy transparent compatible SSL pour tracer toutes les requêtes</title>
+            <link>https://leandeep.com/mettre-en-place-un-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/</link>
+            <pubDate>Thu, 06 Dec 2018 22:22:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/mettre-en-place-un-proxy-transparent-compatible-ssl-pour-tracer-toutes-les-requ%C3%AAtes/</guid>
+            <description>Introduction Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &amp;ldquo;logguer&amp;rdquo; tous les sites appelés par un device. C&amp;rsquo;est extrèmement pratique lorsqu&amp;rsquo;on fait du développement mobile lorsqu&amp;rsquo;on veut analyser les requêtes faites par notre application. (Je n&amp;rsquo;ai pas encore d&amp;rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&amp;hellip; Bref il y a beaucoup de use cases.
+L&amp;rsquo;idée ici est de créer un hotspot Wifi.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article nous allons voir comment rapidement mettre en place un proxy transparent pour &ldquo;<em>logguer</em>&rdquo; tous les sites appelés par un device.
+C&rsquo;est extrèmement pratique lorsqu&rsquo;on fait du développement mobile lorsqu&rsquo;on veut analyser les requêtes faites par notre application. (Je n&rsquo;ai pas encore d&rsquo;enfant mais cela pourrait permettrer de surveiller les sites sur lesquels ils vont :D&hellip; Bref il y a beaucoup de use cases.</p>
+<p>L&rsquo;idée ici est de créer un hotspot Wifi. Lorsqu&rsquo;un device s&rsquo;y connecte tout le traffic qu&rsquo;il va générer sera &ldquo;<em>loggué</em>&rdquo;. Il sera alors facile de voir toutes les requetes et réponses faites par le device.</p>
+<p>Ce proxy permet de tracker le traffic HTTP et HTTPS.
+Pour la partie HTTPS il faudra installer un Root CA sur le device.</p>
+<p>J&rsquo;ai utilisé un dongle USB type Atheros Alfa AWUS&hellip;</p>
+<br/>
+<h2 id="installation-du-proxy-man-in-the-middle">Installation du proxy Man-In-The-Middle</h2>
+<ul>
+<li>
+<p>Commencez par télécharger la version complète de kali linux (~3Go) <a href="https://kali.org/downloads/">https://kali.org/downloads/</a></p>
+</li>
+<li>
+<p>Je suis sur Mac du coup j&rsquo;ai créé une VM avec VirtualBox (outil simple et gratuit). Faites de même et n&rsquo;oubliez pas de brancher votre dongle et de l&rsquo;associer à votre VM. Pour le réseau, montez le en mode Bridge (cela permettra de facilement faire un SSH sur la VM)</p>
+</li>
+<li>
+<p>Démarrez votre VM et donc Kali en mode Live.</p>
+</li>
+<li>
+<p>Après le démarrage de Kali, vous pourrez vous y connecter en utilisant les credentials par défaut: <code>root/toor</code>.</p>
+</li>
+<li>
+<p>Créer un hotspot Wifi. Pour cela, cliquez sur l&rsquo;icône réseau en haut à droite puis cliquez sur &ldquo;Wi-Fi&rdquo;, puis &ldquo;Wi-Fi Settings&rdquo;, sélectionnez la carte sans fil que vous souhaitez utiliser pour le hotspot et enfin cliquez sur &ldquo;Use as Hotspot&rdquo;. Bravo vous avez créé en quelques minutes un hotspot wifi avec avec des rêgles de routage. Vous pouvez d&rsquo;ors et déjà utiliser Wireshark ou d&rsquo;autres outils du genre&hellip;</p>
+</li>
+<li>
+<p>Connectez votre device au hotspot &ldquo;kali&rdquo;.</p>
+</li>
+<li>
+<p>De retour sur votre Kali, activez l&rsquo;IP forwarding dans le kernel avec la commande suivante <code>sysctl -w net.ipv4.ip_forward=1</code>.</p>
+</li>
+<li>
+<p>En supposant que votre hotspot utilise <code>wlan0</code>, on va configurer des rêgles <code>iptables</code> qui vont rediriger tout le traffic TCP des ports 80 et 443 sur le proxy Mitmproxy.</p>
+</li>
+</ul>
+<pre><code>iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+</code></pre><ul>
+<li>Maintenant vous pouvez démarrer le proxy avec la commande suivante:</li>
+</ul>
+<pre><code>mitmproxy --mode transparent --listen-port 8080
+</code></pre><ul>
+<li>Mitmproxy va démarrer et vous pourrez voir tout le traffic HTTP.
+Par contre dès que vous essayerez de voir le contenu des sites en HTTPS vous aurez une erreur comme celle-ci:</li>
+</ul>
+<p><img src="/images/https-error.png" alt="image"></p>
+<br/>
+<h2 id="configuration-https-pour-ios">Configuration HTTPS pour iOS</h2>
+<ul>
+<li>
+<p>Lorsque Mitmproxy démarre pour la première fois il crée automatiquement des CA certificates dans le répertoire ~/.mitmproxy.</p>
+</li>
+<li>
+<p>Récupérer les CA de la VM sur votre Host via scp. Pour cela démarrez le service SSH:</p>
+</li>
+</ul>
+<pre><code>systemctl start ssh.service
+# scp... ou faite un cat (il n'y a que 2 fichiers)
+</code></pre><ul>
+<li>
+<p>Une fois les 2 CA <code>mitmproxy-ca.pem</code> et <code>mitmproxy-ca-cert.pem</code> récupérés, créez un server web (un simple directory listing) et exposez les CA. L&rsquo;idée est de vous rendre sur le serveur web avec votre device (iPhone) et de cliquer sur les CA. Une fois que vous aurez cliqué dessus vous pourrez les &ldquo;truster&rdquo;.</p>
+</li>
+<li>
+<p>Une fois que vous les aurez &ldquo;trusté&rdquo;, vous pourrez lire le contenu des requêtes HTTPS dans l&rsquo;interface mitmproxy :D. Voici à quoi cela ressemble lorsque je me rends avec mon iPhone sur la page &ldquo;Tweets&rdquo; de ce site.</p>
+</li>
+</ul>
+<br/>
+<p><img src="/images/leandeep-browsing-ios.png" alt="image"></p>
+<!-- raw HTML omitted -->
+<br/>
+<p><img src="/images/mitmproxy-demo.png" alt="image"></p>
+<!-- raw HTML omitted -->
+<br/>
+<ul>
+<li>Pour Android je n&rsquo;ai pas encore testé. Il semblerait qu&rsquo;il y ait un domaine permettant d&rsquo;installer plus facilement les CA. <a href="http://mitm.it">http://mitm.it</a> (cela ne fonctionnait pas pour iOS mais pour Android il faudrait tester). Si cette URL ne nous aide pas à installer les CA, la méthode ci-dessus devrait fonctionner également sur Android.</li>
+</ul>
 ]]></content>
         </item>
         
@@ -14789,6 +15079,159 @@ pv dump.sql | mysql -u DB_USER -h DB_HOST -D DB_NAME -p  Rappel: commande pour d
             <description>Mindmap source machinelearningmastery; site internet que je recommande vraiment. Tout n&amp;rsquo;est pas présent mais il y a quoi faire pour s&amp;rsquo;amuser.</description>
             <content type="html"><![CDATA[<p><em>Mindmap source <a href="https://machinelearningmastery.com">machinelearningmastery</a>; site internet que je recommande vraiment. Tout n&rsquo;est pas présent mais il y a quoi faire pour s&rsquo;amuser.</em></p>
 <p><img src="/images/MachineLearningAlgorithms.png" alt="image"></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Créer une VM de dev sec avec Vagrant</title>
+            <link>https://leandeep.com/cr%C3%A9er-une-vm-de-dev-sec-avec-vagrant/</link>
+            <pubDate>Fri, 01 Dec 2017 13:49:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-une-vm-de-dev-sec-avec-vagrant/</guid>
+            <description>Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &amp;ldquo;jetable&amp;rdquo; vous pouvez utiliser Vagrant.
+Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&amp;rsquo;exécuter la commande vagrant up.
+Sur votre machine il faudra que Virtualbox soit installé en amont.
+Voici à quoi ressmeble mon Vagrantfile:</description>
+            <content type="html"><![CDATA[<p>Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &ldquo;jetable&rdquo; vous pouvez utiliser Vagrant.</p>
+<p>Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher <code>Vagrantfile</code> dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&rsquo;exécuter la commande <code>vagrant up</code>.</p>
+<p>Sur votre machine il faudra que Virtualbox soit installé en amont.</p>
+<p>Voici à quoi ressmeble mon Vagrantfile:</p>
+<pre><code># -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(&quot;2&quot;) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  #config.vm.box = &quot;centos/atomic-host&quot;
+  config.vm.box = &quot;centos/7&quot;
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  # config.vm.box_check_update = false
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing &quot;localhost:8080&quot; will access port 80 on the guest machine.
+  # NOTE: This will enable public access to the opened port
+  # config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
+  # via 127.0.0.1 to disable public access
+  # config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080, host_ip: &quot;127.0.0.1&quot;
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network &quot;public_network&quot;
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  # config.vm.provider &quot;virtualbox&quot; do |vb|
+  #   # Display the VirtualBox GUI when booting the machine
+  #   vb.gui = true
+  #
+  #   # Customize the amount of memory on the VM:
+  #   vb.memory = &quot;1024&quot;
+  # end
+  #
+  # View the documentation for the provider you are using for more
+  # information on available options.
+
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  # config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+  #   apt-get update
+  #   apt-get install -y apache2
+  # SHELL
+end
+</code></pre><p>Une fois la VM provisionnée, il suffit de faire un <code>vagrant ssh</code> pour s&rsquo;y connecter.</p>
+<p>Copiez la clé publique de votre MAC sur votre VM pour pourrez faire un SSH (utilisateur vagrant par défaut) dessus et exécuter vos playbooks via Ansible.</p>
+<blockquote>
+<p>Pour vous connecter en tant que <code>root</code>, il faudra modifier le fichier de configuration <code>/etc/ssh/sshd_config</code> et fixer le paramètre <code>PermitRootLogin</code> à <code>yes</code>.</p>
+</blockquote>
+<p>Pour stopper et effacer une VM vous pouvez utiliser la commande suivante <code>vagrant halt &amp;&amp; vagrant destroy -f</code>.</p>
+<br/>
+<p>Voici un autre Vagrantfile pour la distro Kali pour tester la sécurité de vos applications&hellip;</p>
+<pre><code># -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(&quot;2&quot;) do |config|
+  config.vm.box = &quot;kalilinux/rolling&quot;
+
+  # Create a forwarded port
+  config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080
+
+  # Create a private network. In VirtualBox, this is a Host-Only network
+  config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+
+  # VirtualBox specific settings
+  config.vm.provider &quot;virtualbox&quot; do |vb|
+    # Hide the VirtualBox GUI when booting the machine
+    vb.gui = false
+
+    # Customize the amount of memory on the VM:
+    vb.memory = &quot;4096&quot;
+  end
+
+  # Provision the machine with a shell script
+  config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+    apt-get update
+    apt-get install -y crowbar zsh wget curl
+    sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+  SHELL
+end
+</code></pre><blockquote>
+<p><code>vagrant reload</code> permet de prendre en compte le changement de configuration du Vagrantfile sans devoir détruire et recréer le VM.</p>
+</blockquote>
+<blockquote>
+<p>Les options suivantes peuvent également servir:</p>
+<pre><code>vagrant provision  # provision the powered on VM
+vagrant up --provision  # when VM is powered off, power it on then provision
+vagrant reload --provision  # reboot the VM then provision
+</code></pre></blockquote>
+<blockquote>
+<p>Pour utiliser <code>ansible-console</code> sur cette nouvelle VM et spécifier un utilisateur on peut utiliser la commande suivante <code>ansible-console -i ./ansible/inventory/local --become -u root</code></p>
+</blockquote>
+<blockquote>
+<p>Default credentials: root/toor</p>
+</blockquote>
+<blockquote>
+<p>Allow SSH to Remote Kali: <br/>
+On local PC: <code>ssh-keygen -R ip_remote_kali</code> <br/>
+Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>PermitRootLogin yes</code> et restart SSH <code>/etc/init.d/ssh restart</code></p>
+</blockquote>
+<blockquote>
+<p>Ouvrir File Manager en mode admin: <code>sudo thunar</code></p>
+</blockquote>
+<blockquote>
+<p>Pour installer vagrant sur OSX: <code>brew cask install vagrant</code></p>
+</blockquote>
+<blockquote>
+<p>Box Ubuntu utiliser &ldquo;ubuntu/bionic64&rdquo;</p>
+</blockquote>
 ]]></content>
         </item>
         
@@ -17447,13 +17890,15 @@ Which shots did Kobe sink?
             
             <guid>https://leandeep.com/moderne-javascript-tips/</guid>
             <description>Introduction Ce weekend, j&amp;rsquo;ai fait un Kata en JS. Voici une liste de snippets utiles à connaître pour coder proprement son app.
- Tips Calculer le nombre propriétés que possède un objet const fleur = { couleur: &#39;rouge&#39;, nom: &#39;rose&#39; } Object.keys(fleurs).length  Trier un tableau d&amp;rsquo;objets en fonction de certaines propriétés const liste = [ { couleur: &#39;blanc&#39;, taille: &#39;XXL&#39; }, { couleur: &#39;rouge&#39;, taille: &#39;XL&#39; }, { couleur: &#39;noir&#39;, taille: &#39;M&#39; } ] // Trier par ordre alphabétique le nom des couleurs: blanc, noir, rouge.</description>
-            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+ Tips Calculer le nombre propriétés que possède un objet
+const fleur = { couleur: &#39;rouge&#39;, nom: &#39;rose&#39; } Object.keys(fleurs).length  Trier un tableau d&amp;rsquo;objets en fonction de certaines propriétés
+const liste = [ { couleur: &#39;blanc&#39;, taille: &#39;XXL&#39; }, { couleur: &#39;rouge&#39;, taille: &#39;XL&#39; }, { couleur: &#39;noir&#39;, taille: &#39;M&#39; } ] // Trier par ordre alphabétique le nom des couleurs: blanc, noir, rouge.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Ce weekend, j&rsquo;ai fait un Kata en JS.
 Voici une liste de snippets utiles à connaître pour coder proprement son app.</p>
 <br/>
-<h1 id="tips">Tips</h1>
-<h2 id="calculer-le-nombre-propriétés-que-possède-un-objet">Calculer le nombre propriétés que possède un objet</h2>
+<h2 id="tips">Tips</h2>
+<p><strong>Calculer le nombre propriétés que possède un objet</strong></p>
 <pre><code>const fleur = {
   couleur: 'rouge',
   nom: 'rose'
@@ -17461,7 +17906,7 @@ Voici une liste de snippets utiles à connaître pour coder proprement son app.<
 
 Object.keys(fleurs).length
 </code></pre><br/>
-<h2 id="trier-un-tableau-dobjets-en-fonction-de-certaines-propriétés">Trier un tableau d&rsquo;objets en fonction de certaines propriétés</h2>
+<p><strong>Trier un tableau d&rsquo;objets en fonction de certaines propriétés</strong></p>
 <pre><code>const liste = [
   { couleur: 'blanc', taille: 'XXL' },
   { couleur: 'rouge', taille: 'XL' },
@@ -17474,7 +17919,7 @@ liste.sort((a, b) =&gt; (a.couleur &gt; b.couleur) ? 1 : -1)
 //La fonction de callback pourrait trier sur une seconde propriété, pour gérer le cas où 2 couleurs seraient identiques:
 list.sort((a, b) =&gt; (a.couleur &gt; b.couleur) ? 1 : (a.couleur === b.couleur) ? ((a.taille &gt; b.taille) ? 1 : -1) : -1 )
 </code></pre><br/>
-<h2 id="comment-définir-des-valeurs-par-défaut-pour-des-fonctions">Comment définir des valeurs par défaut pour des fonctions</h2>
+<p><strong>Comment définir des valeurs par défaut pour des fonctions</strong></p>
 <p>Depuis ES6 en 2015, il est possible de définir des valeurs par défaut aux paramètres des fonctions.</p>
 <pre><code>const doSomething = (param1 = 'test', param2 = 'test2') =&gt; {
 
@@ -17499,7 +17944,7 @@ const spin = ({ color = 'yellow' } = {}) =&gt; {
   ...
 }
 </code></pre><br/>
-<h2 id="vider-un-tableau">Vider un tableau</h2>
+<p><strong>Vider un tableau</strong></p>
 <pre><code>// Option 1
 const list = ['a', 'b', 'c']
 list.length = 0
@@ -17508,7 +17953,7 @@ list.length = 0
 let list = ['a', 'b', 'c']
 list = []
 </code></pre><br/>
-<h2 id="encoder-une-url">Encoder une URL</h2>
+<p><strong>Encoder une URL</strong></p>
 <p>Pour respecter le standard RFC 3986 (<a href="http://tools.ietf.org/html/rfc3986),">http://tools.ietf.org/html/rfc3986),</a> il y a la fonction suivante:</p>
 <pre><code>const fixedEncodeURIComponent = (str) =&gt; {
   return encodeURIComponent(str).replace(/[!'()*]/g, (c) =&gt; {
@@ -17516,7 +17961,7 @@ list = []
   })
 }
 </code></pre><br/>
-<h2 id="fusionner-2-objets">Fusionner 2 objets</h2>
+<p><strong>Fusionner 2 objets</strong></p>
 <p>ES6 en 2015 a introduit le <code>Spread Operator</code>, qui permet de fusionner facilement 2 simples objets:</p>
 <pre><code>const object1 = {
   name: 'Flavio'
@@ -21147,6 +21592,38 @@ $ netstat -antp | grep 5900
 tcp        0      0 0.0.0.0:5900            0.0.0.0:*               LISTEN      -
 tcp6       0      0 :::5900                 :::*                    LISTEN      -
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Exécuter des commandes et des scripts en passant par Tor</title>
+            <link>https://leandeep.com/ex%C3%A9cuter-des-commandes-et-des-scripts-en-passant-par-tor/</link>
+            <pubDate>Thu, 17 Jul 2014 19:54:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/ex%C3%A9cuter-des-commandes-et-des-scripts-en-passant-par-tor/</guid>
+            <description>Introduction Parfois il peut être utile d&amp;rsquo;obtenir une adresse IP différente de la sienne pour tester son travail dans un autre pays.
+Pour exécuter une commande et passer par Tor, il est possible d&amp;rsquo;utiliser cette procédure:
+ Installation brew install tor torsocks  Exécution Dans un premier onglet de votre terminal lancez tor:
+tor  Dans un second onglet exécutez la commande que vous souhaitez &amp;ldquo;torifier&amp;rdquo;:
+torsocks -i wget -qO- http://ipecho.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Parfois il peut être utile d&rsquo;obtenir une adresse IP différente de la sienne pour tester son travail dans un autre pays.</p>
+<p>Pour exécuter une commande et passer par Tor, il est possible d&rsquo;utiliser cette procédure:</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>brew install tor torsocks
+</code></pre><br/>
+<h2 id="exécution">Exécution</h2>
+<p>Dans un premier onglet de votre terminal lancez tor:</p>
+<pre><code>tor
+</code></pre><br/>
+<p>Dans un second onglet exécutez la commande que vous souhaitez &ldquo;torifier&rdquo;:</p>
+<pre><code>torsocks -i wget -qO- http://ipecho.net/plain 2&gt; /dev/null ; echo 
+</code></pre><br/>
+<p>Si vous relancez la même commande sans passer par tor:</p>
+<pre><code>wget -qO- http://ipecho.net/plain ; echo 
+</code></pre><br/>
+<p>Vous verrez une autre IP. Ce sera en effet celle de votre propre box internet. La première commande est donc bien passée par Tor. Vous pouvez utiliser cette astuce pour à peu près tout. Attention, n&rsquo;utilisez pas cela à des fins malveillantes; vous êtes responsables de vos actes.</p>
+]]></content>
         </item>
         
         <item>
