@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="1. L&amp;rsquo;objet estimator Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &amp;ldquo;estimator&amp;rdquo;.
+Exemple pour une régression linéaire:
+from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
+LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&amp;rsquo;interface des méthodes de scikit-learn sont uniformes.
+ Pour tous les estimators:
+ model.fit() : remplit le modèle avec des données d&amp;rsquo;entrainement." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/commandes-python-de-base-pour-sklearn-r%C3%A9gression-classification-r%C3%A9gularisation/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Commandes Python de base pour Sklearn (Régression, Classification, Régularisation) :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.91ebfb31ca960c00659accdcb98033689e597bbcd9252909c476325662ba777f.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Commandes Python de base pour Sklearn (Régression, Classification, Régularisation)">
+<meta itemprop="description" content="1. L&rsquo;objet estimator Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &ldquo;estimator&rdquo;.
+Exemple pour une régression linéaire:
+from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
+LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&rsquo;interface des méthodes de scikit-learn sont uniformes.
+ Pour tous les estimators:
+ model.fit() : remplit le modèle avec des données d&rsquo;entrainement."><meta itemprop="datePublished" content="2015-10-15T22:34:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-10-15T22:34:00&#43;00:00" />
+<meta itemprop="wordCount" content="1229"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Python,Machine Learning,sklearn," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Commandes Python de base pour Sklearn (Régression, Classification, Régularisation)"/>
+<meta name="twitter:description" content="1. L&rsquo;objet estimator Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &ldquo;estimator&rdquo;.
+Exemple pour une régression linéaire:
+from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
+LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&rsquo;interface des méthodes de scikit-learn sont uniformes.
+ Pour tous les estimators:
+ model.fit() : remplit le modèle avec des données d&rsquo;entrainement."/>
+
+
+
+
+
+<meta property="article:published_time" content="2015-10-15 22:34:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/commandes-python-de-base-pour-sklearn-r%C3%A9gression-classification-r%C3%A9gularisation/">Commandes Python de base pour Sklearn (Régression, Classification, Régularisation)</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="1-lobjet-estimator">1. L&rsquo;objet <em>estimator</em></h1>
+<p>Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés <em>&ldquo;estimator&rdquo;</em>.</p>
+<p>Exemple pour une régression linéaire:</p>
+<pre><code>from sklearn.linear_model import LinearRegression
+
+# Tous les paramètres pour configurer l'estimator peuvent être passé à l'objet lors de son instanciation
+model = LinearRegression(normalize=True)
+
+print(model)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True)
+</code></pre><p>L&rsquo;interface des méthodes de scikit-learn sont uniformes.</p>
+<br/>
+<p><strong>Pour tous les <em>estimators</em>:</strong></p>
+<ul>
+<li>model.fit() : remplit le modèle avec des données d&rsquo;entrainement. Pour un apprentissage supervisé, la méthode accepte 2 arguments: les données X et les labels y (i.e. model.fit(X, y)). Pour une apprentissage non supervisé, la méthode ne prend qu&rsquo;un seul arguement, les données X (i.e. model.fit(X)).</li>
+</ul>
+<br/>
+<p><strong>Pour les <em>estimators</em> en apprentissage supervisé:</strong></p>
+<ul>
+<li>model.predict() : prédire le label d&rsquo;un ensemble de features à partir d&rsquo;un modèle entrainé. La méthode accepte un argument, les nouvelles données X_new (i.e. model.predict(X_new) et retourne les labels prédits pour chaque objet du tableau.</li>
+<li>model.predict_proba() : Pour les problèmes de classification, certains <em>estimators</em> fournissent cette méthode qui retourne la probabilité qu&rsquo;une nouvelle observation possède chaque label. La label qui la plus forte probabilité est retourné par model.predict().</li>
+<li>model.score() : Pour les problèmes de régession ou de classification, les <em>estimators</em> implémentent une méthode de score. Cette dernière permet d&rsquo;indiquer si le fit est bon ou pas. Le score peut varier entre 0 et 1.</li>
+</ul>
+<br/>
+<h1 id="2-ajouter-des-données-à-lestimator">2. Ajouter des données à l'<em>estimator</em></h1>
+<pre><code>%matplotlib inline
+import numpy as np
+from matplotlib import pyplot as plt
+
+x = np.array([0, 1, 2])
+y = np.array([0, 1, 2])
+
+_ = plt.plot(x, y, marker='o')
+</code></pre><br/>
+<p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/plot1.png" alt="image"></p>
+<pre><code>X = x[:, np.newaxis] # On incrémente la dimension car scikit prend un tableau à 2 dimensions en input: (samples == 3 x features == 1)
+
+model.fit(X, y)
+
+model.coef_ # Paramètre estimé par scikit à partir des données ajoutées. Tous les paramètres estimés par scikit se terminent un _.
+</code></pre><br/>
+<h1 id="3-apprentissage-supervisé-classification-et-régression">3. Apprentissage supervisé: Classification et Régression</h1>
+<p>En apprentissage supervisé, on a un dataset qui contient à la fois des <em>features</em> et des <em>labels</em>.
+L&rsquo;objectif est de construire un <em>estimator</em> qui est capable de prédire le <em>label</em> d&rsquo;un objet à partir d&rsquo;un ensemble de <em>features</em>.
+En classification, le <em>label</em> est valeur discrète alors qu&rsquo;en régression le <em>label</em> est une valeur continue.</p>
+<br/>
+<h2 id="31-classification">3.1. Classification</h2>
+<p>KNN (K Nearest Neighbors) ou &ldquo;K voisins les plus proches&rdquo; en français est un des algorithmes les plus simples à appréhender:
+Pour une toute nouvelle observation, regarder dans une base de référence, quelle observation a ses <em>features</em> les plus proches et  lui assigner la classe prédominante.</p>
+<p><img src="https://leandeep.com/images/Petal-sepal.jpg" alt="image"></p>
+<pre><code># On charge d'abord le dataset Iris
+from sklearn import neighbors, datasets
+iris = datasets.load_iris()
+
+# On extrait les features et labels du dataset
+X, y = iris.data, iris.target
+
+# On instancie l'*estimator*
+knn = neighbors.KNeighborsClassifier(n_neighbors=1) 
+# n_neighbors=1 signifie que le nombre de voisin(s) à avoir égal à 1
+
+# On remplit l'*estimator* avec les données
+knn.fit(X, y)
+
+# On prédit l'Iris qui a les caractéristiques (features) suivantes: 
+# sépale = 4cm x 3cm et pétale = 5cm x 2cm
+print(iris.target_names[knn.predict([[4, 3, 5, 2]])])
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>['virginica']
+</code></pre><br/>
+<h3 id="afficher-un-scatter-plot-des-features-longeur-et-largeur-des-sépales-ainsi-que-la-préduction-du-knn">Afficher un scatter plot des features longeur et largeur des sépales ainsi que la préduction du KNN</h3>
+<p>Exemple complet:</p>
+<pre><code># On charge le dataset
+from sklearn import neighbors, datasets
+iris = datasets.load_iris()
+
+# On mappe 3 couleurs ou les 3 classes du problème
+from matplotlib.colors import ListedColormap
+cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+
+
+X = iris.data[:, :2]  # On prend les 2 features liées aux sépales
+y = iris.target
+
+knn = neighbors.KNeighborsClassifier(n_neighbors=3)
+knn.fit(X, y)
+
+x_min, x_max = X[:, 0].min() - .1, X[:, 0].max() + .1
+y_min, y_max = X[:, 1].min() - .1, X[:, 1].max() + .1
+xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100),
+                      np.linspace(y_min, y_max, 100))
+
+Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
+
+# On plot le résultat
+Z = Z.reshape(xx.shape)
+plt.figure()
+plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+
+# On plot également les points d'entrainement
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold)
+plt.xlabel('sepal length (cm)')
+plt.ylabel('sepal width (cm)')
+plt.axis('tight')
+</code></pre><br/>
+<p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/scatter-plot.png" alt="image"></p>
+<br/>
+<h2 id="32-régression">3.2. Régression</h2>
+<p>La régression la plus simple est la régression linéaire. Voici un exemple:</p>
+<p>On crée des données aléatoires:</p>
+<pre><code>import numpy as np
+np.random.seed(0)
+X = np.random.random(size=(20, 1))
+y = 3 * X[:, 0] + 2 + np.random.normal(size=20)
+print(X)
+print(X.shape)
+print(y)
+print(y.shape)
+</code></pre><p><em>Résultat:</em></p>
+<pre><code>[[0.5488135 ]
+ [0.71518937]
+ [0.60276338]
+ [0.54488318]
+ [0.4236548 ]
+ [0.64589411]
+ [0.43758721]
+ [0.891773  ]
+ [0.96366276]
+ [0.38344152]
+ [0.79172504]
+ [0.52889492]
+ [0.56804456]
+ [0.92559664]
+ [0.07103606]
+ [0.0871293 ]
+ [0.0202184 ]
+ [0.83261985]
+ [0.77815675]
+ [0.87001215]]
+(20, 1)
+[5.14051958 3.94040984 4.12135783 2.78055381 0.71797458 4.59130093
+ 4.17719783 3.93315398 7.16074291 1.69595888 4.42093363 3.39950091
+ 5.2369129  6.24614868 2.3680556  2.63955042 1.17286944 2.51706307
+ 3.9865581  4.76638541]
+(20,)
+</code></pre><p>On remplit l'<em>estimator</em> avec ces données:</p>
+<pre><code>from sklearn.linear_model import LinearRegression
+model = LinearRegression(fit_intercept=True)
+model.fit(X, y)
+print(&quot;Model coefficient: %.5f, and intercept: %.5f&quot;
+      % (model.coef_, model.intercept_))
+</code></pre><br/>
+<p><em>Résultat:</em></p>
+<pre><code>Model coefficient: 3.93491, and intercept: 1.46229
+</code></pre><p>On affiche le graphique et le modèle prédictif</p>
+<pre><code># On affiche les données d'entrainement
+import pylab as pl
+plt.plot(X[:, 0], y, 'o')
+
+# On prédit les labels pour 100 points allant de 0 à 1 qu'on ajoute au graphique précédent
+X_test = np.linspace(0, 1, 100)[:, np.newaxis]
+y_test = model.predict(X_test)
+plt.plot(X_test[:, 0], y_test)
+</code></pre><br/>
+<p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/regression.png" alt="image"></p>
+<br/>
+<h1 id="4-régularisation">4. Régularisation</h1>
+<p>Cela permet de, comme son nom d&rsquo;indique, régulariser les erreurs d&rsquo;apprentissage. Supposez que vous créez un <em>estimator</em> KNN avec k=1, il est évident qu&rsquo;il y aura des erreurs sur vos données d&rsquo;apprentissage.</p>
+<blockquote>
+<p>Wikipédia
+&ldquo;La régularisation fait référence à un processus consistant à ajouter de l&rsquo;information à un problème pour éviter le surapprentissage&rdquo;</p>
+</blockquote>
+<p>L&rsquo;idée principale de la régularisation est qu&rsquo;il est préférable de construire des modèles plus simples même s&rsquo;ils conduisent à plus d&rsquo;erreurs sur les données d&rsquo;apprentissage.</p>
+<br/>
+<p><strong>Un schéma vaut mieux qu&rsquo;un long discours</strong></p>
+<p><img src="https://leandeep.com/images/regularisation.png" alt="image"></p>
+<br/>
+<p>On part des données suivantes:</p>
+<pre><code>import numpy as np
+rng = np.random.RandomState(0)
+x = 2 * rng.rand(100) - 1
+
+f = lambda t: 1.2 * t ** 2 + .1 * t ** 3 - .4 * t ** 5 - .5 * t ** 9
+y = f(x) + .4 * rng.normal(size=100)
+
+plt.figure()
+plt.scatter(x, y, s=4)
+</code></pre><br/>
+<p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/scatter-plot2.png" alt="image"></p>
+<p>On remplit 2 estimateurs avec des données ayant des polynômes 4 et 9.</p>
+<pre><code>x_test = np.linspace(-1, 1, 100)
+
+plt.figure()
+plt.scatter(x, y, s=4)
+
+X = np.array([x**i for i in range(5)]).T
+X_test = np.array([x_test**i for i in range(5)]).T
+order4 = LinearRegression()
+order4.fit(X, y)
+plt.plot(x_test, order4.predict(X_test), label='4th order')
+
+X = np.array([x**i for i in range(10)]).T
+X_test = np.array([x_test**i for i in range(10)]).T
+order9 = LinearRegression()
+order9.fit(X, y)
+plt.plot(x_test, order9.predict(X_test), label='9th order')
+
+plt.legend(loc='best')
+plt.axis('tight')
+plt.title('Fitting a 4th and a 9th order polynomial')
+</code></pre><p><em>Résultat:</em></p>
+<p><img src="https://leandeep.com/images/polynomes.png" alt="image"></p>
+<br/>
+<p>Quelle courbe préférez-vous ?</p>
+<p>Le polynôme de degré 9 a tendance à passer par tous les points du graphique. Il va intégrer le bruit spécifique à l’échantillon d’entraînement; ce qui conduira notre modèle à ne pas avoir une bonne performance sur de nouveaux exemples.</p>
+<p>Un des risques majeurs avec ce type de modèles est le surapprentissage.
+La régularisation donc, est une technique permettant de (régulariser) rêgler ce phénomène.</p>
+<br/>
+<h1 id="5-example-de-régularisation-l2">5. Example de Régularisation L2</h1>
+<p>Example de calcul de la distance Euclidienne entre 2 points de chaque pair X et Y:</p>
+<p><img src="https://leandeep.com/images/distance_euclidienne.png" alt="image"></p>
+<pre><code>lower_boundary = 0
+upper_boundary = 1
+n = 5 # dimension
+sample_size = 10000
+
+np.random.seed(9001) # set the seed to yield reproducible results
+
+X = np.random.uniform( low=lower_boundary, high=upper_boundary, size=(sample_size, n) )
+Y = np.random.uniform( low=lower_boundary, high=upper_boundary, size=(sample_size, n) )
+
+print( 'X: ', X )
+print( 'Y: ', Y )
+</code></pre><p><img src="https://leandeep.com/images/paire_x_y.png" alt="image"></p>
+<br/>
+<pre><code>from sklearn.metrics.pairwise import euclidean_distances
+
+euclidean_distances_vector_l = []
+for index, x in enumerate(X):
+    euclidean_distances_vector_l.append(euclidean_distances(x.reshape(1, -1), Y[index].reshape(1, -1)))
+</code></pre><br/>
+<blockquote>
+<p><code>x.reshape(1, -1)</code> permet d&rsquo;un vecteur à une matrice de dimension 2 ayant autant de colonnes que d&rsquo;éléments dans le vecteur</p>
+</blockquote>
+<br/>
+<p>Alternative en utilisant des calculs matriciels:</p>
+<pre><code>euclidean_distances_vector_l_vectorized = np.sqrt(np.sum((X - Y) * (X - Y), axis=1))
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/sklearn">sklearn</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1229 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Oct. 2015</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/cr%C3%A9er-une-archive-zip-sans-.ds_store/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Créer une archive zip sans .DS_Store</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/comment-lire-une-matrice-de-confusion/">
+                                <span class="button__text">Comment lire une Matrice de confusion</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    class App extends React.Component {
+        constructor(options) {
+            console.log("data")
+            console.log(options.data)
+            super();
+            this.state = {
+                data: options.data,
+
+                appName: 'Search Bar (Algolia replacement under dev with React)',
+                list: undefined
+            };
+
+        }
+        searchData(e) {
+            var queryData = [];
+            if (e.target.value != '') {
+                this.state.data.forEach(function (person) {
+
+                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
+                        if (queryData.length < 10) {
+                            queryData.push(person);
+                        }
+                    }
+                });
+            }
+            this.setState({ list: queryData });
+        }
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement(Header, { name: this.state.appName }),  
+                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
+                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
+
+
+        }
+    }
+
+
+    class Header extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("h1", null, this.props.name)));
+
+
+        }
+    }
+
+
+    class SearchBar extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
+
+
+        }
+    }
+
+
+    class SearchResult extends React.Component {
+
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("ul", null,
+                        this.props.data.map(function (value) {
+                            return  React.createElement(Item, { key: value, val: value });
+                        }))));
+
+
+
+
+        }
+    }
+
+
+
+    class Item extends React.Component {
+        render() {
+            return  (
+                React.createElement("li", null,
+                    this.props.val));
+
+
+        }
+    }
+
+
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log(event.data.msg, event.data.url, event.data.files);
+        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
+    });
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: '.'
+    }).then(function (registration) {
+        console.log('The service worker has been registered ', registration);
+    });
+    
+
+    
+    setTimeout(function () {
+        console.log("unregister sws")
+        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
+    }, 10000);
+
+
+
+
+</script>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>

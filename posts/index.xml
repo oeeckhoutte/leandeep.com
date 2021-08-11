@@ -5,8 +5,54 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 20 Jul 2021 21:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 10 Aug 2021 19:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Syncthing sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/installer-syncthing-sur-ubuntu-20.04/</link>
+            <pubDate>Tue, 10 Aug 2021 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-syncthing-sur-ubuntu-20.04/</guid>
+            <description>Introduction Syncthing solution très intéressante de synchronisation de fichiers ou backup entre différents devices. Je l&amp;rsquo;utilise principalement pour backuper les photos de mon Smartphone sur 2 disques dans différentes localisations. Cela fonctionne à travers les NATs via des relays sans devoir ouvrir quoique ce soit et c&amp;rsquo;est simple comme bonjour.
+ Installation sudo apt install curl apt-transport-https curl -s https://syncthing.net/release-key.txt | sudo apt-key add - echo &amp;quot;deb https://apt.syncthing.net/ syncthing release&amp;quot; &amp;gt; /etc/apt/sources.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Syncthing solution très intéressante de synchronisation de fichiers ou backup entre différents devices. Je l&rsquo;utilise principalement pour backuper les photos de mon Smartphone sur 2 disques dans différentes localisations. Cela fonctionne à travers les NATs via des relays sans devoir ouvrir quoique ce soit et c&rsquo;est simple comme bonjour.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>sudo apt install curl apt-transport-https
+curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+echo &quot;deb https://apt.syncthing.net/ syncthing release&quot; &gt; /etc/apt/sources.list.d/syncthing.list
+sudo apt-get update
+sudo apt-get install syncthing
+syncthing --version
+</code></pre><p>Création d&rsquo;un service</p>
+<pre><code>sudo vim /etc/systemd/system/syncthing@.service
+</code></pre><pre><code>[Unit]
+Description=Syncthing - Open Source Continuous File Synchronization for %I
+Documentation=man:syncthing(1)
+After=network.target
+
+[Service]
+User=%i
+ExecStart=/usr/bin/syncthing -no-browser -gui-address=&quot;0.0.0.0:8384&quot; -no-restart -logflags=0
+Restart=on-failure
+SuccessExitStatus=3 4
+RestartForceExitStatus=3 4
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><pre><code>sudo systemctl daemon-reload
+sudo systemctl start syncthing@$USER
+sudo systemctl status syncthing@$USER
+sudo systemctl enable syncthing@$USER
+</code></pre><blockquote>
+<p>Malheureusement à la place de <code>-gui-address=&quot;0.0.0.0:8384&quot;</code> il n&rsquo;est pas possible de spécifier un /24 ou <code>-gui-address=&quot;192.168.0.0/16:8384&quot;</code>. <a href="https://www.freecodecamp.org/news/subnet-cheat-sheet-24-subnet-mask-30-26-27-29-and-other-ip-address-cidr-network-references/">Rappel CIDR</a></p>
+</blockquote>
+<br/>
+<p>Rendez-vous ensuite à l&rsquo;adresse de votre GUI Syncthing: https://192.168.1.82:8384 . Ajouter un mot de passe et bloquer l&rsquo;accès global. N&rsquo;autoriser que la synchro sur le LAN.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Charger automatiquement les variables d&#39;environnement et virtualenv des projets Python</title>
