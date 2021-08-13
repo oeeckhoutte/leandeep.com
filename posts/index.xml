@@ -5,8 +5,53 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 10 Aug 2021 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 13 Aug 2021 09:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Faire tourner un noeud Nervos Network</title>
+            <link>https://leandeep.com/faire-tourner-un-noeud-nervos-network/</link>
+            <pubDate>Fri, 13 Aug 2021 09:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/faire-tourner-un-noeud-nervos-network/</guid>
+            <description>Ce court article décrit comment faire tourner un noeud Nervos Network testnet sur Ubuntu 20.04.
+ Noeud sur Aggron Installation du CKB Node
+mkdir -p nervos cd ./nervos curl -LO https://github.com/nervosnetwork/ckb/releases/download/v0.43.1/ckb_v0.43.1_x86_64-unknown-linux-gnu.tar.gz tar xzf ckb_v0.43.1_x86_64-unknown-linux-gnu.tar.gz mv ckb_v0.43.1_x86_64-unknown-linux-gnu ckb_v0.43.1 cd ckb_v0.43.1 ./ckb init --chain testnet  Installation du CKB Indexer
+cd ./nervos mkdir ckb-indexer-0.2.1/ cd ckb-indexer-0.2.1/ curl -LO https://github.com/nervosnetwork/ckb-indexer/releases/download/v0.2.1/ckb-indexer-0.2.1-linux.zip unzip ckb-indexer-0.2.1-linux.zip tar xzf ckb-indexer-linux-x86_64.tar.gz RUST_LOG=info ./ckb-indexer -s ./indexer-data  Vérifier que le noeud est bien synchronisé en comparant les blocks avec les derniers trouvés dans l&amp;rsquo;explorer https://explorer.</description>
+            <content type="html"><![CDATA[<p>Ce court article décrit comment faire tourner un noeud Nervos Network testnet sur Ubuntu 20.04.</p>
+<br/>
+<h2 id="noeud-sur-aggron">Noeud sur Aggron</h2>
+<p><strong>Installation du CKB Node</strong></p>
+<pre><code>mkdir -p nervos
+cd ./nervos
+curl -LO https://github.com/nervosnetwork/ckb/releases/download/v0.43.1/ckb_v0.43.1_x86_64-unknown-linux-gnu.tar.gz
+tar xzf ckb_v0.43.1_x86_64-unknown-linux-gnu.tar.gz
+mv ckb_v0.43.1_x86_64-unknown-linux-gnu ckb_v0.43.1
+cd ckb_v0.43.1
+./ckb init --chain testnet
+</code></pre><br/>
+<p><strong>Installation du CKB Indexer</strong></p>
+<pre><code>cd ./nervos
+mkdir ckb-indexer-0.2.1/
+cd ckb-indexer-0.2.1/
+curl -LO https://github.com/nervosnetwork/ckb-indexer/releases/download/v0.2.1/ckb-indexer-0.2.1-linux.zip
+unzip ckb-indexer-0.2.1-linux.zip
+tar xzf ckb-indexer-linux-x86_64.tar.gz
+RUST_LOG=info ./ckb-indexer -s ./indexer-data
+</code></pre><br/>
+<p>Vérifier que le noeud est bien synchronisé en comparant les blocks avec les derniers trouvés dans l&rsquo;explorer <a href="https://explorer.nervos.org/aggron/">https://explorer.nervos.org/aggron/</a></p>
+<br/>
+<p>Le noeud et l&rsquo;indexeur seront accessibles aux adresses suivantes:</p>
+<ul>
+<li>
+<p>CKB Node RPC URL: http://localhost:8114</p>
+</li>
+<li>
+<p>CKB Indexer RPC URL: http://localhost:8116</p>
+</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Installer Syncthing sur Ubuntu 20.04</title>
@@ -47,10 +92,10 @@ sudo systemctl start syncthing@$USER
 sudo systemctl status syncthing@$USER
 sudo systemctl enable syncthing@$USER
 </code></pre><blockquote>
-<p>Malheureusement à la place de <code>-gui-address=&quot;0.0.0.0:8384&quot;</code> il n&rsquo;est pas possible de spécifier un /24 ou <code>-gui-address=&quot;192.168.0.0/16:8384&quot;</code>. <a href="https://www.freecodecamp.org/news/subnet-cheat-sheet-24-subnet-mask-30-26-27-29-and-other-ip-address-cidr-network-references/">Rappel CIDR</a></p>
+<p>Malheureusement à la place de <code>-gui-address=&quot;0.0.0.0:8384&quot;</code> il n&rsquo;est pas possible de spécifier un /24 ou /16 <code>-gui-address=&quot;192.168.0.0/16:8384&quot;</code>. <a href="https://www.freecodecamp.org/news/subnet-cheat-sheet-24-subnet-mask-30-26-27-29-and-other-ip-address-cidr-network-references/">Rappel CIDR</a></p>
 </blockquote>
 <br/>
-<p>Rendez-vous ensuite à l&rsquo;adresse de votre GUI Syncthing: https://192.168.1.82:8384 . Ajouter un mot de passe et bloquer l&rsquo;accès global. N&rsquo;autoriser que la synchro sur le LAN.</p>
+<p>Rendez-vous ensuite à l&rsquo;adresse de votre GUI Syncthing: https://192.168.1.82:8384 . Ajouter un mot de passe et bloquer l&rsquo;accès global. N&rsquo;autoriser que la synchro sur le LAN pour plus de sécurité.</p>
 ]]></content>
         </item>
         
@@ -20054,10 +20099,16 @@ Switched to a new branch 'pr/999'
 </code></pre><br/>
 <p><strong>Différence entre un fichier local (déjà en stage) et le dernier commit (ou l&rsquo;avant dernier):</strong></p>
 <pre><code>git diff &lt;commit&gt; &lt;path&gt;
-# Dernier commit 
+# Dernier commit:
 git diff HEAD^ myfile
-# Avant dernier commit 
+# Avant dernier commit:
 git diff HEAD^^ myfile
+# Equivalent à:
+git diff HEAD~2 myfile
+
+Example:
+git diff HEAD~1 HEAD -- mon_fichier.js
+git diff HEAD~2 HEAD -- mon_fichier.js
 </code></pre><br/>
 <h2 id="commandes-en-vrac">Commandes en vrac</h2>
 <p><strong>Annuler la commande <code>git commit</code> (et donc conserver/ récupérer tous les changements qui étaient prêts à être pushés:</strong></p>
