@@ -6,7 +6,17 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 13 Aug 2021 09:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Aug 2021 07:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lister les devices Wifi autour de votre Mac</title>
+      <link>https://leandeep.com/lister-les-devices-wifi-autour-de-votre-mac/</link>
+      <pubDate>Sat, 14 Aug 2021 07:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/lister-les-devices-wifi-autour-de-votre-mac/</guid>
+      <description>Sans rien installer sur votre Mac, voici la commande pour lister les devices Wifi autour de vous via cli. Les informations suivantes seront disponibles: SSID, BSSID, RSSI, CHANNEL, HT, CC, SECURITY
+/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s # Pour se simplifier la vie # sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/sbin/airport # airport -s </description>
+    </item>
+    
     <item>
       <title>Faire tourner un noeud Nervos Network</title>
       <link>https://leandeep.com/faire-tourner-un-noeud-nervos-network/</link>
@@ -117,16 +127,6 @@ sudo systemctl start mongod.service sudo systemctl status mongod sudo systemctl 
  Pour me simplifier la vie, je suis resté sur la version 1.8. La v2 est déjà disponible mais la doc étant peu fournie ou fausse, j&amp;rsquo;ai préféré ne pas me prendre la tête. (Dev perso)
   Docker-compose
 Créer un fichier docker-compose.yml et ajouter le contenu suivant:</description>
-    </item>
-    
-    <item>
-      <title>Faire tourner un noeud Binance Smart Chain</title>
-      <link>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</link>
-      <pubDate>Sat, 24 Apr 2021 21:25:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</guid>
-      <description>Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
- Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;quot; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod +x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.</description>
     </item>
     
   </channel>
