@@ -820,7 +820,14 @@ sudo chmod +x ./geth_bsc
 # Dans un autre terminal
 cd ~/bsc/node
 tail -f ./bsc.log
-</code></pre>]]></content>
+</code></pre><br/>
+<blockquote>
+<p><strong>August 2021 Update</strong><br/><br/>
+BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the &ndash;rpc.allow-unprotected-txs command-line flag.<br/><br/>
+<code>./geth-linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0</code><br/><br/>
+<em>I use geth-linux version 1.1.1</em></p>
+</blockquote>
+]]></content>
         </item>
         
         <item>
