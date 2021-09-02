@@ -262,7 +262,7 @@
 <meta itemprop="description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
  Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&quot; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0."><meta itemprop="datePublished" content="2021-04-24T21:25:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-04-24T21:25:00&#43;00:00" />
-<meta itemprop="wordCount" content="131"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="205"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="BSC,Binance Smart Chain,Node Hosting,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -367,9 +367,28 @@ tail -f ./bsc.log
 <blockquote>
 <p><strong>August 2021 Update</strong><br/><br/>
 BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the &ndash;rpc.allow-unprotected-txs command-line flag.<br/><br/>
-<code>./geth-linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0</code><br/><br/>
+<code>./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0</code>
+<br/><br/>
+Ou dans mon cas:<br/>
+<code>./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6  --txlookuplimit 0</code>
+<br/><br/>
 <em>I use geth-linux version 1.1.1</em></p>
 </blockquote>
+<br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><code>web3.exceptions.ExtraDataLengthError: The field extraData is 517 bytes, but should be 32.</code>: Web3 essaye de se connecter à une &ldquo;POA chain&rdquo;.
+<br/>
+<br/>
+<strong>Workaround:</strong>
+<pre><code>from web3.middleware import geth_poa_middleware
+w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+</code></pre></li>
+</ul>
+<br/>
+<ul>
+<li><code>web3.exceptions.BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?</code>: utiliser <code>transact()</code> à la place de <code>call()</code></li>
+</ul>
 
             </div>
         </article>
@@ -381,7 +400,7 @@ BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/bsc">BSC</a></span><span class="tag"><a href="https://leandeep.com/tags/binance-smart-chain">Binance Smart Chain</a></span><span class="tag"><a href="https://leandeep.com/tags/node-hosting">Node Hosting</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>131 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>205 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>24 Apr. 2021</p>
         </div>

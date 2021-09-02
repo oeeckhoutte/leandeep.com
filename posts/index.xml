@@ -5,8 +5,65 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 14 Aug 2021 07:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 01 Sep 2021 23:47:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Comment le RPA et Python me permettent de suivre les mouvements des fonds d&#39;investissement</title>
+            <link>https://leandeep.com/comment-le-rpa-et-python-me-permettent-de-suivre-les-mouvements-des-fonds-dinvestissement/</link>
+            <pubDate>Wed, 01 Sep 2021 23:47:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/comment-le-rpa-et-python-me-permettent-de-suivre-les-mouvements-des-fonds-dinvestissement/</guid>
+            <description>Introduction  Pour ceux qui ne connaissent pas est RPA, il s&amp;rsquo;agit du Robotic Process Automation. Voir la définition dans Wikipédia. Il existe pas mal de solutions élaborées comme UiPath, Automation Anywhere ou encore RPA-Python (anciennement TagUI).
+ Pour une fois, je ne vais pas rentrer dans trop de détails techniques et simplement vous parler de la manière dont j&amp;rsquo;ai automatisé une routine d&amp;rsquo;investissement sur des OPCVM.
+Depuis quelque temps j&amp;rsquo;ai pris l&amp;rsquo;habitude de suivre la performance et l&amp;rsquo;évolution des portfolios de plusieurs fonds d&amp;rsquo;investissement sur Euronext, Nasdaq et S&amp;amp;P 500 et de quelques Gurus de la finance pour m&amp;rsquo;aider à faire les bons choix dans mes achats et reventes d&amp;rsquo;actions dans le but d&amp;rsquo;optimiser mes rendements sur le long terme.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<blockquote>
+<p>Pour ceux qui ne connaissent pas est RPA, il s&rsquo;agit du Robotic Process Automation. Voir <a href="https://fr.wikipedia.org/wiki/Automatisation_robotis%C3%A9e_des_processus">la définition dans Wikipédia</a>. Il existe pas mal de solutions élaborées comme UiPath, Automation Anywhere ou encore RPA-Python (anciennement TagUI).</p>
+</blockquote>
+<p>Pour une fois, je ne vais pas rentrer dans trop de détails techniques et simplement vous parler de la manière dont j&rsquo;ai automatisé une routine d&rsquo;investissement sur des OPCVM.</p>
+<p>Depuis quelque temps j&rsquo;ai pris l&rsquo;habitude de suivre la performance et l&rsquo;évolution des portfolios de plusieurs fonds d&rsquo;investissement sur Euronext, Nasdaq et S&amp;P 500 et de quelques Gurus de la finance pour m&rsquo;aider à faire les bons choix dans mes achats et reventes d&rsquo;actions dans le but d&rsquo;optimiser mes rendements sur le long terme. En plus de ce premier travail d&rsquo;analyse, je mesure la santé des entreprises avec quelques indicateurs fondamentaux (par exemple Piotroski, Altman etc) pour essayer de comprendre leurs choix et pour les suivre ou non (à mon échelle bien évidemment).</p>
+<p>Bien que ce soit passionnant, tout ceci est chronophage et par manque de temps, je suis passé à côté de belles opportunités.
+Je préfère gérer moi-même une partie de mon portfolio plutôt que de faire totalement confiance à des tiers. <strong>Finalement qui mieux que soi-même peut prendre soin de ses finances ?</strong></p>
+<p>Enfin bref, voici comment des outils comme RPA et un peu de code Python peuvent nous aider pour ce use case qui consiste à tracker les mouvements des portfolios de <em>funds</em>.</p>
+<br/>
+<h2 id="linaccessibilité-des-données">L&rsquo;inaccessibilité des données</h2>
+<p>Je ne vais pas lister ici les <em>funds</em> que je suis. Ce n&rsquo;est pas l&rsquo;objet de cet article et je ne suis pas CGP.</p>
+<p>Sur tous les sites internet des assureurs ou fonds qui décrivent les produits financiers qui m&rsquo;intéressent je n&rsquo;ai jamais accès aux données qui m&rsquo;intéressent de façon simple pour permettre de l&rsquo;automatisation. Sauf très rare exception, il n&rsquo;y a pas d&rsquo;API ou encore de CSV. Il y a seulement des PDFs à télécharger. Ces PDFs décrivent les produits et contiennent des informations précieuses comme le nom des actions, leurs symboles, codes ISIN, le pourcentage de répartition dans le portfolio etc. Les liens pour télécharger ces PDFs sont toujours placés aux mêmes endroits sur les sites mais les URLs des liens changent à chaque mise à jour des PDFs. L&rsquo;automatisation pur code est donc impossible. Il faut pouvoir naviguer sur le site internet pour récupérer les dernières versions des PDFs.</p>
+<br/>
+<h2 id="rpa-et-python-à-la-rescousse">RPA et Python à la rescousse</h2>
+<p>Dans mon cas, je fais de la <code>Web Automation</code>. Pour cela, je recommande les packages Python suivants:</p>
+<pre><code>import rpa as r
+import PyPDF2
+</code></pre><blockquote>
+<p>Bien sûr il y a pleins d&rsquo;autres solutions pour la simple Web automation (cf. Google Puppeteer, Selenium) mais utiliser un outil de RPA permet de manipuler bien plus qu&rsquo;un navigateur Web. Si on a besoin de faire de la <code>Visual Automation</code> sur Desktop ou encore de l'<code>OCR automation</code>&hellip; c&rsquo;est possible mais surtout c&rsquo;est possible simplement sans bricoler.</p>
+</blockquote>
+<p>Le premier package permet de faire du RPA et en l&rsquo;occurrence d&rsquo;ouvrir un fenêtre Chrome et d&rsquo;exécuter une procédure automatisée. Dans mon cas, la procédure consiste à me rendre sur les sites de funds et télécharger les PDFs qui m&rsquo;intéressent.</p>
+<blockquote>
+<p>Example basique tiré de la doc de RPA-Python</p>
+<pre><code>r.init()
+r.url('https://www.google.com')
+r.type('//*[@name=&quot;q&quot;]', 'decentralization[enter]')
+print(r.read('result-stats'))
+r.snap('page', 'results.png')
+r.close()
+</code></pre></blockquote>
+<p>Le second package permet d&rsquo;extraire le contenu texte sélectionnable (et qui nous intéresse; notre data) dans les PDFS.</p>
+<p>Exemple d&rsquo;une fonction permettant d&rsquo;extraire le contenu texte de la première page d&rsquo;un PDF:</p>
+<pre><code>def extract_pdf_content(path: str) -&gt; List[str]:
+    with open(path, mode=&quot;rb&quot;) as f:
+        reader = PyPDF2.PdfFileReader(f)
+        page = reader.getPage(0)
+        return page.extractText().splitlines()
+</code></pre><br/>
+<p>Aussi simple que cela. Avec quelques lignes de code supplémentaires, il est possible d&rsquo;automatiser tout un suivi de portfolio et d&rsquo;enrichir les données avec des indicateurs fondamentaux d&rsquo;aide à la prise de décision et d&rsquo;exporter le tout dans un dashboard ou un sheet&hellip; Au passage, cela peut permettre de limiter des frais de gestion demandés par certains organismes et d&rsquo;avoir plusieurs stratégies d&rsquo;investissement en parallèle sans que ce soit trop chronophage. Vous pouvez aussi piloter la partie achat et reventes des ordres chez votre broker avec validation utilisateur&hellip; 😌</p>
+<br/>
+<h2 id="la-partie-geek-inutile">La partie geek inutile</h2>
+<p>Je voulais que l&rsquo;exécution du programme écrit en Python soit aussi simple que de double cliquer sur une icone et surtout que le programme soit standalone. Pas besoin de charger un virtualenv, ou de garder une version de Python particulière pour que cela fonctionne ou encore d&rsquo;avoir toutes les libraires bien présentes&hellip; J&rsquo;ai testé <a href="https://www.pyinstaller.org/">pyinstaller</a> pour créer un bundle et cela fonctionne parfaitement 🤩.</p>
+<br/>
+<p>C&rsquo;est une très bonne découverte. J&rsquo;avais commencé à utiliser Rust pour pouvoir adresser cette problématique du binaire &ldquo;self-contained&rdquo; pour des utilitaires systèmes (ou pour des &ldquo;side cars&rdquo; très légers Python dans d&rsquo;autres versions que le serveur); ce qui n&rsquo;était pas possible simplement avec Python (contrairement à Go ou Rust) et finalement cela fonctionne très bien. Comme je code 10 000 fois plus vite en Python qu&rsquo;en Rust, j&rsquo;essayerais de créer mes prochains utilitaires systèmes personnels avec <code>pyinstaller</code>. J&rsquo;en parlerais dans de prochains articles.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Lister les devices Wifi autour de votre Mac</title>
@@ -824,9 +881,28 @@ tail -f ./bsc.log
 <blockquote>
 <p><strong>August 2021 Update</strong><br/><br/>
 BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the &ndash;rpc.allow-unprotected-txs command-line flag.<br/><br/>
-<code>./geth-linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0</code><br/><br/>
+<code>./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0</code>
+<br/><br/>
+Ou dans mon cas:<br/>
+<code>./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6  --txlookuplimit 0</code>
+<br/><br/>
 <em>I use geth-linux version 1.1.1</em></p>
 </blockquote>
+<br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><code>web3.exceptions.ExtraDataLengthError: The field extraData is 517 bytes, but should be 32.</code>: Web3 essaye de se connecter à une &ldquo;POA chain&rdquo;.
+<br/>
+<br/>
+<strong>Workaround:</strong>
+<pre><code>from web3.middleware import geth_poa_middleware
+w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+</code></pre></li>
+</ul>
+<br/>
+<ul>
+<li><code>web3.exceptions.BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?</code>: utiliser <code>transact()</code> à la place de <code>call()</code></li>
+</ul>
 ]]></content>
         </item>
         
