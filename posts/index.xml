@@ -5,8 +5,44 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 01 Sep 2021 23:47:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 06 Sep 2021 08:08:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Pas assez de gaz pour développer sur Ethereum</title>
+            <link>https://leandeep.com/pas-assez-de-gaz-pour-d%C3%A9velopper-sur-ethereum/</link>
+            <pubDate>Mon, 06 Sep 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/pas-assez-de-gaz-pour-d%C3%A9velopper-sur-ethereum/</guid>
+            <description>Introduction Voici un tip pour éviter de devoir attendre 24h avant de pouvoir réclamer des Keth via les Faucets de Kovan. Sans cela, et lorsque vous avez brulé tout votre capital à force de tester sans cesse votre code, c&amp;rsquo;est très compliqué d&amp;rsquo;avancer et d&amp;rsquo;achever le développement de son smart contract Solidity (ou dApps web3). On perd du temps alors qu&amp;rsquo;on n&amp;rsquo;est même pas en prod&amp;hellip;
+Ce tip permet de s&amp;rsquo;affranchir temporairement de l&amp;rsquo;erreur suivante: {&#39;code&#39;: -32010, &#39;message&#39;: &#39;Insufficient funds.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Voici un tip pour éviter de devoir attendre 24h avant de pouvoir réclamer des Keth via les Faucets de Kovan. Sans cela, et lorsque vous avez brulé tout votre capital à force de tester sans cesse votre code, c&rsquo;est très compliqué d&rsquo;avancer et d&rsquo;achever le développement de son smart contract Solidity (ou dApps web3). On perd du temps alors qu&rsquo;on n&rsquo;est même pas en prod&hellip;</p>
+<p>Ce tip permet de s&rsquo;affranchir temporairement de l&rsquo;erreur suivante:
+<code>{'code': -32010, 'message': 'Insufficient funds. The account you tried to send transaction from does not have enough funds. Required 26000000000000000 and got: 18781271414646593.'}</code></p>
+<blockquote>
+<p>Les faucets que j&rsquo;utilise sur Kovan (tous fonctionnels au 06 sept 2021):</p>
+<ul>
+<li><a href="https://faucets.blockxlabs.com/">https://faucets.blockxlabs.com/</a></li>
+<li><a href="https://gitter.im/kovan-testnet/faucet">https://gitter.im/kovan-testnet/faucet</a></li>
+<li><a href="https://ethdrop.dev/">https://ethdrop.dev/</a></li>
+<li><a href="https://app.mycrypto.com/faucet">https://app.mycrypto.com/faucet</a></li>
+</ul>
+</blockquote>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<pre><code>npm install ganache-cli -g
+</code></pre><br/>
+<h2 id="fork-du-réseau-ethereum">Fork du réseau Ethereum</h2>
+<pre><code>ganache-cli --fork https://kovan.poa.network -u 0x1F9815741F47A73277964d0631e9Fc1dbB0f7342
+</code></pre><blockquote>
+<p>Cela fonctionne également avec le Mainnet</p>
+</blockquote>
+<p>Un serveur local va écouter sur le port 8545 et ce sera un fork du réseau kovan. Seulement les 64 derniers blocks depuis le latest block seront accessibles.</p>
+<p>10 accounts de 100 Eth chacun vont être créés. Les adresses et leurs clés privées seront visibles dans les logs.</p>
+<p>C&rsquo;est aussi simple que cela et vous pourrez achever vos devs&hellip;</p>
+]]></content>
+        </item>
         
         <item>
             <title>Comment le RPA et Python me permettent de suivre les mouvements des fonds d&#39;investissement</title>
