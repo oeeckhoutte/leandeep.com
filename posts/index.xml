@@ -5,8 +5,113 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 07 Sep 2021 08:08:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 10 Sep 2021 08:08:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Développement Solidity tuto 1 - Pragma</title>
+            <link>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-1-pragma/</link>
+            <pubDate>Fri, 10 Sep 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-1-pragma/</guid>
+            <description>Les pragma permettent de spécifier la version du compiler pour Solidity
+// SPDX-License-Identifier: MIT // La version doit être supérieure ou égale à 0.8.6 et inférieur à 0.9.0 pragma solidity ^0.8.6; contract HelloEthereum { string public greet = &amp;quot;Hello Solidity!&amp;quot;; } </description>
+            <content type="html"><![CDATA[<p>Les <code>pragma</code> permettent de spécifier la version du compiler pour Solidity</p>
+<pre><code>// SPDX-License-Identifier: MIT
+// La version doit être supérieure ou égale à 0.8.6 et inférieur à 0.9.0
+pragma solidity ^0.8.6;
+
+contract HelloEthereum {
+    string public greet = &quot;Hello Solidity!&quot;;
+}
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Développement Solidity tuto 2 - Contrat basique</title>
+            <link>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-2-contrat-basique/</link>
+            <pubDate>Fri, 10 Sep 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-2-contrat-basique/</guid>
+            <description>Voici un exemple de smart contrat simple qui incrémente et décrémente le compteur count gardé en mémoire.
+// SPDX-License-Identifier: MIT pragma solidity ^0.8.6; contract Counter { uint public count; // Fonction permettant d&#39;obtenir la valeur du compteur count function get() public view returns (uint) { return count; } // Fonction qui incrémente count par 1 function inc() public { count += 1; } // Fonction qui décrémente count par 1 function dec() public { count -= 1; } } </description>
+            <content type="html"><![CDATA[<p>Voici un exemple de smart contrat simple qui incrémente et décrémente le compteur <code>count</code> gardé en mémoire.</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.6;
+
+contract Counter {
+    uint public count;
+
+    // Fonction permettant d'obtenir la valeur du compteur count 
+    function get() public view returns (uint) {
+        return count;
+    }
+
+    // Fonction qui incrémente count par 1
+    function inc() public {
+        count += 1;
+    }
+
+    // Fonction qui décrémente count par 1
+    function dec() public {
+        count -= 1;
+    }
+}
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Développement Solidity tuto 3 - Type de données primitifs</title>
+            <link>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-3-type-de-donn%C3%A9es-primitifs/</link>
+            <pubDate>Fri, 10 Sep 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-3-type-de-donn%C3%A9es-primitifs/</guid>
+            <description>Quelques types de primitifs:
+ boolean uint int address  // SPDX-License-Identifier: MIT pragma solidity ^0.8.6; contract Primitives { bool public mon_bool = true; /* uint signifie unsigned integer, pour non negative integers Différente tailles sont disponibles uint8 varie de 0 à 2 ** 8 - 1 uint16 varie de 0 à 2 ** 16 - 1 ... uint256 varie de 0 à 2 ** 256 - 1 */ uint8 public u8 = 1; uint public u256 = 456; uint public u = 123; // uint est un alias pour uint256 /* Les nombres négatifs sont autorisés pour les types int.</description>
+            <content type="html"><![CDATA[<p>Quelques types de primitifs:</p>
+<ul>
+<li>boolean</li>
+<li>uint</li>
+<li>int</li>
+<li>address</li>
+</ul>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.6;
+
+contract Primitives {
+    bool public mon_bool = true;
+
+    /*
+    uint signifie unsigned integer, pour non negative integers
+    Différente tailles sont disponibles
+        uint8   varie de 0 à 2 ** 8 - 1
+        uint16  varie de 0 à 2 ** 16 - 1
+        ...
+        uint256 varie de 0 à 2 ** 256 - 1
+    */
+    uint8 public u8 = 1;
+    uint public u256 = 456;
+    uint public u = 123; // uint est un alias pour uint256
+
+    /*
+    Les nombres négatifs sont autorisés pour les types int.
+    Comme uint, différentes tailles sont disponibles de int8 à int256
+    */
+    int8 public i8 = -1;
+    int public i256 = 456;
+    int public i = -123; // int est le même que int256
+
+    address public adr = 0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c;
+
+    // Valeurs par défaut
+    // Les variables non assignées ont une valeur par défaut
+    bool public defaultBoo; // false
+    uint public defaultUint; // 0
+    int public defaultInt; // 0
+    address public defaultAddr; // 0x0000000000000000000000000000000000000000
+}
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Switcher de Truffle Ganache à Hardhat</title>
@@ -110,6 +215,61 @@ require('hardhat-ethernal');
 <h2 id="visualisation-sur-eternal">Visualisation sur Eternal</h2>
 <p>Rendez-vous sur <a href="https://app.tryethernal.com/address/">https://app.tryethernal.com/address/</a> et vous verrez le contract sample.</p>
 <p><img src="/images/eternal.png" alt="image"></p>
+<br/>
+<h2 id="interaction-avec-le-smart-contract">Interaction avec le smart contract</h2>
+<p>Via la console Hardhat, il est possible d&rsquo;interagir avec le smart contract déployé.</p>
+<pre><code>npm install --save-dev @nomiclabs/buidle
+</code></pre><br/>
+<p>Exemple avec un smart contract aléatoire dont le code est le suivant:</p>
+<pre><code>pragma solidity ^0.6.0;
+
+//define interface
+interface UniswapV2Factory {
+    //this function returns the pair address based on 2 token addresses
+    function getPair(address tokenA, address TokenB)
+        external
+        view
+        returns (address pair);
+}
+
+//define interface
+interface UniswapV2Pair {
+    //this function returns how much DAI and WETH is locked in uniswap
+    function getReserves()
+        external
+        view
+        returns (
+            uint112 reserve0,
+            uint112 reserve1,
+            uint32 blockTimestampLast
+        );
+}
+
+contract GetReserves {
+    address private factory = 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f;
+    address private dai = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
+    address private weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+
+    function getTokenReserves() external view returns (uint256, uint256) {
+        address pair = UniswapV2Factory(factory).getPair(dai, weth);
+
+        (uint256 reserve0, uint256 reserve1, ) = UniswapV2Pair(pair)
+            .getReserves();
+
+        return (reserve0, reserve1);
+    }
+}
+</code></pre><br/>
+<p>Code JS à exécuter dans la console démarrée via la commande <code>npx hardhat console --network localhost</code>:</p>
+<pre><code>const GetReserves = await ethers.getContractFactory(&quot;GetReserves&quot;)
+const getReserves = await MyContract.attach(&quot;0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc&quot;)
+await getReserves.getTokenReserves()
+</code></pre><blockquote>
+<p>Ethers tips:</p>
+<ul>
+<li>Convert 1 eth to wei: <code>wei = ethers.utils.parseUnits(&quot;1.0&quot;, 18)</code></li>
+</ul>
+</blockquote>
 ]]></content>
         </item>
         

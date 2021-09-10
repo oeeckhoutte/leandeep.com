@@ -262,7 +262,7 @@
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment utiliser Hardhat pour démarrer une blockchain locale (fork du réseau mainnet) et pour compiler et déployer son code Solidity. Nous verrons aussi comment avoir une explorer type etherscan local.
  Pré-requis  nvm Créer un compte ethernal sur https://app.tryethernal.com/ Compte alchemyapi (concurrent infura ou autre full node)   Installation nvm install v14.17.6 nvm use v14.17.6 nvm use default v14.17.6 npm install ethernal -g ethernal login npm install --save-dev hardhat npm i --save-dev hardhat-ethernal npm i --save-dev @nomiclabs/hardhat-waffle  Démarrer votre blockchain en local npx hardhat node --fork https://eth-mainnet."><meta itemprop="datePublished" content="2021-09-07T08:08:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-09-07T08:08:00&#43;00:00" />
-<meta itemprop="wordCount" content="419"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="597"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Dev,Ethereum,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -329,7 +329,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
 
             
 
@@ -438,6 +438,61 @@ require('hardhat-ethernal');
 <h2 id="visualisation-sur-eternal">Visualisation sur Eternal</h2>
 <p>Rendez-vous sur <a href="https://app.tryethernal.com/address/">https://app.tryethernal.com/address/</a> et vous verrez le contract sample.</p>
 <p><img src="https://leandeep.com/images/eternal.png" alt="image"></p>
+<br/>
+<h2 id="interaction-avec-le-smart-contract">Interaction avec le smart contract</h2>
+<p>Via la console Hardhat, il est possible d&rsquo;interagir avec le smart contract déployé.</p>
+<pre><code>npm install --save-dev @nomiclabs/buidle
+</code></pre><br/>
+<p>Exemple avec un smart contract aléatoire dont le code est le suivant:</p>
+<pre><code>pragma solidity ^0.6.0;
+
+//define interface
+interface UniswapV2Factory {
+    //this function returns the pair address based on 2 token addresses
+    function getPair(address tokenA, address TokenB)
+        external
+        view
+        returns (address pair);
+}
+
+//define interface
+interface UniswapV2Pair {
+    //this function returns how much DAI and WETH is locked in uniswap
+    function getReserves()
+        external
+        view
+        returns (
+            uint112 reserve0,
+            uint112 reserve1,
+            uint32 blockTimestampLast
+        );
+}
+
+contract GetReserves {
+    address private factory = 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f;
+    address private dai = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
+    address private weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+
+    function getTokenReserves() external view returns (uint256, uint256) {
+        address pair = UniswapV2Factory(factory).getPair(dai, weth);
+
+        (uint256 reserve0, uint256 reserve1, ) = UniswapV2Pair(pair)
+            .getReserves();
+
+        return (reserve0, reserve1);
+    }
+}
+</code></pre><br/>
+<p>Code JS à exécuter dans la console démarrée via la commande <code>npx hardhat console --network localhost</code>:</p>
+<pre><code>const GetReserves = await ethers.getContractFactory(&quot;GetReserves&quot;)
+const getReserves = await MyContract.attach(&quot;0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc&quot;)
+await getReserves.getTokenReserves()
+</code></pre><blockquote>
+<p>Ethers tips:</p>
+<ul>
+<li>Convert 1 eth to wei: <code>wei = ethers.utils.parseUnits(&quot;1.0&quot;, 18)</code></li>
+</ul>
+</blockquote>
 
             </div>
         </article>
@@ -449,7 +504,7 @@ require('hardhat-ethernal');
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/dev">Dev</a></span><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>419 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>597 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 Sep. 2021</p>
         </div>
@@ -462,6 +517,13 @@ require('hardhat-ethernal');
                 </div>
 
                 <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/d%C3%A9veloppement-solidity-tuto-3-type-de-donn%C3%A9es-primitifs/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Développement Solidity tuto 3 - Type de données primitifs</span>
+                            </a>
+                        </span>
                     
 
                     
