@@ -5,8 +5,73 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 10 Sep 2021 08:08:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 29 Sep 2021 06:47:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Architecture applicative d&#39;une application AR Copy Paste</title>
+            <link>https://leandeep.com/architecture-applicative-dune-application-ar-copy-paste/</link>
+            <pubDate>Wed, 29 Sep 2021 06:47:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/architecture-applicative-dune-application-ar-copy-paste/</guid>
+            <description>Introduction Peut-être êtes-vous tombé sur cette vidéo qui a fait le buzz sur Linkedin où l&amp;rsquo;on voyait une app mobile prendre une photo de n&amp;rsquo;importe quel objet, le détourait automatiquement et l&amp;rsquo;envoyait sur Photoshop. Le concept est appelé &amp;ldquo;AR Copy Paste&amp;rdquo;. Voici un article dédié au concept
+J&amp;rsquo;ai été très impressionné par la démo et me suis demandé comment c&amp;rsquo;était fait. J&amp;rsquo;ai donc codé un MVP qui refait exactement la même chose (au delta près du plugin Photoshop qui n&amp;rsquo;est qu&amp;rsquo;un wrapper autour de mon app web qui affichait déjà mon image détourée).</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Peut-être êtes-vous tombé sur cette vidéo qui a fait le buzz sur Linkedin où l&rsquo;on voyait une app mobile prendre une photo de n&rsquo;importe quel objet, le détourait automatiquement et l&rsquo;envoyait sur Photoshop. <strong>Le concept est appelé &ldquo;AR Copy Paste&rdquo;.</strong>
+Voici un <a href="" rel="noopener" target="_blank">article dédié au concept</a></p>
+<p>J&rsquo;ai été très impressionné par la démo et me suis demandé comment c&rsquo;était fait. J&rsquo;ai donc codé un MVP qui refait exactement la même chose (au delta près du plugin Photoshop qui n&rsquo;est qu&rsquo;un wrapper autour de mon app web qui affichait déjà mon image détourée).</p>
+<blockquote>
+<p>Étant consultant Freelance (Architecte solutions/ Expert technique/ Tech Lead), n&rsquo;hésitez pas à me contacter pour une démo ou voir si je suis disponible pour vous proposer mes services.</p>
+</blockquote>
+<blockquote>
+<p>Le code n&rsquo;est pas open source mais bien visible sur demande (le projet et ses deps fait 1.3 Go à cause de la partie ML)</p>
+</blockquote>
+<p>Dans cet article, je vous présente l&rsquo;architecture applicative de mon MVP.</p>
+<br/>
+<h2 id="architecture-applicative-du-mvp">Architecture applicative du MVP</h2>
+<p><img src="/images/architecture-ar-copy-paste-app.png" alt="image"></p>
+<br/>
+<ol>
+<li>Prise de photo depuis un smartphone</li>
+<li>Upload de la photo sur une API Python</li>
+<li>Appel de la librairie de machine Learning permettant d&rsquo;extraire le background d&rsquo;une photo</li>
+<li>Génération d&rsquo;une photo temporaire sur l&rsquo;API puis upload sur S3</li>
+<li>Récupération de l&rsquo;URL d&rsquo;accès de la photo détourée sur S3 et on retourne l&rsquo;URL au client</li>
+<li>Affichage de la photo détourée depuis S3 via l&rsquo;URL juste récupérée</li>
+</ol>
+<blockquote>
+<p>Schéma simplifié bien sûr. Il s&rsquo;agit d&rsquo;un MVP rapide de 3 soirées sans DB, sans realtime websoket server.</p>
+</blockquote>
+<br/>
+<h2 id="résultat-sur-quelques-objets-et-mon-chien">Résultat sur quelques objets et mon chien</h2>
+<p><strong>Adaptateur de voyage sur mon bureau:</strong>
+<img src="/images/ar-copy-demo-paste1.png" alt="image">
+<strong>Tasse sale sur mon bureau:</strong>
+<img src="/images/ar-copy-demo-paste2.png" alt="image">
+<strong>Caméra Tapo dans mon salon:</strong>
+<img src="/images/ar-copy-demo-paste3.png" alt="image">
+<strong>Bouteille sur mon bureau:</strong>
+<img src="/images/ar-copy-demo-paste4.png" alt="image">
+<strong>Télécommande Freebox dans mon salon:</strong>
+<img src="/images/ar-copy-demo-paste5.png" alt="image">
+<strong>Mon chien (qui s&rsquo;est roulé dans la boue) pris de très loin + un sac (2 objets):</strong>
+<img src="/images/ar-copy-demo-paste6.png" alt="image">
+<strong>Mon chien:</strong>
+<img src="/images/ar-copy-demo-paste7.png" alt="image"></p>
+<p>Encore une fois merci le Machine Learning, le résulatat est bluffant!..</p>
+<br/>
+<h2 id="recommandations">Recommandations</h2>
+<ul>
+<li>
+<p>Pour la partie front mobile, j&rsquo;ai encore pu tester le framework <a href="" rel="noopener" target="_blank">Expo</a> pour ce MVP et c&rsquo;est vraiment top. Cela permet d&rsquo;avoir un workflow de développement vraiment simplifié et d&rsquo;être vraiment productif.
+En gros, il n&rsquo;y a pas à gérer la partie CI (mobile) du tout.</p>
+</li>
+<li>
+<p>Modèle Deep Learning utilisé: <a href="" rel="noopener" target="_blank">U2Net</a></p>
+</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Développement Solidity tuto 1 - Pragma</title>
@@ -6776,99 +6841,6 @@ Training Data R2 =  72.0<br/>
 Test Data Mean Squared Error =  20.22803996987049<br/>
 Test Data Root Mean Squared Error =  4.497559334780419<br/>
 Test Data R2 =  77.0<br/></p>
-]]></content>
-        </item>
-        
-        <item>
-            <title>Premier ConvNet avec Tensorflow 2</title>
-            <link>https://leandeep.com/premier-convnet-avec-tensorflow-2/</link>
-            <pubDate>Tue, 10 Dec 2019 19:49:00 +0200</pubDate>
-            
-            <guid>https://leandeep.com/premier-convnet-avec-tensorflow-2/</guid>
-            <description>Introduction Tensorflow 2 beta est récemment sorti. Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser. Keras a aussi été pleinement intégré. On peut l&amp;rsquo;utiliser pour des applications large-scale. Le graphe d&amp;rsquo;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&amp;rsquo;utilisation de Tensorflow a été simplifiée.</description>
-            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>Tensorflow 2 beta est récemment sorti.
-Beaucoup de choses ont changé et il est maintenant beaucoup plus simple à utiliser.
-Keras a aussi été pleinement intégré. On peut l&rsquo;utiliser pour des applications large-scale.
-Le graphe d&rsquo;exécution est maintenant automatiquement créé par le framework. Le Python est converti est graphe. Dans cet article, nous allons créer un simple Convnet avec 3 couches en quelques lignes de codes pour se rendre compte à quel point l&rsquo;utilisation de Tensorflow a été simplifiée.</p>
-<br/>
-<h2 id="convnet">ConvNet</h2>
-<p><strong>Chargement des modules</strong></p>
-<pre><code>from __future__ import absolute_import, division, print_function, unicode_literals
-import numpy as np
-import tensorflow as tf
-from tensorflow import keras as ks
-print(tf.__version__)
-</code></pre><br/>
-<p><strong>Chargement du dataset opensource Zalando Fashion-MNIST</strong></p>
-<pre><code>mnist_fashion = ks.datasets.fashion_mnist
-(training_images, training_labels), (test_images, test_labels) = mnist_fashion.load_data()
-print('Training Dataset Shape: {}'.format(training_images.shape))
-print('Number of Training Dataset Labels: {}'. format(len(training_labels)))
-print('Test Dataset Shape: {}'.format(test_images.shape)) 
-print('Number of Test Dataset Labels: {}'.format(len(test_labels)))
-</code></pre><br/>
-<p><strong>Normalisation des valeurs</strong></p>
-<p>Comme la valeur des pixels varie entre 0 et 255, on va normaliser ces valeurs entre 0 et 1 avant de les pousser dans le modèle. On normalise ces valeurs (training and test data) en les divisant par 255.</p>
-<pre><code>training_images = training_images / 255.0
-test_images = test_images / 255.0
-</code></pre><br/>
-<p><strong>Remaniement des training et tests data</strong></p>
-<p>On modifie la forme des training et tests matrices en 28x28x1</p>
-<pre><code>training_images = training_images.reshape((60000, 28, 28, 1))
-test_images = test_images.reshape((10000, 28, 28, 1))
-print('Training Dataset Shape: {}'.format(training_images.shape))
-print('Number of Training Dataset Labels: {}'.format(len(training_labels)))
-print('Test Dataset Shape: {}'.format(test_images.shape))
-print('Number of Test Dataset Labels: {}'.format(len(test_labels)))
-</code></pre><br/>
-<p><strong>Construction des couches du modèle</strong></p>
-<p>Keras est utiliser pour construire les différentes couches de notre CNN. <br/>Pour faire simple, on va créer seulement 3 couches.</p>
-<br/>
-<p>Première couche: couche convolutionnelle avec une fonction d&rsquo;activation ReLU</p>
-<ul>
-<li>Cette couche prend un tableau en 2D (28 × 28 pixels) comme input.</li>
-<li>Elle prend 50 kernels (filtres) convolutionnels de forme 3 × 3 pixels.</li>
-<li>La sortie de cette couche qui va passer par une fonction d&rsquo;activation ReLU avant de passer à la prochaine couche</li>
-</ul>
-<pre><code>cnn_model = ks.models.Sequential()
-cnn_model.add(ks.layers.Conv2D(50, (3, 3), activation='relu', input_shape=(28, 28, 1), name='Conv2D_layer'))
-</code></pre><br/>
-<p>Deuxième couche:</p>
-<br/>
-<p>Cette couche prend 50 26x26 tableaux à 2D comme input et les transforme comme 50 tableaux qui ont des dimensions divisés par 2 (c&rsquo;est-à-dire: de 26×26 à 13×13 pixels).</p>
-<pre><code>cnn_model.add(ks.layers.MaxPooling2D((2, 2), name='Maxpooling_2D'))
-</code></pre><br/>
-<p>Troisième couche &ldquo;fully connected layer&rdquo;:</p>
-<br/>
-<p>Cette couche prend 50 13x13 tableaux de 2D comme input et les transform en un tableau à 1D comprenant 8450 élements (50×13×13). Ces 8450 élements d&rsquo;input sont passés à travers un réseau de neuronne &ldquo;fully connected&rdquo; qui donne des scores de probabilité pour chacune des 10 outputs.</p>
-<pre><code>cnn_model.add(ks.layers.Flatten(name='Flatten'))
-cnn_model.add(ks.layers.Dense(50, activation='relu', name='Hidden_layer'))
-cnn_model.add(ks.layers.Dense(10, activation='softmax', name='Output_layer'))
-</code></pre><br/>
-<p><strong>Synthèse des couches</strong></p>
-<p>On observe le détail des différentes couches grâce à la commande suivante:</p>
-<pre><code>cnn_model.summary()
-</code></pre><br/>
-<p><strong>Création de la fonction d&rsquo;optimisation</strong></p>
-<p>Maintenant on utiliser une fonction d&rsquo;optimisation grâce à la méthode compile. On utiliser un optimiseur Adam avec la fonction d&rsquo;objectif sparse_categorical_crossentropy pour optimiser la métrique accuracy.</p>
-<pre><code>cnn_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-</code></pre><br/>
-<p><strong>Entraintement du modèle</strong></p>
-<pre><code>cnn_model.fit(training_images, training_labels, epochs=10)
-</code></pre><br/>
-<p><strong>Modèle évaluation</strong></p>
-<pre><code># 1. Training évaluation
-training_loss, training_accuracy = cnn_model.evaluate(training_images, training_labels)
-print('Training Accuracy {}'. format(round(float(training_accuracy), 2)))
-
-# 2. Test évaluation
-test_loss, test_accuracy = cnn_model.evaluate(test_images, test_labels)
-print('Test Accuracy {}'.format(round(float (test_accuracy), 2)))
-</code></pre><br/>
-<p><strong>Output</strong></p>
-<p>Training Accuracy 0.97<br/>
-Test Accuracy 0.91</p>
 ]]></content>
         </item>
         
@@ -20699,282 +20671,6 @@ git config --global core.excludesfile ~/.gitignore_global
 <p><em>Edited 13 november 2016:</em></p>
 <p><strong>Better method: Github flow:</strong></p>
 <p><a href="https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/">https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/</a></p>
-]]></content>
-        </item>
-        
-        <item>
-            <title>Basics Python commands pour Matplotlib, Numpy et debugging misc</title>
-            <link>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/</link>
-            <pubDate>Mon, 14 Sep 2015 19:24:00 +0000</pubDate>
-            
-            <guid>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-et-debugging-misc/</guid>
-            <description>Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.
- Matplotlib &amp;amp; Numpy 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
-from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4).</description>
-            <content type="html"><![CDATA[<p>Voici une liste de commandes de base pour commencer à travailler avec Matplotlib et Numpy.</p>
-<br/>
-<h1 id="matplotlib--numpy">Matplotlib &amp; Numpy</h1>
-<h2 id="1-charger-un-dataset">1. Charger un dataset</h2>
-<p>On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.</p>
-<pre><code>from sklearn.datasets import load_iris
-iris = load_iris()
-
-n_samples, n_features = iris.data.shape
-print(n_samples)
-print(n_features)
-
-# 150
-# 4
-</code></pre><br/>
-<h2 id="2-afficher-un-nuage-de-points-scatter-plot">2. Afficher un nuage de points (scatter plot)</h2>
-<p>On considère travailler avec un array (150,4). Voir point 1.</p>
-<pre><code># La commande qui suit permet de ne pas avoir de problème avec l'affichage de graphiques dans Jupyter Notebook 
-%matplotlib inline
-</code></pre><p>Affichage du scratter plot:</p>
-<pre><code>from matplotlib import pyplot as plt
-
-x_index = 1
-y_index = 3
-
-# Ce formateur permet de remplacer les index des classes d'iris par leur nom dans la légende
-formatter = plt.FuncFormatter(lambda i, *args: iris.target_names[int(i)])
-
-plt.scatter(iris.data[:, x_index], iris.data[:, y_index], c=iris.target)
-plt.colorbar(ticks=[0, 1, 2], format=formatter)
-plt.xlabel(iris.feature_names[x_index])
-plt.ylabel(iris.feature_names[y_index])
-</code></pre><p><em>Résultat:</em></p>
-<p><img src="/images/plot-basics.png" alt="image"></p>
-<br/>
-<h2 id="3-manipuler-des-numpy-arrays">3. Manipuler des Numpy Arrays</h2>
-<h3 id="31-générer-un-tableau-aléatoire">3.1. Générer un tableau aléatoire</h3>
-<pre><code>import numpy as np
-
-X = np.random.random((3,5))
-print(X)
-</code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
- [0.32855405 0.11656708 0.63427992 0.51111629 0.53846283]
- [0.99568791 0.44366564 0.0842925  0.12422041 0.38149375]]
-</code></pre><br/>
-<h3 id="32-accéder-à-des-éléments-dun-numpy-array">3.2. Accéder à des éléments d&rsquo;un numpy array</h3>
-<pre><code># Accéder à un seul élément
-print(X[0,0])
-
-# Accéder à une ligne
-print(X[0,:]) ou print(X[0])
-
-# Accéder à une colonne
-print(X[:,0]
-</code></pre><p><em>Résultat:</em></p>
-<pre><code>0.7427128108295802
-[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
-[0.74271281 0.32855405 0.99568791]
-</code></pre><br/>
-<h3 id="33-faire-une-transposée-de-matrice-les-lignes-deviennent-les-colonnes">3.3. Faire une transposée de Matrice (les lignes deviennent les colonnes)</h3>
-<pre><code>print(X.T)
-</code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74271281 0.32855405 0.99568791]
- [0.89627097 0.11656708 0.44366564]
- [0.95309957 0.63427992 0.0842925 ]
- [0.48770972 0.51111629 0.12422041]
- [0.3841344  0.53846283 0.38149375]]
-</code></pre><br/>
-<h3 id="34-faire-un-range-sans-être-gêné-par-le-dernier-élement">3.4. Faire un range sans être gêné par le dernier élement</h3>
-<p>Cette méthode permet d’obtenir un tableau à une dimension allant d’une valeur de départ à une valeur de fin avec un nombre donné d’éléments.</p>
-<pre><code># la fonction linspace(premier, dernier, n) évite tout désagrément
-np.linspace(1., 4., 6)
-</code></pre><p><em>Résultat:</em></p>
-<pre><code># array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
-</code></pre><br/>
-<h3 id="35-incrémenter-la-dimension-dun-array">3.5. Incrémenter la dimension d&rsquo;un array</h3>
-<p>(Permet également de <strong>convertir explicitement un array à 1 dimension</strong> en un vecteur ligne ou vecteur colonne.)</p>
-<pre><code>A = np.array([2, 0, 1, 8])
-print(A)
-A.shape
-
-# [2 0 1 8]
-# (4,)
-
-
-B = A[np.newaxis, :]
-print(B)
-B.shape
-
-# [[2 0 1 8]]
-# (1, 4)
-
-C = A[:, np.newaxis]
-print(C)
-C.shape
-
-# [[2]
-  [0]
-  [1]
-  [8]]
-# (4,1)
-</code></pre><br/>
-<p><strong>Alternatives:</strong></p>
-<pre><code>np.expand_dims(A, 1)  # équivaut à A[:, np.newaxis]
-np.expand_dims(A, 0)  # équivaut à A[np.newaxis, :]
-
-ou
-
-A.reshape(A.shape + (1,))  # équivaut à A[:, np.newaxis]
-A.reshape((1,) + A.shape)  # équivaut à A[np.newaxis, :]
-</code></pre><br/>
-<h2 id="4-manipuler-des-scipy-sparse-matrices">4. Manipuler des Scipy Sparse Matrices</h2>
-<p>Ces matrices sont parfois utiles lorsque le dataset est extrèmement grand (millions de features) et qu&rsquo;il n&rsquo;y a presque que des 0 pour un échantillon donné.</p>
-<p>On crée une matrice avec des données aléatoires</p>
-<pre><code>from scipy import sparse
-
-X = np.random.random((10, 5))
-print(X)
-</code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74668664 0.28468523 0.31235423 0.85889384 0.44178508]
- [0.42935032 0.12811469 0.10010876 0.44757517 0.85568623]
- [0.52500676 0.81764407 0.32380153 0.41696393 0.46913849]
- [0.38276909 0.93648265 0.19733164 0.42392672 0.75220776]
- [0.71149141 0.21479105 0.93260534 0.44922132 0.1069613 ]
- [0.81701    0.85721634 0.43327147 0.07404298 0.00268589]
- [0.41816508 0.45835663 0.13466681 0.65741327 0.19939561]
- [0.87886815 0.90599216 0.60680106 0.52665484 0.69824682]
- [0.75469648 0.89312007 0.10350947 0.48109062 0.61979146]
- [0.90195641 0.48118575 0.95517067 0.86300827 0.36144463]]
-</code></pre><p>On fixe la majorité des éléments à 0</p>
-<pre><code>X[X &lt; 0.7] = 0
-print(X)
-</code></pre><p><em>Résultat:</em></p>
-<pre><code> [[0.74668664 0.         0.         0.85889384 0.        ]
- [0.         0.         0.         0.         0.85568623]
- [0.         0.81764407 0.         0.         0.        ]
- [0.         0.93648265 0.         0.         0.75220776]
- [0.71149141 0.         0.93260534 0.         0.        ]
- [0.81701    0.85721634 0.         0.         0.        ]
- [0.         0.         0.         0.         0.        ]
- [0.87886815 0.90599216 0.         0.         0.        ]
- [0.75469648 0.89312007 0.         0.         0.        ]
- [0.90195641 0.         0.95517067 0.86300827 0.        ]]
-</code></pre><p>On convertit X en une Matrice CSR (Compressed-Sparse-Row)</p>
-<pre><code>X_csr = sparse.csr_matrix(X)
-print(X_csr)
-</code></pre><p><em>Résultat:</em></p>
-<pre><code>  (0, 0)	0.7466866354064811
-  (0, 3)	0.858893836600347
-  (1, 4)	0.8556862339513924
-  (2, 1)	0.8176440715795563
-  (3, 1)	0.9364826540107359
-  (3, 4)	0.7522077587621511
-  (4, 0)	0.7114914132345445
-  (4, 2)	0.9326053405778985
-  (5, 0)	0.8170100021133657
-  (5, 1)	0.8572163407003378
-  (7, 0)	0.8788681533625899
-  (7, 1)	0.9059921645080171
-  (8, 0)	0.7546964834006666
-  (8, 1)	0.893120069181746
-  (9, 0)	0.9019564067395904
-  (9, 2)	0.9551706684658897
-  (9, 3)	0.8630082740227074
-</code></pre><p>On rétablit la Matrice Sparse en numpy array</p>
-<pre><code>print(X_csr.toarray())
-</code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74668664 0.         0.         0.85889384 0.        ]
- [0.         0.         0.         0.         0.85568623]
- [0.         0.81764407 0.         0.         0.        ]
- [0.         0.93648265 0.         0.         0.75220776]
- [0.71149141 0.         0.93260534 0.         0.        ]
- [0.81701    0.85721634 0.         0.         0.        ]
- [0.         0.         0.         0.         0.        ]
- [0.87886815 0.90599216 0.         0.         0.        ]
- [0.75469648 0.89312007 0.         0.         0.        ]
- [0.90195641 0.         0.95517067 0.86300827 0.        ]]
-</code></pre><br/>
-<h2 id="5-visualisation-des-données-avec-matplotlib">5. Visualisation des données avec Matplotlib</h2>
-<h3 id="51-afficher-une-fonction-simple">5.1. Afficher une fonction simple</h3>
-<pre><code>import matplotlib.pyplot as plt
-
-# Afficher une ligne
-x = np.linspace(0, 10, 100)
-plt.plot(x, np.sin(x))
-</code></pre><p><em>Résultat:</em></p>
-<p><img src="/images/plot2-basics.png" alt="image"></p>
-<br/>
-<h3 id="52-afficher-un-nuage-de-points-scatter-plot">5.2. Afficher un nuage de points (scatter plot)</h3>
-<pre><code>import matplotlib.pyplot as plt
-
-x = np.random.normal(size=500)
-y = np.random.normal(size=500)
-plt.scatter(x, y)
-</code></pre><p><em>Résultat:</em></p>
-<p><img src="/images/scatter-plot-basics.png" alt="image"></p>
-<br/>
-<h3 id="53-tracer-une-image">5.3. Tracer une image</h3>
-<pre><code>import matplotlib.pyplot as plt
-
-x = np.linspace(1, 12, 100)
-y = x[:, np.newaxis]
-
-im = y * np.sin(x) * np.cos(y)
-
-plt.imshow(im)
-</code></pre><p><em>Résultat:</em></p>
-<p><img src="/images/draw-image-basics.png" alt="image"></p>
-<br/>
-<h3 id="54-tracer-les-contours">5.4. Tracer les contours</h3>
-<pre><code>import matplotlib.pyplot as plt
-
-x = np.linspace(1, 12, 100)
-y = x[:, np.newaxis]
-
-im = y * np.sin(x) * np.cos(y)
-
-plt.contour(im)
-</code></pre><p><em>Résultat:</em></p>
-<p><img src="/images/contour-basics.png" alt="image"></p>
-<br/>
-<h3 id="55-gallerie-dexemples">5.5. Gallerie d&rsquo;exemples</h3>
-<p>Des centaines d&rsquo;exemples sont disponibles sur le <a href="http://matplotlib.org/gallery.html">site de Matplotlib</a>.
-En exécutant la commande suivante dans votre notebook, le code source sera téléchargé. Vous n&rsquo;aurez plus qu&rsquo;à le ré-excuter pour qu&rsquo;un graphique s&rsquo;affiche.</p>
-<pre><code>%load http://matplotlib.org/mpl_examples/pylab_examples/ellipse_collection.py
-</code></pre><br/>
-<h3 id="56-graphique-3d">5.6. Graphique 3D</h3>
-<pre><code># 3D 
-from mpl_toolkits.mplot3d import Axes3D
-
-ax = plt.axes(projection='3d')
-xgrid, ygrid = np.meshgrid(x, y.ravel())
-ax.plot_surface(xgrid, ygrid, im, cmap=plt.cm.jet, cstride=2, rstride=2, linewidth=0)
-</code></pre><p><em>Résultat:</em></p>
-<p><img src="/images/3d-plots-basics.png" alt="image"></p>
-<br/>
-<h1 id="debugging-misc">Debugging Misc</h1>
-<h2 id="dumper-un-objet">&ldquo;Dumper&rdquo; un objet:</h2>
-<pre><code>def dump(obj):
-   for attr in dir(obj):
-       if hasattr( obj, attr ):
-           print( &quot;obj.%s = %s&quot; % (attr, getattr(obj, attr)))
-</code></pre><br/>
-<h2 id="afficher-des-couleurs-dans-le-terminal">Afficher des couleurs dans le terminal</h2>
-<pre><code>print('\x1b[6;30;42m' + 'Success!' + '\x1b[0m')
-</code></pre><p><img src="/images/colors-terminal-basics.png" alt="image"></p>
-<p>Voir toutes les couleurs disponibles:</p>
-<pre><code>def print_format_table():
-    &quot;&quot;&quot;
-    prints table of formatted text format options
-    &quot;&quot;&quot;
-    for style in range(8):
-        for fg in range(30,38):
-            s1 = ''
-            for bg in range(40,48):
-                format = ';'.join([str(style), str(fg), str(bg)])
-                s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
-            print(s1)
-        print('\n')
-
-print_format_table()
-</code></pre><p>Voici quelques examples:</p>
-<p><img src="/images/terminal_few_colors.png" alt="image"></p>
 ]]></content>
         </item>
         
