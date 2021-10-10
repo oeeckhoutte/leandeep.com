@@ -266,7 +266,7 @@ docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name et
 docker pull ethereum/client-go:latest mkdir ~/.geth-rinkeby docker run --name eth -p 8546:8546 -v ~/.geth-rinkeby:/geth -it \ ethereum/client-go --rinkeby --ws --ipcdisable \ --wsaddr 0.0.0.0 --wsorigins=&quot;*&quot; --datadir /geth Pour détacher le running container, sans le stopper, vous pouvez utiliser les commandes suivantes: Ctrl &#43; P, Ctrl &#43; Q
  Si le container est stoppé, vous pouvez le relancer avec la commande suivante: docker start -i eth"><meta itemprop="datePublished" content="2020-12-16T21:25:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-16T21:25:00&#43;00:00" />
-<meta itemprop="wordCount" content="1109"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1125"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Docker,Ethereum,Node Hosting,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -382,7 +382,7 @@ sudo apt-get update
 sudo apt-get install ethereum
 
 # Verify Geth version
-geth version check
+geth version-check
 
 # Upgrade Geth
 sudo apt-get upgrade geth
@@ -630,6 +630,7 @@ Out [8]: 0
 <p><code>Checkpoint challenge timed out, dropping</code>: Start a timer to disconnect if the peer doesn&rsquo;t reply in time (cf. <a href="https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go">https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go</a>)</p>
 <p><code>snapshot extension registration failed geth</code>: Geth client is probably outdated</p>
 <p><code>Imported new chain segment</code>: means geth has downloaded some amount of blocks to be added to the chain. <strong>Look at <code>age</code> key to figure out the remaining quantity of blocks to download</strong></p>
+<p><code>Invalid merkle root</code>: Geth is certainly outdated. Just upgrade it (worked for me for 1.10.7 -&gt; 1.10.8)</p>
 
             </div>
         </article>
@@ -641,7 +642,7 @@ Out [8]: 0
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/node-hosting">Node Hosting</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1109 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1125 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 Dec. 2020</p>
         </div>

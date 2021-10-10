@@ -5,8 +5,26 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 04 Oct 2021 06:47:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 10 Oct 2021 15:25:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Réaliser un speed test depuis le terminal</title>
+            <link>https://leandeep.com/r%C3%A9aliser-un-speed-test-depuis-le-terminal/</link>
+            <pubDate>Sun, 10 Oct 2021 15:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/r%C3%A9aliser-un-speed-test-depuis-le-terminal/</guid>
+            <description>J&amp;rsquo;ai eu besoin de mettre en place un traffic shaper sur mon Firewall pour ne pas qu&amp;rsquo;un de mes noeuds Ethereum consomme toute la bande passante de mon réseau domestique. Je voulais limiter la bande passante en semaine de 8h30 à 19h. Une fois tout cela mis en place, il m&amp;rsquo;a fallu tester si tout était bien configuré. Si vous avez besoin de réaliser un speed test depuis un serveur headless, vous pouvez suivre ce tip.</description>
+            <content type="html"><![CDATA[<p>J&rsquo;ai eu besoin de mettre en place un traffic shaper sur mon Firewall pour ne pas qu&rsquo;un de mes noeuds Ethereum consomme toute la bande passante de mon réseau domestique. Je voulais limiter la bande passante en semaine de 8h30 à 19h. Une fois tout cela mis en place, il m&rsquo;a fallu tester si tout était bien configuré. Si vous avez besoin de réaliser un speed test depuis un serveur headless, vous pouvez suivre ce tip.</p>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<pre><code>curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
+sudo apt-get install speedtest
+</code></pre><br/>
+<h2 id="exécution-du-speedtest">Exécution du speedtest</h2>
+<p>Ouvrir un terminal et simplement exécutez la commande <code>speedtest</code>.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Sécurité domestique - Pentester son portail électrique, sonnette sans fil et porte de garage automatique</title>
@@ -1796,7 +1814,7 @@ sudo apt-get update
 sudo apt-get install ethereum
 
 # Verify Geth version
-geth version check
+geth version-check
 
 # Upgrade Geth
 sudo apt-get upgrade geth
@@ -2044,6 +2062,7 @@ Out [8]: 0
 <p><code>Checkpoint challenge timed out, dropping</code>: Start a timer to disconnect if the peer doesn&rsquo;t reply in time (cf. <a href="https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go">https://github.com/ethereum/go-ethereum/blob/master/eth/handler.go</a>)</p>
 <p><code>snapshot extension registration failed geth</code>: Geth client is probably outdated</p>
 <p><code>Imported new chain segment</code>: means geth has downloaded some amount of blocks to be added to the chain. <strong>Look at <code>age</code> key to figure out the remaining quantity of blocks to download</strong></p>
+<p><code>Invalid merkle root</code>: Geth is certainly outdated. Just upgrade it (worked for me for 1.10.7 -&gt; 1.10.8)</p>
 ]]></content>
         </item>
         
