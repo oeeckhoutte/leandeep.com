@@ -5,8 +5,220 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 10 Oct 2021 15:25:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 22 Oct 2021 08:08:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Smart contract development: coder un Swap sur Uniswap avec des data de prod</title>
+            <link>https://leandeep.com/smart-contract-development-coder-un-swap-sur-uniswap-avec-des-data-de-prod/</link>
+            <pubDate>Fri, 22 Oct 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/smart-contract-development-coder-un-swap-sur-uniswap-avec-des-data-de-prod/</guid>
+            <description>Dans cet article nous allons voir comment réaliser un échange d&amp;rsquo;USDC avec de l&amp;rsquo;USDT en codant un smart contract qui utiliser Uniswap.
+ Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
+  Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
+// SPDX-License-Identifier: MIT pragma solidity ^0.</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment réaliser un échange d&rsquo;USDC avec de l&rsquo;USDT en codant un smart contract qui utiliser Uniswap.</p>
+<blockquote>
+<p>Pour cet example, j&rsquo;ai utilisé Node version: <code>nvm use v14.17.6</code>. J&rsquo;ai aussi installé les modules NodeJS <code>ganache-cli</code> et <code>truffle</code></p>
+</blockquote>
+<br/>
+<h2 id="création-du-smart-contract">Création du Smart contract</h2>
+<p>Créer un fichier <code>SimpleUniswapSwap.sol</code> dans le répertoire <code>contracts</code> de votre repo git et ajouter le contenu suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.7;
+
+import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
+import &quot;./interfaces/Uniswap.sol&quot;;
+
+contract SimpleUniswapSwap {
+    address private constant UNISWAP_V2_ROUTER =
+        0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+
+    function swap(
+        address _tokenIn,
+        address _tokenOut,
+        uint256 _amountIn,
+        uint256 _amountOutMin,
+        address _to
+    ) external {
+        IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn); // Send money to this smart contract
+        IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn); // Allow uniswap router to use/swap the money we just transfered
+
+        address[] memory path;
+        if (_tokenIn == WETH || _tokenOut == WETH) {
+            path = new address[](2);
+            path[0] = _tokenIn;
+            path[1] = _tokenOut;
+        } else {
+            path = new address[](3);
+            path[0] = _tokenIn;
+            path[1] = WETH;
+            path[2] = _tokenOut;
+        }
+
+        IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens(
+            _amountIn,
+            _amountOutMin,
+            path,
+            _to,
+            block.timestamp
+        );
+    }
+
+}
+
+</code></pre><br/>
+<p>L&rsquo;interface <code>Uniswap.sol</code> dans le répertoire <code>./contracts/interfaces</code> ressemble à ceci:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.7;
+
+// https://uniswap.org/docs/v2/smart-contracts
+
+interface IUniswapV2Router {
+    function swapExactTokensForTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+}
+</code></pre><br/>
+<h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
+<p>Créer un fichier <code>test/simple-uniswap-swap.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const BN = require(&quot;bn.js&quot;); // On charge le module Node Bignumber 
+const { USDC, USDT, USDC_WHALE } = require(&quot;./config&quot;); // Adresses des tokens USC, USDT et wallet 
+
+const IERC20 = artifacts.require(&quot;IERC20&quot;);  // on load l'interface des contracts ERC20
+const SimpleUniswapSwap = artifacts.require(&quot;SimpleUniswapSwap&quot;); //on load le smart contract qu'on a créé pour swapper des tokens ERC20
+
+contract(&quot;SimpleUniswapSwap&quot;, (accounts) =&gt; {
+    const WHALE = USDC_WHALE;
+    const AMOUNT_IN = 1000;
+    const AMOUNT_OUT_MIN = 980;
+    const TOKEN_IN = USDC;
+    const TOKEN_OUT = USDT;
+    const TO = accounts[0];
+
+    let simpleUniswapSwap;
+    let tokenIn;
+    let tokenOut;
+    beforeEach(async () =&gt; {
+        tokenIn = await IERC20.at(TOKEN_IN);
+        tokenOut = await IERC20.at(TOKEN_OUT);
+        simpleUniswapSwap = await SimpleUniswapSwap.new();
+
+        await tokenIn.approve(simpleUniswapSwap.address, AMOUNT_IN, { from: WHALE });
+    });
+
+    it(&quot;should pass&quot;, async () =&gt; {
+        await simpleUniswapSwap.swap(
+            tokenIn.address,
+            tokenOut.address,
+            AMOUNT_IN,
+            AMOUNT_OUT_MIN,
+            TO,
+            {
+                from: WHALE,
+            }
+        );
+
+        console.log(`in ${AMOUNT_IN}`);
+        console.log(`out ${await tokenOut.balanceOf(TO)}`);
+    });
+});
+</code></pre><br/>
+<h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
+<p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
+<pre><code>module.exports = {
+    networks: {
+        mainnet_fork: {
+            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            port: 8545, // Standard Ethereum port (default: none)
+            network_id: &quot;999&quot;, // Any network (default: none)
+        },
+    },
+
+    // Set default mocha options here, use special reporters etc.
+    mocha: {
+        // timeout: 100000
+    },
+
+    // Configure your compilers
+    compilers: {
+        solc: {
+            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+        },
+    },
+}
+</code></pre><br/>
+<blockquote>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+</blockquote>
+<pre><code>source .env
+ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
+</code></pre><br/>
+<h2 id="exécution-du-swap">Exécution du swap</h2>
+<pre><code>npx truffle test --network mainnet_fork test/simple-uniswap-swap.js
+</code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
+<br/>
+<p><img src="/images/swap-uniswap-result.png" alt="image"></p>
+<br/>
+<h2 id="interagir-avec-ganache">Interagir avec Ganache</h2>
+<pre><code>npx truffle console --network mainnet_fork
+# npx truffle debug 0xbb18c245899e6e11da427cb951d88de7f072ca1021c98fbb1c7b65660c572f44
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Quelques features de base de PFSense</title>
+            <link>https://leandeep.com/quelques-features-de-base-de-pfsense/</link>
+            <pubDate>Wed, 13 Oct 2021 17:53:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/quelques-features-de-base-de-pfsense/</guid>
+            <description>Rendez-vous sur l&amp;rsquo;interface de pfsense. Par défaut: https://192.168.1.1
+ Limiter la bande passante qui entre et sort d&amp;rsquo;un host   Cliquez sur Firewall -&amp;gt; Traffic Shaper -&amp;gt; Limiters -&amp;gt; New Limiter pour créer des limiters.
+  Créer par exemple un limiter en upload:
+ Saissez un nom: par exemple: 250KBLIMITOUT Cocher la case &amp;ldquo;Enable limiter and its children&amp;rdquo; Bandwidth: saisissez ce que vous voulez Si besoin créez un scheduler en amount un scheduler pour que le limiter ne soit actif que durant une certaine période: Firewall -&amp;gt; Schedules Save    Cliquez sur Firewall -&amp;gt; Rules -&amp;gt; LAN -&amp;gt; Add puis remplir le formulaire de création de rules comme ceci:</description>
+            <content type="html"><![CDATA[<p>Rendez-vous sur l&rsquo;interface de pfsense. Par défaut: <a href="" rel="noopener" target="_blank">https://192.168.1.1</a></p>
+<br/>
+<h2 id="limiter-la-bande-passante-qui-entre-et-sort-dun-host">Limiter la bande passante qui entre et sort d&rsquo;un host</h2>
+<ul>
+<li>
+<p>Cliquez sur <code>Firewall</code> -&gt; <code>Traffic Shaper</code> -&gt; <code>Limiters</code> -&gt; <code>New Limiter</code> pour créer des limiters.</p>
+</li>
+<li>
+<p>Créer par exemple un limiter en upload:</p>
+<ol>
+<li>Saissez un nom: par exemple: <code>250KBLIMITOUT</code></li>
+<li>Cocher la case &ldquo;Enable limiter and its children&rdquo;</li>
+<li>Bandwidth: saisissez ce que vous voulez</li>
+<li>Si besoin créez un scheduler en amount un scheduler pour que le limiter ne soit actif que durant une certaine période: <code>Firewall</code> -&gt; <code>Schedules</code></li>
+<li>Save</li>
+</ol>
+</li>
+<li>
+<p>Cliquez sur <code>Firewall</code> -&gt; <code>Rules</code> -&gt; <code>LAN</code> -&gt; <code>Add</code> puis remplir le formulaire de création de <em>rules</em> comme ceci:</p>
+<ol>
+<li>Action: Pass</li>
+<li>Interface: LAN</li>
+<li>IPv4</li>
+<li>Protocol: Any</li>
+<li>Source: <code>Single host or alias</code> -&gt; <code>192.168.1.HOST_A_LIMITER</code></li>
+<li>Description: à renseigner</li>
+<li>In / Out pipe: Sélectionner les 2 limiters précédemment créés. <code>250KBLIMITOUT</code> et <code>1MBLIMITIN</code> par exemple</li>
+<li>Save</li>
+</ol>
+</li>
+<li>
+<p>En haut de la page cliquer sur <code>Apply changes</code> pour que votre règle soit appliquée au Firewall.</p>
+</li>
+</ul>
+<br/>
+]]></content>
+        </item>
         
         <item>
             <title>Réaliser un speed test depuis le terminal</title>
@@ -5601,7 +5813,8 @@ def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
 &gt;&gt;&gt; print(ratio)
 
 0.9473684210526315
-</code></pre><p><strong>Et surtout il existe le package <code>fuzzywuzzy</code></strong> qui contient des fonctions avancées pas présentes dans le package <code>Levenshtein</code> qui vont nous permettre de gérer des cas plus complexes comme le &ldquo;substring matching&rdquo;; très utile pour extraire des bribes d&rsquo;informations de textes.</p>
+</code></pre><br/>
+<p><strong>Et surtout il existe le package <code>fuzzywuzzy</code></strong> qui contient des fonctions avancées pas présentes dans le package <code>Levenshtein</code> qui vont nous permettre de gérer des cas plus complexes comme le &ldquo;substring matching&rdquo;; très utile pour extraire des bribes d&rsquo;informations de textes.</p>
 <pre><code>&gt;&gt;&gt; from fuzzywuzzy import fuzz
 
 &gt;&gt;&gt; string_1 = &quot;Lean Deep&quot;
@@ -5695,7 +5908,7 @@ small_prenoms_set = set(itertools.islice(prenoms_set, 2))
             
             <guid>https://leandeep.com/utiliser-zip-pour-it%C3%A9rer-sur-deux-listes/</guid>
             <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
-Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
+Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx])  Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
 1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
             <content type="html"><![CDATA[<p>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple <code>liste_un</code> et <code>liste_deux</code> et d&rsquo;utiliser <code>zip</code> en passant en paramètre les 2 variables.</p>
 <h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
@@ -5705,7 +5918,8 @@ prenoms = [&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
 
 for idx in range(len(nombres)):
     print(nombres[idx], prenoms[idx])
-</code></pre><h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
+</code></pre><br/>
+<h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
 <p>Dans les 2 cas, le résultat est identique à savoir:</p>
 <pre><code>1 titi
 2 tata
@@ -7113,6 +7327,8 @@ car les droits root sont nécessaires</li>
 <li><a href="https://distfiles.macports.org/MacPorts/MacPorts-2.6.3-10.15-Catalina.pkg">MacPorts</a></li>
 <li><a href="https://insomnia.rest/download/">Insomnia</a> API Client et Design Plateforme pour GraphQL</li>
 <li><a href="https://letsview.com/">Letsview</a> Pour mirrorer votre iDevice sur Mac ou vice versa</li>
+<li><a href="https://devutils.app/">Devutils</a> Une boite à outils avec des convertisseurs JSON to YAML, time converter, JSON formater&hellip;</li>
+<li>Microsoft Remote Desktop: oui oui vous avez bien lu. Pour certains outils Azure</li>
 </ul>
 <br/>
 <p><strong>Packages Payant très utiles</strong></p>
@@ -7145,7 +7361,6 @@ brew install tig # Voir l'historique git
 brew install hadolint # Dockerfile linter
 brew install openssl readline sqlite3 xz zlib
 brew install azure-cli
-brew install gpg
 brew install pyenv
 brew install git-crypt
 brew install watch
@@ -7158,6 +7373,11 @@ brew install bazel
 brew install p7zip
 brew install postgresql
 brew install opedirenv
+brew install jq
+brew install readline
+brew install hugo
+brew install gnupg
+brew install youtube-dl
 
 # Opencv 3.4.x
 # Sur Python 3.9 (example avec brew)
@@ -7208,6 +7428,9 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 <p><strong>Installer virtualenvwrapper</strong></p>
 <p>Puis au minimum <code>pip install awscli ansible</code></p>
 <br/>
+<p><strong>Installer direnv</strong></p>
+<p><a href="https://direnv.net/docs/installation.html">direnv</a> . Pour une question de sécurité, je vous préconiserais de le compiler vous-même après avoir vérifié qu&rsquo;il n&rsquo;y a pas de vulnérabilité dans le code open source.</p>
+<br/>
 <p><strong>Configurer Git</strong></p>
 <p>Ajouter le fichier <code>~/.gitconfig</code> avec le contenu suivant:</p>
 <pre><code>[push]
@@ -7228,8 +7451,11 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 <li>Code Runner</li>
 <li>Dart</li>
 <li>Docker</li>
+<li>Draw.io integration</li>
+<li>Excel viewer</li>
 <li>Flutter</li>
 <li>Formatting Toggle</li>
+<li>Gist</li>
 <li>Git Blame</li>
 <li>Git History</li>
 <li>Git Tree Compare</li>
@@ -7237,12 +7463,24 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 <li>Go</li>
 <li>Hashicorp Terraform</li>
 <li>Hugofy</li>
+<li>Jupyter</li>
+<li>Jupyter Keymap</li>
+<li>Jupyter Nodebook Renderers</li>
 <li>Language-Cython</li>
 <li>OpenAPI (Swagger) Editor</li>
+<li>Pine Script Syntax Highlighting</li>
 <li>Prophet Debugger</li>
+<li>Protobuf text format</li>
+<li>Rest Client</li>
+<li>Pylance</li>
 <li>Python</li>
 <li>Service Bus Explorer</li>
+<li>Solidity</li>
 <li>Visual Studio Intellicode</li>
+<li>vscode-elixir</li>
+<li>vscode-pdf</li>
+<li>Vyper</li>
+<li>XML</li>
 <li>YAML</li>
 </ul>
 <br/>
