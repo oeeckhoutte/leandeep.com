@@ -5,8 +5,52 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 22 Oct 2021 08:08:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 30 Oct 2021 17:53:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Unifi Controller sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/installer-unifi-controller-sur-ubuntu-20.04/</link>
+            <pubDate>Sat, 30 Oct 2021 17:53:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-unifi-controller-sur-ubuntu-20.04/</guid>
+            <description>Dans cet article, nous allons voir comment installer Unifi Controller sur Ubuntu 20.04. Cet utilitaire est nécessaire si vous avez un routeur Unifi et que vous souhaitez mettre en place plusieurs SSIDs et plusieurs VLANs.
+ Attention l&amp;rsquo;installation de cet utilitaire va aussi installer un serveur MongoDB qui écoutera sur le port 27017
+  Installation Ajouter le repo Ubiquiti et ajouter la clé GPG permettant de truster ce dernier.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer Unifi Controller sur Ubuntu 20.04. Cet utilitaire est nécessaire si vous avez un routeur Unifi et que vous souhaitez mettre en place plusieurs SSIDs et plusieurs VLANs.</p>
+<blockquote>
+<p>Attention l&rsquo;installation de cet utilitaire va aussi installer un serveur MongoDB qui écoutera sur le port 27017</p>
+</blockquote>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>Ajouter le repo Ubiquiti et ajouter la clé GPG permettant de truster ce dernier.</p>
+<pre><code>echo 'deb https://www.ui.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/100-ubnt-unifi.list
+sudo wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ui.com/unifi/unifi-repo.gpg 
+</code></pre><br/>
+<p>Installer unifi controller et ses dépendences.</p>
+<pre><code>sudo apt update &amp;&amp; sudo apt install ca-certificates openjdk-8-jdk apt-transport-https unifi -y
+</code></pre><br/>
+<p>Vérifier que le service a bien démarré:</p>
+<pre><code>systemctl status unifi.service
+</code></pre><br/>
+<p>Le GUI de Unifi controller est accessible à l&rsquo;adresse suivante: https://VOTRE_IP:8443</p>
+<blockquote>
+<p>Pour connecter votre routeur Unifi (dans mon cas U6-lite) à Unifi controller, il ne doit pas avoir été précédemment associé ou être en mode standalone.</p>
+</blockquote>
+<p><img src="/images/unifi-controller.png" alt="image"></p>
+<br/>
+<h2 id="désinstallation">Désinstallation</h2>
+<pre><code>sudo apt purge unifi -y
+sudo service mongod stop
+sudo apt purge mongodb-org*
+sudo rm -r /var/log/mongodb
+sudo rm -r /var/lib/mongodb
+sudo rm /etc/apt/sources.list.d/mongod*.list
+sudo apt purge oracle-java* -y
+sudo apt autoremove
+sudo apt clean
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Smart contract development: coder un Swap sur Uniswap avec des data de prod</title>
@@ -7296,7 +7340,7 @@ car les droits root sont nécessaires</li>
 </ul>
 <br/>
 <p><strong>Packages Homebrew</strong></p>
-<pre><code>brew install wget tree python@2 pkg-config poppler kubernetes-helm tmux socat
+<pre><code>brew install wget tree python@2 pkg-config poppler kubernetes-helm tmux socat 
 brew cask update
 brew cask install ip-in-menu-bar betterzipql
 brew cask install qlcolorcode
@@ -7308,7 +7352,7 @@ brew cask install vlc
 brew cask install bitbar # https://getbitbar.com/ Ajoute des fonctionnalités à sa barre de tâches OSX
 brew cask install android-platform-tools
 
-
+brew install htop
 brew install tig # Voir l'historique git
 brew install hadolint # Dockerfile linter
 brew install openssl readline sqlite3 xz zlib
@@ -7330,6 +7374,7 @@ brew install readline
 brew install hugo
 brew install gnupg
 brew install youtube-dl
+brew install telnet
 
 # Opencv 3.4.x
 # Sur Python 3.9 (example avec brew)
@@ -14291,6 +14336,39 @@ sudo mv -v kubectl /usr/local/bin
 kubectl run dh-nginx --image=nginx --port=80
 kubectl expose deployment dh-nginx --type=NodePort
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Détecter des memory leaks en Python</title>
+            <link>https://leandeep.com/d%C3%A9tecter-des-memory-leaks-en-python/</link>
+            <pubDate>Thu, 21 Jun 2018 18:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/d%C3%A9tecter-des-memory-leaks-en-python/</guid>
+            <description>Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour se faire, nous allons mesurer l&amp;rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&amp;rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+ Installation de l&amp;rsquo;outil pip install memory_profiler pip install matplotlib  Profiling et affichage des résultats Si d&amp;rsquo;habitude vous démarriez votre programme via la commande python votre_programme.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks.
+Pour se faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package <code>memory_profiler</code>. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.</p>
+<br/>
+<h2 id="installation-de-loutil">Installation de l&rsquo;outil</h2>
+<pre><code>pip install memory_profiler
+pip install matplotlib
+</code></pre><br/>
+<h2 id="profiling-et-affichage-des-résultats">Profiling et affichage des résultats</h2>
+<p>Si d&rsquo;habitude vous démarriez votre programme via la commande <code>python votre_programme.py</code> alors il vous suffit de suffixer cette commande avec <code>mprof run --include-children</code> comme ci-dessous:</p>
+<blockquote>
+<p><code>--include-children</code> permet, comme son nom l&rsquo;indique, de profiler également les sous processus</p>
+</blockquote>
+<pre><code>mprof run --include-children python votre_programme.py
+</code></pre><br/>
+<p>Dans un nouvel onglet, exécuter la commande suivante pour générer un chart de la consommation de RAM.</p>
+<pre><code>mprof plot --output ram-profile.png
+# Sur Mac
+open ram-profile.png
+</code></pre><br/>
+<p><img src="/images/memory-profile.png" alt="image"></p>
+<p>Ici, pas de memory leak détectée sur une mesure de 10 minutes (seulement). Bien sûr, il nécessaire de monitorer beaucoup plus longtemps car on observe quand même une très légère montée de RAM sur la &ldquo;dernière phase de consolidation&rdquo;.</p>
+]]></content>
         </item>
         
         <item>

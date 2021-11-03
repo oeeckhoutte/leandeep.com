@@ -7,10 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour de la Production Il suffit d&amp;rsquo;utiliser Rancher 2. Pour cela, il suffit d&amp;rsquo;utiliser ce container Docker:
-sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher C&amp;rsquo;est tout ! Il suffit de suivre les instructions&amp;hellip;
- Note: Use absolutely a supported Docker version
- To install specific Docker version: (see README: https://github.com/rancher/rancher) Go to https://download.docker.com/linux/static/stable/ Extract the archive using the tar utility. The dockerd and docker binaries are extracted. $ tar xzvf /path/to/&amp;lt;FILE&amp;gt;." />
+  content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour se faire, nous allons mesurer l&amp;rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&amp;rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+ Installation de l&amp;rsquo;outil pip install memory_profiler pip install matplotlib  Profiling et affichage des résultats Si d&amp;rsquo;habitude vous démarriez votre programme via la commande python votre_programme." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -26,7 +24,7 @@ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher 
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/installer-un-cluster-kubernetes/" />
+<link rel="canonical" href="https://leandeep.com/d%C3%A9tecter-des-memory-leaks-en-python/" />
 
 
 
@@ -235,7 +233,7 @@ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher 
 
 <title>
   
-  Installer un cluster Kubernetes :: Lean Deep Tech blog 
+  Détecter des memory leaks en Python :: Lean Deep Tech blog 
   
 </title>
 
@@ -260,27 +258,23 @@ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher 
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer un cluster Kubernetes">
-<meta itemprop="description" content="Pour de la Production Il suffit d&rsquo;utiliser Rancher 2. Pour cela, il suffit d&rsquo;utiliser ce container Docker:
-sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher C&rsquo;est tout ! Il suffit de suivre les instructions&hellip;
- Note: Use absolutely a supported Docker version
- To install specific Docker version: (see README: https://github.com/rancher/rancher) Go to https://download.docker.com/linux/static/stable/ Extract the archive using the tar utility. The dockerd and docker binaries are extracted. $ tar xzvf /path/to/&lt;FILE&gt;."><meta itemprop="datePublished" content="2018-07-17T21:02:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-07-17T21:02:00&#43;00:00" />
-<meta itemprop="wordCount" content="234"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Cloud," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Détecter des memory leaks en Python">
+<meta itemprop="description" content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour se faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+ Installation de l&rsquo;outil pip install memory_profiler pip install matplotlib  Profiling et affichage des résultats Si d&rsquo;habitude vous démarriez votre programme via la commande python votre_programme."><meta itemprop="datePublished" content="2018-06-21T18:19:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-06-21T18:19:00&#43;00:00" />
+<meta itemprop="wordCount" content="177"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer un cluster Kubernetes"/>
-<meta name="twitter:description" content="Pour de la Production Il suffit d&rsquo;utiliser Rancher 2. Pour cela, il suffit d&rsquo;utiliser ce container Docker:
-sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher C&rsquo;est tout ! Il suffit de suivre les instructions&hellip;
- Note: Use absolutely a supported Docker version
- To install specific Docker version: (see README: https://github.com/rancher/rancher) Go to https://download.docker.com/linux/static/stable/ Extract the archive using the tar utility. The dockerd and docker binaries are extracted. $ tar xzvf /path/to/&lt;FILE&gt;."/>
+<meta name="twitter:title" content="Détecter des memory leaks en Python"/>
+<meta name="twitter:description" content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour se faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+ Installation de l&rsquo;outil pip install memory_profiler pip install matplotlib  Profiling et affichage des résultats Si d&rsquo;habitude vous démarriez votre programme via la commande python votre_programme."/>
 
 
 
 
 
-<meta property="article:published_time" content="2018-07-17 21:02:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2018-06-21 18:19:00 &#43;0000 &#43;0000" />
 
 
 
@@ -335,7 +329,7 @@ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher 
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
             
 
@@ -344,54 +338,35 @@ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher 
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/installer-un-cluster-kubernetes/">Installer un cluster Kubernetes</a>
+                <a href="https://leandeep.com/d%C3%A9tecter-des-memory-leaks-en-python/">Détecter des memory leaks en Python</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h2 id="pour-de-la-production">Pour de la Production</h2>
-<p>Il suffit d&rsquo;utiliser Rancher 2. Pour cela, il suffit d&rsquo;utiliser ce container Docker:</p>
-<pre><code>sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
-</code></pre><p>C&rsquo;est tout ! Il suffit de suivre les instructions&hellip;</p>
-<blockquote>
-<p>Note: Use absolutely a supported Docker version</p>
-</blockquote>
-<pre><code>To install specific Docker version: (see README: https://github.com/rancher/rancher)
-
-Go to https://download.docker.com/linux/static/stable/ 
-
-Extract the archive using the tar utility. The dockerd and docker binaries are extracted.
-
-$ tar xzvf /path/to/&lt;FILE&gt;.tar.gz
-Optional: Move the binaries to a directory on your executable path, such as /usr/bin/. If you skip this step, you must provide the path to the executable when you invoke docker or dockerd commands.
-
-$ sudo cp docker/* /usr/bin/
-Start the Docker daemon:
-
-$ sudo dockerd &amp;
-If you need to start the daemon with additional options, modify the above command accordingly or create and edit the file /etc/docker/daemon.json to add the custom configuration options.
-
-Verify that Docker is installed correctly by running the hello-world image.
-
-$ sudo docker run hello-world
+                <h2 id="introduction">Introduction</h2>
+<p>Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks.
+Pour se faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package <code>memory_profiler</code>. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.</p>
+<br/>
+<h2 id="installation-de-loutil">Installation de l&rsquo;outil</h2>
+<pre><code>pip install memory_profiler
+pip install matplotlib
 </code></pre><br/>
-<h2 id="pour-du-développement-ie-devops">Pour du Développement (i.e. DevOps)</h2>
-<p>On installe Virtualbox:</p>
-<pre><code>sudo apt-get install -y virtualbox virtualbox-ext-pack
-</code></pre><p>Installation de Minikube et kubectl:</p>
-<pre><code>curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-chmod +x minikube
-sudo mv -v minikube /usr/local/bin
+<h2 id="profiling-et-affichage-des-résultats">Profiling et affichage des résultats</h2>
+<p>Si d&rsquo;habitude vous démarriez votre programme via la commande <code>python votre_programme.py</code> alors il vous suffit de suffixer cette commande avec <code>mprof run --include-children</code> comme ci-dessous:</p>
+<blockquote>
+<p><code>--include-children</code> permet, comme son nom l&rsquo;indique, de profiler également les sous processus</p>
+</blockquote>
+<pre><code>mprof run --include-children python votre_programme.py
+</code></pre><br/>
+<p>Dans un nouvel onglet, exécuter la commande suivante pour générer un chart de la consommation de RAM.</p>
+<pre><code>mprof plot --output ram-profile.png
+# Sur Mac
+open ram-profile.png
+</code></pre><br/>
+<p><img src="https://leandeep.com/images/memory-profile.png" alt="image"></p>
+<p>Ici, pas de memory leak détectée sur une mesure de 10 minutes (seulement). Bien sûr, il nécessaire de monitorer beaucoup plus longtemps car on observe quand même une très légère montée de RAM sur la &ldquo;dernière phase de consolidation&rdquo;.</p>
 
-curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl
-chmod +x kubectl
-sudo mv -v kubectl /usr/local/bin
-</code></pre><p>On vérifie que cela fonctionne. On commence par démarrer minikube et on démarre un service Nginx:</p>
-<pre><code>minikube start
-kubectl run dh-nginx --image=nginx --port=80
-kubectl expose deployment dh-nginx --type=NodePort
-</code></pre>
             </div>
         </article>
 
@@ -399,12 +374,12 @@ kubectl expose deployment dh-nginx --type=NodePort
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/cloud">Cloud</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>234 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>177 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>17 Jul. 2018</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>21 Jun. 2018</p>
         </div>
 
         
@@ -417,17 +392,17 @@ kubectl expose deployment dh-nginx --type=NodePort
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/installer-fission-sur-minikube-avec-helm/">
+                            <a href="https://leandeep.com/installer-un-cluster-kubernetes/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Installer Fission sur Minikube avec Helm</span>
+                                <span class="button__text">Installer un cluster Kubernetes</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/d%C3%A9tecter-des-memory-leaks-en-python/">
-                                <span class="button__text">Détecter des memory leaks en Python</span>
+                            <a href="https://leandeep.com/convertir-un-type-float-en-type-string-avec-n-decimals/">
+                                <span class="button__text">Convertir un type float en type string avec n decimals</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
