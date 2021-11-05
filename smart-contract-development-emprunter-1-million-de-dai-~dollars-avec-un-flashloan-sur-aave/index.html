@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&amp;rsquo;on veut avec tant qu&amp;rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&amp;rsquo;intérêt&amp;hellip;
+ Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-aave/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur Aave :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur Aave">
+<meta itemprop="description" content="Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&rsquo;on veut avec tant qu&rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&rsquo;intérêt&hellip;
+ Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle"><meta itemprop="datePublished" content="2021-11-05T09:08:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-11-05T09:08:00&#43;00:00" />
+<meta itemprop="wordCount" content="1055"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Dev,Ethereum,Blockchain,Solidity," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur Aave"/>
+<meta name="twitter:description" content="Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&rsquo;on veut avec tant qu&rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&rsquo;intérêt&hellip;
+ Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle"/>
+
+
+
+
+
+<meta property="article:published_time" content="2021-11-05 09:08:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-aave/">Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur Aave</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.
+<br/>
+Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&rsquo;on veut avec tant qu&rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&rsquo;intérêt&hellip;</p>
+<blockquote>
+<p>Pour cet example, j&rsquo;ai utilisé Node version: <code>nvm use v14.17.6</code>. J&rsquo;ai aussi installé les modules NodeJS <code>ganache-cli</code> et <code>truffle</code></p>
+</blockquote>
+<br/>
+<h2 id="création-du-smart-contract">Création du Smart contract</h2>
+<p>Créer un fichier <code>SimpleAaveFlashloan.sol</code> dans le répertoire <code>contracts/simple-aave-flashloan</code> de votre repo git et ajouter le contenu suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
+import &quot;./interfaces/FlashLoanReceiverBase.sol&quot;;
+
+contract SimpleAaveFlashloan is FlashLoanReceiverBase {
+    using SafeMath for uint256;
+
+    struct Data {
+        address token;
+        uint256 amount;
+    }
+    address public tokenBorrowed;
+
+    event Log(string message, uint256 value);
+    event LogAsset(string message, address token);
+
+    constructor(ILendingPoolAddressesProvider _addressProvider)
+        FlashLoanReceiverBase(_addressProvider)
+    {}
+
+    function flashLoan(address _token, uint256 _amount) external {
+        uint256 token_balance = IERC20(_token).balanceOf(address(this));
+        uint256 min_amount = _amount.div(50);
+        require(
+            token_balance &gt; min_amount,
+            &quot;token balance has to be higher than 10% of the amount borrowed&quot;
+        );
+
+        address receiverAddress = address(this);
+
+        // multiple assets can be borrowed, in this case just 1
+        address[] memory assets = new address[](1);
+        assets[0] = _token;
+
+        // array of amount has to be the same lenght as the assets array
+        uint256[] memory amounts = new uint256[](1);
+        amounts[0] = _amount;
+
+        // 0 = no debt (flashloan), 1 = stable and 2 = variable
+        uint256[] memory modes = new uint256[](1);
+        modes[0] = 0;
+
+        require(
+            assets.length == amounts.length,
+            &quot;assets and amounts arrays are not the same length&quot;
+        );
+
+        // this is the address that would receive the debt in case modes 1 and 2
+        address onBehalfOf = address(this);
+
+        // data that can be usefull to do arbitrage or liquidations
+        bytes memory params = abi.encode(
+            Data({token: _token, amount: _amount})
+        );
+
+        uint16 referralCode = 0;
+
+        // LENDING_POOL is called inside FlashLoanReceiverBase
+        LENDING_POOL.flashLoan(
+            receiverAddress,
+            assets,
+            amounts,
+            modes,
+            onBehalfOf,
+            params,
+            referralCode
+        );
+    }
+
+    // AAVE protocol will call this function after we call LENDING_POOL.flashLoan()
+    // here the flashloan is received, in this function we have to repay AAVE after doing stuff with the flashloan
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external override returns (bool) {
+        require(initiator == address(this), &quot;!initiator&quot;);
+
+        Data memory data_decoded = abi.decode(params, (Data));
+
+        if (assets.length == 1) {
+            tokenBorrowed = assets[0];
+            uint256 amountBorrowed = amounts[0];
+            uint256 fee = premiums[0];
+
+            require(
+                tokenBorrowed == data_decoded.token &amp;&amp;
+                    amountBorrowed == data_decoded.amount
+            );
+
+            /*
+             *  arbitrage or liquidation code
+             */
+
+            //emit LogAsset('token', tokenBorrowed);
+            emit Log(&quot;borrowed&quot;, amountBorrowed);
+            emit Log(&quot;fee&quot;, fee);
+            emit Log(&quot;amount to pay back&quot;, amountBorrowed.add(fee));
+
+            // amoun to pay back to AAVE
+            uint256 totalAmount = amountBorrowed.add(fee);
+            // approve LENDING_POOL
+            IERC20(tokenBorrowed).approve(address(LENDING_POOL), totalAmount);
+        } else {
+            // if you borrow more than 1 token
+            for (uint256 i = 0; i &lt; assets.length; i++) {
+                emit LogAsset(&quot;token&quot;, assets[i]);
+                emit Log(&quot;borrowed&quot;, amounts[i]);
+                emit Log(&quot;fee&quot;, premiums[i]);
+            }
+        }
+        return true;
+    }
+}
+
+</code></pre><br/>
+<p>L&rsquo;interface <code>FlashLoanReceiverBase.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> ressemble à ceci:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
+import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
+import &quot;@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol&quot;;
+
+import &quot;./IFlashLoanReceiver.sol&quot;;
+import &quot;./ILendingPoolAddressProvider.sol&quot;;
+import &quot;./ILendingPool.sol&quot;;
+
+abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
+    using SafeERC20 for IERC20;
+    using SafeMath for uint256;
+
+    ILendingPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
+    ILendingPool public immutable LENDING_POOL;
+
+    constructor(ILendingPoolAddressesProvider provider) {
+        ADDRESSES_PROVIDER = provider;
+        LENDING_POOL = ILendingPool(provider.getLendingPool());
+    }
+}
+
+</code></pre><br/>
+<p>La seconde interface <code>IFlashLoanReceiver.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> contient le code suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+interface IFlashLoanReceiver {
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external returns (bool);
+}
+
+</code></pre><br/>
+<p>La troisième interface <code>ILendingPool.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> ressemble à cela:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+interface ILendingPool {
+    function flashLoan(
+        address receiverAddress,
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata modes,
+        address onBehalfOf,
+        bytes calldata params,
+        uint16 referralCode
+    ) external;
+}
+
+</code></pre><br/>
+<p>Enfin, la dernière interface <code>ILendingPoolAddressProvider.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> a le code suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+interface ILendingPoolAddressesProvider {
+    function getLendingPool() external view returns (address);
+}
+
+</code></pre><br/>
+<h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
+<p>Créer un fichier <code>test/simple-aave-flashloan.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const IERC20 = artifacts.require('IERC20');
+const SimpleAaveFlashloan = artifacts.require('SimpleAaveFlashloan');
+const BN = require('bn.js');
+const { assert } = require('chai');
+
+require('chai')
+    .use(require('chai-as-promised'))
+    .should()
+
+contract('SimpleAaveFlashloan', accounts =&gt; {
+    const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
+    const AAVE = '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5';
+
+    const DECIMALS = 18;
+    const DAI_WHALE = '0xC73f6738311E76D45dFED155F39773e68251D251';
+
+    const FUND_AMOUNT = new BN(10).pow(new BN(DECIMALS)).mul(new BN(21000));
+    const FUND_AMOUNT_FAIL = new BN(10).pow(new BN(DECIMALS)).mul(new BN(1000));
+    const BORROW_AMOUNT = new BN(10).pow(new BN(DECIMALS)).mul(new BN(1000000));
+
+    let simpleAaveFlashloan, token, token_borrowed, flashloan_user, amount, contract_balance
+
+    beforeEach(async () =&gt; {
+        token = await IERC20.at(DAI);
+        simpleAaveFlashloan = await SimpleAaveFlashloan.new(AAVE);
+        flashloan_user = accounts[0];
+
+        // await network.provider.request({
+        //     method: &quot;hardhat_impersonateAccount&quot;,
+        //     params: [DAI_WHALE],
+        // });
+        console.log(`contract address is: ${simpleAaveFlashloan.address}`)
+
+        const whale_balance = await token.balanceOf(DAI_WHALE);
+        assert(whale_balance.gte(FUND_AMOUNT), 'Whale DAI balance has to be higher than FUND_AMOUNT');
+    })
+
+    it('flash loan function works correctly', async () =&gt; {
+
+        await token.transfer(simpleAaveFlashloan.address, FUND_AMOUNT, { from: DAI_WHALE });
+        contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
+        console.log(`DAI contract balance before flashloan: ${contract_balance.toString()}`)
+
+        const tx = await simpleAaveFlashloan.flashLoan(DAI, BORROW_AMOUNT)
+        token_borrowed = await simpleAaveFlashloan.tokenBorrowed();
+        assert.equal(DAI, token_borrowed, 'token and token_borrowed are different')
+
+        for (const log of tx.logs) {
+            //console.log(log.args.message, log.args.token)
+            amount = log.args.value / 1e18;
+            console.log(log.args.message, amount.toString())
+        }
+        contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
+        console.log(`DAI contract balance after flashloan: ${contract_balance.toString()}`)
+
+
+    })
+
+    it('flash loan function should fail if contract balance is less than 2% of BORROW_AMOUT', async () =&gt; {
+
+        await token.transfer(simpleAaveFlashloan.address, FUND_AMOUNT_FAIL, { from: DAI_WHALE });
+        const contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
+        console.log(`DAI contract balance: ${contract_balance.toString()} --- this is not enough balance, should be rejected `)
+        await simpleAaveFlashloan.flashLoan(DAI, BORROW_AMOUNT).should.be.rejected;
+    })
+
+})
+</code></pre><br/>
+<h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
+<p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
+<pre><code>module.exports = {
+    contracts_directory: &quot;./contracts/simple-aave-flashloan/&quot;,
+    networks: {
+        mainnet_fork: {
+            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            port: 8545, // Standard Ethereum port (default: none)
+            network_id: &quot;999&quot;, // Any network (default: none)
+            gas: 0
+        },
+    },
+
+    // Set default mocha options here, use special reporters etc.
+    mocha: {
+        // timeout: 100000
+    },
+
+    // Configure your compilers
+    compilers: {
+        solc: {
+            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+        },
+    },
+}
+</code></pre><br/>
+<blockquote>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+</blockquote>
+<pre><code>source .env
+ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
+</code></pre><br/>
+<h2 id="exécution-du-swap">Exécution du swap</h2>
+<pre><code>npx truffle test --network mainnet_fork test/simple-aave-flashloan.js
+</code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
+<br/>
+<p><img src="https://leandeep.com/images/flashloan-aave-result.png" alt="image"></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/dev">Dev</a></span><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span><span class="tag"><a href="https://leandeep.com/tags/solidity">Solidity</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1055 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 Nov. 2021</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-dydx/">
+                                <span class="button__text">Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur DyDx</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    class App extends React.Component {
+        constructor(options) {
+            console.log("data")
+            console.log(options.data)
+            super();
+            this.state = {
+                data: options.data,
+
+                appName: 'Search Bar (Algolia replacement under dev with React)',
+                list: undefined
+            };
+
+        }
+        searchData(e) {
+            var queryData = [];
+            if (e.target.value != '') {
+                this.state.data.forEach(function (person) {
+
+                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
+                        if (queryData.length < 10) {
+                            queryData.push(person);
+                        }
+                    }
+                });
+            }
+            this.setState({ list: queryData });
+        }
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement(Header, { name: this.state.appName }),  
+                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
+                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
+
+
+        }
+    }
+
+
+    class Header extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("h1", null, this.props.name)));
+
+
+        }
+    }
+
+
+    class SearchBar extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
+
+
+        }
+    }
+
+
+    class SearchResult extends React.Component {
+
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("ul", null,
+                        this.props.data.map(function (value) {
+                            return  React.createElement(Item, { key: value, val: value });
+                        }))));
+
+
+
+
+        }
+    }
+
+
+
+    class Item extends React.Component {
+        render() {
+            return  (
+                React.createElement("li", null,
+                    this.props.val));
+
+
+        }
+    }
+
+
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log(event.data.msg, event.data.url, event.data.files);
+        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
+    });
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: '.'
+    }).then(function (registration) {
+        console.log('The service worker has been registered ', registration);
+    });
+    
+
+    
+    setTimeout(function () {
+        console.log("unregister sws")
+        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
+    }, 10000);
+
+
+
+
+</script>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>

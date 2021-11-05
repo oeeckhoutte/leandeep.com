@@ -5,8 +5,1120 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 30 Oct 2021 17:53:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 05 Nov 2021 09:08:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur Aave</title>
+            <link>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-aave/</link>
+            <pubDate>Fri, 05 Nov 2021 09:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-aave/</guid>
+            <description>Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&amp;rsquo;on veut avec tant qu&amp;rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&amp;rsquo;intérêt&amp;hellip;
+ Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.
+<br/>
+Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&rsquo;on veut avec tant qu&rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&rsquo;intérêt&hellip;</p>
+<blockquote>
+<p>Pour cet example, j&rsquo;ai utilisé Node version: <code>nvm use v14.17.6</code>. J&rsquo;ai aussi installé les modules NodeJS <code>ganache-cli</code> et <code>truffle</code></p>
+</blockquote>
+<br/>
+<h2 id="création-du-smart-contract">Création du Smart contract</h2>
+<p>Créer un fichier <code>SimpleAaveFlashloan.sol</code> dans le répertoire <code>contracts/simple-aave-flashloan</code> de votre repo git et ajouter le contenu suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
+import &quot;./interfaces/FlashLoanReceiverBase.sol&quot;;
+
+contract SimpleAaveFlashloan is FlashLoanReceiverBase {
+    using SafeMath for uint256;
+
+    struct Data {
+        address token;
+        uint256 amount;
+    }
+    address public tokenBorrowed;
+
+    event Log(string message, uint256 value);
+    event LogAsset(string message, address token);
+
+    constructor(ILendingPoolAddressesProvider _addressProvider)
+        FlashLoanReceiverBase(_addressProvider)
+    {}
+
+    function flashLoan(address _token, uint256 _amount) external {
+        uint256 token_balance = IERC20(_token).balanceOf(address(this));
+        uint256 min_amount = _amount.div(50);
+        require(
+            token_balance &gt; min_amount,
+            &quot;token balance has to be higher than 10% of the amount borrowed&quot;
+        );
+
+        address receiverAddress = address(this);
+
+        // multiple assets can be borrowed, in this case just 1
+        address[] memory assets = new address[](1);
+        assets[0] = _token;
+
+        // array of amount has to be the same lenght as the assets array
+        uint256[] memory amounts = new uint256[](1);
+        amounts[0] = _amount;
+
+        // 0 = no debt (flashloan), 1 = stable and 2 = variable
+        uint256[] memory modes = new uint256[](1);
+        modes[0] = 0;
+
+        require(
+            assets.length == amounts.length,
+            &quot;assets and amounts arrays are not the same length&quot;
+        );
+
+        // this is the address that would receive the debt in case modes 1 and 2
+        address onBehalfOf = address(this);
+
+        // data that can be usefull to do arbitrage or liquidations
+        bytes memory params = abi.encode(
+            Data({token: _token, amount: _amount})
+        );
+
+        uint16 referralCode = 0;
+
+        // LENDING_POOL is called inside FlashLoanReceiverBase
+        LENDING_POOL.flashLoan(
+            receiverAddress,
+            assets,
+            amounts,
+            modes,
+            onBehalfOf,
+            params,
+            referralCode
+        );
+    }
+
+    // AAVE protocol will call this function after we call LENDING_POOL.flashLoan()
+    // here the flashloan is received, in this function we have to repay AAVE after doing stuff with the flashloan
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external override returns (bool) {
+        require(initiator == address(this), &quot;!initiator&quot;);
+
+        Data memory data_decoded = abi.decode(params, (Data));
+
+        if (assets.length == 1) {
+            tokenBorrowed = assets[0];
+            uint256 amountBorrowed = amounts[0];
+            uint256 fee = premiums[0];
+
+            require(
+                tokenBorrowed == data_decoded.token &amp;&amp;
+                    amountBorrowed == data_decoded.amount
+            );
+
+            /*
+             *  arbitrage or liquidation code
+             */
+
+            //emit LogAsset('token', tokenBorrowed);
+            emit Log(&quot;borrowed&quot;, amountBorrowed);
+            emit Log(&quot;fee&quot;, fee);
+            emit Log(&quot;amount to pay back&quot;, amountBorrowed.add(fee));
+
+            // amoun to pay back to AAVE
+            uint256 totalAmount = amountBorrowed.add(fee);
+            // approve LENDING_POOL
+            IERC20(tokenBorrowed).approve(address(LENDING_POOL), totalAmount);
+        } else {
+            // if you borrow more than 1 token
+            for (uint256 i = 0; i &lt; assets.length; i++) {
+                emit LogAsset(&quot;token&quot;, assets[i]);
+                emit Log(&quot;borrowed&quot;, amounts[i]);
+                emit Log(&quot;fee&quot;, premiums[i]);
+            }
+        }
+        return true;
+    }
+}
+
+</code></pre><br/>
+<p>L&rsquo;interface <code>FlashLoanReceiverBase.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> ressemble à ceci:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
+import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
+import &quot;@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol&quot;;
+
+import &quot;./IFlashLoanReceiver.sol&quot;;
+import &quot;./ILendingPoolAddressProvider.sol&quot;;
+import &quot;./ILendingPool.sol&quot;;
+
+abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
+    using SafeERC20 for IERC20;
+    using SafeMath for uint256;
+
+    ILendingPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
+    ILendingPool public immutable LENDING_POOL;
+
+    constructor(ILendingPoolAddressesProvider provider) {
+        ADDRESSES_PROVIDER = provider;
+        LENDING_POOL = ILendingPool(provider.getLendingPool());
+    }
+}
+
+</code></pre><br/>
+<p>La seconde interface <code>IFlashLoanReceiver.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> contient le code suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+interface IFlashLoanReceiver {
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external returns (bool);
+}
+
+</code></pre><br/>
+<p>La troisième interface <code>ILendingPool.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> ressemble à cela:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+interface ILendingPool {
+    function flashLoan(
+        address receiverAddress,
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata modes,
+        address onBehalfOf,
+        bytes calldata params,
+        uint16 referralCode
+    ) external;
+}
+
+</code></pre><br/>
+<p>Enfin, la dernière interface <code>ILendingPoolAddressProvider.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> a le code suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8;
+
+interface ILendingPoolAddressesProvider {
+    function getLendingPool() external view returns (address);
+}
+
+</code></pre><br/>
+<h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
+<p>Créer un fichier <code>test/simple-aave-flashloan.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const IERC20 = artifacts.require('IERC20');
+const SimpleAaveFlashloan = artifacts.require('SimpleAaveFlashloan');
+const BN = require('bn.js');
+const { assert } = require('chai');
+
+require('chai')
+    .use(require('chai-as-promised'))
+    .should()
+
+contract('SimpleAaveFlashloan', accounts =&gt; {
+    const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
+    const AAVE = '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5';
+
+    const DECIMALS = 18;
+    const DAI_WHALE = '0xC73f6738311E76D45dFED155F39773e68251D251';
+
+    const FUND_AMOUNT = new BN(10).pow(new BN(DECIMALS)).mul(new BN(21000));
+    const FUND_AMOUNT_FAIL = new BN(10).pow(new BN(DECIMALS)).mul(new BN(1000));
+    const BORROW_AMOUNT = new BN(10).pow(new BN(DECIMALS)).mul(new BN(1000000));
+
+    let simpleAaveFlashloan, token, token_borrowed, flashloan_user, amount, contract_balance
+
+    beforeEach(async () =&gt; {
+        token = await IERC20.at(DAI);
+        simpleAaveFlashloan = await SimpleAaveFlashloan.new(AAVE);
+        flashloan_user = accounts[0];
+
+        // await network.provider.request({
+        //     method: &quot;hardhat_impersonateAccount&quot;,
+        //     params: [DAI_WHALE],
+        // });
+        console.log(`contract address is: ${simpleAaveFlashloan.address}`)
+
+        const whale_balance = await token.balanceOf(DAI_WHALE);
+        assert(whale_balance.gte(FUND_AMOUNT), 'Whale DAI balance has to be higher than FUND_AMOUNT');
+    })
+
+    it('flash loan function works correctly', async () =&gt; {
+
+        await token.transfer(simpleAaveFlashloan.address, FUND_AMOUNT, { from: DAI_WHALE });
+        contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
+        console.log(`DAI contract balance before flashloan: ${contract_balance.toString()}`)
+
+        const tx = await simpleAaveFlashloan.flashLoan(DAI, BORROW_AMOUNT)
+        token_borrowed = await simpleAaveFlashloan.tokenBorrowed();
+        assert.equal(DAI, token_borrowed, 'token and token_borrowed are different')
+
+        for (const log of tx.logs) {
+            //console.log(log.args.message, log.args.token)
+            amount = log.args.value / 1e18;
+            console.log(log.args.message, amount.toString())
+        }
+        contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
+        console.log(`DAI contract balance after flashloan: ${contract_balance.toString()}`)
+
+
+    })
+
+    it('flash loan function should fail if contract balance is less than 2% of BORROW_AMOUT', async () =&gt; {
+
+        await token.transfer(simpleAaveFlashloan.address, FUND_AMOUNT_FAIL, { from: DAI_WHALE });
+        const contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
+        console.log(`DAI contract balance: ${contract_balance.toString()} --- this is not enough balance, should be rejected `)
+        await simpleAaveFlashloan.flashLoan(DAI, BORROW_AMOUNT).should.be.rejected;
+    })
+
+})
+</code></pre><br/>
+<h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
+<p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
+<pre><code>module.exports = {
+    contracts_directory: &quot;./contracts/simple-aave-flashloan/&quot;,
+    networks: {
+        mainnet_fork: {
+            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            port: 8545, // Standard Ethereum port (default: none)
+            network_id: &quot;999&quot;, // Any network (default: none)
+            gas: 0
+        },
+    },
+
+    // Set default mocha options here, use special reporters etc.
+    mocha: {
+        // timeout: 100000
+    },
+
+    // Configure your compilers
+    compilers: {
+        solc: {
+            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+        },
+    },
+}
+</code></pre><br/>
+<blockquote>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+</blockquote>
+<pre><code>source .env
+ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
+</code></pre><br/>
+<h2 id="exécution-du-swap">Exécution du swap</h2>
+<pre><code>npx truffle test --network mainnet_fork test/simple-aave-flashloan.js
+</code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
+<br/>
+<p><img src="/images/flashloan-aave-result.png" alt="image"></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur DyDx</title>
+            <link>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-dydx/</link>
+            <pubDate>Fri, 05 Nov 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-dydx/</guid>
+            <description>Dans cet article nous allons voir comment réaliser un Flashloan sur DyDx.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais seulement de 2 wei. Crazy !
+ Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
+  Création du Smart contract Créer un fichier SimpleDyDxFlashloan.sol dans le répertoire contracts/simple-dydx-flashloan de votre repo git et ajouter le contenu suivant:</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment réaliser un Flashloan sur DyDx.
+<br/>
+Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais seulement de 2 wei. Crazy !</p>
+<blockquote>
+<p>Pour cet example, j&rsquo;ai utilisé Node version: <code>nvm use v14.17.6</code>. J&rsquo;ai aussi installé les modules NodeJS <code>ganache-cli</code> et <code>truffle</code></p>
+</blockquote>
+<br/>
+<h2 id="création-du-smart-contract">Création du Smart contract</h2>
+<p>Créer un fichier <code>SimpleDyDxFlashloan.sol</code> dans le répertoire <code>contracts/simple-dydx-flashloan</code> de votre repo git et ajouter le contenu suivant:</p>
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+pragma experimental ABIEncoderV2;
+
+import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
+import &quot;./interfaces/DyDxFlashloanBase.sol&quot;;
+import &quot;./interfaces/ICallee.sol&quot;;
+
+contract SimpleDyDxFlashloan is DydxFlashloanBase, ICallee {
+    address private constant SOLO = 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e;
+    address public user;
+
+    event Log(string message, uint256 val);
+
+    struct Data {
+        address token;
+        uint256 repayAmount;
+    }
+
+    // Call dydx and request a flashloan
+    function initiateFlashloan(address _token, uint256 _amount) external {
+        ISoloMargin solo = ISoloMargin(SOLO);
+        uint256 marketID = _getMarketIdFromTokenAddress(SOLO, _token);
+
+        // Calculate repay amount
+        uint256 repay_amount = _getRepaymentAmountInternal(_amount);
+        IERC20(_token).approve(SOLO, repay_amount);
+
+        Actions.ActionArgs[] memory operations = new Actions.ActionArgs[](3);
+
+        operations[0] = _getWithdrawAction(marketID, _amount);
+        operations[1] = _getCallAction(
+            abi.encode(Data({token: _token, repayAmount: repay_amount}))
+        );
+        operations[2] = _getDepositAction(marketID, repay_amount);
+
+        Account.Info[] memory accountInfos = new Account.Info[](1);
+
+        accountInfos[0] = _getAccountInfo();
+
+        solo.operate(accountInfos, operations);
+    }
+
+    // This function receives the flashloan
+    // Fallback function called by dydx
+    function callFunction(
+        address sender,
+        Account.Info memory account,
+        bytes memory data
+    ) public override {
+        require(
+            msg.sender == SOLO,
+            &quot;the caller to this function is not SOLO contract&quot;
+        );
+        require(
+            sender == address(this),
+            &quot;sender of the flashloan has to be the address of dydxFlashloan&quot;
+        );
+
+        Data memory data_decoded = abi.decode(data, (Data));
+        uint256 repay_amount = data_decoded.repayAmount;
+
+        uint256 balance = IERC20(data_decoded.token).balanceOf(address(this));
+        require(
+            balance &gt;= repay_amount,
+            &quot;balance has to be higher than repay amount&quot;
+        );
+
+        user = sender;
+        emit Log(&quot;balance&quot;, balance);
+        emit Log(&quot;repay amount&quot;, repay_amount);
+        emit Log(&quot;balance - repay amount&quot;, balance - repay_amount);
+    }
+}
+
+</code></pre><br/>
+<p>L&rsquo;interface <code>DyDxFlashloanBase.sol</code> dans le répertoire <code>./contracts/simple-dydx-flashloan/interfaces</code> ressemble à ceci:</p>
+<pre><code>// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8;
+pragma experimental ABIEncoderV2;
+
+import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
+import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
+
+import &quot;./ISoloMargin.sol&quot;;
+
+contract DydxFlashloanBase {
+    using SafeMath for uint256;
+
+    // -- Internal Helper functions -- //
+
+    function _getMarketIdFromTokenAddress(address _solo, address token)
+        internal
+        view
+        returns (uint256)
+    {
+        ISoloMargin solo = ISoloMargin(_solo);
+
+        uint256 numMarkets = solo.getNumMarkets();
+
+        address curToken;
+        for (uint256 i = 0; i &lt; numMarkets; i++) {
+            curToken = solo.getMarketTokenAddress(i);
+
+            if (curToken == token) {
+                return i;
+            }
+        }
+
+        revert(&quot;No marketId found for provided token&quot;);
+    }
+
+    function _getRepaymentAmountInternal(uint256 amount)
+        internal
+        pure
+        returns (uint256)
+    {
+        // Needs to be overcollateralize
+        // Needs to provide +2 wei to be safe
+        return amount.add(2);
+    }
+
+    function _getAccountInfo() internal view returns (Account.Info memory) {
+        return Account.Info({owner: address(this), number: 1});
+    }
+
+    function _getWithdrawAction(uint256 marketId, uint256 amount)
+        internal
+        view
+        returns (Actions.ActionArgs memory)
+    {
+        return
+            Actions.ActionArgs({
+                actionType: Actions.ActionType.Withdraw,
+                accountId: 0,
+                amount: Types.AssetAmount({
+                    sign: false,
+                    denomination: Types.AssetDenomination.Wei,
+                    ref: Types.AssetReference.Delta,
+                    value: amount
+                }),
+                primaryMarketId: marketId,
+                secondaryMarketId: 0,
+                otherAddress: address(this),
+                otherAccountId: 0,
+                data: &quot;&quot;
+            });
+    }
+
+    function _getCallAction(bytes memory data)
+        internal
+        view
+        returns (Actions.ActionArgs memory)
+    {
+        return
+            Actions.ActionArgs({
+                actionType: Actions.ActionType.Call,
+                accountId: 0,
+                amount: Types.AssetAmount({
+                    sign: false,
+                    denomination: Types.AssetDenomination.Wei,
+                    ref: Types.AssetReference.Delta,
+                    value: 0
+                }),
+                primaryMarketId: 0,
+                secondaryMarketId: 0,
+                otherAddress: address(this),
+                otherAccountId: 0,
+                data: data
+            });
+    }
+
+    function _getDepositAction(uint256 marketId, uint256 amount)
+        internal
+        view
+        returns (Actions.ActionArgs memory)
+    {
+        return
+            Actions.ActionArgs({
+                actionType: Actions.ActionType.Deposit,
+                accountId: 0,
+                amount: Types.AssetAmount({
+                    sign: true,
+                    denomination: Types.AssetDenomination.Wei,
+                    ref: Types.AssetReference.Delta,
+                    value: amount
+                }),
+                primaryMarketId: marketId,
+                secondaryMarketId: 0,
+                otherAddress: address(this),
+                otherAccountId: 0,
+                data: &quot;&quot;
+            });
+    }
+}
+
+// test and deployment
+
+</code></pre><br/>
+<p>La seconde interface <code>ICallee.sol</code> dans le répertoire <code>./contracts/simple-dydx-flashloan/interfaces</code> contient le code suivant:</p>
+<pre><code>// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8;
+pragma experimental ABIEncoderV2;
+
+import {Account} from &quot;./ISoloMargin.sol&quot;;
+
+/**
+ * @title ICallee
+ * @author dYdX
+ *
+ * Interface that Callees for Solo must implement in order to ingest data.
+ */
+interface ICallee {
+    // ============ Public Functions ============
+
+    /**
+     * Allows users to send this contract arbitrary data.
+     *
+     * @param  sender       The msg.sender to Solo
+     * @param  accountInfo  The account from which the data is being sent
+     * @param  data         Arbitrary data given by the sender
+     */
+    function callFunction(
+        address sender,
+        Account.Info calldata accountInfo,
+        bytes calldata data
+    ) external;
+}
+
+</code></pre><br/>
+<p>Enfin, la dernière interface <code>ISoloMargin.sol</code> dans le répertoire <code>./contracts/simple-dydx-flashloan/interfaces</code> a le code suivant:</p>
+<pre><code>// SPDX-License-Identifier: GPL-3.0-or-later
+pragma solidity ^0.8;
+pragma experimental ABIEncoderV2;
+
+library Account {
+    enum Status {
+        Normal,
+        Liquid,
+        Vapor
+    }
+    struct Info {
+        address owner; // The address that owns the account
+        uint256 number; // A nonce that allows a single address to control many accounts
+    }
+    struct accStorage {
+        mapping(uint256 =&gt; Types.Par) balances; // Mapping from marketId to principal
+        Status status;
+    }
+}
+
+library Actions {
+    enum ActionType {
+        Deposit, // supply tokens
+        Withdraw, // borrow tokens
+        Transfer, // transfer balance between accounts
+        Buy, // buy an amount of some token (publicly)
+        Sell, // sell an amount of some token (publicly)
+        Trade, // trade tokens against another account
+        Liquidate, // liquidate an undercollateralized or expiring account
+        Vaporize, // use excess tokens to zero-out a completely negative account
+        Call // send arbitrary data to an address
+    }
+
+    enum AccountLayout {
+        OnePrimary,
+        TwoPrimary,
+        PrimaryAndSecondary
+    }
+
+    enum MarketLayout {
+        ZeroMarkets,
+        OneMarket,
+        TwoMarkets
+    }
+
+    struct ActionArgs {
+        ActionType actionType;
+        uint256 accountId;
+        Types.AssetAmount amount;
+        uint256 primaryMarketId;
+        uint256 secondaryMarketId;
+        address otherAddress;
+        uint256 otherAccountId;
+        bytes data;
+    }
+
+    struct DepositArgs {
+        Types.AssetAmount amount;
+        Account.Info account;
+        uint256 market;
+        address from;
+    }
+
+    struct WithdrawArgs {
+        Types.AssetAmount amount;
+        Account.Info account;
+        uint256 market;
+        address to;
+    }
+
+    struct TransferArgs {
+        Types.AssetAmount amount;
+        Account.Info accountOne;
+        Account.Info accountTwo;
+        uint256 market;
+    }
+
+    struct BuyArgs {
+        Types.AssetAmount amount;
+        Account.Info account;
+        uint256 makerMarket;
+        uint256 takerMarket;
+        address exchangeWrapper;
+        bytes orderData;
+    }
+
+    struct SellArgs {
+        Types.AssetAmount amount;
+        Account.Info account;
+        uint256 takerMarket;
+        uint256 makerMarket;
+        address exchangeWrapper;
+        bytes orderData;
+    }
+
+    struct TradeArgs {
+        Types.AssetAmount amount;
+        Account.Info takerAccount;
+        Account.Info makerAccount;
+        uint256 inputMarket;
+        uint256 outputMarket;
+        address autoTrader;
+        bytes tradeData;
+    }
+
+    struct LiquidateArgs {
+        Types.AssetAmount amount;
+        Account.Info solidAccount;
+        Account.Info liquidAccount;
+        uint256 owedMarket;
+        uint256 heldMarket;
+    }
+
+    struct VaporizeArgs {
+        Types.AssetAmount amount;
+        Account.Info solidAccount;
+        Account.Info vaporAccount;
+        uint256 owedMarket;
+        uint256 heldMarket;
+    }
+
+    struct CallArgs {
+        Account.Info account;
+        address callee;
+        bytes data;
+    }
+}
+
+library Decimal {
+    struct D256 {
+        uint256 value;
+    }
+}
+
+library Interest {
+    struct Rate {
+        uint256 value;
+    }
+
+    struct Index {
+        uint96 borrow;
+        uint96 supply;
+        uint32 lastUpdate;
+    }
+}
+
+library Monetary {
+    struct Price {
+        uint256 value;
+    }
+    struct Value {
+        uint256 value;
+    }
+}
+
+library Storage {
+    // All information necessary for tracking a market
+    struct Market {
+        // Contract address of the associated ERC20 token
+        address token;
+        // Total aggregated supply and borrow amount of the entire market
+        Types.TotalPar totalPar;
+        // Interest index of the market
+        Interest.Index index;
+        // Contract address of the price oracle for this market
+        address priceOracle;
+        // Contract address of the interest setter for this market
+        address interestSetter;
+        // Multiplier on the marginRatio for this market
+        Decimal.D256 marginPremium;
+        // Multiplier on the liquidationSpread for this market
+        Decimal.D256 spreadPremium;
+        // Whether additional borrows are allowed for this market
+        bool isClosing;
+    }
+
+    // The global risk parameters that govern the health and security of the system
+    struct RiskParams {
+        // Required ratio of over-collateralization
+        Decimal.D256 marginRatio;
+        // Percentage penalty incurred by liquidated accounts
+        Decimal.D256 liquidationSpread;
+        // Percentage of the borrower's interest fee that gets passed to the suppliers
+        Decimal.D256 earningsRate;
+        // The minimum absolute borrow value of an account
+        // There must be sufficient incentivize to liquidate undercollateralized accounts
+        Monetary.Value minBorrowedValue;
+    }
+
+    // The maximum RiskParam values that can be set
+    struct RiskLimits {
+        uint64 marginRatioMax;
+        uint64 liquidationSpreadMax;
+        uint64 earningsRateMax;
+        uint64 marginPremiumMax;
+        uint64 spreadPremiumMax;
+        uint128 minBorrowedValueMax;
+    }
+
+    // The entire storage state of Solo
+    struct State {
+        // number of markets
+        uint256 numMarkets;
+        // marketId =&gt; Market
+        mapping(uint256 =&gt; Market) markets;
+        // owner =&gt; account number =&gt; Account
+        mapping(address =&gt; mapping(uint256 =&gt; Account.accStorage)) accounts;
+        // Addresses that can control other users accounts
+        mapping(address =&gt; mapping(address =&gt; bool)) operators;
+        // Addresses that can control all users accounts
+        mapping(address =&gt; bool) globalOperators;
+        // mutable risk parameters of the system
+        RiskParams riskParams;
+        // immutable risk limits of the system
+        RiskLimits riskLimits;
+    }
+}
+
+library Types {
+    enum AssetDenomination {
+        Wei, // the amount is denominated in wei
+        Par // the amount is denominated in par
+    }
+
+    enum AssetReference {
+        Delta, // the amount is given as a delta from the current value
+        Target // the amount is given as an exact number to end up at
+    }
+
+    struct AssetAmount {
+        bool sign; // true if positive
+        AssetDenomination denomination;
+        AssetReference ref;
+        uint256 value;
+    }
+
+    struct TotalPar {
+        uint128 borrow;
+        uint128 supply;
+    }
+
+    struct Par {
+        bool sign; // true if positive
+        uint128 value;
+    }
+
+    struct Wei {
+        bool sign; // true if positive
+        uint256 value;
+    }
+}
+
+interface ISoloMargin {
+    struct OperatorArg {
+        address operator;
+        bool trusted;
+    }
+
+    function ownerSetSpreadPremium(
+        uint256 marketId,
+        Decimal.D256 calldata spreadPremium
+    ) external;
+
+    function getIsGlobalOperator(address operator) external view returns (bool);
+
+    function getMarketTokenAddress(uint256 marketId)
+        external
+        view
+        returns (address);
+
+    function ownerSetInterestSetter(uint256 marketId, address interestSetter)
+        external;
+
+    function getAccountValues(Account.Info calldata account)
+        external
+        view
+        returns (Monetary.Value memory, Monetary.Value memory);
+
+    function getMarketPriceOracle(uint256 marketId)
+        external
+        view
+        returns (address);
+
+    function getMarketInterestSetter(uint256 marketId)
+        external
+        view
+        returns (address);
+
+    function getMarketSpreadPremium(uint256 marketId)
+        external
+        view
+        returns (Decimal.D256 memory);
+
+    function getNumMarkets() external view returns (uint256);
+
+    function ownerWithdrawUnsupportedTokens(address token, address recipient)
+        external
+        returns (uint256);
+
+    function ownerSetMinBorrowedValue(Monetary.Value calldata minBorrowedValue)
+        external;
+
+    function ownerSetLiquidationSpread(Decimal.D256 calldata spread) external;
+
+    function ownerSetEarningsRate(Decimal.D256 calldata earningsRate) external;
+
+    function getIsLocalOperator(address _owner, address operator)
+        external
+        view
+        returns (bool);
+
+    function getAccountPar(Account.Info calldata account, uint256 marketId)
+        external
+        view
+        returns (Types.Par memory);
+
+    function ownerSetMarginPremium(
+        uint256 marketId,
+        Decimal.D256 calldata marginPremium
+    ) external;
+
+    function getMarginRatio() external view returns (Decimal.D256 memory);
+
+    function getMarketCurrentIndex(uint256 marketId)
+        external
+        view
+        returns (Interest.Index memory);
+
+    function getMarketIsClosing(uint256 marketId) external view returns (bool);
+
+    function getRiskParams() external view returns (Storage.RiskParams memory);
+
+    function getAccountBalances(Account.Info calldata account)
+        external
+        view
+        returns (
+            address[] memory,
+            Types.Par[] memory,
+            Types.Wei[] memory
+        );
+
+    function renounceOwnership() external;
+
+    function getMinBorrowedValue()
+        external
+        view
+        returns (Monetary.Value memory);
+
+    function setOperators(OperatorArg[] calldata args) external;
+
+    function getMarketPrice(uint256 marketId) external view returns (address);
+
+    function owner() external view returns (address);
+
+    function isOwner() external view returns (bool);
+
+    function ownerWithdrawExcessTokens(uint256 marketId, address recipient)
+        external
+        returns (uint256);
+
+    function ownerAddMarket(
+        address token,
+        address priceOracle,
+        address interestSetter,
+        Decimal.D256 calldata marginPremium,
+        Decimal.D256 calldata spreadPremium
+    ) external;
+
+    function operate(
+        Account.Info[] calldata accounts,
+        Actions.ActionArgs[] calldata actions
+    ) external;
+
+    function getMarketWithInfo(uint256 marketId)
+        external
+        view
+        returns (
+            Storage.Market memory,
+            Interest.Index memory,
+            Monetary.Price memory,
+            Interest.Rate memory
+        );
+
+    function ownerSetMarginRatio(Decimal.D256 calldata ratio) external;
+
+    function getLiquidationSpread() external view returns (Decimal.D256 memory);
+
+    function getAccountWei(Account.Info calldata account, uint256 marketId)
+        external
+        view
+        returns (Types.Wei memory);
+
+    function getMarketTotalPar(uint256 marketId)
+        external
+        view
+        returns (Types.TotalPar memory);
+
+    function getLiquidationSpreadForPair(
+        uint256 heldMarketId,
+        uint256 owedMarketId
+    ) external view returns (Decimal.D256 memory);
+
+    function getNumExcessTokens(uint256 marketId)
+        external
+        view
+        returns (Types.Wei memory);
+
+    function getMarketCachedIndex(uint256 marketId)
+        external
+        view
+        returns (Interest.Index memory);
+
+    function getAccountStatus(Account.Info calldata account)
+        external
+        view
+        returns (uint8);
+
+    function getEarningsRate() external view returns (Decimal.D256 memory);
+
+    function ownerSetPriceOracle(uint256 marketId, address priceOracle)
+        external;
+
+    function getRiskLimits() external view returns (Storage.RiskLimits memory);
+
+    function getMarket(uint256 marketId)
+        external
+        view
+        returns (Storage.Market memory);
+
+    function ownerSetIsClosing(uint256 marketId, bool isClosing) external;
+
+    function ownerSetGlobalOperator(address operator, bool approved) external;
+
+    function transferOwnership(address newOwner) external;
+
+    function getAdjustedAccountValues(Account.Info calldata account)
+        external
+        view
+        returns (Monetary.Value memory, Monetary.Value memory);
+
+    function getMarketMarginPremium(uint256 marketId)
+        external
+        view
+        returns (Decimal.D256 memory);
+
+    function getMarketInterestRate(uint256 marketId)
+        external
+        view
+        returns (Interest.Rate memory);
+}
+
+</code></pre><br/>
+<h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
+<p>Créer un fichier <code>test/simple-dydx-flashloan.js</code> et ajouter le contenu suivant:</p>
+<pre><code>const BN = require('bn.js');
+const { assert } = require('chai');
+
+const IERC20 = artifacts.require('IERC20');
+const SimpleDyDxFlashloan = artifacts.require('SimpleDyDxFlashloan');
+const SOLO = '0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e';
+
+
+contract('SimpleDyDxFlashloan', accounts =&gt; {
+
+    const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
+    const DAI_WHALE = '0xC73f6738311E76D45dFED155F39773e68251D251';
+    const DECIMALS = 6;
+
+    const FUND_AMOUNT = new BN(10).pow(new BN(18)).mul(new BN(200))
+    const BORROW_AMOUNT = new BN(10).pow(new BN(18)).mul(new BN(1000000))
+
+    let simpleDyDxFlashloan, token, flashloan_user, user;
+
+    beforeEach(async () =&gt; {
+        token = await IERC20.at(DAI);
+        simpleDyDxFlashloan = await SimpleDyDxFlashloan.new();
+        flashloan_user = accounts[0]
+
+        // await network.provider.request({
+        //     method: &quot;hardhat_impersonateAccount&quot;,
+        //     params: [DAI_WHALE],
+        // });
+
+        console.log(`contract address is: ${simpleDyDxFlashloan.address}`)
+
+        const whale_balance = await token.balanceOf(DAI_WHALE);
+        assert(whale_balance.gte(FUND_AMOUNT), 'Whale DAI balance has to be higher than FUND AMOUNT');
+        await token.transfer(simpleDyDxFlashloan.address, FUND_AMOUNT, { from: DAI_WHALE });
+
+        const solo_balance = await token.balanceOf(SOLO);
+        assert(solo_balance.gte(BORROW_AMOUNT), 'Solo balance has to be higher than BORROW AMOUNT');
+        console.log(`SOLO balance is: ${solo_balance}`);
+    });
+
+    it('flash loan functionality works correctly', async () =&gt; {
+
+        const tx = await simpleDyDxFlashloan.initiateFlashloan(token.address, BORROW_AMOUNT, { from: flashloan_user });
+
+        user = await simpleDyDxFlashloan.user();
+
+        for (const log of tx.logs) {
+            console.log(log.args.message, log.args.val.toString());
+        }
+
+        assert.equal(user, simpleDyDxFlashloan.address,
+            'user has to be set correctly to the address of simpleDyDxFlashloan');
+    })
+})
+</code></pre><br/>
+<h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
+<p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
+<pre><code>module.exports = {
+    contracts_directory: &quot;./contracts/simple-dydx-flashloan/&quot;,
+    networks: {
+        mainnet_fork: {
+            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            port: 8545, // Standard Ethereum port (default: none)
+            network_id: &quot;999&quot;, // Any network (default: none)
+            gas: 0
+        },
+    },
+
+    // Set default mocha options here, use special reporters etc.
+    mocha: {
+        // timeout: 100000
+    },
+
+    // Configure your compilers
+    compilers: {
+        solc: {
+            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+        },
+    },
+}
+</code></pre><br/>
+<blockquote>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+</blockquote>
+<pre><code>source .env
+ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
+</code></pre><br/>
+<h2 id="exécution-du-swap">Exécution du swap</h2>
+<pre><code>npx truffle test --network mainnet_fork test/simple-dydx-flashloan.js
+</code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
+<br/>
+<p><img src="/images/flashloan-dydx-result.png" alt="image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Installer Unifi Controller sur Ubuntu 20.04</title>
