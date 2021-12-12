@@ -5,11 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author"
-  content="map[name:Hugo Authors]">
+  content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Notebooks et tips Here is a list of useful notebooks to handle different use cases:
- Gérer les gros datasets qui ne passent pas en mémoire Modèle complexe ou modèle simple ? Chemin le plus court Exemple d&amp;rsquo;analyse de données sur dataset déséquilibré et rapport d&amp;rsquo;analyse associé - Crédit: Erdi Olmezogullari Régression linéaire avec Tensorflow Classification avec Tensorflow Underfitting and overfitting  Spark recommandation engine example:
- Recommandation part 1 Recommandation part 2 Statistics mllib   Compétitions Kaggle et kernels associés Here is a list of notebooks I studied and find interesting coming from Kaggle and having a MIT licence." />
+  content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&amp;rsquo;agit d&amp;rsquo;une mise à jour de l&amp;rsquo;article suivant qui n&amp;rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -25,7 +24,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/notebooks/" />
+<link rel="canonical" href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/" />
 
 
 
@@ -234,7 +233,7 @@
 
 <title>
   
-  Notebooks :: Lean Deep Tech blog 
+  Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2) :: Lean Deep Tech blog 
   
 </title>
 
@@ -259,25 +258,23 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Notebooks">
-<meta itemprop="description" content="Notebooks et tips Here is a list of useful notebooks to handle different use cases:
- Gérer les gros datasets qui ne passent pas en mémoire Modèle complexe ou modèle simple ? Chemin le plus court Exemple d&rsquo;analyse de données sur dataset déséquilibré et rapport d&rsquo;analyse associé - Crédit: Erdi Olmezogullari Régression linéaire avec Tensorflow Classification avec Tensorflow Underfitting and overfitting  Spark recommandation engine example:
- Recommandation part 1 Recommandation part 2 Statistics mllib   Compétitions Kaggle et kernels associés Here is a list of notebooks I studied and find interesting coming from Kaggle and having a MIT licence."><meta itemprop="datePublished" content="2014-04-10T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2014-04-10T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="453"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)">
+<meta itemprop="description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&rsquo;agit d&rsquo;une mise à jour de l&rsquo;article suivant qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin"><meta itemprop="datePublished" content="2021-12-10T06:56:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-12-10T06:56:00&#43;00:00" />
+<meta itemprop="wordCount" content="160"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Python,Sonar," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Notebooks"/>
-<meta name="twitter:description" content="Notebooks et tips Here is a list of useful notebooks to handle different use cases:
- Gérer les gros datasets qui ne passent pas en mémoire Modèle complexe ou modèle simple ? Chemin le plus court Exemple d&rsquo;analyse de données sur dataset déséquilibré et rapport d&rsquo;analyse associé - Crédit: Erdi Olmezogullari Régression linéaire avec Tensorflow Classification avec Tensorflow Underfitting and overfitting  Spark recommandation engine example:
- Recommandation part 1 Recommandation part 2 Statistics mllib   Compétitions Kaggle et kernels associés Here is a list of notebooks I studied and find interesting coming from Kaggle and having a MIT licence."/>
+<meta name="twitter:title" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)"/>
+<meta name="twitter:description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&rsquo;agit d&rsquo;une mise à jour de l&rsquo;article suivant qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin"/>
 
 
 
 
 
-<meta property="article:published_time" content="2014-04-10 00:00:00 &#43;0000 UTC" />
+<meta property="article:published_time" content="2021-12-10 06:56:00 &#43;0000 &#43;0000" />
 
 
 
@@ -332,135 +329,69 @@
     <main class="post">
 
         <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+
             
+
             </p>
         </div>
 
         <article>
-            <h2 class="post-title"><a href="https://leandeep.com/notebooks/">Notebooks</a></h2>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/">Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)</a>
+            </h1>
 
             
 
             <div class="post-content">
-                <h2 id="notebooks-et-tips">Notebooks et tips</h2>
-<p>Here is a list of useful notebooks to handle different use cases:</p>
-<ol>
-<li><a href="https://leandeep.com/datalab-own/huge-dataset.htm">Gérer les gros datasets qui ne passent pas en mémoire</a></li>
-<li><a href="https://leandeep.com/datalab-own/modele-complexe-donnees-brutes-modele-simple-donnees-retravaillees.htm">Modèle complexe ou modèle simple ?</a></li>
-<li><a href="https://leandeep.com/datalab-own/chemin-le-plus-court.htm">Chemin le plus court</a></li>
-<li><a href="https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre.htm">Exemple d&rsquo;analyse de données sur dataset déséquilibré</a> et <a href="https://leandeep.com/datalab-own/analyse-donnees-dataset-desequilibre_files/report.pdf">rapport d&rsquo;analyse associé</a> - Crédit: <a href="https://github.com/erdiolmezogullari">Erdi Olmezogullari</a></li>
-<li><a href="https://leandeep.com/datalab-own/regression-lineaire-avec-tensorflow.html">Régression linéaire avec Tensorflow</a></li>
-<li><a href="https://leandeep.com/datalab-own/classification-avec-tensorflow.html">Classification avec Tensorflow</a></li>
-<li><a href="https://leandeep.com/datalab-kaggle/underfitting-and-overfitting.html">Underfitting and overfitting</a></li>
-</ol>
-<p><strong>Spark recommandation engine example:</strong></p>
-<ol>
-<li><a href="https://leandeep.com/datalab-own/Spark/building-recommender.html">Recommandation part 1</a></li>
-<li><a href="https://leandeep.com/datalab-own/Spark/online-recommendations.html">Recommandation part 2</a></li>
-<li><a href="https://leandeep.com/datalab-own/Spark/mllib-statistics.html">Statistics mllib</a></li>
-</ol>
+                <h1 id="introduction">Introduction</h1>
+<p>Voici les étapes à suivre pour ajouter un sonar dans son projet.
+Il s&rsquo;agit d&rsquo;une mise à jour de <a href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes/">l&rsquo;article suivant</a> qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.</p>
 <br/>
-<h2 id="compétitions-kaggle-et-kernels-associés">Compétitions Kaggle et kernels associés</h2>
-<p>Here is a list of notebooks I studied and find interesting coming from Kaggle and having a MIT licence. I keep them here as inspirational sources or knowledge base.</p>
-<p><strong>Kaggle Winning solutions</strong></p>
-<ol>
-<li>
-<p><a href="https://www.kaggle.com/sudalairajkumar/winning-solutions-of-kaggle-competitions">Kaggle winning solutions</a></p>
-</li>
-<li>
-<p><a href="https://ndres.me/kaggle-past-solutions/">Kaggle winning solutions 2ème option</a></p>
-</li>
-<li>
-<p><a href="https://faridrashidi.github.io/kaggle-solutions/">Kaggle winning solutions 3ème option</a></p>
-</li>
-</ol>
-<p><strong>Kernels sur le sujet &ldquo;titanic&rdquo;</strong></p>
-<ol>
-<li><a href="https://leandeep.com/datalab-kaggle/good-data-exploration.html">Good data exploration</a></li>
-<li><a href="https://leandeep.com/datalab-kaggle/a-data-science-framework-to-achieve-99-accuracy.html">Framework to achieve 99% accuracy</a></li>
-<li><a href="https://leandeep.com/datalab-kaggle/titanic-survival-prediction-end-to-end-ml-pipeline.html">End to end Machine Learning pipeline</a></li>
-<li><a href="https://leandeep.com/datalab-kaggle/data-analysis-and-feature-extraction-with-python.html">Exploratory data analysis and feature extraction</a></li>
-</ol>
-<p><strong>Kernels sur le sujet &ldquo;iris&rdquo;</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-own/Iris-Machine-Learning-Notebook.html">Full analysis</a></li>
-</ul>
-<p><strong>Kernels autour du customer churn</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-own/churn.html">Full analysis</a></li>
-</ul>
-<p><strong>Kernels autour du jeu populaire battle royale</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/eda-is-fun.html">Fun EDA</a></li>
-</ul>
-<p><strong>Kernels autour Google Analytics Customer Revenue Prediction</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/simple-exploration-baseline-ga-customer-revenue.html">Simple Exploration+Baseline</a></li>
-</ul>
-<p><strong>Kernels autour des sales forecast</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/e-commerce-sales-forecast.html">Sales Forecast ecommerce</a></li>
-</ul>
-<p><strong>Kernels sur le sujet &ldquo;Porto Seguro’s Safe Driver Prediction&rdquo;</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/data-preparation-exploration.html">Data preparation &amp; exploration</a></li>
-</ul>
-<p><strong>Recruit Restaurant Visitor Forecasting.</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/recruit-restaurant.html">Top 25 solution</a></li>
-</ul>
-<p><strong>Sujets autour du sujet &ldquo;House Pricing&rdquo;</strong></p>
-<ol>
-<li><a href="https://leandeep.com/datalab-kaggle/DS-Workflow-for-HP-+10-ML-Algorithms-+12-Plot.html">Full Workflow</a></li>
-<li><a href="https://leandeep.com/datalab-kaggle/regularized-linear-models.html">regularized linear models</a></li>
-<li><a href="https://leandeep.com/datalab-kaggle/stacked-regressions-top-4-on-leaderboard.html">Stacked Regressions</a></li>
-</ol>
-<p><strong>Sujets autour de la compétition &ldquo;home-credit-default-risk&rdquo;</strong></p>
-<p>URL: <a href="https://www.kaggle.com/c/home-credit-default-risk">https://www.kaggle.com/c/home-credit-default-risk</a></p>
-<p>To understand the data feel free to access <a href="https://leandeep.com/datalab-kaggle/kb002.html#Data">the &ldquo;Data&rdquo; chapter in this notebook</a> of this notebook:</p>
-<p>Read-only Kernels:</p>
-<ol>
-<li>
-<p><a href="https://leandeep.com/datalab-kaggle/kb001.html">Basic end-to-end training of a LightGBM model</a></p>
-</li>
-<li>
-<p>Très bonnes explications sur la métrique ROC AUC et quelle métrique utiliser pour mesurer la performance d&rsquo;un modèle lorsque des classes ne sont pas équilibrées ? Traite du <em>One Hot Encoding</em> et du problème pour les features ayant trop de catégories (réduction de dimension). Explication sur le feature engineering et en particulier la construction de nouvelles features avec les méthodes <em>Polynomial Features</em> et <em>Domain Knowledge Features</em>. <a href="https://leandeep.com/datalab-kaggle/kb002.html">Home Credit Default Risk Competition - Full process - Part 1</a></p>
-</li>
-<li>
-<p>On continue à améliorer le modèle de la compétition home-credit-default-risk en créant de nouvelles features. On analyse si elles ont un impact sur la performance du modèle avec le coefficient de Pearson ou la Kernel Density Exploration (KDE). <a href="https://leandeep.com/datalab-kaggle/kb003.html">Home Credit Default Risk Competition - Full process - Part 2</a></p>
-</li>
-<li>
-<p>(WIP) On continue encore à améliorer le modèle de la compétition home-credit-default-risk en utilisant toutes les données à disposition. <a href="https://leandeep.com/datalab-kaggle/kb004.html">Home Credit Default Risk Competition - Full process - Part 3</a></p>
-</li>
-</ol>
-<p><strong>LUNA16 competition</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/luna-full-preprocessing-tutorial.html">Full preprocessing</a></li>
-</ul>
-<p><strong>NYC taxi trip duration</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/last-cab-to-new-york-animated-heatmap-trips-folium.html">Last cab to new york animated heatmap</a></li>
-</ul>
-<p><strong>Kernal autour du sujet Pokemon-Weedle&rsquo;s Cave</strong></p>
-<ul>
-<li><a href="https://leandeep.com/datalab-kaggle/pokemon-data-sciencetutorial-for-beginners.html">Full tutorial</a></li>
-</ul>
-<p><strong>Other kernels</strong></p>
-<ol>
-<li>
-<p><a href="https://leandeep.com/datalab-kaggle/comprehensive-data-exploration-with-python.html">Comprehensive data exploration</a></p>
-</li>
-<li>
-<p><a href="https://leandeep.com/datalab-kaggle/handling-missing-values.html">Handling missing values</a></p>
-</li>
-<li>
-<p>Fraud detection in Insurance</p>
-</li>
-</ol>
-<ul>
-<li>3.1. <a href="https://leandeep.com/datalab-own/InsuranceClaimsFraudDetection/InsuranceClaimsFraudDetection.html">Part 1</a></li>
-<li>3.2. with Keras <a href="https://leandeep.com/datalab-own/InsuranceClaimsFraudDetection/InsuranceClaimsFraudDetection_UsingKeras.html">Part 2</a></li>
-</ul>
+<h1 id="steps">Steps</h1>
+<h2 id="déployer-un-sonar-via-docker">Déployer un sonar via Docker</h2>
+<pre><code>$ docker pull sonarqube
+$ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+</code></pre><br/>
+<h2 id="installer-sonar-scanner-cli">Installer sonar scanner cli</h2>
+<pre><code>brew install sonar-scanner
+</code></pre><blockquote>
+<p>Note: Mot de passe par défault: admin/admin</p>
+</blockquote>
+<br/>
+<h2 id="configurer-le-projet">Configurer le projet</h2>
+<p>Créer un fichier <code>sonar-project.properties</code> à la racine du projet</p>
+<pre><code># Required metadata
+sonar.projectKey=org.sonarqube:python-sonar-scanner
+sonar.projectName=Python :: PYTHON! : SonarQube Scanner
+sonar.projectVersion=1.0
+sonar.login=admin
+sonar.password=admin
+# Comma-separated paths to directories with sources (required)
+sonar.sources=PATH_DU_REPERTOIRE_A_SCANNER
+
+# Language
+sonar.language=py
+
+# Encoding of the source files
+sonar.sourceEncoding=UTF-8
+
+sonar.host.url=http://IP_DU_SONAR:9000
+</code></pre><br/>
+<h2 id="créer-un-projet-dans-sonar">Créer un projet dans Sonar</h2>
+<p>Créer un projet de type manual dans Sonar et remplacer le <code>projectKey</code> et <code>projectName</code> dans le fichier <code>sonar-project.properties</code>.</p>
+<br/>
+<h2 id="lancer-le-scan-du-projet">Lancer le scan du projet</h2>
+<pre><code>sonar-scanner \
+  -Dsonar.projectKey=org.sonarqube:python-sonar-scanner \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://192.168.43.5:9000 \
+  -Dsonar.login=admin \
+  -Dsonar.password=admin
+</code></pre><br/>
+<h1 id="résultat">Résultat</h1>
+<p>Voici ce que vous obtiendrez:</p>
+<p><img src="https://leandeep.com/images/sonar-clean.png" alt="image"></p>
 
             </div>
         </article>
@@ -468,7 +399,36 @@
         <hr />
 
         <div class="post-info">
-  			</div>
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/sonar">Sonar</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>160 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 Dec. 2021</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/afficher-les-spreads-des-produits-d%C3%A9riv%C3%A9s-dans-tradingview/">
+                                <span class="button__text">Afficher les spreads des produits dérivés dans Tradingview</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
 
         
     </main>

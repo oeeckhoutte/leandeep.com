@@ -5,8 +5,67 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 24 Nov 2021 19:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 10 Dec 2021 06:56:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)</title>
+            <link>https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/</link>
+            <pubDate>Fri, 10 Dec 2021 06:56:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/</guid>
+            <description>Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&amp;rsquo;agit d&amp;rsquo;une mise à jour de l&amp;rsquo;article suivant qui n&amp;rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
+ Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin</description>
+            <content type="html"><![CDATA[<h1 id="introduction">Introduction</h1>
+<p>Voici les étapes à suivre pour ajouter un sonar dans son projet.
+Il s&rsquo;agit d&rsquo;une mise à jour de <a href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes/">l&rsquo;article suivant</a> qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.</p>
+<br/>
+<h1 id="steps">Steps</h1>
+<h2 id="déployer-un-sonar-via-docker">Déployer un sonar via Docker</h2>
+<pre><code>$ docker pull sonarqube
+$ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+</code></pre><br/>
+<h2 id="installer-sonar-scanner-cli">Installer sonar scanner cli</h2>
+<pre><code>brew install sonar-scanner
+</code></pre><blockquote>
+<p>Note: Mot de passe par défault: admin/admin</p>
+</blockquote>
+<br/>
+<h2 id="configurer-le-projet">Configurer le projet</h2>
+<p>Créer un fichier <code>sonar-project.properties</code> à la racine du projet</p>
+<pre><code># Required metadata
+sonar.projectKey=org.sonarqube:python-sonar-scanner
+sonar.projectName=Python :: PYTHON! : SonarQube Scanner
+sonar.projectVersion=1.0
+sonar.login=admin
+sonar.password=admin
+# Comma-separated paths to directories with sources (required)
+sonar.sources=PATH_DU_REPERTOIRE_A_SCANNER
+
+# Language
+sonar.language=py
+
+# Encoding of the source files
+sonar.sourceEncoding=UTF-8
+
+sonar.host.url=http://IP_DU_SONAR:9000
+</code></pre><br/>
+<h2 id="créer-un-projet-dans-sonar">Créer un projet dans Sonar</h2>
+<p>Créer un projet de type manual dans Sonar et remplacer le <code>projectKey</code> et <code>projectName</code> dans le fichier <code>sonar-project.properties</code>.</p>
+<br/>
+<h2 id="lancer-le-scan-du-projet">Lancer le scan du projet</h2>
+<pre><code>sonar-scanner \
+  -Dsonar.projectKey=org.sonarqube:python-sonar-scanner \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://192.168.43.5:9000 \
+  -Dsonar.login=admin \
+  -Dsonar.password=admin
+</code></pre><br/>
+<h1 id="résultat">Résultat</h1>
+<p>Voici ce que vous obtiendrez:</p>
+<p><img src="/images/sonar-clean.png" alt="image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Afficher les spreads des produits dérivés dans Tradingview</title>
@@ -21970,6 +22029,7 @@ git rebase --continue
         pullr = pull --rebase
         unstage = reset HEAD
         lol = log --graph --decorate --pretty=oneline --abbrev-commit
+        lolar = log --graph --pretty='format:%C(auto)%h %d %s %C(green)%an%C(bold blue) %ad' --all --date=relative
         lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
         lpush = &quot;!git --no-pager log origin/$(git currentbranch)..HEAD --oneline&quot;
         lpull = &quot;!git --no-pager log HEAD..origin/$(git currentbranch) --oneline&quot;
