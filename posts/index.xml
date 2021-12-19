@@ -5,8 +5,41 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 18 Dec 2021 20:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 19 Dec 2021 12:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Reset syncthing Web GUI credentials</title>
+            <link>https://leandeep.com/reset-syncthing-web-gui-credentials/</link>
+            <pubDate>Sun, 19 Dec 2021 12:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/reset-syncthing-web-gui-credentials/</guid>
+            <description>Stopper le service Syncthing
+systemctl status syncthing@olivier.service systemctl stop syncthing@olivier.service systemctl status syncthing@olivier.service  Retirer le username et password de la conf syncthing
+Retirer les lignes suivantes du fichier ~/.config/syncthing/config.xml:  &amp;lt;user&amp;gt;...&amp;lt;/user&amp;gt;  &amp;lt;password&amp;gt;...&amp;lt;/password&amp;gt;
+ Démarrer le service Syncthing
+systemctl start syncthing@olivier.service  Ajout des nouveaux creds
+Ouvrez le Web GUI (généralement https://127.0.0.1:8384) et cliquez sur le bandeau rouge indiquant qu&amp;rsquo;il n&amp;rsquo;y a pas de mot de passe configuré pour le GUI.</description>
+            <content type="html"><![CDATA[<p><strong>Stopper le service Syncthing</strong></p>
+<pre><code>systemctl status syncthing@olivier.service
+systemctl stop syncthing@olivier.service
+systemctl status syncthing@olivier.service
+</code></pre><br/>
+<p><strong>Retirer le username et password de la conf syncthing</strong></p>
+<p>Retirer les lignes suivantes du fichier <code>~/.config/syncthing/config.xml</code>:
+<br/>
+<code>&lt;user&gt;...&lt;/user&gt;</code>
+<br/>
+<code>&lt;password&gt;...&lt;/password&gt;</code></p>
+<br/>
+<p><strong>Démarrer le service Syncthing</strong></p>
+<pre><code>systemctl start syncthing@olivier.service
+</code></pre><br/>
+<p><strong>Ajout des nouveaux creds</strong></p>
+<p>Ouvrez le Web GUI (généralement https://127.0.0.1:8384) et cliquez sur le bandeau rouge indiquant qu&rsquo;il n&rsquo;y a pas de mot de passe configuré pour le GUI. <br/>
+Dans la fenêtre qui s&rsquo;ouvre ajoutez des nouveaux credentials et sauvegardez.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology</title>
