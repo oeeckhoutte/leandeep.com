@@ -7,8 +7,7 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&amp;rsquo;agit d&amp;rsquo;une mise à jour de l&amp;rsquo;article suivant qui n&amp;rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
- Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin" />
+  content="Sauvegarde d&amp;rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&amp;rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&amp;rsquo;ayant pas de disque sous la main, j&amp;rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -24,7 +23,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/" />
+<link rel="canonical" href="https://leandeep.com/forcer-le-mountage-dun-disque-dur-externe-mal-%C3%A9ject%C3%A9-et-plus-d%C3%A9tect%C3%A9-sur-mac-osx-et-backup-synology/" />
 
 
 
@@ -233,7 +232,7 @@
 
 <title>
   
-  Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2) :: Lean Deep Tech blog 
+  Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology :: Lean Deep Tech blog 
   
 </title>
 
@@ -258,23 +257,21 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)">
-<meta itemprop="description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&rsquo;agit d&rsquo;une mise à jour de l&rsquo;article suivant qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
- Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin"><meta itemprop="datePublished" content="2021-12-10T06:56:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-12-10T06:56:00&#43;00:00" />
-<meta itemprop="wordCount" content="160"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python,Sonar," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology">
+<meta itemprop="description" content="Sauvegarde d&rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac."><meta itemprop="datePublished" content="2021-12-18T20:49:00&#43;02:00" />
+<meta itemprop="dateModified" content="2021-12-18T20:49:00&#43;02:00" />
+<meta itemprop="wordCount" content="437"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="OSX," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)"/>
-<meta name="twitter:description" content="Introduction Voici les étapes à suivre pour ajouter un sonar dans son projet. Il s&rsquo;agit d&rsquo;une mise à jour de l&rsquo;article suivant qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.
- Steps Déployer un sonar via Docker $ docker pull sonarqube $ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube  Installer sonar scanner cli brew install sonar-scanner  Note: Mot de passe par défault: admin/admin"/>
+<meta name="twitter:title" content="Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology"/>
+<meta name="twitter:description" content="Sauvegarde d&rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac."/>
 
 
 
 
 
-<meta property="article:published_time" content="2021-12-10 06:56:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-12-18 20:49:00 &#43;0200 &#43;0200" />
 
 
 
@@ -329,7 +326,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
 
             
 
@@ -338,61 +335,41 @@
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/">Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)</a>
+                <a href="https://leandeep.com/forcer-le-mountage-dun-disque-dur-externe-mal-%C3%A9ject%C3%A9-et-plus-d%C3%A9tect%C3%A9-sur-mac-osx-et-backup-synology/">Forcer le mountage d&rsquo;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h1 id="introduction">Introduction</h1>
-<p>Voici les étapes à suivre pour ajouter un sonar dans son projet.
-Il s&rsquo;agit d&rsquo;une mise à jour de <a href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes/">l&rsquo;article suivant</a> qui n&rsquo;est plus forcément à jour car le projet Sonar a évolué positivement.</p>
+                <h2 id="sauvegarde-dun-synlogy-en-pls">Sauvegarde d&rsquo;un Synlogy en PLS</h2>
+<p>La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac. Oubliez les transfers via SMB ou AFT trop long. L&rsquo;indexation des fichiers peut en effet prendre plusieurs jours. J&rsquo;ai fait le backup via rsync avec des commandes comme celle ci: <code>rsync --partial -r --progress admin@NAS_oliviere.local:/volume1/photo /Volumes/USB/Synology</code>. Je m&rsquo;étais d&rsquo;abord connecté en SSH pour lister les répertoires à backuper via la commande: <code>ssh -p 28 admin@nas_oliviere.local</code>.
+Cela m&rsquo;a quand même pris 2 jours pour tout copier malgré une connexion en direct du Mac vers le Synology&hellip;</p>
 <br/>
-<h1 id="steps">Steps</h1>
-<h2 id="déployer-un-sonar-via-docker">Déployer un sonar via Docker</h2>
-<pre><code>$ docker pull sonarqube
-$ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
-</code></pre><br/>
-<h2 id="installer-sonar-scanner-cli">Installer sonar scanner cli</h2>
-<pre><code>brew install sonar-scanner
-</code></pre><blockquote>
-<p>Note: Mot de passe par défault: admin/admin</p>
-</blockquote>
+<h2 id="disque-dur-externe-non-reconnu">Disque dur externe non reconnu</h2>
+<p>Après avoir terminé mon backup, j&rsquo;ai débranché comme une brute mon disque dur externe USB de mon Mac et lorsque j&rsquo;ai voulu le rebrancher, il ne se montait plus. Il m&rsquo;était impossible de monter la partition ExtFS ou de la réparer via l&rsquo;utilitaire de disque. (Après 2 jours de backup, je me suis dit que c&rsquo;était logique, c&rsquo;était la fameuse loi des séries&hellip;).
+Le disque était détecté mais la partition ne se montait plus.</p>
+<p>Le problème venait de fsck (Filesystem Check) d&rsquo;OSX. Lorsque je branchais mon disque, OSX essayait de réparé le disque mal éjecté et le processus ne se terminé jamais.</p>
+<p>J&rsquo;ai donc killé le processus via les commandes <code>ps aux | grep fsck</code> et <code>kill -9 PID</code>. En faisait cela, le disque se monte instantanément en lecture seule. Pour pouvoir à nouveau écrire dessus, il faut réparer le disque via <code>Disk Utility</code>.</p>
 <br/>
-<h2 id="configurer-le-projet">Configurer le projet</h2>
-<p>Créer un fichier <code>sonar-project.properties</code> à la racine du projet</p>
-<pre><code># Required metadata
-sonar.projectKey=org.sonarqube:python-sonar-scanner
-sonar.projectName=Python :: PYTHON! : SonarQube Scanner
-sonar.projectVersion=1.0
-sonar.login=admin
-sonar.password=admin
-# Comma-separated paths to directories with sources (required)
-sonar.sources=PATH_DU_REPERTOIRE_A_SCANNER
-
-# Language
-sonar.language=py
-
-# Encoding of the source files
-sonar.sourceEncoding=UTF-8
-
-sonar.host.url=http://IP_DU_SONAR:9000
-</code></pre><br/>
-<h2 id="créer-un-projet-dans-sonar">Créer un projet dans Sonar</h2>
-<p>Créer un projet de type manual dans Sonar et remplacer le <code>projectKey</code> et <code>projectName</code> dans le fichier <code>sonar-project.properties</code>.</p>
-<br/>
-<h2 id="lancer-le-scan-du-projet">Lancer le scan du projet</h2>
-<pre><code>sonar-scanner \
-  -Dsonar.projectKey=org.sonarqube:python-sonar-scanner \
-  -Dsonar.sources=. \
-  -Dsonar.host.url=http://192.168.43.5:9000 \
-  -Dsonar.login=admin \
-  -Dsonar.password=admin
-</code></pre><br/>
-<h1 id="résultat">Résultat</h1>
-<p>Voici ce que vous obtiendrez:</p>
-<p><img src="https://leandeep.com/images/sonar-clean.png" alt="image"></p>
-
+<h2 id="leçon-retenue">Leçon retenue</h2>
+<ol>
+<li>
+<p>Avoir un backup de son Synology. Cela fait des mois que je dis que je vais le faire et je me suis fait avoir&hellip; Le backup doit être à l&rsquo;extérieur de chez soi. Synology propose un service de backup automatique vers le cloud ou vers un second Synology. Je vais personnellement me doter d&rsquo;un nouveau Synology DS1520+ avec 5 disques et utiliser mon DS213 comme Synology de Backup avec des disques renouvelés que je garderais en dehors de chez moi.</p>
+</li>
+<li>
+<p>Ejecter proprement son disque USB externe. Maintenant j&rsquo;utilise les commandes suivantes avant d&rsquo;enlever le cable USB de mon disque dur externe:</p>
+</li>
+</ol>
+<pre><code>diskutil unmountDisk /dev/disk2
+# diskutil unmountDisk force /dev/disk2
+hdiutil eject disk2
+</code></pre><p>ou alias pour <code>~/.zshrc</code>&hellip;</p>
+<pre><code>eject ()
+{
+    diskutil unmountDisk /dev/disk2
+    hdiutil eject disk2
+}
+</code></pre>
             </div>
         </article>
 
@@ -400,12 +377,12 @@ sonar.host.url=http://IP_DU_SONAR:9000
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/sonar">Sonar</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/osx">OSX</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>160 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>437 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 Dec. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Dec. 2021</p>
         </div>
 
         
@@ -417,18 +394,11 @@ sonar.host.url=http://IP_DU_SONAR:9000
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/forcer-le-mountage-dun-disque-dur-externe-mal-%C3%A9ject%C3%A9-et-plus-d%C3%A9tect%C3%A9-sur-mac-osx-et-backup-synology/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/afficher-les-spreads-des-produits-d%C3%A9riv%C3%A9s-dans-tradingview/">
-                                <span class="button__text">Afficher les spreads des produits dérivés dans Tradingview</span>
+                            <a href="https://leandeep.com/mettre-en-place-un-sonarqube-et-scanner-son-projet-en-moins-de-5-minutes-v2/">
+                                <span class="button__text">Mettre en place un Sonarqube et scanner son projet en moins de 5 minutes (v2)</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
