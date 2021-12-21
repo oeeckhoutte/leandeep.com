@@ -48,17 +48,17 @@ Dans la fenêtre qui s&rsquo;ouvre ajoutez des nouveaux credentials et sauvegard
             
             <guid>https://leandeep.com/forcer-le-mountage-dun-disque-dur-externe-mal-%C3%A9ject%C3%A9-et-plus-d%C3%A9tect%C3%A9-sur-mac-osx-et-backup-synology/</guid>
             <description>Sauvegarde d&amp;rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&amp;rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&amp;rsquo;ayant pas de disque sous la main, j&amp;rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac.</description>
-            <content type="html"><![CDATA[<h2 id="sauvegarde-dun-synlogy-en-pls">Sauvegarde d&rsquo;un Synlogy en PLS</h2>
+            <content type="html"><![CDATA[<h3 id="sauvegarde-dun-synlogy-en-pls">Sauvegarde d&rsquo;un Synlogy en PLS</h3>
 <p>La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac. Oubliez les transfers via SMB ou AFT trop long. L&rsquo;indexation des fichiers peut en effet prendre plusieurs jours. J&rsquo;ai fait le backup via rsync avec des commandes comme celle ci: <code>rsync --partial -r --progress admin@NAS_oliviere.local:/volume1/photo /Volumes/USB/Synology</code>. Je m&rsquo;étais d&rsquo;abord connecté en SSH pour lister les répertoires à backuper via la commande: <code>ssh -p 28 admin@nas_oliviere.local</code>.
 Cela m&rsquo;a quand même pris 2 jours pour tout copier malgré une connexion en direct du Mac vers le Synology&hellip;</p>
 <br/>
-<h2 id="disque-dur-externe-non-reconnu">Disque dur externe non reconnu</h2>
+<h3 id="disque-dur-externe-non-reconnu">Disque dur externe non reconnu</h3>
 <p>Après avoir terminé mon backup, j&rsquo;ai débranché comme une brute mon disque dur externe USB de mon Mac et lorsque j&rsquo;ai voulu le rebrancher, il ne se montait plus. Il m&rsquo;était impossible de monter la partition ExtFS ou de la réparer via l&rsquo;utilitaire de disque. (Après 2 jours de backup, je me suis dit que c&rsquo;était logique, c&rsquo;était la fameuse loi des séries&hellip;).
 Le disque était détecté mais la partition ne se montait plus.</p>
 <p>Le problème venait de fsck (Filesystem Check) d&rsquo;OSX. Lorsque je branchais mon disque, OSX essayait de réparé le disque mal éjecté et le processus ne se terminé jamais.</p>
 <p>J&rsquo;ai donc killé le processus via les commandes <code>ps aux | grep fsck</code> et <code>kill -9 PID</code>. En faisait cela, le disque se monte instantanément en lecture seule. Pour pouvoir à nouveau écrire dessus, il faut réparer le disque via <code>Disk Utility</code>.</p>
 <br/>
-<h2 id="leçon-retenue">Leçon retenue</h2>
+<h3 id="leçon-retenue">Leçon retenue</h3>
 <ol>
 <li>
 <p>Avoir un backup de son Synology. Cela fait des mois que je dis que je vais le faire et je me suis fait avoir&hellip; Le backup doit être à l&rsquo;extérieur de chez soi. Synology propose un service de backup automatique vers le cloud ou vers un second Synology. Je vais personnellement me doter d&rsquo;un nouveau Synology DS1520+ avec 5 disques et utiliser mon DS213 comme Synology de Backup avec des disques renouvelés que je garderais en dehors de chez moi.</p>
