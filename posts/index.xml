@@ -5,8 +5,85 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 19 Dec 2021 12:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 24 Dec 2021 06:34:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Workaround &#34;Object Capture is not available on this computer&#34;</title>
+            <link>https://leandeep.com/workaround-object-capture-is-not-available-on-this-computer/</link>
+            <pubDate>Fri, 24 Dec 2021 06:34:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/workaround-object-capture-is-not-available-on-this-computer/</guid>
+            <description>Introduction J&amp;rsquo;ai voulu expérimenter la nouvelle API disponible sur OSX Monterey appelée Object Capture qui permet de faire de la Photogrammetry. Mon objectif était de scanner des humains afin de créer leur avatar en 3D. Apple semble avoir un formidable nouvel outil pour faire de la photogrammetry et après avoir tout téléchargé, installé et analysé côté documentation je me suis pris cette erreur Object Capture is not available on this computer lorsque j&amp;rsquo;ai voulu RUN mon premier projet&amp;hellip;</description>
+            <content type="html"><![CDATA[<h3 id="introduction">Introduction</h3>
+<p>J&rsquo;ai voulu expérimenter la nouvelle API disponible sur OSX Monterey appelée Object Capture qui permet de faire de la Photogrammetry. Mon objectif était de scanner des humains afin de créer leur avatar en 3D.
+Apple semble avoir un formidable nouvel outil pour faire de la photogrammetry et après avoir tout téléchargé, installé et analysé côté documentation je me suis pris cette erreur <code>Object Capture is not available on this computer</code> lorsque j&rsquo;ai voulu RUN mon premier projet&hellip;</p>
+<p>Le problème vient des specifications techniques de mon Mac. Il manque 2 Go de VRAM. Il n&rsquo;en a que 2 au lieu de 4 requis. La pilule est quand même dur à avaler il fonctionne très bien malgré tout ce que je lui fait endurer. Côté RAM et processeur pas de problème mais côté carte graphique cela pose problème. J&rsquo;ai un eGPU Razer avec une carte graphique très récente dont je me sers pour le Deep Learning. Apparemment quelqu&rsquo;un aurait réussi à utiliser son eGPU avec cette API dans <a href="https://developer.apple.com/forums/thread/681861?answerId=677919022">cet article</a>. Je ferais le test à l&rsquo;occasion mais ce n&rsquo;est plus une nécessité&hellip;</p>
+<p>En attendant, j&rsquo;ai un magnifique <strong>workaround</strong>. Utiliser Meshroom et créer un mix de Python et de commandes Linux. Le résultat est au top:</p>
+<p><img src="/images/scan-3d.png" alt="image"></p>
+<blockquote>
+<p>En pré-requis, il vous faudra:</p>
+<ul>
+<li>un GPU</li>
+<li>Jupyter Lab ou <a href="colab.research.google.com">Colab</a>. (Dans mon cas, c&rsquo;est Colab)</li>
+</ul>
+</blockquote>
+<br/>
+<h3 id="code">Code</h3>
+<p>On démarrer une instance avec GPU</p>
+<pre><code>import tensorflow as tf
+device_name = tf.test.gpu_device_name()
+if device_name != '/device:GPU:0':
+  raise SystemError('GPU device required')
+print(f'GPU found at: {device_name}')
+</code></pre><br/>
+<p>Chargement des données via une des 3 options</p>
+<pre><code># Option 1
+# From Google Drive and upload
+from google.colab import drive, files
+drive.mount('/content/drive')
+uploaded = files.upload()
+for file in uploaded.keys():
+    print(f'File &quot;{file}&quot; uploaded with length {len(uploaded[file])} bytes')
+
+# Option 2
+# OR via WGET
+!wget https://devimages-cdn.apple.com/ar/photogrammetry/FruitCakeSliceImages.zip
+!unzip FruitCakeSliceImages.zip
+!mkdir input_dataset
+#!rm FruitCakeSliceImages.zip
+#!mv FruitCakeSlice/*.HEIC input_dataset/
+!ls -l ./input_dataset
+# Optional rename extension
+#cd FruitCakeSliceImages
+#!find . -type f -name &quot;*.HEIC&quot; -exec rename 's/\.HEIC$/.jpg/' '{}' \;
+
+# Option 3
+# OR via Github
+!git clone https://github.com/alicevision/dataset_buddha
+!ls -l dataset_buddha/buddha
+!rm -rf dataset_buddha/buddha/*.bin
+!rm -rf dataset_buddha/buddha/*.txt
+!rm -rf dataset_buddha/buddha/*.ini
+!ls -l dataset_buddha/buddha
+</code></pre><br/>
+<p>On récupère Meshroom</p>
+<pre><code>!wget -N https://github.com/alicevision/meshroom/releases/download/v2019.1.0/Meshroom-2019.1.0-linux.tar.gz
+!mkdir meshroom
+!tar xzf Meshroom-2019.1.0-linux.tar.gz -C ./meshroom
+</code></pre><br/>
+<p>On Mesh et on attend patiemment</p>
+<pre><code>!mkdir ./model_out
+#!./meshroom/Meshroom-2019.1.0/meshroom_photogrammetry --input ./input_dataset --output ./model_out
+!./meshroom/Meshroom-2019.1.0/meshroom_photogrammetry --input ./dataset_buddha/buddha --output ./model_out
+</code></pre><br/>
+<p>On zip et on récupère le résultat</p>
+<pre><code>!zip -r 3d_mesh_object.zip ./model_out
+files.download('3d_mesh_object.zip')
+</code></pre><br/>
+<p>Et voilà, vous obtiendrez un zip contenant 3 fichiers que vous pourrez importer dans Blender ou autre</p>
+]]></content>
+        </item>
         
         <item>
             <title>Reset syncthing Web GUI credentials</title>
