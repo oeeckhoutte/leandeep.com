@@ -5,8 +5,46 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 24 Dec 2021 06:34:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 29 Dec 2021 19:43:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Compresser un PDF gratuitement et en ligne de commande sur OSX</title>
+            <link>https://leandeep.com/compresser-un-pdf-gratuitement-et-en-ligne-de-commande-sur-osx/</link>
+            <pubDate>Wed, 29 Dec 2021 19:43:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/compresser-un-pdf-gratuitement-et-en-ligne-de-commande-sur-osx/</guid>
+            <description>J&amp;rsquo;avais impérativement besoin de compresser un PDF et le faire passer 33Mo à 5 ou 6Mo max en gardant une qualité correcte.
+Il y a pleins d&amp;rsquo;outils et d&amp;rsquo;articles sur internet expliquant comment faire cela et franchement c&amp;rsquo;est une perte de temps.
+ Le compression intégrée directement dans Preview ne me donnait pas satisfaction car le rendu était flou.
+  Ghostscript brew install ghostscript gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/screen -dCompatibilityLevel=1.</description>
+            <content type="html"><![CDATA[<p>J&rsquo;avais impérativement besoin de compresser un PDF et le faire passer 33Mo à 5 ou 6Mo max en gardant une qualité correcte.</p>
+<p>Il y a pleins d&rsquo;outils et d&rsquo;articles sur internet expliquant comment faire cela et franchement c&rsquo;est une perte de temps.</p>
+<blockquote>
+<p>Le compression intégrée directement dans <code>Preview</code> ne me donnait pas satisfaction car le rendu était flou.</p>
+</blockquote>
+<br/>
+<h3 id="ghostscript">Ghostscript</h3>
+<pre><code>brew install ghostscript
+gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/screen -dCompatibilityLevel=1.4 -sOutputFile=output.pdf sign.pdf
+gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/ebook -sOutputFile=output2.pdf sign.pdf
+</code></pre><blockquote>
+<p>-dQUIET: Retire les logs sur stdout<br/>
+-dNOPAUSE: Pas de pause entre chaque page<br/>
+-dBATCH: Permet de stopper le process quand toutes les pages ont été traitées</p>
+</blockquote>
+<blockquote>
+<p>-dPDFSETTINGS=<br/></p>
+<ul>
+<li>/screen (72 dpi) low resolution<br/></li>
+<li>/ebook (150 dpi) medium resolution<br/></li>
+<li>/printer (300 dpi)<br/></li>
+<li>/prepress (300 dpi)<br/></li>
+<li>/default (72 dpi)<br/></li>
+</ul>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Workaround &#34;Object Capture is not available on this computer&#34; Photogrammetry</title>
@@ -2502,6 +2540,54 @@ brownie run scripts/simple_collectible/create_collectible.py --network rinkeby
 <p>On peut utiliser une autre fenêtre pour votre votre NFT/peinture comme Rarible or Mintable. Le NFT/la peinture ne bouge pas et la &ldquo;galerie&rdquo; (votre adresse ETH) ne change pas.</p>
 <p>La vente ou le transfert du NFT/ de la peinture le/la déplace vers une autre adresse ETH (galerie). OpenSea et d&rsquo;autres plates-formes peuvent afficher n&rsquo;importe quel NFT en ouvrant simplement une autre fenêtre, rien n&rsquo;a à être fait par le propriétaire.</p>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Installer Rust sur Debian</title>
+            <link>https://leandeep.com/installer-rust-sur-debian/</link>
+            <pubDate>Mon, 24 May 2021 15:20:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-rust-sur-debian/</guid>
+            <description>Provisioning d&amp;rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash  Installation de Rust apt update apt install curl vim git -y curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &amp;quot;crti.o&amp;quot; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &amp;quot;Scrt1.o&amp;quot; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&amp;gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &amp;quot;libclang.</description>
+            <content type="html"><![CDATA[<h3 id="provisioning-dune-instance-debian">Provisioning d&rsquo;une instance Debian</h3>
+<pre><code>docker run -it -v $PWD:/home debian:latest bash
+</code></pre><br/>
+<h3 id="installation-de-rust">Installation de Rust</h3>
+<pre><code>apt update
+apt install curl vim git -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+apt install gcc gcc-multilib
+source $HOME/.cargo/env
+
+find /usr -iname &quot;crti.o&quot; -print
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc
+
+find /usr -iname &quot;Scrt1.o&quot; -print
+# /usr/lib/x86_64-linux-gnu/Scrt1.o -&gt; No export necessary else add the dir containing Scrt1.o
+
+apt-get install libclang-dev
+find /usr -iname &quot;libclang.so&quot; -print
+export LIBCLANG_PATH=&quot;/usr/lib/llvm-11/lib/libclang.so:${LIBCLANG_PATH}&quot;
+
+apt-get install g++ g++-multilib
+</code></pre><br/>
+<h3 id="vérification-du-bon-fonctionnement">Vérification du bon fonctionnement</h3>
+<pre><code># Créer un nouveau projet
+cargo new example
+cargo build
+cargo run
+ 
+# ou au moins avoir les binaires installés 
+rustc --version
+cargo --version
+rustup --version
+</code></pre><br/>
+<h3 id="voir-les-toolchains">Voir les toolchains</h3>
+<pre><code>rustup toolchain list
+</code></pre><br/>
+<h3 id="installer-une-toolchain">Installer une toolchain</h3>
+<pre><code>rustup toolchain install TOOLCHAIN_NAME
+</code></pre>]]></content>
         </item>
         
         <item>
