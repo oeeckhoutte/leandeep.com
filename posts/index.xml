@@ -5,8 +5,158 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 29 Dec 2021 19:43:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 31 Dec 2021 06:34:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer un REPL Rust</title>
+            <link>https://leandeep.com/installer-un-repl-rust/</link>
+            <pubDate>Fri, 31 Dec 2021 06:34:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-un-repl-rust/</guid>
+            <description>Introduction Dans cet article, nous allons voir comment installer le REPL evcxr pour Rust développé par Google. Ce genre d&amp;rsquo;outil est très utile lorsque vous apprenez un langage (ou même quand vous êtes expérimenté et que vous voulez vérifier quelque chose). Avec evcxr, il n&amp;rsquo;est pas nécessaire de recompiler son programme Rust à chaque nouvelle commande exécutée. Ce REPL le fait tout seul; un gros gain de temps.
+ Installation rustup component add rust-src cargo install evcxr_repl  Démarrage  Lien vers la documentation</description>
+            <content type="html"><![CDATA[<h3 id="introduction">Introduction</h3>
+<p>Dans cet article, nous allons voir comment installer le REPL <code>evcxr</code> pour Rust développé par Google. Ce genre d&rsquo;outil est très utile lorsque vous apprenez un langage (ou même quand vous êtes expérimenté et que vous voulez vérifier quelque chose). Avec <code>evcxr</code>, il n&rsquo;est pas nécessaire de recompiler son programme Rust à chaque nouvelle commande exécutée. Ce REPL le fait tout seul; un gros gain de temps.</p>
+<br/>
+<h3 id="installation">Installation</h3>
+<pre><code>rustup component add rust-src
+cargo install evcxr_repl
+</code></pre><br/>
+<h3 id="démarrage">Démarrage</h3>
+<blockquote>
+<p>Lien vers la <a href="https://github.com/google/evcxr/blob/main/COMMON.md">documentation</a></p>
+</blockquote>
+<pre><code>evcxr
+</code></pre><br/>
+<p>A titre d&rsquo;exemple, jouez avec les types primitifs en créant des variables mutables ou non et observez le comportement du langage Rust dans le REPL.</p>
+<blockquote>
+<p><code>i8</code>: entier signé de 8 bits, soit une valeur comprise entre <code>[-128;+127]</code><br/>
+<code>i16</code>: entier signé de 16 bits<br/>
+<code>i32</code><br/>
+<code>i64</code><br/>
+<code>i128</code><br/>
+<code>u8</code>: entier non-signé de 8 bits<br/>
+<code>u16</code>: entier non-signé de 16 bits, soit une valeur max de <code>(2^16)-1</code> soit <code>65 535</code>.<br/>
+<code>u32</code><br/>
+<code>u64</code><br/>
+<code>u128</code><br/>
+<code>f32</code>: nombre flottant de 32 bits<br/>
+<code>f64</code>: nombre flottant de 64 bits<br/>
+<code>slice</code>: morceau de tableau<br/>
+<code>String</code><br/>
+<code>char</code>
+<code>bool</code>
+<code>unit</code>: tuple</p>
+</blockquote>
+<br/>
+<p>Ou encore testez les Slices:</p>
+<pre><code>&gt;&gt; let tableau = &amp;[&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;];
+&gt;&gt; println!(&quot;{:?}&quot;, tableau);
+[&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;]
+
+&gt;&gt; let sub_tab = &amp;tableau[1..];
+&gt;&gt; println!(&quot;{:?}&quot;, sub_tab);
+[&quot;tata&quot;, &quot;toto&quot;]
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Tips en vrac sur Rust</title>
+            <link>https://leandeep.com/tips-en-vrac-sur-rust/</link>
+            <pubDate>Fri, 31 Dec 2021 06:34:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/tips-en-vrac-sur-rust/</guid>
+            <description>Voir les &amp;ldquo;choses&amp;rdquo; chargées par défaut lors du démarrage d&amp;rsquo;un programme Rust
+ &amp;ldquo;The prelude is the list of things that Rust automatically imports into every Rust program.&amp;rdquo; Source
+ https://doc.rust-lang.org/std/prelude/v1/index.html
+ Some()
+Some est une variante de l&amp;rsquo;enum Option.
+enum Option&amp;lt;T&amp;gt; { None, Some(T), } Si on veut parler d&amp;rsquo;une variable qui existe, on utilise Some(value). (Par contre, si on veut parler d&amp;rsquo;une variable qui pourrait ne pas exister, on utilise plutôt Option&amp;lt;IciAnyType&amp;gt;)</description>
+            <content type="html"><![CDATA[<p><strong>Voir les &ldquo;choses&rdquo; chargées par défaut lors du démarrage d&rsquo;un programme Rust</strong></p>
+<blockquote>
+<p>&ldquo;The prelude is the list of things that Rust automatically imports into every Rust program.&rdquo; <a href="https://doc.rust-lang.org/std/prelude/index.html#the-rust-prelude">Source</a></p>
+</blockquote>
+<p><a href="https://doc.rust-lang.org/std/prelude/v1/index.html">https://doc.rust-lang.org/std/prelude/v1/index.html</a></p>
+<br/>
+<p><strong>Some()</strong></p>
+<p><code>Some</code> est une variante de l&rsquo;enum Option<!-- raw HTML omitted -->.</p>
+<pre><code>enum Option&lt;T&gt; {
+    None,
+    Some(T),
+}
+</code></pre><p>Si on veut parler d&rsquo;une variable qui existe, on utilise <code>Some(value)</code>. (Par contre, si on veut parler d&rsquo;une variable qui pourrait ne pas exister, on utilise plutôt <code>Option&lt;IciAnyType&gt;</code>)</p>
+<blockquote>
+<p>Il peut être intéressant d&rsquo;utiliser l&rsquo;opérateur <code>if let</code> avec <code>Some()</code>:</p>
+<pre><code>if let Some(s) = ma_fonction(1) {...
+...
+</code></pre></blockquote>
+<br/>
+<p><strong>Utilisation du <code>Some()</code> dans un <code>while let</code></strong></p>
+<p>C&rsquo;est un shortcut à loop:</p>
+<pre><code>let mut vecteur = vec!(&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;);
+
+loop {
+    match vecteur.pop() {
+        Some(x) =&gt; println!(&quot;{}&quot;, x),
+        None =&gt; break,
+    }
+}
+</code></pre><blockquote>
+<p>A noter ici que <code>vecteur</code> doit être défini comme mutable; sans quoi <code>vecteur.pop()</code> poserait problème. Le compilateur empêchera la compilation de toute façon&hellip;</p>
+</blockquote>
+<pre><code>let mut vecteur = vec!(&quot;titi&quot;, &quot;tata&quot;, &quot;toto&quot;);
+
+while let Some(x) = vecteur.pop() {
+    println!(&quot;{}&quot;, x);
+}
+</code></pre><p>Output: <br/>
+toto<br/>
+tata<br/>
+titi</p>
+<br/>
+<p><strong>Debugging: afficher le type d&rsquo;une variable</strong></p>
+<pre><code>fn debug_print_type_of&lt;T&gt;(_: &amp;T) {
+    println!(&quot;{}&quot;, std::any::type_name::&lt;T&gt;())
+}
+
+fn main() {
+    let test_string = &quot;titi&quot;;
+    let test_i32 = 42;
+
+    debug_print_type_of(&amp;test_string); // &amp;str
+    debug_print_type_of(&amp;test_i32); // i32
+}
+</code></pre><br/>
+<p><strong>Return ou pas return?</strong></p>
+<p>Le code suivant:</p>
+<pre><code>fn sum(num1: i32, num2: i32) -&gt; i32 {
+    num1 + num2
+}
+</code></pre><p>est équivalent au code suivant:</p>
+<pre><code>fn sum(num1: i32, num2: i32) -&gt; i32 {
+    return num1 + num2;
+}
+</code></pre><br/>
+<p><strong>Préciser qu&rsquo;une fonction ne retourne rien</strong></p>
+<p>Comment faire l&rsquo;équivant de <code>-&gt; None:</code> en Python mais en Rust ?</p>
+<pre><code>fn ma_fonction() -&gt; () {
+    println!(&quot;Hello world&quot;);
+}
+</code></pre><br/>
+<p><strong>L&rsquo;opérateur ?</strong></p>
+<p>L&rsquo;utilisation de l&rsquo;opérateur <code>?</code> n&rsquo;est possible que sur les types qui implémentent le trait <a href="https://doc.rust-lang.org/stable/std/ops/trait.Try.html">Try</a>.</p>
+<pre><code>use std::fs::File;
+
+fn open_file(filename: &amp;str) -&gt; Result&lt;u32, String&gt; {
+    let mut my_file = File::open(filename).map_err(|e| format!(&quot;Error while opening file {:?}&quot;, (filename, e)))?;
+    Ok(0)
+}
+</code></pre><blockquote>
+<p>Noter ici l&rsquo;utilisation du paramètre <code>{:?}</code> dans la macro <code>format</code>. Plus d&rsquo;information sur les paramètres disponibles pour formater des strings sur <a href="https://doc.rust-lang.org/std/fmt/index.html">la doc officielle</a>.</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Compresser un PDF gratuitement et en ligne de commande sur OSX</title>
