@@ -15,27 +15,27 @@
             
             <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2022/</guid>
             <description>Chaque année, j&amp;rsquo;aime me fixer des objectifs professionnels en supplément de mon activité principale.
-Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que l&amp;rsquo;annéee 2021).
+Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que l&amp;rsquo;annéee 2021). En gros cela se résume en 3 maîtres-mots: blockchain, Rust, Trading.
  1. Utiliser Rust pour tous mes développements personnels (&amp;ldquo;développements professionels à usage personnel&amp;rdquo; devrais-je plutôt écrire)
- Torrent client app (embed c++ lib in Rust) experimentation Secu app (Embedded env) Notification app (OS X) Cross-platform expérimentation lib/app (Rust in Android, iOS, Webassembly et/ou Flutter) 2 Apps: voir les points 2.</description>
+ Torrent client app (wrap C++ lib en Rust) expérimentation Secu app (sur embedded env) Notification app (un socle très simple et utilisable via API call en local pour toutes mes automations) (gui natif OS X) Cross-platform expérimentation lib/app (lib Rust partagée sur Android et iOS, et/ou Flutter et/ou Webassembly) 2 Apps: voir les points 2.</description>
             <content type="html"><![CDATA[<p>Chaque année, j&rsquo;aime me fixer des objectifs professionnels <strong>en supplément de</strong> mon activité principale.</p>
-<p>Voici donc mon programme pour l&rsquo;année 2022 (beaucoup plus simple que l&rsquo;annéee 2021).</p>
+<p>Voici donc mon programme pour l&rsquo;année 2022 (beaucoup plus simple que l&rsquo;annéee 2021). En gros cela se résume en 3 maîtres-mots: <code>blockchain</code>, <code>Rust</code>, <code>Trading</code>.</p>
 <br/>
 <p><strong>1. Utiliser Rust pour tous mes développements personnels</strong> (&ldquo;développements professionels à usage personnel&rdquo; devrais-je plutôt écrire)</p>
 <ul>
-<li>Torrent client app (embed c++ lib in Rust) experimentation</li>
-<li>Secu app (Embedded env)</li>
-<li>Notification app (OS X)</li>
-<li>Cross-platform expérimentation lib/app (Rust in Android, iOS, Webassembly et/ou Flutter)</li>
+<li>Torrent client app (wrap C++ lib en Rust) expérimentation</li>
+<li>Secu app (sur embedded env)</li>
+<li>Notification app (un socle très simple et utilisable via API call en local pour toutes mes automations) (gui natif OS X)</li>
+<li>Cross-platform expérimentation lib/app (lib Rust partagée sur Android et iOS, et/ou Flutter et/ou Webassembly)</li>
 <li>2 Apps: voir les points <code>2.2</code> et <code>2.3</code> ci-dessous</li>
 <li>(Utiliser Actix et GraphQL dans une de ces apps)</li>
 <li>Algolia clone (search engine simple) en Rust / Webassembly / Service Worker</li>
 </ul>
 <p><strong>2. Blockchain Développement (Smart contracts dev/ Web3)</strong></p>
 <ul>
-<li>2.1. Arbitrage app (Python. Développement bcp trop avancé pour tout recommencer en Rust. Et sujet data; en tout cas par rapport à ma stratégie de trading donc Python est très bien adapté à ce sujet). Smart contracts en Rust (ou Yul) plutôt que Solidity dans le but d&rsquo;apprendre. Si Solidity ne peut pas être remplacé, Solidity sera utilisé</li>
-<li>2.2. Trades &ldquo;irréalistes&rdquo; bot (Smart contract en Rust) + CEX scanning (par simplicité) en Rust + Metamask</li>
-<li>2.3. Trading Portfolio export to Google spreadsheet pour au moins 2 CEX (Rust même si en Python c&rsquo;est simplicime à faire)</li>
+<li>2.1. Arbitrage app (en Python. Comme le développement de ce projet est beaucoup trop avancé pour tout recommencer en Rust et que c&rsquo;est un sujet data (par rapport à ma stratégie de trading) le langage Python est très bien adapté à ce sujet). J&rsquo;aimerais ré-écrire les smart contracts en Rust (ou Yul à voir l&rsquo;intérêt) plutôt que Solidity car philosophiquement j&rsquo;ai dû mal avec le language Solidity qui n&rsquo;a pour seul intérêt que le développement EVM (certes énorme&hellip;). Si Solidity ne peut pas être remplacé (tout dépendra d&rsquo;ewasm je dirais), je garderai Solidity.</li>
+<li>2.2. Trades &ldquo;irréalistes&rdquo; bot en Rust (Smart contract en Rust) + CEX (et non DEX) scanning (par simplicité et car il y a déjà énormément d&rsquo;opportunités) + Metamask. Donc détection des opportunités sur CEX et trades sur DEX pour pouvoir placer autant d&rsquo;ordres limites que je veux sans bloquer du capital (au passage je vous ai donné une petite stratégie de trading simple et bien rentable; c&rsquo;est cadeau :D)</li>
+<li>2.3. Portfolio export to Google spreadsheet pour au moins 2 des CEX que j&rsquo;utilise (en Rust même si en Python c&rsquo;est simplicime à faire). L&rsquo;objectif est d&rsquo;être aussi fluide en Rust qu&rsquo;en Python&hellip;</li>
 </ul>
 <p><strong>3. Scalping</strong></p>
 <ul>
@@ -45,7 +45,7 @@ Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que 
 <ul>
 <li>Business Analysis</li>
 <li>Price tracking/alerting app nécessaire (Rust) pour projets crypto à forts portentiels (revente auto de positions à différents échelons)</li>
-<li>Euronext vision 360 tracker (v2)</li>
+<li>Euronext vision 360 tracker (une v2 en RPA)</li>
 </ul>
 <p><strong>5. Ethical hacking</strong> (par passion depuis toujours)</p>
 <p><strong>6. Lire 1 livre de développement personnel</strong></p>
@@ -22607,6 +22607,12 @@ git push origin v1.0
 <p>Autre alternative: <code>git log --pretty=format:&quot;%h; author: %cn; date: %ci; subject:%s&quot; HEAD...v1.0</code></p>
 </blockquote>
 <br/>
+<p><strong>Lister les commits de merge et afficher uniquement le commit message</strong></p>
+<pre><code>git log $(git describe --abbrev=0 --tags)..HEAD --merges --pretty=format:&quot;%b&quot;
+</code></pre><br/>
+<p><strong>Voir les commits par contributeur depuis la dernière release/tag</strong></p>
+<pre><code>git shortlog --merges $(git describe --abbrev=0 --tags)..HEAD
+</code></pre><br/>
 <p><strong>Voir les changements/ commits sur un fichier</strong></p>
 <pre><code>git log --follow -p -- full_path_mon_fichier
 # --follow permet de suivre un fichier s'il a été renommé
