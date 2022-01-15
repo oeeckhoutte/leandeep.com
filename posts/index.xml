@@ -5,8 +5,71 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 04 Jan 2022 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Tue, 11 Jan 2022 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Aide mémoire primitives Rust</title>
+            <link>https://leandeep.com/aide-m%C3%A9moire-primitives-rust/</link>
+            <pubDate>Tue, 11 Jan 2022 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/aide-m%C3%A9moire-primitives-rust/</guid>
+            <description>Annoter le type des variables
+let is_rust_cool: bool = true; // let mon_float: f64 = 5.0; // Annotation simple // let mon_integer = 5i32; // Annotation via suffixe // Ou inférence de type: let mon_autre_float = 5.0; // f64 let mon_autre_integer = 5; // i32  Le type de variable ne peut pas être changé
+  Tableau de taille fixe et type connu
+let petit_tableau: [i8; 5] = [1, 2, 3, 4, 5];  Tableau de taille fixe, type connu et initialisé à 0</description>
+            <content type="html"><![CDATA[<p><strong>Annoter le type des variables</strong></p>
+<pre><code>let is_rust_cool: bool = true;
+
+// let mon_float: f64 = 5.0; // Annotation simple
+// let mon_integer = 5i32; // Annotation via suffixe 
+
+// Ou inférence de type:
+let mon_autre_float = 5.0; // f64
+let mon_autre_integer = 5; // i32
+</code></pre><blockquote>
+<p>Le type de variable ne peut pas être changé</p>
+</blockquote>
+<br/>
+<p><strong>Tableau de taille fixe et type connu</strong></p>
+<pre><code>let petit_tableau: [i8; 5] = [1, 2, 3, 4, 5];
+</code></pre><br/>
+<p><strong>Tableau de taille fixe, type connu et initialisé à 0</strong></p>
+<pre><code>let petit_tableau2: [i8; 20] = [0; 20];
+</code></pre><br/>
+<p><strong>Retourner le nombre d&rsquo;éléments d&rsquo;un tableau</strong></p>
+<pre><code>println!(&quot;petit_tableau2 contient {} éléments&quot;, petit_tableau2.len());
+</code></pre><br/>
+<p><strong>Retourner la taille occupée en mémoire par un tableau</strong></p>
+<pre><code>use std::mem;
+fn main() {
+  let petit_tableau2: [i8; 20] = [0; 20];
+  println!(&quot;petit_tableau2 occupe {} bytes&quot;, mem::size_of_val(&amp;petit_tableau2));
+  // petit_tableau2 occupe 20 bytes
+  let petit_tableau2: [i16; 20] = [0; 20];
+  println!(&quot;petit_tableau2 occupe {} bytes&quot;, mem::size_of_val(&amp;petit_tableau2));
+  // petit_tableau2 occupe 20 bytes
+  // i8 &lt;-&gt; 8 bits &lt;-&gt; 1 byte
+  // i16 &lt;-&gt; 16 bits &lt;-&gt; 2 bytes
+}
+</code></pre><br/>
+<p><strong>Slicer des tableaux</strong></p>
+<pre><code>fn describe_slice(slice: &amp;[i16]) {
+    println!(&quot;Slice[0]: {}&quot;, slice[0]);
+    println!(&quot;Slice length: {}&quot;, slice.len());
+}
+
+fn main() {
+  let petit_tableau2: [i16; 20] = [0; 20];
+  describe_slice(&amp;petit_tableau2);
+  //Slice[0]: 0
+  //Slice length: 20
+  describe_slice(&amp;petit_tableau2[0..2]);
+  //Slice[0]: 0
+  //Slice length: 2
+}
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Et vous quels sont vos projets pour 2022 ?</title>
@@ -53,6 +116,9 @@ Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que 
 <p><strong>8. Monter un node Chainlink si ROI et temps</strong></p>
 <p><strong>9. Monter un node theGraph si ROI et temps</strong> (et si un node Archive Ethereum n&rsquo;est plus nécessaire)</p>
 <p><strong>10. Expérimenter Reality Capture API</strong> (si j&rsquo;ai pu m&rsquo;offrir un nouveau Macbook pro ahahah)</p>
+<p><strong>11. Asservir un robot avec ROS (Robot Operating System)</strong> (Simulation puis déploiement sur vrai robot DIY)</p>
+<p><strong>12. Construire un LED matrix Wifi pour afficher cours du BTC ou &ldquo;en réunion&rdquo; ou valeur portfolio</strong></p>
+<p><strong>13. Trader avec streamdeck (si ROI)</strong></p>
 ]]></content>
         </item>
         
@@ -22607,11 +22673,21 @@ git push origin v1.0
 <p>Autre alternative: <code>git log --pretty=format:&quot;%h; author: %cn; date: %ci; subject:%s&quot; HEAD...v1.0</code></p>
 </blockquote>
 <br/>
-<p><strong>Lister les commits de merge et afficher uniquement le commit message</strong></p>
+<p><strong>Lister les commits de merge depuis le dernier tag et afficher uniquement le commit message</strong></p>
 <pre><code>git log $(git describe --abbrev=0 --tags)..HEAD --merges --pretty=format:&quot;%b&quot;
+</code></pre><br/>
+<p><strong>Lister les commits de merge entre les 2 derniers tags et afficher uniquement le commit message</strong></p>
+<pre><code>git log $(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)..$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`) --merges --pretty=format:&quot;%b&quot;
+</code></pre><br/>
+<p><strong>Récupérer le dernier tag</strong></p>
+<pre><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
+</code></pre><br/>
+<p><strong>Récupérer l&rsquo;avant dernier tag</strong></p>
+<pre><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
 </code></pre><br/>
 <p><strong>Voir les commits par contributeur depuis la dernière release/tag</strong></p>
 <pre><code>git shortlog --merges $(git describe --abbrev=0 --tags)..HEAD
+
 </code></pre><br/>
 <p><strong>Voir les changements/ commits sur un fichier</strong></p>
 <pre><code>git log --follow -p -- full_path_mon_fichier
