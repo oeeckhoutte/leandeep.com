@@ -5,8 +5,92 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 11 Jan 2022 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 16 Jan 2022 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Aide mémoire pour printer en Rust</title>
+            <link>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</link>
+            <pubDate>Sun, 16 Jan 2022 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</guid>
+            <description>Le print simple/ courant
+println!(&amp;quot;{}, l&#39;origine&amp;quot;, 42);  Print avec des arguments positionnels
+println!(&amp;quot;Hi {0}, I am {1}. Hi {1}, I am {0}&amp;quot;, &amp;quot;John&amp;quot;, &amp;quot;Peter&amp;quot;);  Print avec des arguments nommés
+println!(&amp;quot;{argument1} {argument2} {argument3}&amp;quot;, argument2=&amp;quot;fifi&amp;quot;, argument1=&amp;quot;riri&amp;quot;, argument3=&amp;quot;loulou&amp;quot; );  Printer en alignant la variable à afficher à droite
+println!(&amp;quot;{ma_variable:&amp;gt;width$}&amp;quot;, ma_variable=&amp;quot;toto&amp;quot;, width=10);  Printer en alignant à droite et en préfixant avec des zéros
+println!(&amp;quot;{nombre:0&amp;gt;width$}&amp;quot;, nombre=100, width=6);  Printer avec une conversion automatique en binaire</description>
+            <content type="html"><![CDATA[<p><strong>Le print simple/ courant</strong></p>
+<pre><code>println!(&quot;{}, l'origine&quot;, 42);
+</code></pre><br/>
+<p><strong>Print avec des arguments positionnels</strong></p>
+<pre><code>println!(&quot;Hi {0}, I am {1}. Hi {1}, I am {0}&quot;, &quot;John&quot;, &quot;Peter&quot;);
+</code></pre><br/>
+<p><strong>Print avec des arguments nommés</strong></p>
+<pre><code>println!(&quot;{argument1} {argument2} {argument3}&quot;,
+    argument2=&quot;fifi&quot;,
+    argument1=&quot;riri&quot;,
+    argument3=&quot;loulou&quot;
+);
+</code></pre><br/>
+<p><strong>Printer en alignant la variable à afficher à droite</strong></p>
+<pre><code>println!(&quot;{ma_variable:&gt;width$}&quot;, ma_variable=&quot;toto&quot;, width=10);
+</code></pre><br/>
+<p><strong>Printer en alignant à droite et en préfixant avec des zéros</strong></p>
+<pre><code>println!(&quot;{nombre:0&gt;width$}&quot;, nombre=100, width=6);
+</code></pre><br/>
+<p><strong>Printer avec une conversion automatique en binaire</strong></p>
+<pre><code>println!(&quot;{} en binaire s'écrit {:b}&quot;, 4, 4);
+</code></pre><br/>
+<p><strong>Printer une structure</strong></p>
+<pre><code>#[derive(Debug)]
+struct Voiture {
+    modele: String,
+    marque: String
+}
+
+    
+let modele = &quot;508 GT&quot;.to_string();
+let marque = &quot;Peugeot&quot;.to_string();
+let voiture = Voiture {modele, marque};
+println!(&quot;{:?}&quot;, voiture);
+</code></pre><br/>
+<p><strong>Addition dans un print</strong></p>
+<pre><code>println!(&quot;1 + 2 = {}&quot;, 1 + 2);
+//println!(&quot;1 + 2 = {}&quot;, 1i32 + 2);
+//println!(&quot;1 + 2 = {}&quot;, 1u32 + 2);
+</code></pre><br/>
+<p><strong>Soustraction dans un print</strong></p>
+<pre><code>println!(&quot;1 - 2 = {}&quot;, 1 - 2);
+//println!(&quot;1 - 2 = {}&quot;, 1i32 - 2);
+
+// Attention aux overflows 
+println!(&quot;1 - 2 = {}&quot;, 1u32 - 2);
+                          ^^^^^^^^ attempt to compute `1_u32 - 2_u32`, which would overflow
+this arithmetic operation will overflow
+</code></pre><br/>
+<p><strong>Algèbre de Boole dans un print</strong></p>
+<pre><code>println!(&quot;vrai ET faux = {}&quot;, true &amp;&amp; false);
+println!(&quot;vrai OU faux = {}&quot;, true || false);
+println!(&quot;NON vrai = {}&quot;, !true);
+</code></pre><br/>
+<p><strong>Opérations binaires</strong></p>
+<pre><code>println!(&quot;01001 ET 00111 = {:05b}&quot;, 0b01001u32 &amp; 0b00111);
+//01001 ET 00111 = 00001
+println!(&quot;01001 OU 00111 = {:05b}&quot;, 0b01001u32 | 0b00111);
+//01001 OU 00111 = 01111
+println!(&quot;01001 XOR 00111 = {:05b}&quot;, 0b01001u32 ^ 0b00111);
+//01001 XOR 00111 = 01110
+// Décalage
+println!(&quot;1 &lt;&lt; 4 = {}&quot;, 1u32 &lt;&lt; 4);
+// 16
+println!(&quot;0x80 &gt;&gt; 1 = 0x{:x}&quot;, 0x80u32 &gt;&gt; 1);
+// 0x80 &gt;&gt; 1 = 0x40
+</code></pre><br/>
+<p><strong>Manière plus lisible d&rsquo;écrire des nombres</strong></p>
+<pre><code>println!(&quot;1 milliard peut s'écrire {}&quot;, 1_000_000_000u32);
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Aide mémoire primitives Rust</title>
