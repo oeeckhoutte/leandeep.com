@@ -152,6 +152,53 @@ fn main() {
   //Slice[0]: 0
   //Slice length: 2
 }
+</code></pre><br/>
+<p><strong>Retourner l&rsquo;élément N d&rsquo;un tuple</strong></p>
+<pre><code>let mon_tuple = (1u8, 2u16, 3u32, 4u64, 5u32, 6u16, -1i8, -2i16, -3i32, -4i64, 0.1f32, 0.2f64, false, 'a', 'b');
+println!(&quot;Premier element dans mon_tuple: {}&quot;, mon_tuple.0);
+println!(&quot;Deuxième element dans mon_tuple: {}&quot;, mon_tuple.1);
+</code></pre><br/>
+<p><strong>Un tuple dans un tuple</strong></p>
+<pre><code>let mon_tuple_dans_tuple = ((1u8, 2u16, 2u32), (3u32, 5u8), -2i16);
+println!(&quot;Print tuple dans tuples: {:?}&quot;, mon_tuple_dans_tuple);
+//Print tuple dans tuples: ((1, 2, 2), (3, 5), -2)
+println!(&quot;Premier tuple dans tuples: {:?}&quot;, mon_tuple_dans_tuple.0);
+//Premier tuple dans tuples: (1, 2, 2)
+</code></pre><blockquote>
+<p>Attention les tuples trop longs ne peuvent pas être &ldquo;printés&rdquo;</p>
+</blockquote>
+<br/>
+<p><strong>Renverser un tuple de 2 éléments/ une paire</strong></p>
+<blockquote>
+<p>Comme en Python les tuples peuvent être passés ou retournés dans les fonctions</p>
+</blockquote>
+<pre><code>fn reverse(pair: (i32, bool)) -&gt; (bool, i32) {
+    let (integer, boolean) = pair;
+    (boolean, integer)
+}
+
+let mon_tuple = (1, true);
+println!(&quot;mon_tuple = {:?}&quot;, mon_tuple);
+//mon_tuple = (1, true)
+println!(&quot;mon_tuple reversed = {:?}&quot;, reverse(mon_tuple));
+//mon_tuple reversed = (true, 1)
+</code></pre><blockquote>
+<p>Comme en Python, les tuples contenant 1 élement, s&rsquo;écrivent <code>(&quot;titi&quot;,)</code></p>
+</blockquote>
+<br/>
+<p><strong>Destructuration</strong></p>
+<pre><code>let mon_tuple = (1, &quot;titi&quot;, 0.5, true);
+let (a, b, c, d) = mon_tuple;
+println!(&quot;{:?}, {:?}, {:?}, {:?}&quot;, a, b, c, d);
+//1, &quot;titi&quot;, 0.5, true
+</code></pre><br/>
+<p><strong>Structures</strong></p>
+<pre><code>#[derive(Debug)]
+struct Matrix(f32, f32, f32, f32);
+
+let ma_matrice = Matrix(0.1, 0.2, 1.1, 2.2);
+println!(&quot;{:?}&quot;, ma_matrice);
+Matrix(0.1, 0.2, 1.1, 2.2)
 </code></pre>]]></content>
         </item>
         
