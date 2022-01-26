@@ -22800,6 +22800,10 @@ git push --tags
 <pre><code>git tag -a v1.0 d613c59
 git push origin v1.0
 </code></pre><br/>
+<p><strong>Effacer un tag local et remote</strong></p>
+<pre><code>git tag -d v1.0
+git push --delete origin v1.0
+</code></pre><br/>
 <p><strong>Lister les commits entre un tag et HEAD</strong></p>
 <pre><code>git log --pretty=oneline HEAD...v1.0
 </code></pre><blockquote>
@@ -22903,6 +22907,35 @@ $ git bisect good v4.2.0    # Identify the start of the range
 <h2 id="gitignore-global">.gitignore global</h2>
 <pre><code>touch ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
+</code></pre><br/>
+<h2 id="ajouter-un-tag-en-2s-shortcuts">Ajouter un tag en 2s (shortcuts)</h2>
+<p>Ajouter ceci au fichier <code>~/.zshrc</code></p>
+<pre><code>last_release ()
+{
+    git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
+}
+
+previous_release ()
+{
+    last_release
+}
+
+last_tag ()
+{
+    last_release
+}
+
+previous_tag ()
+{
+    last_release
+}
+
+function new_release {
+    readonly releaseversion=${1:?&quot;The release version (i.e. new_release vX.X.X) must be specified.&quot;}
+    git tag $releaseversion
+    git push origin $releaseversion
+}
+
 </code></pre><br/>
 <h2 id="workflow-pour-travailler-en-équipe">Workflow pour travailler en équipe</h2>
 <p><strong>Gitflow:</strong>
