@@ -6,7 +6,18 @@
     <description>Recent content in tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 16 Jan 2022 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jan 2022 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aide mémoire types Rust</title>
+      <link>https://leandeep.com/aide-m%C3%A9moire-types-rust/</link>
+      <pubDate>Fri, 28 Jan 2022 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/aide-m%C3%A9moire-types-rust/</guid>
+      <description>Literals Le type d&amp;rsquo;une variable peut être défini en ajoutant un suffixe derrière la valeur de la variable. Par exemple:
+let mon_test1: i32 = 12; Equivaut à let mon_test2 = 12i32; Equivaut à let mon_test3 = 12_i32; Retourner la taille d&amp;rsquo;une variable:
+println!(&amp;quot;Taille de `mon_test1` in bytes: {}&amp;quot;, std::mem::size_of_val(&amp;amp;mon_test1)); Taille de `mon_test1` in bytes: 4 // i32 -&amp;gt; 4 x 8  Casting  Il n&amp;rsquo;y a pas de coercion, c&amp;rsquo;est-à-dire de la conversion implicite, entre les types primitifs en Rust.</description>
+    </item>
+    
     <item>
       <title>Aide mémoire pour printer en Rust</title>
       <link>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</link>
@@ -105,18 +116,6 @@ Il y a pleins d&amp;rsquo;outils et d&amp;rsquo;articles sur internet expliquant
       
       <guid>https://leandeep.com/installer-rust-sur-debian/</guid>
       <description>Provisioning d&amp;rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash  Installation de Rust apt update apt install curl vim git -y curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &amp;quot;crti.o&amp;quot; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &amp;quot;Scrt1.o&amp;quot; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&amp;gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &amp;quot;libclang.</description>
-    </item>
-    
-    <item>
-      <title>Mocker un datetime .now() dans un test unitaire Python</title>
-      <link>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</link>
-      <pubDate>Tue, 23 Feb 2021 21:01:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</guid>
-      <description>La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires. En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini expected, cela peut poser problème&amp;hellip;
- Si on essaye de patcher la fonction today() ou now() comme ceci
-@mock.patch(&#39;datetime.date.today&#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
-On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.</description>
     </item>
     
   </channel>
