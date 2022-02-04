@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Instroduction Dans cet article, nous allons voir comment installer Arch Linux de A à Z.
+ Démarrage de l&amp;rsquo;installation Créer une clé usb de boot contenant l&amp;rsquo;ISO d&amp;rsquo;archlinux puis booter dessus (presser F10 généralement).
+Sur le premier menu, sélectionner Arch Linux installation medium et appuyer sur entrer.
+Vous arriverez ensuite sur un terminal zsh en mode root.
+ Configuration le clavier loadkeys fr-pc  Voilà vous êtes maintenant en AZERTY. localectl list-keymaps pour voir les différents agencements du clavier FR disponibles." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/installation-darch-linux/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Installation d&#39;Arch linux :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Installation d&#39;Arch linux">
+<meta itemprop="description" content="Instroduction Dans cet article, nous allons voir comment installer Arch Linux de A à Z.
+ Démarrage de l&rsquo;installation Créer une clé usb de boot contenant l&rsquo;ISO d&rsquo;archlinux puis booter dessus (presser F10 généralement).
+Sur le premier menu, sélectionner Arch Linux installation medium et appuyer sur entrer.
+Vous arriverez ensuite sur un terminal zsh en mode root.
+ Configuration le clavier loadkeys fr-pc  Voilà vous êtes maintenant en AZERTY. localectl list-keymaps pour voir les différents agencements du clavier FR disponibles."><meta itemprop="datePublished" content="2022-02-04T06:34:00&#43;00:00" />
+<meta itemprop="dateModified" content="2022-02-04T06:34:00&#43;00:00" />
+<meta itemprop="wordCount" content="1411"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Development,Linux,Arch," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Installation d&#39;Arch linux"/>
+<meta name="twitter:description" content="Instroduction Dans cet article, nous allons voir comment installer Arch Linux de A à Z.
+ Démarrage de l&rsquo;installation Créer une clé usb de boot contenant l&rsquo;ISO d&rsquo;archlinux puis booter dessus (presser F10 généralement).
+Sur le premier menu, sélectionner Arch Linux installation medium et appuyer sur entrer.
+Vous arriverez ensuite sur un terminal zsh en mode root.
+ Configuration le clavier loadkeys fr-pc  Voilà vous êtes maintenant en AZERTY. localectl list-keymaps pour voir les différents agencements du clavier FR disponibles."/>
+
+
+
+
+
+<meta property="article:published_time" content="2022-02-04 06:34:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/installation-darch-linux/">Installation d&rsquo;Arch linux</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="instroduction">Instroduction</h2>
+<p>Dans cet article, nous allons voir comment installer Arch Linux de A à Z.</p>
+<br/>
+<h2 id="démarrage-de-linstallation">Démarrage de l&rsquo;installation</h2>
+<p>Créer une clé usb de boot contenant l&rsquo;ISO d&rsquo;archlinux puis booter dessus (presser F10 généralement).</p>
+<p>Sur le premier menu, sélectionner <code>Arch Linux installation medium</code> et appuyer sur entrer.</p>
+<p>Vous arriverez ensuite sur un terminal <code>zsh</code> en mode <code>root</code>.</p>
+<br/>
+<h2 id="configuration-le-clavier">Configuration le clavier</h2>
+<pre><code>loadkeys fr-pc
+</code></pre><blockquote>
+<p>Voilà vous êtes maintenant en AZERTY.<br/>
+<code>localectl list-keymaps</code> pour voir les différents agencements du clavier FR disponibles.</p>
+</blockquote>
+<br/>
+<h2 id="vérification-du-mode-de-démarrage">Vérification du mode de démarrage</h2>
+<p>Si la commande suivante ne retourne pas d&rsquo;erreur, c&rsquo;est que le mode de démarrage est bien en UEFI. On est donc prêt à continuer l&rsquo;installation.</p>
+<pre><code>ls /sys/firmware/efi/efivars
+</code></pre><br/>
+<h2 id="connexion-à-internet">Connexion à internet</h2>
+<p>Voir l&rsquo;état des interfaces réseau:</p>
+<pre><code>ip link
+</code></pre><blockquote>
+<p>Si vous voulez utiliser du Wifi , vérifier que votre carte n&rsquo;est pas bloquée avec <a href="https://wiki.archlinux.org/title/Rfkill">rfkill</a><br/>
+Utiliser <a href="https://wiki.archlinux.org/title/Iwctl">iwctl</a> pour vous authentifier aux réseaux wifi.<br/>
+Utiliser <a href="https://wiki.archlinux.org/title/Mmcli">mmcli</a> pour vous connecter à un réseau mobile<br/>
+<a href="https://wiki.archlinux.org/title/DHCP">DHCP</a> devrait fonctionner sans rien faire grâce aux services <a href="https://wiki.archlinux.org/title/Systemd-networkd">systemd-networkd</a> et <a href="https://wiki.archlinux.org/title/Systemd-resolved">systemd-resolved</a><br/>
+Pour configurer une IP statique, c&rsquo;est par <a href="https://wiki.archlinux.org/title/Network_configuration#Static_IP_address">ici</a><br/>
+Tout est configuré par défaut durant la phase d&rsquo;installation d&rsquo;Archlinux. Une fois le système installé et donc sorti du mode Live OS, il faudra tout réinstaller.</p>
+</blockquote>
+<pre><code>ping google.com
+</code></pre><br/>
+<h2 id="configuration-de-lheure">Configuration de l&rsquo;heure</h2>
+<pre><code>timedatectl status
+timedatectl set-ntp true
+timedatectl status
+</code></pre><br/>
+<h1 id="partitionnement-du-disque">Partitionnement du disque</h1>
+<blockquote>
+<p>Configuration simple pour un disque SSD de 2 To.</p>
+</blockquote>
+<p>Dans un premier temps on efface tout:</p>
+<pre><code>fdisk -l
+fdisk /dev/sdX
+# Utiliser m pour obtenir de l'aide
+i (voir les infos sur les partitions)
+d (détruire les partitions une à une)
+w (save)
+fdisk -l (pour confirmer que les changements ont bien été pris en compte)
+</code></pre><br/>
+<p>Puis on recrée 3 nouvelles partitions:</p>
+<ul>
+<li>Première partition EFI</li>
+</ul>
+<pre><code>fdisk /dev/sda
+g (pour créer une table de partition vide)
+n (création d'une nouvelle partition EFI)
+1
+Enter (on n'entre pas de valeur pour le First sector)
++512M
+y (oui on veut retirer la signateur vfat précédente liée à son ancienne installation)
+t (pour changer le type de la partition)
+1 (pour EFI system)
+</code></pre><br/>
+<ul>
+<li>Deuxième partition de SWAP</li>
+</ul>
+<pre><code>n
+2
+enter
++4G
+y
+t (changer le type de la partition)
+2 (sélection de la 2e partition)
+19 (pour Linux Swap)
+</code></pre><br/>
+<ul>
+<li>Troisième partition pour ROOT</li>
+</ul>
+<pre><code>n
+3
+enter
+enter
+y
+t
+3
+23 (pour x86-64)
+</code></pre><br/>
+<p>Sauvegarder tous les changements et vérifier que tout est ok.</p>
+<pre><code>w
+fdisk --list
+</code></pre><p>Dans les Devices du disque <code>/dev/sda</code> vous devriez voir les 3 nouvelles partitions:<br/>
+<code>/dev/sda1</code>, <code>/dev/sda2</code> et <code>/dev/sda3</code></p>
+<br/>
+<h2 id="création-des-filesystems">Création des filesystems</h2>
+<p>Nous allons utiliser <code>mkfs</code> et <code>mkswap</code> pour créer les file systems sur les nouvelles partitions.</p>
+<pre><code>mkfs.vfat /dev/sda1
+mkswap /dev/sda2
+mkfs.ext4 /dev/sda3
+</code></pre><br/>
+<h2 id="installation-des-packages-arch">Installation des packages Arch</h2>
+<p>On commence par monter les partitions avant d&rsquo;installer les packages:</p>
+<pre><code>mount /dev/sda3 /mnt
+mkdir /mnt/efi
+mount /dev/sda1 /mnt/efi
+swapon /dev/sda2
+</code></pre><br/>
+<p>Installation des packages de base:</p>
+<pre><code>pacstrat /mnt base linux linux-firmware
+pacstrat /mnt dhcpcd dhclient
+</code></pre><br/>
+<h2 id="génération-du-fstab">Génération du fstab</h2>
+<pre><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+cat /mnt/etc/fstab
+</code></pre><br/>
+<h2 id="chroot-pour-se-logguer-dans-le-nouveau-système">chroot pour se logguer dans le nouveau système</h2>
+<pre><code>arch-chroot /mnt
+</code></pre><blockquote>
+<p>La commande précédente permet de quitter l&rsquo;environnement du live OS et d&rsquo;atterir dans le nouveau système fraichement installé.</p>
+</blockquote>
+<p>On peut donc maintenant utiliser <code>pacman</code> pour manager les applications (c&rsquo;est l&rsquo;équivalent de <code>apt</code> ou <code>yum</code>).</p>
+<pre><code>pacman -Syu
+# Installation de git
+pacman -Syu git nano vim
+</code></pre><br/>
+<h2 id="hostname-et-hosts">hostname et hosts</h2>
+<pre><code>echo NomDeVotreMachine &gt;&gt; /etc/hostname
+echo '127.0.0.1 NomDeVotreMachine.localdomain NomDeVotreMachine' &gt;&gt; /etc/hosts
+</code></pre><br/>
+<h2 id="gestion-du-fuseau-horaire">Gestion du fuseau horaire</h2>
+<pre><code>ls -al /etc/
+ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+ls -al /etc/
+</code></pre><br/>
+<h2 id="locale">Locale</h2>
+<p>Editer le fichier <code>/etc/locale.gen</code>, décommentez la locale <code>fr_FR.UTF-8 UTF8</code> et exécuter les commandes suivantes:</p>
+<pre><code>locale-gen
+echo LANG=&quot;fr_FR.UTF-8&quot; &gt; /etc/locale.conf
+# Pour la session courante
+export LANG=fr_FR.UTF-8
+echo KEYMAP=fr &gt; /etc/vconsole.conf
+</code></pre><br/>
+<h2 id="installation-dun-bootloader">Installation d&rsquo;un Bootloader</h2>
+<pre><code>pacman -Syu grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+</code></pre><p>Ajout d&rsquo;un microcode pour votre CPU:</p>
+<pre><code>pacman -Syu intel-ucode
+</code></pre><p>Génération du grub.cfg:</p>
+<pre><code>grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre><br/>
+<h2 id="création-dun-nouvel-utilisateur-et-blocage-du-compte-root">Création d&rsquo;un nouvel utilisateur et blocage du compte root</h2>
+<p>Création du nouvel utilisateur ayant accès root:</p>
+<pre><code>pacman -Syu sudo
+useradd --create-home olivier
+passwd olivier
+</code></pre><br/>
+<p>Blocage du compte root initialement créé par défaut:</p>
+<p>Modifier le fichier <code>/etc/sudoers</code> et donner les droits et remplacer la ligne <code>root ALL=(ALL) ALL</code> par <code>olivier ALL=(ALL) ALL</code></p>
+<br/>
+<p>Exécuter ensuite les commandes suivantes:</p>
+<pre><code># Effacer le mot de passe root
+passwd --delete root
+# Locker le compte root
+passwd --lock root
+</code></pre><p>Enfin editer le fichier <code>/etc/passwd</code> et remplacer la ligne <code>root❌0:0::/root:/bin/bash</code> par <code>root❌0:0::/:/usr/bin/nologin</code></p>
+<blockquote>
+<p>A noter que dans les lignes précédentes, <code>❌</code> équivaut à <code>: x :</code> sans espace. (Blog engine auto conversion&hellip;)</p>
+</blockquote>
+<br/>
+<h2 id="first-boot">First boot</h2>
+<pre><code>exit
+shutdown -r now
+</code></pre><p>C&rsquo;est maintenant qu&rsquo;on croise les doigts ahahah.</p>
+<br/>
+<p>Passage du clavier en fr dans la session courante:</p>
+<pre><code>sudo loadkeys fr-pc
+</code></pre><p>Pour rendre la keymap persistente, editer le fichier <code>/etc/vconsole.conf</code> et ajouter la ligne suivante:</p>
+<pre><code>KEYMAP=fr
+</code></pre><br/>
+<p>Configuration réseau:</p>
+<ul>
+<li>Récupérer le nom de vos interfaces réseau:</li>
+</ul>
+<pre><code>ip link
+# Dans mon cas:
+eno1 et wlp58s0
+</code></pre><br/>
+<ul>
+<li>Editer le fichier <code>sudo vim /etc/systemd/network/10-wire-wireless.network</code> et ajouter la config suivante:</li>
+</ul>
+<pre><code>[Match]
+Name=eno1 wlp58s0
+[Network]
+DHCP=yes
+LLMNR=yes
+MulticastDNS=yes
+DNSSEC=yes
+DNSOverTLS=yes
+DNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
+FallbackDNS=8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844
+[DHCP]
+UseDNS=no
+</code></pre><blockquote>
+<p><code>DHCP=yes</code> pour que l&rsquo;assignement d&rsquo;une adresse IP se fasse automatiquement
+<a href="https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution">LLMNR</a>
+<a href="https://en.wikipedia.org/wiki/Multicast_DNS">MDNS</a>
+<a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">DNSSEC</a>
+<a href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNSOverTLS</a>
+<code>UseDNS=NO</code> pour ne pas utiliser le DNS de ma freebox</p>
+</blockquote>
+<br/>
+<ul>
+<li>Editer maintenant le fichier <code>sudo vim /etc/systemd/resolved.conf</code>. C&rsquo;est requis par Arch car nous avons créé un fichier <code>*.network</code> juste au dessus. Voici le contenu à insérer dans notre second fichier:</li>
+</ul>
+<pre><code>[Resolve]
+DNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
+FallbackDNS=8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844
+LLMNR=yes
+MulticastDNS=yes
+DNSSEC=yes
+DNSOverTLS=yes
+</code></pre><br/>
+<ul>
+<li>Créer le symlink suivant:</li>
+</ul>
+<pre><code>sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+</code></pre><blockquote>
+<p>Grâce à cela, toutes les applications vont appeler <code>127.0.0.53:53</code> pour le DNS. Le service <code>resolved</code> va à son tour contacter les DNS spécifier dans notre fichier <code>/etc/systemd/network/10-wire-wireless.network</code> et utiliser DNSSEC et DNS-over-TLS pour résoudre les noms de domaines.</p>
+</blockquote>
+<br/>
+<ul>
+<li>Activation des services:</li>
+</ul>
+<pre><code>sudo systemctl enable --now systemd-networkd
+sudo systemctl enable --now systemd.resolved
+ping google.com
+</code></pre><br/>
+<h2 id="backup-installation-sur-périphérique-externe">Backup installation sur périphérique externe</h2>
+<p>Voilà, on vient de passer presque 1h à installer notre système sous Arch. Avant d&rsquo;aller plus loin, on va réutiliser la clé USB qui nous a permis d&rsquo;installer l&rsquo;ISO Arch pour faire un backup. On va la formater et tout backuper.</p>
+<ul>
+<li>Formatage de la clé:</li>
+</ul>
+<pre><code>sudo fdisk -l
+sudo umount /dev/sdb1
+sudo umount /dev/sdb2
+sudo fdisk /dev/sdb
+d
+1
+d
+2
+w
+sudo fdisk /dev/sdb
+g
+n
+1
+enter
+enter
+w
+sudo mkfs.ext4 /dev/sdb1
+</code></pre><br/>
+<ul>
+<li>Backup:</li>
+</ul>
+<pre><code>mkdir /mnt/usbstick
+sudo mount /dev/sdb1 /mnt/usbstick
+sudo pacman -Syu rsync
+sudo rsync -aAXv --delete --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=&quot;swapfile&quot; --exclude=&quot;lost+found&quot; --exclude=&quot;.cache&quot; --exclude=&quot;Downloads&quot; --exclude=&quot;.VirtualBoxVMs&quot;--exclude=&quot;.ecryptfs&quot; / /mnt/usbstick/
+</code></pre><blockquote>
+<p>Restauration:
+Boot sur Live ISO puis:<br/>
+<code>mkdir /mnt/system /mnt/usb</code> puis <code>lsblk</code> ou <code>fsdisk -l</code> pour voir le nom des devices connectés.<br/>
+Monter le file system et le backup: <code>mount /dev/sda1 /mnt/system</code> et <code>mount /dev/sdb1 /mnt/usb</code> <br/>
+Enfin, restaurer: <code>rsync -aAXv --delete --exclude=&quot;lost+found&quot; /mnt/usb/ /mnt/system/</code></p>
+</blockquote>
+<br/>
+<h2 id="xorg">Xorg</h2>
+<p>Déterminer le pilote graphique à utiliser:</p>
+<pre><code>lspci -v | grep -A1 -e VGA -e 3D
+</code></pre><p>Suivant la marque, il faudra utiliser un package adapté. <a href="https://wiki.archlinux.org/title/Xorg">Voici la liste</a> des packages à disposition.</p>
+<p>Dans mon cas, ayant une carte Intel, je vais installer le package <code>xf86-video-intel</code> puis j&rsquo;installe le package xorg group via la commande: <code>sudo pacman -Syu xorg</code>.</p>
+<br/>
+<p>Je vérifie l&rsquo;installation avec <code>sudo Xorg -version</code>.</p>
+<br/>
+<h2 id="desktop-environment">Desktop environment</h2>
+<p>On va maintenant installer Gnome.</p>
+<pre><code>sudo pacman -Syu gnome gnome-extra xorg-xinit
+</code></pre><p>On va ensuite configurer le système pour que la commande <code>startx</code> démarre une session gnome. Pour se faire, on va créer un fichier <code>sudo vim ~/.xinitrc</code> et on va ajouter la ligne suivante: <code>exec gnome-session</code>.</p>
+<p>On redémarre et vérifie que tout fonctionne bien. Exécuter <code>startx</code> après s&rsquo;être authentifié.</p>
+<br/>
+<h2 id="keyring-fix">Keyring fix</h2>
+<pre><code>sudo passwd
+</code></pre><br/>
+<h2 id="bluetooth">Bluetooth</h2>
+<pre><code>pacman -Syu bluez bluez-utils
+systemctl enable bluetooth.service
+systemctl start bluetooth.service
+
+</code></pre><br/>
+<h2 id="wifi">Wifi</h2>
+<pre><code>sudo pacman -Syu networkmanager
+sudo systemctl enable NetworkManager.service
+sudo systemctl start NetworkManager.service
+</code></pre><br/>
+<h2 id="utilitaires">Utilitaires</h2>
+<ul>
+<li>Via pacman</li>
+</ul>
+<pre><code>vlc base-devel firefox 
+</code></pre><ul>
+<li>Snapd:</li>
+</ul>
+<pre><code>git clone https://aur.archlinux.org/snapd.git
+cd snapd
+makepkg -si
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+reboot
+snap --version
+</code></pre><ul>
+<li>Spotify:</li>
+</ul>
+<pre><code>snap install spotify
+</code></pre><ul>
+<li>Paru:</li>
+</ul>
+<pre><code>git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+</code></pre><ul>
+<li>VS Code:</li>
+</ul>
+<pre><code>git clone https://aur.archlinux.org/visual-studio-code-bin.git
+cd visual-studio-code-bin
+makepkg -si
+</code></pre><br/>
+<h2 id="openssh">Openssh</h2>
+<pre><code>sudo pacman -Syu openssh
+ip address
+sudo systemctl enable sshd.service
+sudo systemctl start sshd.service
+</code></pre><br/>
+<h2 id="x2go">x2go</h2>
+<pre><code>sudo pacman -Syu x2goserver
+sudo x2godbadmin --createdb
+sudo systemctl enable x2goserver.service
+sudo systemctl start x2goserver.service
+</code></pre><blockquote>
+<p>Pour pouvoir utiliser x2go on va installer un second desktop env plus léger et sans bug.</p>
+</blockquote>
+<pre><code>sudo pacman -Syu xfce4 xfce4-goodies
+</code></pre><br/>
+<p>Option pour pouvoir démarrer un server X au choix:</p>
+<ul>
+<li>Editer le fichier <code>sudo vim ~/.xinitrc</code> et ajouter le contenu suivant:</li>
+</ul>
+<pre><code># Here Gnome is kept as default
+session=${1:-gnome}
+
+case $session in
+    gnome             ) exec gnome-session;;
+    xfce|xfce4        ) exec startxfce4;;
+    # No known session, try to run it as command
+    *                 ) exec $1;;
+esac
+</code></pre><br/>
+<ul>
+<li>Démarrage d&rsquo;un Desktop environment au choix via l&rsquo;une des deux commandes suivantes:</li>
+</ul>
+<pre><code>xinit xfce
+xinit gnome
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/development">Development</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/arch">Arch</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1411 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>04 Feb. 2022</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/aide-m%C3%A9moire-types-rust/">
+                                <span class="button__text">Aide mémoire types Rust</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    class App extends React.Component {
+        constructor(options) {
+            console.log("data")
+            console.log(options.data)
+            super();
+            this.state = {
+                data: options.data,
+
+                appName: 'Search Bar (Algolia replacement under dev with React)',
+                list: undefined
+            };
+
+        }
+        searchData(e) {
+            var queryData = [];
+            if (e.target.value != '') {
+                this.state.data.forEach(function (person) {
+
+                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
+                        if (queryData.length < 10) {
+                            queryData.push(person);
+                        }
+                    }
+                });
+            }
+            this.setState({ list: queryData });
+        }
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement(Header, { name: this.state.appName }),  
+                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
+                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
+
+
+        }
+    }
+
+
+    class Header extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("h1", null, this.props.name)));
+
+
+        }
+    }
+
+
+    class SearchBar extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
+
+
+        }
+    }
+
+
+    class SearchResult extends React.Component {
+
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("ul", null,
+                        this.props.data.map(function (value) {
+                            return  React.createElement(Item, { key: value, val: value });
+                        }))));
+
+
+
+
+        }
+    }
+
+
+
+    class Item extends React.Component {
+        render() {
+            return  (
+                React.createElement("li", null,
+                    this.props.val));
+
+
+        }
+    }
+
+
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log(event.data.msg, event.data.url, event.data.files);
+        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
+    });
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: '.'
+    }).then(function (registration) {
+        console.log('The service worker has been registered ', registration);
+    });
+    
+
+    
+    setTimeout(function () {
+        console.log("unregister sws")
+        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
+    }, 10000);
+
+
+
+
+</script>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
