@@ -5,8 +5,130 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 04 Feb 2022 06:34:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 12 Feb 2022 19:02:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Développer sur iPad</title>
+            <link>https://leandeep.com/d%C3%A9velopper-sur-ipad/</link>
+            <pubDate>Sat, 12 Feb 2022 19:02:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/d%C3%A9velopper-sur-ipad/</guid>
+            <description>Je ne rentrerais pas dans les détails de ce que je pense d&amp;rsquo;Apple et ses techniques Marketing douteuses pour pousser ses clients à la (sur)consommation. Je peux néanmoins toujours pas me passer du Macbook Pro et d&amp;rsquo;un iPad pour la qualité du matériel et surtout pour OSX et son interopérabilité avec les logiciels Enterprise de l&amp;rsquo;écosystème Microsoft (Office, Teams, etc). J&amp;rsquo;aurais préféré un Linux mais on est très loin du niveau d&amp;rsquo;OSX.</description>
+            <content type="html"><![CDATA[<p>Je ne rentrerais pas dans les détails de ce que je pense d&rsquo;Apple et ses techniques Marketing douteuses pour pousser ses clients à la (sur)consommation. Je peux néanmoins toujours pas me passer du Macbook Pro et d&rsquo;un iPad pour la qualité du matériel et surtout pour OSX et son interopérabilité avec les logiciels Enterprise de l&rsquo;écosystème Microsoft (Office, Teams, etc). J&rsquo;aurais préféré un Linux mais on est très loin du niveau d&rsquo;OSX.</p>
+<p>L&rsquo;iPhone, par contre, je le trouve beaucoup trop cher pour que c&rsquo;est. Et surtout iOS est totalement limité et en dessous d&rsquo;Android.</p>
+<p>Lorsque je voyage pour le tourisme, je n&rsquo;ai pas forcément envi de transporter mon précieux Macbook Pro. Transporter uniquement un iPad pourrait être une bonne solution mais il est limité. Il n&rsquo;y a pas de terminal, pas d&rsquo;IDE; bref pour mon travail c&rsquo;est totalement limitant. Un smartphone Android est presque une meilleure alternative car son système est ouvert mais il faut transporter un clavier bluetooth, une souris, un câble HDMI et espérer qu&rsquo;il y aura une télévision pas trop ancienne là où vous vous rendez. Si vous voyagez en Europe de l&rsquo;Ouest cela devrait aller mais si vous partez ailleurs&hellip; Certaines personnes parlent d&rsquo;IDE (github.dev) ou de VM dans le Cloud mais de la même manière, si vous partez dans un pays pauvre ou sous développé vous n&rsquo;aurez pas forcément accès à la 3G/4G ou à du Wifi.</p>
+<p>Ma solution à ce problème consiste à utiliser la combinaison iPad + Logitech Folio Touch + mon Smartphone Android. Je me sers de l&rsquo;iPad comme écran principalement, du clavier/ trackpad pour coder et je le connecte en remote à mon Smartphone Android (un Linux). Depuis mon Smartphone, je crée un hotspot et j&rsquo;installe un Ubuntu + Code server et je connecte mon iPad dessus. Avec cette solution, je n&rsquo;ai pas besoin d&rsquo;internet et je peux avoir tous les outils que je souhaite sans limitation.</p>
+<br/>
+<h1 id="installation">Installation</h1>
+<p>Sur Android, installer Userland et télécharger un Ubuntu.</p>
+<p>Démarrer ensuite un hotspot et connectez y votre iPad en wifi.</p>
+<p>Sur l&rsquo;Ubuntu nouvellement démarré sur Android, exécuter les commandes suivantes:</p>
+<pre><code>sudo apt update
+sudo apt upgrade -y
+sudo apt install vim git wget net-tools -y
+# Récupérer l'adresse IP de votre smartphone
+ifconfig 
+wget https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-linux-arm64.tar.gz
+tar -xvf ./code-server-3.12.0-linux-arm64.tar.gz
+cd code-server-3.12.0-linux-arm64/bin
+export PASSWORD=&quot;password&quot;
+./code-server
+ctrl+c
+</code></pre><p>Editer le fichier <code>~/.config/code-server/config.yaml</code> et spécifier <code>0.0.0.0</code> comme bind address à la place de <code>127.0.0.1</code>.</p>
+<p><br/>
+Pour avoir de l'<a href="https://10.157.254.22:443">HTTPS</a> sur votre instance code-server, exécutez les commandes suivantes:</p>
+<pre><code># Replaces &quot;cert: false&quot; with &quot;cert: true&quot; in the code-server config.
+sed -i.bak 's/cert: false/cert: true/' ~/.config/code-server/config.yaml
+# Replaces &quot;bind-addr: 0.0.0.0:8080&quot; with &quot;bind-addr: 0.0.0.0:443&quot; in the code-server config.
+sed -i.bak 's/bind-addr: 0.0.0.0:8080/bind-addr: 0.0.0.0:443/' ~/.config/code-server/config.yaml
+# Allows code-server to listen on port 443.
+sudo apt install -y libcap2-bin
+sudo setcap cap_net_bind_service=+ep /home/olivier/code-server-3.10.2-linux-arm64/lib/node
+./code-server
+</code></pre><p>Relancer ensuite code-server.</p>
+<br/>
+<h2 id="test">Test</h2>
+<p>Sur votre iPad, ouvrez une nouvelle fenêtre Safari et rendez-vous à l&rsquo;adresse sur laquelle tourne code-server. Pour ma part, il s&rsquo;agit de l&rsquo;adresse <a href="https://10.157.254.22:2443">https://10.157.254.22:2443</a>.</p>
+<p>Pour accéder au terminal de votre Ubuntu installé sur votre smartphone depuis votre iPad, installez l&rsquo;app WebSSH. Le port SSH d&rsquo;Ubuntu sur Userland est le <code>2022</code>.</p>
+<blockquote>
+<p>Installer une app de type &ldquo;Keep Screen On&rdquo; sur votre Android pour éviter que UserLand ne se stoppe.</p>
+</blockquote>
+<br/>
+<h2 id="création-dun-service">Création d&rsquo;un service</h2>
+<blockquote>
+<p>systemd error: <code>System has not been booted with systemd as init system (PID 1). Can't operate. Failed to connect to bus: Host is down</code></p>
+</blockquote>
+<p>Systemd n&rsquo;est pas accessible donc créer un fichier dans <code>/etc/init.d/code</code>:</p>
+<pre><code>#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          code-server
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: code-server
+# Description:       Init script for coder-server. Edit
+#                    ~/.config/code-server/config.yaml to configure the server.
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/home/olivier/coder/bin/code-server
+NAME=code-server
+DESC=&quot;Code-server app&quot;
+
+NO_START=0
+
+set -e
+
+. /lib/lsb/init-functions
+
+cancel() { echo &quot;$1&quot; &gt;&amp;2; exit 0; };
+test -x &quot;$DAEMON&quot; || cancel &quot;$DAEMON does not exist or is not executable.&quot;
+test ! -x /usr/sbin/update-service || ! update-service --check code-server ||
+  cancel 'The code-server service is controlled through runit, use the sv(8) program'
+
+case &quot;$1&quot; in
+  start)
+	test &quot;$NO_START&quot; = &quot;0&quot; || cancel &quot;Starting $DESC: [abort] NO_START is not set to zero in $DEFAULTCFG&quot;
+  export PASSWORD=&quot;motdepassecodeserver&quot;
+	echo -n &quot;Starting $DESC: &quot;
+	start-stop-daemon --start --quiet --make-pidfile --pidfile /var/run/&quot;$NAME&quot;.pid \
+	  --exec &quot;$DAEMON&quot; --retry 60 --background
+	echo &quot;--&gt; $NAME.&quot;
+	;;
+  stop)
+	echo -n &quot;Stopping $DESC: &quot;
+	start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/&quot;$NAME&quot;.pid
+	rm /var/run/&quot;$NAME&quot;.pid
+	echo &quot;--&gt; $NAME.&quot;
+	;;
+  restart|force-reload)
+	test &quot;$NO_START&quot; = &quot;0&quot; || cancel &quot;Restarting $DESC: [abort] NO_START is not set to zero in $DEFAULTCFG&quot;
+	echo -n &quot;Restarting $DESC: &quot;
+	start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/&quot;$NAME&quot;.pid
+	rm /var/run/&quot;$NAME&quot;.pid
+	sleep 2
+	start-stop-daemon --start --quiet --make-pidfile --pidfile /var/run/&quot;$NAME&quot;.pid \
+          --exec &quot;$DAEMON&quot; --retry 60 --background
+	echo &quot;--&gt; $NAME.&quot;
+	;;
+  status)
+		status_of_proc -p /var/run/&quot;$NAME&quot;.pid $DAEMON $NAME &amp;&amp; exit 0 || exit $?
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo &quot;Usage: $N {start|stop|status|restart|force-reload}&quot; &gt;&amp;2
+	exit 1
+	;;
+esac
+
+exit 0
+
+</code></pre><p>Puis démarrer le service <code>/etc/init.d/code start</code></p>
+<p>Lister les services: <code>service --status-all</code></p>
+<p>Voir si le pid file a bien été créé: <code>ls /var/run</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>Installation d&#39;Arch linux</title>
@@ -16158,10 +16280,10 @@ Tant que ces personnes n&rsquo;auront pas à leur tour monté le dossier de Drop
             <pubDate>Thu, 01 Nov 2018 19:02:00 +0000</pubDate>
             
             <guid>https://leandeep.com/%C3%AAtre-notifi%C3%A9-lorsquun-long-traitement-est-termin%C3%A9/</guid>
-            <description>Personnellement je trouve cela inutile de rester à rien faire derrière mon écran en attendant qu&amp;rsquo;un long traitement (entrainement Machine Learning, installation d&amp;rsquo;un Cluster&amp;hellip;) se termine. Du coup, je passe à autre en attendant. Pour éviter de devoir sans cesse basculer d&amp;rsquo;une fenêtre à une autre, j&amp;rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.
+            <description>Personnellement je trouve cela inutile de rester derrière mon écran à ne rien faire en attendant qu&amp;rsquo;un traitement long (entrainement Machine Learning, installation d&amp;rsquo;un Cluster&amp;hellip;) se termine. Du coup, je passe à autre chose en attendant. Pour éviter de devoir sans cesse basculer d&amp;rsquo;une fenêtre à une autre, j&amp;rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.
 Pour ce faire j&amp;rsquo;ai juste à executer la commande suivante derrière la commande qui exécutera un long process  &amp;amp;&amp;amp; warnov.</description>
-            <content type="html"><![CDATA[<p>Personnellement je trouve cela inutile de rester à rien faire derrière mon écran en attendant qu&rsquo;un long traitement (entrainement Machine Learning, installation d&rsquo;un Cluster&hellip;) se termine.
-Du coup, je passe à autre en attendant. Pour éviter de devoir sans cesse basculer d&rsquo;une fenêtre à une autre, j&rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.</p>
+            <content type="html"><![CDATA[<p>Personnellement je trouve cela inutile de rester derrière mon écran à ne rien faire en attendant qu&rsquo;un traitement long (entrainement Machine Learning, installation d&rsquo;un Cluster&hellip;) se termine.
+Du coup, je passe à autre chose en attendant. Pour éviter de devoir sans cesse basculer d&rsquo;une fenêtre à une autre, j&rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.</p>
 <p>Pour ce faire j&rsquo;ai juste à executer la commande suivante derrière la commande qui exécutera un long process <code> &amp;&amp; warnov</code>. (Je n&rsquo;ai pas cherché longtemps pour le nom de ma commande: warnov pour &ldquo;<strong>warn</strong> when it is <strong>over</strong>&rdquo;.</p>
 <p>C&rsquo;est simple et cela fonctionne très bien sur OSX.
 J&rsquo;utilise les notifications système via l&rsquo;alias suivant dans mon <code>~/zshrc</code>.</p>
@@ -16171,7 +16293,7 @@ function _sys_notify() {
     osascript -e &quot;$notification_command&quot;
 }
 alias warnov=&quot;_sys_notify 'Done' 'The long running process is over'&quot;
-</code></pre><p>Après un source <code>~/.zshrc</code> essayez un <code>echo 'toto' &amp;&amp; warnov</code>.</p>
+</code></pre><p>Après un <code>source ~/.zshrc</code> essayez un <code>echo 'toto' &amp;&amp; warnov</code>.</p>
 ]]></content>
         </item>
         
@@ -23462,6 +23584,11 @@ last_tag ()
 previous_tag ()
 {
     last_release
+}
+
+last_branches ()
+{
+    git branch --sort=-committerdate
 }
 
 function new_release {
