@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Python 1. Variables dans des strings name = &#39;olivier&#39; value = f&#34;&#34;&#34;Hello, {name}! Welcome!&#34;&#34;&#34; price = 7.5 print(f&#34;Prix: {price:.2f} €&#34;) # Prix: 7.50 €   2. Iterator for item in [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]: print(item)    3. Sets mon_set = set([&#39;titi&#39;]) mon_set.add(&#39;tata&#39;) mon_set.add(&#39;toto&#39;) &#39;titi&#39; in mon_set len(mon_set) == 3 for elem in mon_set: print(elem) mon_set.remove(&#39;C&#39;)   4. Generators def countdown(counter): while counter  0: yield counter counter -= 1 for counter in countdown(10): print(counter)    5." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/es6-pour-d%C3%A9veloppeurs-python/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  ES6 pour développeurs Python :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="ES6 pour développeurs Python">
+<meta itemprop="description" content="Python 1. Variables dans des strings name = &#39;olivier&#39; value = f&#34;&#34;&#34;Hello, {name}! Welcome!&#34;&#34;&#34; price = 7.5 print(f&#34;Prix: {price:.2f} €&#34;) # Prix: 7.50 €   2. Iterator for item in [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]: print(item)    3. Sets mon_set = set([&#39;titi&#39;]) mon_set.add(&#39;tata&#39;) mon_set.add(&#39;toto&#39;) &#39;titi&#39; in mon_set len(mon_set) == 3 for elem in mon_set: print(elem) mon_set.remove(&#39;C&#39;)   4. Generators def countdown(counter): while counter  0: yield counter counter -= 1 for counter in countdown(10): print(counter)    5."><meta itemprop="datePublished" content="2022-02-16T07:49:00&#43;02:00" />
+<meta itemprop="dateModified" content="2022-02-16T07:49:00&#43;02:00" />
+<meta itemprop="wordCount" content="1230"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="ES6," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="ES6 pour développeurs Python"/>
+<meta name="twitter:description" content="Python 1. Variables dans des strings name = &#39;olivier&#39; value = f&#34;&#34;&#34;Hello, {name}! Welcome!&#34;&#34;&#34; price = 7.5 print(f&#34;Prix: {price:.2f} €&#34;) # Prix: 7.50 €   2. Iterator for item in [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]: print(item)    3. Sets mon_set = set([&#39;titi&#39;]) mon_set.add(&#39;tata&#39;) mon_set.add(&#39;toto&#39;) &#39;titi&#39; in mon_set len(mon_set) == 3 for elem in mon_set: print(elem) mon_set.remove(&#39;C&#39;)   4. Generators def countdown(counter): while counter  0: yield counter counter -= 1 for counter in countdown(10): print(counter)    5."/>
+
+
+
+
+
+<meta property="article:published_time" content="2022-02-16 07:49:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/es6-pour-d%C3%A9veloppeurs-python/">ES6 pour développeurs Python</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                
+
+<div style="width: 100%; float: left; position: relative;">
+  
+  <div style="float: left; width: 49%;">
+    <div style="width:100%; text-align: center;"><b><u>Python</u></b></div>
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>1. Variables dans des strings</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>name = 'olivier'
+
+value = f"""Hello, {name}!
+Welcome!"""
+
+price = 7.5
+print(f"Prix: {price:.2f} €")
+# Prix: 7.50 €</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>2. Iterator</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>for item in ['A', 'B', 'C']: 
+  print(item)
+  </code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>3. Sets</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>mon_set = set(['titi']) 
+mon_set.add('tata')
+mon_set.add('toto')
+'titi' in mon_set
+len(mon_set) == 3
+for elem in mon_set:
+  print(elem) 
+mon_set.remove('C')</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>4. Generators</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>def countdown(counter):
+ while counter > 0:
+  yield counter
+  counter -= 1
+
+
+for counter in countdown(10):
+ print(counter)
+ </code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>5. Unpacking</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>a = 1
+b = 2
+a, b = b, a
+first, second, *the_rest = [1, 2, 3, 4]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>6. Lambda functions</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>sum = lambda x, y: x + y 
+square = lambda x: x ** 2</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>7. Function arguments</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>from pprint import pprint
+
+def create_post(**options):
+  pprint(options)
+
+def report(post_id, reason='not-relevant'):
+  pprint({'post_id': post_id, 'reason': reason}) 
+
+def add_tags(post_id, *tags):
+  pprint({'post_id': post_id, 'tags': tags})
+
+
+create_post(title='Hello, World!', content='') 
+report(42)
+report(post_id=24, reason='spam')
+add_tags(42, 'python', 'javascript', 'django')</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>8. Classes et héritage</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>class Post:
+ def __init__(self, id, title):
+  self.id = id
+  self.title = title
+
+ def __str__(self):
+  return self.title
+
+class Article(Post):
+ def __init__(self, id, title, content):
+   super(Article, self).__init__(id, title)
+   self.content = content
+
+class Link(Post):
+ def __init__(self, id, title, url):
+  super(Link, self).__init__(id, title)
+  self.url = url
+
+ def __str__(self):
+  return '{} ({})'.format(
+    super(Link, self).__str__(),
+    self.url,
+  )
+
+article = Article(1, 'Hello, World!',
+ 'This is my first article.'
+)
+
+link = Link(2, 'The Example', 'http://example.com')
+# isinstance(article, Post) == True
+# isinstance(link, Post) == True
+print(link)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>9. Class properties</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>class Post(object):
+ def __init__(self, id, title):
+  self.id = id
+  self.title = title
+  self._slug = ''
+
+ @property
+ def slug(self):
+  return self._slug
+
+ @slug.setter
+ def slug(self, value):
+  self._slug = value
+
+
+
+post = Post(1, 'Hello, World!')
+post.slug = 'hello-world'
+print(post.slug)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>10. Liste - tous les éléments vrais</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [1, 2, 3]
+all_truthy = all(items)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>11. Liste - au moins un élément vrai</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [0, 1, 2, 3]
+some_truthy = any(items)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>12. Liste - itérer sur tous les éléments</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = ['a', 'b', 'c', 'd']
+
+for index, element in enumerate(items):
+ print(f'{index}: {element};')</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>13. Liste - Map</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [0, 1, 2, 3]
+all_doubled = list(
+ map(lambda x: 2 * x, items)
+)
+# [0, 2, 4, 6]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>14. Liste - Filtrer les éléments avec une fonction</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [0, 1, 2, 3]
+only_even = list(
+ filter(lambda x: x % 2 == 0, items)
+)
+# [0, 2]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>15. Liste - Reduce avec une fonction</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>from functools import reduce
+
+items = [1, 2, 3, 4]
+total = reduce(
+    lambda total, current: total + current,
+items, )
+# 10</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>16. Fusionner des dicts</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>d1 = {'a': 'A', 'b': 'B'}
+d2 = {'a': 'AAA', 'c': 'CCC'}
+merged = {**d1, **d2} # since Python 3.5
+# {'a': 'AAA', 'b': 'B', 'c': 'CCC'}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>17. Parse int</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>number = int(text)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>18. One liner/ Opérateur ternaire</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>value = 'ADULT' if age >= 18 else 'CHILD'</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>19. Object attribute</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>attribute = 'color'
+value = getattr(obj, attribute, 'GREEN') 
+setattr(obj, attribute, value)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>20. Dictionnaire value by key</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>key = 'color'
+value = dictionary.get(key, 'GREEN')
+dictionary[key] = value</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>21. Slice</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [1, 2, 3, 4, 5]
+first_two = items[:2] 
+# [1, 2]
+last_two = items[-2:]
+# [4, 5] 
+middle_three = items[1:4]
+# [2, 3, 4]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>22. Opération sur les listes</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items1 = ['A']
+items2 = ['B']
+items = items1 + items2 
+items.append('C') 
+items.insert(0, 'D') 
+first = items.pop(0) 
+last = items.pop() 
+items.delete(0)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>23. Joining lists of strings</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = ['A', 'B', 'C']
+text = ', '.join(items) # 'A, B, C'</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>24. JSON</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>import json
+json_data = json.dumps(dictionary, indent=4) 
+dictionary = json.loads(json_data)</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>25. Error handling</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>class CustomException(Exception): 
+  def __init__(self, message):
+    self.message = message 
+  
+  def __str__(self):
+    return self.message 
+
+def proceed():
+  raise CustomException('Error happened!')
+
+try: 
+  proceed()
+except CustomException as err: 
+  print(f'Sorry! {err}')
+finally: 
+  print('Finishing')
+  
+  </code>
+</pre>
+    </div>
+    <!-- -->
+
+
+  </div>
+
+  <!-- -->
+  <!-- -->
+  <!-- -->
+
+  <div style="float: right; width: 49%;">
+    <div style="width:100%; text-align: center;"><b><u>ES6</u></b></div>
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>1. Variables dans des strings</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>name = 'olivier';
+
+value = `Hello, ${name}!
+Welcome!`;
+
+price = 7.5;
+console.log(`Prix ${price.toFixed(2)} €`);
+// 'Price: 7.50 </code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>2. Iterator</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>for (let item of ['A', 'B', 'C']) { 
+  console.log(item);
+}</code>
+</pre>
+    </div>
+      <!-- -->
+      <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>3. Sets</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>mon_set = new Set(['titi']);
+mon_set.add('tata').add('toto');
+mon_set.has('titi') === true;
+mon_set.size === 3;
+for (let elem of mon_set.values()) {
+  console.log(elem);
+} 
+mon_set.delete('C');</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>4. Generators</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>function* countdown(counter) {
+ while (counter > 0) {
+  yield counter;
+  counter--;
+ }
+}
+for (let counter of countdown(10)) {
+ console.log(counter);
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>5. Unpacking</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>a = 1;
+b = 2;
+[a, b] = [b, a];
+[first, second, ...the_rest] = [1, 2, 3, 4];</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>6. Lambda functions</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>sum = (x, y) => x + y;
+square = x => Math.pow(x, 2);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>7. Function arguments</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>function create_post(options) {
+  console.log(options); 
+}
+
+function report(post_id, reason='not-relevant') { 
+  console.log({post_id: post_id, reason: reason});
+}
+
+function add_tags(post_id, ...tags) { 
+  console.log({post_id: post_id, tags: tags});
+}
+
+create_post({title: 'Hello, World!', content': ''}); 
+report(42);
+report(post_id=24, reason='spam');
+add_tags(42, 'python', 'javascript', 'django');</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>8. Classes et héritage</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>class Post {
+ constructor (id, title) {
+  this.id = id;
+  this.title = title;
+ }
+ toString() {
+  return this.title;
+ }
+}
+
+class Article extends Post {
+ constructor (id, title, content) {
+   super(id, title);
+   this.content = content;
+ }
+}
+
+class Link extends Post {
+ constructor (id, title, url) {
+  super(id, title);
+  this.url = url;
+ }
+ toString() {
+  return super.toString() + ' (' + this.url + ')';
+ }
+}
+article = new Article(1, 'Hello, World!',
+ 'This is my first article.'
+);
+link = new Link(2, 'The Example', 'http://example.com');
+// article instanceof Post === true
+// link instanceof Post === true</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>9. Class properties</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>class Post {
+ constructor (id, title) {
+  this.id = id;
+  this.title = title;
+  this._slug = '';
+ }
+
+ set slug(value) {
+  this._slug = value;
+ }
+
+ get slug() {
+  return this._slug;
+ }
+}
+
+post = new Post(1, 'Hello, World!');
+post.slug = 'hello-world';
+console.log(post.slug);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>10. Liste - tous les éléments vrais</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [1, 2, 3];
+all_truthy = items.every(Boolean);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>11. Liste - au moins un élément vrai</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [0, 1, 2, 3];
+some_truthy = items.some(Boolean);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>12. Liste - itérer sur tous les éléments</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = ['a', 'b', 'c', 'd'];
+items.forEach(function(element, index) {
+ console.log(`${index}: ${element};`);
+});</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>13. Liste - Map</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [0, 1, 2, 3];
+all_doubled = items.map(
+ x => 2 * x
+);
+// [0, 2, 4, 6]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>14. Liste - Filtrer les éléments avec une fonction</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [0, 1, 2, 3];
+only_even = items.filter(
+ x => x % 2 === 0
+);
+// [0, 2]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>15. Liste - Reduce avec une fonction</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [1, 2, 3, 4];
+
+total = items.reduce(
+ (total, current) => total + current
+);
+
+// 10</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>16. Fusionner des dicts</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>d1 = {a: 'A', b: 'B'}
+d2 = {a: 'AAA', c: 'CCC'} 
+merged = {...d1, ...d2};
+// {a: 'AAA', b: 'B', c: 'CCC'}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>17. Parse int</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>number = parseInt(text, 10);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>18. One liner/ Opérateur ternaire</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>value = age >= 18? 'ADULT': 'CHILD';</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>19. Object attribute</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>attribute = 'color';
+value = obj[attribute] || 'GREEN';
+obj[attribute] = value;</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>20. Dictionnaire value by key</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>key = 'color';
+value = dictionary[key] || 'GREEN'; 
+dictionary[key] = value;</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>21. Slice</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = [1, 2, 3, 4, 5];
+first_two = items.slice(0, 2); 
+// [1, 2] 
+last_two = items.slice(-2); 
+// [4, 5] 
+middle_three = items.slice(1, 4); 
+// [2, 3, 4]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>22. Opération sur les listes</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items1 = ['A'];
+items2 = ['B'];
+items = items1.concat(items2); 
+items.push('C'); 
+items.unshift('D');
+first = items.shift();
+last = items.pop(); 
+items.splice(0, 1);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>23. Joining lists of strings</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>items = ['A', 'B', 'C'];
+text = items.join(', '); // 'A, B, C'</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>24. JSON</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>
+json_data = JSON.stringify(dictionary, null, 4);
+dictionary = JSON.parse(json_data);</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>25. Error handling</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>function CustomException(message) {
+  this.message = message;
+  this.toString = function() {
+    return this.message;
+  }
+}
+
+function proceed() {
+  throw new CustomException('Error happened!');
+}
+
+try {
+ proceed();
+} catch (err) {
+ if (err instanceof CustomException) {
+   console.log('Sorry! ' + err);
+ }
+} finally {
+ console.log('Finishing');
+}</code>
+</pre>
+    </div>
+    <!-- -->
+  </div>
+
+</div>
+</div>
+
+
+
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/es6">ES6</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1230 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 Feb. 2022</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/fournisseurs-de-pi%C3%A8ces-d%C3%A9tach%C3%A9es-pour-iot-ou-robotique/">
+                                <span class="button__text">Fournisseurs de pièces détachées pour IoT ou Robotique</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    class App extends React.Component {
+        constructor(options) {
+            console.log("data")
+            console.log(options.data)
+            super();
+            this.state = {
+                data: options.data,
+
+                appName: 'Search Bar (Algolia replacement under dev with React)',
+                list: undefined
+            };
+
+        }
+        searchData(e) {
+            var queryData = [];
+            if (e.target.value != '') {
+                this.state.data.forEach(function (person) {
+
+                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
+                        if (queryData.length < 10) {
+                            queryData.push(person);
+                        }
+                    }
+                });
+            }
+            this.setState({ list: queryData });
+        }
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement(Header, { name: this.state.appName }),  
+                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
+                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
+
+
+        }
+    }
+
+
+    class Header extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("h1", null, this.props.name)));
+
+
+        }
+    }
+
+
+    class SearchBar extends React.Component {
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
+
+
+        }
+    }
+
+
+    class SearchResult extends React.Component {
+
+        render() {
+            return  (
+                React.createElement("div", null,  
+                    React.createElement("ul", null,
+                        this.props.data.map(function (value) {
+                            return  React.createElement(Item, { key: value, val: value });
+                        }))));
+
+
+
+
+        }
+    }
+
+
+
+    class Item extends React.Component {
+        render() {
+            return  (
+                React.createElement("li", null,
+                    this.props.val));
+
+
+        }
+    }
+
+
+    navigator.serviceWorker.addEventListener('message', event => {
+        console.log(event.data.msg, event.data.url, event.data.files);
+        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
+    });
+    navigator.serviceWorker.register('/service-worker.js', {
+        scope: '.'
+    }).then(function (registration) {
+        console.log('The service worker has been registered ', registration);
+    });
+    
+
+    
+    setTimeout(function () {
+        console.log("unregister sws")
+        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
+    }, 10000);
+
+
+
+
+</script>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
