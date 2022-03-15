@@ -5,8 +5,40 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 25 Feb 2022 10:59:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 02 Mar 2022 22:59:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Corriger l&#39;erreur ADB no permissions sur Arch</title>
+            <link>https://leandeep.com/corriger-lerreur-adb-no-permissions-sur-arch/</link>
+            <pubDate>Wed, 02 Mar 2022 22:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/corriger-lerreur-adb-no-permissions-sur-arch/</guid>
+            <description>Voici la procédure pour installer ADB sur Arch, fixer le problème de permissions et uploader des fichiers en cli. Je me sers de ces commandes pour copier des vidéos très lourdes filmées en 8K sur un Meta Quest 2 via USB.
+ Installation sudo pacman -S android-tools  Permissions # Si adb tourne déjà # adb kill-server # Puis démarrage avec sudo sudo adb start-server  Upload de fichiers # Lister les directories du device # adb shell ls -R / # adb shell ls / adb push .</description>
+            <content type="html"><![CDATA[<p>Voici la procédure pour installer ADB sur Arch, fixer le problème de permissions et uploader des fichiers en cli.
+Je me sers de ces commandes pour copier des vidéos très lourdes filmées en 8K sur un Meta Quest 2 via USB.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre><code>sudo pacman -S android-tools
+</code></pre><br/>
+<h2 id="permissions">Permissions</h2>
+<pre><code># Si adb tourne déjà
+# adb kill-server
+# Puis démarrage avec sudo
+sudo adb start-server
+</code></pre><br/>
+<h2 id="upload-de-fichiers">Upload de fichiers</h2>
+<pre><code># Lister les directories du device
+# adb shell ls -R /
+# adb shell ls /
+
+adb push ./output-encoded.mp4 /sdcard/Movies/output-encoded.mp4
+</code></pre><br/>
+<h2 id="download">Download</h2>
+<p>Pour le download, utiliser <code>adb pull ...</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>Se protéger des failles buffer overflow</title>
@@ -1910,11 +1942,11 @@ Voici donc mon programme pour l&amp;rsquo;année 2022 (beaucoup plus simple que 
         </item>
         
         <item>
-            <title>Installer un REPL Rust</title>
-            <link>https://leandeep.com/installer-un-repl-rust/</link>
+            <title>Installer un REPL Rust et jouer avec les types et slices</title>
+            <link>https://leandeep.com/installer-un-repl-rust-et-jouer-avec-les-types-et-slices/</link>
             <pubDate>Fri, 31 Dec 2021 06:34:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/installer-un-repl-rust/</guid>
+            <guid>https://leandeep.com/installer-un-repl-rust-et-jouer-avec-les-types-et-slices/</guid>
             <description>Introduction Dans cet article, nous allons voir comment installer le REPL evcxr pour Rust développé par Google. Ce genre d&amp;rsquo;outil est très utile lorsque vous apprenez un langage (ou même quand vous êtes expérimenté et que vous voulez vérifier quelque chose). Avec evcxr, il n&amp;rsquo;est pas nécessaire de recompiler son programme Rust à chaque nouvelle commande exécutée. Ce REPL le fait tout seul; un gros gain de temps.
  Installation rustup component add rust-src cargo install evcxr_repl  Démarrage  Lien vers la documentation</description>
             <content type="html"><![CDATA[<h3 id="introduction">Introduction</h3>
@@ -1948,7 +1980,9 @@ cargo install evcxr_repl
 <code>String</code><br/>
 <code>char</code>
 <code>bool</code>
-<code>unit</code>: tuple</p>
+<code>unit</code>: tuple
+<code>usize</code>: entier non-signé dont la size dépend de l&rsquo;architecture du système (i.e. Intel 32 ou 64 bits&hellip;)
+<code>isize</code>: idem mais pour un entier signé</p>
 </blockquote>
 <br/>
 <p>Ou encore testez les Slices:</p>
@@ -14725,6 +14759,36 @@ kubectl scale statefulset statefulset_name --replicas=1
 kubectl scale deployment deployment_name --replicas=0
 kubectl scale deployment deployment_name --replicas=1
 </code></pre><br/>
+<p><strong>Pod anti affinity</strong></p>
+<p>Pour éviter un downtime si plusieurs pods se retrouvent sur un même node qui est KO</p>
+<p>Au niveau du Deployment, ajouter:</p>
+<pre><code>...
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-de-dingue
+  labels:
+    app: api
+spec:
+  replicas: 2
+...
+  spec:
+    affinity:
+      podAntiAffinity:
+        requireDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - api
+          topologyKey: &quot;kubernetes.io/hostname&quot;
+    containers:
+    ...
+</code></pre><blockquote>
+<p>Plus d&rsquo;infos <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">ici</a>:</p>
+</blockquote>
+<br/>
 <h2 id="commandes-propres-à-eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
 <p><strong>Se connecter à son cluster EKS nouvellement créé</strong></p>
 <pre><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
