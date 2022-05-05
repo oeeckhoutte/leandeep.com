@@ -5,8 +5,42 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 02 Mar 2022 22:59:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 02 May 2022 22:45:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Enregistrer l&#39;écran de son Mac avec le son built-in</title>
+            <link>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</link>
+            <pubDate>Mon, 02 May 2022 22:45:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</guid>
+            <description>Dans cet article très court, nous allons voir comment faire un screen recording avec le son built-in à partir de Quicktime sur Mac. Pas besoin de soft payant; juste d&amp;rsquo;un driver supplémentaire open source
+ Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
+brew install blackhole-16ch  Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
+Nous allons créer 2 interfaces audio. Une en input et une en output.</description>
+            <content type="html"><![CDATA[<p>Dans cet article très court, nous allons voir comment faire un screen recording avec le son built-in à partir de Quicktime sur Mac. Pas besoin de soft payant; juste d&rsquo;un driver supplémentaire <a href="https://github.com/ExistentialAudio/BlackHole">open source</a></p>
+<br/>
+<h2 id="installation-du-driver">Installation du driver</h2>
+<p>Installer le driver virtuel permettant d&rsquo;enregistrer le son built-in.</p>
+<pre><code>brew install blackhole-16ch
+</code></pre><br/>
+<h2 id="création-de-nouvelles-interfaces-audio">Création de nouvelles interfaces audio</h2>
+<p>Ouvrir l&rsquo;application officielle Apple <code>Audio MIDI setup</code>.</p>
+<p>Nous allons créer 2 interfaces audio. Une en input et une en output.</p>
+<p><strong>Première interface (input)</strong></p>
+<p>En bas du menu de gauche cliquer sur le petit <code>+</code> puis créer un <code>Aggregated Device</code>.
+Cocher la case Use BlackHole 16ch dans la fenêtre de droite et renommer l&rsquo;interface en <code>Quicktime input</code></p>
+<p><strong>Deuxième interface (output)</strong></p>
+<p>Créer une seconde interface <code>Multi-output Device</code>.</p>
+<p>Nommer la <code>Screen Recording audio</code> puis sélectionner les devices <code>built-in Output</code> et <code>Blackhote 16ch</code> dans le menu de droite.</p>
+<br/>
+<h2 id="test-denregistrement-de-screen-avec-son">Test d&rsquo;enregistrement de screen avec son</h2>
+<p>Dans <code>System Preferences</code> -&gt; <code>Sound</code> -&gt; <code>Output</code>, l&rsquo;interface <code>Screen Recording audio</code> (Aggregated device) doit être sélectionnée; sans quoi le son émis par votre MAC ne sera pas enregistré.</p>
+<p>Presser simultanément les touches <code>cmd + shift + 5</code> puis cliquer sur <code>Options</code>. Sélectionner l&rsquo;interface <code>Quicktime input</code> et commencer un enregistrement.</p>
+<p>Lorsque l&rsquo;enregistrement est terminé; retourner dans <code>System Preferences</code> -&gt; <code>Sound</code> -&gt; <code>Output</code> et remettre <code>Internal Speakers</code> comme sortie sonore.</p>
+<p>That&rsquo;s it!</p>
+]]></content>
+        </item>
         
         <item>
             <title>Corriger l&#39;erreur ADB no permissions sur Arch</title>
@@ -26774,6 +26808,9 @@ olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
 <br/>
 <h2 id="obtenir-la-version-de-los-distro-distribution">Obtenir la version de l&rsquo;OS/ distro/ distribution</h2>
 <pre><code>cat /etc/os-release
+</code></pre><br/>
+<h2 id="lister-les-packages-debian-installés">Lister les packages Debian installés</h2>
+<pre><code>sudo apt list --installed
 </code></pre>]]></content>
         </item>
         
