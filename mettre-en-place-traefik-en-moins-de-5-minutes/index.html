@@ -245,7 +245,7 @@ Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons cust
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons cust
 <meta itemprop="name" content="Mettre en place Traefik en moins de 5 minutes">
 <meta itemprop="description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
 Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
- Installtion Docker-compose Créer un fichier docker-compose.yml:"><meta itemprop="datePublished" content="2019-03-29T21:44:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-03-29T21:44:00&#43;00:00" />
+ Installtion Docker-compose Créer un fichier docker-compose.yml:"><meta itemprop="datePublished" content="2019-03-29T21:44:00+00:00" />
+<meta itemprop="dateModified" content="2019-03-29T21:44:00+00:00" />
 <meta itemprop="wordCount" content="421"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Docker,Traefik," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons cust
 
 
 
-<meta property="article:published_time" content="2019-03-29 21:44:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-03-29 21:44:00 &#43;0000 UTC" />
 
 
 
@@ -354,7 +354,7 @@ Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons cust
 <h1 id="installtion">Installtion</h1>
 <h2 id="docker-compose">Docker-compose</h2>
 <p>Créer un fichier <code>docker-compose.yml</code>:</p>
-<pre><code>version: &quot;3.5&quot;
+<pre tabindex="0"><code>version: &#34;3.5&#34;
 
 services:
 
@@ -364,12 +364,12 @@ services:
     command: --api --docker --docker.domain=app.test --logLevel=DEBUG # Enables the web UI and tells Traefik to listen to docker
     depends_on:
     # our setup relies on the 2 apps running. Trying to spin up traefik will bring up those too
-    - &quot;app1&quot;
-    - &quot;app2&quot;
+    - &#34;app1&#34;
+    - &#34;app2&#34;
     ports:
-      - &quot;80:80&quot;
+      - &#34;80:80&#34;
       # Management UI
-      - &quot;8080:8080&quot;
+      - &#34;8080:8080&#34;
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/etc/traefik/traefik.toml:ro
@@ -380,8 +380,8 @@ services:
   app1:
     image: nginx:alpine
     labels:
-    - &quot;traefik.port=80&quot;
-    - &quot;traefik.frontend.rule=Host:app1.test&quot;
+    - &#34;traefik.port=80&#34;
+    - &#34;traefik.frontend.rule=Host:app1.test&#34;
     volumes:
       - ./app1/:/usr/share/nginx/html:ro
     networks:
@@ -389,32 +389,31 @@ services:
         # the aliases are not required, but are useful if the applications want to internally
         # reference each other by host name
         aliases:
-        - &quot;app1.test&quot;
+        - &#34;app1.test&#34;
 
   app2:
     image: nginx:alpine
     labels:
-    - &quot;traefik.port=80&quot;
-    - &quot;traefik.frontend.rule=Host:app2.test&quot;
+    - &#34;traefik.port=80&#34;
+    - &#34;traefik.frontend.rule=Host:app2.test&#34;
     volumes:
       - ./app2/:/usr/share/nginx/html:ro
     networks:
       internal-network:
         aliases:
-        - &quot;app2.test&quot;
+        - &#34;app2.test&#34;
 
 networks:
-  # everything that is *only* on &quot;internal network&quot; cannot talk to WAN
+  # everything that is *only* on &#34;internal network&#34; cannot talk to WAN
   internal-network:
     internal: true
   # add this network to a container to make it talk to the rest of the world
   outside-world:
-
 </code></pre><br/>
 <h2 id="contenus-html-des-apps">Contenus HTML des apps</h2>
 <p>Créer 2 répertoires <code>app1</code> et <code>app2</code> contenant les fichiers index.html customisés.</p>
 <p>Vous devriez obtenir l&rsquo;arborescence suivante:</p>
-<pre><code>├── app1
+<pre tabindex="0"><code>├── app1
 │   └── index.html # Contient le texte: Hello world 1
 ├── app2
 │   └── index.html # Contient le texte: Hello world 2
@@ -423,13 +422,13 @@ networks:
 <h2 id="etchosts">/etc/hosts</h2>
 <p>Si vous êtes en local, il vous faudra configurer votre /etc/hosts avec le nom de domaine permettant d&rsquo;accéder aux apps et à Traefik.</p>
 <p>Pour ce faire editez le fichier (en mode root) <code>/etc/hosts</code>, et ajoutez les 3 entrées suivantes:</p>
-<pre><code>127.0.0.1       app.test
+<pre tabindex="0"><code>127.0.0.1       app.test
 127.0.0.1       app1.test
 127.0.0.1       app2.test
 </code></pre><br/>
 <h2 id="test">Test</h2>
 <p>Exécutez la commande:</p>
-<pre><code>docker-compose up 
+<pre tabindex="0"><code>docker-compose up 
 </code></pre><p>Puis rendez-vous sur <code>http://app.test:8080</code> pour accéder à l&rsquo;admin de Traefik et sur vos apps <code>http://app1.test</code> et <code>http://app2.test</code>.</p>
 <p>Et voilà !</p>
 <p><img src="https://leandeep.com/images/traefik.png" alt="image"></p>
@@ -438,13 +437,12 @@ networks:
 <br/>
 <h1 id="htpasswd">htpasswd</h1>
 <p>Il est également possible d&rsquo;ajouter un htpasswd:</p>
-<pre><code>htpasswd -n username
+<pre tabindex="0"><code>htpasswd -n username
 </code></pre><p>Voici ce que l&rsquo;on obtient avec admin/admin (à ne pas utiliser):</p>
-<pre><code>admin:$apr1$IBj9Hfsd$kf7vXLpY4/9XD365jcp/n1
+<pre tabindex="0"><code>admin:$apr1$IBj9Hfsd$kf7vXLpY4/9XD365jcp/n1
 </code></pre><p>Modifier le fichier <code>docker-compose.yml</code> et ajoutez le label suivant dans le service traefik:</p>
-<pre><code>labels:
-      - &quot;traefik.frontend.auth.basic=admin:$$apr1$$IBj9Hfsd$$kf7vXLpY
-
+<pre tabindex="0"><code>labels:
+      - &#34;traefik.frontend.auth.basic=admin:$$apr1$$IBj9Hfsd$$kf7vXLpY
 </code></pre>
             </div>
         </article>
@@ -458,7 +456,7 @@ networks:
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>421 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>29 Mar. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>29 mars. 2019</p>
         </div>
 
         
@@ -515,119 +513,6 @@ networks:
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -636,7 +521,7 @@ networks:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

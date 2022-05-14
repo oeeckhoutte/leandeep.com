@@ -246,7 +246,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -264,8 +264,8 @@
 <meta itemprop="description" content="Dans cet article nous allons voir comment configurer le terminal Fish sur Mac.
  Si Homebrew n&rsquo;est pas déjà installé sur votre poste, faites le via la commande. It&rsquo;s worth it ! /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
   Pourquoi je teste Fish Shell ? Pour ces features:
-- Autosuggestions as you type - Syntax highlighting with extensive error checking. - Searchable command history. - 256 terminal colors - Advanced tab completion."><meta itemprop="datePublished" content="2019-05-23T15:07:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-05-23T15:07:00&#43;00:00" />
+- Autosuggestions as you type - Syntax highlighting with extensive error checking. - Searchable command history. - 256 terminal colors - Advanced tab completion."><meta itemprop="datePublished" content="2019-05-23T15:07:00+00:00" />
+<meta itemprop="dateModified" content="2019-05-23T15:07:00+00:00" />
 <meta itemprop="wordCount" content="621"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Terminal,OSX," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -280,7 +280,7 @@
 
 
 
-<meta property="article:published_time" content="2019-05-23 15:07:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-05-23 15:07:00 &#43;0000 UTC" />
 
 
 
@@ -357,7 +357,7 @@
 <br/>
 <h1 id="pourquoi-je-teste-fish-shell-">Pourquoi je teste Fish Shell ?</h1>
 <p>Pour ces features:</p>
-<pre><code>- Autosuggestions as you type
+<pre tabindex="0"><code>- Autosuggestions as you type
 - Syntax highlighting with extensive error checking.
 - Searchable command history.
 - 256 terminal colors
@@ -374,12 +374,12 @@
 </code></pre><br/>
 <h1 id="installation-de-oh-my-fish">Installation de oh-my-fish</h1>
 <h2 id="installer-fish">Installer Fish</h2>
-<pre><code>brew install fish
+<pre tabindex="0"><code>brew install fish
 
 # Ajoutez fish shell dans la liste des terminaux sur Mac
-echo &quot;/usr/local/bin/fish&quot; | sudo tee -a /etc/shells
+echo &#34;/usr/local/bin/fish&#34; | sudo tee -a /etc/shells
 
-# Configurez fish pour qu'il soit utilisé par défaut
+# Configurez fish pour qu&#39;il soit utilisé par défaut
 chsh -s /usr/local/bin/fish
 
 # Si vous voulez retourner à zsh ou autre 
@@ -387,10 +387,10 @@ chsh -s /usr/local/bin/fish
 # $ chsh -s /bin/zsh ## pour retourner à zsh
 </code></pre><br/>
 <h2 id="installer-oh-my-fish">Installer oh-my-fish</h2>
-<pre><code>curl -L https://get.oh-my.fish | fish
+<pre tabindex="0"><code>curl -L https://get.oh-my.fish | fish
 </code></pre><br/>
 <h2 id="installer-bob-the-fish-theme">Installer &ldquo;bob the fish&rdquo; theme</h2>
-<pre><code>omf install bobthefish
+<pre tabindex="0"><code>omf install bobthefish
 
 # Installer les fonts utilisées par le thème
 brew tap caskroom/fonts
@@ -405,9 +405,9 @@ set -U theme_nerd_fonts yes
 <br/>
 <h2 id="configurer-la-font-pour-vscode">Configurer la font pour VSCode</h2>
 <p>Aller dans les préférences et cliquez sur settings. Cliquez sur le bouton pour éditer directement les settings au format json (on ne perd pas de temps) et ajoutez les lignes suivantes au JSON:</p>
-<pre><code>&quot;terminal.integrated.shell.osx&quot;: &quot;/usr/local/bin/fish&quot;,
-&quot;terminal.integrated.fontSize&quot;: 14,
-&quot;terminal.integrated.fontFamily&quot;: &quot;FuraCode Nerd Font&quot;
+<pre tabindex="0"><code>&#34;terminal.integrated.shell.osx&#34;: &#34;/usr/local/bin/fish&#34;,
+&#34;terminal.integrated.fontSize&#34;: 14,
+&#34;terminal.integrated.fontFamily&#34;: &#34;FuraCode Nerd Font&#34;
 </code></pre><p>Cela donne ceci pour le terminal intégré à VSCode :</p>
 <p><img src="https://leandeep.com/images/vscode_terminal.png" alt="image"></p>
 <p>Pas mal !</p>
@@ -416,7 +416,7 @@ set -U theme_nerd_fonts yes
 <h2 id="installer-des-plugins">Installer des plugins</h2>
 <p>Avec fisher <a href="https://github.com/jorgebucaran/fisher">https://github.com/jorgebucaran/fisher</a>
 Voici une liste de plugins <a href="https://github.com/jorgebucaran/awesome-fish">https://github.com/jorgebucaran/awesome-fish</a></p>
-<pre><code>curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+<pre tabindex="0"><code>curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 
 # Puis 
 fisher add jorgebucaran/fish-nvm
@@ -424,28 +424,28 @@ fisher add kennethreitz/fish-pipenv
 
 # Uninstall plugin: fisher rm jorgebucaran/fish-nvm
 </code></pre><p>Reload la config Fish</p>
-<pre><code>source ~/.config/fish/config.fish
+<pre tabindex="0"><code>source ~/.config/fish/config.fish
 </code></pre><br/>
 <h2 id="custom-thème">Custom thème</h2>
 <p>Forkez le thème bob the fish et customizez le. Le README est très bien fait.</p>
-<pre><code>https://github.com/oh-my-fish/theme-bobthefish
+<pre tabindex="0"><code>https://github.com/oh-my-fish/theme-bobthefish
 </code></pre><br/>
 <h2 id="démarrer-des-sessions-tmux-automatiquement-dans-iterm2">Démarrer des sessions tmux automatiquement dans iTerm2</h2>
 <blockquote>
 <p>Vérifiez que tmux est bien installé <code>brew install tmux</code></p>
 </blockquote>
-<pre><code>omf install tmux-zen
+<pre tabindex="0"><code>omf install tmux-zen
 
 # to uninstall tmux-zen
 # omf uninstall tmux-zen
 </code></pre><br/>
 <h2 id="les-autres-utilitaires-indispensables">Les autres utilitaires indispensables</h2>
 <p>A mettre dans un fichier bash ceci en haut: <code>#!/usr/bin/env bash</code></p>
-<pre><code># Install Xcode Command Line Tools.
+<pre tabindex="0"><code># Install Xcode Command Line Tools.
 xcode-select --install
 
 # Install Homebrew.
-/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+/usr/bin/ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;
 
 
 # Install brew basics (auto-updating).
@@ -527,7 +527,7 @@ brew install watch
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>621 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23 May. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23 mai. 2019</p>
         </div>
 
         
@@ -584,119 +584,6 @@ brew install watch
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -705,7 +592,7 @@ brew install watch
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

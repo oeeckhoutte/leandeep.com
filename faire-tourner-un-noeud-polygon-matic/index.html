@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Faire tourner un noeud Polygon Matic">
-<meta itemprop="description" content="Ou comment diviser par 5000 ses frais de gas Si comme moi vous tradiez sur le réseau Ethereum mais que les frais de transactions sont venus rogner votre marge, vous devriez passer sur Polygon&hellip; Il y a 1 an tout rond, il était encore possible de réaliser des transactions avec des gaz fees de max 1.50 / $2 mais maintenant ce n&rsquo;est plus possible du tout. La solution, passer sur d&rsquo;autres réseaux comme Tron, BSC ou encore Polygon."><meta itemprop="datePublished" content="2021-07-16T11:25:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-07-16T11:25:00&#43;00:00" />
+<meta itemprop="description" content="Ou comment diviser par 5000 ses frais de gas Si comme moi vous tradiez sur le réseau Ethereum mais que les frais de transactions sont venus rogner votre marge, vous devriez passer sur Polygon&hellip; Il y a 1 an tout rond, il était encore possible de réaliser des transactions avec des gaz fees de max 1.50 / $2 mais maintenant ce n&rsquo;est plus possible du tout. La solution, passer sur d&rsquo;autres réseaux comme Tron, BSC ou encore Polygon."><meta itemprop="datePublished" content="2021-07-16T11:25:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-16T11:25:00+00:00" />
 <meta itemprop="wordCount" content="375"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Polygon,Matic,Node Hosting,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -271,7 +271,7 @@
 
 
 
-<meta property="article:published_time" content="2021-07-16 11:25:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-07-16 11:25:00 &#43;0000 UTC" />
 
 
 
@@ -344,7 +344,7 @@
                 <h2 id="ou-comment-diviser-par-5000-ses-frais-de-gas">Ou comment diviser par 5000 ses frais de gas</h2>
 <p>Si comme moi vous tradiez sur le réseau Ethereum mais que les frais de transactions sont venus rogner votre marge, vous devriez passer sur Polygon&hellip; Il y a 1 an tout rond, il était encore possible de réaliser des transactions avec des gaz fees de max 1.50 / $2 mais maintenant ce n&rsquo;est plus possible du tout. La solution, passer sur d&rsquo;autres réseaux comme Tron, BSC ou encore Polygon. Dans cet article, nous allons voir comment installer un noeud Polygon.</p>
 <p>Testé et approuvé. Trading bot connecté à mon noeud.</p>
-<pre><code>2021-07-16 11:27:55,633 | INFO     | Connecting to network matic-mainnet using NODE_URL=http://192.168.1.31:8545
+<pre tabindex="0"><code>2021-07-16 11:27:55,633 | INFO     | Connecting to network matic-mainnet using NODE_URL=http://192.168.1.31:8545
 2021-07-16 11:27:55,736 | INFO     | Is connected to Node: True
 </code></pre><br/>
 <h2 id="mainnet">Mainnet</h2>
@@ -354,10 +354,10 @@ Docker version: 20.10.2<br/>
 Docker-compose version: 1.28.6, build 5db8d86f</p>
 </blockquote>
 <p><strong>Optionnel: installer docker et docker-compose</strong></p>
-<pre><code>sudo apt install curl -y
+<pre tabindex="0"><code>sudo apt install curl -y
 sudo apt install docker.io
 sudo usermod -aG docker &lt;user&gt;
-sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+sudo curl -L &#34;https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker–compose –version
 # Pour désinstaller:
@@ -366,7 +366,7 @@ docker–compose –version
 # sudo apt autoremove
 </code></pre><br/>
 <p><strong>Optionnel: créer et monter une partition de 4TB</strong></p>
-<pre><code>parted /dev/sda
+<pre tabindex="0"><code>parted /dev/sda
 (parted) mklabel gpt
 (parted) Warning: The existing disk label on /dev/sda will be destroyed and all data on this disk will be lost. Do you want to continue? Yes/No? yes
 (parted) unit TB
@@ -384,18 +384,18 @@ lsblk -fe7
 UUID=YOUR_DISK_UUID /data ext4 defaults 0 0
 </code></pre><br/>
 <p>Télécharger le dernier snapshot full</p>
-<pre><code>wget -c https://matic-blockchain-snapshots.s3.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2021-06-16.tar.gz
+<pre tabindex="0"><code>wget -c https://matic-blockchain-snapshots.s3.amazonaws.com/matic-mainnet/bor-fullnode-snapshot-2021-06-16.tar.gz
 wget -c https://matic-blockchain-snapshots.s3.amazonaws.com/matic-mainnet/heimdall-fullnode-snapshot-2021-06-16.tar.gz
 </code></pre><p><br/>
 Récupérer le repo officiel:</p>
-<pre><code>mkdir matic &amp;&amp; cd matic
+<pre tabindex="0"><code>mkdir matic &amp;&amp; cd matic
 git clone https://github.com/oeeckhoutte/launch (fork du repo officiel)
 cd launch/docker 
 </code></pre><p><br/>
-Editer le fichier <code>mainnet.env</code> et remplacer la varible d&rsquo;env <code>BOR_MODE</code> par <code>full</code> au lieu d'<code>archive</code>.</p>
+Editer le fichier <code>mainnet.env</code> et remplacer la varible d&rsquo;env <code>BOR_MODE</code> par <code>full</code> au lieu d&rsquo;<code>archive</code>.</p>
 <br/>
 <p>Créer la structure du noeud:</p>
-<pre><code>mkdir -p heimdall/snapshot
+<pre tabindex="0"><code>mkdir -p heimdall/snapshot
 mkdir -p heimdall/scripts
 mkdir -p bor/snapshot
 mv &lt;path-to-heimdall-snapshot-file&gt; heimdall/snapshot
@@ -403,17 +403,17 @@ mv &lt;path-to-bor-snapshot-file&gt; bor/snapshot
 mv heimdall-startup.sh heimdall/scripts
 </code></pre><br/>
 <p>Démarrer le noeud:</p>
-<pre><code>sudo docker-compose -f matic-sentry-with-snapshotting.yml --env-file mainnet.env up
+<pre tabindex="0"><code>sudo docker-compose -f matic-sentry-with-snapshotting.yml --env-file mainnet.env up
 </code></pre><br/>
 <p>Checker le status:</p>
-<pre><code>curl http://localhost:26657/status
-</code></pre><pre><code>...
-&quot;sync_info&quot;: {
-  &quot;latest_block_hash&quot;: &quot;3149E6CD5A21A08C40B7250F2D25BD76E3A72AFB3AE68E2538351FA579445AB1&quot;,
-  &quot;latest_app_hash&quot;: &quot;328E6FADF7E34E63D1233A74C93FC816A994EEAD5009DECD37466573E8F61A1A&quot;,
-  &quot;latest_block_height&quot;: &quot;5799322&quot;,
-  &quot;latest_block_time&quot;: &quot;2021-07-16T11:45:57.013021476Z&quot;,
-  &quot;catching_up&quot;: false
+<pre tabindex="0"><code>curl http://localhost:26657/status
+</code></pre><pre tabindex="0"><code>...
+&#34;sync_info&#34;: {
+  &#34;latest_block_hash&#34;: &#34;3149E6CD5A21A08C40B7250F2D25BD76E3A72AFB3AE68E2538351FA579445AB1&#34;,
+  &#34;latest_app_hash&#34;: &#34;328E6FADF7E34E63D1233A74C93FC816A994EEAD5009DECD37466573E8F61A1A&#34;,
+  &#34;latest_block_height&#34;: &#34;5799322&#34;,
+  &#34;latest_block_time&#34;: &#34;2021-07-16T11:45:57.013021476Z&#34;,
+  &#34;catching_up&#34;: false
 }
 ...
 </code></pre><br/>
@@ -431,7 +431,7 @@ mv heimdall-startup.sh heimdall/scripts
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>375 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 Jul. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 juil.. 2021</p>
         </div>
 
         
@@ -488,119 +488,6 @@ mv heimdall-startup.sh heimdall/scripts
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -609,7 +496,7 @@ mv heimdall-startup.sh heimdall/scripts
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

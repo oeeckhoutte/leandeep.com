@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Afficher sur Mac l&#39;interface graphique d&#39;une app executée dans Docker">
-<meta itemprop="description" content="Introduction Depuis quelque temps je travaille sur l&rsquo;apprentissage de robots dans ROS. Je fais tourner ROS sans un container Docker et accède à l&rsquo;interface graphique via VNC (dans le browser avec noVNC). Ce n&rsquo;est clairement pas une solution qui me contient. Le clavier est mal supporté, les performances sont mauvaises. Je cherche donc une solution de remplacement pour piloter à distance l&rsquo;outil ROS. En faisant des recherches sur internet, je suis parvenu à afficher l&rsquo;interface graphique d&rsquo;une app exécutée dans un container Docker sur mon Mac."><meta itemprop="datePublished" content="2020-03-28T16:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-03-28T16:49:00&#43;02:00" />
+<meta itemprop="description" content="Introduction Depuis quelque temps je travaille sur l&rsquo;apprentissage de robots dans ROS. Je fais tourner ROS sans un container Docker et accède à l&rsquo;interface graphique via VNC (dans le browser avec noVNC). Ce n&rsquo;est clairement pas une solution qui me contient. Le clavier est mal supporté, les performances sont mauvaises. Je cherche donc une solution de remplacement pour piloter à distance l&rsquo;outil ROS. En faisant des recherches sur internet, je suis parvenu à afficher l&rsquo;interface graphique d&rsquo;une app exécutée dans un container Docker sur mon Mac."><meta itemprop="datePublished" content="2020-03-28T16:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-03-28T16:49:00+02:00" />
 <meta itemprop="wordCount" content="248"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -348,22 +348,22 @@ Je fais tourner ROS sans un container Docker et accède à l&rsquo;interface gra
 <h2 id="steps">Steps</h2>
 <p><strong>Configurer Xquartz</strong></p>
 <p>Ouvrir Xquartz et rendez-vous dans les préférences.</p>
-<pre><code>open -a Xquartz
+<pre tabindex="0"><code>open -a Xquartz
 </code></pre><p>Dans l&rsquo;onglet &ldquo;Sécurité&rdquo; cocher la case &ldquo;Allow connections from network clients&rdquo;.</p>
 <br/>
 <p><strong>Lancer socat</strong></p>
 <p>Si vous ne l&rsquo;avez pas déjà, installer <code>socat</code> via la commande <code>brew install socat</code> puis dans un terminal exécuter la commande suivante:</p>
-<pre><code>socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\&quot;$DISPLAY\&quot;
+<pre tabindex="0"><code>socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\&#34;$DISPLAY\&#34;
 </code></pre><blockquote>
 <p>Socat permet de manipuler des sockets réseau.</p>
 </blockquote>
 <br/>
 <p><strong>Lancer une app dans un container</strong></p>
-<pre><code>export macbook_ip=IP_MACBOOK_SUR_LAN
+<pre tabindex="0"><code>export macbook_ip=IP_MACBOOK_SUR_LAN
 docker run -it --rm -e DISPLAY=$macbook_ip:0 fr3nd/xeyes
 </code></pre><br/>
 <p>Voici le Dockerfile de cette image:</p>
-<pre><code>FROM debian:jessie
+<pre tabindex="0"><code>FROM debian:jessie
 
 RUN apt-get update &amp;&amp; apt-get install -y \
       x11-apps \
@@ -392,7 +392,7 @@ CMD xeyes
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>248 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 Mar. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 mars. 2020</p>
         </div>
 
         
@@ -449,119 +449,6 @@ CMD xeyes
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -570,7 +457,7 @@ CMD xeyes
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

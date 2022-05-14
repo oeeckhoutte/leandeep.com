@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Tester une tâche Gitlab CI localement sans Gitlab">
-<meta itemprop="description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues."><meta itemprop="datePublished" content="2018-11-18T21:18:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-11-18T21:18:00&#43;00:00" />
+<meta itemprop="description" content="Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues."><meta itemprop="datePublished" content="2018-11-18T21:18:00+00:00" />
+<meta itemprop="dateModified" content="2018-11-18T21:18:00+00:00" />
 <meta itemprop="wordCount" content="220"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Gitlab," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -271,7 +271,7 @@
 
 
 
-<meta property="article:published_time" content="2018-11-18 21:18:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2018-11-18 21:18:00 &#43;0000 UTC" />
 
 
 
@@ -344,23 +344,22 @@
                 <p>Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&rsquo;est pas nécessaire d&rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier <code>.gitlab-ci.yml</code> en local est très utile pour 2 raisons. D&rsquo;un côté c&rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&rsquo;un runner soit disponible. D&rsquo;un autre côté on ne pollue pas le repository Git distant avec d&rsquo;innombrables commits de tests (on peut réécrire l&rsquo;historique je sais bien) ou avec des notifications aux collègues.</p>
 <br/>
 <p>Prenons par exemple le fichier <code>.gitlab-ci.yml</code> suivant:</p>
-<pre><code>build:
+<pre tabindex="0"><code>build:
     image: nodejs:8
     stage: build
     before_script:
         - npm i
     script:
         - npm run build
-
 </code></pre><br/>
 <p>Avec la commande suivante on peut directement tester sa tâche build en local:</p>
-<pre><code>gitlab-runner exec docker build
+<pre tabindex="0"><code>gitlab-runner exec docker build
 </code></pre><p><br/>
 Lorsqu&rsquo;on utilise Gitlab CI on faut parfois faire appel à du cache entre les stages. C&rsquo;est possible d&rsquo;en avoir avec la commande suivante:</p>
-<pre><code>gitlab-runner exec docker --docker-volumes `pwd`/cache:/cache build
+<pre tabindex="0"><code>gitlab-runner exec docker --docker-volumes `pwd`/cache:/cache build
 </code></pre><br/>
 <p>On peut aussi se faire un petit <code>Makefile</code> pour se simplifier la vie:</p>
-<pre><code>.PHONY: clean
+<pre tabindex="0"><code>.PHONY: clean
 
 .DEFAULT: cache
     gitlab-runner exec docker --docker-volumes `pwd`/cache:/cache $@
@@ -372,7 +371,7 @@ clean:
     rm -rf cache
 </code></pre><br/>
 <p>Enfin, si vous voulez passer des variables d&rsquo;environnement dans un stage de votre pipeline cela se fait ainsi:</p>
-<pre><code>gitlab-runner exec docker --env YOUR_ENV_VAR=&quot;&quot; build
+<pre tabindex="0"><code>gitlab-runner exec docker --env YOUR_ENV_VAR=&#34;&#34; build
 </code></pre>
             </div>
         </article>
@@ -386,7 +385,7 @@ clean:
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>220 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Nov. 2018</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 nov.. 2018</p>
         </div>
 
         
@@ -443,119 +442,6 @@ clean:
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -564,7 +450,7 @@ clean:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

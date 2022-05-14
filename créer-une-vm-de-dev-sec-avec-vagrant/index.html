@@ -246,7 +246,7 @@ Voici à quoi ressmeble mon Vagrantfile:" />
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -264,8 +264,8 @@ Voici à quoi ressmeble mon Vagrantfile:" />
 <meta itemprop="description" content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &ldquo;jetable&rdquo; vous pouvez utiliser Vagrant.
 Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&rsquo;exécuter la commande vagrant up.
 Sur votre machine il faudra que Virtualbox soit installé en amont.
-Voici à quoi ressmeble mon Vagrantfile:"><meta itemprop="datePublished" content="2017-12-01T13:49:00&#43;00:00" />
-<meta itemprop="dateModified" content="2017-12-01T13:49:00&#43;00:00" />
+Voici à quoi ressmeble mon Vagrantfile:"><meta itemprop="datePublished" content="2017-12-01T13:49:00+00:00" />
+<meta itemprop="dateModified" content="2017-12-01T13:49:00+00:00" />
 <meta itemprop="wordCount" content="863"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Security,Vagrant," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -280,7 +280,7 @@ Voici à quoi ressmeble mon Vagrantfile:"/>
 
 
 
-<meta property="article:published_time" content="2017-12-01 13:49:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2017-12-01 13:49:00 &#43;0000 UTC" />
 
 
 
@@ -354,22 +354,22 @@ Voici à quoi ressmeble mon Vagrantfile:"/>
 <p>Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher <code>Vagrantfile</code> dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&rsquo;exécuter la commande <code>vagrant up</code>.</p>
 <p>Sur votre machine il faudra que Virtualbox soit installé en amont.</p>
 <p>Voici à quoi ressmeble mon Vagrantfile:</p>
-<pre><code># -*- mode: ruby -*-
+<pre tabindex="0"><code># -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure
+# All Vagrant configuration is done below. The &#34;2&#34; in Vagrant.configure
 # configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
-Vagrant.configure(&quot;2&quot;) do |config|
+# backwards compatibility). Please don&#39;t change it unless you know what
+# you&#39;re doing.
+Vagrant.configure(&#34;2&#34;) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  #config.vm.box = &quot;centos/atomic-host&quot;
-  config.vm.box = &quot;centos/7&quot;
+  #config.vm.box = &#34;centos/atomic-host&#34;
+  config.vm.box = &#34;centos/7&#34;
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -378,40 +378,40 @@ Vagrant.configure(&quot;2&quot;) do |config|
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
-  # accessing &quot;localhost:8080&quot; will access port 80 on the guest machine.
+  # accessing &#34;localhost:8080&#34; will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-  # config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080
+  # config.vm.network &#34;forwarded_port&#34;, guest: 80, host: 8080
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  # config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080, host_ip: &quot;127.0.0.1&quot;
+  # config.vm.network &#34;forwarded_port&#34;, guest: 80, host: 8080, host_ip: &#34;127.0.0.1&#34;
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+  config.vm.network &#34;private_network&#34;, ip: &#34;192.168.33.10&#34;
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  # config.vm.network &quot;public_network&quot;
+  # config.vm.network &#34;public_network&#34;
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;
+  # config.vm.synced_folder &#34;../data&#34;, &#34;/vagrant_data&#34;
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider &quot;virtualbox&quot; do |vb|
+  # config.vm.provider &#34;virtualbox&#34; do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-  #   vb.memory = &quot;1024&quot;
+  #   vb.memory = &#34;1024&#34;
   # end
   #
   # View the documentation for the provider you are using for more
@@ -420,7 +420,7 @@ Vagrant.configure(&quot;2&quot;) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+  # config.vm.provision &#34;shell&#34;, inline: &lt;&lt;-SHELL
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
@@ -433,32 +433,32 @@ end
 <p>Pour stopper et effacer une VM vous pouvez utiliser la commande suivante <code>vagrant halt &amp;&amp; vagrant destroy -f</code>.</p>
 <br/>
 <p>Voici un autre Vagrantfile pour la distro Kali pour tester la sécurité de vos applications&hellip;</p>
-<pre><code># -*- mode: ruby -*-
+<pre tabindex="0"><code># -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure(&quot;2&quot;) do |config|
-  config.vm.box = &quot;kalilinux/rolling&quot;
+Vagrant.configure(&#34;2&#34;) do |config|
+  config.vm.box = &#34;kalilinux/rolling&#34;
 
   # Create a forwarded port
-  config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080
+  config.vm.network &#34;forwarded_port&#34;, guest: 80, host: 8080
 
   # Create a private network. In VirtualBox, this is a Host-Only network
-  config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;
+  config.vm.network &#34;private_network&#34;, ip: &#34;192.168.33.10&#34;
 
   # VirtualBox specific settings
-  config.vm.provider &quot;virtualbox&quot; do |vb|
+  config.vm.provider &#34;virtualbox&#34; do |vb|
     # Hide the VirtualBox GUI when booting the machine
     vb.gui = false
 
     # Customize the amount of memory on the VM:
-    vb.memory = &quot;4096&quot;
+    vb.memory = &#34;4096&#34;
   end
 
   # Provision the machine with a shell script
-  config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+  config.vm.provision &#34;shell&#34;, inline: &lt;&lt;-SHELL
     apt-get update
     apt-get install -y crowbar zsh wget curl
-    sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+    sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;
   SHELL
 end
 </code></pre><blockquote>
@@ -466,12 +466,12 @@ end
 </blockquote>
 <blockquote>
 <p>Les options suivantes peuvent également servir:</p>
-<pre><code>vagrant provision  # provision the powered on VM
+<pre tabindex="0"><code>vagrant provision  # provision the powered on VM
 vagrant up --provision  # when VM is powered off, power it on then provision
 vagrant reload --provision  # reboot the VM then provision
 </code></pre></blockquote>
 <blockquote>
-<p>Pour utiliser <code>ansible-console</code> sur cette nouvelle VM et spécifier un utilisateur on peut utiliser la commande suivante <code>ansible-console -i ./ansible/inventory/local --become -u root</code></p>
+<p>Pour utiliser <code>ansible-console</code> sur cette nouvelle VM et spécifier un utilisateur on peut utiliser la commande suivante <code> ansible-console -i ./ansible/inventory/local --become -u root</code></p>
 </blockquote>
 <blockquote>
 <p>Default credentials: root/toor</p>
@@ -503,7 +503,7 @@ Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>Permit
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>863 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 Dec. 2017</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 déc.. 2017</p>
         </div>
 
         
@@ -560,119 +560,6 @@ Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>Permit
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -681,7 +568,7 @@ Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>Permit
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

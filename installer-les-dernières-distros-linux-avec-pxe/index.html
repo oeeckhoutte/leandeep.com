@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer les dernières distros Linux avec PXE">
-<meta itemprop="description" content="Introduction Aujourd&rsquo;hui j&rsquo;ai besoin de réinstaller mon système. Je vais installer Ubuntu 20.04. Etant donné que c&rsquo;est une tâche que je répète régulièrement car j&rsquo;expérimente beaucoup, je préfère me passer de clés USB car cela me fait perdre du temps. Je préfère utiliser un amorçage PXE qui me permet de charger des ISOs depuis mon réseau local. Dans cet article, nous allons rester simple et nous contenter de mettre à disposition des distro Linux."><meta itemprop="datePublished" content="2020-11-06T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-11-06T19:49:00&#43;02:00" />
+<meta itemprop="description" content="Introduction Aujourd&rsquo;hui j&rsquo;ai besoin de réinstaller mon système. Je vais installer Ubuntu 20.04. Etant donné que c&rsquo;est une tâche que je répète régulièrement car j&rsquo;expérimente beaucoup, je préfère me passer de clés USB car cela me fait perdre du temps. Je préfère utiliser un amorçage PXE qui me permet de charger des ISOs depuis mon réseau local. Dans cet article, nous allons rester simple et nous contenter de mettre à disposition des distro Linux."><meta itemprop="datePublished" content="2020-11-06T19:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-11-06T19:49:00+02:00" />
 <meta itemprop="wordCount" content="601"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="PXE,Linux,TFTP," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -361,15 +361,15 @@ je skip volontairement les machines Windows ou les machines Linux prêtes à l&r
 <p><strong>Installation du proxy DHCP</strong></p>
 <p>Mon réseau local comporte déjà un serveur DHCP. Nous allons utiliser un proxy DHCP <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a> qui va forwarder les requêtes au serveur DHCP déjà présent sur mon réseau et renverra les réponses en les adaptant si nécessaire.
 Cette installation est temporaire puisque je vais bientôt me doter d&rsquo;un <a href="https://www.pfsense.org/">pfsense</a> physique pour mieux segmenter, sécuriser mon réseau local. Bref procédons à l&rsquo;installation de notre proxy.</p>
-<pre><code>sudo apt install dnsmasq
+<pre tabindex="0"><code>sudo apt install dnsmasq
 </code></pre><br/>
 <p><strong>Installation de serveur TFTP</strong></p>
 <p>Pour réaliser un amorçage PXE il faut un serveur TFTP <a href="https://fr.wikipedia.org/wiki/Trivial_File_Transfer_Protocol">(Trivial FTP)</a> et le package syslinux pour démarrer les OS.</p>
-<pre><code>sudo apt install pxelinux syslinux-common
+<pre tabindex="0"><code>sudo apt install pxelinux syslinux-common
 </code></pre><br/>
 <p><strong>Configuration du serveur TFTP et du menu PXE</strong></p>
 <p>Création des répertoires de base et backup dnsmasq</p>
-<pre><code># Création des répertoires de base
+<pre tabindex="0"><code># Création des répertoires de base
 sudo mkdir -p /var/tftpboot/pxelinux.cfg
 cd /var/tftpboot
 sudo touch pxelinux.cfg/default
@@ -383,7 +383,7 @@ sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.old
 </code></pre><br/>
 <p>Configuration du proxy DHCP.
 On édite le fichier <code>/etc/dnsmasq.conf</code> et on ajoute la configuration suivante:</p>
-<pre><code>## On n'active pas le serveur DNS
+<pre tabindex="0"><code>## On n&#39;active pas le serveur DNS
 port=0
 
 ## On initialise le serveur TFTP
@@ -397,21 +397,21 @@ dhcp-range=192.168.0.0, proxy
 dhcp-boot=pxelinux.0
 
 ## On initialise le menu du service PXE
-pxe-prompt=&quot;Veuillez faire votre choix :&quot;
-pxe-service=x86PC, &quot;Boot depuis le disque local&quot;, 30
-pxe-service=x86PC, &quot;Interface PXE&quot;, pxelinux
+pxe-prompt=&#34;Veuillez faire votre choix :&#34;
+pxe-service=x86PC, &#34;Boot depuis le disque local&#34;, 30
+pxe-service=x86PC, &#34;Interface PXE&#34;, pxelinux
 
 ## On active le log du serveur DHCP
 log-dhcp
 </code></pre><br/>
 <p>On redémarre le proxy:</p>
-<pre><code>sudo systemctl restart dnsmasq.service
+<pre tabindex="0"><code>sudo systemctl restart dnsmasq.service
 </code></pre><p>L&rsquo;amorçage PXE peut presque commencer.
 Si vous tentez de démarrer une distro ou un outils quelconque via réseau, le serveur TFTP va être détecté mais cela ne va pas fonctionner car notre PXE n&rsquo;a pas encore de menu.</p>
 <br/>
 <h2 id="configuration-du-menu-pxe">Configuration du menu PXE</h2>
 <p>On édite le fichier <code>/var/tftpboot/pxelinux.cfg/default</code> et on ajoute le contenu suivant:</p>
-<pre><code>DEFAULT menu.c32
+<pre tabindex="0"><code>DEFAULT menu.c32
 MENU MARGIN 0
 MENU ROWS -9
 MENU TABMSG
@@ -430,7 +430,7 @@ MENU COLOR CMDLINE 30;47
 MENU COLOR TABMSG 37;40
 MENU COLOR DISABLED 37;40
 MENU COLOR HELP 37;40
-MENU TITLE Serveur d'installation PXE
+MENU TITLE Serveur d&#39;installation PXE
 LABEL hdt
  MENU LABEL ^Hardware Detection Tool
  KERNEL hdt.c32
@@ -460,15 +460,15 @@ LABEL ubuntu_http
 </code></pre><br/>
 <h2 id="ajout-des-isos">Ajout des ISOs</h2>
 <p>On crée d&rsquo;abord le répertoire qui contiendra les disques d&rsquo;amorçage:</p>
-<pre><code>sudo mkdir /var/tftpboot/_iso
+<pre tabindex="0"><code>sudo mkdir /var/tftpboot/_iso
 </code></pre><br/>
 <p>On ajoute Debian 10.6:</p>
-<pre><code>cd /var/tftpboot/_iso
+<pre tabindex="0"><code>cd /var/tftpboot/_iso
 wget http://ftp.nl.debian.org/debian/dists/buster/main/installer-amd64/current/images/netboot/mini.iso
 mv mini.iso debian_10.6_netboot.iso
 </code></pre><br/>
 <p>On ajoute Ubuntu 20.04:</p>
-<pre><code>wget http://releases.ubuntu.com/focal/ubuntu-20.04.1-live-server-amd64.iso
+<pre tabindex="0"><code>wget http://releases.ubuntu.com/focal/ubuntu-20.04.1-live-server-amd64.iso
 mount ubuntu-20.04.1-live-server-amd64.iso /mnt
 cp /mnt/casper/{vmlinuz,initrd} /var/tftpboot/_iso/ubuntu_20.04/
 cp /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/tftpboot/_iso/ubuntu_20.04/
@@ -487,7 +487,7 @@ cp /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/tftpboot/_iso/ubuntu_20.04/
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>601 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Nov. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 nov.. 2020</p>
         </div>
 
         
@@ -544,119 +544,6 @@ cp /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/tftpboot/_iso/ubuntu_20.04/
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -665,7 +552,7 @@ cp /usr/lib/syslinux/modules/bios/ldlinux.c32 /var/tftpboot/_iso/ubuntu_20.04/
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

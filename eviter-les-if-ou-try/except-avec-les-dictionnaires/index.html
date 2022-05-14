@@ -8,7 +8,7 @@
   content="Olivier Eeckhoutte ">
 <meta name="description"
   content="Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
-prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
+prenoms = {&amp;#39;titi&amp;#39;: 1, &amp;#39;tata&amp;#39;: 2, &amp;#39;toto&amp;#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &amp;#39;titi&amp;#39;, 2: &amp;#39;tata&amp;#39;, 3: &amp;#39;toto&amp;#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
  soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&amp;rsquo;avoir du code plus propre, et plus facilement testable." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -245,7 +245,7 @@ prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_preno
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -349,45 +349,45 @@ prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_preno
             <div class="post-content">
                 <p>Manipuler des dictionnaires Python est facile.
 Pour les transformer on peut utiliser des <em>dict comprehension</em>. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.</p>
-<pre><code>prenoms = {'titi': 1, 'tata': 2, 'toto': 3}
+<pre tabindex="0"><code>prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3}
 invert_prenoms = {v: k for k, v in prenoms.iteritems()}
 print(invert_prenoms)
-{1: 'titi', 2: 'tata', 3: 'toto'}
+{1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;}
 </code></pre><p>Pour sélectionner une valeur à partir d&rsquo;une clé, on peut</p>
 <ul>
 <li>soit tester si une clé existe dans le dict ou catcher l&rsquo;exception <code>KeyError</code> avec <code>try</code>/<code>except</code></li>
 <li><strong>ou on peut utiliser un <code>defaultdict</code></strong>, ce qui permet d&rsquo;avoir du code plus propre, et plus facilement testable.</li>
 </ul>
 <h2 id="anti-pattern-pas-bien">Anti-pattern (Pas bien!)</h2>
-<pre><code>&gt;&gt;&gt; prenom_occurrences = {'titi': [], 'tata': []}
-&gt;&gt;&gt; prenom_occurrences['toto']
-KeyError: 'toto'
+<pre tabindex="0"><code>&gt;&gt;&gt; prenom_occurrences = {&#39;titi&#39;: [], &#39;tata&#39;: []}
+&gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;]
+KeyError: &#39;toto&#39;
 
 # Option 1
-&gt;&gt;&gt; if 'toto' not in prenom_occurrences:
-    prenom_occurrences['c'] = []
+&gt;&gt;&gt; if &#39;toto&#39; not in prenom_occurrences:
+    prenom_occurrences[&#39;c&#39;] = []
 
-&gt;&gt;&gt; prenom_occurrences['toto']
+&gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;]
 []
 
 # Option 2
 &gt;&gt;&gt; try:
-        print(prenom_occurrences['tutu'])
+        print(prenom_occurrences[&#39;tutu&#39;])
     except: 
-        print(&quot;There is no character 'tutu' in the string&quot;)
+        print(&#34;There is no character &#39;tutu&#39; in the string&#34;)
 </code></pre><h2 id="bonne-pratique-bien">Bonne pratique (Bien!)</h2>
 <p>Utiliser defaultdict du module <code>collections</code>.</p>
-<pre><code>&gt;&gt;&gt; from collections import defaultdict
-&gt;&gt;&gt; prenom_occurrences = {'titi': [], 'tata': []}
+<pre tabindex="0"><code>&gt;&gt;&gt; from collections import defaultdict
+&gt;&gt;&gt; prenom_occurrences = {&#39;titi&#39;: [], &#39;tata&#39;: []}
 &gt;&gt;&gt; prenoms = defaultdict(dict)
 &gt;&gt;&gt; prenoms.update(prenom_occurrences)
-&gt;&gt;&gt; prenoms['titi']
+&gt;&gt;&gt; prenoms[&#39;titi&#39;]
 []
 
-&gt;&gt;&gt; prenoms['tata'].append('toto')
-&gt;&gt;&gt; prenoms['tata'].append('tutu')
-&gt;&gt;&gt; prenoms['tata']
-['toto', 'tutu']
+&gt;&gt;&gt; prenoms[&#39;tata&#39;].append(&#39;toto&#39;)
+&gt;&gt;&gt; prenoms[&#39;tata&#39;].append(&#39;tutu&#39;)
+&gt;&gt;&gt; prenoms[&#39;tata&#39;]
+[&#39;toto&#39;, &#39;tutu&#39;]
 </code></pre>
             </div>
         </article>
@@ -401,7 +401,7 @@ KeyError: 'toto'
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>178 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 Jan. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 janv.. 2020</p>
         </div>
 
         
@@ -458,119 +458,6 @@ KeyError: 'toto'
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -579,7 +466,7 @@ KeyError: 'toto'
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

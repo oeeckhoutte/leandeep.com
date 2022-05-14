@@ -245,7 +245,7 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 <meta itemprop="name" content="Basics Python commands pour Matplotlib, Numpy, Pandas et debugging misc">
 <meta itemprop="description" content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
-from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."><meta itemprop="datePublished" content="2015-09-14T19:24:00&#43;00:00" />
-<meta itemprop="dateModified" content="2015-09-14T19:24:00&#43;00:00" />
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."><meta itemprop="datePublished" content="2015-09-14T19:24:00+00:00" />
+<meta itemprop="dateModified" content="2015-09-14T19:24:00+00:00" />
 <meta itemprop="wordCount" content="1384"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Python,pandas,Numpy,Matplotlib,Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 
 
 
-<meta property="article:published_time" content="2015-09-14 19:24:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2015-09-14 19:24:00 &#43;0000 UTC" />
 
 
 
@@ -351,7 +351,7 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 <br/></p>
 <h2 id="1-charger-un-dataset">1. Charger un dataset</h2>
 <p>On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.</p>
-<pre><code>from sklearn.datasets import load_iris
+<pre tabindex="0"><code>from sklearn.datasets import load_iris
 iris = load_iris()
 
 n_samples, n_features = iris.data.shape
@@ -363,15 +363,15 @@ print(n_features)
 </code></pre><br/>
 <h2 id="2-afficher-un-nuage-de-points-scatter-plot">2. Afficher un nuage de points (scatter plot)</h2>
 <p>On considère travailler avec un array (150,4). Voir point 1.</p>
-<pre><code># La commande qui suit permet de ne pas avoir de problème avec l'affichage de graphiques dans Jupyter Notebook 
+<pre tabindex="0"><code># La commande qui suit permet de ne pas avoir de problème avec l&#39;affichage de graphiques dans Jupyter Notebook 
 %matplotlib inline
 </code></pre><p>Affichage du scratter plot:</p>
-<pre><code>from matplotlib import pyplot as plt
+<pre tabindex="0"><code>from matplotlib import pyplot as plt
 
 x_index = 1
 y_index = 3
 
-# Ce formateur permet de remplacer les index des classes d'iris par leur nom dans la légende
+# Ce formateur permet de remplacer les index des classes d&#39;iris par leur nom dans la légende
 formatter = plt.FuncFormatter(lambda i, *args: iris.target_names[int(i)])
 
 plt.scatter(iris.data[:, x_index], iris.data[:, y_index], c=iris.target)
@@ -383,17 +383,17 @@ plt.ylabel(iris.feature_names[y_index])
 <br/>
 <h2 id="3-manipuler-des-numpy-arrays">3. Manipuler des Numpy Arrays</h2>
 <p><strong>3.1. Générer un tableau aléatoire</strong></p>
-<pre><code>import numpy as np
+<pre tabindex="0"><code>import numpy as np
 
 X = np.random.random((3,5))
 print(X)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
+<pre tabindex="0"><code>[[0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
  [0.32855405 0.11656708 0.63427992 0.51111629 0.53846283]
  [0.99568791 0.44366564 0.0842925  0.12422041 0.38149375]]
 </code></pre><br/>
 <p><strong>3.2. Accéder à des éléments d&rsquo;un numpy array</strong></p>
-<pre><code># Accéder à un seul élément
+<pre tabindex="0"><code># Accéder à un seul élément
 print(X[0,0])
 
 # Accéder à une ligne
@@ -402,14 +402,14 @@ print(X[0,:]) ou print(X[0])
 # Accéder à une colonne
 print(X[:,0]
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>0.7427128108295802
+<pre tabindex="0"><code>0.7427128108295802
 [0.74271281 0.89627097 0.95309957 0.48770972 0.3841344 ]
 [0.74271281 0.32855405 0.99568791]
 </code></pre><br/>
 <p><strong>3.3. Faire une transposée de Matrice (les lignes deviennent les colonnes)</strong></p>
-<pre><code>print(X.T)
+<pre tabindex="0"><code>print(X.T)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74271281 0.32855405 0.99568791]
+<pre tabindex="0"><code>[[0.74271281 0.32855405 0.99568791]
  [0.89627097 0.11656708 0.44366564]
  [0.95309957 0.63427992 0.0842925 ]
  [0.48770972 0.51111629 0.12422041]
@@ -417,14 +417,14 @@ print(X[:,0]
 </code></pre><br/>
 <p><strong>3.4. Faire un range sans être gêné par le dernier élement</strong></p>
 <p>Cette méthode permet d’obtenir un tableau à une dimension allant d’une valeur de départ à une valeur de fin avec un nombre donné d’éléments.</p>
-<pre><code># la fonction linspace(premier, dernier, n) évite tout désagrément
+<pre tabindex="0"><code># la fonction linspace(premier, dernier, n) évite tout désagrément
 np.linspace(1., 4., 6)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code># array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
+<pre tabindex="0"><code># array([ 1. ,  1.6,  2.2,  2.8,  3.4,  4. ])
 </code></pre><br/>
 <p><strong>3.5. Incrémenter la dimension d&rsquo;un array</strong>
 (Permet également de <strong>convertir explicitement un array à 1 dimension</strong> en un vecteur ligne ou vecteur colonne.)</p>
-<pre><code>A = np.array([2, 0, 1, 8])
+<pre tabindex="0"><code>A = np.array([2, 0, 1, 8])
 print(A)
 A.shape
 
@@ -450,7 +450,7 @@ C.shape
 # (4,1)
 </code></pre><br/>
 <p><strong>Alternatives:</strong></p>
-<pre><code>np.expand_dims(A, 1)  # équivaut à A[:, np.newaxis]
+<pre tabindex="0"><code>np.expand_dims(A, 1)  # équivaut à A[:, np.newaxis]
 np.expand_dims(A, 0)  # équivaut à A[np.newaxis, :]
 
 ou
@@ -459,54 +459,54 @@ A.reshape(A.shape + (1,))  # équivaut à A[:, np.newaxis]
 A.reshape((1,) + A.shape)  # équivaut à A[np.newaxis, :]
 </code></pre><br/>
 <p><strong>3.6. Convertir une liste Python en Numpy Array</strong></p>
-<pre><code>ma_liste = [1,2,3]
+<pre tabindex="0"><code>ma_liste = [1,2,3]
 x = np.array(ma_liste)
 </code></pre><br/>
 <p><strong>3.7. Créer un tableau de 20 zéros</strong></p>
-<pre><code>np.zeros(20)
+<pre tabindex="0"><code>np.zeros(20)
 </code></pre><br/>
 <p><strong>3.8. Créer un tableau de 20 uns</strong></p>
-<pre><code>np.ones(20)
+<pre tabindex="0"><code>np.ones(20)
 </code></pre><br/>
 <p><strong>3.9. Créer un tableau de 20 neuf</strong></p>
-<pre><code>np.ones(20) * 9
+<pre tabindex="0"><code>np.ones(20) * 9
 </code></pre><br/>
 <p><strong>3.10. Créer un tableau d&rsquo;entiers de 20 à 50</strong></p>
-<pre><code>np.arange(20,51)
+<pre tabindex="0"><code>np.arange(20,51)
 </code></pre><br/>
 <p><strong>3.11. Créer un tableau d&rsquo;entiers pairs entre 20 et 50</strong></p>
-<pre><code>np.arange(20,51,2)
+<pre tabindex="0"><code>np.arange(20,51,2)
 </code></pre><br/>
 <p><strong>3.12. Créer une matrice 3x3 avec les valeurs de 0 à 8</strong></p>
-<pre><code>np.arange(0,9).reshape(3,3)
+<pre tabindex="0"><code>np.arange(0,9).reshape(3,3)
 </code></pre><br/>
 <p><strong>3.13. Créer une matrice identité 3x3</strong></p>
-<pre><code>np.eye(3)
+<pre tabindex="0"><code>np.eye(3)
 </code></pre><br/>
 <p><strong>3.14. Générer un nombre aléatoire entre 0 et 1</strong></p>
-<pre><code>np.random.rand(1)
+<pre tabindex="0"><code>np.random.rand(1)
 </code></pre><br/>
 <p><strong>3.15. Générer un tableau de 25 nombres aléatoires échantillonnés à partir d&rsquo;une distribution normale standard</strong></p>
-<pre><code>np.random.randn(25)
+<pre tabindex="0"><code>np.random.randn(25)
 </code></pre><br/>
 <p><strong>3.16. Créer un tableau de 50 points espacés linéairement entre 0 et 1</strong></p>
-<pre><code>np.linspace(0,1,20)
+<pre tabindex="0"><code>np.linspace(0,1,20)
 </code></pre><br/>
 <p><strong>3.17. Calculer la somme de toutes les colonnes d&rsquo;une matrice</strong></p>
-<pre><code>ma_matrice.sum(axis=0)
+<pre tabindex="0"><code>ma_matrice.sum(axis=0)
 </code></pre><br/>
 <p><strong>3.18. Calculer l&rsquo;écart-type des valeurs d&rsquo;une matrice</strong></p>
-<pre><code>ma_matrice.std()
+<pre tabindex="0"><code>ma_matrice.std()
 </code></pre><br/>
 <h2 id="4-manipuler-des-scipy-sparse-matrices">4. Manipuler des Scipy Sparse Matrices</h2>
 <p>Ces matrices sont parfois utiles lorsque le dataset est extrèmement grand (millions de features) et qu&rsquo;il n&rsquo;y a presque que des 0 pour un échantillon donné.</p>
 <p>On crée une matrice avec des données aléatoires</p>
-<pre><code>from scipy import sparse
+<pre tabindex="0"><code>from scipy import sparse
 
 X = np.random.random((10, 5))
 print(X)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74668664 0.28468523 0.31235423 0.85889384 0.44178508]
+<pre tabindex="0"><code>[[0.74668664 0.28468523 0.31235423 0.85889384 0.44178508]
  [0.42935032 0.12811469 0.10010876 0.44757517 0.85568623]
  [0.52500676 0.81764407 0.32380153 0.41696393 0.46913849]
  [0.38276909 0.93648265 0.19733164 0.42392672 0.75220776]
@@ -517,10 +517,10 @@ print(X)
  [0.75469648 0.89312007 0.10350947 0.48109062 0.61979146]
  [0.90195641 0.48118575 0.95517067 0.86300827 0.36144463]]
 </code></pre><p>On fixe la majorité des éléments à 0</p>
-<pre><code>X[X &lt; 0.7] = 0
+<pre tabindex="0"><code>X[X &lt; 0.7] = 0
 print(X)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code> [[0.74668664 0.         0.         0.85889384 0.        ]
+<pre tabindex="0"><code> [[0.74668664 0.         0.         0.85889384 0.        ]
  [0.         0.         0.         0.         0.85568623]
  [0.         0.81764407 0.         0.         0.        ]
  [0.         0.93648265 0.         0.         0.75220776]
@@ -531,10 +531,10 @@ print(X)
  [0.75469648 0.89312007 0.         0.         0.        ]
  [0.90195641 0.         0.95517067 0.86300827 0.        ]]
 </code></pre><p>On convertit X en une Matrice CSR (Compressed-Sparse-Row)</p>
-<pre><code>X_csr = sparse.csr_matrix(X)
+<pre tabindex="0"><code>X_csr = sparse.csr_matrix(X)
 print(X_csr)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>  (0, 0)	0.7466866354064811
+<pre tabindex="0"><code>  (0, 0)	0.7466866354064811
   (0, 3)	0.858893836600347
   (1, 4)	0.8556862339513924
   (2, 1)	0.8176440715795563
@@ -552,9 +552,9 @@ print(X_csr)
   (9, 2)	0.9551706684658897
   (9, 3)	0.8630082740227074
 </code></pre><p>On rétablit la Matrice Sparse en numpy array</p>
-<pre><code>print(X_csr.toarray())
+<pre tabindex="0"><code>print(X_csr.toarray())
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.74668664 0.         0.         0.85889384 0.        ]
+<pre tabindex="0"><code>[[0.74668664 0.         0.         0.85889384 0.        ]
  [0.         0.         0.         0.         0.85568623]
  [0.         0.81764407 0.         0.         0.        ]
  [0.         0.93648265 0.         0.         0.75220776]
@@ -567,7 +567,7 @@ print(X_csr)
 </code></pre><br/>
 <h2 id="5-visualisation-des-données-avec-matplotlib">5. Visualisation des données avec Matplotlib</h2>
 <p><strong>5.1. Afficher une fonction simple</strong></p>
-<pre><code>import matplotlib.pyplot as plt
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
 
 # Afficher une ligne
 x = np.linspace(0, 10, 100)
@@ -576,7 +576,7 @@ plt.plot(x, np.sin(x))
 <p><img src="https://leandeep.com/images/plot2-basics.png" alt="image"></p>
 <br/>
 <p><strong>5.2. Afficher un nuage de points (scatter plot)</strong></p>
-<pre><code>import matplotlib.pyplot as plt
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
 
 x = np.random.normal(size=500)
 y = np.random.normal(size=500)
@@ -585,7 +585,7 @@ plt.scatter(x, y)
 <p><img src="https://leandeep.com/images/scatter-plot-basics.png" alt="image"></p>
 <br/>
 <p><strong>5.3. Tracer une image</strong></p>
-<pre><code>import matplotlib.pyplot as plt
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
 
 x = np.linspace(1, 12, 100)
 y = x[:, np.newaxis]
@@ -597,7 +597,7 @@ plt.imshow(im)
 <p><img src="https://leandeep.com/images/draw-image-basics.png" alt="image"></p>
 <br/>
 <p><strong>5.4. Tracer les contours</strong></p>
-<pre><code>import matplotlib.pyplot as plt
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
 
 x = np.linspace(1, 12, 100)
 y = x[:, np.newaxis]
@@ -611,20 +611,20 @@ plt.contour(im)
 <p><strong>5.5. Gallerie d&rsquo;exemples</strong></p>
 <p>Des centaines d&rsquo;exemples sont disponibles sur le <a href="http://matplotlib.org/gallery.html">site de Matplotlib</a>.
 En exécutant la commande suivante dans votre notebook, le code source sera téléchargé. Vous n&rsquo;aurez plus qu&rsquo;à le ré-excuter pour qu&rsquo;un graphique s&rsquo;affiche.</p>
-<pre><code>%load http://matplotlib.org/mpl_examples/pylab_examples/ellipse_collection.py
+<pre tabindex="0"><code>%load http://matplotlib.org/mpl_examples/pylab_examples/ellipse_collection.py
 </code></pre><br/>
 <p><strong>5.6. Graphique 3D</strong></p>
-<pre><code># 3D 
+<pre tabindex="0"><code># 3D 
 from mpl_toolkits.mplot3d import Axes3D
 
-ax = plt.axes(projection='3d')
+ax = plt.axes(projection=&#39;3d&#39;)
 xgrid, ygrid = np.meshgrid(x, y.ravel())
 ax.plot_surface(xgrid, ygrid, im, cmap=plt.cm.jet, cstride=2, rstride=2, linewidth=0)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/3d-plots-basics.png" alt="image"></p>
 <br/>
 <p><strong>5.7. Afficher matplotlib dans Jupyter Notebook et tracer un chart façon objet</strong></p>
-<pre><code>import matplotlib.pyplot as plt
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
 %matplotlib inline
 
 import numpy as np
@@ -636,14 +636,14 @@ fig = plt.figure()
 ax = fig.add_axes([0,0,1,1])
 ax.plot(x,y)
 
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-ax.set_title('title')
+ax.set_xlabel(&#39;x&#39;)
+ax.set_ylabel(&#39;y&#39;)
+ax.set_title(&#39;title&#39;)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/matplotlib-jupyter.png" alt="image"></p>
 <br/>
 <p><strong>5.8. Afficher une petit chart à l&rsquo;intérieur d&rsquo;un (grand) chart</strong></p>
-<pre><code>import matplotlib.pyplot as plt
+<pre tabindex="0"><code>import matplotlib.pyplot as plt
 %matplotlib inline
 
 import numpy as np
@@ -654,85 +654,84 @@ z = x**2
 fig = plt.figure()
 
 ax1 = fig.add_axes([0,0,1,1])
-ax1.plot(x,y,color='r')
-ax1.set_xlabel('x')
-ax1.set_ylabel('y')
+ax1.plot(x,y,color=&#39;r&#39;)
+ax1.set_xlabel(&#39;x&#39;)
+ax1.set_ylabel(&#39;y&#39;)
 
 ax2 = fig.add_axes([.2,.5,.2,.2])
-ax2.plot(x,y,color='r')
-ax2.set_xlabel('x')
-ax2.set_ylabel('y')
+ax2.plot(x,y,color=&#39;r&#39;)
+ax2.set_xlabel(&#39;x&#39;)
+ax2.set_ylabel(&#39;y&#39;)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/matplotlib-chart-in-chart.png" alt="image"></p>
 <br/>
 <p><strong>5.9. Zoomer sur une partir du chart</strong></p>
-<pre><code>ax2.set_xlim([20,22])
+<pre tabindex="0"><code>ax2.set_xlim([20,22])
 ax2.set_ylim([30,50])
 </code></pre><br/>
 <p><strong>5.10. Afficher 2 charts les uns à côté des autres</strong></p>
-<pre><code>fig, axes = plt.subplots(nrows=1, ncols=2,figsize=(12,2))
+<pre tabindex="0"><code>fig, axes = plt.subplots(nrows=1, ncols=2,figsize=(12,2))
 
-axes[0].plot(x,y,color=&quot;purple&quot;, lw=3, ls='-')
-axes[1].plot(x,z,color=&quot;red&quot;, lw=3, ls='--')
+axes[0].plot(x,y,color=&#34;purple&#34;, lw=3, ls=&#39;-&#39;)
+axes[1].plot(x,z,color=&#34;red&#34;, lw=3, ls=&#39;--&#39;)
 </code></pre><br/>
 <h2 id="6-pandas">6. Pandas</h2>
 <p><strong>6.1. Charger, convertir un CSV en dataframe et afficher ses 5ère lignes</strong></p>
-<pre><code>import pandas as pd
-df = pd.read_csv('mon_dataset.csv')
+<pre tabindex="0"><code>import pandas as pd
+df = pd.read_csv(&#39;mon_dataset.csv&#39;)
 df.head()
 </code></pre><br/>
 <p><strong>6.2. Afficher le nom des colonnes du dataframe</strong></p>
-<pre><code>df.columns
+<pre tabindex="0"><code>df.columns
 </code></pre><br/>
 <p><strong>6.3. Afficher le nombre d&rsquo;éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</strong></p>
-<pre><code>len(df['colonne_name'].unique())
+<pre tabindex="0"><code>len(df[&#39;colonne_name&#39;].unique())
 # Or
-df['colonne_name'].nunique()
+df[&#39;colonne_name&#39;].nunique()
 </code></pre><br/>
 <p><strong>6.4. Afficher les éléments uniques d&rsquo;une colonne d&rsquo;un dataframe</strong></p>
-<pre><code>df['colonne_name'].unique()
+<pre tabindex="0"><code>df[&#39;colonne_name&#39;].unique()
 </code></pre><br/>
 <p><strong>6.5. Afficher les 5 groupes de données ayant le plus d&rsquo;éléments dans la colonne X</strong></p>
-<pre><code>df.groupby(&quot;GroupByGroupe&quot;).count().sort_values('X', ascending=False).iloc[:5]['X']
+<pre tabindex="0"><code>df.groupby(&#34;GroupByGroupe&#34;).count().sort_values(&#39;X&#39;, ascending=False).iloc[:5][&#39;X&#39;]
 </code></pre><br/>
 <p><strong>6.6. Afficher le nombre de fois que des valeurs sont retournées dans les éléments d&rsquo;une colonne</strong></p>
-<pre><code>df['ma_colonne'].value_counts()
+<pre tabindex="0"><code>df[&#39;ma_colonne&#39;].value_counts()
 # Pour afficher le top 5
-df['ma_colonne'].value_counts().iloc[:5]
+df[&#39;ma_colonne&#39;].value_counts().iloc[:5]
 </code></pre><br/>
 <p><strong>6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</strong></p>
-<pre><code>sum(df['ma_colonne'].apply(lambda nom: 'blabla' not in nom))
+<pre tabindex="0"><code>sum(df[&#39;ma_colonne&#39;].apply(lambda nom: &#39;blabla&#39; not in nom))
 </code></pre><br/>
 <p><strong>6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</strong></p>
-<pre><code>df[df[&quot;ma_colonne&quot;] == &quot;toto&quot;]
+<pre tabindex="0"><code>df[df[&#34;ma_colonne&#34;] == &#34;toto&#34;]
 </code></pre><br/>
 <p><strong>6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</strong></p>
-<pre><code>sum(pd.to_datetime(df['date']).apply(lambda date: date.year) == 2020)
-
+<pre tabindex="0"><code>sum(pd.to_datetime(df[&#39;date&#39;]).apply(lambda date: date.year) == 2020)
 </code></pre><br/>
 <h2 id="debugging-misc">Debugging Misc</h2>
 <p><strong>&ldquo;Dumper&rdquo; un objet</strong></p>
-<pre><code>def dump(obj):
+<pre tabindex="0"><code>def dump(obj):
    for attr in dir(obj):
        if hasattr( obj, attr ):
-           print( &quot;obj.%s = %s&quot; % (attr, getattr(obj, attr)))
+           print( &#34;obj.%s = %s&#34; % (attr, getattr(obj, attr)))
 </code></pre><br/>
 <p><strong>Afficher des couleurs dans le terminal</strong></p>
-<pre><code>print('\x1b[6;30;42m' + 'Success!' + '\x1b[0m')
+<pre tabindex="0"><code>print(&#39;\x1b[6;30;42m&#39; + &#39;Success!&#39; + &#39;\x1b[0m&#39;)
 </code></pre><p><img src="https://leandeep.com/images/colors-terminal-basics.png" alt="image"></p>
 <p>Voir toutes les couleurs disponibles:</p>
-<pre><code>def print_format_table():
-    &quot;&quot;&quot;
+<pre tabindex="0"><code>def print_format_table():
+    &#34;&#34;&#34;
     prints table of formatted text format options
-    &quot;&quot;&quot;
+    &#34;&#34;&#34;
     for style in range(8):
         for fg in range(30,38):
-            s1 = ''
+            s1 = &#39;&#39;
             for bg in range(40,48):
-                format = ';'.join([str(style), str(fg), str(bg)])
-                s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
+                format = &#39;;&#39;.join([str(style), str(fg), str(bg)])
+                s1 += &#39;\x1b[%sm %s \x1b[0m&#39; % (format, format)
             print(s1)
-        print('\n')
+        print(&#39;\n&#39;)
 
 print_format_table()
 </code></pre><p>Voici quelques examples:</p>
@@ -750,7 +749,7 @@ print_format_table()
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1384 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 Sep. 2015</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 sept.. 2015</p>
         </div>
 
         
@@ -807,119 +806,6 @@ print_format_table()
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -928,7 +814,7 @@ print_format_table()
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

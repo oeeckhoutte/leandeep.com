@@ -8,7 +8,7 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&amp;rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
- Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &amp;quot;&amp;lt;nom_de_votre_clé&amp;gt;&amp;quot; --public-key-material file://~/." />
+ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &amp;#34;&amp;lt;nom_de_votre_clé&amp;gt;&amp;#34; --public-key-material file://~/." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,21 +260,21 @@
 
 <meta itemprop="name" content="Provisionner un cluster Kubernetes avec AWS EKS">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
- Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/."><meta itemprop="datePublished" content="2019-03-07T21:28:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-03-07T21:28:00&#43;00:00" />
+ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &#34;&lt;nom_de_votre_clé&gt;&#34; --public-key-material file://~/."><meta itemprop="datePublished" content="2019-03-07T21:28:00+00:00" />
+<meta itemprop="dateModified" content="2019-03-07T21:28:00+00:00" />
 <meta itemprop="wordCount" content="536"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Kubernetes,AWS EKS," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Provisionner un cluster Kubernetes avec AWS EKS"/>
 <meta name="twitter:description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
- Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/."/>
+ Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &lt;nom_de_votre_projet&gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &#34;&lt;nom_de_votre_clé&gt;&#34; --public-key-material file://~/."/>
 
 
 
 
 
-<meta property="article:published_time" content="2019-03-07 21:28:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-03-07 21:28:00 &#43;0000 UTC" />
 
 
 
@@ -362,12 +362,12 @@ Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscalin
 <ol start="2">
 <li>Depuis Cloud9, via le terminal générer une clé SSH</li>
 </ol>
-<pre><code>ssh-keygen
+<pre tabindex="0"><code>ssh-keygen
 </code></pre><br/>
 <ol start="3">
 <li>Uploader sa clé dans la région EC2</li>
 </ol>
-<pre><code>aws ec2 import-key-pair --key-name &quot;&lt;nom_de_votre_clé&gt;&quot; --public-key-material file://~/.ssh/id_rsa.pub
+<pre tabindex="0"><code>aws ec2 import-key-pair --key-name &#34;&lt;nom_de_votre_clé&gt;&#34; --public-key-material file://~/.ssh/id_rsa.pub
 </code></pre><br/>
 <ol start="4">
 <li>Installer les outils Kubernetes</li>
@@ -380,22 +380,22 @@ Nous verrons dans un prochain article comment mettre en place l&rsquo;autoscalin
 <p>Installer kubectl</p>
 </li>
 </ul>
-<pre><code>sudo curl --silent --location -o /usr/local/bin/kubectl &quot;https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/kubectl&quot;
+<pre tabindex="0"><code>sudo curl --silent --location -o /usr/local/bin/kubectl &#34;https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/kubectl&#34;
 sudo chmod +x /usr/local/bin/kubectl
 </code></pre><ul>
 <li>Installer AWS IAM Authenticator</li>
 </ul>
-<pre><code>go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
+<pre tabindex="0"><code>go get -u -v github.com/kubernetes-sigs/aws-iam-authenticator/cmd/aws-iam-authenticator
 sudo mv ~/go/bin/aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
 </code></pre><ul>
 <li>Vérifier les binaires</li>
 </ul>
-<pre><code>kubectl version --short --client
+<pre tabindex="0"><code>kubectl version --short --client
 aws-iam-authenticator help
 </code></pre><ul>
 <li>Installer JQ</li>
 </ul>
-<pre><code>sudo yum -y install jq
+<pre tabindex="0"><code>sudo yum -y install jq
 </code></pre><br/>
 <ol start="5">
 <li>Créer un rôle IAM pour le workspace Cloud9</li>
@@ -451,13 +451,13 @@ aws-iam-authenticator help
 <ol start="8">
 <li>Pour être certain que des credentials n&rsquo;ont pas déjà été mis en place, exécuter la commande suivante:</li>
 </ol>
-<pre><code>rm -vf ${HOME}/.aws/credentials
+<pre tabindex="0"><code>rm -vf ${HOME}/.aws/credentials
 </code></pre><br/>
 <ol start="9">
 <li>Configurer l&rsquo;AWS cli avec la région actuelle:</li>
 </ol>
-<pre><code>export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
-echo &quot;export AWS_REGION=${AWS_REGION}&quot; &gt;&gt; ~/.bash_profile
+<pre tabindex="0"><code>export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r &#39;.region&#39;)
+echo &#34;export AWS_REGION=${AWS_REGION}&#34; &gt;&gt; ~/.bash_profile
 aws configure set default.region ${AWS_REGION}
 aws configure get default.region
 </code></pre><br/>
@@ -472,43 +472,43 @@ aws configure get default.region
 <p>On commence par récupérer le rôle IAM du CLI AWS.</p>
 </li>
 </ul>
-<pre><code>INSTANCE_PROFILE_NAME=`basename $(aws ec2 describe-instances --filters Name=tag:Name,Values=aws-cloud9-${C9_PROJECT}-${C9_PID} | jq -r '.Reservations[0].Instances[0].IamInstanceProfile.Arn' | awk -F &quot;/&quot; &quot;{print $2}&quot;)`
-aws iam get-instance-profile --instance-profile-name $INSTANCE_PROFILE_NAME --query &quot;InstanceProfile.Roles[0].RoleName&quot; --output text
+<pre tabindex="0"><code>INSTANCE_PROFILE_NAME=`basename $(aws ec2 describe-instances --filters Name=tag:Name,Values=aws-cloud9-${C9_PROJECT}-${C9_PID} | jq -r &#39;.Reservations[0].Instances[0].IamInstanceProfile.Arn&#39; | awk -F &#34;/&#34; &#34;{print $2}&#34;)`
+aws iam get-instance-profile --instance-profile-name $INSTANCE_PROFILE_NAME --query &#34;InstanceProfile.Roles[0].RoleName&#34; --output text
 </code></pre><p>En sortie on doit obtenir ceci:</p>
-<pre><code>&lt;nom_de_votre_projet&gt;-admin
+<pre tabindex="0"><code>&lt;nom_de_votre_projet&gt;-admin
 </code></pre><p>Comparer le résultat de cette commande avec celle-ci:</p>
-<pre><code>aws sts get-caller-identity
+<pre tabindex="0"><code>aws sts get-caller-identity
 </code></pre><p>Si l&rsquo;ARN contient le rôle name comme ci-dessous, tout est bien configuré:</p>
-<pre><code>{
-    &quot;Account&quot;: &quot;123456789012&quot;, 
-    &quot;UserId&quot;: &quot;AROA1SAMPLEAWSIAMROLE:i-01234567890abcdef&quot;, 
-    &quot;Arn&quot;: &quot;arn:aws:sts::123456789012:assumed-role/&lt;nom_de_votre_projet&gt;-admin/i-01234567890abcdef&quot;
+<pre tabindex="0"><code>{
+    &#34;Account&#34;: &#34;123456789012&#34;, 
+    &#34;UserId&#34;: &#34;AROA1SAMPLEAWSIAMROLE:i-01234567890abcdef&#34;, 
+    &#34;Arn&#34;: &#34;arn:aws:sts::123456789012:assumed-role/&lt;nom_de_votre_projet&gt;-admin/i-01234567890abcdef&#34;
 }
 </code></pre><br/>
 <ol start="11">
 <li>Installer le binaire <code>eksctl</code>:</li>
 </ol>
-<pre><code>curl --silent --location &quot;https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz&quot; | tar xz -C /tmp
+<pre tabindex="0"><code>curl --silent --location &#34;https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz&#34; | tar xz -C /tmp
 
 sudo mv -v /tmp/eksctl /usr/local/bin
 </code></pre><p>Et vérifier que l&rsquo;installation est bonne via:</p>
-<pre><code>eksctl version
+<pre tabindex="0"><code>eksctl version
 </code></pre><br/>
 <ol start="12">
 <li>Création du cluster</li>
 </ol>
-<pre><code>eksctl create cluster --name=&lt;nom_de_votre_projet&gt;-eksctl --nodes=3 --node-ami=auto --region=${AWS_REGION}
+<pre tabindex="0"><code>eksctl create cluster --name=&lt;nom_de_votre_projet&gt;-eksctl --nodes=3 --node-ami=auto --region=${AWS_REGION}
 </code></pre><br/>
 <h2 id="vérifier-le-bon-fonctionnement-du-cluster">Vérifier le bon fonctionnement du cluster</h2>
-<pre><code>kubectl get nodes
+<pre tabindex="0"><code>kubectl get nodes
 </code></pre><br/>
 <h2 id="déployer-le-dashboard-k8s-officiel">Déployer le dashboard k8s officiel</h2>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
 </code></pre><br/>
 <ol start="15">
 <li>Accéder au dashboard</li>
 </ol>
-<pre><code>kubectl proxy --port=8080 --address='0.0.0.0' --disable-filter=true &amp;
+<pre tabindex="0"><code>kubectl proxy --port=8080 --address=&#39;0.0.0.0&#39; --disable-filter=true &amp;
 </code></pre><ul>
 <li>
 <p>Dans Cloud9, cliquer sur Tools / Preview / Preview Running Application. Positionnezvous à la fin de l&rsquo;URL et ajoutez:
@@ -518,7 +518,7 @@ sudo mv -v /tmp/eksctl /usr/local/bin
 <p>Ouvrer un nouvel onglet et entrer la commande suivante pour obtenir un token:</p>
 </li>
 </ul>
-<pre><code>aws-iam-authenticator token -i &lt;nom_de_votre_projet&gt;-eksctl --token-only
+<pre tabindex="0"><code>aws-iam-authenticator token -i &lt;nom_de_votre_projet&gt;-eksctl --token-only
 </code></pre><ul>
 <li>Enfin cliquer sur Sign In.</li>
 </ul>
@@ -535,7 +535,7 @@ sudo mv -v /tmp/eksctl /usr/local/bin
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>536 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 Mar. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 mars. 2019</p>
         </div>
 
         
@@ -592,119 +592,6 @@ sudo mv -v /tmp/eksctl /usr/local/bin
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -713,7 +600,7 @@ sudo mv -v /tmp/eksctl /usr/local/bin
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

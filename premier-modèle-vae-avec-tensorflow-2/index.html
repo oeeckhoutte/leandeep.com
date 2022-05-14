@@ -245,7 +245,7 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ from __future__ import division, absolute_import, print_function, unicode_litera
 <meta itemprop="name" content="Premier modèle VAE avec Tensorflow 2">
 <meta itemprop="description" content="Introduction Dans cet article, nous allons créer un modèle VAE qui va nous aider à générer des nouveaux digits. Nous partirons du dataset MNIST. Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.
  Variational Autoencoders (VAE) Chargement des modules
-from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:"><meta itemprop="datePublished" content="2019-12-20T19:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2019-12-20T19:49:00&#43;02:00" />
+from __future__ import division, absolute_import, print_function, unicode_literals import tensorflow as tf import time import numpy as np import os import matplotlib.pyplot as plt import PIL import glob import imageio from IPython import display  Chargement du dataset MNIST:"><meta itemprop="datePublished" content="2019-12-20T19:49:00+02:00" />
+<meta itemprop="dateModified" content="2019-12-20T19:49:00+02:00" />
 <meta itemprop="wordCount" content="517"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Tensorflow 2,Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -353,7 +353,7 @@ Chaque image de ce dataset est normalisée dans un cadre faisant 28x28 pixels.</
 <br/>
 <h2 id="variational-autoencoders-vae">Variational Autoencoders (VAE)</h2>
 <p><strong>Chargement des modules</strong></p>
-<pre><code>from __future__ import division, absolute_import, print_function, unicode_literals
+<pre tabindex="0"><code>from __future__ import division, absolute_import, print_function, unicode_literals
 import tensorflow as tf
 import time
 import numpy as np
@@ -365,22 +365,22 @@ import imageio
 from IPython import display
 </code></pre><br/>
 <p><strong>Chargement du dataset MNIST:</strong></p>
-<pre><code>(train_data, _), (test_data, _) = tf.keras.datasets.mnist.load_data()
-train_data = train_data.reshape(train_data.shape[0], 28, 28, 1).astype('float32')
-test_data = test_data.reshape(test_data.shape[0], 28, 28, 1).astype('float32')
+<pre tabindex="0"><code>(train_data, _), (test_data, _) = tf.keras.datasets.mnist.load_data()
+train_data = train_data.reshape(train_data.shape[0], 28, 28, 1).astype(&#39;float32&#39;)
+test_data = test_data.reshape(test_data.shape[0], 28, 28, 1).astype(&#39;float32&#39;)
 </code></pre><br/>
 <p><strong>Normalisation des images d&rsquo;entrée entre [0,1]:</strong></p>
-<pre><code>train_data /= 255.
+<pre tabindex="0"><code>train_data /= 255.
 test_data /= 255.
 </code></pre><br/>
 <p><strong>Binarisation des données normalisées:</strong></p>
-<pre><code>train_data[train_data &gt;= .5] = 1.
+<pre tabindex="0"><code>train_data[train_data &gt;= .5] = 1.
 train_data[train_data &lt; .5] = 0.
 test_data[test_data &gt;= .5] = 1.
 test_data[test_data &lt; .5] = 0.
 </code></pre><br/>
 <p><strong>Batching et Shuffling du dataset:</strong></p>
-<pre><code>TRAIN_SIZE = 60000
+<pre tabindex="0"><code>TRAIN_SIZE = 60000
 BATCH_SIZE = 50
 TEST_SIZE = 10000
 train_batch = tf.data.Dataset.from_tensor_slices(train_data).shuffle(TRAIN_SIZE).batch(BATCH_SIZE)
@@ -391,7 +391,7 @@ test_batch = tf.data.Dataset.from_tensor_slices(test_data).shuffle(TEST_SIZE).ba
 On va construire 2 réseaux neuronals convolutionnels pour l&rsquo;Encoder et le Decoder.
 <br/>
 Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
-<pre><code>class CONV_VAE(tf.keras.Model):
+<pre tabindex="0"><code>class CONV_VAE(tf.keras.Model):
   def __init__(self, latent_dim):
     super(CONV_VAE, self).__init__()
     self.latent_vec = latent_vec
@@ -399,9 +399,9 @@ Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
       [
           tf.keras.layers.InputLayer(input_shape=(28, 28, 1)),
           tf.keras.layers.Conv2D(
-              filters=25, kernel_size=3, strides=(2, 2), activation='relu'),
+              filters=25, kernel_size=3, strides=(2, 2), activation=&#39;relu&#39;),
           tf.keras.layers.Conv2D(
-              filters=50, kernel_size=3, strides=(2, 2), activation='relu'),
+              filters=50, kernel_size=3, strides=(2, 2), activation=&#39;relu&#39;),
           tf.keras.layers.Flatten(),
           tf.keras.layers.Dense(latent_vec + latent_vec),
       ]
@@ -415,16 +415,16 @@ Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
               filters=50,
               kernel_size=3,
               strides=(2, 2),
-              padding=&quot;SAME&quot;,
-              activation='relu'),
+              padding=&#34;SAME&#34;,
+              activation=&#39;relu&#39;),
           tf.keras.layers.Conv2DTranspose(
               filters=25,
               kernel_size=3,
               strides=(2, 2),
-              padding=&quot;SAME&quot;,
-              activation='relu'),
+              padding=&#34;SAME&#34;,
+              activation=&#39;relu&#39;),
           tf.keras.layers.Conv2DTranspose(
-              filters=1, kernel_size=3, strides=(1, 1), padding=&quot;SAME&quot;),
+              filters=1, kernel_size=3, strides=(1, 1), padding=&#34;SAME&#34;),
         ]
     )
 
@@ -449,10 +449,9 @@ Ces deux réseaux seront envoloppés dans tf.keras.Sequential</p>
       return probabs
 
     return logout
-
 </code></pre><br/>
 <p><strong>Construire la fonction d&rsquo;optimisation:</strong></p>
-<pre><code>optimizer_func = tf.keras.optimizers.Adam(1e-4)
+<pre tabindex="0"><code>optimizer_func = tf.keras.optimizers.Adam(1e-4)
 
 def log_normal_prob_dist_func(sample, mean, logd, raxis=1):
   log2pi = tf.math.log(2. * np.pi)
@@ -475,10 +474,9 @@ def gradient_func(model, inp, optimizer_func):
     loss = loss_func(model, inp)
   gradients = tape.gradient(loss, model.trainable_variables)
   optimizer_func.apply_gradients(zip(gradients, model.trainable_variables))
-
 </code></pre><br/>
 <p><strong>Entrainement:</strong></p>
-<pre><code>epochs = 100
+<pre tabindex="0"><code>epochs = 100
 latent_vec = 8
 examples = 8
 
@@ -487,16 +485,16 @@ rand_vec = tf.random.normal(
 model = CONV_VAE(latent_vec)
 </code></pre><br/>
 <p><strong>Génération des images à partir du modèle entrainé:</strong></p>
-<pre><code>def generate_and_save_images(model, epochs, input_data):
+<pre tabindex="0"><code>def generate_and_save_images(model, epochs, input_data):
   preds = model.sampling(input_data)
   fig = plt.figure(figsize=(4,4))
 
   for i in range(preds.shape[0]):
       plt.subplot(4, 4, i+1)
-      plt.imshow(preds[i, :, :, 0], cmap='gray')
-      plt.axis('off')
+      plt.imshow(preds[i, :, :, 0], cmap=&#39;gray&#39;)
+      plt.axis(&#39;off&#39;)
 
-  plt.savefig('img_at_epoch{:04d}.png'.format(epochs))
+  plt.savefig(&#39;img_at_epoch{:04d}.png&#39;.format(epochs))
   plt.show()
 
 generate_and_save_images(model, 0, rand_vec)
@@ -513,16 +511,16 @@ for epoch in range(1, epochs + 1):
       loss(loss_func(model, y))
     elbo = -loss.result()
     display.clear_output(wait=False)
-    print('Epoch number: {}, Test batch ELBO: {}, '
-          'elapsed time for current epoch {}'.format(epochs, elbo, end_time - start_time))
+    print(&#39;Epoch number: {}, Test batch ELBO: {}, &#39;
+          &#39;elapsed time for current epoch {}&#39;.format(epochs, elbo, end_time - start_time))
     generate_and_save_images(model, epochs, rand_vec)
 </code></pre><br/>
 <p><strong>Afficher une image générée:</strong></p>
-<pre><code>def display_image(epoch_no):
-  return PIL.Image.open('img_at_epoch{:04d}.png'.format(epoch_no))
+<pre tabindex="0"><code>def display_image(epoch_no):
+  return PIL.Image.open(&#39;img_at_epoch{:04d}.png&#39;.format(epoch_no))
 
 plt.imshow(display_image(epochs))
-plt.axis('off')
+plt.axis(&#39;off&#39;)
 </code></pre><p><img src="https://leandeep.com/images/digits.png" alt="image"></p>
 
             </div>
@@ -537,7 +535,7 @@ plt.axis('off')
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>517 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20 Dec. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20 déc.. 2019</p>
         </div>
 
         
@@ -594,119 +592,6 @@ plt.axis('off')
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -715,7 +600,7 @@ plt.axis('off')
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

@@ -247,7 +247,7 @@ Les outils sont les suivants:
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -266,8 +266,8 @@ Les outils sont les suivants:
 L&rsquo;installation sera faite sur Ubuntu 18.04 avec un user non root. Le hardware permettant de recevoir et émettre des ondes est un HackRF. 
 Les outils sont les suivants:
  Kalibrate Qspectrum Inspectrum Spectrum Analyzer GUI URH (Universal Radio Hack) Gnuradio   Pourquoi ces outils sont-ils utiles ?
- Analyser la sécurité de vos objets connectés, ou votre porte de garage, votre portail motorisé&hellip; (malheureusement beaucoup comportent des failles) Comprendre comment fonctionnent les ondes GSM et mieux vous protéger (Attention aux ISMI catchers) Piloter des drones, voitures téléguidées qui n&rsquo;ont pas d&rsquo;API et que vous aimez bidouillez."><meta itemprop="datePublished" content="2020-04-18T15:20:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-04-18T15:20:00&#43;02:00" />
+ Analyser la sécurité de vos objets connectés, ou votre porte de garage, votre portail motorisé&hellip; (malheureusement beaucoup comportent des failles) Comprendre comment fonctionnent les ondes GSM et mieux vous protéger (Attention aux ISMI catchers) Piloter des drones, voitures téléguidées qui n&rsquo;ont pas d&rsquo;API et que vous aimez bidouillez."><meta itemprop="datePublished" content="2020-04-18T15:20:00+02:00" />
+<meta itemprop="dateModified" content="2020-04-18T15:20:00+02:00" />
 <meta itemprop="wordCount" content="685"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Hackrf,Security,Wireless,RadioFrequences," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -378,12 +378,12 @@ Les outils sont les suivants:
 </ul>
 <br/>
 <h2 id="installation-des-drivers-pour-hackrf">Installation des drivers pour HackRF</h2>
-<pre><code>sudo apt install build-essential cmake libfftw3-dev libusb-1.0-0-dev pkg-config
+<pre tabindex="0"><code>sudo apt install build-essential cmake libfftw3-dev libusb-1.0-0-dev pkg-config
 
 sudo apt install hackrf
 </code></pre><br/>
 <p>Si le paquet <code>hackrf</code> ne s&rsquo;installe pas sur votre OS Linux vous pouvez utiliser les commandes suivantes:</p>
-<pre><code>git clone https://github.com/mossmann/hackrf.git
+<pre tabindex="0"><code>git clone https://github.com/mossmann/hackrf.git
 cd hackrf/
 mkdir host/build/
 cd host/build/
@@ -393,34 +393,34 @@ make install
 ldconfig
 </code></pre><br/>
 <p>Pour des raisons de sécurité, un utilisateur normal sur Linux n&rsquo;a pas les permissions pour accéder à des devices USB arbitraires. Pour accéder au Hackrf sans droit root, on peut créer un fichier <code>/etc/udev/rules.d/52-hackrf.rules</code> et ajouter le contenu suivant:</p>
-<pre><code>ATTR{idVendor}==&quot;1d50&quot;, ATTR{idProduct}==&quot;604b&quot;, SYMLINK+=&quot;hackrf-jawbreaker-%k&quot;, MODE=&quot;660&quot;, GROUP=&quot;plugdev&quot;
-ATTR{idVendor}==&quot;1d50&quot;, ATTR{idProduct}==&quot;6089&quot;, SYMLINK+=&quot;hackrf-one-%k&quot;, MODE=&quot;660&quot;, GROUP=&quot;plugdev&quot;
-ATTR{idVendor}==&quot;1fc9&quot;, ATTR{idProduct}==&quot;000c&quot;, SYMLINK+=&quot;hackrf-dfu-%k&quot;, MODE=&quot;660&quot;, GROUP=&quot;plugdev&quot;
+<pre tabindex="0"><code>ATTR{idVendor}==&#34;1d50&#34;, ATTR{idProduct}==&#34;604b&#34;, SYMLINK+=&#34;hackrf-jawbreaker-%k&#34;, MODE=&#34;660&#34;, GROUP=&#34;plugdev&#34;
+ATTR{idVendor}==&#34;1d50&#34;, ATTR{idProduct}==&#34;6089&#34;, SYMLINK+=&#34;hackrf-one-%k&#34;, MODE=&#34;660&#34;, GROUP=&#34;plugdev&#34;
+ATTR{idVendor}==&#34;1fc9&#34;, ATTR{idProduct}==&#34;000c&#34;, SYMLINK+=&#34;hackrf-dfu-%k&#34;, MODE=&#34;660&#34;, GROUP=&#34;plugdev&#34;
 </code></pre><p><em>Le contenu de ce fichier permet de dire à <code>udev</code> de reconnaitre HackRF grâce au Vendor ID et Product ID
 Il fixe les permissions UNIX à 660 et au groupe plugdev pour /dev. Enfin, il crée un symlink dans /dev pour le device HackRF.</em></p>
 <br/>
 <p>Une fois le fichier de règle précédent créé, il faut reloader <code>udevadm</code>:</p>
-<pre><code>sudo udevadm control --reload-rules
+<pre tabindex="0"><code>sudo udevadm control --reload-rules
 </code></pre><br/>
 <p>Pour vérifier que HackRF est bien détecté, on peut utiliser la commande <code>hackrf_info</code>.</p>
 <br/>
 <h2 id="kalibrate">Kalibrate</h2>
 <p><strong>Analyse d&rsquo;ondes GSM avec Kalibrate</strong></p>
-<pre><code>apt install libtool autoconf automake m4
-</code></pre><pre><code>#git clone https://github.com/scateu/kalibrate-hackrf.git
+<pre tabindex="0"><code>apt install libtool autoconf automake m4
+</code></pre><pre tabindex="0"><code>#git clone https://github.com/scateu/kalibrate-hackrf.git
 git clone https://github.com/rxseger/kalibrate-hackrf.git
 cd kalibrate-hackrf/
 ./bootstrap
 ./configure 
 make -j8
 cd ../
-</code></pre><pre><code>kalibrate-hackrf/src/kal -h
+</code></pre><pre tabindex="0"><code>kalibrate-hackrf/src/kal -h
 kalibrate-hackrf/src/kal -s GSM900 -l 32 -g 20 -p 10 | tee GSM900.kal-hackrf
 
 sort -rh -k7,7 GSM900.kal-hackrf
 </code></pre><br/>
 <p>Alternative pour analyser des ondes GSM: utiliser LTE-Cell-Scanner</p>
-<pre><code>git clone https://github.com/rxseger/LTE-Cell-Scanner.git
+<pre tabindex="0"><code>git clone https://github.com/rxseger/LTE-Cell-Scanner.git
 cd LTE-Cell-Scanner/build/src/
 ./CellSearch -h
 ./CellSearch --freq-start 1842.5e6 --freq-end 1842.5e6 --gain 20
@@ -441,7 +441,7 @@ However - don’t ask me why - it works best without any correction nor PPM
 ./LTE-Tracker --gain 20 --freq 1842.5e6
 </code></pre><br/>
 <h2 id="qspectrum">Qspectrum</h2>
-<pre><code>git clone https://github.com/xmikos/qspectrumanalyzer.git
+<pre tabindex="0"><code>git clone https://github.com/xmikos/qspectrumanalyzer.git
 #less README.rst #--&gt; Ubuntu
 #apt install python3-pyqt5 python3-pyqtgraph
 
@@ -465,7 +465,7 @@ qspectrumanalyzer
 <p>SMOOTHING</p>
 <br/>
 <h2 id="inspectrum">Inspectrum</h2>
-<pre><code>git clone https://github.com/miek/inspectrum.git
+<pre tabindex="0"><code>git clone https://github.com/miek/inspectrum.git
 cd inspectrum/
 mkdir build/
 cd build/
@@ -476,16 +476,15 @@ sudo make install
 hackrf_transfer -h
 hackrf_transfer -r air.cs8 -f `arfcncalc -a $arfcn -d` -l 32 -g 20 -s 2e6
 hackrf_transfer -r air.cs8 -f 1842.5e6 -l 32 -g 20 -s 11e6
-#-C &quot;$hppm&quot;
+#-C &#34;$hppm&#34;
 
 inspectrum -h
 inspectrum --rate 2e6 air.cs8
 inspectrum --rate 11e6 air.cs8
-
 </code></pre><p>Si vous avez l&rsquo;erreur suivante &ldquo;Couldn&rsquo;t transfer any bytes for one second&rdquo;, vous pouvez regarder dans la FAQ de HackRF et les issues ouvertes: <a href="https://github.com/mossmann/hackrf/issues/237">https://github.com/mossmann/hackrf/issues/237</a> &amp; <a href="https://github.com/mossmann/hackrf/wiki/FAQ">https://github.com/mossmann/hackrf/wiki/FAQ</a></p>
 <br/>
 <h2 id="spectrum-analyzer-gui">Spectrum Analyzer GUI</h2>
-<pre><code>sudo apt install build-essential ant git libusb-1.0 libfftw3 libfftw3-dev openjdk-8-jdk
+<pre tabindex="0"><code>sudo apt install build-essential ant git libusb-1.0 libfftw3 libfftw3-dev openjdk-8-jdk
 
 git clone --depth=1 --recurse-submodules https://github.com/pavsa/hackrf-spectrum-analyzer.git
 cd hackrf-spectrum-analyzer/src/hackrf-sweep/
@@ -493,14 +492,14 @@ make -j8
 build/hackrf_sweep_spectrum_analyzer.sh
 </code></pre><br/>
 <h2 id="installation-de-urh">Installation de URH</h2>
-<pre><code>sudo apt install gr-osmosdr
+<pre tabindex="0"><code>sudo apt install gr-osmosdr
 sudo apt-get install libhackrf-dev
 
 mkvirtualenv -p /usr/bin/python3 -a . sdr_env
 pip install urh
 </code></pre><br/>
 <h2 id="installation-de-gnu-radio">Installation de GNU Radio</h2>
-<pre><code># Pour connaitre le Sample rate d'un WAV pour configurer la transmission 
+<pre tabindex="0"><code># Pour connaitre le Sample rate d&#39;un WAV pour configurer la transmission 
 sudo apt install mplayer
 # example: 
 # mplayer Jacky-Core-Encore-Plus-Fort-Captain-2015.wav
@@ -525,7 +524,7 @@ sudo apt install gnuradio
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>685 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Apr. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 avr.. 2020</p>
         </div>
 
         
@@ -582,119 +581,6 @@ sudo apt install gnuradio
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -703,7 +589,7 @@ sudo apt install gnuradio
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

@@ -8,7 +8,7 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Si vous aviez créé votre raid avec l&amp;rsquo;utilitaire mdadm (comme expliqué dans l&amp;rsquo;article suivant https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/ ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:
-# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&#39;il est bien monté df -h  Troubleshooting Avoir des informations (type et disques utilisés) sur les raids existants" />
+# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&amp;#39;il est bien monté df -h  Troubleshooting Avoir des informations (type et disques utilisés) sur les raids existants" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Monter un raid existant sur une nouvelle installation d&#39;Ubuntu">
 <meta itemprop="description" content="Si vous aviez créé votre raid avec l&rsquo;utilitaire mdadm (comme expliqué dans l&rsquo;article suivant https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/ ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:
-# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&#39;il est bien monté df -h  Troubleshooting Avoir des informations (type et disques utilisés) sur les raids existants"><meta itemprop="datePublished" content="2019-11-15T13:31:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-11-15T13:31:00&#43;00:00" />
+# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&#39;il est bien monté df -h  Troubleshooting Avoir des informations (type et disques utilisés) sur les raids existants"><meta itemprop="datePublished" content="2019-11-15T13:31:00+00:00" />
+<meta itemprop="dateModified" content="2019-11-15T13:31:00+00:00" />
 <meta itemprop="wordCount" content="222"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Raid,mdadm,Linux," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@
 
 
 
-<meta property="article:published_time" content="2019-11-15 13:31:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-11-15 13:31:00 &#43;0000 UTC" />
 
 
 
@@ -345,7 +345,7 @@
 
             <div class="post-content">
                 <p>Si vous aviez créé votre raid avec l&rsquo;utilitaire <code>mdadm</code> (comme expliqué dans l&rsquo;article suivant <a href="https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/">https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/</a> ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:</p>
-<pre><code># Installation de mdadm
+<pre tabindex="0"><code># Installation de mdadm
 sudo apt-get update
 sudo apt-get install -y mdadm
 
@@ -356,7 +356,7 @@ sudo mdadm --assemble --scan
 sudo mkdir /mnt/md0
 sudo mount /dev/md0 /mnt/md0
 
-# Vérifier qu'il est bien monté
+# Vérifier qu&#39;il est bien monté
 df -h
 </code></pre><br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
@@ -364,24 +364,23 @@ df -h
 <ul>
 <li>Option 1:</li>
 </ul>
-<pre><code>cat /proc/mdstat
+<pre tabindex="0"><code>cat /proc/mdstat
 
 Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10]
 md0 : active raid1 sdb1[0] sdc1[1]
       976761472 blocks [2/2] [UU]
       bitmap: 0/8 pages [0KB], 65536KB chunk
-
 </code></pre><br/>
 <ul>
 <li>Option 2:</li>
 </ul>
-<pre><code>grep 'md' /proc/mdstat | tr ' ' '\n' | sed -n 's/\[.*//p'
+<pre tabindex="0"><code>grep &#39;md&#39; /proc/mdstat | tr &#39; &#39; &#39;\n&#39; | sed -n &#39;s/\[.*//p&#39;
 </code></pre><br/>
 <p><strong>Lister les disques</strong></p>
-<pre><code>fdisk -l
+<pre tabindex="0"><code>fdisk -l
 </code></pre><br/>
 <p><strong>Obtenir le serial number d&rsquo;un disque</strong></p>
-<pre><code>sudo hdparm -I /dev/sdb1 | grep 'Serial\ Number'
+<pre tabindex="0"><code>sudo hdparm -I /dev/sdb1 | grep &#39;Serial\ Number&#39;
 
 Serial Number:      S246J9FC405870
 </code></pre><p>Cela peut être pratique si vous avez plein de disques dans une tour et que vous voulez identifier les disques HS.</p>
@@ -390,7 +389,7 @@ Serial Number:      S246J9FC405870
 <p><strong>Error: &ldquo;mdadm: Duplicate MD device names in conf file were found&rdquo;</strong></p>
 <p>Editer le fichier <code>/etc/mdadm/mdadm.conf</code> et vérifier qu&rsquo;un raid n&rsquo;est pas référencé 2 fois.</p>
 <p>Puis exécuter la commande suivante pour prendre en compte la modification:</p>
-<pre><code>update-initramfs  -u -k all
+<pre tabindex="0"><code>update-initramfs  -u -k all
 </code></pre><p>Vous pouvez ensuite rebooter pour vérifier que cela fonctionne toujours&hellip;</p>
 
             </div>
@@ -405,7 +404,7 @@ Serial Number:      S246J9FC405870
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>222 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Nov. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 nov.. 2019</p>
         </div>
 
         
@@ -462,119 +461,6 @@ Serial Number:      S246J9FC405870
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -583,7 +469,7 @@ Serial Number:      S246J9FC405870
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

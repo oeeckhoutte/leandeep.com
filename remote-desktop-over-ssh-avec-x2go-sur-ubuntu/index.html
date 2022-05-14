@@ -9,7 +9,7 @@
 <meta name="description"
   content="Introduction Dans cet article, nous allons voir comment mettre en place du remote desktop sur Ubuntu 18.04. On ne va pas installer un serveur VNC. Ici, on va faire du X11 forwarding. Le protocole NX va nous permettre de transmettre des données vidéos, audio, etc. via une connexion SSH.
  Installation de la partie serveur sur Ubuntu Installation de X2GO
-# On ajoute le package permettant d&#39;ajouter des PPA sudo apt-get install software-properties-common # On ajoute X2Go PPA sudo add-apt-repository ppa:x2go/stable # On met à jour la base de données contenant les packages disponibles sudo apt-get update # On installe X2GO sudo apt-get install x2goserver x2goserver-xsession  Installation d&amp;rsquo;un desktop environment" />
+# On ajoute le package permettant d&amp;#39;ajouter des PPA sudo apt-get install software-properties-common # On ajoute X2Go PPA sudo add-apt-repository ppa:x2go/stable # On met à jour la base de données contenant les packages disponibles sudo apt-get update # On installe X2GO sudo apt-get install x2goserver x2goserver-xsession  Installation d&amp;rsquo;un desktop environment" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -245,7 +245,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@
 <meta itemprop="name" content="Remote Desktop over SSH avec X2GO sur Ubuntu">
 <meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment mettre en place du remote desktop sur Ubuntu 18.04. On ne va pas installer un serveur VNC. Ici, on va faire du X11 forwarding. Le protocole NX va nous permettre de transmettre des données vidéos, audio, etc. via une connexion SSH.
  Installation de la partie serveur sur Ubuntu Installation de X2GO
-# On ajoute le package permettant d&#39;ajouter des PPA sudo apt-get install software-properties-common # On ajoute X2Go PPA sudo add-apt-repository ppa:x2go/stable # On met à jour la base de données contenant les packages disponibles sudo apt-get update # On installe X2GO sudo apt-get install x2goserver x2goserver-xsession  Installation d&rsquo;un desktop environment"><meta itemprop="datePublished" content="2020-09-25T18:59:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-09-25T18:59:00&#43;02:00" />
+# On ajoute le package permettant d&#39;ajouter des PPA sudo apt-get install software-properties-common # On ajoute X2Go PPA sudo add-apt-repository ppa:x2go/stable # On met à jour la base de données contenant les packages disponibles sudo apt-get update # On installe X2GO sudo apt-get install x2goserver x2goserver-xsession  Installation d&rsquo;un desktop environment"><meta itemprop="datePublished" content="2020-09-25T18:59:00+02:00" />
+<meta itemprop="dateModified" content="2020-09-25T18:59:00+02:00" />
 <meta itemprop="wordCount" content="414"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="XServer,SSH," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -353,7 +353,7 @@ On ne va pas installer un serveur VNC. Ici, on va faire du X11 forwarding. Le pr
 <br/>
 <h2 id="installation-de-la-partie-serveur-sur-ubuntu">Installation de la partie serveur sur Ubuntu</h2>
 <p><strong>Installation de X2GO</strong></p>
-<pre><code># On ajoute le package permettant d'ajouter des PPA
+<pre tabindex="0"><code># On ajoute le package permettant d&#39;ajouter des PPA
 sudo apt-get install software-properties-common
 
 # On ajoute X2Go PPA
@@ -367,7 +367,7 @@ sudo apt-get install x2goserver x2goserver-xsession
 </code></pre><br/>
 <p><strong>Installation d&rsquo;un desktop environment</strong></p>
 <p>Même si votre Ubuntu 18.04 contient déjà un desktop environment, vous devrez en installer un nouveau compatible avec le client de X2GO. Je recommande l&rsquo;installation de XFCE ou LXDE qui sont légers. Il vous permettra d&rsquo;avoir des meilleurs performances que d&rsquo;autres desktop environments plus lourds ou que Ubuntu Desktop installé par défaut.</p>
-<pre><code># Installation de XFCE
+<pre tabindex="0"><code># Installation de XFCE
 sudo apt-get install xfce4
 
 # Ou LXDE
@@ -382,7 +382,7 @@ sudo apt install mate-core mate-desktop-environment mate-notification-daemon
 <br/>
 <h2 id="installation-du-client">Installation du client</h2>
 <p><strong>Linux</strong></p>
-<pre><code># Ubuntu
+<pre tabindex="0"><code># Ubuntu
 sudo apt-get install x2goclient
 
 # Fedora
@@ -403,8 +403,8 @@ par <code>tty -s &amp;&amp; mesg n</code>.</p>
 <li>Connexion SSH et forward X11: <code>ssh -X</code>. Il est ensuite possible de démarrer n&rsquo;importe quelle application avec interface graphique.</li>
 <li>Lister les desktop environments: <code>ls -l /usr/share/xsessions/</code></li>
 <li>Sur Debian 8 (cf &ldquo;jessie&rdquo; via la commande <code>lsb_release -a</code>), l&rsquo;installation de X2GO se fait via les commandes suivantes:
-<pre><code>sudo apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E
-echo 'deb http://packages.x2go.org/debian jessie main' | sudo tee /etc/apt/sources.list.d/x2go.list
+<pre tabindex="0"><code>sudo apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E
+echo &#39;deb http://packages.x2go.org/debian jessie main&#39; | sudo tee /etc/apt/sources.list.d/x2go.list
 sudo apt-get install x2goserver x2goserver-xsession
 </code></pre></li>
 <li>Si vous installez X2GO sur Kubuntu 20.04+ et que vous démarrez une session vous aurez sans doute l&rsquo;erreur suivante: <code>Unable to execute: startkde</code>. La commande <code>startkde</code> n&rsquo;existe plus dans Kubuntu 20.04. Si vous avez cette erreur, changez le type de session en sélectionnant <code>Custom desktop</code> et  entrez <code>/usr/bin/startplasma-x11</code> dans le champ commande.</li>
@@ -422,7 +422,7 @@ sudo apt-get install x2goserver x2goserver-xsession
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>414 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 Sep. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 sept.. 2020</p>
         </div>
 
         
@@ -479,119 +479,6 @@ sudo apt-get install x2goserver x2goserver-xsession
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -600,7 +487,7 @@ sudo apt-get install x2goserver x2goserver-xsession
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

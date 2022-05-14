@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Anatomie d&#39;un fichier tsconfig.json">
-<meta itemprop="description" content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript.  Voici un grand nombre d&rsquo;options possibles pour configurer convenablement votre projet Typescript. J&rsquo;ai essayé de décrire chacune d&rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;"><meta itemprop="datePublished" content="2021-04-10T14:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2021-04-10T14:49:00&#43;02:00" />
+<meta itemprop="description" content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript.  Voici un grand nombre d&rsquo;options possibles pour configurer convenablement votre projet Typescript. J&rsquo;ai essayé de décrire chacune d&rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;"><meta itemprop="datePublished" content="2021-04-10T14:49:00+02:00" />
+<meta itemprop="dateModified" content="2021-04-10T14:49:00+02:00" />
 <meta itemprop="wordCount" content="822"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Typescript," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -347,56 +347,56 @@ Voici un grand nombre d&rsquo;options possibles pour configurer convenablement v
 Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;</p>
 <br/>
 <p><strong>tsconfig.json</strong></p>
-<pre><code>{
-  &quot;extends: &quot;./tsconfig.base&quot;, // Il est possible de faire de l'héritage de fichier tsconfig.js
-  &quot;compilerOptions&quot;: { // contient toutes les rêgles permettant de configurer la compilation de notre projet Typescript
-    &quot;allowJs&quot;: false,
-    &quot;allowSyntheticDefaultImports&quot;: false,
-    &quot;allowUnreachableCode&quot;: false,
-    &quot;allowUnusedLabels&quot;: false,
-    &quot;outDir&quot;: &quot;./dist&quot;, // Dossier dans lequel sera contenu l'output de la compilation
-    &quot;noEmitOnError&quot;: true, // Recommandé. Ne crée pas de fichier d'output s'il y a une erreur Typescript
-    &quot;declaration&quot;: true, // permet de générer le fichier de déclaration (*.d.ts) pour créer des libs/packages importable dans d'autres projets par exemple
-    &quot;declarationDir&quot;: &quot;./typings&quot;, // Spécifie le dossier dans lequel seront générés les fichiers *.d.ts
-    &quot;stripInternal&quot;: true, // Si l'annotation /** @internal */ est présente au-dessus d'une fonction, le fichier de *.d.ts généré ne contiendra pas de déclaration pour cette fonction
-    &quot;sourceMap&quot;: true, // Permet de générer les fichier *.map
-    &quot;inlineSources&quot;: true, // Permet d'inclure le code source Typescript dans les sourcemap
-    &quot;mapRoot&quot;: &quot;./source-maps&quot;, // Spécifie le dossier dans lequel seront générés les fichiers sourceMaps
-    &quot;inlineSourcesMap&quot;: true, // Génére le contenu du sourceMap au format base64 inclus dans le fichier transpilé *.js
-    &quot;noImplicitAny&quot;: true, // Indispensable, sans quoi il suffit de faire du JS. Indique à Typescript que l'on ne veut pas type any implicite automatiquement ajouté
-    &quot;strictNullChecks&quot;: true, // Indispensable, sans quoi il suffit de faire du JS. undefined et null sont historiquement des sous-types de tous les types. Il faut donc faire en sorte qu'ils soient considérés comme des types à part entière. 
-    &quot;suppressImplicitAnyIndexError&quot;: false, // Recommandé à false. Si à true, on n'aurait pas d'erreur de compilation lorsqu'on voudrait ajouter un attribut à un objet dont le type n'a pas été définit dès le départ
-    &quot;suppressExcessPropertyErrors&quot;: false, // Recommandé à false. Si à true, on pourrait avoir des attributs facultatifs non déclarés dans les interface et ne pas avoir d'erreur de compilation
-    &quot;allowUnreachableCode&quot;: false, // Recommandé à false. Protège des code morts par exemple un return; puis du code
-    &quot;allowUnusedLabels&quot;: false, // Recommandé à false. Si un label n'est pas utilisée on aura une erreur de compilation 
-    &quot;noUnusedLocals&quot;: true, // Recommandé à true. Idem. Si une variable déclarée n'est pas utilisée on aura une erreur lors de la compilation
-    &quot;noUnusedParameters&quot;: true, // Recommandé à true. Idem. Si un paramètre d'une fonction n'est pas utilisé on aura une erreur lors de la compilation
-    &quot;noFallthroughCasesInSwitch&quot; : true, // Personnellement j'ai bien. Ce paramètre force à utiliser un break; après être passé dans un case d'un switch.
-    &quot;noImplicitReturns&quot;: true, // Assez clair. Il faut absolument spécifier les return dans les fonctions; même les undefined. En effet &quot;return undefined&quot; doit être spécifié même dans les fonctions qui ne retournent rien
-    &quot;module&quot;: &quot;es2015&quot;, // Définit la manière dont sont chargé les modules. Les instructions import et export sont préservées dans le JS généré avec es2015. 
-    &quot;target&quot;: &quot;es2015&quot;, // Définit la version de JS dans lequel sera transpilé le code Typescript (en dehors de la gestion des modules)
-    &quot;moduleResolution&quot;: &quot;node&quot;, // On gère les imports comme en NodeJS
-    &quot;traceResolution&quot;: true, // Ajoute des informations de debugging sur l'import des modules lors de la compilation Typescript
-    &quot;diagnostics&quot;: false, // Affiche des informations de debugging permettant d'optimiser éventuellement la performance de la compilation
-    &quot;listFiles&quot;: false, // Affiche les fichiers Typescript transpilés
-    &quot;listEmittedFiles&quot;: false, // Affiche les fichiers JS générés lors de la compilation
-    &quot;noImplicitUseStrict&quot;: false,
-    &quot;alwaysStrict&quot;: true, // Tous les fichiers modules ou globaux (sans import ou export) seront considérés comme des fichiers en strict mode
-    &quot;skipLibCheck&quot;: true // pour les libs comme Angular
-    &quot;removeComments&quot;: true, // Retire les commentaires
-    &quot;experimentalDecorators&quot;: true // Permet de créer ses propres décorateurs
+<pre tabindex="0"><code>{
+  &#34;extends: &#34;./tsconfig.base&#34;, // Il est possible de faire de l&#39;héritage de fichier tsconfig.js
+  &#34;compilerOptions&#34;: { // contient toutes les rêgles permettant de configurer la compilation de notre projet Typescript
+    &#34;allowJs&#34;: false,
+    &#34;allowSyntheticDefaultImports&#34;: false,
+    &#34;allowUnreachableCode&#34;: false,
+    &#34;allowUnusedLabels&#34;: false,
+    &#34;outDir&#34;: &#34;./dist&#34;, // Dossier dans lequel sera contenu l&#39;output de la compilation
+    &#34;noEmitOnError&#34;: true, // Recommandé. Ne crée pas de fichier d&#39;output s&#39;il y a une erreur Typescript
+    &#34;declaration&#34;: true, // permet de générer le fichier de déclaration (*.d.ts) pour créer des libs/packages importable dans d&#39;autres projets par exemple
+    &#34;declarationDir&#34;: &#34;./typings&#34;, // Spécifie le dossier dans lequel seront générés les fichiers *.d.ts
+    &#34;stripInternal&#34;: true, // Si l&#39;annotation /** @internal */ est présente au-dessus d&#39;une fonction, le fichier de *.d.ts généré ne contiendra pas de déclaration pour cette fonction
+    &#34;sourceMap&#34;: true, // Permet de générer les fichier *.map
+    &#34;inlineSources&#34;: true, // Permet d&#39;inclure le code source Typescript dans les sourcemap
+    &#34;mapRoot&#34;: &#34;./source-maps&#34;, // Spécifie le dossier dans lequel seront générés les fichiers sourceMaps
+    &#34;inlineSourcesMap&#34;: true, // Génére le contenu du sourceMap au format base64 inclus dans le fichier transpilé *.js
+    &#34;noImplicitAny&#34;: true, // Indispensable, sans quoi il suffit de faire du JS. Indique à Typescript que l&#39;on ne veut pas type any implicite automatiquement ajouté
+    &#34;strictNullChecks&#34;: true, // Indispensable, sans quoi il suffit de faire du JS. undefined et null sont historiquement des sous-types de tous les types. Il faut donc faire en sorte qu&#39;ils soient considérés comme des types à part entière. 
+    &#34;suppressImplicitAnyIndexError&#34;: false, // Recommandé à false. Si à true, on n&#39;aurait pas d&#39;erreur de compilation lorsqu&#39;on voudrait ajouter un attribut à un objet dont le type n&#39;a pas été définit dès le départ
+    &#34;suppressExcessPropertyErrors&#34;: false, // Recommandé à false. Si à true, on pourrait avoir des attributs facultatifs non déclarés dans les interface et ne pas avoir d&#39;erreur de compilation
+    &#34;allowUnreachableCode&#34;: false, // Recommandé à false. Protège des code morts par exemple un return; puis du code
+    &#34;allowUnusedLabels&#34;: false, // Recommandé à false. Si un label n&#39;est pas utilisée on aura une erreur de compilation 
+    &#34;noUnusedLocals&#34;: true, // Recommandé à true. Idem. Si une variable déclarée n&#39;est pas utilisée on aura une erreur lors de la compilation
+    &#34;noUnusedParameters&#34;: true, // Recommandé à true. Idem. Si un paramètre d&#39;une fonction n&#39;est pas utilisé on aura une erreur lors de la compilation
+    &#34;noFallthroughCasesInSwitch&#34; : true, // Personnellement j&#39;ai bien. Ce paramètre force à utiliser un break; après être passé dans un case d&#39;un switch.
+    &#34;noImplicitReturns&#34;: true, // Assez clair. Il faut absolument spécifier les return dans les fonctions; même les undefined. En effet &#34;return undefined&#34; doit être spécifié même dans les fonctions qui ne retournent rien
+    &#34;module&#34;: &#34;es2015&#34;, // Définit la manière dont sont chargé les modules. Les instructions import et export sont préservées dans le JS généré avec es2015. 
+    &#34;target&#34;: &#34;es2015&#34;, // Définit la version de JS dans lequel sera transpilé le code Typescript (en dehors de la gestion des modules)
+    &#34;moduleResolution&#34;: &#34;node&#34;, // On gère les imports comme en NodeJS
+    &#34;traceResolution&#34;: true, // Ajoute des informations de debugging sur l&#39;import des modules lors de la compilation Typescript
+    &#34;diagnostics&#34;: false, // Affiche des informations de debugging permettant d&#39;optimiser éventuellement la performance de la compilation
+    &#34;listFiles&#34;: false, // Affiche les fichiers Typescript transpilés
+    &#34;listEmittedFiles&#34;: false, // Affiche les fichiers JS générés lors de la compilation
+    &#34;noImplicitUseStrict&#34;: false,
+    &#34;alwaysStrict&#34;: true, // Tous les fichiers modules ou globaux (sans import ou export) seront considérés comme des fichiers en strict mode
+    &#34;skipLibCheck&#34;: true // pour les libs comme Angular
+    &#34;removeComments&#34;: true, // Retire les commentaires
+    &#34;experimentalDecorators&#34;: true // Permet de créer ses propres décorateurs
   },
-  &quot;exclude&quot;: [], // Permet d'exclure des paths de la compilation (cf. node_modules, tmp_file, &quot;src/**/*.tmp&quot;)
-  &quot;include&quot;: [], // idem que exclude mais l'inverse. Permet d'inclure des paths dans la compilation. 
-  &quot;files&quot;: [], // Permet de dire au compilateur quels paths charger. Cette config est prioritaire sur include et exclude
-  &quot;typeAcquisition&quot;: { // permet de configurer l'auto-complete et le type-checking des modules externes
-    &quot;enable&quot;: false
+  &#34;exclude&#34;: [], // Permet d&#39;exclure des paths de la compilation (cf. node_modules, tmp_file, &#34;src/**/*.tmp&#34;)
+  &#34;include&#34;: [], // idem que exclude mais l&#39;inverse. Permet d&#39;inclure des paths dans la compilation. 
+  &#34;files&#34;: [], // Permet de dire au compilateur quels paths charger. Cette config est prioritaire sur include et exclude
+  &#34;typeAcquisition&#34;: { // permet de configurer l&#39;auto-complete et le type-checking des modules externes
+    &#34;enable&#34;: false
   },
-  &quot;compileOnSave&quot;: false,
-  &quot;atom&quot;: { // Atom ajoute ses propres propriétés. On peut les modifier
+  &#34;compileOnSave&#34;: false,
+  &#34;atom&#34;: { // Atom ajoute ses propres propriétés. On peut les modifier
 
   },
-  &quot;angularCompilerOptions&quot;: { // Pour configurer les applications Angular
+  &#34;angularCompilerOptions&#34;: { // Pour configurer les applications Angular
 
   }
 }
@@ -421,7 +421,7 @@ Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet v
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>822 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 Apr. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 avr.. 2021</p>
         </div>
 
         
@@ -478,119 +478,6 @@ Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet v
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -599,7 +486,7 @@ Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet v
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

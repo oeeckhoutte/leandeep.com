@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2">
 <meta itemprop="description" content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &ldquo;physiques&rdquo;. On est sur de l&rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &ldquo;clouders&rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
- Pré-requis  Docker   Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher  Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes."><meta itemprop="datePublished" content="2020-11-19T23:12:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-11-19T23:12:00&#43;02:00" />
+ Pré-requis  Docker   Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher  Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes."><meta itemprop="datePublished" content="2020-11-19T23:12:00+02:00" />
+<meta itemprop="dateModified" content="2020-11-19T23:12:00+02:00" />
 <meta itemprop="wordCount" content="834"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="metalLB,kubernetes,rancher,baremetal," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -353,25 +353,25 @@ Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette sol
 </ul>
 <br/>
 <h2 id="lancer-rancher-2-via-docker">Lancer Rancher 2 via Docker</h2>
-<pre><code>sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher
+<pre tabindex="0"><code>sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher
 </code></pre><br/>
 <h2 id="provisionner-un-cluster-k8s">Provisionner un cluster k8s</h2>
 <p>Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases <code>etcd</code>, <code>controle-plane</code>, <code>worker</code>. Cela va générer une commande Docker qu&rsquo;il suffira d&rsquo;exécuter sur le noeud que vous avez à disposition pour installer votre cluster.</p>
 <br/>
 <p>La commande va ressembler à ceci:</p>
-<pre><code>export IP_LOCAL=
+<pre tabindex="0"><code>export IP_LOCAL=
 export TOKEN=6r5q7w5wnzk95g84bv2zclc4qn5k5dwvc8m9vxgdqjgcvf2vgxbcm8
 export CA_CHECKSUM=e768299cdfb443db9b772a23519030f49ad93deaeaedb8064d9aaf2e9b260f77
 sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.5.2 --server https://$IP_LOCAL:8443 --token $TOKEN --ca-checksum $CA_CHECKSUM --etcd --controlplane --worker
 </code></pre><br/>
 <h2 id="installer-helm-3">Installer helm 3+</h2>
 <p>Télécharger le package helm 3.4.1 depuis <a href="https://github.com/helm/helm/releases">l&rsquo;adresse suivante</a> puis exécutez les commandes suivantes:</p>
-<pre><code>tar -zxvf helm-v3.4.1-linux-amd64.tar.gz
+<pre tabindex="0"><code>tar -zxvf helm-v3.4.1-linux-amd64.tar.gz
 sudo chmod +x linux-amd64/helm
 mv linux-amd64/helm /usr/local/bin/helm
 </code></pre><br/>
 <h2 id="installer-kubectl">Installer kubectl</h2>
-<pre><code>curl -LO &quot;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl&quot;
+<pre tabindex="0"><code>curl -LO &#34;https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl&#34;
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
@@ -379,21 +379,21 @@ kubectl version --client
 <p>Depuis l&rsquo;interface admin de Rancher, récupérez le <code>kubectl</code> config. Collez le dans le fichier <code>~/.kube/config</code> de votre poste local pour que kubectl puisse communiquer avec votre cluster. Cela vous permettra d&rsquo;exécuter des commandes kubernetes et installer metalLB depuis votre poste local.</p>
 <br/>
 <h2 id="installer-et-configurer-metallb">Installer et configurer metalLB</h2>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
 
 # On first install only
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey=&quot;$(openssl rand -base64 128)&quot;
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey=&#34;$(openssl rand -base64 128)&#34;
 </code></pre><br/>
 <p>Vérifier que metalLB tourne bien:</p>
-<pre><code>kubectl get pods -n metallb-system
+<pre tabindex="0"><code>kubectl get pods -n metallb-system
 </code></pre><br/>
 <p>Créer un confimap <code>config.yaml</code> permettant de configurer metalLB en mode Layer 2. Ce mode est le plus simple à configurer. Il suffit de configurer uniquement les adresses IP.
 Le mode Layer 2 ne requiert pas d&rsquo;avoir les adresses IP attachées à l&rsquo;interface réseau du noeud worker.</p>
 <br/>
 <p>Remplacer <em><code>- 192.168.15.120-192.168.15.250</code></em> du configmap ci-dessous par le range d&rsquo;IP de votre réseau.</p>
-<pre><code>apiVersion: v1
+<pre tabindex="0"><code>apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: metallb-system
@@ -407,7 +407,7 @@ data:
       - 192.168.15.120-192.168.15.250
 </code></pre><br/>
 <p>Appliquer le configmap</p>
-<pre><code>kubectl apply -f config.yaml
+<pre tabindex="0"><code>kubectl apply -f config.yaml
 </code></pre><br/>
 <p>Maintenant, retourner dans l&rsquo;interface Rancher, Cluster, Namespaces et déplacer metallb-system dnas le project &ldquo;System&rdquo;.</p>
 <p><img src="https://leandeep.com/images/rancher1.png" alt="image"></p>
@@ -415,7 +415,7 @@ data:
 <p><img src="https://leandeep.com/images/rancher3.png" alt="image"></p>
 <br/>
 <h2 id="test-demo-app">Test demo app</h2>
-<pre><code>git clone https://github.com/jodykpw/metallb-nginx-demo.git
+<pre tabindex="0"><code>git clone https://github.com/jodykpw/metallb-nginx-demo.git
 cd metallb-nginx-demo
 helm install --name nginx-demo ./
 </code></pre><blockquote>
@@ -423,17 +423,17 @@ helm install --name nginx-demo ./
 </blockquote>
 <br/>
 <p><strong>Deployer Nginx comme Ingress Controller</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
 </code></pre><br/>
 <p>Editer l&rsquo;ingress-controller et changer <code>spec.type</code> de <strong>NodePort à LoadBalancer</strong>.</p>
-<pre><code>kubectl edit svc ingress-nginx-controller -n ingress-nginx
+<pre tabindex="0"><code>kubectl edit svc ingress-nginx-controller -n ingress-nginx
 </code></pre><br/>
 <p>Créer un ingress via l&rsquo;interface Rancher. J&rsquo;ai associé un hostname dans l&rsquo;ingress. Créer soit une entrée dans votre <code>/etc/hosts</code> ou un CNAME sur votre DNS.</p>
 <p><img src="https://leandeep.com/images/ingress1.png" alt="image"></p>
 <p><img src="https://leandeep.com/images/ingress2.png" alt="image"></p>
 <br/>
 <p>Vérifier que le pod est bien &ldquo;running&rdquo;:</p>
-<pre><code>kubectl get svc --all-namespaces
+<pre tabindex="0"><code>kubectl get svc --all-namespaces
 </code></pre><br/>
 <p>Depuis votre navigateur, rendez-vous sur <code>nuc.com</code> pour voir le résultat suivant:</p>
 <p><img src="https://leandeep.com/images/demo.png" alt="image"></p>
@@ -445,13 +445,13 @@ helm install --name nginx-demo ./
 <br/>
 <h2 id="facultatif-lets-encrypt">Facultatif: Let&rsquo;s encrypt</h2>
 <p>Installer le cert-manager</p>
-<pre><code>kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
+<pre tabindex="0"><code>kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.0.3/cert-manager.yaml
 </code></pre><br/>
 <p>Vérifier que les pods sont running:</p>
-<pre><code>kubectl get pods --namespace cert-manager
+<pre tabindex="0"><code>kubectl get pods --namespace cert-manager
 </code></pre><br/>
 <p><strong>Configurer l&rsquo;env staging</strong>. Créer un fichier <code>staging_issuer.yaml</code> et ajouter le contenu suivant:</p>
-<pre><code>apiVersion: cert-manager.io/v1
+<pre tabindex="0"><code>apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
  name: letsencrypt-staging
@@ -471,10 +471,10 @@ spec:
          class:  nginx
 </code></pre><br/>
 <p>Appliquer la ressource:</p>
-<pre><code>kubectl apply -f staging_issuer.yaml
+<pre tabindex="0"><code>kubectl apply -f staging_issuer.yaml
 </code></pre><br/>
 <p>Mettez à jour l&rsquo;ingress. Voici un example:</p>
-<pre><code>apiVersion: networking.k8s.io/v1beta1
+<pre tabindex="0"><code>apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
@@ -497,11 +497,11 @@ spec:
         path: /
 </code></pre><br/>
 <p>Vérifier le bon fonctionnement:</p>
-<pre><code>kubectl describe certificate
+<pre tabindex="0"><code>kubectl describe certificate
 </code></pre><br/>
 <p><strong>Configurer le certif de prod.</strong></p>
 <p>Créer le fichier <code>production-issuer.yaml</code> et ajouter le contenu suivant:</p>
-<pre><code>apiVersion: cert-manager.io/v1
+<pre tabindex="0"><code>apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
  name: letsencrypt-prod
@@ -521,10 +521,10 @@ spec:
          class:  nginx
 </code></pre><br/>
 <p>Appliquer le issuer:</p>
-<pre><code>kubectl apply -f production-issuer.yaml
+<pre tabindex="0"><code>kubectl apply -f production-issuer.yaml
 </code></pre><br/>
 <p>Editer votre ingress. Voici un example:</p>
-<pre><code>apiVersion: networking.k8s.io/v1beta1
+<pre tabindex="0"><code>apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
@@ -551,7 +551,7 @@ spec:
 </blockquote>
 <br/>
 <p>Checker le certificat:</p>
-<pre><code>kubectl describe certificate
+<pre tabindex="0"><code>kubectl describe certificate
 </code></pre><br/>
 <h2 id="alternative">Alternative:</h2>
 <p><strong>pfSense + Let’s Encrypt Wildcard + HA Proxy comme Reverse Proxy:</strong> solution prometteuse à tester</p>
@@ -568,7 +568,7 @@ spec:
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>834 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Nov. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 nov.. 2020</p>
         </div>
 
         
@@ -625,119 +625,6 @@ spec:
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -746,7 +633,7 @@ spec:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

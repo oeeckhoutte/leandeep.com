@@ -9,7 +9,7 @@
 <meta name="description"
   content="1. L&amp;rsquo;objet estimator Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &amp;ldquo;estimator&amp;rdquo;.
 Exemple pour une régression linéaire:
-from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
+from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&amp;#39;estimator peuvent être passé à l&amp;#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
 LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&amp;rsquo;interface des méthodes de scikit-learn sont uniformes.
  Pour tous les estimators:
  model.fit() : remplit le modèle avec des données d&amp;rsquo;entrainement." />
@@ -248,7 +248,7 @@ LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&am
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -268,8 +268,8 @@ Exemple pour une régression linéaire:
 from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
 LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&rsquo;interface des méthodes de scikit-learn sont uniformes.
  Pour tous les estimators:
- model.fit() : remplit le modèle avec des données d&rsquo;entrainement."><meta itemprop="datePublished" content="2015-10-15T22:34:00&#43;00:00" />
-<meta itemprop="dateModified" content="2015-10-15T22:34:00&#43;00:00" />
+ model.fit() : remplit le modèle avec des données d&rsquo;entrainement."><meta itemprop="datePublished" content="2015-10-15T22:34:00+00:00" />
+<meta itemprop="dateModified" content="2015-10-15T22:34:00+00:00" />
 <meta itemprop="wordCount" content="1229"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Python,Machine Learning,sklearn," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -286,7 +286,7 @@ LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&rs
 
 
 
-<meta property="article:published_time" content="2015-10-15 22:34:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2015-10-15 22:34:00 &#43;0000 UTC" />
 
 
 
@@ -359,14 +359,14 @@ LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&rs
                 <h1 id="1-lobjet-estimator">1. L&rsquo;objet <em>estimator</em></h1>
 <p>Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés <em>&ldquo;estimator&rdquo;</em>.</p>
 <p>Exemple pour une régression linéaire:</p>
-<pre><code>from sklearn.linear_model import LinearRegression
+<pre tabindex="0"><code>from sklearn.linear_model import LinearRegression
 
-# Tous les paramètres pour configurer l'estimator peuvent être passé à l'objet lors de son instanciation
+# Tous les paramètres pour configurer l&#39;estimator peuvent être passé à l&#39;objet lors de son instanciation
 model = LinearRegression(normalize=True)
 
 print(model)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True)
+<pre tabindex="0"><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True)
 </code></pre><p>L&rsquo;interface des méthodes de scikit-learn sont uniformes.</p>
 <br/>
 <p><strong>Pour tous les <em>estimators</em>:</strong></p>
@@ -381,19 +381,19 @@ print(model)
 <li>model.score() : Pour les problèmes de régession ou de classification, les <em>estimators</em> implémentent une méthode de score. Cette dernière permet d&rsquo;indiquer si le fit est bon ou pas. Le score peut varier entre 0 et 1.</li>
 </ul>
 <br/>
-<h1 id="2-ajouter-des-données-à-lestimator">2. Ajouter des données à l'<em>estimator</em></h1>
-<pre><code>%matplotlib inline
+<h1 id="2-ajouter-des-données-à-lestimator">2. Ajouter des données à l&rsquo;<em>estimator</em></h1>
+<pre tabindex="0"><code>%matplotlib inline
 import numpy as np
 from matplotlib import pyplot as plt
 
 x = np.array([0, 1, 2])
 y = np.array([0, 1, 2])
 
-_ = plt.plot(x, y, marker='o')
+_ = plt.plot(x, y, marker=&#39;o&#39;)
 </code></pre><br/>
 <p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/plot1.png" alt="image"></p>
-<pre><code>X = x[:, np.newaxis] # On incrémente la dimension car scikit prend un tableau à 2 dimensions en input: (samples == 3 x features == 1)
+<pre tabindex="0"><code>X = x[:, np.newaxis] # On incrémente la dimension car scikit prend un tableau à 2 dimensions en input: (samples == 3 x features == 1)
 
 model.fit(X, y)
 
@@ -408,36 +408,36 @@ En classification, le <em>label</em> est valeur discrète alors qu&rsquo;en rég
 <p>KNN (K Nearest Neighbors) ou &ldquo;K voisins les plus proches&rdquo; en français est un des algorithmes les plus simples à appréhender:
 Pour une toute nouvelle observation, regarder dans une base de référence, quelle observation a ses <em>features</em> les plus proches et  lui assigner la classe prédominante.</p>
 <p><img src="https://leandeep.com/images/Petal-sepal.jpg" alt="image"></p>
-<pre><code># On charge d'abord le dataset Iris
+<pre tabindex="0"><code># On charge d&#39;abord le dataset Iris
 from sklearn import neighbors, datasets
 iris = datasets.load_iris()
 
 # On extrait les features et labels du dataset
 X, y = iris.data, iris.target
 
-# On instancie l'*estimator*
+# On instancie l&#39;*estimator*
 knn = neighbors.KNeighborsClassifier(n_neighbors=1) 
 # n_neighbors=1 signifie que le nombre de voisin(s) à avoir égal à 1
 
-# On remplit l'*estimator* avec les données
+# On remplit l&#39;*estimator* avec les données
 knn.fit(X, y)
 
-# On prédit l'Iris qui a les caractéristiques (features) suivantes: 
+# On prédit l&#39;Iris qui a les caractéristiques (features) suivantes: 
 # sépale = 4cm x 3cm et pétale = 5cm x 2cm
 print(iris.target_names[knn.predict([[4, 3, 5, 2]])])
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>['virginica']
+<pre tabindex="0"><code>[&#39;virginica&#39;]
 </code></pre><br/>
 <h3 id="afficher-un-scatter-plot-des-features-longeur-et-largeur-des-sépales-ainsi-que-la-préduction-du-knn">Afficher un scatter plot des features longeur et largeur des sépales ainsi que la préduction du KNN</h3>
 <p>Exemple complet:</p>
-<pre><code># On charge le dataset
+<pre tabindex="0"><code># On charge le dataset
 from sklearn import neighbors, datasets
 iris = datasets.load_iris()
 
 # On mappe 3 couleurs ou les 3 classes du problème
 from matplotlib.colors import ListedColormap
-cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+cmap_light = ListedColormap([&#39;#FFAAAA&#39;, &#39;#AAFFAA&#39;, &#39;#AAAAFF&#39;])
+cmap_bold = ListedColormap([&#39;#FF0000&#39;, &#39;#00FF00&#39;, &#39;#0000FF&#39;])
 
 
 X = iris.data[:, :2]  # On prend les 2 features liées aux sépales
@@ -458,11 +458,11 @@ Z = Z.reshape(xx.shape)
 plt.figure()
 plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
 
-# On plot également les points d'entrainement
+# On plot également les points d&#39;entrainement
 plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold)
-plt.xlabel('sepal length (cm)')
-plt.ylabel('sepal width (cm)')
-plt.axis('tight')
+plt.xlabel(&#39;sepal length (cm)&#39;)
+plt.ylabel(&#39;sepal width (cm)&#39;)
+plt.axis(&#39;tight&#39;)
 </code></pre><br/>
 <p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/scatter-plot.png" alt="image"></p>
@@ -470,7 +470,7 @@ plt.axis('tight')
 <h2 id="32-régression">3.2. Régression</h2>
 <p>La régression la plus simple est la régression linéaire. Voici un exemple:</p>
 <p>On crée des données aléatoires:</p>
-<pre><code>import numpy as np
+<pre tabindex="0"><code>import numpy as np
 np.random.seed(0)
 X = np.random.random(size=(20, 1))
 y = 3 * X[:, 0] + 2 + np.random.normal(size=20)
@@ -479,7 +479,7 @@ print(X.shape)
 print(y)
 print(y.shape)
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>[[0.5488135 ]
+<pre tabindex="0"><code>[[0.5488135 ]
  [0.71518937]
  [0.60276338]
  [0.54488318]
@@ -505,21 +505,21 @@ print(y.shape)
  5.2369129  6.24614868 2.3680556  2.63955042 1.17286944 2.51706307
  3.9865581  4.76638541]
 (20,)
-</code></pre><p>On remplit l'<em>estimator</em> avec ces données:</p>
-<pre><code>from sklearn.linear_model import LinearRegression
+</code></pre><p>On remplit l&rsquo;<em>estimator</em> avec ces données:</p>
+<pre tabindex="0"><code>from sklearn.linear_model import LinearRegression
 model = LinearRegression(fit_intercept=True)
 model.fit(X, y)
-print(&quot;Model coefficient: %.5f, and intercept: %.5f&quot;
+print(&#34;Model coefficient: %.5f, and intercept: %.5f&#34;
       % (model.coef_, model.intercept_))
 </code></pre><br/>
 <p><em>Résultat:</em></p>
-<pre><code>Model coefficient: 3.93491, and intercept: 1.46229
+<pre tabindex="0"><code>Model coefficient: 3.93491, and intercept: 1.46229
 </code></pre><p>On affiche le graphique et le modèle prédictif</p>
-<pre><code># On affiche les données d'entrainement
+<pre tabindex="0"><code># On affiche les données d&#39;entrainement
 import pylab as pl
-plt.plot(X[:, 0], y, 'o')
+plt.plot(X[:, 0], y, &#39;o&#39;)
 
-# On prédit les labels pour 100 points allant de 0 à 1 qu'on ajoute au graphique précédent
+# On prédit les labels pour 100 points allant de 0 à 1 qu&#39;on ajoute au graphique précédent
 X_test = np.linspace(0, 1, 100)[:, np.newaxis]
 y_test = model.predict(X_test)
 plt.plot(X_test[:, 0], y_test)
@@ -539,7 +539,7 @@ plt.plot(X_test[:, 0], y_test)
 <p><img src="https://leandeep.com/images/regularisation.png" alt="image"></p>
 <br/>
 <p>On part des données suivantes:</p>
-<pre><code>import numpy as np
+<pre tabindex="0"><code>import numpy as np
 rng = np.random.RandomState(0)
 x = 2 * rng.rand(100) - 1
 
@@ -552,7 +552,7 @@ plt.scatter(x, y, s=4)
 <p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/scatter-plot2.png" alt="image"></p>
 <p>On remplit 2 estimateurs avec des données ayant des polynômes 4 et 9.</p>
-<pre><code>x_test = np.linspace(-1, 1, 100)
+<pre tabindex="0"><code>x_test = np.linspace(-1, 1, 100)
 
 plt.figure()
 plt.scatter(x, y, s=4)
@@ -561,17 +561,17 @@ X = np.array([x**i for i in range(5)]).T
 X_test = np.array([x_test**i for i in range(5)]).T
 order4 = LinearRegression()
 order4.fit(X, y)
-plt.plot(x_test, order4.predict(X_test), label='4th order')
+plt.plot(x_test, order4.predict(X_test), label=&#39;4th order&#39;)
 
 X = np.array([x**i for i in range(10)]).T
 X_test = np.array([x_test**i for i in range(10)]).T
 order9 = LinearRegression()
 order9.fit(X, y)
-plt.plot(x_test, order9.predict(X_test), label='9th order')
+plt.plot(x_test, order9.predict(X_test), label=&#39;9th order&#39;)
 
-plt.legend(loc='best')
-plt.axis('tight')
-plt.title('Fitting a 4th and a 9th order polynomial')
+plt.legend(loc=&#39;best&#39;)
+plt.axis(&#39;tight&#39;)
+plt.title(&#39;Fitting a 4th and a 9th order polynomial&#39;)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/polynomes.png" alt="image"></p>
 <br/>
@@ -583,7 +583,7 @@ La régularisation donc, est une technique permettant de (régulariser) rêgler 
 <h1 id="5-example-de-régularisation-l2">5. Example de Régularisation L2</h1>
 <p>Example de calcul de la distance Euclidienne entre 2 points de chaque pair X et Y:</p>
 <p><img src="https://leandeep.com/images/distance_euclidienne.png" alt="image"></p>
-<pre><code>lower_boundary = 0
+<pre tabindex="0"><code>lower_boundary = 0
 upper_boundary = 1
 n = 5 # dimension
 sample_size = 10000
@@ -593,11 +593,11 @@ np.random.seed(9001) # set the seed to yield reproducible results
 X = np.random.uniform( low=lower_boundary, high=upper_boundary, size=(sample_size, n) )
 Y = np.random.uniform( low=lower_boundary, high=upper_boundary, size=(sample_size, n) )
 
-print( 'X: ', X )
-print( 'Y: ', Y )
+print( &#39;X: &#39;, X )
+print( &#39;Y: &#39;, Y )
 </code></pre><p><img src="https://leandeep.com/images/paire_x_y.png" alt="image"></p>
 <br/>
-<pre><code>from sklearn.metrics.pairwise import euclidean_distances
+<pre tabindex="0"><code>from sklearn.metrics.pairwise import euclidean_distances
 
 euclidean_distances_vector_l = []
 for index, x in enumerate(X):
@@ -608,7 +608,7 @@ for index, x in enumerate(X):
 </blockquote>
 <br/>
 <p>Alternative en utilisant des calculs matriciels:</p>
-<pre><code>euclidean_distances_vector_l_vectorized = np.sqrt(np.sum((X - Y) * (X - Y), axis=1))
+<pre tabindex="0"><code>euclidean_distances_vector_l_vectorized = np.sqrt(np.sum((X - Y) * (X - Y), axis=1))
 </code></pre>
             </div>
         </article>
@@ -622,7 +622,7 @@ for index, x in enumerate(X):
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1229 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 Oct. 2015</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 oct.. 2015</p>
         </div>
 
         
@@ -679,119 +679,6 @@ for index, x in enumerate(X):
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -800,7 +687,7 @@ for index, x in enumerate(X):
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

@@ -245,7 +245,7 @@ On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces." />
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces." />
 <meta itemprop="name" content="Commandes Python de base pour faire une classification en apprentissage supervisé avec scikit">
 <meta itemprop="description" content="Dans cet article nous allons voir comment classifier des chiffres écrits à la main. Le dataset que nous allons utiliser est publique, bien connu et accessible depuis scikit. Nous allons voir le processus pour classifier ces chiffres et voir comment évaluer la performance de notre modèle.
 from sklearn.datasets import load_digits digits = load_digits() print(digits.data.shape) (1797, 64) Notre dataset contient 1797 échantillons.
-On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces."><meta itemprop="datePublished" content="2016-06-03T21:24:00&#43;00:00" />
-<meta itemprop="dateModified" content="2016-06-03T21:24:00&#43;00:00" />
+On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces."><meta itemprop="datePublished" content="2016-06-03T21:24:00+00:00" />
+<meta itemprop="dateModified" content="2016-06-03T21:24:00+00:00" />
 <meta itemprop="wordCount" content="951"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces."/>
 
 
 
-<meta property="article:published_time" content="2016-06-03 21:24:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2016-06-03 21:24:00 &#43;0000 UTC" />
 
 
 
@@ -348,19 +348,19 @@ On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces."/>
 
             <div class="post-content">
                 <p>Dans cet article nous allons voir comment classifier des chiffres écrits à la main. Le dataset que nous allons utiliser est publique, bien connu et accessible depuis scikit. Nous allons voir le processus pour classifier ces chiffres et voir comment évaluer la performance de notre modèle.</p>
-<pre><code>from sklearn.datasets import load_digits
+<pre tabindex="0"><code>from sklearn.datasets import load_digits
 digits = load_digits()
 print(digits.data.shape)
 (1797, 64)
 </code></pre><p>Notre dataset contient 1797 échantillons.</p>
 <p>On affiche les 128 premiers échantillons sur un graphique de 9x9 pouces.</p>
-<pre><code>fig = plt.figure(figsize=(9, 9))  # figure size in inches
+<pre tabindex="0"><code>fig = plt.figure(figsize=(9, 9))  # figure size in inches
 fig.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0.05, wspace=0.05)
 
 # plot the digits: each image is 8x8 pixels
 for i in range(128):
     ax = fig.add_subplot(16, 8, i + 1, xticks=[], yticks=[])
-    ax.imshow(digits.images[i], cmap=plt.cm.binary, interpolation='nearest')
+    ax.imshow(digits.images[i], cmap=plt.cm.binary, interpolation=&#39;nearest&#39;)
     
     # label the image with the target value
     ax.text(0, 7, str(digits.target[i]))
@@ -370,7 +370,7 @@ for i in range(128):
 <h1 id="visualisation-des-données">Visualisation des données</h1>
 <p>Pour beaucoup de problème, la première étape est de visualiser les données en utilisant une technique de réduction de dimensions. Pour se faire, l&rsquo;algorithme le plus simple est PCA (Principal Component Analysis)</p>
 <p>Cet algorithme cherche à trouver les combinaisons linéaires orthogonales qui ont la plus grande variance entre les <em>features</em> du dataset. Cela permet d&rsquo;avoir une bonne idée de la structure du dataset.</p>
-<pre><code>from sklearn.decomposition import RandomizedPCA
+<pre tabindex="0"><code>from sklearn.decomposition import RandomizedPCA
 pca = RandomizedPCA(n_components=2)
 proj = pca.fit_transform(digits.data)
 
@@ -386,7 +386,7 @@ Le rôle de ce classifieur est de classer dans des groupes (des
 classes) les échantillons qui ont des propriétés similaires, mesurées sur les observations.</p>
 </blockquote>
 <p>Ce classifieur simple permet d&rsquo;avoir rapidement une idée de nos données. Dans notre cas, il se prête au sujet mais avec des données plus complexe, il faut passer à un classifieur plus sophistiqué.</p>
-<pre><code>from sklearn.naive_bayes import GaussianNB
+<pre tabindex="0"><code>from sklearn.naive_bayes import GaussianNB
 from sklearn.cross_validation import train_test_split
 
 # split des données en 2 parties: apprentissage et test
@@ -400,45 +400,45 @@ clf.fit(X_train, y_train)
 predicted = clf.predict(X_test)
 expected = y_test
 </code></pre><p>On réaffiche les chiffres avec la prédiction de notre classifieur. Si le chiffre est en vert, cela signifie que notre classifieur a bien trouvé le bon chiffre. En rouge, il s&rsquo;est trompé.</p>
-<pre><code>fig = plt.figure(figsize=(9, 9))  # Taille du graphique en pouces
+<pre tabindex="0"><code>fig = plt.figure(figsize=(9, 9))  # Taille du graphique en pouces
 fig.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0.05, wspace=0.05)
 
 # On affiche les chiffres: chaque image fait 16x16 pixels
 for i in range(128):
     ax = fig.add_subplot(16, 16, i + 1, xticks=[], yticks=[])
     ax.imshow(X_test.reshape(-1, 8, 8)[i], cmap=plt.cm.binary,
-              interpolation='nearest')
+              interpolation=&#39;nearest&#39;)
     
-    # On labelise l'image avec la valeur prédite
+    # On labelise l&#39;image avec la valeur prédite
     if predicted[i] == expected[i]:
-        ax.text(0, 7, str(predicted[i]), color='green')
+        ax.text(0, 7, str(predicted[i]), color=&#39;green&#39;)
     else:
-        ax.text(0, 7, str(predicted[i]), color='red')
+        ax.text(0, 7, str(predicted[i]), color=&#39;red&#39;)
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/mnist2.png" alt="image"></p>
 <br/>
 <h1 id="mesure-quantitative-de-la-performance-du-classifieur">Mesure quantitative de la performance du classifieur</h1>
 <p>Une première approche simple consisterait à calculer le pourcentage de bonnes prédictions du classifieur.</p>
-<pre><code>matches = (predicted == expected)
+<pre tabindex="0"><code>matches = (predicted == expected)
 print(matches.sum())
 print(len(matches))
 
 matches.sum() / float(len(matches))
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>372
+<pre tabindex="0"><code>372
 450
 
 0.88222222222222224
 </code></pre><p>Ce résultat est pas trop mal mais d&rsquo;autres métriques plus sophistiquées peuvent être utilisées pour juger de la performance du classifieur.
 Les métriques données par ==classification_report== peuvent être utilisées. Cet outil est disponible dans le package ==sklearn.metrics==.</p>
-<pre><code>from sklearn import metrics
+<pre tabindex="0"><code>from sklearn import metrics
 print(metrics.classification_report(expected, predicted))
 </code></pre><p><em>Résultat:</em></p>
 <p><img src="https://leandeep.com/images/metrics-classification.png" alt="image"></p>
 <p>La matrice de confusion (ou tableau de contingence) peut également nous donner des précisions sur la performance de notre classifieur. Elle est obtenue en comparant les données classées avec des données de référence qui doivent être différentes de celles ayant servi à réaliser la classification.</p>
-<pre><code>print(metrics.confusion_matrix(expected, predicted))
+<pre tabindex="0"><code>print(metrics.confusion_matrix(expected, predicted))
 </code></pre><p><em>Résultat:</em></p>
-<pre><code>[[25  0  0  0  0  0  0  0  0  0]
+<pre tabindex="0"><code>[[25  0  0  0  0  0  0  0  0  0]
  [ 0 41  1  0  0  0  0  0  5  1]
  [ 0  3 26  1  0  0  0  0 17  0]
  [ 0  0  2 30  0  2  0  1  8  0]
@@ -449,7 +449,7 @@ print(metrics.classification_report(expected, predicted))
  [ 0  5  0  2  0  1  0  0 39  0]
  [ 0  1  0  0  0  2  0  7  7 40]]
 </code></pre><p><em>Explications sur la lecture de cette Matrice:</em></p>
-<pre><code>     0  1  2  3  4  5  6  7  8  9 (classe estimée)
+<pre tabindex="0"><code>     0  1  2  3  4  5  6  7  8  9 (classe estimée)
 0 [[25  0  0  0  0  0  0  0  0  0]
 1  [ 0 41  1  0  0  0  0  0  5  1]
 2  [ 0  3 26  1  0  0  0  0 17  0]
@@ -503,7 +503,7 @@ print(metrics.classification_report(expected, predicted))
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>951 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 Jun. 2016</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 juin. 2016</p>
         </div>
 
         
@@ -560,119 +560,6 @@ print(metrics.classification_report(expected, predicted))
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -681,7 +568,7 @@ print(metrics.classification_report(expected, predicted))
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

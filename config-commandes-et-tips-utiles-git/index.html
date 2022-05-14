@@ -248,7 +248,7 @@ HEAD est la référence sur le commit sur lequel on se trouve actuellement. On l
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -268,9 +268,9 @@ L’index est une zone qui permet de préparer un commit.
  HEAD
 HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
  Rebase vs Merge Préférer le rebase pour garder un historique propre
- Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes."><meta itemprop="datePublished" content="2015-09-19T18:25:00&#43;00:00" />
-<meta itemprop="dateModified" content="2015-09-19T18:25:00&#43;00:00" />
-<meta itemprop="wordCount" content="2181"><meta itemprop="image" content="https://leandeep.com"/>
+ Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes."><meta itemprop="datePublished" content="2015-09-19T18:25:00+00:00" />
+<meta itemprop="dateModified" content="2015-09-19T18:25:00+00:00" />
+<meta itemprop="wordCount" content="2263"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Development,Git," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -286,7 +286,7 @@ HEAD est la référence sur le commit sur lequel on se trouve actuellement. On l
 
 
 
-<meta property="article:published_time" content="2015-09-19 18:25:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2015-09-19 18:25:00 &#43;0000 UTC" />
 
 
 
@@ -369,22 +369,22 @@ HEAD est la référence sur le commit sur lequel on se trouve actuellement. On l
 <h2 id="rebase">Rebase</h2>
 <p>Eviter <code>git pull</code> pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.</p>
 <p>Faire un rebase:</p>
-<pre><code>git pull --rebase 
+<pre tabindex="0"><code>git pull --rebase 
 ou 
 git rebase origin/master
 </code></pre><p>Les commits qui n’existaient que sur la branche master sont supprimés et réappliqués/ rejoués à la suite des commits de la branche origin/master.</p>
 <p>En rebasant vos branches avant de les fusionner, vous obtiendrez un historique tout plat et bien plus agréable à parcourir.</p>
 <br/>
 <p><strong>Exemple 1</strong></p>
-<pre><code>          F---G ← bug2
+<pre tabindex="0"><code>          F---G ← bug2
          /
 A---B---E---H---I ← master
      \
       C---D ← bug1
 </code></pre><p>En utilisant un rebase avant chaque fusion, on obtient l&rsquo;historique suivant :</p>
-<pre><code>A---B---E---H---I---C---D---F---G ← master
+<pre tabindex="0"><code>A---B---E---H---I---C---D---F---G ← master
 </code></pre><p>Les commandes pour parvenir à ce résultat sont les suivantes, explications juste après.</p>
-<pre><code>git rebase master bug1
+<pre tabindex="0"><code>git rebase master bug1
 git checkout master
 git merge bug1
 git branch -d bug1
@@ -409,24 +409,24 @@ git branch -d bug2
 <p>Autre manière de faire, peut être plus simple&hellip;</p>
 </blockquote>
 <p>En supposant que l&rsquo;on veuille garder la feature branche synchronisée avec la branche develop, voici les commandes à suivre:</p>
-<pre><code>git fetch # depuis la feature branche (vérifier que la feature branche sur laquelle vous travaillez est à jour)
+<pre tabindex="0"><code>git fetch # depuis la feature branche (vérifier que la feature branche sur laquelle vous travaillez est à jour)
 
 git rebase origin/develop
 
-# S'il y a des conflits, il faut les résoudre un par un.
+# S&#39;il y a des conflits, il faut les résoudre un par un.
 
 Utiliser git rebase --continue une fois que tous les conflits sont traités
 
 git push origin feature_branch --force
 </code></pre><br/>
 <p><strong>Exemple 3 (ultra simple que je recommande)</strong></p>
-<pre><code>git checkout votre_feature_branch
+<pre tabindex="0"><code>git checkout votre_feature_branch
 git fetch
 git rebase origin/master
 </code></pre><p>Et c&rsquo;est tout!</p>
 <br/>
 <h2 id="merge-quand-même">Merge (quand même)</h2>
-<pre><code>git checkout master
+<pre tabindex="0"><code>git checkout master
 git pull
 git checkout your_feature_en_attente
 git merge master
@@ -435,49 +435,49 @@ git merge master
 <p>Cette commande permet de mettre de côté des modifications de la copie de travail et de l’index.</p>
 <br/>
 <p><strong>Afficher tous les stash</strong></p>
-<pre><code>git stash list
+<pre tabindex="0"><code>git stash list
 </code></pre><br/>
 <p><strong>Appliquer un stash</strong></p>
-<pre><code># Exemple:
+<pre tabindex="0"><code># Exemple:
 git stash apply stash@{0}
 </code></pre><br/>
 <p><strong>Créer un nouveau stash (stasher tous les fichiers)</strong></p>
-<pre><code>git stash save &quot;&lt;nom du stash&gt;&quot;
+<pre tabindex="0"><code>git stash save &#34;&lt;nom du stash&gt;&#34;
 </code></pre><br/>
 <p><strong>Créer seulement certains fichiers</strong></p>
 <p>Add to index changes we don&rsquo;t want to stash and then stash with &ndash;keep-index option.</p>
-<pre><code>git add app/controllers/cart_controller.php
+<pre tabindex="0"><code>git add app/controllers/cart_controller.php
 git stash --keep-index
 git reset
 </code></pre><br/>
 <p><strong>Appliquer un stash</strong></p>
-<pre><code>git stash branch myfeature
+<pre tabindex="0"><code>git stash branch myfeature
 </code></pre><br/>
 <p><strong>Appliquer le dernier stash (LIFO)</strong></p>
-<pre><code>git stash pop
+<pre tabindex="0"><code>git stash pop
 </code></pre><br/>
 <p><strong>Voir le contenu du dernier stash</strong></p>
-<pre><code>git stash show -p
+<pre tabindex="0"><code>git stash show -p
 </code></pre><br/>
 <p><strong>Voir le contenu d&rsquo;un stash spécifique</strong></p>
-<pre><code>git stash show -p stash@{42}
+<pre tabindex="0"><code>git stash show -p stash@{42}
 </code></pre><br/>
 <h2 id="cherry-picking">Cherry-picking</h2>
 <p>Cherry-pick permet de sélectionner un commit quelconque et de l’appliquer sur la branche actuelle.</p>
-<pre><code>git checkout my-feature
+<pre tabindex="0"><code>git checkout my-feature
 git cherry-pick e32c529d
 </code></pre><br/>
 <h2 id="résoudre-un-conflit">Résoudre un conflit</h2>
 <p><strong>Pendant un merge</strong></p>
 <p>Après un <code>git merge</code> ou <code>git pull</code>, on commence par exécuter la commande:</p>
-<pre><code>git status # ou gss # ou git st # git stp (voir mes alias)
+<pre tabindex="0"><code>git status # ou gss # ou git st # git stp (voir mes alias)
 # On branch master
 # Changes to be committed:
 #
 #       modified:   mon_fichier1
 #
 # Unmerged paths:
-#   (use &quot;git add/rm &lt; file &gt;...&quot; as appropriate to mark resolution)
+#   (use &#34;git add/rm &lt; file &gt;...&#34; as appropriate to mark resolution)
 #
 #       both modified:      mon_fichier2
 #
@@ -491,12 +491,12 @@ Autre possibilité, faire la correction manuellement, faire un <code>git add</co
 </blockquote>
 <br/>
 <p><strong>Pendant un rebase</strong></p>
-<pre><code>git checkout master # ou git co master
+<pre tabindex="0"><code>git checkout master # ou git co master
 git rebase origin/master # ou git pull --rebase
 
 git status
 # Unmerged paths:
-#   (use &quot;git add/rm &lt; file &gt;...&quot; as appropriate to mark resolution)
+#   (use &#34;git add/rm &lt; file &gt;...&#34; as appropriate to mark resolution)
 #
 #       both modified:      mon_fichier
 #
@@ -513,11 +513,11 @@ git rebase --continue
 <p><img src="https://leandeep.com/images/rebase.png" alt="image"></p>
 <br/>
 <p><strong>Gérer un conflit sur un binaire</strong></p>
-<pre><code>git checkout --ours -- path_binary_file
+<pre tabindex="0"><code>git checkout --ours -- path_binary_file
 git checkout --theirs -- path_binary_file
 </code></pre><br/>
 <h2 id="réécrire-lhistorique">Réécrire l&rsquo;historique</h2>
-<pre><code>git rebase --interactive HEAD~3
+<pre tabindex="0"><code>git rebase --interactive HEAD~3
 # ou 
 # git rebase -i HEAD~3
 # ou
@@ -531,12 +531,12 @@ git checkout --theirs -- path_binary_file
 <li>Remplacer &ldquo;pick&rdquo; par &ldquo;reword&rdquo; pour juste changer le message de commit</li>
 </ul>
 <p>Pour poursuivre la réécriture de l’historique, terminer avec les commandes suivantes:</p>
-<pre><code>git stage
+<pre tabindex="0"><code>git stage
 git rebase --continue
 </code></pre><br/>
 <h2 id="config-en-plus-de-oh-my-zsh">Config (en plus de oh-my-zsh)</h2>
 <p>A ajouter au fichier ~/.gitconfig:</p>
-<pre><code>[alias]
+<pre tabindex="0"><code>[alias]
         st = status
         stp = status --porcelain
         ci = commit
@@ -546,13 +546,13 @@ git rebase --continue
         pullr = pull --rebase
         unstage = reset HEAD
         lol = log --graph --decorate --pretty=oneline --abbrev-commit
-        lolar = log --graph --pretty='format:%C(auto)%h %d %s %C(green)%an%C(bold blue) %ad' --all --date=relative
+        lolar = log --graph --pretty=&#39;format:%C(auto)%h %d %s %C(green)%an%C(bold blue) %ad&#39; --all --date=relative
         lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-        lpush = &quot;!git --no-pager log origin/$(git currentbranch)..HEAD --oneline&quot;
-        lpull = &quot;!git --no-pager log HEAD..origin/$(git currentbranch) --oneline&quot;
-        whatsnew = &quot;!git diff origin/$(git currentbranch)...HEAD&quot;
-        whatscoming = &quot;!git diff HEAD...origin/$(git currentbranch)&quot;
-        currentbranch = &quot;!git branch | grep \&quot;^\\*\&quot; | cut -d \&quot; \&quot; -f 2&quot;
+        lpush = &#34;!git --no-pager log origin/$(git currentbranch)..HEAD --oneline&#34;
+        lpull = &#34;!git --no-pager log HEAD..origin/$(git currentbranch) --oneline&#34;
+        whatsnew = &#34;!git diff origin/$(git currentbranch)...HEAD&#34;
+        whatscoming = &#34;!git diff HEAD...origin/$(git currentbranch)&#34;
+        currentbranch = &#34;!git branch | grep \&#34;^\\*\&#34; | cut -d \&#34; \&#34; -f 2&#34;
 ...
 [color]
         branch = auto
@@ -563,20 +563,20 @@ git rebase --continue
 <h2 id="télécharger-en-local-les-pull-requests">Télécharger en local les Pull Requests</h2>
 <p><strong>Projet par projet</strong></p>
 <p>Dans le fichier .git/config, localiser le code qui ressemble à ceci:</p>
-<pre><code>[remote &quot;origin&quot;]
+<pre tabindex="0"><code>[remote &#34;origin&#34;]
 	fetch = +refs/heads/*:refs/remotes/origin/*
 	url = git@github.com:joyent/node.git
 </code></pre><p>Maintenant ajouter la ligne suivante:</p>
-<pre><code>(pour Gitlab) fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+<pre tabindex="0"><code>(pour Gitlab) fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
 
 # fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
 </code></pre><p>La section dans le fichier devrait resssemble à cela:</p>
-<pre><code>[remote &quot;origin&quot;]
+<pre tabindex="0"><code>[remote &#34;origin&#34;]
 	fetch = +refs/heads/*:refs/remotes/origin/*
 	url = git@github.com:joyent/node.git
 	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
 </code></pre><p>Maitenant vous pouvez récupérer toutes les PR en cours:</p>
-<pre><code>git fetch origin
+<pre tabindex="0"><code>git fetch origin
 From github.com:joyent/node
  * [new ref]         refs/pull/1000/head -&gt; origin/pr/1000
  * [new ref]         refs/pull/1002/head -&gt; origin/pr/1002
@@ -584,25 +584,25 @@ From github.com:joyent/node
  * [new ref]         refs/pull/1009/head -&gt; origin/pr/1009
 ...
 </code></pre><p>Vous pouvez faire un checkout sur une pull request en particulier:</p>
-<pre><code>git checkout pr/999
+<pre tabindex="0"><code>git checkout pr/999
 Branch pr/999 set up to track remote branch pr/999 from origin.
-Switched to a new branch 'pr/999'
+Switched to a new branch &#39;pr/999&#39;
 </code></pre><br/>
 <p><strong>Ajouter automatiquement cette commande à tous les repos</strong></p>
-<pre><code>git config --global --add remote.origin.fetch &quot;+refs/pull/*/head:refs/remotes/origin/pr/*&quot;
+<pre tabindex="0"><code>git config --global --add remote.origin.fetch &#34;+refs/pull/*/head:refs/remotes/origin/pr/*&#34;
 </code></pre><br/>
 <h2 id="différences-entre-branches">Différences entre branches</h2>
 <p><strong>Différences entre branche actuelle et master:</strong></p>
-<pre><code>git diff master
+<pre tabindex="0"><code>git diff master
 </code></pre><br/>
 <p><strong>Différences entre 2 branches (par exemple master et staging):</strong></p>
-<pre><code>git diff master..staging
+<pre tabindex="0"><code>git diff master..staging
 </code></pre><br/>
 <p><strong>Seulement montrer les fichiers différents entre 2 branches (sans les changements):</strong></p>
-<pre><code>git diff --name-status master..staging
+<pre tabindex="0"><code>git diff --name-status master..staging
 </code></pre><br/>
 <p><strong>Différence entre un fichier local (déjà en stage) et le dernier commit (ou l&rsquo;avant dernier):</strong></p>
-<pre><code>git diff &lt;commit&gt; &lt;path&gt;
+<pre tabindex="0"><code>git diff &lt;commit&gt; &lt;path&gt;
 # Dernier commit:
 git diff HEAD^ myfile
 # Avant dernier commit:
@@ -616,33 +616,33 @@ git diff HEAD~2 HEAD -- mon_fichier.js
 </code></pre><br/>
 <h2 id="commandes-en-vrac">Commandes en vrac</h2>
 <p><strong>Annuler la commande <code>git commit</code> (et donc conserver/ récupérer tous les changements qui étaient prêts à être pushés:</strong></p>
-<pre><code>git reset --soft HEAD^
+<pre tabindex="0"><code>git reset --soft HEAD^
 </code></pre><br/>
 <p><strong>Modifier le dernier commit:</strong></p>
-<pre><code>git commit --amend
+<pre tabindex="0"><code>git commit --amend
 </code></pre><br/>
 <p><strong>Renommer une branche locale:</strong></p>
-<pre><code>git checkout ancien_nom
+<pre tabindex="0"><code>git checkout ancien_nom
 git branch -m nouveau_nom
 git push origin nouveau_nom
 </code></pre><br/>
 <p><strong>Effacer une branche locale:</strong></p>
-<pre><code>git branch -d new-branch
+<pre tabindex="0"><code>git branch -d new-branch
 </code></pre><br/>
 <p><strong>Effacer une branche remote:</strong></p>
-<pre><code>git push origin --delete new-branch
+<pre tabindex="0"><code>git push origin --delete new-branch
 </code></pre><br/>
 <p><strong>Retourner sur la dernière branche:</strong></p>
-<pre><code>git checkout -
+<pre tabindex="0"><code>git checkout -
 </code></pre><br/>
 <p><strong>Contrôler le comportement de git push par default pour éviter de devoir specifier la branch (sur laquelle on est) avant de pusher:</strong></p>
-<pre><code>git config --global push.default current
+<pre tabindex="0"><code>git config --global push.default current
 </code></pre><br/>
 <p><strong>Annuler les changements en local d&rsquo;un fichier</strong></p>
-<pre><code>git checkout filename
+<pre tabindex="0"><code>git checkout filename
 </code></pre><br/>
 <p><strong>Pusher un seul commit</strong></p>
-<pre><code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:&lt;remote_branch_name&gt;
+<pre tabindex="0"><code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:&lt;remote_branch_name&gt;
 </code></pre><p>La branche &lt;remote_branch_name&gt; doit exister sur remote. (Si ce n&rsquo;est pas le cas, il est possible d&rsquo;utiliser <code>git push &lt;remote_name&gt; &lt;commit SHA&gt;:refs/heads/&lt;remote_branch_name&gt;</code> pour la créer automatiquement.)</p>
 <blockquote>
 <p>Note:
@@ -662,32 +662,42 @@ Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. ce
 </ul>
 <br/>
 <p><strong>Annuler le dernier commit et garder tous les changements staged</strong></p>
-<pre><code>git reset --soft HEAD~
+<pre tabindex="0"><code>git reset --soft HEAD~
 </code></pre><p><em>C&rsquo;est différent de <code>git reset HEAD~</code> qui ne garde pas staged les derniers changements.</em></p>
 <br/>
-<p><strong>Voir les derniers commits locaux pas encore pushé sur l&rsquo;origin:</strong></p>
-<pre><code>git log --branches --not --remotes
+<p><strong>Annuler le dernier git pull</strong></p>
+<pre tabindex="0"><code>git reset HEAD~1 --hard
+</code></pre><blockquote>
+<p><code>--hard</code> précise à git que l&rsquo;on souhaite avoir notre répertoire de travail avec le contenu du commit choisi</p>
+</blockquote>
+<br/>
+<p><strong>Pull remote branch sans merge</strong></p>
+<p>On suppose que l&rsquo;on est déjà sur la branch que l&rsquo;on souhaite resynchroniser</p>
+<pre tabindex="0"><code>git pull --rebase
 </code></pre><br/>
-<p><strong>Tagguer (le dernier commit d') une branche</strong></p>
-<pre><code>git tag mon_tag
+<p><strong>Voir les derniers commits locaux pas encore pushé sur l&rsquo;origin:</strong></p>
+<pre tabindex="0"><code>git log --branches --not --remotes
+</code></pre><br/>
+<p><strong>Tagguer (le dernier commit d&rsquo;) une branche</strong></p>
+<pre tabindex="0"><code>git tag mon_tag
 git push origin mon_tag
 
 # (non recommandé) pousser tous les tags
 git push --tags
 </code></pre><br/>
 <p><strong>Lister les fichiers modifiés dans une branche par rapport à master:</strong></p>
-<pre><code>git diff --name-only ma_branche $(git merge-base ma_branche master)
+<pre tabindex="0"><code>git diff --name-only ma_branche $(git merge-base ma_branche master)
 </code></pre><br/>
 <p><strong>Ajouter un tag sur un commit particulier</strong></p>
-<pre><code>git tag -a v1.0 d613c59
+<pre tabindex="0"><code>git tag -a v1.0 d613c59
 git push origin v1.0
 </code></pre><br/>
 <p><strong>Effacer un tag local et remote</strong></p>
-<pre><code>git tag -d v1.0
+<pre tabindex="0"><code>git tag -d v1.0
 git push --delete origin v1.0
 </code></pre><br/>
 <p><strong>Lister les commits entre un tag et HEAD</strong></p>
-<pre><code>git log --pretty=oneline HEAD...v1.0
+<pre tabindex="0"><code>git log --pretty=oneline HEAD...v1.0
 </code></pre><blockquote>
 <p>Alternative sans les commits de merge: <code>git log --pretty=oneline HEAD...v1.0 --no-merges</code></p>
 </blockquote>
@@ -699,26 +709,26 @@ git push --delete origin v1.0
 </blockquote>
 <br/>
 <p><strong>Lister les commits de merge depuis le dernier tag et afficher uniquement le commit message</strong></p>
-<pre><code>git log $(git describe --abbrev=0 --tags)..HEAD --merges --pretty=format:&quot;%b&quot;
+<pre tabindex="0"><code>git log $(git describe --abbrev=0 --tags)..HEAD --merges --pretty=format:&#34;%b&#34;
 </code></pre><br/>
 <p><strong>Lister les commits de merge entre les 2 derniers tags et afficher uniquement le commit message</strong></p>
-<pre><code>git log $(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)..$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`) --merges --pretty=format:&quot;%b&quot;
+<pre tabindex="0"><code>git log $(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)..$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`) --merges --pretty=format:&#34;%b&#34;
 </code></pre><br/>
 <p><strong>Récupérer le dernier tag</strong></p>
-<pre><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
+<pre tabindex="0"><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
 </code></pre><br/>
 <p><strong>Récupérer l&rsquo;avant dernier tag</strong></p>
-<pre><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
+<pre tabindex="0"><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
 </code></pre><br/>
 <p><strong>Voir les commits par contributeur depuis la dernière release/tag</strong></p>
-<pre><code>git shortlog --merges $(git describe --abbrev=0 --tags)..HEAD
+<pre tabindex="0"><code>git shortlog --merges $(git describe --abbrev=0 --tags)..HEAD
 </code></pre><br/>
 <p><strong>Get current branch</strong></p>
-<pre><code>git rev-parse --abbrev-ref HEAD
+<pre tabindex="0"><code>git rev-parse --abbrev-ref HEAD
 </code></pre><br/>
 <p><strong>Voir les changements/ commits sur un fichier</strong></p>
-<pre><code>git log --follow -p -- full_path_mon_fichier
-# --follow permet de suivre un fichier s'il a été renommé
+<pre tabindex="0"><code>git log --follow -p -- full_path_mon_fichier
+# --follow permet de suivre un fichier s&#39;il a été renommé
 </code></pre><blockquote>
 <p>Alternative:
 <code>find . -name &quot;*mon_fichier&quot; | xargs git log</code></p>
@@ -731,19 +741,19 @@ Installation de tig via <code>brew install tig</code> ou <code>apt install tig</
 </blockquote>
 <br/>
 <h2 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h2>
-<pre><code>$ git init
+<pre tabindex="0"><code>$ git init
 Initialized empty Git repository in .git/
 
-$ echo &quot;testing reset&quot; &gt; file1
+$ echo &#34;testing reset&#34; &gt; file1
 $ git add file1
-$ git commit -m 'added file1'
+$ git commit -m &#39;added file1&#39;
 Created initial commit 1a75c1d: added file1
  1 files changed, 1 insertions(+), 0 deletions(-)
  create mode 100644 file1
 
-$ echo &quot;added new file&quot; &gt; file2
+$ echo &#34;added new file&#34; &gt; file2
 $ git add file2
-$ git commit -m 'added file2'
+$ git commit -m &#39;added file2&#39;
 Created commit f6e5064: added file2
  1 files changed, 1 insertions(+), 0 deletions(-)
  create mode 100644 file2
@@ -765,7 +775,7 @@ $ cat file2
 added new file
 </code></pre><br/>
 <h2 id="taille-en-local-du-repo">Taille en local du repo</h2>
-<pre><code>$ git count-objects -v -H
+<pre tabindex="0"><code>$ git count-objects -v -H
 
 count: 6
 size: 24.00 KiB
@@ -780,21 +790,32 @@ size-garbage: 0 bytes
 <blockquote>
 <p>Le bisect permet de réaliser une dichotimie sur un range de commit afin d&rsquo;identifier celui qui génère une régression.</p>
 </blockquote>
-<pre><code>$ git bisect start          # Start the binary search process
+<pre tabindex="0"><code>$ git bisect start          # Start the binary search process
 $ git bisect bad            # Identify the end of the range
 $ git bisect good v4.2.0    # Identify the start of the range
 </code></pre><p>Puis après un test sur votre app ou tests unitaires préciser soit <code>git bisect bad</code> ou <code>git bisect good</code></p>
 <br/>
 <h2 id="pull-git-submodules-après-avoir-cloné-un-projet-sur-github">Pull git submodules après avoir cloné un projet sur GitHub</h2>
-<pre><code>git submodule update --init
+<pre tabindex="0"><code>git submodule update --init
 </code></pre><br/>
 <h2 id="gitignore-global">.gitignore global</h2>
-<pre><code>touch ~/.gitignore_global
+<pre tabindex="0"><code>touch ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
+</code></pre><h2 id="différence-entre-git-pull-et-git-pull---rebase">Différence entre git pull et git pull &ndash;rebase</h2>
+<p>Point de départ:</p>
+<pre tabindex="0"><code>      D---E master
+     /
+A---B---C---F origin/master
+</code></pre><p>Un <code>git pull</code> donnera:</p>
+<pre tabindex="0"><code>      D--------E  
+     /         \
+A---B---C---F----G   master, origin/master
+</code></pre><p>Un <code>git pull --rebase</code> donnera</p>
+<pre tabindex="0"><code>A---B---C---F---D&#39;---E&#39;   master, origin/master
 </code></pre><br/>
 <h2 id="ajouter-un-tag-en-2s-shortcuts">Ajouter un tag en 2s (shortcuts)</h2>
 <p>Ajouter ceci au fichier <code>~/.zshrc</code></p>
-<pre><code>last_release ()
+<pre tabindex="0"><code>last_release ()
 {
     git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
 }
@@ -820,16 +841,15 @@ last_branches ()
 }
 
 function new_release {
-    readonly releaseversion=${1:?&quot;The release version (i.e. new_release vX.X.X) must be specified.&quot;}
+    readonly releaseversion=${1:?&#34;The release version (i.e. new_release vX.X.X) must be specified.&#34;}
     current_branch=$(git rev-parse --abbrev-ref HEAD)
-    if [ &quot;$current_branch&quot; != &quot;master&quot; ]; then
-        echo &quot;Your are not on master branch. Please switch to it to create a new tag&quot;
+    if [ &#34;$current_branch&#34; != &#34;master&#34; ]; then
+        echo &#34;Your are not on master branch. Please switch to it to create a new tag&#34;
     else
         git tag $releaseversion
         git push origin $releaseversion
     fi
 }
-
 </code></pre><br/>
 <h2 id="workflow-pour-travailler-en-équipe">Workflow pour travailler en équipe</h2>
 <p><strong>Gitflow:</strong>
@@ -849,9 +869,9 @@ function new_release {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/development">Development</a></span><span class="tag"><a href="https://leandeep.com/tags/git">Git</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2181 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2263 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Sep. 2015</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 sept.. 2015</p>
         </div>
 
         
@@ -908,119 +928,6 @@ function new_release {
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -1029,7 +936,7 @@ function new_release {
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

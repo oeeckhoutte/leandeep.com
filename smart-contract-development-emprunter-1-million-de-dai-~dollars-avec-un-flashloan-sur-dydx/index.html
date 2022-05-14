@@ -245,7 +245,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@
 <meta itemprop="name" content="Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur DyDx">
 <meta itemprop="description" content="Dans cet article nous allons voir comment réaliser un Flashloan sur DyDx.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais seulement de 2 wei. Crazy !
  Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
-  Création du Smart contract Créer un fichier SimpleDyDxFlashloan.sol dans le répertoire contracts/simple-dydx-flashloan de votre repo git et ajouter le contenu suivant:"><meta itemprop="datePublished" content="2021-11-05T08:08:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-11-05T08:08:00&#43;00:00" />
+  Création du Smart contract Créer un fichier SimpleDyDxFlashloan.sol dans le répertoire contracts/simple-dydx-flashloan de votre repo git et ajouter le contenu suivant:"><meta itemprop="datePublished" content="2021-11-05T08:08:00+00:00" />
+<meta itemprop="dateModified" content="2021-11-05T08:08:00+00:00" />
 <meta itemprop="wordCount" content="2120"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Dev,Ethereum,Blockchain,Solidity," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@
 
 
 
-<meta property="article:published_time" content="2021-11-05 08:08:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-11-05 08:08:00 &#43;0000 UTC" />
 
 
 
@@ -356,13 +356,13 @@ Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais
 <br/>
 <h2 id="création-du-smart-contract">Création du Smart contract</h2>
 <p>Créer un fichier <code>SimpleDyDxFlashloan.sol</code> dans le répertoire <code>contracts/simple-dydx-flashloan</code> de votre repo git et ajouter le contenu suivant:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
-import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
-import &quot;./interfaces/DyDxFlashloanBase.sol&quot;;
-import &quot;./interfaces/ICallee.sol&quot;;
+import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;;
+import &#34;./interfaces/DyDxFlashloanBase.sol&#34;;
+import &#34;./interfaces/ICallee.sol&#34;;
 
 contract SimpleDyDxFlashloan is DydxFlashloanBase, ICallee {
     address private constant SOLO = 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e;
@@ -408,11 +408,11 @@ contract SimpleDyDxFlashloan is DydxFlashloanBase, ICallee {
     ) public override {
         require(
             msg.sender == SOLO,
-            &quot;the caller to this function is not SOLO contract&quot;
+            &#34;the caller to this function is not SOLO contract&#34;
         );
         require(
             sender == address(this),
-            &quot;sender of the flashloan has to be the address of dydxFlashloan&quot;
+            &#34;sender of the flashloan has to be the address of dydxFlashloan&#34;
         );
 
         Data memory data_decoded = abi.decode(data, (Data));
@@ -421,26 +421,25 @@ contract SimpleDyDxFlashloan is DydxFlashloanBase, ICallee {
         uint256 balance = IERC20(data_decoded.token).balanceOf(address(this));
         require(
             balance &gt;= repay_amount,
-            &quot;balance has to be higher than repay amount&quot;
+            &#34;balance has to be higher than repay amount&#34;
         );
 
         user = sender;
-        emit Log(&quot;balance&quot;, balance);
-        emit Log(&quot;repay amount&quot;, repay_amount);
-        emit Log(&quot;balance - repay amount&quot;, balance - repay_amount);
+        emit Log(&#34;balance&#34;, balance);
+        emit Log(&#34;repay amount&#34;, repay_amount);
+        emit Log(&#34;balance - repay amount&#34;, balance - repay_amount);
     }
 }
-
 </code></pre><br/>
 <p>L&rsquo;interface <code>DyDxFlashloanBase.sol</code> dans le répertoire <code>./contracts/simple-dydx-flashloan/interfaces</code> ressemble à ceci:</p>
-<pre><code>// SPDX-License-Identifier: GPL-3.0-or-later
+<pre tabindex="0"><code>// SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8;
 pragma experimental ABIEncoderV2;
 
-import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
-import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
+import &#34;@openzeppelin/contracts/utils/math/SafeMath.sol&#34;;
+import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;;
 
-import &quot;./ISoloMargin.sol&quot;;
+import &#34;./ISoloMargin.sol&#34;;
 
 contract DydxFlashloanBase {
     using SafeMath for uint256;
@@ -465,7 +464,7 @@ contract DydxFlashloanBase {
             }
         }
 
-        revert(&quot;No marketId found for provided token&quot;);
+        revert(&#34;No marketId found for provided token&#34;);
     }
 
     function _getRepaymentAmountInternal(uint256 amount)
@@ -501,7 +500,7 @@ contract DydxFlashloanBase {
                 secondaryMarketId: 0,
                 otherAddress: address(this),
                 otherAccountId: 0,
-                data: &quot;&quot;
+                data: &#34;&#34;
             });
     }
 
@@ -547,20 +546,19 @@ contract DydxFlashloanBase {
                 secondaryMarketId: 0,
                 otherAddress: address(this),
                 otherAccountId: 0,
-                data: &quot;&quot;
+                data: &#34;&#34;
             });
     }
 }
 
 // test and deployment
-
 </code></pre><br/>
 <p>La seconde interface <code>ICallee.sol</code> dans le répertoire <code>./contracts/simple-dydx-flashloan/interfaces</code> contient le code suivant:</p>
-<pre><code>// SPDX-License-Identifier: GPL-3.0-or-later
+<pre tabindex="0"><code>// SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8;
 pragma experimental ABIEncoderV2;
 
-import {Account} from &quot;./ISoloMargin.sol&quot;;
+import {Account} from &#34;./ISoloMargin.sol&#34;;
 
 /**
  * @title ICallee
@@ -584,10 +582,9 @@ interface ICallee {
         bytes calldata data
     ) external;
 }
-
 </code></pre><br/>
 <p>Enfin, la dernière interface <code>ISoloMargin.sol</code> dans le répertoire <code>./contracts/simple-dydx-flashloan/interfaces</code> a le code suivant:</p>
-<pre><code>// SPDX-License-Identifier: GPL-3.0-or-later
+<pre tabindex="0"><code>// SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8;
 pragma experimental ABIEncoderV2;
 
@@ -769,7 +766,7 @@ library Storage {
         Decimal.D256 marginRatio;
         // Percentage penalty incurred by liquidated accounts
         Decimal.D256 liquidationSpread;
-        // Percentage of the borrower's interest fee that gets passed to the suppliers
+        // Percentage of the borrower&#39;s interest fee that gets passed to the suppliers
         Decimal.D256 earningsRate;
         // The minimum absolute borrow value of an account
         // There must be sufficient incentivize to liquidate undercollateralized accounts
@@ -1037,22 +1034,21 @@ interface ISoloMargin {
         view
         returns (Interest.Rate memory);
 }
-
 </code></pre><br/>
 <h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
 <p>Créer un fichier <code>test/simple-dydx-flashloan.js</code> et ajouter le contenu suivant:</p>
-<pre><code>const BN = require('bn.js');
-const { assert } = require('chai');
+<pre tabindex="0"><code>const BN = require(&#39;bn.js&#39;);
+const { assert } = require(&#39;chai&#39;);
 
-const IERC20 = artifacts.require('IERC20');
-const SimpleDyDxFlashloan = artifacts.require('SimpleDyDxFlashloan');
-const SOLO = '0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e';
+const IERC20 = artifacts.require(&#39;IERC20&#39;);
+const SimpleDyDxFlashloan = artifacts.require(&#39;SimpleDyDxFlashloan&#39;);
+const SOLO = &#39;0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e&#39;;
 
 
-contract('SimpleDyDxFlashloan', accounts =&gt; {
+contract(&#39;SimpleDyDxFlashloan&#39;, accounts =&gt; {
 
-    const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
-    const DAI_WHALE = '0xC73f6738311E76D45dFED155F39773e68251D251';
+    const DAI = &#39;0x6B175474E89094C44Da98b954EedeAC495271d0F&#39;;
+    const DAI_WHALE = &#39;0xC73f6738311E76D45dFED155F39773e68251D251&#39;;
     const DECIMALS = 6;
 
     const FUND_AMOUNT = new BN(10).pow(new BN(18)).mul(new BN(200))
@@ -1066,22 +1062,22 @@ contract('SimpleDyDxFlashloan', accounts =&gt; {
         flashloan_user = accounts[0]
 
         // await network.provider.request({
-        //     method: &quot;hardhat_impersonateAccount&quot;,
+        //     method: &#34;hardhat_impersonateAccount&#34;,
         //     params: [DAI_WHALE],
         // });
 
         console.log(`contract address is: ${simpleDyDxFlashloan.address}`)
 
         const whale_balance = await token.balanceOf(DAI_WHALE);
-        assert(whale_balance.gte(FUND_AMOUNT), 'Whale DAI balance has to be higher than FUND AMOUNT');
+        assert(whale_balance.gte(FUND_AMOUNT), &#39;Whale DAI balance has to be higher than FUND AMOUNT&#39;);
         await token.transfer(simpleDyDxFlashloan.address, FUND_AMOUNT, { from: DAI_WHALE });
 
         const solo_balance = await token.balanceOf(SOLO);
-        assert(solo_balance.gte(BORROW_AMOUNT), 'Solo balance has to be higher than BORROW AMOUNT');
+        assert(solo_balance.gte(BORROW_AMOUNT), &#39;Solo balance has to be higher than BORROW AMOUNT&#39;);
         console.log(`SOLO balance is: ${solo_balance}`);
     });
 
-    it('flash loan functionality works correctly', async () =&gt; {
+    it(&#39;flash loan functionality works correctly&#39;, async () =&gt; {
 
         const tx = await simpleDyDxFlashloan.initiateFlashloan(token.address, BORROW_AMOUNT, { from: flashloan_user });
 
@@ -1092,19 +1088,19 @@ contract('SimpleDyDxFlashloan', accounts =&gt; {
         }
 
         assert.equal(user, simpleDyDxFlashloan.address,
-            'user has to be set correctly to the address of simpleDyDxFlashloan');
+            &#39;user has to be set correctly to the address of simpleDyDxFlashloan&#39;);
     })
 })
 </code></pre><br/>
 <h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
 <p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
-<pre><code>module.exports = {
-    contracts_directory: &quot;./contracts/simple-dydx-flashloan/&quot;,
+<pre tabindex="0"><code>module.exports = {
+    contracts_directory: &#34;./contracts/simple-dydx-flashloan/&#34;,
     networks: {
         mainnet_fork: {
-            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            host: &#34;127.0.0.1&#34;, // Localhost (default: none)
             port: 8545, // Standard Ethereum port (default: none)
-            network_id: &quot;999&quot;, // Any network (default: none)
+            network_id: &#34;999&#34;, // Any network (default: none)
             gas: 0
         },
     },
@@ -1117,19 +1113,19 @@ contract('SimpleDyDxFlashloan', accounts =&gt; {
     // Configure your compilers
     compilers: {
         solc: {
-            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+            version: &#34;0.7.6&#34;, // Fetch exact version from solc-bin (default: truffle&#39;s version)
         },
     },
 }
 </code></pre><br/>
 <blockquote>
-<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert">https://twitter.com/whale_alert</a>, récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
 </blockquote>
-<pre><code>source .env
+<pre tabindex="0"><code>source .env
 ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
 </code></pre><br/>
 <h2 id="exécution-du-swap">Exécution du swap</h2>
-<pre><code>npx truffle test --network mainnet_fork test/simple-dydx-flashloan.js
+<pre tabindex="0"><code>npx truffle test --network mainnet_fork test/simple-dydx-flashloan.js
 </code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
 <br/>
 <p><img src="https://leandeep.com/images/flashloan-dydx-result.png" alt="image"></p>
@@ -1146,7 +1142,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2120 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 Nov. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 nov.. 2021</p>
         </div>
 
         
@@ -1203,119 +1199,6 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -1324,7 +1207,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

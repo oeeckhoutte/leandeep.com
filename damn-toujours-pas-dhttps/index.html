@@ -245,7 +245,7 @@ Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:" 
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:" 
 <meta itemprop="name" content="Damn! Toujours pas d’HTTPS…">
 <meta itemprop="description" content="Honte à moi, je passe mon temps à jouer avec des serveurs et je n&rsquo;ai toujours pas configuré d&rsquo;HTTPS pour mon blog. Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J&rsquo;en profite pour écrire rapidement cet article.
  Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.
-Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:"><meta itemprop="datePublished" content="2018-08-06T23:11:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-08-06T23:11:00&#43;00:00" />
+Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:"><meta itemprop="datePublished" content="2018-08-06T23:11:00+00:00" />
+<meta itemprop="dateModified" content="2018-08-06T23:11:00+00:00" />
 <meta itemprop="wordCount" content="550"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Docker," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:"/
 
 
 
-<meta property="article:published_time" content="2018-08-06 23:11:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2018-08-06 23:11:00 &#43;0000 UTC" />
 
 
 
@@ -352,31 +352,31 @@ Il fallait que je prenne un peu de temps pour rétablir la situation&hellip; J&r
 <br/>
 <p>Voici comment j’ai fait pour avoir un certificat HTTPS gratuit pour mon blog en moins de 5 minutes top chrono.</p>
 <p>Avant, sans HTTPS, pour démarrer ce blog j’exécutais la commande suivante:</p>
-<pre><code>docker run -d --restart=always -e url=http://leandeep.com -e NODE_ENV=production --name some-ghost-v2 -v /var/lib/ghost:/var/lib/ghost/content -p 80:2368 ghost
+<pre tabindex="0"><code>docker run -d --restart=always -e url=http://leandeep.com -e NODE_ENV=production --name some-ghost-v2 -v /var/lib/ghost:/var/lib/ghost/content -p 80:2368 ghost
 </code></pre><p>C’était plutôt simple et efficace. En effet, je n’ai jamais dû intervenir sur le serveur depuis avril 2015. (Enfin jamais sauf une fois pour upgrader l&rsquo;OS et passer à Ubuntu 16.04 . Mais c&rsquo;est un autre sujet)</p>
 <br/>
 <p>Aujourd’hui, pour avoir un certificat HTTPS simplement, je vais utiliser Nginx comme reverse proxy. Ce dernier portera le certificat.</p>
 <p>Pour utiliser Nginx, je vais passer par Docker. C&rsquo;est beaucoup plus rapide et propre que faire des apt-get install nginx&hellip; Et pour me simplifier la vie, je vais utiliser un docker-compose puisque j’aurais plus d’un container à gérer sur ce serveur.</p>
 <br/>
 <p>Voici ci-dessous à quoi ressemble mon docker-compose.yml. Vous verrez que j&rsquo;utilise 2 projets opensource que je vous invite à consulter sur Github: <a href="https://github.com/jwilder/nginx-proxy">https://github.com/jwilder/nginx-proxy</a> et <a href="https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion">https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion</a>. C&rsquo;est grâce à ces projets que mes certificats se génèrent tout seul et que je peux avoir des HTTPS pour mes nouveaux projets sans rien faire.</p>
-<pre><code>version: '3.1'
+<pre tabindex="0"><code>version: &#39;3.1&#39;
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:
-      - &quot;80:80&quot;
-      - &quot;443:443&quot;
+      - &#34;80:80&#34;
+      - &#34;443:443&#34;
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./nginx/certs:/etc/nginx/certs:ro
       - ./nginx/vhost.d:/etc/nginx/vhost.d
       - nginx.html:/usr/share/nginx/html
     labels:
-      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: &quot;true&quot;
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: &#34;true&#34;
   nginx-proxy-companon:
     image: jrcs/letsencrypt-nginx-proxy-companion
     depends_on:
-      - &quot;nginx-proxy&quot;
+      - &#34;nginx-proxy&#34;
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./nginx/certs:/etc/nginx/certs:rw
@@ -388,7 +388,7 @@ services:
     image: ghost:1-alpine
     restart: always
     depends_on:
-      - &quot;nginx-proxy&quot;
+      - &#34;nginx-proxy&#34;
     ports:
       - 127.0.0.1:8080:2368
     volumes:
@@ -401,7 +401,7 @@ services:
   staticweb:
     image: nginx:alpine
     depends_on:
-      - &quot;nginx-proxy&quot;
+      - &#34;nginx-proxy&#34;
     ports:
       - 127.0.0.1:8081:80
     volumes:
@@ -418,7 +418,7 @@ Le premier renvoie vers un blog Ghost et le deuxième vers un dossier statique s
 <br/>
 <p>Avant de faire un docker-compose up -d , j’ai créé 2 dossiers pour chacun des 2 sites web.
 Le premier dossier blog/ contient le contenu de mon blog Ghost <a href="https://leandeep.com">https://leandeep.com</a>. Il contient donc l’arborescence suivante:</p>
-<pre><code>apps/
+<pre tabindex="0"><code>apps/
 data/
 images/
 logs/
@@ -426,15 +426,15 @@ settings/
 themes/
 </code></pre><br/>
 <p>Le deuxième dossier staticweb/ pour le site internet <a href="https://www.leandeep.com">https://www.leandeep.com</a> contient une simple page HTML qui redirige vers <a href="https://leandeep.com">https://leandeep.com</a> via ces 3 lignes de code:</p>
-<pre><code>&lt;script&gt;
-window.location.href = 'https://leandeep.com';
+<pre tabindex="0"><code>&lt;script&gt;
+window.location.href = &#39;https://leandeep.com&#39;;
 &lt;/script&gt;
 </code></pre><blockquote>
 <p>A la place de cette redirection bête et méchante, on pourrait avoir un tout autre site internet bien plus intéressant. Ici c’est une redirection que j’ai laissé volontairement à titre d&rsquo;exemple pour montrer comment avoir plusieurs sites web avec cet unique docker-compose.</p>
 </blockquote>
 <br/>
 <p>Enfin, pour générer le certificat, il faudra créer un fichier ./nginx/vhost.d/leandeep.com qui contiendra la configuration pour let&rsquo;s encrypt:</p>
-<pre><code>## Start of configuration add by letsencrypt container
+<pre tabindex="0"><code>## Start of configuration add by letsencrypt container
 location ^~ /.well-known/acme-challenge/ {
     auth_basic off;
     allow all;
@@ -443,15 +443,15 @@ location ^~ /.well-known/acme-challenge/ {
     break;
 }
 ## End of configuration add by letsencrypt container
-add_header X-Frame-Options &quot;SAMEORIGIN&quot;;
-add_header Content-Security-Policy &quot;script-src 'self' 'unsafe-inline' https://code.jquery.com&quot;;
-add_header X-XSS-Protection &quot;1; mode=block&quot;;
-add_header X-Content-Type-Options &quot;nosniff&quot;;
-add_header Referrer-Policy &quot;no-referrer-when-downgrade&quot;;
+add_header X-Frame-Options &#34;SAMEORIGIN&#34;;
+add_header Content-Security-Policy &#34;script-src &#39;self&#39; &#39;unsafe-inline&#39; https://code.jquery.com&#34;;
+add_header X-XSS-Protection &#34;1; mode=block&#34;;
+add_header X-Content-Type-Options &#34;nosniff&#34;;
+add_header Referrer-Policy &#34;no-referrer-when-downgrade&#34;;
 server_tokens off;
 </code></pre><br/>
 <p>Voilà. Il n&rsquo;y a plus qu&rsquo;à lancer le docker-compose avec la commande:</p>
-<pre><code>docker-compose up -d
+<pre tabindex="0"><code>docker-compose up -d
 </code></pre>
             </div>
         </article>
@@ -465,7 +465,7 @@ server_tokens off;
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>550 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Aug. 2018</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 août. 2018</p>
         </div>
 
         
@@ -522,119 +522,6 @@ server_tokens off;
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -643,7 +530,7 @@ server_tokens off;
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

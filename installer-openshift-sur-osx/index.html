@@ -245,7 +245,7 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
 <meta itemprop="name" content="Installer OpenShift sur OSX">
 <meta itemprop="description" content="Qu&rsquo;est-ce qu&rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&rsquo;est opensource&hellip;
  MiniShift Si vous voulez tester l&rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
-Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local."><meta itemprop="datePublished" content="2018-02-28T22:13:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-02-28T22:13:00&#43;00:00" />
+Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local."><meta itemprop="datePublished" content="2018-02-28T22:13:00+00:00" />
+<meta itemprop="dateModified" content="2018-02-28T22:13:00+00:00" />
 <meta itemprop="wordCount" content="1181"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Docker,Openshift," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
 
 
 
-<meta property="article:published_time" content="2018-02-28 22:13:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2018-02-28 22:13:00 &#43;0000 UTC" />
 
 
 
@@ -364,8 +364,8 @@ Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans u
 <li>xhyve driver</li>
 <li>MiniShift</li>
 </ul>
-<pre><code># Installer docker
-# Rendez à l'adresse suivante https://docs.docker.com/docker-for-mac/install/ pour télécharger Docker CE. Il suffit de déplacer le binaire dans /Applications 
+<pre tabindex="0"><code># Installer docker
+# Rendez à l&#39;adresse suivante https://docs.docker.com/docker-for-mac/install/ pour télécharger Docker CE. Il suffit de déplacer le binaire dans /Applications 
 
 # Installer docker-machine
 $ curl -L https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-`uname -s`-`uname -m` &gt;/usr/local/bin/docker-machine &amp;&amp; \
@@ -386,7 +386,7 @@ $ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/doc
 $ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 </code></pre><br/>
 <h2 id="création-de-la-vm">Création de la VM</h2>
-<pre><code># Créer une VM dans xhyve et créer un cluster OpenShift sur cette dernière
+<pre tabindex="0"><code># Créer une VM dans xhyve et créer un cluster OpenShift sur cette dernière
 minishift start
 
 # Pour utiliser minishift avec virtualbox 
@@ -399,9 +399,9 @@ minishift start
 <p>Il y a 3 manières de &ldquo;piloter&rdquo; OpenShift. Vous pouvez le faire avec le CLI, l&rsquo;interface Web ou directement via l&rsquo;API. Bien que l&rsquo;interface Web soit très simple à utiliser, on va utiliser le CLI pour la suite de cet article.</p>
 <br/>
 <p>Pour l&rsquo;installer, il suffit d&rsquo;exécuter la commande suivante:</p>
-<pre><code>$ brew install openshift-cli
+<pre tabindex="0"><code>$ brew install openshift-cli
 
-# Vérifier l'installation
+# Vérifier l&#39;installation
 $ oc version
 oc v3.7.1+ab0f056
 kubernetes v1.7.6+a08f5eeb62
@@ -421,16 +421,16 @@ kubernetes v1.7.6+a08f5eeb62
 <li>Comment <em>builder</em> une image à partir de votre code source sur Git (via l&rsquo;outil S2I opensource. La documentation de cet outil est disponible <a href="https://docs.openshift.org/latest/creating_images/s2i.html">ici</a>)</li>
 </ul>
 <br/>
-<pre><code>oc login
+<pre tabindex="0"><code>oc login
 # Utilisez developer/developer comme credentials
 
-# Création d'un pod et déploiement de l'application test (git clone, build et push de l'image)
+# Création d&#39;un pod et déploiement de l&#39;application test (git clone, build et push de l&#39;image)
 oc new-app https://github.com/openshift/nodejs-ex -l name=myapp
 
 # Surveiller le déploiement en accédant aux logs
 oc logs -f bc/nodejs-ex
 
-# Création d'un service Kubernetes 
+# Création d&#39;un service Kubernetes 
 # i.e: Exposer le port 80 en configurant un reverse proxy qui pointe sur le port 8080 du Pod précédement créé. 
 oc expose svc/nodejs-ex
 </code></pre><br/>
@@ -439,61 +439,61 @@ oc expose svc/nodejs-ex
 <br/>
 <h2 id="commandes-utiles-pour-le-cli">Commandes utiles pour le CLI</h2>
 <p><strong>Switcher de compte OpenShift</strong></p>
-<pre><code>oc login --username developer 
+<pre tabindex="0"><code>oc login --username developer 
 
 # oc login --username &lt;username&gt; --password &lt;password&gt;
 # oc login --token &lt;token&gt;
 </code></pre><br/>
 <p><strong>Lister les clusters sur lesquels on s&rsquo;est déjà connecté</strong></p>
-<pre><code>oc config get-clusters
+<pre tabindex="0"><code>oc config get-clusters
 </code></pre><br/>
 <p><strong>Se connecter à un cluster spécifique avec un compte particulier</strong></p>
-<pre><code>oc login https://clusterA.leandeep.com --username superadmin
+<pre tabindex="0"><code>oc login https://clusterA.leandeep.com --username superadmin
 </code></pre><br/>
 <p><strong>Lister tous les contextes</strong></p>
-<pre><code>oc config get-contexts
+<pre tabindex="0"><code>oc config get-contexts
 </code></pre><br/>
 <p><strong>Who am I ?</strong></p>
-<pre><code>oc whoami
+<pre tabindex="0"><code>oc whoami
 
 # oc whoami --token (voir le token actuel)
 # oc whoami --show-server (voir le cluster actuel)
 </code></pre><br/>
 <p><strong>Lister les projets</strong></p>
-<pre><code>oc get projects
+<pre tabindex="0"><code>oc get projects
 </code></pre><br/>
 <p><strong>Créer un projet</strong></p>
-<pre><code>oc new-project mon_super_projet
+<pre tabindex="0"><code>oc new-project mon_super_projet
 </code></pre><br/>
 <p><strong>Accéder à un projet</strong></p>
-<pre><code>oc project &lt;nom-du-projet&gt;
+<pre tabindex="0"><code>oc project &lt;nom-du-projet&gt;
 </code></pre><br/>
 <p><strong>Créer une app s2i (source 2 image)</strong></p>
-<pre><code>oc new-app --source-secret &lt;nom-de-votre-secret-pour-se-connecter-a-votre-source-control&gt; &lt;image-docker-permettant-de-faire-du-s2i&gt;~https://bitbucket.org/user/repo-avec-du-nodejs-et-un-dockerfile.git --name nom-de-votre-app-dans-votre-projet
+<pre tabindex="0"><code>oc new-app --source-secret &lt;nom-de-votre-secret-pour-se-connecter-a-votre-source-control&gt; &lt;image-docker-permettant-de-faire-du-s2i&gt;~https://bitbucket.org/user/repo-avec-du-nodejs-et-un-dockerfile.git --name nom-de-votre-app-dans-votre-projet
 </code></pre><p><br/>
 Les ressources suivantes vont être automatiquement créées:</p>
-<pre><code>--&gt; Creating resources ...
-    imagestream &quot;image-docker-permettant-de-faire-du-s2i&quot; created
-    imagestream &quot;nom-de-votre-app-dans-votre-projet&quot; created
-    buildconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
-    deploymentconfig &quot;nom-de-votre-app-dans-votre-projet&quot; created
-    service &quot;nom-de-votre-app-dans-votre-projet&quot; created
+<pre tabindex="0"><code>--&gt; Creating resources ...
+    imagestream &#34;image-docker-permettant-de-faire-du-s2i&#34; created
+    imagestream &#34;nom-de-votre-app-dans-votre-projet&#34; created
+    buildconfig &#34;nom-de-votre-app-dans-votre-projet&#34; created
+    deploymentconfig &#34;nom-de-votre-app-dans-votre-projet&#34; created
+    service &#34;nom-de-votre-app-dans-votre-projet&#34; created
 </code></pre><br/>
 <p><strong>Update une app s2i</strong></p>
-<pre><code>oc start-build &lt;nom-du-build-pour-votre-app&gt;
+<pre tabindex="0"><code>oc start-build &lt;nom-du-build-pour-votre-app&gt;
 </code></pre><br/>
 <p><strong>Delete une app</strong></p>
-<pre><code>oc delete all -l app=bla-bla-bla-https
+<pre tabindex="0"><code>oc delete all -l app=bla-bla-bla-https
 </code></pre><br/>
 <p><strong>Donner les droits en lecture à un utilisateur</strong></p>
-<pre><code>oc adm policy add-role-to-user view developer -n mon_super_projet
+<pre tabindex="0"><code>oc adm policy add-role-to-user view developer -n mon_super_projet
 
-# oc adm policy add-role-to-user edit &lt;username&gt; -n &lt;project&gt; (donne les droits d'écriture + création de déploiements + effacement d'applications)
+# oc adm policy add-role-to-user edit &lt;username&gt; -n &lt;project&gt; (donne les droits d&#39;écriture + création de déploiements + effacement d&#39;applications)
 
 # oc adm policy add-role-to-user admin &lt;username&gt; -n &lt;project&gt; (donne tous les droits sur le projet)
 </code></pre><br/>
 <p><strong>Lister toutes les ressources d&rsquo;un projet (dont DNS exposé)</strong></p>
-<pre><code>oc get all
+<pre tabindex="0"><code>oc get all
 
 # Plus direct pour obtenir la route exposée
 # oc get routes
@@ -502,72 +502,72 @@ Les ressources suivantes vont être automatiquement créées:</p>
 oc get all -o name --selector app=apinodejs
 </code></pre><br/>
 <p><strong>Obtenir plus d&rsquo;information sur une ressource</strong></p>
-<pre><code>oc describe route/apinodejs
+<pre tabindex="0"><code>oc describe route/apinodejs
 # alternative 
 # oc describe route apinodejs
 </code></pre><br/>
 <p><strong>Comprendre OpenShift (obtenir des informations sur les ressources)</strong></p>
-<pre><code>oc get 
+<pre tabindex="0"><code>oc get 
 # ou 
 # oc types
 # ou
-# oc explain route.spec.host (utile lorsqu'on sort les réponses au format JSON. Exemple oc get route/apinodejs -o json ==&gt; lire l'arborescence) 
+# oc explain route.spec.host (utile lorsqu&#39;on sort les réponses au format JSON. Exemple oc get route/apinodejs -o json ==&gt; lire l&#39;arborescence) 
 </code></pre><br/>
 <p><strong>Editer une ressource</strong></p>
-<pre><code>oc edit route/apinodejs 
+<pre tabindex="0"><code>oc edit route/apinodejs 
 
 ou 
 oc edit route/apinodejs -o json
 </code></pre><br/>
 <p><strong>Créer une ressource (formats json ou yml acceptés)</strong></p>
-<pre><code>oc create -f apinodejs-fqdn.json
+<pre tabindex="0"><code>oc create -f apinodejs-fqdn.json
 
 # Commande disponible pour la création de route
 # oc create route edge apinodejs-fqdn --service apinodejs --insecure-policy Allow --hostname www.example.com
 </code></pre><br/>
 <p><strong>Editer une ressource</strong></p>
-<pre><code>oc replace -f apinodejs-fqdn.json
+<pre tabindex="0"><code>oc replace -f apinodejs-fqdn.json
 
-# Erreur si la ressource n'existe pas. L'alternative: oc apply 
+# Erreur si la ressource n&#39;existe pas. L&#39;alternative: oc apply 
 </code></pre><br/>
 <p><strong>Editer à la volée</strong></p>
-<pre><code>oc patch route/apinodejs-fqdn --patch '{&quot;spec&quot;:{&quot;tls&quot;: {&quot;insecureEdgeTerminationPolicy&quot;: &quot;Allow&quot;}}}'
+<pre tabindex="0"><code>oc patch route/apinodejs-fqdn --patch &#39;{&#34;spec&#34;:{&#34;tls&#34;: {&#34;insecureEdgeTerminationPolicy&#34;: &#34;Allow&#34;}}}&#39;
 
-# Erreur si la ressource n'existe pas. L'alternative: oc apply
+# Erreur si la ressource n&#39;existe pas. L&#39;alternative: oc apply
 </code></pre><br/>
 <p><strong>Ajouter/Retirer un label sur un service</strong></p>
-<pre><code># Ajouter le label
+<pre tabindex="0"><code># Ajouter le label
 oc label service/apinodejs web=true
 
 # Retirer le label
 oc label service/apinodejs web-
 </code></pre><br/>
 <p><strong>Effacer une ressource</strong></p>
-<pre><code>oc delete route/apinodejs-fqdn
+<pre tabindex="0"><code>oc delete route/apinodejs-fqdn
 
 # Effacer plusieurs ressources
 # oc delete all [--all] --selector app=apinodejs
 </code></pre><br/>
 <p><strong>Créer un environnement from scratch</strong></p>
-<pre><code>conda create --name py35 python=3.5 
+<pre tabindex="0"><code>conda create --name py35 python=3.5 
 </code></pre><br/>
 <p><strong>Connect as Minishift superadmin</strong></p>
-<pre><code>oc login -u system:admin
+<pre tabindex="0"><code>oc login -u system:admin
 </code></pre><br/>
 <p><strong>Accéder à Minishift en local</strong></p>
-<pre><code>oc login https://&lt;IP&gt;:8443 -u system:admin --insecure-skip-tls-verify=true
+<pre tabindex="0"><code>oc login https://&lt;IP&gt;:8443 -u system:admin --insecure-skip-tls-verify=true
 </code></pre><br/>
 <p><strong>Obtenir l&rsquo;IP de Minishift</strong></p>
-<pre><code>minishift ip
+<pre tabindex="0"><code>minishift ip
 </code></pre><br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>Un pod en terminating state ne se kill pas</strong></p>
-<pre><code>oc get po 
+<pre tabindex="0"><code>oc get po 
 oc delete pod &lt;pod-name&gt; -n &lt;pod-namespace&gt; --grace-period=0 --force
 </code></pre><br/>
 <p><strong>Un provisioned service &ldquo;marked for deletion&rdquo; ne s&rsquo;efface pas</strong></p>
-<pre><code>oc edit serviceinstance &lt;provisioned-service&gt; -n &lt;namespace&gt;
-# Effacer metadata.finalizers de l'instance comme workaround
+<pre tabindex="0"><code>oc edit serviceinstance &lt;provisioned-service&gt; -n &lt;namespace&gt;
+# Effacer metadata.finalizers de l&#39;instance comme workaround
 </code></pre><br/>
 <p><strong>L&rsquo;application ne s&rsquo;affiche pas</strong></p>
 <p>Si vous avez l&rsquo;erreur suivante, c&rsquo;est qu&rsquo;il y a un problème de résolution DNS sur votre Mac:</p>
@@ -579,7 +579,7 @@ Pour ce faire, allez dans Préférences Système &ndash;&gt; Network &ndash;&gt;
 <br/>
 <p><strong>Vous avez tout crashé et vous voulez tout recommencer de 0</strong></p>
 <p>En cas d&rsquo;erreur avec votre VM, cette commande peut être utile pour effacer les dossiers en cache. Supprimer la VM dans VirtualBox ne suffit pas.</p>
-<pre><code># Effacer le cache et la VM
+<pre tabindex="0"><code># Effacer le cache et la VM
 minishift delete --clear-cache
 
 # recréer votre VM
@@ -600,7 +600,7 @@ rm -rf ~/.minishift/machines/*
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1181 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 Feb. 2018</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 févr.. 2018</p>
         </div>
 
         
@@ -657,119 +657,6 @@ rm -rf ~/.minishift/machines/*
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -778,7 +665,7 @@ rm -rf ~/.minishift/machines/*
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

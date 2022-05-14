@@ -247,7 +247,7 @@ Vous arriverez ensuite sur un terminal zsh en mode root.
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -266,8 +266,8 @@ Vous arriverez ensuite sur un terminal zsh en mode root.
  Démarrage de l&rsquo;installation Créer une clé usb de boot contenant l&rsquo;ISO d&rsquo;archlinux puis booter dessus (presser F10 généralement).
 Sur le premier menu, sélectionner Arch Linux installation medium et appuyer sur entrer.
 Vous arriverez ensuite sur un terminal zsh en mode root.
- Configuration le clavier loadkeys fr-pc  Voilà vous êtes maintenant en AZERTY. localectl list-keymaps pour voir les différents agencements du clavier FR disponibles."><meta itemprop="datePublished" content="2022-02-04T06:34:00&#43;00:00" />
-<meta itemprop="dateModified" content="2022-02-04T06:34:00&#43;00:00" />
+ Configuration le clavier loadkeys fr-pc  Voilà vous êtes maintenant en AZERTY. localectl list-keymaps pour voir les différents agencements du clavier FR disponibles."><meta itemprop="datePublished" content="2022-02-04T06:34:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-04T06:34:00+00:00" />
 <meta itemprop="wordCount" content="1411"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Development,Linux,Arch," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -283,7 +283,7 @@ Vous arriverez ensuite sur un terminal zsh en mode root.
 
 
 
-<meta property="article:published_time" content="2022-02-04 06:34:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2022-02-04 06:34:00 &#43;0000 UTC" />
 
 
 
@@ -362,7 +362,7 @@ Vous arriverez ensuite sur un terminal zsh en mode root.
 <p>Vous arriverez ensuite sur un terminal <code>zsh</code> en mode <code>root</code>.</p>
 <br/>
 <h2 id="configuration-le-clavier">Configuration le clavier</h2>
-<pre><code>loadkeys fr-pc
+<pre tabindex="0"><code>loadkeys fr-pc
 </code></pre><blockquote>
 <p>Voilà vous êtes maintenant en AZERTY.<br/>
 <code>localectl list-keymaps</code> pour voir les différents agencements du clavier FR disponibles.</p>
@@ -370,11 +370,11 @@ Vous arriverez ensuite sur un terminal zsh en mode root.
 <br/>
 <h2 id="vérification-du-mode-de-démarrage">Vérification du mode de démarrage</h2>
 <p>Si la commande suivante ne retourne pas d&rsquo;erreur, c&rsquo;est que le mode de démarrage est bien en UEFI. On est donc prêt à continuer l&rsquo;installation.</p>
-<pre><code>ls /sys/firmware/efi/efivars
+<pre tabindex="0"><code>ls /sys/firmware/efi/efivars
 </code></pre><br/>
 <h2 id="connexion-à-internet">Connexion à internet</h2>
 <p>Voir l&rsquo;état des interfaces réseau:</p>
-<pre><code>ip link
+<pre tabindex="0"><code>ip link
 </code></pre><blockquote>
 <p>Si vous voulez utiliser du Wifi , vérifier que votre carte n&rsquo;est pas bloquée avec <a href="https://wiki.archlinux.org/title/Rfkill">rfkill</a><br/>
 Utiliser <a href="https://wiki.archlinux.org/title/Iwctl">iwctl</a> pour vous authentifier aux réseaux wifi.<br/>
@@ -383,10 +383,10 @@ Utiliser <a href="https://wiki.archlinux.org/title/Mmcli">mmcli</a> pour vous co
 Pour configurer une IP statique, c&rsquo;est par <a href="https://wiki.archlinux.org/title/Network_configuration#Static_IP_address">ici</a><br/>
 Tout est configuré par défaut durant la phase d&rsquo;installation d&rsquo;Archlinux. Une fois le système installé et donc sorti du mode Live OS, il faudra tout réinstaller.</p>
 </blockquote>
-<pre><code>ping google.com
+<pre tabindex="0"><code>ping google.com
 </code></pre><br/>
 <h2 id="configuration-de-lheure">Configuration de l&rsquo;heure</h2>
-<pre><code>timedatectl status
+<pre tabindex="0"><code>timedatectl status
 timedatectl set-ntp true
 timedatectl status
 </code></pre><br/>
@@ -395,9 +395,9 @@ timedatectl status
 <p>Configuration simple pour un disque SSD de 2 To.</p>
 </blockquote>
 <p>Dans un premier temps on efface tout:</p>
-<pre><code>fdisk -l
+<pre tabindex="0"><code>fdisk -l
 fdisk /dev/sdX
-# Utiliser m pour obtenir de l'aide
+# Utiliser m pour obtenir de l&#39;aide
 i (voir les infos sur les partitions)
 d (détruire les partitions une à une)
 w (save)
@@ -407,11 +407,11 @@ fdisk -l (pour confirmer que les changements ont bien été pris en compte)
 <ul>
 <li>Première partition EFI</li>
 </ul>
-<pre><code>fdisk /dev/sda
+<pre tabindex="0"><code>fdisk /dev/sda
 g (pour créer une table de partition vide)
-n (création d'une nouvelle partition EFI)
+n (création d&#39;une nouvelle partition EFI)
 1
-Enter (on n'entre pas de valeur pour le First sector)
+Enter (on n&#39;entre pas de valeur pour le First sector)
 +512M
 y (oui on veut retirer la signateur vfat précédente liée à son ancienne installation)
 t (pour changer le type de la partition)
@@ -420,7 +420,7 @@ t (pour changer le type de la partition)
 <ul>
 <li>Deuxième partition de SWAP</li>
 </ul>
-<pre><code>n
+<pre tabindex="0"><code>n
 2
 enter
 +4G
@@ -432,7 +432,7 @@ t (changer le type de la partition)
 <ul>
 <li>Troisième partition pour ROOT</li>
 </ul>
-<pre><code>n
+<pre tabindex="0"><code>n
 3
 enter
 enter
@@ -442,70 +442,70 @@ t
 23 (pour x86-64)
 </code></pre><br/>
 <p>Sauvegarder tous les changements et vérifier que tout est ok.</p>
-<pre><code>w
+<pre tabindex="0"><code>w
 fdisk --list
 </code></pre><p>Dans les Devices du disque <code>/dev/sda</code> vous devriez voir les 3 nouvelles partitions:<br/>
 <code>/dev/sda1</code>, <code>/dev/sda2</code> et <code>/dev/sda3</code></p>
 <br/>
 <h2 id="création-des-filesystems">Création des filesystems</h2>
 <p>Nous allons utiliser <code>mkfs</code> et <code>mkswap</code> pour créer les file systems sur les nouvelles partitions.</p>
-<pre><code>mkfs.vfat /dev/sda1
+<pre tabindex="0"><code>mkfs.vfat /dev/sda1
 mkswap /dev/sda2
 mkfs.ext4 /dev/sda3
 </code></pre><br/>
 <h2 id="installation-des-packages-arch">Installation des packages Arch</h2>
 <p>On commence par monter les partitions avant d&rsquo;installer les packages:</p>
-<pre><code>mount /dev/sda3 /mnt
+<pre tabindex="0"><code>mount /dev/sda3 /mnt
 mkdir /mnt/efi
 mount /dev/sda1 /mnt/efi
 swapon /dev/sda2
 </code></pre><br/>
 <p>Installation des packages de base:</p>
-<pre><code>pacstrat /mnt base linux linux-firmware
+<pre tabindex="0"><code>pacstrat /mnt base linux linux-firmware
 pacstrat /mnt dhcpcd dhclient
 </code></pre><br/>
 <h2 id="génération-du-fstab">Génération du fstab</h2>
-<pre><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+<pre tabindex="0"><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
 cat /mnt/etc/fstab
 </code></pre><br/>
 <h2 id="chroot-pour-se-logguer-dans-le-nouveau-système">chroot pour se logguer dans le nouveau système</h2>
-<pre><code>arch-chroot /mnt
+<pre tabindex="0"><code>arch-chroot /mnt
 </code></pre><blockquote>
 <p>La commande précédente permet de quitter l&rsquo;environnement du live OS et d&rsquo;atterir dans le nouveau système fraichement installé.</p>
 </blockquote>
 <p>On peut donc maintenant utiliser <code>pacman</code> pour manager les applications (c&rsquo;est l&rsquo;équivalent de <code>apt</code> ou <code>yum</code>).</p>
-<pre><code>pacman -Syu
+<pre tabindex="0"><code>pacman -Syu
 # Installation de git
 pacman -Syu git nano vim
 </code></pre><br/>
 <h2 id="hostname-et-hosts">hostname et hosts</h2>
-<pre><code>echo NomDeVotreMachine &gt;&gt; /etc/hostname
-echo '127.0.0.1 NomDeVotreMachine.localdomain NomDeVotreMachine' &gt;&gt; /etc/hosts
+<pre tabindex="0"><code>echo NomDeVotreMachine &gt;&gt; /etc/hostname
+echo &#39;127.0.0.1 NomDeVotreMachine.localdomain NomDeVotreMachine&#39; &gt;&gt; /etc/hosts
 </code></pre><br/>
 <h2 id="gestion-du-fuseau-horaire">Gestion du fuseau horaire</h2>
-<pre><code>ls -al /etc/
+<pre tabindex="0"><code>ls -al /etc/
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 ls -al /etc/
 </code></pre><br/>
 <h2 id="locale">Locale</h2>
 <p>Editer le fichier <code>/etc/locale.gen</code>, décommentez la locale <code>fr_FR.UTF-8 UTF8</code> et exécuter les commandes suivantes:</p>
-<pre><code>locale-gen
-echo LANG=&quot;fr_FR.UTF-8&quot; &gt; /etc/locale.conf
+<pre tabindex="0"><code>locale-gen
+echo LANG=&#34;fr_FR.UTF-8&#34; &gt; /etc/locale.conf
 # Pour la session courante
 export LANG=fr_FR.UTF-8
 echo KEYMAP=fr &gt; /etc/vconsole.conf
 </code></pre><br/>
 <h2 id="installation-dun-bootloader">Installation d&rsquo;un Bootloader</h2>
-<pre><code>pacman -Syu grub efibootmgr
+<pre tabindex="0"><code>pacman -Syu grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 </code></pre><p>Ajout d&rsquo;un microcode pour votre CPU:</p>
-<pre><code>pacman -Syu intel-ucode
+<pre tabindex="0"><code>pacman -Syu intel-ucode
 </code></pre><p>Génération du grub.cfg:</p>
-<pre><code>grub-mkconfig -o /boot/grub/grub.cfg
+<pre tabindex="0"><code>grub-mkconfig -o /boot/grub/grub.cfg
 </code></pre><br/>
 <h2 id="création-dun-nouvel-utilisateur-et-blocage-du-compte-root">Création d&rsquo;un nouvel utilisateur et blocage du compte root</h2>
 <p>Création du nouvel utilisateur ayant accès root:</p>
-<pre><code>pacman -Syu sudo
+<pre tabindex="0"><code>pacman -Syu sudo
 useradd --create-home olivier
 passwd olivier
 </code></pre><br/>
@@ -513,7 +513,7 @@ passwd olivier
 <p>Modifier le fichier <code>/etc/sudoers</code> et donner les droits et remplacer la ligne <code>root ALL=(ALL) ALL</code> par <code>olivier ALL=(ALL) ALL</code></p>
 <br/>
 <p>Exécuter ensuite les commandes suivantes:</p>
-<pre><code># Effacer le mot de passe root
+<pre tabindex="0"><code># Effacer le mot de passe root
 passwd --delete root
 # Locker le compte root
 passwd --lock root
@@ -523,27 +523,27 @@ passwd --lock root
 </blockquote>
 <br/>
 <h2 id="first-boot">First boot</h2>
-<pre><code>exit
+<pre tabindex="0"><code>exit
 shutdown -r now
 </code></pre><p>C&rsquo;est maintenant qu&rsquo;on croise les doigts ahahah.</p>
 <br/>
 <p>Passage du clavier en fr dans la session courante:</p>
-<pre><code>sudo loadkeys fr-pc
+<pre tabindex="0"><code>sudo loadkeys fr-pc
 </code></pre><p>Pour rendre la keymap persistente, editer le fichier <code>/etc/vconsole.conf</code> et ajouter la ligne suivante:</p>
-<pre><code>KEYMAP=fr
+<pre tabindex="0"><code>KEYMAP=fr
 </code></pre><br/>
 <p>Configuration réseau:</p>
 <ul>
 <li>Récupérer le nom de vos interfaces réseau:</li>
 </ul>
-<pre><code>ip link
+<pre tabindex="0"><code>ip link
 # Dans mon cas:
 eno1 et wlp58s0
 </code></pre><br/>
 <ul>
 <li>Editer le fichier <code>sudo vim /etc/systemd/network/10-wire-wireless.network</code> et ajouter la config suivante:</li>
 </ul>
-<pre><code>[Match]
+<pre tabindex="0"><code>[Match]
 Name=eno1 wlp58s0
 [Network]
 DHCP=yes
@@ -567,7 +567,7 @@ UseDNS=no
 <ul>
 <li>Editer maintenant le fichier <code>sudo vim /etc/systemd/resolved.conf</code>. C&rsquo;est requis par Arch car nous avons créé un fichier <code>*.network</code> juste au dessus. Voici le contenu à insérer dans notre second fichier:</li>
 </ul>
-<pre><code>[Resolve]
+<pre tabindex="0"><code>[Resolve]
 DNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
 FallbackDNS=8.8.8.8 8.8.4.4 2001:4860:4860::8888 2001:4860:4860::8844
 LLMNR=yes
@@ -578,7 +578,7 @@ DNSOverTLS=yes
 <ul>
 <li>Créer le symlink suivant:</li>
 </ul>
-<pre><code>sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+<pre tabindex="0"><code>sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 </code></pre><blockquote>
 <p>Grâce à cela, toutes les applications vont appeler <code>127.0.0.53:53</code> pour le DNS. Le service <code>resolved</code> va à son tour contacter les DNS spécifier dans notre fichier <code>/etc/systemd/network/10-wire-wireless.network</code> et utiliser DNSSEC et DNS-over-TLS pour résoudre les noms de domaines.</p>
 </blockquote>
@@ -586,7 +586,7 @@ DNSOverTLS=yes
 <ul>
 <li>Activation des services:</li>
 </ul>
-<pre><code>sudo systemctl enable --now systemd-networkd
+<pre tabindex="0"><code>sudo systemctl enable --now systemd-networkd
 sudo systemctl enable --now systemd.resolved
 ping google.com
 </code></pre><br/>
@@ -595,7 +595,7 @@ ping google.com
 <ul>
 <li>Formatage de la clé:</li>
 </ul>
-<pre><code>sudo fdisk -l
+<pre tabindex="0"><code>sudo fdisk -l
 sudo umount /dev/sdb1
 sudo umount /dev/sdb2
 sudo fdisk /dev/sdb
@@ -616,10 +616,10 @@ sudo mkfs.ext4 /dev/sdb1
 <ul>
 <li>Backup:</li>
 </ul>
-<pre><code>mkdir /mnt/usbstick
+<pre tabindex="0"><code>mkdir /mnt/usbstick
 sudo mount /dev/sdb1 /mnt/usbstick
 sudo pacman -Syu rsync
-sudo rsync -aAXv --delete --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=&quot;swapfile&quot; --exclude=&quot;lost+found&quot; --exclude=&quot;.cache&quot; --exclude=&quot;Downloads&quot; --exclude=&quot;.VirtualBoxVMs&quot;--exclude=&quot;.ecryptfs&quot; / /mnt/usbstick/
+sudo rsync -aAXv --delete --exclude=/dev/* --exclude=/proc/* --exclude=/sys/* --exclude=/tmp/* --exclude=/run/* --exclude=/mnt/* --exclude=/media/* --exclude=&#34;swapfile&#34; --exclude=&#34;lost+found&#34; --exclude=&#34;.cache&#34; --exclude=&#34;Downloads&#34; --exclude=&#34;.VirtualBoxVMs&#34;--exclude=&#34;.ecryptfs&#34; / /mnt/usbstick/
 </code></pre><blockquote>
 <p>Restauration:
 Boot sur Live ISO puis:<br/>
@@ -630,7 +630,7 @@ Enfin, restaurer: <code>rsync -aAXv --delete --exclude=&quot;lost+found&quot; /m
 <br/>
 <h2 id="xorg">Xorg</h2>
 <p>Déterminer le pilote graphique à utiliser:</p>
-<pre><code>lspci -v | grep -A1 -e VGA -e 3D
+<pre tabindex="0"><code>lspci -v | grep -A1 -e VGA -e 3D
 </code></pre><p>Suivant la marque, il faudra utiliser un package adapté. <a href="https://wiki.archlinux.org/title/Xorg">Voici la liste</a> des packages à disposition.</p>
 <p>Dans mon cas, ayant une carte Intel, je vais installer le package <code>xf86-video-intel</code> puis j&rsquo;installe le package xorg group via la commande: <code>sudo pacman -Syu xorg</code>.</p>
 <br/>
@@ -638,21 +638,20 @@ Enfin, restaurer: <code>rsync -aAXv --delete --exclude=&quot;lost+found&quot; /m
 <br/>
 <h2 id="desktop-environment">Desktop environment</h2>
 <p>On va maintenant installer Gnome.</p>
-<pre><code>sudo pacman -Syu gnome gnome-extra xorg-xinit
+<pre tabindex="0"><code>sudo pacman -Syu gnome gnome-extra xorg-xinit
 </code></pre><p>On va ensuite configurer le système pour que la commande <code>startx</code> démarre une session gnome. Pour se faire, on va créer un fichier <code>sudo vim ~/.xinitrc</code> et on va ajouter la ligne suivante: <code>exec gnome-session</code>.</p>
 <p>On redémarre et vérifie que tout fonctionne bien. Exécuter <code>startx</code> après s&rsquo;être authentifié.</p>
 <br/>
 <h2 id="keyring-fix">Keyring fix</h2>
-<pre><code>sudo passwd
+<pre tabindex="0"><code>sudo passwd
 </code></pre><br/>
 <h2 id="bluetooth">Bluetooth</h2>
-<pre><code>pacman -Syu bluez bluez-utils
+<pre tabindex="0"><code>pacman -Syu bluez bluez-utils
 systemctl enable bluetooth.service
 systemctl start bluetooth.service
-
 </code></pre><br/>
 <h2 id="wifi">Wifi</h2>
-<pre><code>sudo pacman -Syu networkmanager
+<pre tabindex="0"><code>sudo pacman -Syu networkmanager
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
 </code></pre><br/>
@@ -660,11 +659,11 @@ sudo systemctl start NetworkManager.service
 <ul>
 <li>Via pacman</li>
 </ul>
-<pre><code>vlc base-devel firefox 
+<pre tabindex="0"><code>vlc base-devel firefox 
 </code></pre><ul>
 <li>Snapd:</li>
 </ul>
-<pre><code>git clone https://aur.archlinux.org/snapd.git
+<pre tabindex="0"><code>git clone https://aur.archlinux.org/snapd.git
 cd snapd
 makepkg -si
 sudo systemctl enable --now snapd.socket
@@ -674,41 +673,41 @@ snap --version
 </code></pre><ul>
 <li>Spotify:</li>
 </ul>
-<pre><code>snap install spotify
+<pre tabindex="0"><code>snap install spotify
 </code></pre><ul>
 <li>Paru:</li>
 </ul>
-<pre><code>git clone https://aur.archlinux.org/paru.git
+<pre tabindex="0"><code>git clone https://aur.archlinux.org/paru.git
 cd paru
 makepkg -si
 </code></pre><ul>
 <li>VS Code:</li>
 </ul>
-<pre><code>git clone https://aur.archlinux.org/visual-studio-code-bin.git
+<pre tabindex="0"><code>git clone https://aur.archlinux.org/visual-studio-code-bin.git
 cd visual-studio-code-bin
 makepkg -si
 </code></pre><br/>
 <h2 id="openssh">Openssh</h2>
-<pre><code>sudo pacman -Syu openssh
+<pre tabindex="0"><code>sudo pacman -Syu openssh
 ip address
 sudo systemctl enable sshd.service
 sudo systemctl start sshd.service
 </code></pre><br/>
 <h2 id="x2go">x2go</h2>
-<pre><code>sudo pacman -Syu x2goserver
+<pre tabindex="0"><code>sudo pacman -Syu x2goserver
 sudo x2godbadmin --createdb
 sudo systemctl enable x2goserver.service
 sudo systemctl start x2goserver.service
 </code></pre><blockquote>
 <p>Pour pouvoir utiliser x2go on va installer un second desktop env plus léger et sans bug.</p>
 </blockquote>
-<pre><code>sudo pacman -Syu xfce4 xfce4-goodies
+<pre tabindex="0"><code>sudo pacman -Syu xfce4 xfce4-goodies
 </code></pre><br/>
 <p>Option pour pouvoir démarrer un server X au choix:</p>
 <ul>
 <li>Editer le fichier <code>sudo vim ~/.xinitrc</code> et ajouter le contenu suivant:</li>
 </ul>
-<pre><code># Here Gnome is kept as default
+<pre tabindex="0"><code># Here Gnome is kept as default
 session=${1:-gnome}
 
 case $session in
@@ -721,7 +720,7 @@ esac
 <ul>
 <li>Démarrage d&rsquo;un Desktop environment au choix via l&rsquo;une des deux commandes suivantes:</li>
 </ul>
-<pre><code>xinit xfce
+<pre tabindex="0"><code>xinit xfce
 xinit gnome
 </code></pre>
             </div>
@@ -736,7 +735,7 @@ xinit gnome
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1411 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>04 Feb. 2022</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>04 févr.. 2022</p>
         </div>
 
         
@@ -793,119 +792,6 @@ xinit gnome
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -914,7 +800,7 @@ xinit gnome
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

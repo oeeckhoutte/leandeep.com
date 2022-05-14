@@ -246,7 +246,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -264,8 +264,8 @@
 <meta itemprop="description" content="Dans cet article nous allons voir comment réaliser un échange d&rsquo;USDC avec de l&rsquo;USDT en codant un smart contract qui utiliser Uniswap.
  Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
   Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
-// SPDX-License-Identifier: MIT pragma solidity ^0."><meta itemprop="datePublished" content="2021-10-22T08:08:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-10-22T08:08:00&#43;00:00" />
+// SPDX-License-Identifier: MIT pragma solidity ^0."><meta itemprop="datePublished" content="2021-10-22T08:08:00+00:00" />
+<meta itemprop="dateModified" content="2021-10-22T08:08:00+00:00" />
 <meta itemprop="wordCount" content="527"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Dev,Ethereum,Blockchain,Solidity," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -280,7 +280,7 @@
 
 
 
-<meta property="article:published_time" content="2021-10-22 08:08:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-10-22 08:08:00 &#43;0000 UTC" />
 
 
 
@@ -357,11 +357,11 @@
 <br/>
 <h2 id="création-du-smart-contract">Création du Smart contract</h2>
 <p>Créer un fichier <code>SimpleUniswapSwap.sol</code> dans le répertoire <code>contracts</code> de votre repo git et ajouter le contenu suivant:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.7;
 
-import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
-import &quot;./interfaces/Uniswap.sol&quot;;
+import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;;
+import &#34;./interfaces/Uniswap.sol&#34;;
 
 contract SimpleUniswapSwap {
     address private constant UNISWAP_V2_ROUTER =
@@ -400,10 +400,9 @@ contract SimpleUniswapSwap {
     }
 
 }
-
 </code></pre><br/>
 <p>L&rsquo;interface <code>Uniswap.sol</code> dans le répertoire <code>./contracts/interfaces</code> ressemble à ceci:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.7;
 
 // https://uniswap.org/docs/v2/smart-contracts
@@ -420,13 +419,13 @@ interface IUniswapV2Router {
 </code></pre><br/>
 <h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
 <p>Créer un fichier <code>test/simple-uniswap-swap.js</code> et ajouter le contenu suivant:</p>
-<pre><code>const BN = require(&quot;bn.js&quot;); // On charge le module Node Bignumber 
-const { USDC, USDT, USDC_WHALE } = require(&quot;./config&quot;); // Adresses des tokens USC, USDT et wallet 
+<pre tabindex="0"><code>const BN = require(&#34;bn.js&#34;); // On charge le module Node Bignumber 
+const { USDC, USDT, USDC_WHALE } = require(&#34;./config&#34;); // Adresses des tokens USC, USDT et wallet 
 
-const IERC20 = artifacts.require(&quot;IERC20&quot;);  // on load l'interface des contracts ERC20
-const SimpleUniswapSwap = artifacts.require(&quot;SimpleUniswapSwap&quot;); //on load le smart contract qu'on a créé pour swapper des tokens ERC20
+const IERC20 = artifacts.require(&#34;IERC20&#34;);  // on load l&#39;interface des contracts ERC20
+const SimpleUniswapSwap = artifacts.require(&#34;SimpleUniswapSwap&#34;); //on load le smart contract qu&#39;on a créé pour swapper des tokens ERC20
 
-contract(&quot;SimpleUniswapSwap&quot;, (accounts) =&gt; {
+contract(&#34;SimpleUniswapSwap&#34;, (accounts) =&gt; {
     const WHALE = USDC_WHALE;
     const AMOUNT_IN = 1000;
     const AMOUNT_OUT_MIN = 980;
@@ -445,7 +444,7 @@ contract(&quot;SimpleUniswapSwap&quot;, (accounts) =&gt; {
         await tokenIn.approve(simpleUniswapSwap.address, AMOUNT_IN, { from: WHALE });
     });
 
-    it(&quot;should pass&quot;, async () =&gt; {
+    it(&#34;should pass&#34;, async () =&gt; {
         await simpleUniswapSwap.swap(
             tokenIn.address,
             tokenOut.address,
@@ -464,12 +463,12 @@ contract(&quot;SimpleUniswapSwap&quot;, (accounts) =&gt; {
 </code></pre><br/>
 <h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
 <p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
-<pre><code>module.exports = {
+<pre tabindex="0"><code>module.exports = {
     networks: {
         mainnet_fork: {
-            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            host: &#34;127.0.0.1&#34;, // Localhost (default: none)
             port: 8545, // Standard Ethereum port (default: none)
-            network_id: &quot;999&quot;, // Any network (default: none)
+            network_id: &#34;999&#34;, // Any network (default: none)
         },
     },
 
@@ -481,25 +480,25 @@ contract(&quot;SimpleUniswapSwap&quot;, (accounts) =&gt; {
     // Configure your compilers
     compilers: {
         solc: {
-            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+            version: &#34;0.7.6&#34;, // Fetch exact version from solc-bin (default: truffle&#39;s version)
         },
     },
 }
 </code></pre><br/>
 <blockquote>
-<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert">https://twitter.com/whale_alert</a>, récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
 </blockquote>
-<pre><code>source .env
+<pre tabindex="0"><code>source .env
 ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
 </code></pre><br/>
 <h2 id="exécution-du-swap">Exécution du swap</h2>
-<pre><code>npx truffle test --network mainnet_fork test/simple-uniswap-swap.js
+<pre tabindex="0"><code>npx truffle test --network mainnet_fork test/simple-uniswap-swap.js
 </code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
 <br/>
 <p><img src="https://leandeep.com/images/swap-uniswap-result.png" alt="image"></p>
 <br/>
 <h2 id="interagir-avec-ganache">Interagir avec Ganache</h2>
-<pre><code>npx truffle console --network mainnet_fork
+<pre tabindex="0"><code>npx truffle console --network mainnet_fork
 # npx truffle debug 0xbb18c245899e6e11da427cb951d88de7f072ca1021c98fbb1c7b65660c572f44
 </code></pre>
             </div>
@@ -514,7 +513,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>527 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 Oct. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 oct.. 2021</p>
         </div>
 
         
@@ -571,119 +570,6 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -692,7 +578,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

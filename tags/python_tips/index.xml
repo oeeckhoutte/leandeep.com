@@ -27,7 +27,7 @@
       <guid>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</guid>
       <description>La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires. En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini expected, cela peut poser problème&amp;hellip;
  Si on essaye de patcher la fonction today() ou now() comme ceci
-@mock.patch(&#39;datetime.date.today&#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
+@mock.patch(&amp;#39;datetime.date.today&amp;#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
 On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.</description>
     </item>
     
@@ -70,7 +70,7 @@ def ma_fonction(argument: int | str) -&amp;gt; int | str: pass On utilise le car
       <guid>https://leandeep.com/comparaison-de-strings-et-logique-floue/</guid>
       <description>Pour implémenter dans la logique floue pour comparer deux strings, on peut utiliser la distance de Levenshtein.
 Voici le code permettant de calculer cette distance. Rien de particulier, on retrouve partout ce code sur internet.
-import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False): &amp;quot;&amp;quot;&amp;quot; levenshtein_ratio_and_distance: Calculates levenshtein distance between two strings. If ratio_calc = True, the function computes the levenshtein distance ratio of similarity between two strings For all i and j, distance[i,j] will contain the Levenshtein distance between the first i characters of s and the first j characters of t &amp;quot;&amp;quot;&amp;quot; # Initialize matrix of zeros rows = len(s)+1 cols = len(t)+1 distance = np.</description>
+import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False): &amp;#34;&amp;#34;&amp;#34; levenshtein_ratio_and_distance: Calculates levenshtein distance between two strings. If ratio_calc = True, the function computes the levenshtein distance ratio of similarity between two strings For all i and j, distance[i,j] will contain the Levenshtein distance between the first i characters of s and the first j characters of t &amp;#34;&amp;#34;&amp;#34; # Initialize matrix of zeros rows = len(s)+1 cols = len(t)+1 distance = np.</description>
     </item>
     
     <item>
@@ -80,7 +80,7 @@ import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False):
       
       <guid>https://leandeep.com/eviter-les-if-ou-try/except-avec-les-dictionnaires/</guid>
       <description>Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
-prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
+prenoms = {&amp;#39;titi&amp;#39;: 1, &amp;#39;tata&amp;#39;: 2, &amp;#39;toto&amp;#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &amp;#39;titi&amp;#39;, 2: &amp;#39;tata&amp;#39;, 3: &amp;#39;toto&amp;#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
  soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&amp;rsquo;avoir du code plus propre, et plus facilement testable.</description>
     </item>
     
@@ -92,7 +92,7 @@ prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_preno
       <guid>https://leandeep.com/slicer-de-mani%C3%A8re-pythonique-un-set/</guid>
       <description>Ce tip décrit comment slicer (découper) un set de manière Pythonique.
 Les sets sont des iterables. On peut donc utiliser la méthode itertools.islice qui va nous permettre de créer un iterator construit à partir d&amp;rsquo;un sous-ensemble du set de départ.
-import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;, &#39;titi&#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
+import itertools prenoms_list = [&amp;#39;titi&amp;#39;, &amp;#39;tata&amp;#39;, &amp;#39;totot&amp;#39;, &amp;#39;titi&amp;#39;] prenoms_set = set(prenoms_list) small_prenoms_set = set(itertools.islice(prenoms_set, 2)) </description>
     </item>
     
     <item>
@@ -102,7 +102,7 @@ import itertools prenoms_list = [&#39;titi&#39;, &#39;tata&#39;, &#39;totot&#39;
       
       <guid>https://leandeep.com/utiliser-zip-pour-it%C3%A9rer-sur-deux-listes/</guid>
       <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
-Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx])  Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
+Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;#34;titi&amp;#34;, &amp;#34;tata&amp;#34;, &amp;#34;toto&amp;#34;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx])  Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
 1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
     </item>
     
@@ -113,7 +113,7 @@ Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;
       
       <guid>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes-copy/</guid>
       <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
-Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;quot;titi&amp;quot;, &amp;quot;tata&amp;quot;, &amp;quot;toto&amp;quot;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
+Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;#34;titi&amp;#34;, &amp;#34;tata&amp;#34;, &amp;#34;toto&amp;#34;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
 1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
     </item>
     

@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Provisionner un cluster Kubernetes sur HCloud">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&rsquo;est parfait quand on n&rsquo;est pas en production.
- Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube   Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)"><meta itemprop="datePublished" content="2019-01-02T00:45:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-01-02T00:45:00&#43;00:00" />
+ Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube   Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)"><meta itemprop="datePublished" content="2019-01-02T00:45:00+00:00" />
+<meta itemprop="dateModified" content="2019-01-02T00:45:00+00:00" />
 <meta itemprop="wordCount" content="1442"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Kubernetes,HCloud," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@
 
 
 
-<meta property="article:published_time" content="2019-01-02 00:45:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-01-02 00:45:00 &#43;0000 UTC" />
 
 
 
@@ -359,7 +359,7 @@ Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master 
 <p>Ensuite créez un projet sur <a href="https://console.hetzner.cloud">HCloud</a>.</p>
 <p>Une fois le projet créé, créer un token API et gardez le précieusement.</p>
 <p>Ensuite entrer les commandes suivantes:</p>
-<pre><code># Doc: https://github.com/xetys/hetzner-kube/blob/master/docs/cluster-create.md
+<pre tabindex="0"><code># Doc: https://github.com/xetys/hetzner-kube/blob/master/docs/cluster-create.md
 
 # Create context
 hetzner-kube context add demo
@@ -371,10 +371,10 @@ hetzner-kube cluster create --name demo --ssh-key macbook --datacenters nbg1-dc3
 <p>Pour avoir un cluster en HA, il suffit de passer le paramètre <code>--ha-enabled</code> à la commande précédente. Il y aura alors 3 masters nodes.</p>
 </blockquote>
 <p>La commande suivante va permettre de créer un contexte Kubernetes &ldquo;kubernetes-admin@kubernetes&rdquo; sur votre laptop dans ~/.kube/config</p>
-<pre><code>#hetzner-kube cluster kubeconfig &lt;cluster-name&gt; -f
+<pre tabindex="0"><code>#hetzner-kube cluster kubeconfig &lt;cluster-name&gt; -f
 hetzner-kube cluster kubeconfig demo -f
 </code></pre><p>Il sera ensuite possible de lister les noeuds du cluster:</p>
-<pre><code>kubectl get nodes
+<pre tabindex="0"><code>kubectl get nodes
 
 NAME             STATUS    ROLES     AGE       VERSION
 demo-master-01   Ready     master    1h        v1.9.6
@@ -382,25 +382,25 @@ demo-worker-01   Ready     &lt;none&gt;    1h        v1.9.6
 </code></pre><br/>
 <h2 id="installation-dopenebs">Installation d&rsquo;OpenEBS</h2>
 <p>Installation de l&rsquo;operator et de la storageclass:</p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-operator.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-operator.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/openebs/openebs/master/k8s/openebs-storageclasses.yaml
 </code></pre><p>On définit la nouvelle storageclass comme classe par défaut:</p>
-<pre><code>kubectl patch storageclass openebs-standard -p '{&quot;metadata&quot;: {&quot;annotations&quot;:{&quot;storageclass.kubernetes.io/is-default-class&quot;:&quot;true&quot;}}}'
+<pre tabindex="0"><code>kubectl patch storageclass openebs-standard -p &#39;{&#34;metadata&#34;: {&#34;annotations&#34;:{&#34;storageclass.kubernetes.io/is-default-class&#34;:&#34;true&#34;}}}&#39;
 </code></pre><br/>
 <h2 id="installation-dun-ingress-controller">Installation d&rsquo;un Ingress Controller</h2>
 <h3 id="traefik-ingress">Traefik Ingress</h3>
 <p><strong>1. Création des Rôles (RBAC):</strong></p>
-<pre><code>kubectl apply -f   https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml
+<pre tabindex="0"><code>kubectl apply -f   https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-rbac.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-rbac.yaml</code> :</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: traefik-ingress-controller
 rules:
   - apiGroups:
-      - &quot;&quot;
+      - &#34;&#34;
     resources:
       - services
       - endpoints
@@ -433,9 +433,9 @@ subjects:
 </code></pre><br/>
 <p><strong>2. Déployement de traefik via Deployment ou DaemonSet</strong></p>
 <p><strong>Option 1: via Deployment (permet de créer un nodePort)</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-deployment.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-deployment.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-deployment.yaml</code>:</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -493,9 +493,9 @@ spec:
   type: NodePort
 </code></pre><br/>
 <p><strong>Option 2: via DaemonSet (sera indispensable pour la suite du tuto)</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-ds.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/traefik-ds.yaml
 </code></pre><p>Contenu du fichier distant <code>traefik-ds.yaml</code> :</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -556,13 +556,13 @@ spec:
       name: admin
 </code></pre><br/>
 <p><strong>3. Vérification du déploiement</strong></p>
-<pre><code>kubectl --namespace=kube-system get pods
+<pre tabindex="0"><code>kubectl --namespace=kube-system get pods
 </code></pre><br/>
 <p><strong>4. Déploiement de l&rsquo;interface d&rsquo;admin de Traefik</strong></p>
 <p>Via un service:</p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/ui.yaml
 </code></pre><p>Contenu du fichier distant <code>ui.yaml</code> :</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 apiVersion: v1
 kind: Service
 metadata:
@@ -592,13 +592,13 @@ spec:
           servicePort: web
 </code></pre><br/>
 <p><strong>5. Accès à l&rsquo;interface Traefik en dev</strong></p>
-<pre><code>echo &quot;ip_dun_worker traefik-ui.minikube&quot; | sudo tee -a /etc/hosts
+<pre tabindex="0"><code>echo &#34;ip_dun_worker traefik-ui.minikube&#34; | sudo tee -a /etc/hosts
 </code></pre><br/>
 <p><strong>6. Vérification du bon fonctionnement de l&rsquo;ingress</strong></p>
 <p><strong>6.1. Déploiement de 3 apps de test</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-deployments.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-deployments.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-deployments.yaml</code> :</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 kind: Deployment
 apiVersion: extensions/v1beta1
 metadata:
@@ -699,9 +699,9 @@ spec:
         - containerPort: 80
 </code></pre><br/>
 <p><strong>6.2. Création des 3 services</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-services.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-services.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-services.yaml</code> :</p>
-<pre><code>---
+<pre tabindex="0"><code>---
 apiVersion: v1
 kind: Service
 metadata:
@@ -742,9 +742,9 @@ spec:
     task: wensleydale
 </code></pre><br/>
 <p><strong>6.3. Création de l&rsquo;ingress</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-ingress.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/containous/traefik/master/examples/k8s/cheese-ingress.yaml
 </code></pre><p>Contenu du fichier distant <code>cheese-ingress.yaml</code> :</p>
-<pre><code>apiVersion: extensions/v1beta1
+<pre tabindex="0"><code>apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: cheese
@@ -773,20 +773,20 @@ spec:
           servicePort: http
 </code></pre><br/>
 <p><strong>Accès aux 3 apps en dev</strong></p>
-<pre><code>echo &quot;116.203.33.4 stilton.minikube cheddar.minikube wensleydale.minikube&quot; | sudo tee -a /etc/hosts
+<pre tabindex="0"><code>echo &#34;116.203.33.4 stilton.minikube cheddar.minikube wensleydale.minikube&#34; | sudo tee -a /etc/hosts
 </code></pre><br/>
 <h3 id="ingress-nginx">Ingress Nginx</h3>
 <p>Voir le tuto: <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md">https://github.com/kubernetes/ingress-nginx/blob/master/docs/deploy/index.md</a></p>
 <br/>
 <h2 id="déploiement-dune-app-via-helm">Déploiement d&rsquo;une app via helm</h2>
 <p><strong>Installation du tiller</strong></p>
-<pre><code>helm init --service-account tiller
+<pre tabindex="0"><code>helm init --service-account tiller
 </code></pre><br/>
 <p><strong>Création d&rsquo;un service account</strong></p>
-<pre><code>kubectl create serviceaccount --namespace kube-system tiller
-# Ajout des droits sur l'ensemble du cluster pour pouvoir déployer dans les différents namespaces
+<pre tabindex="0"><code>kubectl create serviceaccount --namespace kube-system tiller
+# Ajout des droits sur l&#39;ensemble du cluster pour pouvoir déployer dans les différents namespaces
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceaccount&quot;:&quot;tiller&quot;}}}}'
+kubectl patch deploy --namespace kube-system tiller-deploy -p &#39;{&#34;spec&#34;:{&#34;template&#34;:{&#34;spec&#34;:{&#34;serviceaccount&#34;:&#34;tiller&#34;}}}}&#39;
 </code></pre><br/>
 <p><strong>Déploiement</strong></p>
 <p>Pour accéder à une application il y a différente possibilités.</p>
@@ -794,7 +794,7 @@ kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;
 <p><strong>Déploiement option 1: Accès via Nodeport</strong></p>
 <p>Déploiement d&rsquo;un nodeport:
 <img src="https://leandeep.com/images/nodeport.png" alt="image"></p>
-<pre><code>kubectl expose deployment hello-world --type=NodePort --name=example-service
+<pre tabindex="0"><code>kubectl expose deployment hello-world --type=NodePort --name=example-service
 kubectl get svc
 NAME              TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
 example-service   NodePort    10.97.67.9   &lt;none&gt;        8080:30485/TCP   2s
@@ -817,17 +817,17 @@ Par contre, la fonctionnalité de load balancing doit être implémentée à l&r
 <br/>
 <p><strong>Déploiement option 3: Accès via Ingress</strong></p>
 <p><img src="https://leandeep.com/images/ingress.png" alt="image"></p>
-<p>Contrairement au <code>NodePort</code> and au <code>LoadBalancer</code>, l'<code>Ingress</code> est une ressource complètement indépendante du service. On déclare, crée et détruit l&rsquo;ingress indépendament des services.</p>
+<p>Contrairement au <code>NodePort</code> and au <code>LoadBalancer</code>, l&rsquo;<code>Ingress</code> est une ressource complètement indépendante du service. On déclare, crée et détruit l&rsquo;ingress indépendament des services.</p>
 <p>C&rsquo;est donc découplé et isolé des services que l&rsquo;on veut exposer. Cela permet, entre autres, de mieux gérer les rêgles de routage.</p>
 <hr>
 <p>Dans notre cas, nous allons utiliser un ingress.
 On commence par déployer l&rsquo;application en spécifiant <code>ClusterIP</code> comme <code>serviceType</code>:</p>
-<pre><code>helm install --set service.type=ClusterIP stable/ghost
+<pre tabindex="0"><code>helm install --set service.type=ClusterIP stable/ghost
 </code></pre><p>A présent on peut créer notre ingress:</p>
 <p>Note du 02/01/2018 - Procédure suivante à vérifier (validation d&rsquo;ici peu&hellip; Si cela ne fonctionne pas, voir le contenu du fichier <code>cheese-ingress.yaml</code> plus haut)</p>
-<pre><code>cat ingress.yaml
+<pre tabindex="0"><code>cat ingress.yaml
 </code></pre><p>Output:</p>
-<pre><code>apiVersion: extensions/v1beta1
+<pre tabindex="0"><code>apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: iron-hyena-ghost
@@ -836,11 +836,11 @@ spec:
     serviceName: iron-hyena-ghost
     servicePort: 80
 </code></pre><p>Puis on applique:</p>
-<pre><code>kubectl apply -f ingress.yaml
+<pre tabindex="0"><code>kubectl apply -f ingress.yaml
 </code></pre><br/>
 <h2 id="etendre-le-cluster">Etendre le cluster</h2>
 <p>Pour ajouter des workers au cluster existant:</p>
-<pre><code>hetzner-kube cluster add-worker --worker-server-type cx21 --datacenters nbg1-dc3 --name demo --nodes 1
+<pre tabindex="0"><code>hetzner-kube cluster add-worker --worker-server-type cx21 --datacenters nbg1-dc3 --name demo --nodes 1
 
 #hetzner-kube cluster add-worker --worker-server-type cx21 --datacenters nbg1-dc3 --name &lt;cluster-name&gt; --nodes 1
 </code></pre>
@@ -856,7 +856,7 @@ spec:
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1442 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 Jan. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 janv.. 2019</p>
         </div>
 
         
@@ -913,119 +913,6 @@ spec:
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -1034,7 +921,7 @@ spec:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

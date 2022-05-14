@@ -248,7 +248,7 @@ Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 Pubke
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -268,8 +268,8 @@ ssh user@host  Par défaut le port 22 est utilisé
   Se connecter sur un port particulier:
 ssh user@host -p port  Créer des raccourcis pour vous connecter plus facilement à différents hosts:
 Créer un fichier de config ~/.ssh/config et gérer vos config comme ceci:
-Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 PubkeyAuthentication yes IdentityFile ~/.ssh/server_vps1 Ensuite, il vous suffit d&rsquo;utiliser les commandes suivantes pour vous connecter à vos différents hosts:"><meta itemprop="datePublished" content="2012-10-10T09:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2012-10-10T09:49:00&#43;02:00" />
+Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 PubkeyAuthentication yes IdentityFile ~/.ssh/server_vps1 Ensuite, il vous suffit d&rsquo;utiliser les commandes suivantes pour vous connecter à vos différents hosts:"><meta itemprop="datePublished" content="2012-10-10T09:49:00+02:00" />
+<meta itemprop="dateModified" content="2012-10-10T09:49:00+02:00" />
 <meta itemprop="wordCount" content="377"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="SSH," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -358,17 +358,17 @@ Host hostname1 HostName 192.168.0.10 User olivier Port 1234 Host hostname2 Pubke
             <div class="post-content">
                 <h2 id="connexion">Connexion</h2>
 <p>Dans un terminal, exécuter la commande suivante:</p>
-<pre><code>ssh user@host
+<pre tabindex="0"><code>ssh user@host
 </code></pre><blockquote>
 <p>Par défaut le port 22 est utilisé</p>
 </blockquote>
 <br/>
 <p><strong>Se connecter sur un port particulier:</strong></p>
-<pre><code>ssh user@host -p port
+<pre tabindex="0"><code>ssh user@host -p port
 </code></pre><br/>
 <p><strong>Créer des raccourcis pour vous connecter plus facilement à différents hosts:</strong></p>
 <p>Créer un fichier de config <code>~/.ssh/config</code> et gérer vos config comme ceci:</p>
-<pre><code>Host hostname1
+<pre tabindex="0"><code>Host hostname1
     HostName 192.168.0.10
     User    olivier
     Port    1234
@@ -377,35 +377,34 @@ Host hostname2
     PubkeyAuthentication yes
     IdentityFile ~/.ssh/server_vps1
 </code></pre><p>Ensuite, il vous suffit d&rsquo;utiliser les commandes suivantes pour vous connecter à vos différents hosts:</p>
-<pre><code>ssh hostname1
+<pre tabindex="0"><code>ssh hostname1
 ssh hostname2
 </code></pre><br/>
 <h2 id="clé-ssh">Clé SSH</h2>
 <p>Ajouter votre clé publique sur un serveur distant:</p>
-<pre><code>ssh-keygen -t rsa
-cat id_rsa.pub | ssh user@host 'cat &gt;&gt; .ssh/authorized_keys'
+<pre tabindex="0"><code>ssh-keygen -t rsa
+cat id_rsa.pub | ssh user@host &#39;cat &gt;&gt; .ssh/authorized_keys&#39;
 ssh user@host
 </code></pre><br/>
 <h2 id="remote-commands">Remote Commands</h2>
 <p>Il est possible d&rsquo;exécuter des commandes à distance. Par exemple:</p>
-<pre><code>ssh user@host &quot;ls&quot;
+<pre tabindex="0"><code>ssh user@host &#34;ls&#34;
 </code></pre><p>Le stdin et stdout sera local</p>
 <br/>
 <h2 id="gérer-plusieurs-config-pour-le-même-serveur">Gérer plusieurs config pour le même serveur</h2>
-<pre><code>Host option1.host
+<pre tabindex="0"><code>Host option1.host
     HostName host
     User     user1
 
 Host option2.host
     HostName host
     User     user2
-
 </code></pre><p>Puis pour vous connecter:</p>
-<pre><code>ssh option1.host
+<pre tabindex="0"><code>ssh option1.host
 ssh option2.host
 </code></pre><br/>
 <h2 id="configurer-github-avec-protocol-ssh">Configurer Github avec protocol SSH</h2>
-<pre><code>Host repo1.github.com
+<pre tabindex="0"><code>Host repo1.github.com
     HostName github.com
     User git
     IdentityFile ~/.ssh/repo1_rsa
@@ -417,33 +416,33 @@ Host repo2.github.com
 </code></pre><p>Puis <code>git clone repo1.github.com</code></p>
 <br/>
 <h2 id="copier-des-fichier-over-ssh-avec-scp">Copier des fichier over SSH avec SCP</h2>
-<pre><code>scp mon_image.png olivier@remoteserver:/media/data/mon_image.png
+<pre tabindex="0"><code>scp mon_image.png olivier@remoteserver:/media/data/mon_image.png
 
-# ou dans l'autre sens
+# ou dans l&#39;autre sens
 scp olivier@remoteserver:/media/data/mon_image.png mon_image.png
 
 # Si votre fichier contient des espaces
-file=&quot;foo bar/baz&quot;
+file=&#34;foo bar/baz&#34;
 file=${file// /\\ }
-scp vps:&quot;$file&quot; .
+scp vps:&#34;$file&#34; .
 </code></pre><blockquote>
 <p>Le paramètre port est <code>-P</code> et pas <code>-p</code> contrairement à <code>SSH</code></p>
 </blockquote>
 <br/>
 <h2 id="copier-votre-clé-publique-ssh-sur-une-machine-distante">Copier votre clé publique SSH sur une machine distante</h2>
-<pre><code>ssh-copy-id user@remoteserver
+<pre tabindex="0"><code>ssh-copy-id user@remoteserver
 </code></pre><br/>
 <p>Alternative:</p>
-<pre><code>cat ~/.ssh/id_rsa.pub | ssh remoteserver 'cat &gt;&gt; .ssh/authorized_keys'
+<pre tabindex="0"><code>cat ~/.ssh/id_rsa.pub | ssh remoteserver &#39;cat &gt;&gt; .ssh/authorized_keys&#39;
 </code></pre><br/>
 <h2 id="exécuter-une-commande-à-distance">Exécuter une commande à distance</h2>
-<pre><code>ssh remoteserver &quot;cat /var/log/nginx/access.log&quot; | grep &quot;string_to_find&quot;
+<pre tabindex="0"><code>ssh remoteserver &#34;cat /var/log/nginx/access.log&#34; | grep &#34;string_to_find&#34;
 </code></pre><blockquote>
 <p><code>| grep ...</code> est exécuté localement</p>
 </blockquote>
 <br/>
 <h2 id="copier-des-fichiers-à-distance-avec-rsync">Copier des fichiers à distance avec rsync</h2>
-<pre><code>rsync -azcrv --progress /home/olivier/data remoteserver:backup/
+<pre tabindex="0"><code>rsync -azcrv --progress /home/olivier/data remoteserver:backup/
 </code></pre><blockquote>
 <p><code>-z</code> permet d&rsquo;avoir la compression gzip <br/>
 <code>-a</code> permet d&rsquo;être en mode archive; ce qui revient à copier recursivement des fichiers
@@ -453,11 +452,11 @@ scp vps:&quot;$file&quot; .
 </blockquote>
 <br/>
 <h2 id="ssh-sur-une--instance-ec2">SSH sur une  instance EC2</h2>
-<pre><code>chmod 400 my-ec2-ssh-key.pem
+<pre tabindex="0"><code>chmod 400 my-ec2-ssh-key.pem
 ssh -i ~/.ssh/my-ec2-key.pem ubuntu@my-ec2-public
 </code></pre><br/>
 <h2 id="mount-remote-ssh-location-comme-dossier-local-avec-sshfs">Mount remote SSH location comme dossier local avec SSHFS</h2>
-<pre><code># apt install sshfs # sur linux
+<pre tabindex="0"><code># apt install sshfs # sur linux
 # brew install sshfs # sur OSX
 mkdir /tmp/data
 sshfs user@remoteserver:/media/data /tmp/data/
@@ -471,7 +470,7 @@ killall sshfs
 sudo umount -l /tmp/data
 </code></pre><br/>
 <h2 id="jump-box">Jump box</h2>
-<pre><code>ssh -J host1,host2,host3 user@host4.internal
+<pre tabindex="0"><code>ssh -J host1,host2,host3 user@host4.internal
 </code></pre>
             </div>
         </article>
@@ -485,7 +484,7 @@ sudo umount -l /tmp/data
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>377 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 Oct. 2012</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 oct.. 2012</p>
         </div>
 
         
@@ -535,119 +534,6 @@ sudo umount -l /tmp/data
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -656,7 +542,7 @@ sudo umount -l /tmp/data
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2019-07-18T12:19:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-07-18T12:19:00&#43;00:00" />
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2019-07-18T12:19:00+00:00" />
+<meta itemprop="dateModified" content="2019-07-18T12:19:00+00:00" />
 <meta itemprop="wordCount" content="1363"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Featured,Tensorflow,eGPU,Intel Nuc,Data Science,Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -271,7 +271,7 @@
 
 
 
-<meta property="article:published_time" content="2019-07-18 12:19:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-07-18 12:19:00 &#43;0000 UTC" />
 
 
 
@@ -357,59 +357,59 @@ J&rsquo;ai aussi fait l&rsquo;acquisition d&rsquo;un boitier eGPU. J&rsquo;ai pr
 <h2 id="questions">Questions!</h2>
 <p><strong>Comment connaître la version du kernel ?</strong></p>
 <p>Tout simplement avec la commande:</p>
-<pre><code>cat /proc/version
+<pre tabindex="0"><code>cat /proc/version
 </code></pre><br/>
 <p><strong>Comment mettre à jour le kernel ?</strong></p>
 <p>En ligne de commande ou via une petite interface graphique:</p>
-<pre><code># Installer ukuu
+<pre tabindex="0"><code># Installer ukuu
 sudo apt-add-repository ppa:teejee2008/ppa
 sudo apt update
 sudo apt-get install ukuu
-# Lancer l'interface
+# Lancer l&#39;interface
 sudo ukuu-gtk
 </code></pre><br/>
 <p><strong>Comment backuper sa machine avant de la bidouiller ?</strong></p>
 <p>Très bonne question! Heureusement avant chaque manipulation délicate j&rsquo;ai snapshoté ma machine. J&rsquo;ai pris le risque de laisser le snapshot dessus en toute connaissance de cause. Vous pouvez le sortir si vraiment vous craignez de ne pas pouvoir réparer votre machine. Je vous conseille juste d&rsquo;installer SSH pour pouvoir vous connecter dessus au cas où Gnome ne démarre même plus&hellip;</p>
 <p>Je réalise mes snapshots avec Timeshift. Il y a une interface graphique mais apprenez à l&rsquo;utiliser en lignes de commande. Ce n&rsquo;est pas le jour où tout est crashé qu&rsquo;il faut se demander comment faire :D .</p>
-<pre><code># Installation de Timeshift
+<pre tabindex="0"><code># Installation de Timeshift
 sudo apt-add-repository -y ppa:teejee2008/ppa &amp;&amp; sudo apt-get update &amp;&amp; sudo apt-get install timeshift
 # Créer un snapshot 
-# sudo timeshift --create --comments &quot;after cuda installation&quot; --tags D
+# sudo timeshift --create --comments &#34;after cuda installation&#34; --tags D
 # Voir les snapshots
 sudo timeshift --list
 # Restaurer un snapshot 
 # sudo timeshift --restore
 </code></pre><br/>
 <p><strong>Est-ce que le GPU installé dans le boitier eGPU est bien détecté ?</strong></p>
-<pre><code>lspci | grep -i nvidia
+<pre tabindex="0"><code>lspci | grep -i nvidia
 
 06:00.0 VGA compatible controller: NVIDIA Corporation GK104 [GeForce GTX 660 Ti] (rev a1)
 </code></pre><br/>
 <h2 id="installation">Installation</h2>
 <p><strong>Configurer GCC et G++</strong></p>
 <p>Il vous faudra une utiliser la version 6 de <code>GCC</code> et <code>G++</code> pour builder Tensorflow. Si vous avez une version plus récente cela ne fonctionnera pas.</p>
-<pre><code>gcc --version
+<pre tabindex="0"><code>gcc --version
 g++ --version
 </code></pre><p>Installer gcc et g++ 6:</p>
-<pre><code>sudo apt install gcc-6 g++-6
+<pre tabindex="0"><code>sudo apt install gcc-6 g++-6
 </code></pre><p>Créer les variables d&rsquo;environnement permettant de sélectionner la bonne version dans le fichier <code>~/.zshrc</code>.</p>
-<pre><code>export CC=/usr/bin/gcc-6
+<pre tabindex="0"><code>export CC=/usr/bin/gcc-6
 export CXX=/usr/bin/g++-6
 </code></pre><br/>
 <p><strong>Installer les Drivers Nvidia</strong></p>
 <p>Enlever les nouveaux drivers qui viennent avec l&rsquo;installation d&rsquo;Ubuntu. Identifier les avec la commande:</p>
-<pre><code>lsmod | grep nouveau
+<pre tabindex="0"><code>lsmod | grep nouveau
 </code></pre><p>Créer un fichier <code>/etc/modprobe.d/blacklist-nouveau.conf</code> et ajouter lui le contenu suivant:</p>
-<pre><code>blacklist nouveau
+<pre tabindex="0"><code>blacklist nouveau
 options nouveau modeset=0
 </code></pre><p>Régénérer le Kernel initramfs:</p>
-<pre><code>sudo update-initramfs -u
+<pre tabindex="0"><code>sudo update-initramfs -u
 </code></pre><p>On peut maintenant installer le Driver Nvidia nécessaire au bon fonctionnement de mon GPU:</p>
-<pre><code>sudo add-apt-repository ppa:graphics-drivers/ppa
+<pre tabindex="0"><code>sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt install nvidia-384 nvidia-384-dev
 sudo reboot
 </code></pre><p>Après le reboot vérifier que tout fonctionne avecc la commande <code>nvidia-smi</code>. Si vous avez un résultat similaire à celui-ci vous êtes sur la bonne voie.</p>
-<pre><code>+-----------------------------------------------------------------------------+
+<pre tabindex="0"><code>+-----------------------------------------------------------------------------+
 | NVIDIA-SMI 390.116                Driver Version: 390.116                   |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
@@ -430,7 +430,7 @@ sudo reboot
 <p>On peut maintenant passer à l&rsquo;installation de Cuda.
 J&rsquo;ai beaucoup galéré à cette étape car j&rsquo;ai essayé d&rsquo;installer les dernières versione de Cuda. Au moment où j&rsquo;écris cet article il s&rsquo;agissait de la version 10.1. Cette dernière n&rsquo;a pas fonctionné car trop récente pour mon GPU.
 J&rsquo;ai donc installé la <code>cuda version 9.0</code> à partir de ce fichier précisément <code>cuda_9.0.176_384.81_linux-run</code>.</p>
-<pre><code>wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
+<pre tabindex="0"><code>wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run
 chmod +x cuda_9.0.176_384.81_linux.run 
 sudo ./cuda_9.0.176_384.81_linux.run --override
 </code></pre><ul>
@@ -451,7 +451,7 @@ sudo ./cuda_9.0.176_384.81_linux.run --override
 </li>
 </ul>
 <p>Vous pouvez vérifier la bonne installation de Cuda avec la commande:</p>
-<pre><code>nvcc -V
+<pre tabindex="0"><code>nvcc -V
 
 nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2017 NVIDIA Corporation
@@ -460,7 +460,7 @@ Cuda compilation tools, release 9.0, V9.0.176
 </code></pre><br/>
 <p><strong>Installer CudNN</strong></p>
 <p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez le package suivant <code>cudnn-9.0-linux-x64-v7.3.0.29</code>. Ensuite installez le.</p>
-<pre><code>tar -xzvf cudnn-9.0-linux-x64-v7.3.0.29.tgz
+<pre tabindex="0"><code>tar -xzvf cudnn-9.0-linux-x64-v7.3.0.29.tgz
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-9.0/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
 sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
@@ -468,11 +468,11 @@ sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
 <p><strong>Installer libcudnn</strong></p>
 <p>Connectez-vous au site <a href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a> et téléchargez les 3 packages <code>libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb</code>, <code>libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb</code> et <code>libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb</code>. Attention les numéros de versions sont à respecter. J&rsquo;ai aussi perdu beaucoup de temps sur cela.</p>
 <p>Installez les:</p>
-<pre><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
+<pre tabindex="0"><code>sudo dpkg -i libcudnn7_7.3.0.29-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.3.0.29-1+cuda9.0_amd64.deb
 sudo dpkg -i libcudnn7-doc_7.3.0.29-1+cuda9.0_amd64.deb
 </code></pre><p>Vérifier que cudnn est bien installé:</p>
-<pre><code># Copy the cuDNN sample to a writable path.
+<pre tabindex="0"><code># Copy the cuDNN sample to a writable path.
 cp -r /usr/src/cudnn_samples_v7/ $HOME
 # Go to the writable path.
 cd  $HOME/cudnn_samples_v7/mnistCUDNN
@@ -483,25 +483,25 @@ make clean &amp;&amp; make
 # If cuDNN is properly installed and running on your Linux system, you will see a message similar to the following:
 $ Test passed!
 </code></pre><p>Maintenons les paquets afin qu’ils ne soient pas updatés ou effacés:</p>
-<pre><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
+<pre tabindex="0"><code>sudo apt-mark hold libcudnn7 libcudnn7-dev libcudnn7-doc
 </code></pre><br/>
 <p><strong>Installer Bazel</strong></p>
-<pre><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
+<pre tabindex="0"><code>wget https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel-0.17.2-installer-linux-x86_64.sh
 chmod +x bazel-0.17.2-installer-linux-x86_64.sh
 ./bazel-0.17.2-installer-linux-x86_64.sh --user
 </code></pre><p>Pour pouvoir utiliser Bazel, modifier votre .bashrc ou .zshrc et ajouter cette commande:</p>
-<pre><code>export PATH=&quot;$PATH:$HOME/bin&quot;
+<pre tabindex="0"><code>export PATH=&#34;$PATH:$HOME/bin&#34;
 </code></pre><br/>
 <p><strong>Builder/Installer/Tester Tensorflow GPU</strong></p>
 <p>Rendez-vous ensuite sur un précédent article que j&rsquo;ai écrit sur le sujet. Suivez la section &ldquo;Installer TensorFlow&rdquo;. J&rsquo;ai suivi mon propre tutorial et cela a fonctionné ! <a href="https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow">https://leandeep.com/rendre-tensorflow-compatible-avec-plus-de-cartes-graphiques/#Installer-Tensorflow</a></p>
 <p>Cela fonctionne avec Python 2.7 et Python 3&hellip;</p>
-<pre><code>python
+<pre tabindex="0"><code>python
 Python 3.6.8 (default, Jan 14 2019, 11:02:34)
 [GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.
 &gt;&gt;&gt;
 &gt;&gt;&gt; import tensorflow as tf
-&gt;&gt;&gt; hello = tf.constant('Hello, TensorFlow!')
+&gt;&gt;&gt; hello = tf.constant(&#39;Hello, TensorFlow!&#39;)
 &gt;&gt;&gt; sess = tf.Session()
 
 2019-07-19 11:08:55.100940: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
@@ -519,10 +519,10 @@ totalMemory: 1.95GiB freeMemory: 1.75GiB
 <p>Jupyter Lab fix:
 Après avoir installé Tensorflow j&rsquo;avais un message d&rsquo;erreur m&rsquo;indiquant que la librairie <code>libcublas</code> n&rsquo;existait pas (<code>No such file or directory</code>) alors que les variables d&rsquo;environnement <code>LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64</code> et <code>PATH=$PATH:/usr/local/cuda-9.0/bin</code> étaient bien configurées. Cette erreur n&rsquo;apparaissait que dans Jupyter Lab. Partout ailleurs Tensorflow fonctionnait. J&rsquo;ai donc modifié la configuration de Jupyter Lab et ajouté l&rsquo;import manuellement. En haut du fichier <code>~/.jupyter/jupyter_notebook_config.py</code> j&rsquo;ai ajouté le code suivant:</p>
 </blockquote>
-<pre><code>import os
+<pre tabindex="0"><code>import os
 c = get_config()
-os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda-9.0/lib64:usr/local/cuda-9.0/lib64/libcudart.so.9.0'
-c.Spawner.env.update('LD_LIBRARY_PATH')
+os.environ[&#39;LD_LIBRARY_PATH&#39;] = &#39;/usr/local/cuda-9.0/lib64:usr/local/cuda-9.0/lib64/libcudart.so.9.0&#39;
+c.Spawner.env.update(&#39;LD_LIBRARY_PATH&#39;)
 </code></pre>
             </div>
         </article>
@@ -536,7 +536,7 @@ c.Spawner.env.update('LD_LIBRARY_PATH')
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1363 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 Jul. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 juil.. 2019</p>
         </div>
 
         
@@ -593,119 +593,6 @@ c.Spawner.env.update('LD_LIBRARY_PATH')
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -714,7 +601,7 @@ c.Spawner.env.update('LD_LIBRARY_PATH')
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

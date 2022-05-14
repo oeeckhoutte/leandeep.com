@@ -249,7 +249,7 @@ sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&amp;rsquo;
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -270,8 +270,8 @@ pip install xgboost  &ldquo;The default open-source XGBoost packages already inc
   Build from source
 Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.
 Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.
-sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&rsquo;est pas la bonne version désinstallez le avant de le réinstaller manuellement:"><meta itemprop="datePublished" content="2019-07-19T11:14:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-07-19T11:14:00&#43;00:00" />
+sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&rsquo;est pas la bonne version désinstallez le avant de le réinstaller manuellement:"><meta itemprop="datePublished" content="2019-07-19T11:14:00+00:00" />
+<meta itemprop="dateModified" content="2019-07-19T11:14:00+00:00" />
 <meta itemprop="wordCount" content="1121"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Boosting,GPU,XGBoost,LightGBM,CatBoost,Machine Learning,Data Science,Python," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -289,7 +289,7 @@ sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&rsquo;est 
 
 
 
-<meta property="article:published_time" content="2019-07-19 11:14:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-07-19 11:14:00 &#43;0000 UTC" />
 
 
 
@@ -362,7 +362,7 @@ sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&rsquo;est 
                 <h2 id="installation-de-xgboost">Installation de XGBoost</h2>
 <p><strong>Installation simple</strong></p>
 <p>Exécuter la commande suivante:</p>
-<pre><code>pip install xgboost
+<pre tabindex="0"><code>pip install xgboost
 </code></pre><blockquote>
 <p>&ldquo;The default open-source XGBoost packages already include GPU support.&rdquo;</p>
 </blockquote>
@@ -370,11 +370,11 @@ sudo apt-get update sudo apt install -y cmake cmake --version Si ce n&rsquo;est 
 <p><strong>Build from source</strong></p>
 <p>Si cela ne fonctionne pas, compiler et installer XGBoost depuis les sources.</p>
 <p>Installer cmake pour builder xgboost. La version CMake 3.12 ou plus est requise.</p>
-<pre><code>sudo apt-get update
+<pre tabindex="0"><code>sudo apt-get update
 sudo apt install -y cmake
 cmake --version
 </code></pre><p>Si ce n&rsquo;est pas la bonne version désinstallez le avant de le réinstaller manuellement:</p>
-<pre><code>sudo apt purge cmake
+<pre tabindex="0"><code>sudo apt purge cmake
 
 # Download source
 version=3.14
@@ -392,7 +392,7 @@ make -j4 &amp;&amp; sudo make install
 # Vérification de la version
 cmake --version
 </code></pre><p>Déterminer le compute capability de votre carte graphique pour l&rsquo;indiquer à la prochaine commande dans le flag <code>-DGPU_COMPUTE_VER=</code>:</p>
-<pre><code>cd ~/NVIDIA_CUDA-9.0_Samples/1_Utilities/deviceQuery
+<pre tabindex="0"><code>cd ~/NVIDIA_CUDA-9.0_Samples/1_Utilities/deviceQuery
 make 
 ./deviceQuery
 
@@ -402,7 +402,7 @@ make
 
 Detected 1 CUDA Capable device(s)
 
-Device 0: &quot;GeForce GTX 660 Ti&quot;
+Device 0: &#34;GeForce GTX 660 Ti&#34;
   CUDA Driver Version / Runtime Version          9.1 / 9.0
   CUDA Capability Major/Minor version number:    3.0
   Total amount of global memory:                 2000 MBytes (2097086464 bytes)
@@ -445,15 +445,15 @@ Result = PASS
 <p><strong>Cette carte graphique n&rsquo;est plus compatible avec XGBoost. Le minimum requis d&rsquo;après le site officiel est <code>CUDA 9.0, Compute Capability 3.5 required</code></strong>. <a href="https://xgboost.readthedocs.io/en/latest/gpu/">https://xgboost.readthedocs.io/en/latest/gpu/</a></p>
 </blockquote>
 <p>Builder XGBoost:</p>
-<pre><code>cd ~ &amp;&amp; \
+<pre tabindex="0"><code>cd ~ &amp;&amp; \
     git clone --recursive https://github.com/dmlc/xgboost &amp;&amp; \
     cd xgboost &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCUDA_HOST_COMPILER=/usr/bin/gcc-6 -DGPU_COMPUTE_VER=35 -DUSE_CUDA=ON .. &amp;&amp; make -j
 </code></pre><p>Installer XGBoost:</p>
-<pre><code>cd ../python-package
+<pre tabindex="0"><code>cd ../python-package
 sudo python3 setup.py install
 </code></pre><br/>
 <p><strong>Vérification du bon fonctionnement d&rsquo;XGBoost</strong></p>
-<pre><code>git clone https://github.com/dmlc/xgboost
+<pre tabindex="0"><code>git clone https://github.com/dmlc/xgboost
 cd xgboost
 
 python3 # ou workon votre_environnement_virtuel &amp;&amp; python
@@ -461,10 +461,10 @@ Puis exécutez les commandes Python suivantes:
 
 import xgboost as xgb
 # read in data
-dtrain = xgb.DMatrix('demo/data/agaricus.txt.train')
-dtest = xgb.DMatrix('demo/data/agaricus.txt.test')
+dtrain = xgb.DMatrix(&#39;demo/data/agaricus.txt.train&#39;)
+dtest = xgb.DMatrix(&#39;demo/data/agaricus.txt.test&#39;)
 # specify parameters via map
-param = {'max_depth':2, 'eta':1, 'silent':1, 'objective':'binary:logistic' }
+param = {&#39;max_depth&#39;:2, &#39;eta&#39;:1, &#39;silent&#39;:1, &#39;objective&#39;:&#39;binary:logistic&#39; }
 num_round = 2
 bst = xgb.train(param, dtrain, num_round)
 # make prediction
@@ -473,78 +473,78 @@ print(preds)
 </code></pre><br/>
 <h2 id="installation-de-lightgbm">Installation de LightGBM</h2>
 <p>Installation des dépendances:</p>
-<pre><code>sudo apt install -y \
+<pre tabindex="0"><code>sudo apt install -y \
     libboost-dev \
     libboost-system-dev \
     libboost-filesystem-dev
 </code></pre><p>Build:</p>
-<pre><code>cd ~ &amp;&amp; \
+<pre tabindex="0"><code>cd ~ &amp;&amp; \
     git clone --recursive https://github.com/Microsoft/LightGBM &amp;&amp; \
     cd LightGBM &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; \
     cmake -DUSE_GPU=1 -DOpenCL_LIBRARY=/usr/local/cuda-9.0/lib64/libOpenCL.so -DOpenCL_INCLUDE_DIR=/usr/local/cuda-9.0/include/ .. &amp;&amp; \
     make -j
     
 </code></pre><p>Installation:</p>
-<pre><code>cd ../python-package
+<pre tabindex="0"><code>cd ../python-package
 sudo python setup.py install --precompile
 </code></pre><p>Vérifier le bon fonctionnement de LightGBM:</p>
-<pre><code>cd ~/LightGBM/examples/python-guide/
+<pre tabindex="0"><code>cd ~/LightGBM/examples/python-guide/
 pip install scikit-learn pandas matplotlib scipy -U
 python3 simple_example.py
 
 Loading data...
 Starting training...
-[1]	valid_0's l1: 0.492841	valid_0's l2: 0.243898
-Training until validation scores don't improve for 5 rounds.
-[2]	valid_0's l1: 0.489327	valid_0's l2: 0.240605
-[3]	valid_0's l1: 0.484931	valid_0's l2: 0.236472
-[4]	valid_0's l1: 0.480567	valid_0's l2: 0.232586
-[5]	valid_0's l1: 0.475965	valid_0's l2: 0.22865
-[6]	valid_0's l1: 0.472861	valid_0's l2: 0.226187
-[7]	valid_0's l1: 0.469847	valid_0's l2: 0.223738
-[8]	valid_0's l1: 0.466258	valid_0's l2: 0.221012
-[9]	valid_0's l1: 0.462751	valid_0's l2: 0.218429
-[10]	valid_0's l1: 0.458755	valid_0's l2: 0.215505
-[11]	valid_0's l1: 0.455252	valid_0's l2: 0.213027
-[12]	valid_0's l1: 0.452051	valid_0's l2: 0.210809
-[13]	valid_0's l1: 0.448764	valid_0's l2: 0.208612
-[14]	valid_0's l1: 0.446667	valid_0's l2: 0.207468
-[15]	valid_0's l1: 0.444211	valid_0's l2: 0.206009
-[16]	valid_0's l1: 0.44186	valid_0's l2: 0.20465
-[17]	valid_0's l1: 0.438508	valid_0's l2: 0.202489
-[18]	valid_0's l1: 0.435919	valid_0's l2: 0.200668
-[19]	valid_0's l1: 0.433348	valid_0's l2: 0.19925
-[20]	valid_0's l1: 0.431211	valid_0's l2: 0.198136
+[1]	valid_0&#39;s l1: 0.492841	valid_0&#39;s l2: 0.243898
+Training until validation scores don&#39;t improve for 5 rounds.
+[2]	valid_0&#39;s l1: 0.489327	valid_0&#39;s l2: 0.240605
+[3]	valid_0&#39;s l1: 0.484931	valid_0&#39;s l2: 0.236472
+[4]	valid_0&#39;s l1: 0.480567	valid_0&#39;s l2: 0.232586
+[5]	valid_0&#39;s l1: 0.475965	valid_0&#39;s l2: 0.22865
+[6]	valid_0&#39;s l1: 0.472861	valid_0&#39;s l2: 0.226187
+[7]	valid_0&#39;s l1: 0.469847	valid_0&#39;s l2: 0.223738
+[8]	valid_0&#39;s l1: 0.466258	valid_0&#39;s l2: 0.221012
+[9]	valid_0&#39;s l1: 0.462751	valid_0&#39;s l2: 0.218429
+[10]	valid_0&#39;s l1: 0.458755	valid_0&#39;s l2: 0.215505
+[11]	valid_0&#39;s l1: 0.455252	valid_0&#39;s l2: 0.213027
+[12]	valid_0&#39;s l1: 0.452051	valid_0&#39;s l2: 0.210809
+[13]	valid_0&#39;s l1: 0.448764	valid_0&#39;s l2: 0.208612
+[14]	valid_0&#39;s l1: 0.446667	valid_0&#39;s l2: 0.207468
+[15]	valid_0&#39;s l1: 0.444211	valid_0&#39;s l2: 0.206009
+[16]	valid_0&#39;s l1: 0.44186	valid_0&#39;s l2: 0.20465
+[17]	valid_0&#39;s l1: 0.438508	valid_0&#39;s l2: 0.202489
+[18]	valid_0&#39;s l1: 0.435919	valid_0&#39;s l2: 0.200668
+[19]	valid_0&#39;s l1: 0.433348	valid_0&#39;s l2: 0.19925
+[20]	valid_0&#39;s l1: 0.431211	valid_0&#39;s l2: 0.198136
 Did not meet early stopping. Best iteration is:
-[20]	valid_0's l1: 0.431211	valid_0's l2: 0.198136
+[20]	valid_0&#39;s l1: 0.431211	valid_0&#39;s l2: 0.198136
 Saving model...
 Starting predicting...
 The rmse of prediction is: 0.44512434910807497
 </code></pre><br/>
 <h2 id="installation-de-catboost">Installation de CatBoost</h2>
 <p>Simplement:</p>
-<pre><code>pip install catboost
+<pre tabindex="0"><code>pip install catboost
 </code></pre><p>Installer l&rsquo;outil de visualisation:</p>
-<pre><code>pip install ipywidgets
-</code></pre><pre><code># Turn on the widgets extension:
+<pre tabindex="0"><code>pip install ipywidgets
+</code></pre><pre tabindex="0"><code># Turn on the widgets extension:
 jupyter nbextension enable --py widgetsnbextension
 </code></pre><p>Pour tester le bon fonctionnement vous pouvez créer un fichier <code>test.py</code> et y insérer le code suivant:</p>
-<pre><code>from catboost import Pool, CatBoostClassifier
+<pre tabindex="0"><code>from catboost import Pool, CatBoostClassifier
 
-train_data = [[&quot;summer&quot;, 1924, 44],
-              [&quot;summer&quot;, 1932, 37],
-              [&quot;winter&quot;, 1980, 37],
-              [&quot;summer&quot;, 2012, 204]]
+train_data = [[&#34;summer&#34;, 1924, 44],
+              [&#34;summer&#34;, 1932, 37],
+              [&#34;winter&#34;, 1980, 37],
+              [&#34;summer&#34;, 2012, 204]]
 
-eval_data = [[&quot;winter&quot;, 1996, 197],
-             [&quot;winter&quot;, 1968, 37],
-             [&quot;summer&quot;, 2002, 77],
-             [&quot;summer&quot;, 1948, 59]]
+eval_data = [[&#34;winter&#34;, 1996, 197],
+             [&#34;winter&#34;, 1968, 37],
+             [&#34;summer&#34;, 2002, 77],
+             [&#34;summer&#34;, 1948, 59]]
 
 cat_features = [0]
 
-train_label = [&quot;France&quot;, &quot;USA&quot;, &quot;USA&quot;, &quot;UK&quot;]
-eval_label = [&quot;USA&quot;, &quot;France&quot;, &quot;USA&quot;, &quot;UK&quot;]
+train_label = [&#34;France&#34;, &#34;USA&#34;, &#34;USA&#34;, &#34;UK&#34;]
+eval_label = [&#34;USA&#34;, &#34;France&#34;, &#34;USA&#34;, &#34;UK&#34;]
 
 
 train_dataset = Pool(data=train_data,
@@ -559,8 +559,8 @@ eval_dataset = Pool(data=eval_data,
 model = CatBoostClassifier(iterations=10,
                            learning_rate=1,
                            depth=2,
-                           loss_function='MultiClass',
-                           task_type=&quot;GPU&quot;)
+                           loss_function=&#39;MultiClass&#39;,
+                           task_type=&#34;GPU&#34;)
 # Fit model
 model.fit(train_dataset)
 # Get predicted classes
@@ -569,10 +569,9 @@ preds_class = model.predict(eval_dataset)
 preds_proba = model.predict_proba(eval_dataset)
 # Get predicted RawFormulaVal
 preds_raw = model.predict(eval_dataset,
-                          prediction_type='RawFormulaVal')
-
+                          prediction_type=&#39;RawFormulaVal&#39;)
 </code></pre><p>Après l&rsquo;avoir exécuté le code précédent un training sera réalisé sur GPU. <a href="https://catboost.ai/docs/features/training-on-gpu.html#training-on-gpu">Le lien suivant</a> décrit comment faire. Si tout est ok vous devriez obtenir le résultat suivant:</p>
-<pre><code>0:	learn: -0.9623099	total: 8.48ms	remaining: 76.3ms
+<pre tabindex="0"><code>0:	learn: -0.9623099	total: 8.48ms	remaining: 76.3ms
 1:	learn: -0.7421078	total: 14.6ms	remaining: 58.3ms
 2:	learn: -0.5898572	total: 20.2ms	remaining: 47.2ms
 3:	learn: -0.4816516	total: 26.3ms	remaining: 39.4ms
@@ -601,7 +600,7 @@ preds_raw = model.predict(eval_dataset,
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1121 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 Jul. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>19 juil.. 2019</p>
         </div>
 
         
@@ -658,119 +657,6 @@ preds_raw = model.predict(eval_dataset,
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -779,7 +665,7 @@ preds_raw = model.predict(eval_dataset,
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

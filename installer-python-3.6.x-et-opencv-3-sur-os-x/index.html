@@ -245,7 +245,7 @@ Il s&amp;rsquo;agit du deuxième article que j&amp;rsquo;écris sur l&amp;rsquo;
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -262,8 +262,8 @@ Il s&amp;rsquo;agit du deuxième article que j&amp;rsquo;écris sur l&amp;rsquo;
 <meta itemprop="name" content="Installer Python 3.6.x et OpenCV 3 sur OS X">
 <meta itemprop="description" content="Comme l&rsquo;installatin d&rsquo;OpenCV n&rsquo;est vraiment pas aisée. J&rsquo;ai donc décidé d&rsquo;écrire cet article. Si vous suivez cette procédure vous devriez pouvoir faire tourner OpenCV 3 sur OSX High Sierra dans un environnement virtuel.
 Il s&rsquo;agit du deuxième article que j&rsquo;écris sur l&rsquo;installation d&rsquo;OpenCV. Cette article se focalise sur l&rsquo;installation d&rsquo;OpenCV 3 pour Python 3.6.x. Si vous souhaitez installer OpenCV 3 pour python 2.7.x, vous pouvez lire mon autre article.
- Pré-requis  Xcode doit être installé Xcode a déjà dû être démarré et vous avez accepté les conditions générales Les commandes lines tools ont déjà été installés."><meta itemprop="datePublished" content="2018-02-06T23:05:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-02-06T23:05:00&#43;00:00" />
+ Pré-requis  Xcode doit être installé Xcode a déjà dû être démarré et vous avez accepté les conditions générales Les commandes lines tools ont déjà été installés."><meta itemprop="datePublished" content="2018-02-06T23:05:00+00:00" />
+<meta itemprop="dateModified" content="2018-02-06T23:05:00+00:00" />
 <meta itemprop="wordCount" content="704"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Python,OpenCV," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ Il s&rsquo;agit du deuxième article que j&rsquo;écris sur l&rsquo;installation
 
 
 
-<meta property="article:published_time" content="2018-02-06 23:05:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2018-02-06 23:05:00 &#43;0000 UTC" />
 
 
 
@@ -360,41 +360,41 @@ Il s&rsquo;agit du deuxième article que j&rsquo;écris sur l&rsquo;installation
 <br/>
 <h2 id="installer-python-3">Installer Python 3</h2>
 <p>Même si Python est déjà installé sur votre Mac, installez le une nouvelle fois avec Homebrew:</p>
-<pre><code>$ brew install python3
+<pre tabindex="0"><code>$ brew install python3
 </code></pre><p>Vérifiez que Python 3 et pip fonctionnent.</p>
-<pre><code>$ python3 --version
+<pre tabindex="0"><code>$ python3 --version
 $ pip3 --version
 </code></pre><p>Vérifiez aussi que ce sont bien les nouvelles versions de Python et pip qui sont utilisées</p>
-<pre><code>$ which python3
+<pre tabindex="0"><code>$ which python3
 $ which pip3
 </code></pre><br/>
 <h2 id="créer-un-environnement-virtuel">Créer un environnement virtuel</h2>
-<pre><code>$ pip3 install virtualenv virtualenvwrapper # /!\ il se peut que sudo soit nécessaire
+<pre tabindex="0"><code>$ pip3 install virtualenv virtualenvwrapper # /!\ il se peut que sudo soit nécessaire
 </code></pre><p>Ajoutez les lignes suivantes dans votre ~/.zshrc (ou ~/.bash_profile)</p>
-<pre><code># Support d'environnements virtuels pour Python 3
+<pre tabindex="0"><code># Support d&#39;environnements virtuels pour Python 3
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 </code></pre><p>Une fois ces lignes ajoutées, &ldquo;rechargez&rdquo; votre terminal en exécutant la commande suivante:</p>
-<pre><code>$ source ~/.zshrc # ou $ source ~/.bash_profile
+<pre tabindex="0"><code>$ source ~/.zshrc # ou $ source ~/.bash_profile
 </code></pre><p>Vous pouvez maintenant créer votre environnement virtuel pour OpenCV 3 et Python 3</p>
-<pre><code>$ mkvirtualenv py3_cv3 -p python3
+<pre tabindex="0"><code>$ mkvirtualenv py3_cv3 -p python3
 </code></pre><p>Une fois créé, fermez votre terminal et réouvrez en un nouveau.
 Par défault vous n&rsquo;êtes pas dans l&rsquo;environnement Python que vous avez créé. Si vous souhaitez rentrer dedans, utilisez la commande suivante:</p>
-<pre><code>$ workon py3_cv3
+<pre tabindex="0"><code>$ workon py3_cv3
 </code></pre><p>Si tout se passe bien, votre prompt du terminal sera préfixé du nom de votre environnement entre parenthèses.</p>
 <p><em>Remarquez que vous n&rsquo;avez pas besoin d&rsquo;utiliser pip3 dans cet environnement virtuel. La commande $ pip &ndash;version nous indique bien que pip est lié à Python 3.6.x. En dehors de cet environnement virtuel vous devrez utiliser pip3 pour que des librairies liées à Python 3 soient téléchargées.</em></p>
 <p>Si vous souhaitez quitter votre environnement virtuel utilisez la commande suivante:</p>
-<pre><code>$ deactivate
+<pre tabindex="0"><code>$ deactivate
 </code></pre><p><em>Pour tout ce qui suit, travaillez dans le nouvel environnement virtuel que l&rsquo;on vient de créer</em></p>
 <br/>
 <h2 id="installer-numpy">Installer Numpy</h2>
 <p>Numpy est une bibliothèque très connue de calculs scientiques nécessaire pour OpenCV.</p>
-<pre><code>pip install numpy
+<pre tabindex="0"><code>pip install numpy
 </code></pre><br/>
 <h2 id="installer-les-pré-requis-à-opencv-3">Installer les pré-requis à OpenCV 3</h2>
 <p>Pour qu&rsquo;on OpenCV 3 fonctionne certains pré-requis sont nécessaires.
 Heureusement l&rsquo;installation de ces pré-requis est aisée grâce à Homebrew.</p>
-<pre><code>$ brew install cmake pkg-config # Nécessaire pour compiler OpenCV
+<pre tabindex="0"><code>$ brew install cmake pkg-config # Nécessaire pour compiler OpenCV
 $ brew install jpeg libpng libtiff openexr # Nécessaire pour manipuler les images 
 $ brew install eigen # Nécessaire pour faire des calculs algébriques
 $ brew install tbb # Nécessaire pour faire les calculs parallèles
@@ -402,11 +402,11 @@ $ brew install tbb # Nécessaire pour faire les calculs parallèles
 <h2 id="installer-opencv">Installer OpenCV</h2>
 <p>Commencez par télécharger OpenCV. Il y a 2 repositories git à cloner.
 (Vous n&rsquo;avez pas besoin de tout l&rsquo;historique du repository)</p>
-<pre><code>$ cd
+<pre tabindex="0"><code>$ cd
 $ git clone https://github.com/opencv/opencv --depth 1
 $ git clone https://github.com/opencv/opencv_contrib --depth 1
 </code></pre><p>Vous allez maintenant pouvoir builder OpenCV.</p>
-<pre><code>$ cd ~/opencv
+<pre tabindex="0"><code>$ cd ~/opencv
 $ mkdir build
 $ cd build
 
@@ -414,8 +414,8 @@ $ cd build
 $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-    -D PYTHON3_LIBRARY=`python -c 'import subprocess ; import sys ; s = subprocess.check_output(&quot;python-config --configdir&quot;, shell=True).decode(&quot;utf-8&quot;).strip() ; (M, m) = sys.version_info[:2] ; print(&quot;{}/libpython{}.{}.dylib&quot;.format(s, M, m))'` \
-    -D PYTHON3_INCLUDE_DIR=`python -c 'import distutils.sysconfig as s; print(s.get_python_inc())'` \
+    -D PYTHON3_LIBRARY=`python -c &#39;import subprocess ; import sys ; s = subprocess.check_output(&#34;python-config --configdir&#34;, shell=True).decode(&#34;utf-8&#34;).strip() ; (M, m) = sys.version_info[:2] ; print(&#34;{}/libpython{}.{}.dylib&#34;.format(s, M, m))&#39;` \
+    -D PYTHON3_INCLUDE_DIR=`python -c &#39;import distutils.sysconfig as s; print(s.get_python_inc())&#39;` \
     -D PYTHON3_EXECUTABLE=$VIRTUAL_ENV/bin/python \
     -D BUILD_opencv_python2=OFF \
     -D BUILD_opencv_python3=ON \
@@ -424,7 +424,7 @@ $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D BUILD_EXAMPLES=ON ..
 
 # Compilation
-$ make -j4 # -j4 permet d'utiliser les 4 cœurs de mon Mac lors de la compilation
+$ make -j4 # -j4 permet d&#39;utiliser les 4 cœurs de mon Mac lors de la compilation
 
 # Installation
 $ sudo make install
@@ -437,14 +437,14 @@ $ ln -s /usr/local/lib/python3.6/site-packages/cv2.cpython-36m-darwin.so cv2.so
 </code></pre><br/>
 <h2 id="vérification-de-linstallation">Vérification de l&rsquo;installation</h2>
 <p>Ouvrez un nouveau terminal et vérifiez que l&rsquo;installation d&rsquo;OpenCV fonctionne dans votre environnement virtuel.</p>
-<pre><code>$ workon py3_cv3
+<pre tabindex="0"><code>$ workon py3_cv3
 $ python
 &gt;&gt;&gt; import cv2
 &gt;&gt;&gt; cv2.__version__
-'3.4.0-dev'
+&#39;3.4.0-dev&#39;
 &gt;&gt;&gt; Ctrl-D
 </code></pre><p>Et voilà l&rsquo;installation d&rsquo;OpenCV 3 pour Python 3.6.x est terminée!
-J&rsquo;espère que vous ne rencontrerez pas de problème et que je vous aurais fait gagner des heures; tout comme avec mon autre article sur l'<a href="http://blog.leandeep.com/installer-python-2-7-x-et-opencv-3-sur-os-x/">installation d&rsquo;OpenCV 3 pour Python 2.7.x</a> !</p>
+J&rsquo;espère que vous ne rencontrerez pas de problème et que je vous aurais fait gagner des heures; tout comme avec mon autre article sur l&rsquo;<a href="http://blog.leandeep.com/installer-python-2-7-x-et-opencv-3-sur-os-x/">installation d&rsquo;OpenCV 3 pour Python 2.7.x</a> !</p>
 
             </div>
         </article>
@@ -458,7 +458,7 @@ J&rsquo;espère que vous ne rencontrerez pas de problème et que je vous aurais 
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>704 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 Feb. 2018</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 févr.. 2018</p>
         </div>
 
         
@@ -515,119 +515,6 @@ J&rsquo;espère que vous ne rencontrerez pas de problème et que je vous aurais 
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -636,7 +523,7 @@ J&rsquo;espère que vous ne rencontrerez pas de problème et que je vous aurais 
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

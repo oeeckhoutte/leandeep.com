@@ -246,7 +246,7 @@ Listes # Python provides compact syntax for deriving one list from another. Thes
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -264,8 +264,8 @@ Listes # Python provides compact syntax for deriving one list from another. Thes
 <meta itemprop="description" content="Voici quelques exemples de list et dict comprehensions en Python.
 Le pattern des &ldquo;X comprehensions&rdquo; est le suivant: values = [expression for item in collection]
 Il est possible d&rsquo;ajouter un filtre sur les éléments de l&rsquo;itération avant qu&rsquo;ils soient utilisés dans l&rsquo;évaluation de l&rsquo;expression: values = [expression for item in collection if condition]
-Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions."><meta itemprop="datePublished" content="2017-02-05T21:12:00&#43;00:00" />
-<meta itemprop="dateModified" content="2017-02-05T21:12:00&#43;00:00" />
+Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions."><meta itemprop="datePublished" content="2017-02-05T21:12:00+00:00" />
+<meta itemprop="dateModified" content="2017-02-05T21:12:00+00:00" />
 <meta itemprop="wordCount" content="837"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="python,tips,python_tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -280,7 +280,7 @@ Listes # Python provides compact syntax for deriving one list from another. Thes
 
 
 
-<meta property="article:published_time" content="2017-02-05 21:12:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2017-02-05 21:12:00 &#43;0000 UTC" />
 
 
 
@@ -354,7 +354,7 @@ Listes # Python provides compact syntax for deriving one list from another. Thes
 <p>Le pattern des &ldquo;X comprehensions&rdquo; est le suivant: <code>values = [expression for item in collection]</code></p>
 <p>Il est possible d&rsquo;ajouter un filtre sur les éléments de l&rsquo;itération avant qu&rsquo;ils soient utilisés dans l&rsquo;évaluation de l&rsquo;expression: <code>values = [expression for item in collection if condition]</code></p>
 <h2 id="listes">Listes</h2>
-<pre><code># Python provides compact syntax for deriving one list from another. These
+<pre tabindex="0"><code># Python provides compact syntax for deriving one list from another. These
 # expressions are called list comprehensions. For example, say you want to
 # compute the square of each number in a list. You can do this by providing
 # the expression for your computation and the input sequence to loop over.
@@ -364,7 +364,7 @@ a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 squares = [x*x for x in a]
 print(squares)
 # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-</code></pre><pre><code># Unless you're applying a single-argument functions, list comprehensions are
+</code></pre><pre tabindex="0"><code># Unless you&#39;re applying a single-argument functions, list comprehensions are
 # clearer than map built-in function cases, map requires creating a lambda
 # function for the computation, which is visually noisy.
 
@@ -376,7 +376,7 @@ print(squares)
 # Python 3
 print(list(squares))
 # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-</code></pre><pre><code># Unlike may, list comprehensions let you easily filter items from the input
+</code></pre><pre tabindex="0"><code># Unlike may, list comprehensions let you easily filter items from the input
 # list, removing corresponding outputs from the result. For example, say you
 # only want to compute the squares of the numbers that are divisible by 2.
 # Here, I do this by adding a conditional expression to the list
@@ -386,7 +386,7 @@ print(list(squares))
 even_squares = [x*x for x in a if x % 2 == 0]
 print(even_squares)
 # [4, 16, 36, 64, 100]
-</code></pre><pre><code># The filter built-in function can be used along with map to achieve the same
+</code></pre><pre tabindex="0"><code># The filter built-in function can be used along with map to achieve the same
 # outcome, but it is much harder to read.
 
 
@@ -399,23 +399,23 @@ assert even_squares == list(alt)
 </blockquote>
 <br/>
 <p><strong>Exemple simple:</strong></p>
-<pre><code>&gt;&gt;&gt; {x * x for x in range(-9, 10) }
+<pre tabindex="0"><code>&gt;&gt;&gt; {x * x for x in range(-9, 10) }
 set([61, 1, 36, 0, 49, 9, 16, 81, 25, 4])
 </code></pre><br/>
 <h2 id="dictionnaires">Dictionnaires</h2>
 <p><strong>Exemple simple:</strong></p>
-<pre><code>&gt;&gt;&gt; { x: x * x for x in range(5) }
+<pre tabindex="0"><code>&gt;&gt;&gt; { x: x * x for x in range(5) }
 {0: 0, 1: 1, 2: 4, 3: 9, 4: 16} 
-</code></pre><pre><code># Dictionaries and sets have their own equivalents of list comprehensions.
+</code></pre><pre tabindex="0"><code># Dictionaries and sets have their own equivalents of list comprehensions.
 # These make it easy to create derivative data structures when writing
 # algorithms.
 
-chile_ranks = {'ghost': 1, 'habanero': 2, 'cayenne': 3}
+chile_ranks = {&#39;ghost&#39;: 1, &#39;habanero&#39;: 2, &#39;cayenne&#39;: 3}
 
 rank_dict = {rank: name for name, rank in chile_ranks.items()}
 
 print(rank_dict)
-# {1: 'ghost', 2: 'habanero', 3: 'cayenne'}
+# {1: &#39;ghost&#39;, 2: &#39;habanero&#39;, 3: &#39;cayenne&#39;}
 
 chile_len_set = {len(name) for name in rank_dict.values()}
 
@@ -424,23 +424,23 @@ print(chile_len_set)
 </code></pre><br/>
 <h2 id="listes-à-2-niveaux">Listes à 2 niveaux</h2>
 <p>Il est possible d&rsquo;avoir des <em>lists comprehensions</em> avec 2 expressions. Il est possible d&rsquo;aller au-delà mais ce n&rsquo;est pas recommandé pour la lisibilité.</p>
-<pre><code>matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+<pre tabindex="0"><code>matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 flat = [x for array in matrix for x in array]
 print(flat)
 
 # [1, 2, 3, 4, 5, 6, 7, 8, 9]
-</code></pre><pre><code># The example above is simple, readable, and a reasonable usage of multiple
+</code></pre><pre tabindex="0"><code># The example above is simple, readable, and a reasonable usage of multiple
 # loops. Another reasonable usage of multiple loops is replicating the
 # two-level deep layout of the input list. For example, say you want to square
 # the value in each cell of a two-dimensional matrix. This expression is
-# noisier because of the extra [] characters, but it's still easy to read.
+# noisier because of the extra [] characters, but it&#39;s still easy to read.
 
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 data = [[x*x for x in row] for row in matrix]
 print(data)
 # [[1, 4, 9], [16, 25, 36], [49, 64, 81]]
-</code></pre><pre><code># If this expression included another loop, the list comprehension would get
-# so long that you'd have to split it over multiple lines.
+</code></pre><pre tabindex="0"><code># If this expression included another loop, the list comprehension would get
+# so long that you&#39;d have to split it over multiple lines.
 
 my_lists = [
     [[1, 2, 3], [4, 5, 6]],
@@ -452,7 +452,7 @@ flat = [x for sublist1 in my_lists
         for x in sublist2]
 print(flat)
 # [1, 2, 3, 4, 5, 6, 11, 22, 33, 44, 55, 66]
-</code></pre><pre><code># At this point, the multiline comprehension isn't much shorter thant the
+</code></pre><pre tabindex="0"><code># At this point, the multiline comprehension isn&#39;t much shorter thant the
 # alternative. Here, I produce the same using normal loop statements. The
 # indentation of this version makes the looping clearer than the list
 # comprehension.
@@ -464,7 +464,7 @@ for sublist1 in my_lists:
         flat.extend(sublist2)
 print(flat)
 # [1, 2, 3, 4, 5, 6, 11, 22, 33, 44, 55, 66]
-</code></pre><pre><code># List comprehensions also support multiple if conditions. Multiple
+</code></pre><pre tabindex="0"><code># List comprehensions also support multiple if conditions. Multiple
 # conditions at the same loop level are an implicit and expression. For
 # example, say you want to filter a list of numbers to only even values
 # greater than four. These only list comprehensions are equivalent.
@@ -490,7 +490,7 @@ print(c)
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>837 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 Feb. 2017</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 févr.. 2017</p>
         </div>
 
         
@@ -547,119 +547,6 @@ print(c)
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -668,7 +555,7 @@ print(c)
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

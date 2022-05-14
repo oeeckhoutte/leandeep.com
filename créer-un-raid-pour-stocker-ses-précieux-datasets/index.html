@@ -244,7 +244,7 @@ Voici donc la procédure d&amp;rsquo;installation." />
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@ Voici donc la procédure d&amp;rsquo;installation." />
 
 <meta itemprop="name" content="Créer un raid pour stocker ses précieux datasets">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&rsquo;un système raid.
-Voici donc la procédure d&rsquo;installation."><meta itemprop="datePublished" content="2019-09-28T09:51:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-09-28T09:51:00&#43;00:00" />
+Voici donc la procédure d&rsquo;installation."><meta itemprop="datePublished" content="2019-09-28T09:51:00+00:00" />
+<meta itemprop="dateModified" content="2019-09-28T09:51:00+00:00" />
 <meta itemprop="wordCount" content="713"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Raid,Ubuntu,Dataset," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@ Voici donc la procédure d&rsquo;installation."/>
 
 
 
-<meta property="article:published_time" content="2019-09-28 09:51:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-09-28 09:51:00 &#43;0000 UTC" />
 
 
 
@@ -350,24 +350,24 @@ Voici donc la procédure d&rsquo;installation."/>
 <br/>
 <h2 id="vérification-des-disques">Vérification des disques</h2>
 <p>Avant de commencer on va vérifier l&rsquo;état des disques durs:</p>
-<pre><code>sudo apt-get install smartmontools
+<pre tabindex="0"><code>sudo apt-get install smartmontools
 </code></pre><p>Lancer le test avec la commande suivante.</p>
-<pre><code>sudo smartctl -t short /dev/sdb
+<pre tabindex="0"><code>sudo smartctl -t short /dev/sdb
 </code></pre><p>Voir le résultat (après l&rsquo;heure indiquée par la commande précédente):</p>
-<pre><code>sudo smartctl -l selftest /dev/sdb
+<pre tabindex="0"><code>sudo smartctl -l selftest /dev/sdb
 </code></pre><br/>
 <h2 id="installation">Installation</h2>
 <p><strong>Préparation des disques</strong></p>
 <p>Identifier les disques sur lesquels vous voulez créer votre Raid:</p>
-<pre><code>sudo fdisk -l
+<pre tabindex="0"><code>sudo fdisk -l
 sudo fdisk /dev/sdX
 </code></pre><p>Formater ses disques puis créer une partition sur chacun d&rsquo;eux:</p>
-<pre><code># Exemple de création de partitions avec /dev/sdb et /dev/sdc
+<pre tabindex="0"><code># Exemple de création de partitions avec /dev/sdb et /dev/sdc
 sudo gdisk /dev/sdb
 
-# voir le menu &quot;m&quot; (vous trouverez ce qu'il faut si vous devez effacer une partition)
+# voir le menu &#34;m&#34; (vous trouverez ce qu&#39;il faut si vous devez effacer une partition)
 # p pour afficher les partitions
-o # pour effacer toutes les partitions et créer une nouvelle &quot;protective MBR&quot;.
+o # pour effacer toutes les partitions et créer une nouvelle &#34;protective MBR&#34;.
 y # valide
 n # pour créer une nouvelle partition
 1 # pour le numéro de la partition
@@ -381,44 +381,44 @@ y # confirm
 </code></pre><br/>
 <p><strong>Création du raid</strong></p>
 <p>Installation de <code>mdadm</code>:</p>
-<pre><code>sudo apt install -y mdadm
+<pre tabindex="0"><code>sudo apt install -y mdadm
 </code></pre><p>Création du raid:</p>
-<pre><code>sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
+<pre tabindex="0"><code>sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
 </code></pre><p><strong>Attention, l&rsquo;étape précédente va prendre du temps&hellip;</strong> Vous pouvez voir sa progression avec la commande <code>cat /proc/mdstat</code>.</p>
 <p>Créer un filesystem sur le nouvel Array :</p>
-<pre><code>sudo mkfs.ext4 -F /dev/md0
+<pre tabindex="0"><code>sudo mkfs.ext4 -F /dev/md0
 </code></pre><p>Créer un point de montage pour le nouveau filesystem:</p>
-<pre><code>sudo mkdir -p /mnt/md0
+<pre tabindex="0"><code>sudo mkdir -p /mnt/md0
 </code></pre><p>Monter le nouveau filesystem:</p>
-<pre><code>sudo mount /dev/md0 /mnt/md0
+<pre tabindex="0"><code>sudo mount /dev/md0 /mnt/md0
 </code></pre><p>Vérifier qu&rsquo;il est bien accessible:</p>
-<pre><code>df -h -x devtmpfs -x tmpfs
+<pre tabindex="0"><code>df -h -x devtmpfs -x tmpfs
 </code></pre><p>Pour que le Array soit automatiquement ré-assemblé à chaque reboot, on peut modifier le fichier de configuration de mdadm:</p>
-<pre><code>sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
+<pre tabindex="0"><code>sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
 </code></pre><p>Rendre le Array accessible durant la phases de early boot en mettant <code>initramfs</code> (initial RAM file system) à jour:</p>
-<pre><code>sudo update-initramfs -u
+<pre tabindex="0"><code>sudo update-initramfs -u
 </code></pre><p>Ajouter le disque raid dans fstab:</p>
-<pre><code>echo '/dev/md0 /mnt/md0 ext4 defaults,nofail,discard 0 0' | sudo tee -a /etc/fstab
+<pre tabindex="0"><code>echo &#39;/dev/md0 /mnt/md0 ext4 defaults,nofail,discard 0 0&#39; | sudo tee -a /etc/fstab
 </code></pre><br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>Voir le(s) raid(s) existant(s):</p>
-<pre><code>cat /proc/mdstat
+<pre tabindex="0"><code>cat /proc/mdstat
 </code></pre><p>Supprimer un raid:</p>
-<pre><code>sudo umount /dev/md0
+<pre tabindex="0"><code>sudo umount /dev/md0
 mdadm -S /dev/md0
 mdadm --remove /dev/md0
-# Vérifier qu'il n'est pas présent dans /etc/fstab
+# Vérifier qu&#39;il n&#39;est pas présent dans /etc/fstab
 </code></pre><p>Examiner les superblocks:</p>
-<pre><code>sudo mdadm -E /dev/sdd
+<pre tabindex="0"><code>sudo mdadm -E /dev/sdd
 </code></pre><p>Effacer les superblocks:</p>
-<pre><code>sudo mdadm --zero-superblock /dev/sdd
+<pre tabindex="0"><code>sudo mdadm --zero-superblock /dev/sdd
 </code></pre><p>Lister les disques:</p>
-<pre><code>lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
+<pre tabindex="0"><code>lsblk -o NAME,SIZE,FSTYPE,TYPE,MOUNTPOINT
 </code></pre><p>Wiping the entire disk:</p>
-<pre><code>dd if=/dev/zero of=/dev/sdX bs=1M
+<pre tabindex="0"><code>dd if=/dev/zero of=/dev/sdX bs=1M
 </code></pre><br/>
 <p>Bonus 1: Wiping the entire disk for security reasons (plus long):</p>
-<pre><code>dd if=/dev/urandom of=/dev/sdX bs=1M
+<pre tabindex="0"><code>dd if=/dev/urandom of=/dev/sdX bs=1M
 </code></pre><blockquote>
 <p>When you delete a file or format a hard drive you are basically just telling the computer that it can use this portion of the disk again if it is needed. If that portion of the disk is not every written over again. The data will remain indefinitely. So, in order to make deleted data unrecoverable we must write over it.</p>
 </blockquote>
@@ -426,12 +426,12 @@ mdadm --remove /dev/md0
 <p>If you are really paranoid or just want to be ultra secure you could write over the drive 7 times with random data. This is the same procedure the US Government uses to secure its own data.</p>
 </blockquote>
 <p>Cadeau, le script associé:</p>
-<pre><code>#!/bin/bash 
+<pre tabindex="0"><code>#!/bin/bash 
 for n in `seq 7`; do dd if=/dev/urandom of=/dev/sda bs=8b conv=notrunc; done
 # chmod a+x wipeIt
 </code></pre><br/>
 <p>Bonus 2: Voir la progression de dd</p>
-<pre><code>Option 1:
+<pre tabindex="0"><code>Option 1:
 sudo dd if=/dev/zero of=/dev/sdX bs=1M status=progress
 
 Option 2:
@@ -456,7 +456,7 @@ while sudo kill -USR1 `pidof dd` ; do sleep 10 ; done
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>713 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 Sep. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 sept.. 2019</p>
         </div>
 
         
@@ -513,119 +513,6 @@ while sudo kill -USR1 `pidof dd` ; do sleep 10 ; done
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -634,7 +521,7 @@ while sudo kill -USR1 `pidof dd` ; do sleep 10 ; done
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

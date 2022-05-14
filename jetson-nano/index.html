@@ -243,7 +243,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -258,8 +258,8 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Jetson Nano">
-<meta itemprop="description" content="Découverte du Nvidia Jetson Nano J&rsquo;ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s&rsquo;initier au Edge Deep Learning."><meta itemprop="datePublished" content="2019-12-22T16:35:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-12-22T16:35:00&#43;00:00" />
+<meta itemprop="description" content="Découverte du Nvidia Jetson Nano J&rsquo;ai eu la chance de recevoir par Nvidia (encore un grand merci!) une board Jetson Nano pour la construction de mon robot autonome. Cette carte est un peu comme un Raspberry Pi en plus puissant avec une carte graphique intégrée. Et elle est vraiment très abordable. Elle coûte environ 140 €. Selon moi ses caractéristiques techniques en font une carte parfaitement adaptée à ceux qui veulent s&rsquo;initier au Edge Deep Learning."><meta itemprop="datePublished" content="2019-12-22T16:35:00+00:00" />
+<meta itemprop="dateModified" content="2019-12-22T16:35:00+00:00" />
 <meta itemprop="wordCount" content="1207"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Jetson Nano,Nvidia,Edge Computing," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -271,7 +271,7 @@
 
 
 
-<meta property="article:published_time" content="2019-12-22 16:35:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-12-22 16:35:00 &#43;0000 UTC" />
 
 
 
@@ -409,9 +409,9 @@
 </blockquote>
 <p>Deux modes d&rsquo;alimentation sont disponibles: le mode 5W et le mode 10W.</p>
 <p>Pour passer en mode 5W:</p>
-<pre><code>sudo nvpmodel -m 1
+<pre tabindex="0"><code>sudo nvpmodel -m 1
 </code></pre><p>Pour passer en mode 10W:</p>
-<pre><code>sudo nvpmodel -m 0
+<pre tabindex="0"><code>sudo nvpmodel -m 0
 </code></pre><br/>
 <h2 id="installation-des-softs">Installation des Softs</h2>
 <p><strong>Création de la carte micro SD</strong></p>
@@ -419,20 +419,20 @@
 Avec un utilitaire comme <a href="https://unetbootin.github.io/">Unetbootin</a> sur Mac (ou Win32 Disk Imager sur Windows), on peut créer une carte MicroSD bootable pour démarrer Linux sur son Jetson Nano.</p>
 <br/>
 <p><strong>Installation d&rsquo;un virtualenv</strong></p>
-<pre><code>sudo apt-get install virtualenv -y
+<pre tabindex="0"><code>sudo apt-get install virtualenv -y
 mkdir ~/envs
 cd ~/envs
 virtualenv --python python3 ai_env
 source ~/envs/ai_env/bin/activate
-echo 'source ~/envs/ai_env/bin/activate' &gt;&gt; ~/.bashrc
+echo &#39;source ~/envs/ai_env/bin/activate&#39; &gt;&gt; ~/.bashrc
 </code></pre><br/>
 <p><strong>OpenCV</strong></p>
 <p>OpenCV est déjà installé sur cette distribution. Pour l&rsquo;utiliser dans son projet Python à l&rsquo;intérieur d&rsquo;un environnement virtuel, il suffit d&rsquo;exécuter les commandes suivantes:</p>
-<pre><code>sudo find / -name &quot;cv2*&quot;
+<pre tabindex="0"><code>sudo find / -name &#34;cv2*&#34;
 
 [sudo] password for olivier:
 
-find: '/run/user/1000/gvfs': Permission denied
+find: &#39;/run/user/1000/gvfs&#39;: Permission denied
 
 /usr/lib/python2.7/dist-packages/cv2.so
 /usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
@@ -441,39 +441,39 @@ cd ~/envs/ai_env/lib/python3.6/site-packages/
 
 ln -s /usr/lib/python3.6/dist-packages/cv2.cpython-36m-aarch64-linux-gnu.so
 </code></pre><p>Pour vérfier que le symlink a bien fonctionné et qu&rsquo;OpenCV est fonctionnel, vous pouvez exécuter les commandes suivantes:</p>
-<pre><code>python
+<pre tabindex="0"><code>python
 &gt;&gt;&gt; import cv2
 &gt;&gt;&gt; print(cv2.__version__)
 3.3.1
 </code></pre><br/>
 <p>Sinon il peut être intéressant de réinstaller la librairie globalement pour ne plus perdre de temps:</p>
-<pre><code>sudo apt-get install python3-opencv
+<pre tabindex="0"><code>sudo apt-get install python3-opencv
 
 python3
 Python 3.6.8
 [GCC 8.3.0] on linux
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.
 &gt;&gt;&gt; import cv2
 &gt;&gt;&gt; cv2._version
 Traceback (most recent call last):
-  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-AttributeError: module 'cv2' has no attribute '_version'
+  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
+AttributeError: module &#39;cv2&#39; has no attribute &#39;_version&#39;
 &gt;&gt;&gt; cv2.__version__
-'3.2.0'
+&#39;3.2.0&#39;
 </code></pre><br/>
 <p><strong>Installation de modules de base</strong></p>
-<pre><code>sudo apt-get update
+<pre tabindex="0"><code>sudo apt-get update
 sudo apt-get upgrade
 # Installer le moteur de polices FreeType 2
 sudo apt-get install libfreetype6-dev -y
-# Installer le gestionnaire de flags de compilation et d'édition de lien pour les libs
+# Installer le gestionnaire de flags de compilation et d&#39;édition de lien pour les libs
 sudo apt-get install pkg-config -y
 sudo apt-get install zlib1g-dev zip libjpeg8-dev libhdf5-dev -y
 sudo apt-get install libssl-dev libffi-dev python3-dev -y
 sudo apt-get install libhdf5-serial-dev hdf5-tools -y
 # For numpy install https://packages.debian.org/jessie/liblapack-dev &amp; https://packages.debian.org/jessie/libblas-dev &amp; https://packages.debian.org/jessie/libatlas-base-dev (see below)
 sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev -y
-# Installation d'un compilateur fortran 
+# Installation d&#39;un compilateur fortran 
 sudo apt-get install gfortran
 sudo apt-get install build-essential cmake libgtk-3-dev libboost-all-dev -y
 sudo apt-get install nano vim tmux -y
@@ -484,18 +484,18 @@ pip install imutils
 # The Python Imaging Library pillow
 pip install pillow
 sudo apt-get install python3-setuptools -y
-# Librairie d'algèbre linéaire
+# Librairie d&#39;algèbre linéaire
 sudo apt-get install python3-pip libopenblas-base -y
 </code></pre><br/>
 <p><strong>Installation de Scipy, Scikit-learn, Keras, Jupyter notebook, opencv-python</strong></p>
-<pre><code>pip install scipy
+<pre tabindex="0"><code>pip install scipy
 pip install keras
 pip install scikit-learn
 pip install jupyter notebook	
 pip install numpy # and wait forever... 
 </code></pre><br/>
 <p><strong>Installation de Tensorflow</strong></p>
-<pre><code>pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-gpu version_de_tensorflow 
+<pre tabindex="0"><code>pip install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42/tensorflow-gpu version_de_tensorflow 
 
 # Les dernières versions de Tensorflow sont disponibles:
 tensorflow_gpu-1.15.0+nv19.11-cp36-cp36m-linux_aarch64.whl 217MB 2019-12-12 16:58:00
@@ -504,7 +504,7 @@ tensorflow_gpu-2.0.0+nv19.11-cp36-cp36m-linux_aarch64.whl 198MB 2019-12-12 16:58
 <p><strong>Configuration du SWAP</strong></p>
 <p>Par défaut, le SWAP n&rsquo;est pas activé, ce qui provoque des <code>OOM Kills</code> (Out Of Memory kills).</p>
 <p>Il faut donc l&rsquo;activer. Pour ce faire, exécutez les commandes suivantes:</p>
-<pre><code>sudo swapon --show
+<pre tabindex="0"><code>sudo swapon --show
 
 # La taille idéale devrait être de deux fois celle de la RAM. Si vous avez une carte de 64 Go, fixez la taille du Swap à 8G.
 
@@ -520,25 +520,25 @@ sudo swapon /swapfile
 sudo swapon --show
 free -h
 
-# Rendre l'activation persistente après reboot
+# Rendre l&#39;activation persistente après reboot
 sudo cp /etc/fstab /etc/fstab.bak
-echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+echo &#39;/swapfile none swap sw 0 0&#39; | sudo tee -a /etc/fstab
 </code></pre><br/>
 <p><strong>Installation de Pytorch</strong></p>
-<pre><code>wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+<pre tabindex="0"><code>wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
 sudo pip3 install Cython
 sudo pip3 install numpy
 sudo pip3 install torch-1.4.0-cp36-cp36m-linux_aarch64.whl
 </code></pre><br/>
 <p><strong>Installation de torchvision</strong></p>
-<pre><code>sudo apt-get install libjpeg-dev zlib1g-dev
+<pre tabindex="0"><code>sudo apt-get install libjpeg-dev zlib1g-dev
 git clone --branch v0.5.0 https://github.com/pytorch/vision torchvision
 cd torchvision
 sudo python setup.py install
 cd ../   # attempting to load torchvision from build dir will result in import error
 </code></pre><br/>
 <p><strong>Installation du driver GPIO</strong></p>
-<pre><code>pip install Jetson.GPIO
+<pre tabindex="0"><code>pip install Jetson.GPIO
 sudo groupadd -f -r gpio
 sudo usermod -a -G gpio pi
 sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
@@ -548,7 +548,7 @@ Rebooter ou exécuter
 sudo udevadm control --reload-rules &amp;&amp; sudo udevadm trigger
 </code></pre><br/>
 <p><strong>Installation du modèle Yolo</strong></p>
-<pre><code>export GPU = 1
+<pre tabindex="0"><code>export GPU = 1
 pip install yolo34py-gpu
 </code></pre><br/>
 <h2 id="forum-nvidia-officiel">Forum Nvidia officiel</h2>
@@ -556,19 +556,19 @@ pip install yolo34py-gpu
 <br/>
 <h2 id="commandes-utiles">Commandes utiles</h2>
 <p><strong>Taux d&rsquo;utilisation et température</strong></p>
-<pre><code>tegrastats
+<pre tabindex="0"><code>tegrastats
 </code></pre><br/>
 <p><strong>Power mode activé</strong></p>
-<pre><code>sudo /usr/sbin/nvpmodel -q
+<pre tabindex="0"><code>sudo /usr/sbin/nvpmodel -q
 </code></pre><br/>
 <p><strong>Booster le ventilateur</strong></p>
-<pre><code># Le faire tourner au maximum
-sudo sh -c 'echo 255 &gt; /sys/devices/pwm-fan/target_pwm'
-# L'arrêter
-sudo sh -c 'echo 0 &gt; /sys/devices/pwm-fan/target_pwm'
+<pre tabindex="0"><code># Le faire tourner au maximum
+sudo sh -c &#39;echo 255 &gt; /sys/devices/pwm-fan/target_pwm&#39;
+# L&#39;arrêter
+sudo sh -c &#39;echo 0 &gt; /sys/devices/pwm-fan/target_pwm&#39;
 </code></pre><br/>
 <p><strong>Jetson stats</strong></p>
-<pre><code>git clone https://github.com/rbonghi/jetson_stats.git
+<pre tabindex="0"><code>git clone https://github.com/rbonghi/jetson_stats.git
 cd jetson_stats/
 sudo ./install_jetson_stats.sh --s
 ntop
@@ -593,7 +593,7 @@ Les soucis au niveau de l&rsquo;alimentation était dûs à un manque de connais
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1207 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 Dec. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 déc.. 2019</p>
         </div>
 
         
@@ -650,119 +650,6 @@ Les soucis au niveau de l&rsquo;alimentation était dûs à un manque de connais
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -771,7 +658,7 @@ Les soucis au niveau de l&rsquo;alimentation était dûs à un manque de connais
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

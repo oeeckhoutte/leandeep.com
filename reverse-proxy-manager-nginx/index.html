@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Reverse Proxy manager Nginx">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment installer le reverse proxy manager Nginx nginxproxymanager. Ce manager est vraiment très bien. Il permet par exemple de facilement créer des ACLs, définir des proxy hosts, rediretions, page custom 404, d&rsquo;avoir de l&rsquo;audit, créer des certificats let&rsquo;s encrypt, activer l&rsquo;HTTP/2, l&rsquo;HSTS. Il est vraiment top gun ce projet. C&rsquo;est un concurrent de Traefik.
- Installation Dans un répertoire par exemple mkdir ~/nginxproxymanager &amp;&amp; cd ~/nginxproxymanager, créer les 2 dossiers suivants: data et letsencrypt"><meta itemprop="datePublished" content="2020-03-16T23:49:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-03-16T23:49:00&#43;02:00" />
+ Installation Dans un répertoire par exemple mkdir ~/nginxproxymanager &amp;&amp; cd ~/nginxproxymanager, créer les 2 dossiers suivants: data et letsencrypt"><meta itemprop="datePublished" content="2020-03-16T23:49:00+02:00" />
+<meta itemprop="dateModified" content="2020-03-16T23:49:00+02:00" />
 <meta itemprop="wordCount" content="279"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Nginx," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -351,18 +351,18 @@
 <p>Dans un répertoire par exemple <code>mkdir ~/nginxproxymanager &amp;&amp; cd ~/nginxproxymanager</code>, créer les 2 dossiers suivants: <code>data</code> et <code>letsencrypt</code></p>
 <br/>
 <p>Créer ensuite un fichier <code>docker-compose.yml</code>:</p>
-<pre><code>version: &quot;3&quot;
+<pre tabindex="0"><code>version: &#34;3&#34;
 services:
   app:
     image: jc21/nginx-proxy-manager:2
     restart: always
     ports:
       # Public HTTP Port:
-      - '80:80'
+      - &#39;80:80&#39;
       # Public HTTPS Port:
-      - '443:443'
+      - &#39;443:443&#39;
       # Admin Web Port:
-      - '81:81'
+      - &#39;81:81&#39;
     volumes:
       # Make sure this config.json file exists as per instructions above:
       - ./config.json:/app/config/production.json
@@ -374,60 +374,60 @@ services:
     image: jc21/mariadb-aria:10.4
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: &quot;npm&quot;
-      MYSQL_DATABASE: &quot;npm&quot;
-      MYSQL_USER: &quot;npm&quot;
-      MYSQL_PASSWORD: &quot;npm&quot;
+      MYSQL_ROOT_PASSWORD: &#34;npm&#34;
+      MYSQL_DATABASE: &#34;npm&#34;
+      MYSQL_USER: &#34;npm&#34;
+      MYSQL_PASSWORD: &#34;npm&#34;
     volumes:
       - ./data/mysql:/var/lib/mysql
 </code></pre><br/>
 <p>Enfin créer un fichier <code>config.json</code>:</p>
-<pre><code>{
-  &quot;name&quot;: &quot;Nginx Proxy Manager&quot;,
-  &quot;version&quot;: &quot;6093335&quot;,
-  &quot;slug&quot;: &quot;nginxproxymanager&quot;,
-  &quot;description&quot;: &quot;Manage Nginx proxy hosts with a simple, powerful interface&quot;,
-  &quot;url&quot;: &quot;https://github.com/hassio-addons/addon-nginx-proxy-manager&quot;,
-  &quot;webui&quot;: &quot;http://[HOST]:[PORT:81]&quot;,
-  &quot;startup&quot;: &quot;application&quot;,
-  &quot;arch&quot;: [
-    &quot;aarch64&quot;,
-    &quot;amd64&quot;,
-    &quot;armhf&quot;,
-    &quot;armv7&quot;,
-    &quot;i386&quot;
+<pre tabindex="0"><code>{
+  &#34;name&#34;: &#34;Nginx Proxy Manager&#34;,
+  &#34;version&#34;: &#34;6093335&#34;,
+  &#34;slug&#34;: &#34;nginxproxymanager&#34;,
+  &#34;description&#34;: &#34;Manage Nginx proxy hosts with a simple, powerful interface&#34;,
+  &#34;url&#34;: &#34;https://github.com/hassio-addons/addon-nginx-proxy-manager&#34;,
+  &#34;webui&#34;: &#34;http://[HOST]:[PORT:81]&#34;,
+  &#34;startup&#34;: &#34;application&#34;,
+  &#34;arch&#34;: [
+    &#34;aarch64&#34;,
+    &#34;amd64&#34;,
+    &#34;armhf&#34;,
+    &#34;armv7&#34;,
+    &#34;i386&#34;
   ],
-  &quot;services&quot;: [
-    &quot;mysql:need&quot;
+  &#34;services&#34;: [
+    &#34;mysql:need&#34;
   ],
-  &quot;ports&quot;: {
-    &quot;80&quot;: 80,
-    &quot;81&quot;: 81,
-    &quot;443&quot;: 443
+  &#34;ports&#34;: {
+    &#34;80&#34;: 80,
+    &#34;81&#34;: 81,
+    &#34;443&#34;: 443
   },
-  &quot;ports_description&quot;: {
-    &quot;80&quot;: &quot;HTTP Entrance port&quot;,
-    &quot;81&quot;: &quot;Proxy management web interface&quot;,
-    &quot;443&quot;: &quot;HTTPS/SSL Entrance port&quot;
+  &#34;ports_description&#34;: {
+    &#34;80&#34;: &#34;HTTP Entrance port&#34;,
+    &#34;81&#34;: &#34;Proxy management web interface&#34;,
+    &#34;443&#34;: &#34;HTTPS/SSL Entrance port&#34;
   },
-  &quot;boot&quot;: &quot;auto&quot;,
-  &quot;hassio_api&quot;: true,
-  &quot;hassio_role&quot;: &quot;default&quot;,
-  &quot;map&quot;: [
-    &quot;ssl:rw&quot;,
-    &quot;backup:rw&quot;
+  &#34;boot&#34;: &#34;auto&#34;,
+  &#34;hassio_api&#34;: true,
+  &#34;hassio_role&#34;: &#34;default&#34;,
+  &#34;map&#34;: [
+    &#34;ssl:rw&#34;,
+    &#34;backup:rw&#34;
   ],
-  &quot;options&quot;: {},
-  &quot;schema&quot;: {
-    &quot;log_level&quot;: &quot;list(trace|debug|info|notice|warning|error|fatal)?&quot;
+  &#34;options&#34;: {},
+  &#34;schema&#34;: {
+    &#34;log_level&#34;: &#34;list(trace|debug|info|notice|warning|error|fatal)?&#34;
   },
-  &quot;image&quot;: &quot;hassioaddons/nginxproxymanager-{arch}&quot;
+  &#34;image&#34;: &#34;hassioaddons/nginxproxymanager-{arch}&#34;
 }
 </code></pre><br/>
 <p>Configurer le port forward pour les ports 80 et 443 sur votre box vers le host sur lequel est installé le reverse proxy.</p>
 <br/>
 <h2 id="démarrer-du-proxy">Démarrer du proxy</h2>
-<pre><code>docker-compose up -d
+<pre tabindex="0"><code>docker-compose up -d
 </code></pre><br/>
 <h2 id="résultat">Résultat</h2>
 <p><img src="https://leandeep.com/images/reverse-proxy-nginx-gui.png" alt="image"></p>
@@ -446,7 +446,7 @@ services:
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>279 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 Mar. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 mars. 2020</p>
         </div>
 
         
@@ -503,119 +503,6 @@ services:
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -624,7 +511,7 @@ services:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

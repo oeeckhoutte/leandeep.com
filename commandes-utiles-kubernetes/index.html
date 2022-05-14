@@ -248,7 +248,7 @@ kubectl api-resources --namespaced=false  Switcher de namespace
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -268,8 +268,8 @@ kubectl create ns &lt;new-namespace&gt;  Lister tous les types de ressources dis
 kubectl api-resources  Savoir si une ressource appartient à un namespace
 kubectl api-resources --namespaced=true  Savoir si une ressource appartient PAS à un namespace
 kubectl api-resources --namespaced=false  Switcher de namespace
-# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github."><meta itemprop="datePublished" content="2019-03-08T17:08:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-03-08T17:08:00&#43;00:00" />
+# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github."><meta itemprop="datePublished" content="2019-03-08T17:08:00+00:00" />
+<meta itemprop="dateModified" content="2019-03-08T17:08:00+00:00" />
 <meta itemprop="wordCount" content="1064"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Kubernetes,AWS EKS," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -286,7 +286,7 @@ kubectl api-resources --namespaced=false  Switcher de namespace
 
 
 
-<meta property="article:published_time" content="2019-03-08 17:08:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-03-08 17:08:00 &#43;0000 UTC" />
 
 
 
@@ -358,19 +358,19 @@ kubectl api-resources --namespaced=false  Switcher de namespace
             <div class="post-content">
                 <h2 id="commandes-propres-à-kubernetes">Commandes propres à Kubernetes</h2>
 <p><strong>Créer un namespace</strong></p>
-<pre><code>kubectl create ns &lt;new-namespace&gt;
+<pre tabindex="0"><code>kubectl create ns &lt;new-namespace&gt;
 </code></pre><br/>
 <p><strong>Lister tous les types de ressources disponibles sur le cluster</strong></p>
-<pre><code>kubectl api-resources
+<pre tabindex="0"><code>kubectl api-resources
 </code></pre><br/>
 <p><strong>Savoir si une ressource appartient à un namespace</strong></p>
-<pre><code>kubectl api-resources --namespaced=true
+<pre tabindex="0"><code>kubectl api-resources --namespaced=true
 </code></pre><br/>
 <p><strong>Savoir si une ressource appartient PAS à un namespace</strong></p>
-<pre><code>kubectl api-resources --namespaced=false
+<pre tabindex="0"><code>kubectl api-resources --namespaced=false
 </code></pre><br/>
 <p><strong>Switcher de namespace</strong></p>
-<pre><code># Install kubens with the following command: 
+<pre tabindex="0"><code># Install kubens with the following command: 
 # Sur Mac: brew install kubectx
 # Sur Linux (les 3 commandes qui suivent): 
 # sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
@@ -383,48 +383,48 @@ kubens &lt;namespace&gt;
 kubectl config set-context --current --namespace=NOM_DU_NAMESPACE
 </code></pre><br/>
 <p><strong>Connaître le cluster dans lequel on se situe</strong></p>
-<pre><code>kubectl config get-contexts
+<pre tabindex="0"><code>kubectl config get-contexts
 </code></pre><br/>
 <p><strong>Connaître le namespace dans lequel on se situe</strong></p>
-<pre><code>kubectl config view | grep namespace
+<pre tabindex="0"><code>kubectl config view | grep namespace
 
 # Alternative: 
-# kubectl config view --minify --output 'jsonpath={..namespace}'
+# kubectl config view --minify --output &#39;jsonpath={..namespace}&#39;
 </code></pre><br/>
 <p><strong>Effacer un namespace</strong></p>
-<pre><code>kubectl delete ns &lt;namespace-to-delete&gt;
+<pre tabindex="0"><code>kubectl delete ns &lt;namespace-to-delete&gt;
 </code></pre><br/>
 <p><strong>Voir les ressources utilisées par les nodes</strong></p>
-<pre><code># Nécessite heapster
+<pre tabindex="0"><code># Nécessite heapster
 kubectl top node
 </code></pre><br/>
 <p><strong>Voir les ressources utilisées par les pods</strong></p>
-<pre><code>kubectl top pods
+<pre tabindex="0"><code>kubectl top pods
 </code></pre><br/>
 <p><strong>Voir les logs d&rsquo;une app particulière dans un namespace particulier</strong></p>
-<pre><code>kubectl logs -l app=catalog-catalog-controller-manager -n catalog
+<pre tabindex="0"><code>kubectl logs -l app=catalog-catalog-controller-manager -n catalog
 </code></pre><br/>
 <p><strong>Voir le cluster sur lequel kubectl est connecté</strong></p>
-<pre><code>kubectl config current-context
+<pre tabindex="0"><code>kubectl config current-context
 </code></pre><br/>
 <p><strong>Lister les clusters configurés dans kubeconfig</strong></p>
-<pre><code>kubectl config get-clusters
+<pre tabindex="0"><code>kubectl config get-clusters
 </code></pre><br/>
 <p><strong>Switcher de cluster en cluster</strong></p>
-<pre><code>kubectl config use-context cluster_name
+<pre tabindex="0"><code>kubectl config use-context cluster_name
 </code></pre><br/>
 <p><strong>Obtenir quelques informations sur le cluster</strong></p>
-<pre><code>kubectl cluster-info
+<pre tabindex="0"><code>kubectl cluster-info
 </code></pre><br/>
 <p><strong>Voir les noeuds du cluster</strong></p>
-<pre><code>kubectl get nodes
+<pre tabindex="0"><code>kubectl get nodes
 </code></pre><br/>
 <p><strong>Port forward un service sur k8s chez vous</strong></p>
-<pre><code>kubectl -n NAMESPACE_DANS_LEQUEL_SE_TROUVE_LE_SERVICE port-forward svc/NOM_DU_SERVICE_AUQUEL_VOUS_VOULEZ_ACCEDER PORT_CHEZ_VOUS_POUR_ACCEDER_AU_SERVICE:PORT_DU_SERVICE_SUR_K8S
+<pre tabindex="0"><code>kubectl -n NAMESPACE_DANS_LEQUEL_SE_TROUVE_LE_SERVICE port-forward svc/NOM_DU_SERVICE_AUQUEL_VOUS_VOULEZ_ACCEDER PORT_CHEZ_VOUS_POUR_ACCEDER_AU_SERVICE:PORT_DU_SERVICE_SUR_K8S
 </code></pre><p>Le port sera bindé sur <code>127.0.0.1</code>. Il est possible d&rsquo;ajouter le flag <code>--address 0.0.0.0</code>. (Attention à la sécurité)</p>
 <br/>
 <p><strong>Installer le dashboard k8s et y accéder</strong></p>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+<pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
 kubectl proxy
 </code></pre><br/>
@@ -432,12 +432,12 @@ kubectl proxy
 <p><code>http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login</code></p>
 <br/>
 <p>Une mire d&rsquo;authentification va apparaitre pour se connecter au dashboard. Privilégier l&rsquo;authentification par token. Pour obtenir ce dernier utiliser les commandes suivantes:</p>
-<pre><code>TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t' | sed -e 's/^[[:space:]]*//')
+<pre tabindex="0"><code>TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d &#39; &#39;) | grep -E &#39;^token&#39; | cut -f2 -d&#39;:&#39; | tr -d &#39;\t&#39; | sed -e &#39;s/^[[:space:]]*//&#39;)
 
 echo $TOKEN
 </code></pre><br/>
 <p><strong>Déployer un 1er service</strong></p>
-<pre><code>kubectl run hello-nginx --image=nginx --port=80
+<pre tabindex="0"><code>kubectl run hello-nginx --image=nginx --port=80
 kubectl get pods
 kubectl get deployments
 kubectl expose deployment hello-nginx --type=NodePort
@@ -453,38 +453,38 @@ kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP        46
 <br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>Voir les events et status des noeuds</strong></p>
-<pre><code>kubectl get events --sort-by=.metadata.creationTimestamp
+<pre tabindex="0"><code>kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl describe nodes
 </code></pre><br/>
 <p><strong>Voir un &ldquo;disk pressure&rdquo;</strong></p>
-<pre><code>kubectl describe nodes 2&gt;&amp;1 | grep -i Disk
+<pre tabindex="0"><code>kubectl describe nodes 2&gt;&amp;1 | grep -i Disk
 </code></pre><blockquote>
 <p>Configurer le trigger diskPressure (et autres) sur le <a href="https://fr.wikipedia.org/wiki/Kubernetes#Kubelet">kubelet</a> (et donc les events pour &ldquo;evicter&rdquo; les pods) lors de l&rsquo;installation d&rsquo;un cluster k8s avec le flag <code>--eviction-hard&quot;: &quot;memory.available&lt;100Mi,nodefs.available&lt;10%,nodefs.inodesFree&lt;5%</code>. <a href="https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/">More here</a></p>
 </blockquote>
 <br/>
 <p><strong>Voir la consommation cpu et memory des pods les plus gourmands</strong></p>
-<pre><code>kubectl top pods
+<pre tabindex="0"><code>kubectl top pods
 </code></pre><br/>
 <p><strong>Lister les containers par pods</strong></p>
-<pre><code>kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{&quot;\n&quot;}{.metadata.name}{&quot;:\t&quot;}{range .spec.containers[*]}{.image}{&quot;, &quot;}{end}{end}' |\
+<pre tabindex="0"><code>kubectl get pods --all-namespaces -o=jsonpath=&#39;{range .items[*]}{&#34;\n&#34;}{.metadata.name}{&#34;:\t&#34;}{range .spec.containers[*]}{.image}{&#34;, &#34;}{end}{end}&#39; |\
 sort
 
 # Pour un pod particulier, pour avoir les container names dans le pod, on peut aussi exécuter:
 kubectl logs POD_NAME 
-# S'il y a plusieurs containers un message d'erreur apparaîtra indiquant de selectionner un container --&gt; choose one of: [container-name-1 container-name-2]
+# S&#39;il y a plusieurs containers un message d&#39;erreur apparaîtra indiquant de selectionner un container --&gt; choose one of: [container-name-1 container-name-2]
 </code></pre><br/>
 <p><strong>Lister les containers par pods et les trier par AGE</strong></p>
-<pre><code>kubectl get po --sort-by=.status.startTime
+<pre tabindex="0"><code>kubectl get po --sort-by=.status.startTime
 </code></pre><br/>
 <p><strong>Entrer dans un pod</strong></p>
-<pre><code>kubectl exec -it shell-demo -- /bin/bash
+<pre tabindex="0"><code>kubectl exec -it shell-demo -- /bin/bash
 </code></pre><br/>
 <p><strong>Effacer tous les pods avec le status Evicted</strong></p>
-<pre><code>kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod
+<pre tabindex="0"><code>kubectl get pods | grep Evicted | awk &#39;{print $1}&#39; | xargs kubectl delete pod
 </code></pre><br/>
 <h2 id="créer-un-single-node-cluster-avec-kubeadm-sur-ubuntu">Créer un Single node cluster avec kubeadm sur Ubuntu</h2>
 <p><strong>Installer kubeadm</strong></p>
-<pre><code>apt-get update &amp;&amp; apt-get install -y apt-transport-https curl
+<pre tabindex="0"><code>apt-get update &amp;&amp; apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
@@ -494,35 +494,35 @@ apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
 </code></pre><br/>
 <p><strong>Déployer le single node cluster</strong></p>
-<pre><code>kubeadm init
+<pre tabindex="0"><code>kubeadm init
 # Puis suivre les informations qui apparaissent
 </code></pre><br/>
 <h2 id="effacement-du-cluster">Effacement du cluster</h2>
-<pre><code># Obtenir le nom du noeud
+<pre tabindex="0"><code># Obtenir le nom du noeud
 kubectl get nodes
 
 # Drainer le noeud 
 kubectl drain NOM_DU_NOEUD --delete-local-data --force --ignore-daemonsets
 
-# On l'efface
+# On l&#39;efface
 kubectl delete node NOM_DU_NOEUD
 
 # On reset kubeadm
 kubeadm reset
 
-# Un reboot permet d'effacer les interfaces réseaux en trop 
+# Un reboot permet d&#39;effacer les interfaces réseaux en trop 
 sudo reboot
 </code></pre><br/>
 <p><strong>Générer un secret TLS (simple sans root CA)</strong></p>
 <p>Certificat simple pour &ldquo;pinnage&rdquo;:</p>
-<pre><code>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj &quot;/CN=${HOST}/O=${HOST}&quot;
+<pre tabindex="0"><code>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj &#34;/CN=${HOST}/O=${HOST}&#34;
 kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
 </code></pre><br/>
 <p><strong>Scaler UP or Down un deployment/statefulset</strong></p>
 <blockquote>
 <p>Pour restart un pod avec un PVC c&rsquo;est idéal. Fonctionne bcp mieux qu&rsquo;un <code>kubectl edit ...</code> avec modification du <code>replicas</code>.</p>
 </blockquote>
-<pre><code>kubectl scale statefulset statefulset_name --replicas=0
+<pre tabindex="0"><code>kubectl scale statefulset statefulset_name --replicas=0
 kubectl scale statefulset statefulset_name --replicas=1
 kubectl scale deployment deployment_name --replicas=0
 kubectl scale deployment deployment_name --replicas=1
@@ -530,7 +530,7 @@ kubectl scale deployment deployment_name --replicas=1
 <p><strong>Pod anti affinity</strong></p>
 <p>Pour éviter un downtime si plusieurs pods se retrouvent sur un même node qui est KO</p>
 <p>Au niveau du Deployment, ajouter:</p>
-<pre><code>...
+<pre tabindex="0"><code>...
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -550,7 +550,7 @@ spec:
               operator: In
               values:
               - api
-          topologyKey: &quot;kubernetes.io/hostname&quot;
+          topologyKey: &#34;kubernetes.io/hostname&#34;
     containers:
     ...
 </code></pre><blockquote>
@@ -559,22 +559,22 @@ spec:
 <br/>
 <h2 id="commandes-propres-à-eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
 <p><strong>Se connecter à son cluster EKS nouvellement créé</strong></p>
-<pre><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
+<pre tabindex="0"><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
 export KUBECONFIG=~/.kube/config-&lt;of-your-cluster&gt;
 </code></pre><br/>
 <p><strong>Lister les clusters EKS</strong></p>
-<pre><code>aws eks list-clusters
+<pre tabindex="0"><code>aws eks list-clusters
 </code></pre><br/>
 <p><strong>Démarrer un pod Ubuntu pour debug</strong></p>
 <blockquote>
 <p>Pour tester le réseau, services&hellip;</p>
 </blockquote>
-<pre><code>kubectl run -it --rm debug-pod --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11
+<pre tabindex="0"><code>kubectl run -it --rm debug-pod --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11
 # apt install iputils-ping
 </code></pre><br/>
 <h2 id="commandes-propres-à-aks-kubernetes-azure-et-infos-utiles">Commandes propres à AKS (Kubernetes Azure) et infos utiles</h2>
 <p><strong>Se connecter à son cluster AKS nouvellement créé</strong></p>
-<pre><code>az login
+<pre tabindex="0"><code>az login
 
 # Ajoute la conf du cluster dans le kube config
 az aks get-credentials --resource-group NOM_DU_RESSOURCE_GROUPE --name NOM_DU_CLUSTER_K8S
@@ -583,7 +583,7 @@ az aks get-credentials --resource-group NOM_DU_RESSOURCE_GROUPE --name NOM_DU_CL
 kubectl config get-contexts
 </code></pre><br/>
 <p><strong>Regénérer un Service Principal</strong></p>
-<pre><code># Option 1
+<pre tabindex="0"><code># Option 1
 az ad sp create-for-rbac --skip-assignment
 export RESOURCE_GROUP=...
 export AKS_CLUSTER_NAME=...
@@ -594,7 +594,7 @@ az aks update-credentials \
     --name $AKS_CLUSTER_NAME \
     --reset-service-principal \
     --service-principal $SERVICE_PRINCIPAL_ID \
-    --client-secret &quot;$SERVICE_PRINCIPAL_SECRET&quot;
+    --client-secret &#34;$SERVICE_PRINCIPAL_SECRET&#34;
 
 
 # Option 2
@@ -607,12 +607,12 @@ az aks update-credentials --resource-group myResourceGroup --name myAKSCluster -
 </code></pre><br/>
 <p><strong>Troubleshooting disk not seen in AKS node</strong></p>
 <p>Ou resynchroniser AKS avec l&rsquo;état des diques montés dans la VM/ Node.</p>
-<pre><code>az vm update -g resource_group -n node_name
+<pre tabindex="0"><code>az vm update -g resource_group -n node_name
 </code></pre><br/>
 <p><strong>Vérifier si un Service Principal a expiré</strong></p>
-<pre><code>SP_ID=$(az aks show --resource-group myResourceGroup --name myAKSCluster \
+<pre tabindex="0"><code>SP_ID=$(az aks show --resource-group myResourceGroup --name myAKSCluster \
     --query servicePrincipalProfile.clientId -o tsv)
-az ad sp credential list --id $SP_ID --query &quot;[].endDate&quot; -o tsv
+az ad sp credential list --id $SP_ID --query &#34;[].endDate&#34; -o tsv
 </code></pre><br/>
 <p><strong>Les solutions des stockages persistentes sur AKS</strong></p>
 <ul>
@@ -636,7 +636,7 @@ az ad sp credential list --id $SP_ID --query &quot;[].endDate&quot; -o tsv
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1064 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 Mar. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 mars. 2019</p>
         </div>
 
         
@@ -693,119 +693,6 @@ az ad sp credential list --id $SP_ID --query &quot;[].endDate&quot; -o tsv
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -814,7 +701,7 @@ az ad sp credential list --id $SP_ID --query &quot;[].endDate&quot; -o tsv
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

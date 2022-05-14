@@ -11,7 +11,7 @@
 En sortie du script, un fichier config.ovpn sera créé. Il suffit de l&amp;rsquo;ajouter à un client VPN (i.e. tunnelblick sur Mac) et d&amp;rsquo;établir une connexion.
 Vous pourrez vous connecter à la machine sur laquelle est installée le serveur VPN. Il suffit d&amp;rsquo;exécutez la commande ssh VOTRE_USER@10.8.0.1&amp;hellip;
 Voici le fameux script:
-#!/bin/bash if grep -qs &amp;quot;Ubuntu 16." />
+#!/bin/bash if grep -qs &amp;#34;Ubuntu 16." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -247,7 +247,7 @@ Voici le fameux script:
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -266,8 +266,8 @@ Voici le fameux script:
 En sortie du script, un fichier config.ovpn sera créé. Il suffit de l&rsquo;ajouter à un client VPN (i.e. tunnelblick sur Mac) et d&rsquo;établir une connexion.
 Vous pourrez vous connecter à la machine sur laquelle est installée le serveur VPN. Il suffit d&rsquo;exécutez la commande ssh VOTRE_USER@10.8.0.1&hellip;
 Voici le fameux script:
-#!/bin/bash if grep -qs &quot;Ubuntu 16."><meta itemprop="datePublished" content="2020-03-12T19:35:00&#43;02:00" />
-<meta itemprop="dateModified" content="2020-03-12T19:35:00&#43;02:00" />
+#!/bin/bash if grep -qs &#34;Ubuntu 16."><meta itemprop="datePublished" content="2020-03-12T19:35:00+02:00" />
+<meta itemprop="dateModified" content="2020-03-12T19:35:00+02:00" />
 <meta itemprop="wordCount" content="1947"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="VPN," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -277,7 +277,7 @@ Voici le fameux script:
 En sortie du script, un fichier config.ovpn sera créé. Il suffit de l&rsquo;ajouter à un client VPN (i.e. tunnelblick sur Mac) et d&rsquo;établir une connexion.
 Vous pourrez vous connecter à la machine sur laquelle est installée le serveur VPN. Il suffit d&rsquo;exécutez la commande ssh VOTRE_USER@10.8.0.1&hellip;
 Voici le fameux script:
-#!/bin/bash if grep -qs &quot;Ubuntu 16."/>
+#!/bin/bash if grep -qs &#34;Ubuntu 16."/>
 
 
 
@@ -357,28 +357,28 @@ Voici le fameux script:
 <p>En sortie du script, un fichier config.ovpn sera créé. Il suffit de l&rsquo;ajouter à un client VPN (i.e. tunnelblick sur Mac) et d&rsquo;établir une connexion.</p>
 <p>Vous pourrez vous connecter à la machine sur laquelle est installée le serveur VPN. Il suffit d&rsquo;exécutez la commande <code>ssh VOTRE_USER@10.8.0.1</code>&hellip;</p>
 <p>Voici le fameux script:</p>
-<pre><code>#!/bin/bash
+<pre tabindex="0"><code>#!/bin/bash
 
-if grep -qs &quot;Ubuntu 16.04&quot; &quot;/etc/os-release&quot;; then
-	echo 'Ubuntu 16.04 is no longer supported in the current version of openvpn-install
-Use an older version if Ubuntu 16.04 support is needed: https://git.io/vpn1604'
+if grep -qs &#34;Ubuntu 16.04&#34; &#34;/etc/os-release&#34;; then
+	echo &#39;Ubuntu 16.04 is no longer supported in the current version of openvpn-install
+Use an older version if Ubuntu 16.04 support is needed: https://git.io/vpn1604&#39;
 	exit
 fi
 
-# Detect Debian users running the script with &quot;sh&quot; instead of bash
-if readlink /proc/$$/exe | grep -q &quot;dash&quot;; then
-	echo &quot;This script needs to be run with bash, not sh&quot;
+# Detect Debian users running the script with &#34;sh&#34; instead of bash
+if readlink /proc/$$/exe | grep -q &#34;dash&#34;; then
+	echo &#34;This script needs to be run with bash, not sh&#34;
 	exit
 fi
 
-if [[ &quot;$EUID&quot; -ne 0 ]]; then
-	echo &quot;Sorry, you need to run this as root&quot;
+if [[ &#34;$EUID&#34; -ne 0 ]]; then
+	echo &#34;Sorry, you need to run this as root&#34;
 	exit
 fi
 
 if [[ ! -e /dev/net/tun ]]; then
-	echo &quot;The TUN device is not available
-You need to enable TUN before running this script&quot;
+	echo &#34;The TUN device is not available
+You need to enable TUN before running this script&#34;
 	exit
 fi
 
@@ -389,74 +389,74 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
 	OS=centos
 	GROUPNAME=nobody
 else
-	echo &quot;Looks like you aren't running this installer on Debian, Ubuntu or CentOS&quot;
+	echo &#34;Looks like you aren&#39;t running this installer on Debian, Ubuntu or CentOS&#34;
 	exit
 fi
 
 newclient () {
 	# Generates the custom client.ovpn
 	cp /etc/openvpn/server/client-common.txt ~/$1.ovpn
-	echo &quot;&lt;ca&gt;&quot; &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;ca&gt;&#34; &gt;&gt; ~/$1.ovpn
 	cat /etc/openvpn/server/easy-rsa/pki/ca.crt &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;/ca&gt;&quot; &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;cert&gt;&quot; &gt;&gt; ~/$1.ovpn
-	sed -ne '/BEGIN CERTIFICATE/,$ p' /etc/openvpn/server/easy-rsa/pki/issued/$1.crt &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;/cert&gt;&quot; &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;key&gt;&quot; &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;/ca&gt;&#34; &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;cert&gt;&#34; &gt;&gt; ~/$1.ovpn
+	sed -ne &#39;/BEGIN CERTIFICATE/,$ p&#39; /etc/openvpn/server/easy-rsa/pki/issued/$1.crt &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;/cert&gt;&#34; &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;key&gt;&#34; &gt;&gt; ~/$1.ovpn
 	cat /etc/openvpn/server/easy-rsa/pki/private/$1.key &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;/key&gt;&quot; &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;tls-auth&gt;&quot; &gt;&gt; ~/$1.ovpn
-	sed -ne '/BEGIN OpenVPN Static key/,$ p' /etc/openvpn/server/ta.key &gt;&gt; ~/$1.ovpn
-	echo &quot;&lt;/tls-auth&gt;&quot; &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;/key&gt;&#34; &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;tls-auth&gt;&#34; &gt;&gt; ~/$1.ovpn
+	sed -ne &#39;/BEGIN OpenVPN Static key/,$ p&#39; /etc/openvpn/server/ta.key &gt;&gt; ~/$1.ovpn
+	echo &#34;&lt;/tls-auth&gt;&#34; &gt;&gt; ~/$1.ovpn
 }
 
 if [[ -e /etc/openvpn/server/server.conf ]]; then
 	while :
 	do
 	clear
-		echo &quot;Looks like OpenVPN is already installed.&quot;
+		echo &#34;Looks like OpenVPN is already installed.&#34;
 		echo
-		echo &quot;What do you want to do?&quot;
-		echo &quot;   1) Add a new user&quot;
-		echo &quot;   2) Revoke an existing user&quot;
-		echo &quot;   3) Remove OpenVPN&quot;
-		echo &quot;   4) Exit&quot;
-		read -p &quot;Select an option [1-4]: &quot; option
+		echo &#34;What do you want to do?&#34;
+		echo &#34;   1) Add a new user&#34;
+		echo &#34;   2) Revoke an existing user&#34;
+		echo &#34;   3) Remove OpenVPN&#34;
+		echo &#34;   4) Exit&#34;
+		read -p &#34;Select an option [1-4]: &#34; option
 		case $option in
 			1) 
 			echo
-			echo &quot;Tell me a name for the client certificate.&quot;
-			echo &quot;Please, use one word only, no special characters.&quot;
-			read -p &quot;Client name: &quot; -e CLIENT
+			echo &#34;Tell me a name for the client certificate.&#34;
+			echo &#34;Please, use one word only, no special characters.&#34;
+			read -p &#34;Client name: &#34; -e CLIENT
 			cd /etc/openvpn/server/easy-rsa/
 			EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-client-full $CLIENT nopass
 			# Generates the custom client.ovpn
-			newclient &quot;$CLIENT&quot;
+			newclient &#34;$CLIENT&#34;
 			echo
-			echo &quot;Client $CLIENT added, configuration is available at:&quot; ~/&quot;$CLIENT.ovpn&quot;
+			echo &#34;Client $CLIENT added, configuration is available at:&#34; ~/&#34;$CLIENT.ovpn&#34;
 			exit
 			;;
 			2)
 			# This option could be documented a bit better and maybe even be simplified
 			# ...but what can I say, I want some sleep too
-			NUMBEROFCLIENTS=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c &quot;^V&quot;)
-			if [[ &quot;$NUMBEROFCLIENTS&quot; = '0' ]]; then
+			NUMBEROFCLIENTS=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c &#34;^V&#34;)
+			if [[ &#34;$NUMBEROFCLIENTS&#34; = &#39;0&#39; ]]; then
 				echo
-				echo &quot;You have no existing clients!&quot;
+				echo &#34;You have no existing clients!&#34;
 				exit
 			fi
 			echo
-			echo &quot;Select the existing client certificate you want to revoke:&quot;
-			tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep &quot;^V&quot; | cut -d '=' -f 2 | nl -s ') '
-			if [[ &quot;$NUMBEROFCLIENTS&quot; = '1' ]]; then
-				read -p &quot;Select one client [1]: &quot; CLIENTNUMBER
+			echo &#34;Select the existing client certificate you want to revoke:&#34;
+			tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep &#34;^V&#34; | cut -d &#39;=&#39; -f 2 | nl -s &#39;) &#39;
+			if [[ &#34;$NUMBEROFCLIENTS&#34; = &#39;1&#39; ]]; then
+				read -p &#34;Select one client [1]: &#34; CLIENTNUMBER
 			else
-				read -p &quot;Select one client [1-$NUMBEROFCLIENTS]: &quot; CLIENTNUMBER
+				read -p &#34;Select one client [1-$NUMBEROFCLIENTS]: &#34; CLIENTNUMBER
 			fi
-			CLIENT=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep &quot;^V&quot; | cut -d '=' -f 2 | sed -n &quot;$CLIENTNUMBER&quot;p)
+			CLIENT=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep &#34;^V&#34; | cut -d &#39;=&#39; -f 2 | sed -n &#34;$CLIENTNUMBER&#34;p)
 			echo
-			read -p &quot;Do you really want to revoke access for client $CLIENT? [y/N]: &quot; -e REVOKE
-			if [[ &quot;$REVOKE&quot; = 'y' || &quot;$REVOKE&quot; = 'Y' ]]; then
+			read -p &#34;Do you really want to revoke access for client $CLIENT? [y/N]: &#34; -e REVOKE
+			if [[ &#34;$REVOKE&#34; = &#39;y&#39; || &#34;$REVOKE&#34; = &#39;Y&#39; ]]; then
 				cd /etc/openvpn/server/easy-rsa/
 				./easyrsa --batch revoke $CLIENT
 				EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
@@ -468,21 +468,21 @@ if [[ -e /etc/openvpn/server/server.conf ]]; then
 				# CRL is read with each client connection, when OpenVPN is dropped to nobody
 				chown nobody:$GROUPNAME /etc/openvpn/server/crl.pem
 				echo
-				echo &quot;Certificate for client $CLIENT revoked!&quot;
+				echo &#34;Certificate for client $CLIENT revoked!&#34;
 			else
 				echo
-				echo &quot;Certificate revocation for client $CLIENT aborted!&quot;
+				echo &#34;Certificate revocation for client $CLIENT aborted!&#34;
 			fi
 			exit
 			;;
 			3) 
 			echo
-			read -p &quot;Do you really want to remove OpenVPN? [y/N]: &quot; -e REMOVE
-			if [[ &quot;$REMOVE&quot; = 'y' || &quot;$REMOVE&quot; = 'Y' ]]; then
-				PORT=$(grep '^port ' /etc/openvpn/server/server.conf | cut -d &quot; &quot; -f 2)
-				PROTOCOL=$(grep '^proto ' /etc/openvpn/server/server.conf | cut -d &quot; &quot; -f 2)
+			read -p &#34;Do you really want to remove OpenVPN? [y/N]: &#34; -e REMOVE
+			if [[ &#34;$REMOVE&#34; = &#39;y&#39; || &#34;$REMOVE&#34; = &#39;Y&#39; ]]; then
+				PORT=$(grep &#39;^port &#39; /etc/openvpn/server/server.conf | cut -d &#34; &#34; -f 2)
+				PROTOCOL=$(grep &#39;^proto &#39; /etc/openvpn/server/server.conf | cut -d &#34; &#34; -f 2)
 				if pgrep firewalld; then
-					IP=$(firewall-cmd --direct --get-rules ipv4 nat POSTROUTING | grep '\-s 10.8.0.0/24 '&quot;'&quot;'!'&quot;'&quot;' -d 10.8.0.0/24 -j SNAT --to ' | cut -d &quot; &quot; -f 10)
+					IP=$(firewall-cmd --direct --get-rules ipv4 nat POSTROUTING | grep &#39;\-s 10.8.0.0/24 &#39;&#34;&#39;&#34;&#39;!&#39;&#34;&#39;&#34;&#39; -d 10.8.0.0/24 -j SNAT --to &#39; | cut -d &#34; &#34; -f 10)
 					# Using both permanent and not permanent rules to avoid a firewalld reload.
 					firewall-cmd --remove-port=$PORT/$PROTOCOL
 					firewall-cmd --zone=trusted --remove-source=10.8.0.0/24
@@ -494,22 +494,22 @@ if [[ -e /etc/openvpn/server/server.conf ]]; then
 					systemctl disable --now openvpn-iptables.service
 					rm -f /etc/systemd/system/openvpn-iptables.service
 				fi
-				if sestatus 2&gt;/dev/null | grep &quot;Current mode&quot; | grep -q &quot;enforcing&quot; &amp;&amp; [[ &quot;$PORT&quot; != '1194' ]]; then
+				if sestatus 2&gt;/dev/null | grep &#34;Current mode&#34; | grep -q &#34;enforcing&#34; &amp;&amp; [[ &#34;$PORT&#34; != &#39;1194&#39; ]]; then
 					semanage port -d -t openvpn_port_t -p $PROTOCOL $PORT
 				fi
 				systemctl disable --now openvpn-server@server.service
 				rm -rf /etc/openvpn/server
 				rm -f /etc/sysctl.d/30-openvpn-forward.conf
-				if [[ &quot;$OS&quot; = 'debian' ]]; then
+				if [[ &#34;$OS&#34; = &#39;debian&#39; ]]; then
 					apt-get remove --purge -y openvpn
 				else
 					yum remove openvpn -y
 				fi
 				echo
-				echo &quot;OpenVPN removed!&quot;
+				echo &#34;OpenVPN removed!&#34;
 			else
 				echo
-				echo &quot;Removal aborted!&quot;
+				echo &#34;Removal aborted!&#34;
 			fi
 			exit
 			;;
@@ -518,28 +518,28 @@ if [[ -e /etc/openvpn/server/server.conf ]]; then
 	done
 else
 	clear
-	echo 'Welcome to this OpenVPN &quot;road warrior&quot; installer!'
+	echo &#39;Welcome to this OpenVPN &#34;road warrior&#34; installer!&#39;
 	echo
 	# OpenVPN setup and first user creation
-	echo &quot;I need to ask you a few questions before starting the setup.&quot;
-	echo &quot;You can leave the default options and just press enter if you are ok with them.&quot;
+	echo &#34;I need to ask you a few questions before starting the setup.&#34;
+	echo &#34;You can leave the default options and just press enter if you are ok with them.&#34;
 	echo
-	echo &quot;First, provide the IPv4 address of the network interface you want OpenVPN&quot;
-	echo &quot;listening to.&quot;
+	echo &#34;First, provide the IPv4 address of the network interface you want OpenVPN&#34;
+	echo &#34;listening to.&#34;
 	# Autodetect IP address and pre-fill for the user
-	IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-	read -p &quot;IP address: &quot; -e -i $IP IP
+	IP=$(ip addr | grep &#39;inet&#39; | grep -v inet6 | grep -vE &#39;127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&#39; | grep -oE &#39;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&#39; | head -1)
+	read -p &#34;IP address: &#34; -e -i $IP IP
 	# If $IP is a private IP address, the server must be behind NAT
-	if echo &quot;$IP&quot; | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
+	if echo &#34;$IP&#34; | grep -qE &#39;^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)&#39;; then
 		echo
-		echo &quot;This server is behind NAT. What is the public IPv4 address or hostname?&quot;
-		read -p &quot;Public IP address / hostname: &quot; -e PUBLICIP
+		echo &#34;This server is behind NAT. What is the public IPv4 address or hostname?&#34;
+		read -p &#34;Public IP address / hostname: &#34; -e PUBLICIP
 	fi
 	echo
-	echo &quot;Which protocol do you want for OpenVPN connections?&quot;
-	echo &quot;   1) UDP (recommended)&quot;
-	echo &quot;   2) TCP&quot;
-	read -p &quot;Protocol [1-2]: &quot; -e -i 1 PROTOCOL
+	echo &#34;Which protocol do you want for OpenVPN connections?&#34;
+	echo &#34;   1) UDP (recommended)&#34;
+	echo &#34;   2) TCP&#34;
+	read -p &#34;Protocol [1-2]: &#34; -e -i 1 PROTOCOL
 	case $PROTOCOL in
 		1) 
 		PROTOCOL=udp
@@ -549,24 +549,24 @@ else
 		;;
 	esac
 	echo
-	echo &quot;What port do you want OpenVPN listening to?&quot;
-	read -p &quot;Port: &quot; -e -i 1194 PORT
+	echo &#34;What port do you want OpenVPN listening to?&#34;
+	read -p &#34;Port: &#34; -e -i 1194 PORT
 	echo
-	echo &quot;Which DNS do you want to use with the VPN?&quot;
-	echo &quot;   1) Current system resolvers&quot;
-	echo &quot;   2) 1.1.1.1&quot;
-	echo &quot;   3) Google&quot;
-	echo &quot;   4) OpenDNS&quot;
-	echo &quot;   5) Verisign&quot;
-	read -p &quot;DNS [1-5]: &quot; -e -i 1 DNS
+	echo &#34;Which DNS do you want to use with the VPN?&#34;
+	echo &#34;   1) Current system resolvers&#34;
+	echo &#34;   2) 1.1.1.1&#34;
+	echo &#34;   3) Google&#34;
+	echo &#34;   4) OpenDNS&#34;
+	echo &#34;   5) Verisign&#34;
+	read -p &#34;DNS [1-5]: &#34; -e -i 1 DNS
 	echo
-	echo &quot;Finally, tell me your name for the client certificate.&quot;
-	echo &quot;Please, use one word only, no special characters.&quot;
-	read -p &quot;Client name: &quot; -e -i client CLIENT
+	echo &#34;Finally, tell me your name for the client certificate.&#34;
+	echo &#34;Please, use one word only, no special characters.&#34;
+	read -p &#34;Client name: &#34; -e -i client CLIENT
 	echo
-	echo &quot;Okay, that was all I needed. We are ready to set up your OpenVPN server now.&quot;
-	read -n1 -r -p &quot;Press any key to continue...&quot;
-	if [[ &quot;$OS&quot; = 'debian' ]]; then
+	echo &#34;Okay, that was all I needed. We are ready to set up your OpenVPN server now.&#34;
+	read -n1 -r -p &#34;Press any key to continue...&#34;
+	if [[ &#34;$OS&#34; = &#39;debian&#39; ]]; then
 		apt-get update
 		apt-get install openvpn iptables openssl ca-certificates -y
 	else
@@ -575,8 +575,8 @@ else
 		yum install openvpn iptables openssl ca-certificates -y
 	fi
 	# Get easy-rsa
-	EASYRSAURL='https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.5/EasyRSA-nix-3.0.5.tgz'
-	wget -O ~/easyrsa.tgz &quot;$EASYRSAURL&quot; 2&gt;/dev/null || curl -Lo ~/easyrsa.tgz &quot;$EASYRSAURL&quot;
+	EASYRSAURL=&#39;https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.5/EasyRSA-nix-3.0.5.tgz&#39;
+	wget -O ~/easyrsa.tgz &#34;$EASYRSAURL&#34; 2&gt;/dev/null || curl -Lo ~/easyrsa.tgz &#34;$EASYRSAURL&#34;
 	tar xzf ~/easyrsa.tgz -C ~/
 	mv ~/EasyRSA-3.0.5/ /etc/openvpn/server/
 	mv /etc/openvpn/server/EasyRSA-3.0.5/ /etc/openvpn/server/easy-rsa/
@@ -596,16 +596,16 @@ else
 	# Generate key for tls-auth
 	openvpn --genkey --secret /etc/openvpn/server/ta.key
 	# Create the DH parameters file using the predefined ffdhe2048 group
-	echo '-----BEGIN DH PARAMETERS-----
+	echo &#39;-----BEGIN DH PARAMETERS-----
 MIIBCAKCAQEA//////////+t+FRYortKmq/cViAnPTzx2LnFg84tNpWp4TZBFGQz
 +8yTnc4kmz75fS/jY2MMddj2gbICrsRhetPfHtXV/WVhJDP1H18GbtCFY2VVPe0a
 87VXE15/V8k1mE8McODmi3fipona8+/och3xWKE2rec1MKzKT0g6eXq8CrGCsyT7
 YdEIqUuyyOP7uWrat2DX9GgdT0Kj3jlN9K5W7edjcrsZCwenyO4KbXCeAvzhzffi
 7MA0BM0oNC9hkXL+nOmFg/+OTxIy7vKBg8P+OxtMb61zO7X8vC7CIAXFjvGDfRaD
 ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
------END DH PARAMETERS-----' &gt; /etc/openvpn/server/dh.pem
+-----END DH PARAMETERS-----&#39; &gt; /etc/openvpn/server/dh.pem
 	# Generate server.conf
-	echo &quot;port $PORT
+	echo &#34;port $PORT
 proto $PROTOCOL
 dev tun
 sndbuf 0
@@ -618,41 +618,41 @@ auth SHA512
 tls-auth ta.key 0
 topology subnet
 server 10.8.0.0 255.255.255.0
-ifconfig-pool-persist ipp.txt&quot; &gt; /etc/openvpn/server/server.conf
-	echo 'push &quot;redirect-gateway def1 bypass-dhcp&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+ifconfig-pool-persist ipp.txt&#34; &gt; /etc/openvpn/server/server.conf
+	echo &#39;push &#34;redirect-gateway def1 bypass-dhcp&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
 	# DNS
 	case $DNS in
 		1)
 		# Locate the proper resolv.conf
 		# Needed for systems running systemd-resolved
-		if grep -q &quot;127.0.0.53&quot; &quot;/etc/resolv.conf&quot;; then
-			RESOLVCONF='/run/systemd/resolve/resolv.conf'
+		if grep -q &#34;127.0.0.53&#34; &#34;/etc/resolv.conf&#34;; then
+			RESOLVCONF=&#39;/run/systemd/resolve/resolv.conf&#39;
 		else
-			RESOLVCONF='/etc/resolv.conf'
+			RESOLVCONF=&#39;/etc/resolv.conf&#39;
 		fi
 		# Obtain the resolvers from resolv.conf and use them for OpenVPN
-		grep -v '#' $RESOLVCONF | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read line; do
-			echo &quot;push \&quot;dhcp-option DNS $line\&quot;&quot; &gt;&gt; /etc/openvpn/server/server.conf
+		grep -v &#39;#&#39; $RESOLVCONF | grep &#39;nameserver&#39; | grep -E -o &#39;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&#39; | while read line; do
+			echo &#34;push \&#34;dhcp-option DNS $line\&#34;&#34; &gt;&gt; /etc/openvpn/server/server.conf
 		done
 		;;
 		2)
-		echo 'push &quot;dhcp-option DNS 1.1.1.1&quot;' &gt;&gt; /etc/openvpn/server/server.conf
-		echo 'push &quot;dhcp-option DNS 1.0.0.1&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 1.1.1.1&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 1.0.0.1&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
 		;;
 		3)
-		echo 'push &quot;dhcp-option DNS 8.8.8.8&quot;' &gt;&gt; /etc/openvpn/server/server.conf
-		echo 'push &quot;dhcp-option DNS 8.8.4.4&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 8.8.8.8&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 8.8.4.4&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
 		;;
 		4)
-		echo 'push &quot;dhcp-option DNS 208.67.222.222&quot;' &gt;&gt; /etc/openvpn/server/server.conf
-		echo 'push &quot;dhcp-option DNS 208.67.220.220&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 208.67.222.222&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 208.67.220.220&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
 		;;
 		5)
-		echo 'push &quot;dhcp-option DNS 64.6.64.6&quot;' &gt;&gt; /etc/openvpn/server/server.conf
-		echo 'push &quot;dhcp-option DNS 64.6.65.6&quot;' &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 64.6.64.6&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
+		echo &#39;push &#34;dhcp-option DNS 64.6.65.6&#34;&#39; &gt;&gt; /etc/openvpn/server/server.conf
 		;;
 	esac
-	echo &quot;keepalive 10 120
+	echo &#34;keepalive 10 120
 cipher AES-256-CBC
 user nobody
 group $GROUPNAME
@@ -660,15 +660,15 @@ persist-key
 persist-tun
 status openvpn-status.log
 verb 3
-crl-verify crl.pem&quot; &gt;&gt; /etc/openvpn/server/server.conf
+crl-verify crl.pem&#34; &gt;&gt; /etc/openvpn/server/server.conf
 	# Enable net.ipv4.ip_forward for the system
-	echo 'net.ipv4.ip_forward=1' &gt; /etc/sysctl.d/30-openvpn-forward.conf
+	echo &#39;net.ipv4.ip_forward=1&#39; &gt; /etc/sysctl.d/30-openvpn-forward.conf
 	# Enable without waiting for a reboot or service restart
 	echo 1 &gt; /proc/sys/net/ipv4/ip_forward
 	if pgrep firewalld; then
 		# Using both permanent and not permanent rules to avoid a firewalld
 		# reload.
-		# We don't use --add-service=openvpn because that would only work with
+		# We don&#39;t use --add-service=openvpn because that would only work with
 		# the default port and protocol.
 		firewall-cmd --add-port=$PORT/$PROTOCOL
 		firewall-cmd --zone=trusted --add-source=10.8.0.0/24
@@ -679,7 +679,7 @@ crl-verify crl.pem&quot; &gt;&gt; /etc/openvpn/server/server.conf
 		firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to $IP
 	else
 		# Create a service to set up persistent iptables rules
-		echo &quot;[Unit]
+		echo &#34;[Unit]
 Before=network.target
 [Service]
 Type=oneshot
@@ -693,14 +693,14 @@ ExecStop=/sbin/iptables -D FORWARD -s 10.8.0.0/24 -j ACCEPT
 ExecStop=/sbin/iptables -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 RemainAfterExit=yes
 [Install]
-WantedBy=multi-user.target&quot; &gt; /etc/systemd/system/openvpn-iptables.service
+WantedBy=multi-user.target&#34; &gt; /etc/systemd/system/openvpn-iptables.service
 		systemctl enable --now openvpn-iptables.service
 	fi
 	# If SELinux is enabled and a custom port was selected, we need this
-	if sestatus 2&gt;/dev/null | grep &quot;Current mode&quot; | grep -q &quot;enforcing&quot; &amp;&amp; [[ &quot;$PORT&quot; != '1194' ]]; then
+	if sestatus 2&gt;/dev/null | grep &#34;Current mode&#34; | grep -q &#34;enforcing&#34; &amp;&amp; [[ &#34;$PORT&#34; != &#39;1194&#39; ]]; then
 		# Install semanage if not already present
 		if ! hash semanage 2&gt;/dev/null; then
-			if grep -qs &quot;CentOS Linux release 7&quot; &quot;/etc/centos-release&quot;; then
+			if grep -qs &#34;CentOS Linux release 7&#34; &#34;/etc/centos-release&#34;; then
 				yum install policycoreutils-python -y
 			else
 				yum install policycoreutils-python-utils -y
@@ -711,11 +711,11 @@ WantedBy=multi-user.target&quot; &gt; /etc/systemd/system/openvpn-iptables.servi
 	# And finally, enable and start the OpenVPN service
 	systemctl enable --now openvpn-server@server.service
 	# If the server is behind a NAT, use the correct IP address
-	if [[ &quot;$PUBLICIP&quot; != &quot;&quot; ]]; then
+	if [[ &#34;$PUBLICIP&#34; != &#34;&#34; ]]; then
 		IP=$PUBLICIP
 	fi
 	# client-common.txt is created so we have a template to add further users later
-	echo &quot;client
+	echo &#34;client
 dev tun
 proto $PROTOCOL
 sndbuf 0
@@ -730,24 +730,24 @@ auth SHA512
 cipher AES-256-CBC
 setenv opt block-outside-dns
 key-direction 1
-verb 3&quot; &gt; /etc/openvpn/server/client-common.txt
+verb 3&#34; &gt; /etc/openvpn/server/client-common.txt
 	# Generates the custom client.ovpn
-	newclient &quot;$CLIENT&quot;
+	newclient &#34;$CLIENT&#34;
 	echo
-	echo &quot;Finished!&quot;
+	echo &#34;Finished!&#34;
 	echo
-	echo &quot;Your client configuration is available at:&quot; ~/&quot;$CLIENT.ovpn&quot;
-	echo &quot;If you want to add more clients, you simply need to run this script again!&quot;
+	echo &#34;Your client configuration is available at:&#34; ~/&#34;$CLIENT.ovpn&#34;
+	echo &#34;If you want to add more clients, you simply need to run this script again!&#34;
 fi
 </code></pre><br/>
 <h2 id="configurer-ssh-sur-raspberry-pi-et-ubuntu-mate-facultatif">Configurer SSH sur raspberry pi et Ubuntu Mate (facultatif)</h2>
-<pre><code>sudo systemctl enable ssh
+<pre tabindex="0"><code>sudo systemctl enable ssh
 sudo service ssh restart
 
 sudo dpkg-reconfigure openssh-server
 </code></pre><br/>
 <h2 id="configurer-un-client-openvpn">Configurer un client OpenVPN</h2>
-<pre><code>sudo apt-get install openvpn
+<pre tabindex="0"><code>sudo apt-get install openvpn
 sudo openvpn --config /path/to/config.ovpn
 </code></pre><p>Pour rendre la connexion permanente, éditer le fichier <code>/etc/default/openvpn</code> et décommenter la ligne <code>AUTOSTART=&quot;all&quot;</code> et copier le fichier <code>.ovpn</code> comme ceci (attention à bien renommer l&rsquo;extension): <code>/etc/openvpn/config.conf</code></p>
 
@@ -763,7 +763,7 @@ sudo openvpn --config /path/to/config.ovpn
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1947 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>12 Mar. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>12 mars. 2020</p>
         </div>
 
         
@@ -820,119 +820,6 @@ sudo openvpn --config /path/to/config.ovpn
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -941,7 +828,7 @@ sudo openvpn --config /path/to/config.ovpn
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

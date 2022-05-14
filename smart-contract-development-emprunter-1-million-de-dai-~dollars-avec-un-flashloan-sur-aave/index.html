@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur Aave">
 <meta itemprop="description" content="Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&rsquo;on veut avec tant qu&rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&rsquo;intérêt&hellip;
- Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle"><meta itemprop="datePublished" content="2021-11-05T09:08:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-11-05T09:08:00&#43;00:00" />
+ Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle"><meta itemprop="datePublished" content="2021-11-05T09:08:00+00:00" />
+<meta itemprop="dateModified" content="2021-11-05T09:08:00+00:00" />
 <meta itemprop="wordCount" content="1055"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Dev,Ethereum,Blockchain,Solidity," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@
 
 
 
-<meta property="article:published_time" content="2021-11-05 09:08:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-11-05 09:08:00 &#43;0000 UTC" />
 
 
 
@@ -353,11 +353,11 @@ Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de 
 <br/>
 <h2 id="création-du-smart-contract">Création du Smart contract</h2>
 <p>Créer un fichier <code>SimpleAaveFlashloan.sol</code> dans le répertoire <code>contracts/simple-aave-flashloan</code> de votre repo git et ajouter le contenu suivant:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
-import &quot;./interfaces/FlashLoanReceiverBase.sol&quot;;
+import &#34;@openzeppelin/contracts/utils/math/SafeMath.sol&#34;;
+import &#34;./interfaces/FlashLoanReceiverBase.sol&#34;;
 
 contract SimpleAaveFlashloan is FlashLoanReceiverBase {
     using SafeMath for uint256;
@@ -380,7 +380,7 @@ contract SimpleAaveFlashloan is FlashLoanReceiverBase {
         uint256 min_amount = _amount.div(50);
         require(
             token_balance &gt; min_amount,
-            &quot;token balance has to be higher than 10% of the amount borrowed&quot;
+            &#34;token balance has to be higher than 10% of the amount borrowed&#34;
         );
 
         address receiverAddress = address(this);
@@ -399,7 +399,7 @@ contract SimpleAaveFlashloan is FlashLoanReceiverBase {
 
         require(
             assets.length == amounts.length,
-            &quot;assets and amounts arrays are not the same length&quot;
+            &#34;assets and amounts arrays are not the same length&#34;
         );
 
         // this is the address that would receive the debt in case modes 1 and 2
@@ -433,7 +433,7 @@ contract SimpleAaveFlashloan is FlashLoanReceiverBase {
         address initiator,
         bytes calldata params
     ) external override returns (bool) {
-        require(initiator == address(this), &quot;!initiator&quot;);
+        require(initiator == address(this), &#34;!initiator&#34;);
 
         Data memory data_decoded = abi.decode(params, (Data));
 
@@ -451,10 +451,10 @@ contract SimpleAaveFlashloan is FlashLoanReceiverBase {
              *  arbitrage or liquidation code
              */
 
-            //emit LogAsset('token', tokenBorrowed);
-            emit Log(&quot;borrowed&quot;, amountBorrowed);
-            emit Log(&quot;fee&quot;, fee);
-            emit Log(&quot;amount to pay back&quot;, amountBorrowed.add(fee));
+            //emit LogAsset(&#39;token&#39;, tokenBorrowed);
+            emit Log(&#34;borrowed&#34;, amountBorrowed);
+            emit Log(&#34;fee&#34;, fee);
+            emit Log(&#34;amount to pay back&#34;, amountBorrowed.add(fee));
 
             // amoun to pay back to AAVE
             uint256 totalAmount = amountBorrowed.add(fee);
@@ -463,27 +463,26 @@ contract SimpleAaveFlashloan is FlashLoanReceiverBase {
         } else {
             // if you borrow more than 1 token
             for (uint256 i = 0; i &lt; assets.length; i++) {
-                emit LogAsset(&quot;token&quot;, assets[i]);
-                emit Log(&quot;borrowed&quot;, amounts[i]);
-                emit Log(&quot;fee&quot;, premiums[i]);
+                emit LogAsset(&#34;token&#34;, assets[i]);
+                emit Log(&#34;borrowed&#34;, amounts[i]);
+                emit Log(&#34;fee&#34;, premiums[i]);
             }
         }
         return true;
     }
 }
-
 </code></pre><br/>
 <p>L&rsquo;interface <code>FlashLoanReceiverBase.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> ressemble à ceci:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
-import &quot;@openzeppelin/contracts/utils/math/SafeMath.sol&quot;;
-import &quot;@openzeppelin/contracts/token/ERC20/IERC20.sol&quot;;
-import &quot;@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol&quot;;
+import &#34;@openzeppelin/contracts/utils/math/SafeMath.sol&#34;;
+import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;;
+import &#34;@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol&#34;;
 
-import &quot;./IFlashLoanReceiver.sol&quot;;
-import &quot;./ILendingPoolAddressProvider.sol&quot;;
-import &quot;./ILendingPool.sol&quot;;
+import &#34;./IFlashLoanReceiver.sol&#34;;
+import &#34;./ILendingPoolAddressProvider.sol&#34;;
+import &#34;./ILendingPool.sol&#34;;
 
 abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
     using SafeERC20 for IERC20;
@@ -497,10 +496,9 @@ abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
         LENDING_POOL = ILendingPool(provider.getLendingPool());
     }
 }
-
 </code></pre><br/>
 <p>La seconde interface <code>IFlashLoanReceiver.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> contient le code suivant:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
 interface IFlashLoanReceiver {
@@ -512,10 +510,9 @@ interface IFlashLoanReceiver {
         bytes calldata params
     ) external returns (bool);
 }
-
 </code></pre><br/>
 <p>La troisième interface <code>ILendingPool.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> ressemble à cela:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
 interface ILendingPool {
@@ -529,34 +526,32 @@ interface ILendingPool {
         uint16 referralCode
     ) external;
 }
-
 </code></pre><br/>
 <p>Enfin, la dernière interface <code>ILendingPoolAddressProvider.sol</code> dans le répertoire <code>./contracts/simple-aave-flashloan/interfaces</code> a le code suivant:</p>
-<pre><code>// SPDX-License-Identifier: MIT
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
 interface ILendingPoolAddressesProvider {
     function getLendingPool() external view returns (address);
 }
-
 </code></pre><br/>
 <h2 id="création-du-tu-permettant-dappeler-notre-smart-contract">Création du TU permettant d&rsquo;appeler notre Smart contract</h2>
 <p>Créer un fichier <code>test/simple-aave-flashloan.js</code> et ajouter le contenu suivant:</p>
-<pre><code>const IERC20 = artifacts.require('IERC20');
-const SimpleAaveFlashloan = artifacts.require('SimpleAaveFlashloan');
-const BN = require('bn.js');
-const { assert } = require('chai');
+<pre tabindex="0"><code>const IERC20 = artifacts.require(&#39;IERC20&#39;);
+const SimpleAaveFlashloan = artifacts.require(&#39;SimpleAaveFlashloan&#39;);
+const BN = require(&#39;bn.js&#39;);
+const { assert } = require(&#39;chai&#39;);
 
-require('chai')
-    .use(require('chai-as-promised'))
+require(&#39;chai&#39;)
+    .use(require(&#39;chai-as-promised&#39;))
     .should()
 
-contract('SimpleAaveFlashloan', accounts =&gt; {
-    const DAI = '0x6B175474E89094C44Da98b954EedeAC495271d0F';
-    const AAVE = '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5';
+contract(&#39;SimpleAaveFlashloan&#39;, accounts =&gt; {
+    const DAI = &#39;0x6B175474E89094C44Da98b954EedeAC495271d0F&#39;;
+    const AAVE = &#39;0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5&#39;;
 
     const DECIMALS = 18;
-    const DAI_WHALE = '0xC73f6738311E76D45dFED155F39773e68251D251';
+    const DAI_WHALE = &#39;0xC73f6738311E76D45dFED155F39773e68251D251&#39;;
 
     const FUND_AMOUNT = new BN(10).pow(new BN(DECIMALS)).mul(new BN(21000));
     const FUND_AMOUNT_FAIL = new BN(10).pow(new BN(DECIMALS)).mul(new BN(1000));
@@ -570,16 +565,16 @@ contract('SimpleAaveFlashloan', accounts =&gt; {
         flashloan_user = accounts[0];
 
         // await network.provider.request({
-        //     method: &quot;hardhat_impersonateAccount&quot;,
+        //     method: &#34;hardhat_impersonateAccount&#34;,
         //     params: [DAI_WHALE],
         // });
         console.log(`contract address is: ${simpleAaveFlashloan.address}`)
 
         const whale_balance = await token.balanceOf(DAI_WHALE);
-        assert(whale_balance.gte(FUND_AMOUNT), 'Whale DAI balance has to be higher than FUND_AMOUNT');
+        assert(whale_balance.gte(FUND_AMOUNT), &#39;Whale DAI balance has to be higher than FUND_AMOUNT&#39;);
     })
 
-    it('flash loan function works correctly', async () =&gt; {
+    it(&#39;flash loan function works correctly&#39;, async () =&gt; {
 
         await token.transfer(simpleAaveFlashloan.address, FUND_AMOUNT, { from: DAI_WHALE });
         contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
@@ -587,7 +582,7 @@ contract('SimpleAaveFlashloan', accounts =&gt; {
 
         const tx = await simpleAaveFlashloan.flashLoan(DAI, BORROW_AMOUNT)
         token_borrowed = await simpleAaveFlashloan.tokenBorrowed();
-        assert.equal(DAI, token_borrowed, 'token and token_borrowed are different')
+        assert.equal(DAI, token_borrowed, &#39;token and token_borrowed are different&#39;)
 
         for (const log of tx.logs) {
             //console.log(log.args.message, log.args.token)
@@ -600,7 +595,7 @@ contract('SimpleAaveFlashloan', accounts =&gt; {
 
     })
 
-    it('flash loan function should fail if contract balance is less than 2% of BORROW_AMOUT', async () =&gt; {
+    it(&#39;flash loan function should fail if contract balance is less than 2% of BORROW_AMOUT&#39;, async () =&gt; {
 
         await token.transfer(simpleAaveFlashloan.address, FUND_AMOUNT_FAIL, { from: DAI_WHALE });
         const contract_balance = await token.balanceOf(simpleAaveFlashloan.address) / 1e18
@@ -612,13 +607,13 @@ contract('SimpleAaveFlashloan', accounts =&gt; {
 </code></pre><br/>
 <h2 id="forker-le-mainnet-ethereum">Forker le mainnet Ethereum</h2>
 <p>Créer un fichier de config <code>truffle-config.js</code> au niveau root de votre repo contenant l&rsquo;alias vers l&rsquo;environnement <code>mainnet_fork</code>:</p>
-<pre><code>module.exports = {
-    contracts_directory: &quot;./contracts/simple-aave-flashloan/&quot;,
+<pre tabindex="0"><code>module.exports = {
+    contracts_directory: &#34;./contracts/simple-aave-flashloan/&#34;,
     networks: {
         mainnet_fork: {
-            host: &quot;127.0.0.1&quot;, // Localhost (default: none)
+            host: &#34;127.0.0.1&#34;, // Localhost (default: none)
             port: 8545, // Standard Ethereum port (default: none)
-            network_id: &quot;999&quot;, // Any network (default: none)
+            network_id: &#34;999&#34;, // Any network (default: none)
             gas: 0
         },
     },
@@ -631,19 +626,19 @@ contract('SimpleAaveFlashloan', accounts =&gt; {
     // Configure your compilers
     compilers: {
         solc: {
-            version: &quot;0.7.6&quot;, // Fetch exact version from solc-bin (default: truffle's version)
+            version: &#34;0.7.6&#34;, // Fetch exact version from solc-bin (default: truffle&#39;s version)
         },
     },
 }
 </code></pre><br/>
 <blockquote>
-<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert,">https://twitter.com/whale_alert,</a> récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert">https://twitter.com/whale_alert</a>, récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
 </blockquote>
-<pre><code>source .env
+<pre tabindex="0"><code>source .env
 ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
 </code></pre><br/>
 <h2 id="exécution-du-swap">Exécution du swap</h2>
-<pre><code>npx truffle test --network mainnet_fork test/simple-aave-flashloan.js
+<pre tabindex="0"><code>npx truffle test --network mainnet_fork test/simple-aave-flashloan.js
 </code></pre><p>Voilà, si tout est bien configuré, vous devriez voir ceci à la fin du test:</p>
 <br/>
 <p><img src="https://leandeep.com/images/flashloan-aave-result.png" alt="image"></p>
@@ -660,7 +655,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1055 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 Nov. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 nov.. 2021</p>
         </div>
 
         
@@ -717,119 +712,6 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -838,7 +720,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

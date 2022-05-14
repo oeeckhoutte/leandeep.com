@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Switcher de Truffle Ganache à Hardhat">
 <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment utiliser Hardhat pour démarrer une blockchain locale (fork du réseau mainnet) et pour compiler et déployer son code Solidity. Nous verrons aussi comment avoir une explorer type etherscan local.
- Pré-requis  nvm Créer un compte ethernal sur https://app.tryethernal.com/ Compte alchemyapi (concurrent infura ou autre full node)   Installation nvm install v14.17.6 nvm use v14.17.6 nvm use default v14.17.6 npm install ethernal -g ethernal login npm install --save-dev hardhat npm i --save-dev hardhat-ethernal npm i --save-dev @nomiclabs/hardhat-waffle  Démarrer votre blockchain en local npx hardhat node --fork https://eth-mainnet."><meta itemprop="datePublished" content="2021-09-07T08:08:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-09-07T08:08:00&#43;00:00" />
+ Pré-requis  nvm Créer un compte ethernal sur https://app.tryethernal.com/ Compte alchemyapi (concurrent infura ou autre full node)   Installation nvm install v14.17.6 nvm use v14.17.6 nvm use default v14.17.6 npm install ethernal -g ethernal login npm install --save-dev hardhat npm i --save-dev hardhat-ethernal npm i --save-dev @nomiclabs/hardhat-waffle  Démarrer votre blockchain en local npx hardhat node --fork https://eth-mainnet."><meta itemprop="datePublished" content="2021-09-07T08:08:00+00:00" />
+<meta itemprop="dateModified" content="2021-09-07T08:08:00+00:00" />
 <meta itemprop="wordCount" content="597"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Dev,Ethereum,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@
 
 
 
-<meta property="article:published_time" content="2021-09-07 08:08:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-09-07 08:08:00 &#43;0000 UTC" />
 
 
 
@@ -355,7 +355,7 @@
 </ul>
 <br/>
 <h2 id="installation">Installation</h2>
-<pre><code>nvm install v14.17.6
+<pre tabindex="0"><code>nvm install v14.17.6
 nvm use v14.17.6
 nvm use default v14.17.6
 npm install ethernal -g
@@ -366,14 +366,14 @@ npm i --save-dev hardhat-ethernal
 npm i --save-dev @nomiclabs/hardhat-waffle
 </code></pre><br/>
 <h2 id="démarrer-votre-blockchain-en-local">Démarrer votre blockchain en local</h2>
-<pre><code>npx hardhat node --fork https://eth-mainnet.alchemyapi.io/v2/...
+<pre tabindex="0"><code>npx hardhat node --fork https://eth-mainnet.alchemyapi.io/v2/...
 </code></pre><br/>
 <h2 id="synchronisation-avec-lexplorer">Synchronisation avec l&rsquo;explorer</h2>
 <p>Dans un second terminal:</p>
-<pre><code>ethernal listen
+<pre tabindex="0"><code>ethernal listen
 </code></pre><br/>
 <h2 id="projet-hardhat-synchronisé-sur-eternal">Projet Hardhat synchronisé sur Eternal</h2>
-<pre><code>npx hardhat
+<pre tabindex="0"><code>npx hardhat
 </code></pre><br/>
 <p>Voici ce que j&rsquo;ai répondu aux questions posées:</p>
 <p>✔ What do you want to do? · Create a basic sample project<br/>
@@ -382,19 +382,19 @@ npm i --save-dev @nomiclabs/hardhat-waffle
 ✔ Do you want to install this sample project&rsquo;s dependencies with npm (@nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers)? (Y/n) · y<br/></p>
 <br/>
 <p>Compiler le fichier Solidity:</p>
-<pre><code>npx hardhat compile
+<pre tabindex="0"><code>npx hardhat compile
 </code></pre><br/>
 <p>Vérifier le bon fonctionnement de Hardhat et du projet:</p>
-<pre><code>npx hardhat test
+<pre tabindex="0"><code>npx hardhat test
 </code></pre><br/>
 <p>Modifier le fichier de déployment pour que le contract apparaisse dans Eternal. Le fichier <code>sample-script.js</code> doit ressembler à ceci:</p>
-<pre><code>// We require the Hardhat Runtime Environment explicitly here. This is optional
+<pre tabindex="0"><code>// We require the Hardhat Runtime Environment explicitly here. This is optional
 // but useful for running the script in a standalone fashion through `node &lt;script&gt;`.
 //
-// When running the script with `npx hardhat run &lt;script&gt;` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
-const ethernal = require('hardhat-ethernal');
-const hre = require(&quot;hardhat&quot;);
+// When running the script with `npx hardhat run &lt;script&gt;` you&#39;ll find the Hardhat
+// Runtime Environment&#39;s members available in the global scope.
+const ethernal = require(&#39;hardhat-ethernal&#39;);
+const hre = require(&#34;hardhat&#34;);
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -402,18 +402,18 @@ async function main() {
   //
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
-  // await hre.run('compile');
+  // await hre.run(&#39;compile&#39;);
 
   // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory(&quot;Greeter&quot;);
-  const greeter = await Greeter.deploy(&quot;Hello, Hardhat!&quot;);
+  const Greeter = await hre.ethers.getContractFactory(&#34;Greeter&#34;);
+  const greeter = await Greeter.deploy(&#34;Hello, Hardhat!&#34;);
   await hre.ethernal.push({
-    name: 'Greeter',
+    name: &#39;Greeter&#39;,
     address: greeter.address
   });
   await greeter.deployed();
 
-  console.log(&quot;Greeter deployed to:&quot;, greeter.address);
+  console.log(&#34;Greeter deployed to:&#34;, greeter.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -424,16 +424,15 @@ main()
     console.error(error);
     process.exit(1);
   });
-
 </code></pre><blockquote>
 <p>J&rsquo;ai donc ajouté 4 lignes au fichier généré via la commande <code>npx hardhat</code></p>
 </blockquote>
 <p>Déployer le projet <em>sample</em> sur la blockchain hardhat:</p>
-<pre><code>npx hardhat run scripts/sample-script.js --network localhost
+<pre tabindex="0"><code>npx hardhat run scripts/sample-script.js --network localhost
 </code></pre><br/>
 <p>Modifier aussi le fichier <code>hardhat.config.js</code> et ajouter la ligne suivante:</p>
-<pre><code>require(&quot;@nomiclabs/hardhat-waffle&quot;);
-require('hardhat-ethernal');
+<pre tabindex="0"><code>require(&#34;@nomiclabs/hardhat-waffle&#34;);
+require(&#39;hardhat-ethernal&#39;);
 </code></pre><br/>
 <h2 id="visualisation-sur-eternal">Visualisation sur Eternal</h2>
 <p>Rendez-vous sur <a href="https://app.tryethernal.com/address/">https://app.tryethernal.com/address/</a> et vous verrez le contract sample.</p>
@@ -441,10 +440,10 @@ require('hardhat-ethernal');
 <br/>
 <h2 id="interaction-avec-le-smart-contract">Interaction avec le smart contract</h2>
 <p>Via la console Hardhat, il est possible d&rsquo;interagir avec le smart contract déployé.</p>
-<pre><code>npm install --save-dev @nomiclabs/buidle
+<pre tabindex="0"><code>npm install --save-dev @nomiclabs/buidle
 </code></pre><br/>
 <p>Exemple avec un smart contract aléatoire dont le code est le suivant:</p>
-<pre><code>pragma solidity ^0.6.0;
+<pre tabindex="0"><code>pragma solidity ^0.6.0;
 
 //define interface
 interface UniswapV2Factory {
@@ -484,8 +483,8 @@ contract GetReserves {
 }
 </code></pre><br/>
 <p>Code JS à exécuter dans la console démarrée via la commande <code>npx hardhat console --network localhost</code>:</p>
-<pre><code>const GetReserves = await ethers.getContractFactory(&quot;GetReserves&quot;)
-const getReserves = await MyContract.attach(&quot;0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc&quot;)
+<pre tabindex="0"><code>const GetReserves = await ethers.getContractFactory(&#34;GetReserves&#34;)
+const getReserves = await MyContract.attach(&#34;0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc&#34;)
 await getReserves.getTokenReserves()
 </code></pre><blockquote>
 <p>Ethers tips:</p>
@@ -506,7 +505,7 @@ await getReserves.getTokenReserves()
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>597 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 Sep. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 sept.. 2021</p>
         </div>
 
         
@@ -563,119 +562,6 @@ await getReserves.getTokenReserves()
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -684,7 +570,7 @@ await getReserves.getTokenReserves()
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

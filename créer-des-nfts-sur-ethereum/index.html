@@ -244,7 +244,7 @@
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@
 
 <meta itemprop="name" content="Créer des NFTs sur Ethereum">
 <meta itemprop="description" content="Dans cet article, nous allons voir comment créer des NFT sur Ethereum en utilisant le projet Python Brownie. L&rsquo;ensemble du tutorial a été réalisé avec Python 3.8. NodeJS sera également nécessaire pour installer Ganache. Dans cet article, j&rsquo;ai utilisé la v10.23.3 ainsi qu&rsquo;NPM 6.14.11.
- Qu&rsquo;est-ce que Brownie ? Similaire au framework Truffle, Brownie permet de développer, tester et déployer des Smart Contracts. A la différence de Truffle, il est écrit en Python 3."><meta itemprop="datePublished" content="2021-06-11T15:25:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-06-11T15:25:00&#43;00:00" />
+ Qu&rsquo;est-ce que Brownie ? Similaire au framework Truffle, Brownie permet de développer, tester et déployer des Smart Contracts. A la différence de Truffle, il est écrit en Python 3."><meta itemprop="datePublished" content="2021-06-11T15:25:00+00:00" />
+<meta itemprop="dateModified" content="2021-06-11T15:25:00+00:00" />
 <meta itemprop="wordCount" content="635"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Ethereum,Python,Blockchain,NFT,Brownie," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@
 
 
 
-<meta property="article:published_time" content="2021-06-11 15:25:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2021-06-11 15:25:00 &#43;0000 UTC" />
 
 
 
@@ -362,7 +362,7 @@
 <br/>
 <h2 id="pré-requis">Pré-requis</h2>
 <p>Installer le package Brownie et Ganache</p>
-<pre><code>pip install eth-brownie
+<pre tabindex="0"><code>pip install eth-brownie
 # Installed version 1.14.6
 
 npm install -g ganache-cli
@@ -378,14 +378,14 @@ npm install -g ganache-cli
 <br/>
 <h2 id="configuration">Configuration</h2>
 <p>Créer un fichier <code>.env</code> contenant les variables d&rsquo;environnement de votre projet.  Pour la PRIVATE_KEY utilisez un compte sur Rinkeby (<a href="https://rinkeby.etherscan.io">https://rinkeby.etherscan.io</a>) qui possède des ETH.</p>
-<pre><code>export PRIVATE_KEY=blablabla
+<pre tabindex="0"><code>export PRIVATE_KEY=blablabla
 export WEB3_INFURA_PROJECT_ID=blablabla
 export ETHERSCAN_TOKEN=blablabla
 </code></pre><p>Ensuite sourcer votre fichier <code>source .env</code>.</p>
 <br/>
 <h2 id="développement">Développement</h2>
 <p>Partez d&rsquo;un boilerplate. Dans un terminal exécuter la commande:</p>
-<pre><code>brownie bake nft-mix
+<pre tabindex="0"><code>brownie bake nft-mix
 cd nft
 </code></pre><blockquote>
 <p><strong>VSCode autocompletion Workaround</strong>
@@ -394,14 +394,14 @@ Pour éditer le smart contract <code>./contract/SimpleCollectible.sol</code>, je
 <br/>
 <br/>
 Ajouter les lignes suivantes dans <code>.vscode/settings.json</code>:</p>
-<pre><code>...
-&quot;solidity.packageDefaultDependenciesContractsDirectory&quot;: &quot;&quot;,
-&quot;solidity.packageDefaultDependenciesDirectory&quot;: &quot;node_modules&quot;
+<pre tabindex="0"><code>...
+&#34;solidity.packageDefaultDependenciesContractsDirectory&#34;: &#34;&#34;,
+&#34;solidity.packageDefaultDependenciesDirectory&#34;: &#34;node_modules&#34;
 }
 </code></pre><p><br/>
 Changer ensuite l&rsquo;import du package Solidity (je n&rsquo;ai pas encore trouvé comment dire VSCode d&rsquo;interprêter le fichier <code>brownie-config.yaml</code>).</p>
-<pre><code>import &quot;openzeppelin-solidity/contracts/token/ERC721/ERC721.sol&quot;; // New line added for VSCode
-import &quot;@openzeppelin/contracts/token/ERC721/ERC721.sol&quot;;
+<pre tabindex="0"><code>import &#34;openzeppelin-solidity/contracts/token/ERC721/ERC721.sol&#34;; // New line added for VSCode
+import &#34;@openzeppelin/contracts/token/ERC721/ERC721.sol&#34;;
 </code></pre><p><br/>
 Ce n&rsquo;est pas idéal pour la compilation. Mais on peut très facilement contourner ce problème avec un simple <code>Makefile</code> et exécuter un <code>make compile</code> lorsqu&rsquo;on veut faire un <code>brownie compile</code>. Il suffit de renommer le dossier <code>contracts</code> en <code>contracts_source</code> et d&rsquo;avoir la commande suivante dans son <code>Makefile</code>: <code>rm -r contracts &amp;&amp; cp -R contracts_source contracts &amp;&amp; sed -i '' '/\/\/dev$/d' ./contracts/*.sol &amp;&amp; brownie compile</code>
 <br/>
@@ -410,8 +410,8 @@ Et voilà, au moins j&rsquo;ai accès à toutes les <code>docstrings</code> et d
 <br/>
 <h2 id="déployer-la-nft-factory">Déployer la NFT factory</h2>
 <p>Exécuter les commandes suivantes:</p>
-<pre><code>brownie run scripts/simple_collectible/deploy_simple.py --network rinkeby
-# Une fois la vérification passée &quot;Verification complete. Result: Pass - Verified&quot;:
+<pre tabindex="0"><code>brownie run scripts/simple_collectible/deploy_simple.py --network rinkeby
+# Une fois la vérification passée &#34;Verification complete. Result: Pass - Verified&#34;:
 brownie run scripts/simple_collectible/create_collectible.py --network rinkeby
 </code></pre><br/>
 <h2 id="visualisation-du-déploiement">Visualisation du déploiement</h2>
@@ -438,7 +438,7 @@ brownie run scripts/simple_collectible/create_collectible.py --network rinkeby
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>635 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>11 Jun. 2021</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>11 juin. 2021</p>
         </div>
 
         
@@ -495,119 +495,6 @@ brownie run scripts/simple_collectible/create_collectible.py --network rinkeby
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -616,7 +503,7 @@ brownie run scripts/simple_collectible/create_collectible.py --network rinkeby
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 

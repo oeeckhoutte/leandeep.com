@@ -244,7 +244,7 @@ AWK à la rescousse pour par exemple extraire toutes les entreprises situées da
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.97cff9b820063eed1f719963e199e8907ee6d7c657c2f77cb00a044a7f22ea5a.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
 
 
 
@@ -260,8 +260,8 @@ AWK à la rescousse pour par exemple extraire toutes les entreprises situées da
 
 <meta itemprop="name" content="Manipulation de CSV volumineux en Data Science ">
 <meta itemprop="description" content="Il existe de nombreuses librairies en Python pour manipuler des fichiers CSV. Je recommande l&rsquo;usage des langages de haut niveau comme Python le plus possible car cela permet d&rsquo;automatiser, &ldquo;d&rsquo;APIser&rdquo; et d&rsquo;industrialiser au maximum ses use cases. Mais parfois lorsqu&rsquo;il faut tailler dans la masse sur des fichiers extrèmement volumineux, rien de tel que les bonnes vieilles méthodes de DevOps :) .
-AWK à la rescousse pour par exemple extraire toutes les entreprises situées dans le Nord sur un fichier de plusieurs GB."><meta itemprop="datePublished" content="2019-02-08T11:41:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-02-08T11:41:00&#43;00:00" />
+AWK à la rescousse pour par exemple extraire toutes les entreprises situées dans le Nord sur un fichier de plusieurs GB."><meta itemprop="datePublished" content="2019-02-08T11:41:00+00:00" />
+<meta itemprop="dateModified" content="2019-02-08T11:41:00+00:00" />
 <meta itemprop="wordCount" content="140"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Data Science,Unix Tip,Python,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
@@ -274,7 +274,7 @@ AWK à la rescousse pour par exemple extraire toutes les entreprises situées da
 
 
 
-<meta property="article:published_time" content="2019-02-08 11:41:00 &#43;0000 &#43;0000" />
+<meta property="article:published_time" content="2019-02-08 11:41:00 &#43;0000 UTC" />
 
 
 
@@ -346,7 +346,7 @@ AWK à la rescousse pour par exemple extraire toutes les entreprises situées da
             <div class="post-content">
                 <p>Il existe de nombreuses librairies en Python pour manipuler des fichiers CSV. Je recommande l&rsquo;usage des langages de haut niveau comme Python le plus possible car cela permet d&rsquo;automatiser, <em>&ldquo;d&rsquo;APIser&rdquo;</em> et d&rsquo;industrialiser au maximum ses use cases. Mais parfois lorsqu&rsquo;il faut tailler dans la masse sur des fichiers extrèmement volumineux, rien de tel que les bonnes vieilles méthodes de DevOps :) .</p>
 <p><code>AWK</code> à la rescousse pour par exemple extraire toutes les entreprises situées dans le Nord sur un fichier de plusieurs GB.</p>
-<pre><code>awk -F &quot;;&quot; '$21~/^&quot;(59)([0-9]{3})&quot;$/' mon_fichier_volumineux.csv &gt;&gt; companies_nord.csv
+<pre tabindex="0"><code>awk -F &#34;;&#34; &#39;$21~/^&#34;(59)([0-9]{3})&#34;$/&#39; mon_fichier_volumineux.csv &gt;&gt; companies_nord.csv
 </code></pre><blockquote>
 <p>Note: On peut aussi passer par un Dataframe Pandas et lire le fichier CSV par <em>chunks</em> avec ceci <code>pd.read_csv(csv_url,chunksize=500)</code> mais c&rsquo;est quand même beaucoup plus long et lourd&hellip;
 Je dirais que cela dépend du use case dans lequel on se trouve. Dans mon cas, générer ce fichier est du one-shot&hellip;</p>
@@ -364,7 +364,7 @@ Je dirais que cela dépend du use case dans lequel on se trouve. Dans mon cas, g
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>140 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 Feb. 2019</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 févr.. 2019</p>
         </div>
 
         
@@ -421,119 +421,6 @@ Je dirais que cela dépend du use case dans lequel on se trouve. Dans mon cas, g
 </footer>
 
 
-<script>
-
-    class App extends React.Component {
-        constructor(options) {
-            console.log("data")
-            console.log(options.data)
-            super();
-            this.state = {
-                data: options.data,
-
-                appName: 'Search Bar (Algolia replacement under dev with React)',
-                list: undefined
-            };
-
-        }
-        searchData(e) {
-            var queryData = [];
-            if (e.target.value != '') {
-                this.state.data.forEach(function (person) {
-
-                    if (person.toLowerCase().indexOf(e.target.value) != -1) {
-                        if (queryData.length < 10) {
-                            queryData.push(person);
-                        }
-                    }
-                });
-            }
-            this.setState({ list: queryData });
-        }
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement(Header, { name: this.state.appName }),  
-                    React.createElement(SearchBar, { search: this.searchData.bind(this) }),
-                    this.state.list ?  React.createElement(SearchResult, { data: this.state.list }) : null));
-
-
-        }
-    }
-
-
-    class Header extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("h1", null, this.props.name)));
-
-
-        }
-    }
-
-
-    class SearchBar extends React.Component {
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("input", { onChange: this.props.search, placeholder: "Search Pokemon" })));
-
-
-        }
-    }
-
-
-    class SearchResult extends React.Component {
-
-        render() {
-            return  (
-                React.createElement("div", null,  
-                    React.createElement("ul", null,
-                        this.props.data.map(function (value) {
-                            return  React.createElement(Item, { key: value, val: value });
-                        }))));
-
-
-
-
-        }
-    }
-
-
-
-    class Item extends React.Component {
-        render() {
-            return  (
-                React.createElement("li", null,
-                    this.props.val));
-
-
-        }
-    }
-
-
-    navigator.serviceWorker.addEventListener('message', event => {
-        console.log(event.data.msg, event.data.url, event.data.files);
-        ReactDOM.render(  React.createElement(App, { "data": ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"] }), document.getElementById('app'));
-    });
-    navigator.serviceWorker.register('/service-worker.js', {
-        scope: '.'
-    }).then(function (registration) {
-        console.log('The service worker has been registered ', registration);
-    });
-    
-
-    
-    setTimeout(function () {
-        console.log("unregister sws")
-        navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister(); } });
-    }, 10000);
-
-
-
-
-</script>
             
         </div>
 
@@ -542,7 +429,7 @@ Je dirais que cela dépend du use case dans lequel on se trouve. Dans mon cas, g
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.4c4018abe212b17439e8419b064bd828529395ff8df5349aa438112be0cc961ff0ce0b0ed9b6928981ad1ac33392249f24521da889270304f8978b15643c182c.js" integrity="sha512-TEAYq&#43;ISsXQ56EGbBkvYKFKTlf&#43;N9TSapDgRK&#43;DMlh/wzgsO2baSiYGtGsMzkiSfJFIdqIknAwT4l4sVZDwYLA=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
 
 
 
