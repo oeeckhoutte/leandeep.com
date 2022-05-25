@@ -5,8 +5,26 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 02 May 2022 22:45:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 18 May 2022 22:59:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX</title>
+            <link>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</link>
+            <pubDate>Wed, 18 May 2022 22:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</guid>
+            <description>Voici la procédure pour corriger l&amp;rsquo;erreur qui fait crasher le terminal zsh avec le message d&amp;rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
+J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&amp;rsquo;est une erreur Openssl.</description>
+            <content type="html"><![CDATA[<p>Voici la procédure pour corriger l&rsquo;erreur qui fait crasher le terminal zsh avec le message d&rsquo;erreur suivant: <code>is loading libcrypto in an unsafe way</code> lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey</p>
+<p>J&rsquo;ai parfois eu cette erreur après avoir bidouillé:
+<code>SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the 'ffi.h' file seen at compile-time)</code>. Bref c&rsquo;est une erreur Openssl. Il manque une lib dans <code>/usr/local/lib/</code>. Le pourquoi du comment il manque cette lib, je n&rsquo;ai pas eu le temps de creuser. Par contre, exécuter les commandes suivantes a résolu mon problème.</p>
+<br/>
+<pre tabindex="0"><code>brew install openssl
+ln -s /usr/local/opt/openssl\@3/lib/libcrypto.dylib /usr/local/lib/libcrypto.dylib
+ln -s /usr/local/opt/openssl\@3/lib/libssl.dylib /usr/local/lib/libssl.dylib
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Enregistrer l&#39;écran de son Mac avec le son built-in</title>
@@ -5136,7 +5154,20 @@ Ou dans mon cas:<br/>
 <br/><br/>
 <em>I use geth-linux version 1.1.1</em></p>
 </blockquote>
-<br/>
+<blockquote>
+<p><strong>May 2022 Update</strong><br/><br/>
+Mise à jour de la procédure d&rsquo;installation:</p>
+<pre tabindex="0"><code>wget https://github.com/binance-chain/bsc/releases/download/v1.1.10/geth_linux
+mv ./geth_linux ./geth_bsc
+sudo chmod +x ./geth_bsc
+wget $(https://api.github.com/repositories/265775217/releases/latest |grep browser_ |grep mainnet |cut -d\&#34; -f4)
+unzip mainnet.zip
+./geth_bsc --datadir node init genesis.json
+./geth_bsc --config ./config.toml --datadir ./node --diffsync --cache 8000 --rpc.allow-unprotected-txs --txlookuplimit 0
+</code></pre><p>Pour voir les logs dans un autre terminal:</p>
+<pre tabindex="0"><code>cd ~/bsc/node
+tail -f ./bsc.log
+</code></pre></blockquote>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <ul>
 <li><code>web3.exceptions.ExtraDataLengthError: The field extraData is 517 bytes, but should be 32.</code>: Web3 essaye de se connecter à une &ldquo;POA chain&rdquo;.
@@ -10935,15 +10966,19 @@ brew cask install qlmarkdown qlstephen quicklook-json qlimagesize suspicious-pac
 brew cask install keepassxc
 brew cask install db-browser-for-sqlite
 brew cask install vagrant
-brew cask install vlc
+brew cask install vlc 
 brew cask install bitbar # https://getbitbar.com/ Ajoute des fonctionnalités à sa barre de tâches OSX
-brew cask install android-platform-tools
+brew cask install android-platform-tools # Ou installation via Android Studio
 brew install htop
 brew install tig # Voir l&#39;historique git
 brew install hadolint # Dockerfile linter
-brew install openssl readline sqlite3 xz zlib
+brew install openssl 
+brew install sqlite3 
+brew install xz 
+brew install zlib
 brew install azure-cli
 brew install pyenv
+brew install gpg
 brew install git-crypt
 brew install watch
 brew install sshfs
@@ -10953,10 +10988,9 @@ brew install git-lfs
 brew install bazel
 brew install p7zip
 brew install postgresql
-brew install direnv
-# Ou installation via git eet build manuel 
+brew install direnv # Ou installation via git et manual build
 brew install jq
-brew install readline
+brew install readline # A voir s&#39;il ne faut pas plutôt l&#39;installer via pip
 brew install hugo
 brew install gnupg
 brew install youtube-dl
@@ -10990,7 +11024,7 @@ pip install opencv-contrib-python==3.4.11.45
 # &gt;&gt;&gt; cv2.__version__
 
 # EOS Blockchain
-brew tap eosio/eosio
+brew tap eosio/eosio # Note: Update May 2022 -&gt; Dead Project
 brew install eosio
 
 # Installation de MongoDB 
@@ -14772,6 +14806,9 @@ kubectl logs POD_NAME
 </code></pre><br/>
 <p><strong>Effacer tous les pods avec le status Evicted</strong></p>
 <pre tabindex="0"><code>kubectl get pods | grep Evicted | awk &#39;{print $1}&#39; | xargs kubectl delete pod
+</code></pre><br/>
+<p><strong>Vérifier que l&rsquo;ingress est fonctionnel (même sans CNAME)</strong></p>
+<pre tabindex="0"><code>curl -k -H &#34;Host: blabla.leandeep.com&#34; https://public-dns.blabla.com
 </code></pre><br/>
 <h2 id="créer-un-single-node-cluster-avec-kubeadm-sur-ubuntu">Créer un Single node cluster avec kubeadm sur Ubuntu</h2>
 <p><strong>Installer kubeadm</strong></p>

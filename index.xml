@@ -6,7 +6,17 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 02 May 2022 22:45:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 May 2022 22:59:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX</title>
+      <link>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</link>
+      <pubDate>Wed, 18 May 2022 22:59:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</guid>
+      <description>Voici la procédure pour corriger l&amp;rsquo;erreur qui fait crasher le terminal zsh avec le message d&amp;rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
+J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&amp;rsquo;est une erreur Openssl.</description>
+    </item>
+    
     <item>
       <title>Enregistrer l&#39;écran de son Mac avec le son built-in</title>
       <link>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</link>
@@ -102,20 +112,6 @@ Vous arriverez ensuite sur un terminal zsh en mode root.
       <description>Literals Le type d&amp;rsquo;une variable peut être défini en ajoutant un suffixe derrière la valeur de la variable. Par exemple:
 let mon_test1: i32 = 12; Equivaut à let mon_test2 = 12i32; Equivaut à let mon_test3 = 12_i32; Retourner la taille d&amp;rsquo;une variable:
 println!(&amp;#34;Taille de `mon_test1` in bytes: {}&amp;#34;, std::mem::size_of_val(&amp;amp;mon_test1)); Taille de `mon_test1` in bytes: 4 // i32 -&amp;gt; 4 x 8  Casting  Il n&amp;rsquo;y a pas de coercion, c&amp;rsquo;est-à-dire de la conversion implicite, entre les types primitifs en Rust.</description>
-    </item>
-    
-    <item>
-      <title>Aide mémoire pour printer en Rust</title>
-      <link>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</link>
-      <pubDate>Sun, 16 Jan 2022 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</guid>
-      <description>Le print simple/ courant
-println!(&amp;#34;{}, l&amp;#39;origine&amp;#34;, 42);  Print avec des arguments positionnels
-println!(&amp;#34;Hi {0}, I am {1}. Hi {1}, I am {0}&amp;#34;, &amp;#34;John&amp;#34;, &amp;#34;Peter&amp;#34;);  Print avec des arguments nommés
-println!(&amp;#34;{argument1} {argument2} {argument3}&amp;#34;, argument2=&amp;#34;fifi&amp;#34;, argument1=&amp;#34;riri&amp;#34;, argument3=&amp;#34;loulou&amp;#34; );  Printer en alignant la variable à afficher à droite
-println!(&amp;#34;{ma_variable:&amp;gt;width$}&amp;#34;, ma_variable=&amp;#34;toto&amp;#34;, width=10);  Printer en alignant à droite et en préfixant avec des zéros
-println!(&amp;#34;{nombre:0&amp;gt;width$}&amp;#34;, nombre=100, width=6);  Printer avec une conversion automatique en binaire</description>
     </item>
     
   </channel>
