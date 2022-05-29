@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Ethereum Providers:
+Infura.io - https://infura.io Alchemy - https://www.alchemy.com QuickNode - https://www.quicknode.com 0x - https://0x.org Amazon Managed Blockchain - https://aws.amazon.com/managed-blockchain Moralis - https://moralis.io Pocket Network - https://mainnet.portal.pokt.network Chainstack - https://chainstack.com/build-better-with-ethereum/ ZMOK - https://zmok.io/ AllNodes - https://www.allnodes.com Figment Datahub - https://datahub.figment.io/ Ankr - https://ankr.com ArchiveNode - https://archivenode.io/
+Public Endpoints:
+https://cloudflare-eth.com https://main-light.eth.linkpool.io https://eth-rpc.gateway.pokt.network https://api.mycryptoapi.com/eth https://mainnet-nethermind.blockscout.com/ https://mainnet.eth.cloud.ava.do/ https://ethereumnodelight.app.runonflux.io https://rpc.flashbots.net/ https://rpc.ankr.com/eth https://mainnet.eth.cloud.ava.do/
+Spin up your own node:
+https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/ [https://www.quicknode.com/guides/infrastructure/how-to-run-a-openethereum-ex-parity-client-node] https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node
+ BSC Providers:
+ANKR - https://ankr." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/rpc-nodes/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  RPC nodes :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="RPC nodes">
+<meta itemprop="description" content="Ethereum Providers:
+Infura.io - https://infura.io Alchemy - https://www.alchemy.com QuickNode - https://www.quicknode.com 0x - https://0x.org Amazon Managed Blockchain - https://aws.amazon.com/managed-blockchain Moralis - https://moralis.io Pocket Network - https://mainnet.portal.pokt.network Chainstack - https://chainstack.com/build-better-with-ethereum/ ZMOK - https://zmok.io/ AllNodes - https://www.allnodes.com Figment Datahub - https://datahub.figment.io/ Ankr - https://ankr.com ArchiveNode - https://archivenode.io/
+Public Endpoints:
+https://cloudflare-eth.com https://main-light.eth.linkpool.io https://eth-rpc.gateway.pokt.network https://api.mycryptoapi.com/eth https://mainnet-nethermind.blockscout.com/ https://mainnet.eth.cloud.ava.do/ https://ethereumnodelight.app.runonflux.io https://rpc.flashbots.net/ https://rpc.ankr.com/eth https://mainnet.eth.cloud.ava.do/
+Spin up your own node:
+https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/ [https://www.quicknode.com/guides/infrastructure/how-to-run-a-openethereum-ex-parity-client-node] https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node
+ BSC Providers:
+ANKR - https://ankr."><meta itemprop="datePublished" content="2022-05-24T21:25:00+00:00" />
+<meta itemprop="dateModified" content="2022-05-24T21:25:00+00:00" />
+<meta itemprop="wordCount" content="525"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="RPC,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="RPC nodes"/>
+<meta name="twitter:description" content="Ethereum Providers:
+Infura.io - https://infura.io Alchemy - https://www.alchemy.com QuickNode - https://www.quicknode.com 0x - https://0x.org Amazon Managed Blockchain - https://aws.amazon.com/managed-blockchain Moralis - https://moralis.io Pocket Network - https://mainnet.portal.pokt.network Chainstack - https://chainstack.com/build-better-with-ethereum/ ZMOK - https://zmok.io/ AllNodes - https://www.allnodes.com Figment Datahub - https://datahub.figment.io/ Ankr - https://ankr.com ArchiveNode - https://archivenode.io/
+Public Endpoints:
+https://cloudflare-eth.com https://main-light.eth.linkpool.io https://eth-rpc.gateway.pokt.network https://api.mycryptoapi.com/eth https://mainnet-nethermind.blockscout.com/ https://mainnet.eth.cloud.ava.do/ https://ethereumnodelight.app.runonflux.io https://rpc.flashbots.net/ https://rpc.ankr.com/eth https://mainnet.eth.cloud.ava.do/
+Spin up your own node:
+https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/ [https://www.quicknode.com/guides/infrastructure/how-to-run-a-openethereum-ex-parity-client-node] https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node
+ BSC Providers:
+ANKR - https://ankr."/>
+
+
+
+
+
+<meta property="article:published_time" content="2022-05-24 21:25:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/rpc-nodes/">RPC nodes</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="ethereum">Ethereum</h2>
+<p><strong>Providers:</strong></p>
+<p>Infura.io - <a href="https://infura.io">https://infura.io</a>
+Alchemy - <a href="https://www.alchemy.com">https://www.alchemy.com</a>
+QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+0x - <a href="https://0x.org">https://0x.org</a>
+Amazon Managed Blockchain - <a href="https://aws.amazon.com/managed-blockchain">https://aws.amazon.com/managed-blockchain</a>
+Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-ethereum/">https://chainstack.com/build-better-with-ethereum/</a>
+ZMOK - <a href="https://zmok.io/">https://zmok.io/</a>
+AllNodes - <a href="https://www.allnodes.com">https://www.allnodes.com</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+ArchiveNode - <a href="https://archivenode.io/">https://archivenode.io/</a></p>
+<p><strong>Public Endpoints:</strong></p>
+<p><a href="https://cloudflare-eth.com">https://cloudflare-eth.com</a>
+<a href="https://main-light.eth.linkpool.io">https://main-light.eth.linkpool.io</a>
+<a href="https://eth-rpc.gateway.pokt.network">https://eth-rpc.gateway.pokt.network</a>
+<a href="https://api.mycryptoapi.com/eth">https://api.mycryptoapi.com/eth</a>
+<a href="https://mainnet-nethermind.blockscout.com/">https://mainnet-nethermind.blockscout.com/</a>
+<a href="https://mainnet.eth.cloud.ava.do/">https://mainnet.eth.cloud.ava.do/</a>
+<a href="https://ethereumnodelight.app.runonflux.io">https://ethereumnodelight.app.runonflux.io</a>
+<a href="https://rpc.flashbots.net/">https://rpc.flashbots.net/</a>
+<a href="https://rpc.ankr.com/eth">https://rpc.ankr.com/eth</a>
+<a href="https://mainnet.eth.cloud.ava.do/">https://mainnet.eth.cloud.ava.do/</a></p>
+<p><strong>Spin up your own node:</strong></p>
+<p><a href="https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/">https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/</a>
+[https://www.quicknode.com/guides/infrastructure/how-to-run-a-openethereum-ex-parity-client-node]
+<a href="https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node">https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node</a>
+<a href="https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node">https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node</a></p>
+<br/>
+<h2 id="bsc">BSC</h2>
+<p><strong>Providers:</strong></p>
+<p>ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-binance-smart-chain/">https://chainstack.com/build-better-with-binance-smart-chain/</a>
+GetBlock - <a href="https://getblock.io">https://getblock.io</a>
+QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-binance-smart-chain/">https://chainstack.com/build-better-with-binance-smart-chain/</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a></p>
+<p><strong>Public Endpoints:</strong></p>
+<p><a href="https://bsc-dataseed.binance.org">https://bsc-dataseed.binance.org</a>
+<a href="https://bsc-dataseed4.binance.org">https://bsc-dataseed4.binance.org</a>
+<a href="https://bsc-dataseed1.defibit.io">https://bsc-dataseed1.defibit.io</a>
+<a href="https://bsc-dataseed1.ninicoin.io">https://bsc-dataseed1.ninicoin.io</a>
+<a href="https://bscrpc.com">https://bscrpc.com</a>
+<a href="https://rpc.ankr.com/bsc">https://rpc.ankr.com/bsc</a>
+<a href="https://bsc.rpcgator.com/">https://bsc.rpcgator.com/</a> - RPC Agreggator / Gateway</p>
+<p><strong>WebSocket:</strong></p>
+<p>wss://bsc-ws-node.nariox.org:443</p>
+<p><strong>Spin up your own node:</strong></p>
+<p><a href="https://docs.binance.org/smart-chain/developer/fullnode.html">https://docs.binance.org/smart-chain/developer/fullnode.html</a></p>
+<p><strong>Chain ID:</strong>
+56</p>
+<p><strong>Block Explorer URL:</strong></p>
+<p><a href="https://bscscan.com">https://bscscan.com</a></p>
+<br/>
+<h2 id="solana">Solana</h2>
+<p><strong>Providers:</strong></p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-solana/">https://chainstack.com/build-better-with-solana/</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Quicknode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a></p>
+<p><strong>Public Endpoints:</strong></p>
+<p><a href="https://api.mainnet-beta.solana.com">https://api.mainnet-beta.solana.com</a>
+<a href="https://solana-api.projectserum.com">https://solana-api.projectserum.com</a>
+<a href="https://rpc.ankr.com/solana">https://rpc.ankr.com/solana</a></p>
+<p><strong>Spin up your own node:</strong></p>
+<p><a href="https://docs.solana.com/running-validator">https://docs.solana.com/running-validator</a></p>
+<p><strong>Doc</strong>
+<a href="https://docs.solana.com/cluster/rpc-endpoints">https://docs.solana.com/cluster/rpc-endpoints</a></p>
+<br/>
+<h2 id="avalanche">Avalanche</h2>
+<p>Providers:</p>
+<p>Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-avalanche/">https://chainstack.com/build-better-with-avalanche/</a>
+All Nodes - <a href="https://www.allnodes.com">https://www.allnodes.com</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+Quicknode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Public Endpoints:</p>
+<p><a href="https://api.avax.network/ext/bc/C/rpc">https://api.avax.network/ext/bc/C/rpc</a>
+<a href="https://rpc.ankr.com/avalanche">https://rpc.ankr.com/avalanche</a>
+<a href="https://avax.rpcgator.com/">https://avax.rpcgator.com/</a> - RPC Agreggator / Gateway
+<a href="https://avalanche.public-rpc.com">https://avalanche.public-rpc.com</a>
+Spin up your own node:</p>
+<p><a href="https://docs.avax.network/build/tutorials/nodes-and-staking/run-avalanche-node">https://docs.avax.network/build/tutorials/nodes-and-staking/run-avalanche-node</a></p>
+<br/>
+<h2 id="polygon">Polygon</h2>
+<p>Providers:</p>
+<p>Infura.io - <a href="https://infura.io">https://infura.io</a>
+MaticVigil - <a href="https://maticvigil.com">https://maticvigil.com</a>
+Chainstack - <a href="https://chainstack.com">https://chainstack.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+AllNodes - <a href="https://www.allnodes.com">https://www.allnodes.com</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://polygon-rpc.com">https://polygon-rpc.com</a>
+<a href="https://rpc-mainnet.matic.network">https://rpc-mainnet.matic.network</a>
+<a href="https://rpc-mainnet.maticvigil.com">https://rpc-mainnet.maticvigil.com</a>
+<a href="https://rpc-mainnet.matic.quiknode.pro">https://rpc-mainnet.matic.quiknode.pro</a>
+<a href="https://matic-mainnet.chainstacklabs.com">https://matic-mainnet.chainstacklabs.com</a>
+<a href="https://matic-mainnet-full-rpc.bwarelabs.com">https://matic-mainnet-full-rpc.bwarelabs.com</a>
+<a href="https://matic-mainnet-archive-rpc.bwarelabs.com">https://matic-mainnet-archive-rpc.bwarelabs.com</a>
+<a href="https://poly-rpc.gateway.pokt.network/">https://poly-rpc.gateway.pokt.network/</a>
+<a href="https://rpc.ankr.com/polygon">https://rpc.ankr.com/polygon</a>
+WebSocket:</p>
+<p>wss://rpc-mainnet.matic.network
+wss://ws-matic-mainnet.chainstacklabs.com
+wss://rpc-mainnet.matic.quiknode.pro
+wss://rpc-mainnet.maticvigil.com/ws
+Spin up your own node:</p>
+<p><a href="https://docs.polygon.technology/docs/validate/validate/getting-started">https://docs.polygon.technology/docs/validate/validate/getting-started</a></p>
+<h2 id="algorand">Algorand</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Quicknode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Spin up your own node:</p>
+<p><a href="https://developer.algorand.org/docs/run-a-node/setup/install/">https://developer.algorand.org/docs/run-a-node/setup/install/</a></p>
+<br/>
+<h2 id="fantom">Fantom</h2>
+<p>Providers:</p>
+<p>QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-fantom/">https://chainstack.com/build-better-with-fantom/</a>
+Public Endpoints:</p>
+<p><a href="https://rpc.ftm.tools/">https://rpc.ftm.tools/</a>
+<a href="https://rpc.ankr.com/fantom">https://rpc.ankr.com/fantom</a>
+<a href="https://ftm.rpcgator.com/">https://ftm.rpcgator.com/</a> - RPC Agreggator / Gateway
+WebSocket:</p>
+<p>wss://wsapi.fantom.network
+Spin up your own node:</p>
+<p><a href="https://docs.fantom.foundation/staking/how-to-run-a-validator-node">https://docs.fantom.foundation/staking/how-to-run-a-validator-node</a></p>
+<br/>
+<h2 id="tezos">Tezos</h2>
+<p>Providers:</p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-tezos/">https://chainstack.com/build-better-with-tezos/</a>
+Public Endpoints:</p>
+<p><a href="https://mainnet.api.tez.ie">https://mainnet.api.tez.ie</a>
+<a href="https://rpc.tzbeta.net/">https://rpc.tzbeta.net/</a>
+Spin up your own node:</p>
+<p><a href="https://opentezos.com/deploy-a-node">https://opentezos.com/deploy-a-node</a></p>
+<br/>
+<h2 id="harmony">Harmony</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-harmony/">https://chainstack.com/build-better-with-harmony/</a>
+Public Endpoints:</p>
+<p><a href="https://harmony-0-rpc.gateway.pokt.network">https://harmony-0-rpc.gateway.pokt.network</a>
+<a href="https://api.harmony.one">https://api.harmony.one</a>
+<a href="https://harmony.public-rpc.com">https://harmony.public-rpc.com</a>
+<a href="https://harmony-mainnet.chainstacklabs.com">https://harmony-mainnet.chainstacklabs.com</a>
+WebSocket:</p>
+<p>wss://ws.s0.t.hmny.io
+wss://ws-harmony-mainnet.chainstacklabs.com
+Spin up your own node:</p>
+<p><a href="https://docs.harmony.one/home/network/validators/node-setup">https://docs.harmony.one/home/network/validators/node-setup</a></p>
+<br/>
+<h2 id="kucoin">KuCoin</h2>
+<p>Public Endpoints:</p>
+<p><a href="https://rpc-mainnet.kcc.network/">https://rpc-mainnet.kcc.network/</a>
+Spin up your own node:</p>
+<p><a href="https://docs.kcc.io/#/en-us/?id=node">https://docs.kcc.io/#/en-us/?id=node</a></p>
+<br/>
+<h2 id="iotex">IoTeX</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://iotex-mainnet.gateway.pokt.network/v1/lb/6176f902e19001003499f492">https://iotex-mainnet.gateway.pokt.network/v1/lb/6176f902e19001003499f492</a>
+<a href="https://rpc.ankr.com/iotex">https://rpc.ankr.com/iotex</a>
+<a href="https://iotexrpc.com">https://iotexrpc.com</a>
+Spin up your own node:</p>
+<p><a href="https://github.com/iotexproject/iotex-bootstrap">https://github.com/iotexproject/iotex-bootstrap</a></p>
+<br/>
+<h2 id="gnosis-xdai">Gnosis (xDAI)</h2>
+<p>Providers:</p>
+<p>QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+GetBlock - <a href="https://getblock.io">https://getblock.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Public Endpoints:</p>
+<p><a href="https://rpc.gnosischain.com">https://rpc.gnosischain.com</a>
+<a href="https://rpc.xdaichain.com">https://rpc.xdaichain.com</a>
+<a href="https://xdai.poanetwork.dev">https://xdai.poanetwork.dev</a>
+<a href="https://xdai-rpc.gateway.pokt.network">https://xdai-rpc.gateway.pokt.network</a>
+<a href="https://gnosis.public-rpc.com">https://gnosis.public-rpc.com</a>
+WebSocket:</p>
+<p>wss://rpc.gnosischain.com/wss
+Spin up your own node:</p>
+<p><a href="https://docs.gnosischain.com/validator-info/get-started-node-setup">https://docs.gnosischain.com/validator-info/get-started-node-setup</a></p>
+<br/>
+<h2 id="fuse">Fuse</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Public Endpoints:</p>
+<p><a href="https://fuse-rpc.gateway.pokt.network/">https://fuse-rpc.gateway.pokt.network/</a>
+Spin up your own node:</p>
+<p><a href="https://developers.fuse.io/fuse-dev-docs/network/how-to-run-network-nodes">https://developers.fuse.io/fuse-dev-docs/network/how-to-run-network-nodes</a></p>
+<br/>
+<h2 id="optimistic-ethereum">Optimistic Ethereum</h2>
+<p>Providers:</p>
+<p>QuickNode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Infura - <a href="https://infura.io">https://infura.io</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://mainnet.optimism.io/">https://mainnet.optimism.io/</a></p>
+<br/>
+<h2 id="arbitrum-one">Arbitrum One</h2>
+<p>Providers:</p>
+<p>Moralis - <a href="https://moralis.io">https://moralis.io</a>
+QuickNode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Infura - <a href="https://infura.io">https://infura.io</a>
+Alchemy - <a href="https://www.alchemy.com">https://www.alchemy.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://arb1.arbitrum.io/rpc">https://arb1.arbitrum.io/rpc</a>
+<a href="https://rpc.ankr.com/arbitrum">https://rpc.ankr.com/arbitrum</a>
+<a href="https://arbitrum.public-rpc.com">https://arbitrum.public-rpc.com</a></p>
+<br/>
+<h2 id="celo">Celo</h2>
+<p>Providers:</p>
+<p>ANKR - <a href="https://ankr.com">https://ankr.com</a>
+QuickNode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Public Endpoints:</p>
+<p><a href="https://forno.celo.org">https://forno.celo.org</a>
+<a href="https://rpc.ankr.com/celo">https://rpc.ankr.com/celo</a>
+Spin up your own node:</p>
+<p><a href="https://docs.celo.org/getting-started/mainnet/running-a-full-node-in-mainnet">https://docs.celo.org/getting-started/mainnet/running-a-full-node-in-mainnet</a></p>
+<br/>
+<h2 id="near">Near</h2>
+<p>Providers:</p>
+<p>ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Infura - <a href="https://infura.io">https://infura.io</a>
+Public Endpoints:</p>
+<p><a href="https://rpc.ankr.com/near">https://rpc.ankr.com/near</a>
+<a href="https://near.public-rpc.com">https://near.public-rpc.com</a>
+Spin up your own node:</p>
+<p><a href="https://near-nodes.io/rpc/hardware-rpc#recommended-hardware-specifications">https://near-nodes.io/rpc/hardware-rpc#recommended-hardware-specifications</a></p>
+<br/>
+<h2 id="aurora">Aurora</h2>
+<p>Providers:</p>
+<p>Infura - <a href="https://infura.io">https://infura.io</a>
+Public Endpoints:</p>
+<p><a href="https://mainnet.aurora.dev">https://mainnet.aurora.dev</a>
+Spin up your own node:</p>
+<p><a href="https://doc.aurora.dev/#running-your-own-aurora-node">https://doc.aurora.dev/#running-your-own-aurora-node</a></p>
+<br/>
+<h2 id="tomochain">TomoChain</h2>
+<p>Public Endpoints:</p>
+<p><a href="https://rpc.tomochain.com">https://rpc.tomochain.com</a>
+Websocket:</p>
+<p>wss://ws.tomochain.com
+Spin up your own node:</p>
+<p><a href="https://docs.tomochain.com/masternode-and-dex/masternode">https://docs.tomochain.com/masternode-and-dex/masternode</a></p>
+<br/>
+<h2 id="moonriver">Moonriver</h2>
+<p>Public Endpoints:</p>
+<p><a href="https://rpc.api.moonriver.moonbeam.network">https://rpc.api.moonriver.moonbeam.network</a>
+Websocket:</p>
+<p>wss://wss.api.moonriver.moonbeam.network
+Spin up your own node:</p>
+<p><a href="https://docs.moonbeam.network/node-operators/networks/run-a-node/">https://docs.moonbeam.network/node-operators/networks/run-a-node/</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rpc">RPC</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>525 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>24 mai. 2022</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/convertir-un-fichier-pipfile.lock-en-requirements.txt/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Convertir un fichier pipfile.lock en requirements.txt</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/">
+                                <span class="button__text">Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>

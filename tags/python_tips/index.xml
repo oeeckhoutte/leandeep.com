@@ -6,7 +6,20 @@
     <description>Recent content in python_tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 20 Jul 2021 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/python_tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 May 2022 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/python_tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Convertir un fichier pipfile.lock en requirements.txt</title>
+      <link>https://leandeep.com/convertir-un-fichier-pipfile.lock-en-requirements.txt/</link>
+      <pubDate>Thu, 26 May 2022 21:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/convertir-un-fichier-pipfile.lock-en-requirements.txt/</guid>
+      <description>Petit tip du jour pour convertir un fichier Pipfile en requirements.txt
+En pré-requis, il faut avoir jq
+ brew install jq
+ Ensuite, il suffit d&amp;rsquo;exécuter la commande suivante:
+jq -r &amp;#39;.default | to_entries[] | .key + .value.version&amp;#39; \ Pipfile.lock &amp;gt; requirements.txt </description>
+    </item>
+    
     <item>
       <title>Charger automatiquement les variables d&#39;environnement et virtualenv des projets Python</title>
       <link>https://leandeep.com/charger-automatiquement-les-variables-denvironnement-et-virtualenv-des-projets-python/</link>
@@ -103,17 +116,6 @@ import itertools prenoms_list = [&amp;#39;titi&amp;#39;, &amp;#39;tata&amp;#39;,
       <guid>https://leandeep.com/utiliser-zip-pour-it%C3%A9rer-sur-deux-listes/</guid>
       <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
 Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;#34;titi&amp;#34;, &amp;#34;tata&amp;#34;, &amp;#34;toto&amp;#34;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx])  Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
-1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
-    </item>
-    
-    <item>
-      <title>Utiliser zip pour itérer sur deux listes</title>
-      <link>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes-copy/</link>
-      <pubDate>Tue, 14 Jan 2020 21:20:04 -0700</pubDate>
-      
-      <guid>https://leandeep.com/tips/utiliser-zip-pour-iterer-sur-deux-listes-copy/</guid>
-      <description>La bonne approche pour itérer sur deux listes est de créer deux variables, par exemple liste_un et liste_deux et d&amp;rsquo;utiliser zip en passant en paramètre les 2 variables.
-Anti-pattern (Pas bien!) nombres = [1, 2, 3] prenoms = [&amp;#34;titi&amp;#34;, &amp;#34;tata&amp;#34;, &amp;#34;toto&amp;#34;] for idx in range(len(nombres)): print(nombres[idx], prenoms[idx]) Bonne pratique (Bien!) Dans les 2 cas, le résultat est identique à savoir:
 1 titi 2 tata 3 toto Mais voici une manière plus Pythonique d&amp;rsquo;itérer sur ces 2 listes.</description>
     </item>
     
