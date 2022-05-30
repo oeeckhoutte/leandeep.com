@@ -9,7 +9,7 @@
 <meta name="description"
   content="Deploy a first smart contract. The base For rapid prototyping use Remix and select &amp;ldquo;Javascript VM&amp;rdquo;.
  Simplest commented Contract example
-pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix." />
+// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -262,16 +262,16 @@ pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Co
 <meta itemprop="name" content="Solidity fondamentals">
 <meta itemprop="description" content="Deploy a first smart contract. The base For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.
  Simplest commented Contract example
-pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."><meta itemprop="datePublished" content="2020-02-13T16:49:00+02:00" />
+// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."><meta itemprop="datePublished" content="2020-02-13T16:49:00+02:00" />
 <meta itemprop="dateModified" content="2020-02-13T16:49:00+02:00" />
-<meta itemprop="wordCount" content="1227"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1368"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Ethereum,Solidity,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Solidity fondamentals"/>
 <meta name="twitter:description" content="Deploy a first smart contract. The base For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.
  Simplest commented Contract example
-pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."/>
+// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."/>
 
 
 
@@ -332,7 +332,7 @@ pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Co
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
 
             
 
@@ -351,7 +351,8 @@ pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Co
 <p>For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.</p>
 <br/>
 <p><strong>Simplest commented Contract example</strong></p>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version
 
 contract ExampleOne { // Contract definition
   uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits
@@ -365,7 +366,8 @@ contract ExampleOne { // Contract definition
 <p>Compile, deploy and interact with the Smart Contract still via Remix.</p>
 <br/>
 <h2 id="second-commented-contract-example">Second commented Contract example</h2>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version
 
 contract MyContract  { // Contract definition
   
@@ -396,14 +398,31 @@ contract MyContract  { // Contract definition
 }
 </code></pre><br/>
 <h2 id="other-variable-types">Other variable types</h2>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version 
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version 
 
 contract MyContract  { // Contract definition
 
-  uint8  myUint8;
-  int8 myInt8;
-
+  uint8 internal myUint8; // Can only be called by the contract and/or other contracts within it.
+  int8 private myInt8; // Can only be called from the contract
+  string public coinName = &#34;70 Cent&#34;;
+  bool isValid = true;
   uint myUint256; // = uint256 
+
+  // Global variables
+  uint blockTime = block.timestamp; 
+  address sender = msg.sender;
+
+  // Arrays
+  string[] public tokenNames = [&#34;Dogecoin&#34;, &#34;Luna&#34;, &#34;USDC&#34;];
+  uint[5] levels = [10, 25, 50, 100, 500];
+  
+  // Datetime
+  uint timeNow1Sec = 1 seconds;
+  uint timeNow1MinInSec = 1 minutes;
+  uint timeNow1HourInSec = 1 hours;
+  uint timeNow1DayInSec = 1 days;
+  uint public timeNow1WeekInSec = 1 weeks;
 
   function divideInteger() public pure returns(uint8) { // The remainer of 5/2 (0.5) will be discard. The return type uint8 rounds the return value. 
     uint five = 5;
@@ -438,7 +457,8 @@ contract MyContract  { // Contract definition
 }
 </code></pre><br/>
 <h2 id="modifiers">Modifiers</h2>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version 
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version 
 
 contract MyContract  { // Contract definition
   uint public myVarOne;
@@ -475,7 +495,21 @@ contract MyContract  { // Contract definition
 }
 </code></pre><br/>
 <h2 id="mappings">Mappings</h2>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version 
+<p><strong>Simple mapping:</strong></p>
+<pre tabindex="0"><code>mapping(string =&gt; string) public tradesAccountsMap;
+</code></pre><p><br/>
+<strong>Nested mapping:</strong></p>
+<pre tabindex="0"><code>struct User {
+  address userAddress;
+  string firstName;
+  string lastName;
+}
+
+mapping(address =&gt; mapping(string =&gt; User)) private UserNestedMap;
+</code></pre><br/>
+<p><strong>Autre example:</strong></p>
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version 
 
 contract MyContract { // Contract definition
   mapping(uint =&gt; bool) public myMapping; // key value pairs. All values are false by default. (true for all 256 values)
@@ -488,7 +522,8 @@ contract MyContract { // Contract definition
 </code></pre><br/>
 <h2 id="structs">Structs</h2>
 <p>With structs we can define our own data types.</p>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version 
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version 
 
 contract MyContract { // Contract definition
   
@@ -508,7 +543,8 @@ contract MyContract { // Contract definition
 </code></pre><br/>
 <h2 id="notary-app-example-code">Notary app example code</h2>
 <p>Create a file called <code>notary.sol</code>.</p>
-<pre tabindex="0"><code>pragma solidity ^0.4.24; // Specify compiler version 
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.24; // Specify compiler version 
 
 contract Notary { // Contract definition
   struct MyNotaryDocument {
@@ -585,7 +621,8 @@ contract(&#34;NotaryContract&#34;, function(accounts) {
 <br/>
 <h2 id="notary-smart-contract-unit-test-in-solidity-example">Notary smart contract unit test in Solidity example</h2>
 <p>Under test directory create a new file called <code>notaryTest.sol</code> and add the following content:</p>
-<pre tabindex="0"><code>pragma solidity ^0.4.23;
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.4.23;
 
 import &#34;truffle/Assert.sol&#34;;
 import &#34;truffle/DeployedAddresses.sol&#34;;
@@ -663,7 +700,7 @@ npm start
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/solidity">Solidity</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1227 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1368 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 févr.. 2020</p>
         </div>
