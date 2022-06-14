@@ -7,9 +7,13 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Deploy a first smart contract. The base For rapid prototyping use Remix and select &amp;ldquo;Javascript VM&amp;rdquo;.
- Simplest commented Contract example
-// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix." />
+  content="Remix IDE Remix (Orange buttons dans la partie interaction avec le smart contract de Remix -&amp;gt; it costs gas)
+Remix IDE Doc
+Remix Project
+ Déployer son Smart Contract sur Rinkeby en sélectionnant injected Web3 et étant connecté à Metamask.
+  Partager un dossier local avec remix Cloud IDE:
+npm install -g @remix-project/remixd remixd -s &amp;lt;absolute-path-to-the-shared-folder&amp;gt; --remix-ide https://remix.ethereum.org   Faire tourner l&amp;rsquo;IDE Remix en local
+git clone https://github.com/ethereum/remix-project.git cd remix-project yarn install yarn run build:libs nx build nx serve Open http://127." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -260,18 +264,26 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Solidity fondamentals">
-<meta itemprop="description" content="Deploy a first smart contract. The base For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.
- Simplest commented Contract example
-// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."><meta itemprop="datePublished" content="2020-02-13T16:49:00+02:00" />
+<meta itemprop="description" content="Remix IDE Remix (Orange buttons dans la partie interaction avec le smart contract de Remix -&gt; it costs gas)
+Remix IDE Doc
+Remix Project
+ Déployer son Smart Contract sur Rinkeby en sélectionnant injected Web3 et étant connecté à Metamask.
+  Partager un dossier local avec remix Cloud IDE:
+npm install -g @remix-project/remixd remixd -s &lt;absolute-path-to-the-shared-folder&gt; --remix-ide https://remix.ethereum.org   Faire tourner l&rsquo;IDE Remix en local
+git clone https://github.com/ethereum/remix-project.git cd remix-project yarn install yarn run build:libs nx build nx serve Open http://127."><meta itemprop="datePublished" content="2020-02-13T16:49:00+02:00" />
 <meta itemprop="dateModified" content="2020-02-13T16:49:00+02:00" />
-<meta itemprop="wordCount" content="1368"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1709"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Ethereum,Solidity,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Solidity fondamentals"/>
-<meta name="twitter:description" content="Deploy a first smart contract. The base For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.
- Simplest commented Contract example
-// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix."/>
+<meta name="twitter:description" content="Remix IDE Remix (Orange buttons dans la partie interaction avec le smart contract de Remix -&gt; it costs gas)
+Remix IDE Doc
+Remix Project
+ Déployer son Smart Contract sur Rinkeby en sélectionnant injected Web3 et étant connecté à Metamask.
+  Partager un dossier local avec remix Cloud IDE:
+npm install -g @remix-project/remixd remixd -s &lt;absolute-path-to-the-shared-folder&gt; --remix-ide https://remix.ethereum.org   Faire tourner l&rsquo;IDE Remix en local
+git clone https://github.com/ethereum/remix-project.git cd remix-project yarn install yarn run build:libs nx build nx serve Open http://127."/>
 
 
 
@@ -332,7 +344,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>9 minutes
 
             
 
@@ -347,7 +359,31 @@
             
 
             <div class="post-content">
-                <h2 id="deploy-a-first-smart-contract-the-base">Deploy a first smart contract. The base</h2>
+                <h2 id="remix-ide">Remix IDE</h2>
+<p><a href="https://remix.ethereum.org">Remix</a>
+<em>(Orange buttons dans la partie interaction avec le smart contract de Remix -&gt; it costs gas)</em></p>
+<p><a href="https://remix-ide.readthedocs.io/">Remix IDE Doc</a></p>
+<p><a href="https://github.com/ethereum/remix-project">Remix Project</a></p>
+<blockquote>
+<p>Déployer son Smart Contract sur Rinkeby en sélectionnant <strong>injected Web3</strong> et étant connecté à Metamask.</p>
+</blockquote>
+<blockquote>
+<p>Partager un dossier local avec remix Cloud IDE:</p>
+<pre tabindex="0"><code>npm install -g @remix-project/remixd
+remixd -s &lt;absolute-path-to-the-shared-folder&gt; --remix-ide https://remix.ethereum.org
+</code></pre></blockquote>
+<blockquote>
+<p>Faire tourner l&rsquo;IDE Remix en local</p>
+<pre tabindex="0"><code>git clone https://github.com/ethereum/remix-project.git
+cd remix-project
+yarn install
+yarn run build:libs
+nx build
+nx serve
+</code></pre><p>Open <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a></p>
+</blockquote>
+<br/>
+<h2 id="deploy-a-first-smart-contract-la-base">Deploy a first smart contract. La base</h2>
 <p>For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.</p>
 <br/>
 <p><strong>Simplest commented Contract example</strong></p>
@@ -381,13 +417,7 @@ contract MyContract  { // Contract definition
     myVar = _myVar;
   }
 
-  // For information
-  //function getMyVar() public pure { // Will not interact with other part of the smart contract excepted other pure methods. An example could be a method that multiples 2 numbers.
-  //  return myVar;
-  //}
-
-  // Optional
-  function getMyVar() view public returns(uint256) { // It is a pure reading funciton (Free on Ethereum). It is a &#34;call&#34; not a &#34;transact&#34;
+  function getMyVar() public view returns(uint256) { 
     return myVar;
   }
 
@@ -396,7 +426,11 @@ contract MyContract  { // Contract definition
   }
 
 }
-</code></pre><br/>
+</code></pre><blockquote>
+<p><strong>Pure</strong> functions do not interact with other part of the smart contract excepted other pure methods. An example could be a method that multiples 2 numbers. <br/>
+<strong>View</strong> functions are reading functions. They interact view state variables. It is a &ldquo;call&rdquo; not a &ldquo;transact&rdquo; so they are free to use on Ethereum.</p>
+</blockquote>
+<br/>
 <h2 id="other-variable-types">Other variable types</h2>
 <pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.4.24; // Specify compiler version 
@@ -497,8 +531,8 @@ contract MyContract  { // Contract definition
 <h2 id="mappings">Mappings</h2>
 <p><strong>Simple mapping:</strong></p>
 <pre tabindex="0"><code>mapping(string =&gt; string) public tradesAccountsMap;
-</code></pre><p><br/>
-<strong>Nested mapping:</strong></p>
+</code></pre><br/>
+<p><strong>Nested mapping:</strong></p>
 <pre tabindex="0"><code>struct User {
   address userAddress;
   string firstName;
@@ -506,6 +540,10 @@ contract MyContract  { // Contract definition
 }
 
 mapping(address =&gt; mapping(string =&gt; User)) private UserNestedMap;
+</code></pre><br/>
+<h2 id="enum">Enum</h2>
+<pre tabindex="0"><code>enum cookieSecurity {NONE, LAX, SECURE}
+cookieSecurity public cookie = cookieSecurity.SECURE;
 </code></pre><br/>
 <p><strong>Autre example:</strong></p>
 <pre tabindex="0"><code>// SPDX-License-Identifier: MIT
@@ -539,6 +577,59 @@ contract MyContract { // Contract definition
     myMapping[msg.sender].counter++;
   }
 
+}
+</code></pre><br/>
+<h2 id="compare-2-strings">Compare 2 strings</h2>
+<p><strong>Don&rsquo;t do:</strong></p>
+<pre tabindex="0"><code>string memory coinToFind = &#34;btc&#34;;
+string[] memory myCoins = [&#34;btc&#34;, &#34;eth&#34;, &#34;etc&#34;];
+for (uint i = 0; i &lt; myCoins.length; i++) {
+  string memory coin = myCoins[i];
+  if (coinToFind == coin) {
+    return i;
+  }
+}
+</code></pre><p><strong>But do:</strong></p>
+<pre tabindex="0"><code>string memory coinToFind = &#34;btc&#34;;
+string[] memory myCoins = [&#34;btc&#34;, &#34;eth&#34;, &#34;etc&#34;];
+for (uint i = 0; i &lt; myCoins.length; i++) {
+  string memory coin = myCoins[i];
+  if (keccak256(abi.encodePacked(coinToFind) == keccak256(abi.encodePacked(coin)) {
+    return i;
+  }
+}
+</code></pre><blockquote>
+<p>La <strong>string</strong> en Solidity n&rsquo;est pas un type natif. C&rsquo;est un dynamic array. <br/>
+keccak256 est une fonction hash native d&rsquo;Ethereum. Les fonctions permettant de manipuler les strings (<em>get string’s length, reading and changing the character at a given location, concat two strings, extracting part of a string</em> doivent être implémentées manuellement.</p>
+</blockquote>
+<br/>
+<p>Solution moins coûteuse en terme gaz:</p>
+<pre tabindex="0"><code>function memoryCompare(bytes memory a, bytes memory b) internal pure returns(bool) {
+  return (a.length == b.length) &amp;&amp; (keccak256(a) == keccak256(b));
+}
+function stringCompare(string memory a, string memory b) internal pure returns(bool) {
+    return memoryCompare(bytes(a), bytes(b));
+}
+</code></pre><br/>
+<h2 id="héritage">Héritage</h2>
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity &gt;=0.7.0 &lt; 0.9.0
+
+contract mySuperContract {
+  uint availableSupply;
+  uint maxSupply;
+  constructor(uint _startingSupply, uint _maxSupply) {
+    availableSupply = _startingSupply;
+    maxSupply = _maxSupply;
+  }
+}
+
+contract myChildContract is MySuperContract {
+  constructor(uint _ss, uint _ms) MySuperContract(ss, ms) {}
+
+  function getAvailableSupply() public view returns (uint) {
+    return availableSupply;
+  } 
 }
 </code></pre><br/>
 <h2 id="notary-app-example-code">Notary app example code</h2>
@@ -689,6 +780,16 @@ npm start
       websockets: true
     },
 </code></pre><p>Then run <code>truffle migrate</code> to deploy the basic smart contract to your dev blockchain.</p>
+<br/>
+<h2 id="autres-remarques">Autres remarques</h2>
+<ul>
+<li>
+<p>Aujourd&rsquo;hui Hardhat est plus recommendé que Truffle</p>
+</li>
+<li>
+<p>Dans Solidity et Ethereum les data sont stockées à l&rsquo;intérieur des Smart Contracts. Ce n&rsquo;est pas toujours le cas avec toutes les Blochains (cf: Solana).</p>
+</li>
+</ul>
 
             </div>
         </article>
@@ -700,7 +801,7 @@ npm start
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/solidity">Solidity</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1368 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1709 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 févr.. 2020</p>
         </div>

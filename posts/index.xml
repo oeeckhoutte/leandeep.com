@@ -5,8 +5,52 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 27 May 2022 13:50:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 30 May 2022 00:46:43 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Neo4j 4.1 sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/installer-neo4j-4.1-sur-ubuntu-20.04/</link>
+            <pubDate>Mon, 30 May 2022 00:46:43 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-neo4j-4.1-sur-ubuntu-20.04/</guid>
+            <description>Voici la procédure à suivre pour installer Neo4j 4.1 sur Ubuntu 20.04.
+ Truster le repo Neo4j
+curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key |sudo gpg --dearmor -o /usr/share/keyrings/neo4j.gpg  Ajouter le repo Neo4j dans la liste des packages APT
+echo &amp;#34;deb [signed-by=/usr/share/keyrings/neo4j.gpg] https://debian.neo4j.com stable 4.1&amp;#34; | sudo tee -a /etc/apt/sources.list.d/neo4j.list  Prendre en compte la nouvelle source
+sudo apt update  Installer le package
+sudo apt install neo4j  Enable le service
+sudo systemctl enable neo4j.</description>
+            <content type="html"><![CDATA[<p>Voici la procédure à suivre pour installer Neo4j 4.1 sur Ubuntu 20.04.</p>
+<br/>
+<p><strong>Truster le repo Neo4j</strong></p>
+<pre tabindex="0"><code>curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key |sudo gpg --dearmor -o /usr/share/keyrings/neo4j.gpg
+</code></pre><br/>
+<p><strong>Ajouter le repo Neo4j dans la liste des packages APT</strong></p>
+<pre tabindex="0"><code>echo &#34;deb [signed-by=/usr/share/keyrings/neo4j.gpg] https://debian.neo4j.com stable 4.1&#34; | sudo tee -a /etc/apt/sources.list.d/neo4j.list
+</code></pre><br/>
+<p><strong>Prendre en compte la nouvelle source</strong></p>
+<pre tabindex="0"><code>sudo apt update
+</code></pre><br/>
+<p><strong>Installer le package</strong></p>
+<pre tabindex="0"><code>sudo apt install neo4j
+</code></pre><br/>
+<p><strong>Enable le service</strong></p>
+<pre tabindex="0"><code>sudo systemctl enable neo4j.service
+</code></pre><br/>
+<p><strong>Démarrer le service</strong></p>
+<pre tabindex="0"><code>sudo systemctl start neo4j.service
+</code></pre><br/>
+<p><strong>Vérifier que le service est UP</strong></p>
+<pre tabindex="0"><code>sudo systemctl status neo4j.service
+</code></pre><br/>
+<p><strong>Vérifier l&rsquo;installation et changer le mot de passe par défaut</strong></p>
+<pre tabindex="0"><code>cypher-shell
+</code></pre><blockquote>
+<p>Neo4j sera disponible sur localhost (<code>neo4j://127.0.0.1:7687</code>) uniquement. Rendez-vous dans <code>/etc/neo4j/neo4j.conf</code> pour binder Neo4j aux interfaces IPv4 ou IPv6 de votre serveur.</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Lister les nouveaux Exit Nodes sur Tor</title>
@@ -103,6 +147,332 @@ jq -r &amp;#39;.default | to_entries[] | .key + .value.version&amp;#39; \ Pipfil
         | .key + .value.version&#39; \
     Pipfile.lock &gt; requirements.txt
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>RPC nodes</title>
+            <link>https://leandeep.com/rpc-nodes/</link>
+            <pubDate>Tue, 24 May 2022 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/rpc-nodes/</guid>
+            <description>Ethereum Providers:
+Infura.io - https://infura.io
+Alchemy - https://www.alchemy.com
+QuickNode - https://www.quicknode.com
+0x - https://0x.org
+Amazon Managed Blockchain - https://aws.amazon.com/managed-blockchain
+Moralis - https://moralis.io
+Pocket Network - https://mainnet.portal.pokt.network
+Chainstack - https://chainstack.com/build-better-with-ethereum/
+ZMOK - https://zmok.io/
+AllNodes - https://www.allnodes.com
+Figment Datahub - https://datahub.figment.io/
+Ankr - https://ankr.com
+ArchiveNode - https://archivenode.io/
+ Public Endpoints:
+https://cloudflare-eth.com
+https://main-light.eth.linkpool.io
+https://eth-rpc.gateway.pokt.network
+https://api.mycryptoapi.com/eth
+https://mainnet-nethermind.blockscout.com/
+https://mainnet.eth.cloud.ava.do/
+https://ethereumnodelight.app.runonflux.io
+https://rpc.flashbots.net/
+https://rpc.ankr.com/eth
+https://mainnet.eth.cloud.ava.do/
+ Spin up your own node:
+https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/
+[https://www.quicknode.com/guides/infrastructure/how-to-run-a-openethereum-ex-parity-client-node]
+https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node
+https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node
+ BSC Providers:</description>
+            <content type="html"><![CDATA[<h2 id="ethereum">Ethereum</h2>
+<p><strong>Providers:</strong></p>
+<p>Infura.io - <a href="https://infura.io">https://infura.io</a></p>
+<p>Alchemy - <a href="https://www.alchemy.com">https://www.alchemy.com</a></p>
+<p>QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a></p>
+<p>0x - <a href="https://0x.org">https://0x.org</a></p>
+<p>Amazon Managed Blockchain - <a href="https://aws.amazon.com/managed-blockchain">https://aws.amazon.com/managed-blockchain</a></p>
+<p>Moralis - <a href="https://moralis.io">https://moralis.io</a></p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a></p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-ethereum/">https://chainstack.com/build-better-with-ethereum/</a></p>
+<p>ZMOK - <a href="https://zmok.io/">https://zmok.io/</a></p>
+<p>AllNodes - <a href="https://www.allnodes.com">https://www.allnodes.com</a></p>
+<p>Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a></p>
+<p>Ankr - <a href="https://ankr.com">https://ankr.com</a></p>
+<p>ArchiveNode - <a href="https://archivenode.io/">https://archivenode.io/</a></p>
+<br/>
+<p><strong>Public Endpoints:</strong></p>
+<p><a href="https://cloudflare-eth.com">https://cloudflare-eth.com</a></p>
+<p><a href="https://main-light.eth.linkpool.io">https://main-light.eth.linkpool.io</a></p>
+<p><a href="https://eth-rpc.gateway.pokt.network">https://eth-rpc.gateway.pokt.network</a></p>
+<p><a href="https://api.mycryptoapi.com/eth">https://api.mycryptoapi.com/eth</a></p>
+<p><a href="https://mainnet-nethermind.blockscout.com/">https://mainnet-nethermind.blockscout.com/</a></p>
+<p><a href="https://mainnet.eth.cloud.ava.do/">https://mainnet.eth.cloud.ava.do/</a></p>
+<p><a href="https://ethereumnodelight.app.runonflux.io">https://ethereumnodelight.app.runonflux.io</a></p>
+<p><a href="https://rpc.flashbots.net/">https://rpc.flashbots.net/</a></p>
+<p><a href="https://rpc.ankr.com/eth">https://rpc.ankr.com/eth</a></p>
+<p><a href="https://mainnet.eth.cloud.ava.do/">https://mainnet.eth.cloud.ava.do/</a></p>
+<p><br/>
+<strong>Spin up your own node:</strong></p>
+<p><a href="https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/">https://ethereum.org/en/developers/docs/nodes-and-clients/run-a-node/</a></p>
+<p>[https://www.quicknode.com/guides/infrastructure/how-to-run-a-openethereum-ex-parity-client-node]</p>
+<p><a href="https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node">https://www.quicknode.com/guides/infrastructure/how-to-run-a-hyperledger-besu-node</a></p>
+<p><a href="https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node">https://www.quicknode.com/guides/infrastructure/how-to-install-and-run-a-geth-node</a></p>
+<br/>
+<h2 id="bsc">BSC</h2>
+<p><strong>Providers:</strong></p>
+<p>ANKR - <a href="https://ankr.com">https://ankr.com</a></p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-binance-smart-chain/">https://chainstack.com/build-better-with-binance-smart-chain/</a></p>
+<p>GetBlock - <a href="https://getblock.io">https://getblock.io</a></p>
+<p>QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a></p>
+<p>Moralis - <a href="https://moralis.io">https://moralis.io</a></p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a></p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-binance-smart-chain/">https://chainstack.com/build-better-with-binance-smart-chain/</a></p>
+<p>Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a></p>
+<p><br/>
+<strong>Public Endpoints:</strong></p>
+<p><a href="https://bsc-dataseed.binance.org">https://bsc-dataseed.binance.org</a></p>
+<p><a href="https://bsc-dataseed1.defibit.io">https://bsc-dataseed1.defibit.io</a></p>
+<p><a href="https://bsc-dataseed1.ninicoin.io/">https://bsc-dataseed1.ninicoin.io/</a></p>
+<p>Backups:</p>
+<p><a href="https://bsc-dataseed2.defibit.io/">https://bsc-dataseed2.defibit.io/</a></p>
+<p><a href="https://bsc-dataseed3.defibit.io/">https://bsc-dataseed3.defibit.io/</a></p>
+<p><a href="https://bsc-dataseed4.defibit.io/">https://bsc-dataseed4.defibit.io/</a></p>
+<p><a href="https://bsc-dataseed2.ninicoin.io/">https://bsc-dataseed2.ninicoin.io/</a></p>
+<p><a href="https://bsc-dataseed3.ninicoin.io/">https://bsc-dataseed3.ninicoin.io/</a></p>
+<p><a href="https://bsc-dataseed4.ninicoin.io/">https://bsc-dataseed4.ninicoin.io/</a></p>
+<p><a href="https://bsc-dataseed1.binance.org/">https://bsc-dataseed1.binance.org/</a></p>
+<p><a href="https://bsc-dataseed2.binance.org/">https://bsc-dataseed2.binance.org/</a></p>
+<p><a href="https://bsc-dataseed3.binance.org/">https://bsc-dataseed3.binance.org/</a></p>
+<p><a href="https://bsc-dataseed4.binance.org/">https://bsc-dataseed4.binance.org/</a></p>
+<p><a href="https://bsc-dataseed4.binance.org">https://bsc-dataseed4.binance.org</a></p>
+<p><a href="https://bscrpc.com">https://bscrpc.com</a></p>
+<p><a href="https://rpc.ankr.com/bsc">https://rpc.ankr.com/bsc</a></p>
+<p><a href="https://bsc.rpcgator.com/">https://bsc.rpcgator.com/</a> - RPC Agreggator / Gateway</p>
+<br/>
+<p><strong>WebSocket:</strong></p>
+<p>wss://bsc-ws-node.nariox.org:443</p>
+<p><strong>Spin up your own node:</strong></p>
+<p><a href="https://docs.binance.org/smart-chain/developer/fullnode.html">https://docs.binance.org/smart-chain/developer/fullnode.html</a></p>
+<p><strong>Chain ID:</strong>
+56</p>
+<p><strong>Block Explorer URL:</strong></p>
+<p><a href="https://bscscan.com">https://bscscan.com</a></p>
+<br/>
+<h2 id="solana">Solana</h2>
+<p><strong>Providers:</strong></p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-solana/">https://chainstack.com/build-better-with-solana/</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Quicknode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a></p>
+<p><strong>Public Endpoints:</strong></p>
+<p><a href="https://api.mainnet-beta.solana.com">https://api.mainnet-beta.solana.com</a>
+<a href="https://solana-api.projectserum.com">https://solana-api.projectserum.com</a>
+<a href="https://rpc.ankr.com/solana">https://rpc.ankr.com/solana</a></p>
+<p><strong>Spin up your own node:</strong></p>
+<p><a href="https://docs.solana.com/running-validator">https://docs.solana.com/running-validator</a></p>
+<p><strong>Doc</strong>
+<a href="https://docs.solana.com/cluster/rpc-endpoints">https://docs.solana.com/cluster/rpc-endpoints</a></p>
+<br/>
+<h2 id="avalanche">Avalanche</h2>
+<p>Providers:</p>
+<p>Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-avalanche/">https://chainstack.com/build-better-with-avalanche/</a>
+All Nodes - <a href="https://www.allnodes.com">https://www.allnodes.com</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+Quicknode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Public Endpoints:</p>
+<p><a href="https://api.avax.network/ext/bc/C/rpc">https://api.avax.network/ext/bc/C/rpc</a>
+<a href="https://rpc.ankr.com/avalanche">https://rpc.ankr.com/avalanche</a>
+<a href="https://avax.rpcgator.com/">https://avax.rpcgator.com/</a> - RPC Agreggator / Gateway
+<a href="https://avalanche.public-rpc.com">https://avalanche.public-rpc.com</a>
+Spin up your own node:</p>
+<p><a href="https://docs.avax.network/build/tutorials/nodes-and-staking/run-avalanche-node">https://docs.avax.network/build/tutorials/nodes-and-staking/run-avalanche-node</a></p>
+<br/>
+<h2 id="polygon">Polygon</h2>
+<p>Providers:</p>
+<p>Infura.io - <a href="https://infura.io">https://infura.io</a>
+MaticVigil - <a href="https://maticvigil.com">https://maticvigil.com</a>
+Chainstack - <a href="https://chainstack.com">https://chainstack.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+AllNodes - <a href="https://www.allnodes.com">https://www.allnodes.com</a>
+Figment Datahub - <a href="https://datahub.figment.io/">https://datahub.figment.io/</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://polygon-rpc.com">https://polygon-rpc.com</a>
+<a href="https://rpc-mainnet.matic.network">https://rpc-mainnet.matic.network</a>
+<a href="https://rpc-mainnet.maticvigil.com">https://rpc-mainnet.maticvigil.com</a>
+<a href="https://rpc-mainnet.matic.quiknode.pro">https://rpc-mainnet.matic.quiknode.pro</a>
+<a href="https://matic-mainnet.chainstacklabs.com">https://matic-mainnet.chainstacklabs.com</a>
+<a href="https://matic-mainnet-full-rpc.bwarelabs.com">https://matic-mainnet-full-rpc.bwarelabs.com</a>
+<a href="https://matic-mainnet-archive-rpc.bwarelabs.com">https://matic-mainnet-archive-rpc.bwarelabs.com</a>
+<a href="https://poly-rpc.gateway.pokt.network/">https://poly-rpc.gateway.pokt.network/</a>
+<a href="https://rpc.ankr.com/polygon">https://rpc.ankr.com/polygon</a>
+WebSocket:</p>
+<p>wss://rpc-mainnet.matic.network
+wss://ws-matic-mainnet.chainstacklabs.com
+wss://rpc-mainnet.matic.quiknode.pro
+wss://rpc-mainnet.maticvigil.com/ws
+Spin up your own node:</p>
+<p><a href="https://docs.polygon.technology/docs/validate/validate/getting-started">https://docs.polygon.technology/docs/validate/validate/getting-started</a></p>
+<h2 id="algorand">Algorand</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Quicknode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Spin up your own node:</p>
+<p><a href="https://developer.algorand.org/docs/run-a-node/setup/install/">https://developer.algorand.org/docs/run-a-node/setup/install/</a></p>
+<br/>
+<h2 id="fantom">Fantom</h2>
+<p>Providers:</p>
+<p>QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Moralis - <a href="https://moralis.io">https://moralis.io</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-fantom/">https://chainstack.com/build-better-with-fantom/</a>
+Public Endpoints:</p>
+<p><a href="https://rpc.ftm.tools/">https://rpc.ftm.tools/</a>
+<a href="https://rpc.ankr.com/fantom">https://rpc.ankr.com/fantom</a>
+<a href="https://ftm.rpcgator.com/">https://ftm.rpcgator.com/</a> - RPC Agreggator / Gateway
+WebSocket:</p>
+<p>wss://wsapi.fantom.network
+Spin up your own node:</p>
+<p><a href="https://docs.fantom.foundation/staking/how-to-run-a-validator-node">https://docs.fantom.foundation/staking/how-to-run-a-validator-node</a></p>
+<br/>
+<h2 id="tezos">Tezos</h2>
+<p>Providers:</p>
+<p>Chainstack - <a href="https://chainstack.com/build-better-with-tezos/">https://chainstack.com/build-better-with-tezos/</a>
+Public Endpoints:</p>
+<p><a href="https://mainnet.api.tez.ie">https://mainnet.api.tez.ie</a>
+<a href="https://rpc.tzbeta.net/">https://rpc.tzbeta.net/</a>
+Spin up your own node:</p>
+<p><a href="https://opentezos.com/deploy-a-node">https://opentezos.com/deploy-a-node</a></p>
+<br/>
+<h2 id="harmony">Harmony</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Chainstack - <a href="https://chainstack.com/build-better-with-harmony/">https://chainstack.com/build-better-with-harmony/</a>
+Public Endpoints:</p>
+<p><a href="https://harmony-0-rpc.gateway.pokt.network">https://harmony-0-rpc.gateway.pokt.network</a>
+<a href="https://api.harmony.one">https://api.harmony.one</a>
+<a href="https://harmony.public-rpc.com">https://harmony.public-rpc.com</a>
+<a href="https://harmony-mainnet.chainstacklabs.com">https://harmony-mainnet.chainstacklabs.com</a>
+WebSocket:</p>
+<p>wss://ws.s0.t.hmny.io
+wss://ws-harmony-mainnet.chainstacklabs.com
+Spin up your own node:</p>
+<p><a href="https://docs.harmony.one/home/network/validators/node-setup">https://docs.harmony.one/home/network/validators/node-setup</a></p>
+<br/>
+<h2 id="kucoin">KuCoin</h2>
+<p>Public Endpoints:</p>
+<p><a href="https://rpc-mainnet.kcc.network/">https://rpc-mainnet.kcc.network/</a>
+Spin up your own node:</p>
+<p><a href="https://docs.kcc.io/#/en-us/?id=node">https://docs.kcc.io/#/en-us/?id=node</a></p>
+<br/>
+<h2 id="iotex">IoTeX</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://iotex-mainnet.gateway.pokt.network/v1/lb/6176f902e19001003499f492">https://iotex-mainnet.gateway.pokt.network/v1/lb/6176f902e19001003499f492</a>
+<a href="https://rpc.ankr.com/iotex">https://rpc.ankr.com/iotex</a>
+<a href="https://iotexrpc.com">https://iotexrpc.com</a>
+Spin up your own node:</p>
+<p><a href="https://github.com/iotexproject/iotex-bootstrap">https://github.com/iotexproject/iotex-bootstrap</a></p>
+<br/>
+<h2 id="gnosis-xdai">Gnosis (xDAI)</h2>
+<p>Providers:</p>
+<p>QuickNode - <a href="https://www.quicknode.com">https://www.quicknode.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+GetBlock - <a href="https://getblock.io">https://getblock.io</a>
+Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Public Endpoints:</p>
+<p><a href="https://rpc.gnosischain.com">https://rpc.gnosischain.com</a>
+<a href="https://rpc.xdaichain.com">https://rpc.xdaichain.com</a>
+<a href="https://xdai.poanetwork.dev">https://xdai.poanetwork.dev</a>
+<a href="https://xdai-rpc.gateway.pokt.network">https://xdai-rpc.gateway.pokt.network</a>
+<a href="https://gnosis.public-rpc.com">https://gnosis.public-rpc.com</a>
+WebSocket:</p>
+<p>wss://rpc.gnosischain.com/wss
+Spin up your own node:</p>
+<p><a href="https://docs.gnosischain.com/validator-info/get-started-node-setup">https://docs.gnosischain.com/validator-info/get-started-node-setup</a></p>
+<br/>
+<h2 id="fuse">Fuse</h2>
+<p>Providers:</p>
+<p>Pocket Network - <a href="https://mainnet.portal.pokt.network">https://mainnet.portal.pokt.network</a>
+Public Endpoints:</p>
+<p><a href="https://fuse-rpc.gateway.pokt.network/">https://fuse-rpc.gateway.pokt.network/</a>
+Spin up your own node:</p>
+<p><a href="https://developers.fuse.io/fuse-dev-docs/network/how-to-run-network-nodes">https://developers.fuse.io/fuse-dev-docs/network/how-to-run-network-nodes</a></p>
+<br/>
+<h2 id="optimistic-ethereum">Optimistic Ethereum</h2>
+<p>Providers:</p>
+<p>QuickNode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Infura - <a href="https://infura.io">https://infura.io</a>
+Ankr - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://mainnet.optimism.io/">https://mainnet.optimism.io/</a></p>
+<br/>
+<h2 id="arbitrum-one">Arbitrum One</h2>
+<p>Providers:</p>
+<p>Moralis - <a href="https://moralis.io">https://moralis.io</a>
+QuickNode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Infura - <a href="https://infura.io">https://infura.io</a>
+Alchemy - <a href="https://www.alchemy.com">https://www.alchemy.com</a>
+ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Public Endpoints:</p>
+<p><a href="https://arb1.arbitrum.io/rpc">https://arb1.arbitrum.io/rpc</a>
+<a href="https://rpc.ankr.com/arbitrum">https://rpc.ankr.com/arbitrum</a>
+<a href="https://arbitrum.public-rpc.com">https://arbitrum.public-rpc.com</a></p>
+<br/>
+<h2 id="celo">Celo</h2>
+<p>Providers:</p>
+<p>ANKR - <a href="https://ankr.com">https://ankr.com</a>
+QuickNode - <a href="https://www.quicknode.com/">https://www.quicknode.com/</a>
+Public Endpoints:</p>
+<p><a href="https://forno.celo.org">https://forno.celo.org</a>
+<a href="https://rpc.ankr.com/celo">https://rpc.ankr.com/celo</a>
+Spin up your own node:</p>
+<p><a href="https://docs.celo.org/getting-started/mainnet/running-a-full-node-in-mainnet">https://docs.celo.org/getting-started/mainnet/running-a-full-node-in-mainnet</a></p>
+<br/>
+<h2 id="near">Near</h2>
+<p>Providers:</p>
+<p>ANKR - <a href="https://ankr.com">https://ankr.com</a>
+Infura - <a href="https://infura.io">https://infura.io</a>
+Public Endpoints:</p>
+<p><a href="https://rpc.ankr.com/near">https://rpc.ankr.com/near</a>
+<a href="https://near.public-rpc.com">https://near.public-rpc.com</a>
+Spin up your own node:</p>
+<p><a href="https://near-nodes.io/rpc/hardware-rpc#recommended-hardware-specifications">https://near-nodes.io/rpc/hardware-rpc#recommended-hardware-specifications</a></p>
+<br/>
+<h2 id="aurora">Aurora</h2>
+<p>Providers:</p>
+<p>Infura - <a href="https://infura.io">https://infura.io</a>
+Public Endpoints:</p>
+<p><a href="https://mainnet.aurora.dev">https://mainnet.aurora.dev</a>
+Spin up your own node:</p>
+<p><a href="https://doc.aurora.dev/#running-your-own-aurora-node">https://doc.aurora.dev/#running-your-own-aurora-node</a></p>
+<br/>
+<h2 id="tomochain">TomoChain</h2>
+<p>Public Endpoints:</p>
+<p><a href="https://rpc.tomochain.com">https://rpc.tomochain.com</a>
+Websocket:</p>
+<p>wss://ws.tomochain.com
+Spin up your own node:</p>
+<p><a href="https://docs.tomochain.com/masternode-and-dex/masternode">https://docs.tomochain.com/masternode-and-dex/masternode</a></p>
+<br/>
+<h2 id="moonriver">Moonriver</h2>
+<p>Public Endpoints:</p>
+<p><a href="https://rpc.api.moonriver.moonbeam.network">https://rpc.api.moonriver.moonbeam.network</a>
+Websocket:</p>
+<p>wss://wss.api.moonriver.moonbeam.network
+Spin up your own node:</p>
+<p><a href="https://docs.moonbeam.network/node-operators/networks/run-a-node/">https://docs.moonbeam.network/node-operators/networks/run-a-node/</a></p>
+]]></content>
         </item>
         
         <item>
@@ -8979,10 +9349,38 @@ ALGOLIA_INDEX_FILE=public/algolia.json
             <pubDate>Thu, 13 Feb 2020 16:49:00 +0200</pubDate>
             
             <guid>https://leandeep.com/solidity-fondamentals/</guid>
-            <description>Deploy a first smart contract. The base For rapid prototyping use Remix and select &amp;ldquo;Javascript VM&amp;rdquo;.
- Simplest commented Contract example
-// SPDX-License-Identifier: MIT pragma solidity ^0.4.24; // Specify compiler version contract ExampleOne { // Contract definition uint256 myVar; // storage varible. Can only store positive integer with a max value of 256 bits function setMyVar(uint256 _myVar) public { // Public method than can be called externally and a parameter has to be passed myVar = _myVar; } }  Compile, deploy and interact with the Smart Contract still via Remix.</description>
-            <content type="html"><![CDATA[<h2 id="deploy-a-first-smart-contract-the-base">Deploy a first smart contract. The base</h2>
+            <description>Remix IDE Remix (Orange buttons dans la partie interaction avec le smart contract de Remix -&amp;gt; it costs gas)
+Remix IDE Doc
+Remix Project
+ Déployer son Smart Contract sur Rinkeby en sélectionnant injected Web3 et étant connecté à Metamask.
+  Partager un dossier local avec remix Cloud IDE:
+npm install -g @remix-project/remixd remixd -s &amp;lt;absolute-path-to-the-shared-folder&amp;gt; --remix-ide https://remix.ethereum.org   Faire tourner l&amp;rsquo;IDE Remix en local
+git clone https://github.com/ethereum/remix-project.git cd remix-project yarn install yarn run build:libs nx build nx serve Open http://127.</description>
+            <content type="html"><![CDATA[<h2 id="remix-ide">Remix IDE</h2>
+<p><a href="https://remix.ethereum.org">Remix</a>
+<em>(Orange buttons dans la partie interaction avec le smart contract de Remix -&gt; it costs gas)</em></p>
+<p><a href="https://remix-ide.readthedocs.io/">Remix IDE Doc</a></p>
+<p><a href="https://github.com/ethereum/remix-project">Remix Project</a></p>
+<blockquote>
+<p>Déployer son Smart Contract sur Rinkeby en sélectionnant <strong>injected Web3</strong> et étant connecté à Metamask.</p>
+</blockquote>
+<blockquote>
+<p>Partager un dossier local avec remix Cloud IDE:</p>
+<pre tabindex="0"><code>npm install -g @remix-project/remixd
+remixd -s &lt;absolute-path-to-the-shared-folder&gt; --remix-ide https://remix.ethereum.org
+</code></pre></blockquote>
+<blockquote>
+<p>Faire tourner l&rsquo;IDE Remix en local</p>
+<pre tabindex="0"><code>git clone https://github.com/ethereum/remix-project.git
+cd remix-project
+yarn install
+yarn run build:libs
+nx build
+nx serve
+</code></pre><p>Open <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a></p>
+</blockquote>
+<br/>
+<h2 id="deploy-a-first-smart-contract-la-base">Deploy a first smart contract. La base</h2>
 <p>For rapid prototyping use Remix and select &ldquo;Javascript VM&rdquo;.</p>
 <br/>
 <p><strong>Simplest commented Contract example</strong></p>
@@ -9016,13 +9414,7 @@ contract MyContract  { // Contract definition
     myVar = _myVar;
   }
 
-  // For information
-  //function getMyVar() public pure { // Will not interact with other part of the smart contract excepted other pure methods. An example could be a method that multiples 2 numbers.
-  //  return myVar;
-  //}
-
-  // Optional
-  function getMyVar() view public returns(uint256) { // It is a pure reading funciton (Free on Ethereum). It is a &#34;call&#34; not a &#34;transact&#34;
+  function getMyVar() public view returns(uint256) { 
     return myVar;
   }
 
@@ -9031,7 +9423,11 @@ contract MyContract  { // Contract definition
   }
 
 }
-</code></pre><br/>
+</code></pre><blockquote>
+<p><strong>Pure</strong> functions do not interact with other part of the smart contract excepted other pure methods. An example could be a method that multiples 2 numbers. <br/>
+<strong>View</strong> functions are reading functions. They interact view state variables. It is a &ldquo;call&rdquo; not a &ldquo;transact&rdquo; so they are free to use on Ethereum.</p>
+</blockquote>
+<br/>
 <h2 id="other-variable-types">Other variable types</h2>
 <pre tabindex="0"><code>// SPDX-License-Identifier: MIT
 pragma solidity ^0.4.24; // Specify compiler version 
@@ -9132,8 +9528,8 @@ contract MyContract  { // Contract definition
 <h2 id="mappings">Mappings</h2>
 <p><strong>Simple mapping:</strong></p>
 <pre tabindex="0"><code>mapping(string =&gt; string) public tradesAccountsMap;
-</code></pre><p><br/>
-<strong>Nested mapping:</strong></p>
+</code></pre><br/>
+<p><strong>Nested mapping:</strong></p>
 <pre tabindex="0"><code>struct User {
   address userAddress;
   string firstName;
@@ -9141,6 +9537,10 @@ contract MyContract  { // Contract definition
 }
 
 mapping(address =&gt; mapping(string =&gt; User)) private UserNestedMap;
+</code></pre><br/>
+<h2 id="enum">Enum</h2>
+<pre tabindex="0"><code>enum cookieSecurity {NONE, LAX, SECURE}
+cookieSecurity public cookie = cookieSecurity.SECURE;
 </code></pre><br/>
 <p><strong>Autre example:</strong></p>
 <pre tabindex="0"><code>// SPDX-License-Identifier: MIT
@@ -9174,6 +9574,59 @@ contract MyContract { // Contract definition
     myMapping[msg.sender].counter++;
   }
 
+}
+</code></pre><br/>
+<h2 id="compare-2-strings">Compare 2 strings</h2>
+<p><strong>Don&rsquo;t do:</strong></p>
+<pre tabindex="0"><code>string memory coinToFind = &#34;btc&#34;;
+string[] memory myCoins = [&#34;btc&#34;, &#34;eth&#34;, &#34;etc&#34;];
+for (uint i = 0; i &lt; myCoins.length; i++) {
+  string memory coin = myCoins[i];
+  if (coinToFind == coin) {
+    return i;
+  }
+}
+</code></pre><p><strong>But do:</strong></p>
+<pre tabindex="0"><code>string memory coinToFind = &#34;btc&#34;;
+string[] memory myCoins = [&#34;btc&#34;, &#34;eth&#34;, &#34;etc&#34;];
+for (uint i = 0; i &lt; myCoins.length; i++) {
+  string memory coin = myCoins[i];
+  if (keccak256(abi.encodePacked(coinToFind) == keccak256(abi.encodePacked(coin)) {
+    return i;
+  }
+}
+</code></pre><blockquote>
+<p>La <strong>string</strong> en Solidity n&rsquo;est pas un type natif. C&rsquo;est un dynamic array. <br/>
+keccak256 est une fonction hash native d&rsquo;Ethereum. Les fonctions permettant de manipuler les strings (<em>get string’s length, reading and changing the character at a given location, concat two strings, extracting part of a string</em> doivent être implémentées manuellement.</p>
+</blockquote>
+<br/>
+<p>Solution moins coûteuse en terme gaz:</p>
+<pre tabindex="0"><code>function memoryCompare(bytes memory a, bytes memory b) internal pure returns(bool) {
+  return (a.length == b.length) &amp;&amp; (keccak256(a) == keccak256(b));
+}
+function stringCompare(string memory a, string memory b) internal pure returns(bool) {
+    return memoryCompare(bytes(a), bytes(b));
+}
+</code></pre><br/>
+<h2 id="héritage">Héritage</h2>
+<pre tabindex="0"><code>// SPDX-License-Identifier: MIT
+pragma solidity &gt;=0.7.0 &lt; 0.9.0
+
+contract mySuperContract {
+  uint availableSupply;
+  uint maxSupply;
+  constructor(uint _startingSupply, uint _maxSupply) {
+    availableSupply = _startingSupply;
+    maxSupply = _maxSupply;
+  }
+}
+
+contract myChildContract is MySuperContract {
+  constructor(uint _ss, uint _ms) MySuperContract(ss, ms) {}
+
+  function getAvailableSupply() public view returns (uint) {
+    return availableSupply;
+  } 
 }
 </code></pre><br/>
 <h2 id="notary-app-example-code">Notary app example code</h2>
@@ -9324,6 +9777,16 @@ npm start
       websockets: true
     },
 </code></pre><p>Then run <code>truffle migrate</code> to deploy the basic smart contract to your dev blockchain.</p>
+<br/>
+<h2 id="autres-remarques">Autres remarques</h2>
+<ul>
+<li>
+<p>Aujourd&rsquo;hui Hardhat est plus recommendé que Truffle</p>
+</li>
+<li>
+<p>Dans Solidity et Ethereum les data sont stockées à l&rsquo;intérieur des Smart Contracts. Ce n&rsquo;est pas toujours le cas avec toutes les Blochains (cf: Solana).</p>
+</li>
+</ul>
 ]]></content>
         </item>
         
@@ -18208,6 +18671,82 @@ new_price = f&#34;{price:.2f}&#34;
 print(new_price)
 print(type(new_price))
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Installer un serveur Sentry en moins de 5 minutes</title>
+            <link>https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes/</link>
+            <pubDate>Wed, 13 Jun 2018 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes/</guid>
+            <description>Dans cet article nous allons voir comment mettre en place Sentry pour vos projets. Il s&amp;rsquo;agit ici d&amp;rsquo;un Hosting simple en local via docker-compose. Je ne recommande pas cette façon de faire pour de la production. Je me sers de ce Sentry pour du développement en local.
+Créer un fichier docker-compose.yml avec le contenu suivant:
+Remplacer la chaine !!MON_SECRET!! pour une chaine de 32 caractères aléatoires. Sur Mac, exécuter simplement: python -c &amp;quot;import random; import string; chars = string.</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment mettre en place Sentry pour vos projets. Il s&rsquo;agit ici d&rsquo;un Hosting simple en local via docker-compose. Je ne recommande pas cette façon de faire pour de la production. Je me sers de ce Sentry pour du développement en local.</p>
+<p>Créer un fichier <code>docker-compose.yml</code> avec le contenu suivant:</p>
+<p>Remplacer la chaine <code>!!MON_SECRET!!</code> pour une chaine de 32 caractères aléatoires. Sur Mac, exécuter simplement: <code>python -c &quot;import random; import string; chars = string.ascii_uppercase + string.digits; print(''.join(random.choice(chars) for _ in range(32)))&quot; | pbcopy</code></p>
+<pre tabindex="0"><code>version: &#39;2&#39;
+
+volumes:
+   pgdb:
+
+services:
+  redis:
+    image: redis
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: sentry
+      POSTGRES_PASSWORD: sentry
+      POSTGRES_DB: sentry
+    volumes:
+     - pgdb:/var/lib/postgresql/data
+
+  sentry:
+    image: sentry
+    links:
+     - redis
+     - postgres
+    ports:
+     - 9000:9000
+    environment:
+      SENTRY_SECRET_KEY: &#39;!!MON_SECRET!!&#39;
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: sentry
+      SENTRY_REDIS_HOST: redis
+
+  cron:
+    image: sentry
+    links:
+     - redis
+     - postgres
+    command: &#34;sentry run cron&#34;
+    environment:
+      SENTRY_SECRET_KEY: &#39;!!MON_SECRET!!&#39;
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: sentry
+      SENTRY_REDIS_HOST: redis
+
+  worker:
+    image: sentry
+    links:
+     - redis
+     - postgres
+    command: &#34;sentry run worker&#34;
+    environment:
+      SENTRY_SECRET_KEY: &#39;!!MON_SECRET!!&#39;
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: sentry
+      SENTRY_DB_PASSWORD: sentry
+      SENTRY_REDIS_HOST: redis
+</code></pre><p>Puis exécuter la commande <code>docker-compose up -d</code>.</p>
+<p>Créer ensuite un compte admin. Pour se faire, exécuter la commande <code>docker-compose exec sentry sentry upgrade</code></p>
+<p>Restart Sentry avec <code>docker-compose restart sentry</code></p>
+<p>Puis rendez-vous à l&rsquo;adresse: <a href="http://localhost:9000">http://localhost:9000</a></p>
+]]></content>
         </item>
         
         <item>
