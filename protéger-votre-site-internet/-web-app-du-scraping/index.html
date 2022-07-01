@@ -7,11 +7,7 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Dans cet article nous allons voir comment installer Sentry sur OSX via Docker. Il fait suite à un premier article sur le même sujet écrit en 2018. La procédure a totalement changé donc voici une mise à jour.
- Installation Installer le package suivant:
-brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
- Dans mon cas, j&amp;rsquo;ai téléchargé la version self-hosted-22.5.0
- Ensuite, il suffit d&amp;rsquo;exécuter les commandes suivantes:" />
+  content="Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&amp;rsquo;est un peu plus long qu&amp;rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -27,7 +23,7 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes-en-2022/" />
+<link rel="canonical" href="https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/" />
 
 
 
@@ -236,7 +232,7 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
 
 <title>
   
-  Installer un serveur Sentry en moins de 5 minutes en 2022 :: Lean Deep Tech blog 
+  Protéger votre site internet/ web app du scraping :: Lean Deep Tech blog 
   
 </title>
 
@@ -261,29 +257,21 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer un serveur Sentry en moins de 5 minutes en 2022">
-<meta itemprop="description" content="Dans cet article nous allons voir comment installer Sentry sur OSX via Docker. Il fait suite à un premier article sur le même sujet écrit en 2018. La procédure a totalement changé donc voici une mise à jour.
- Installation Installer le package suivant:
-brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
- Dans mon cas, j&rsquo;ai téléchargé la version self-hosted-22.5.0
- Ensuite, il suffit d&rsquo;exécuter les commandes suivantes:"><meta itemprop="datePublished" content="2022-05-14T21:25:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-14T21:25:00+00:00" />
-<meta itemprop="wordCount" content="116"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Sentry,Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Protéger votre site internet/ web app du scraping">
+<meta itemprop="description" content="Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&rsquo;est un peu plus long qu&rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet."><meta itemprop="datePublished" content="2022-06-30T22:45:00+00:00" />
+<meta itemprop="dateModified" content="2022-06-30T22:45:00+00:00" />
+<meta itemprop="wordCount" content="378"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Security," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer un serveur Sentry en moins de 5 minutes en 2022"/>
-<meta name="twitter:description" content="Dans cet article nous allons voir comment installer Sentry sur OSX via Docker. Il fait suite à un premier article sur le même sujet écrit en 2018. La procédure a totalement changé donc voici une mise à jour.
- Installation Installer le package suivant:
-brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
- Dans mon cas, j&rsquo;ai téléchargé la version self-hosted-22.5.0
- Ensuite, il suffit d&rsquo;exécuter les commandes suivantes:"/>
+<meta name="twitter:title" content="Protéger votre site internet/ web app du scraping"/>
+<meta name="twitter:description" content="Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&rsquo;est un peu plus long qu&rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet."/>
 
 
 
 
 
-<meta property="article:published_time" content="2022-05-14 21:25:00 &#43;0000 UTC" />
+<meta property="article:published_time" content="2022-06-30 22:45:00 &#43;0000 UTC" />
 
 
 
@@ -338,7 +326,7 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
 
             
 
@@ -347,34 +335,80 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes-en-2022/">Installer un serveur Sentry en moins de 5 minutes en 2022</a>
+                <a href="https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/">Protéger votre site internet/ web app du scraping</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Dans cet article nous allons voir comment installer Sentry sur OSX via Docker. Il fait suite à un premier article sur le même sujet écrit en 2018. La procédure a totalement changé donc voici une mise à jour.</p>
+                <p>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&rsquo;est un peu plus long qu&rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet. Il est abérrant de voir que certains business lancés sur internet n&rsquo;ont absolument rien fait pour se protéger. Pourtant si un dump de leurs données se retrouvait sur internet ils pourraient tout de suite fermer boutique&hellip;</p>
 <br/>
-<h2 id="installation">Installation</h2>
-<p>Installer le package suivant:</p>
-<pre tabindex="0"><code>brew install coreutils
-</code></pre><br/>
-<p>Récupérer la dernière release de Sentry sur <a href="https://github.com/getsentry/self-hosted/releases/latest">ce lien</a>.</p>
+<h2 id="filtrage-ip">Filtrage IP</h2>
+<p>Possibilité de passer sous le radar des API gateway avec des nouvelles IPs.</p>
+<p><strong>Tor (fonctionne dans 95% des cas)</strong></p>
 <blockquote>
-<p>Dans mon cas, j&rsquo;ai téléchargé la version <strong>self-hosted-22.5.0</strong></p>
+<p>Avantage: Rapidité de mise en oeuvre<br/>
+Inconvénient: Range d&rsquo;IPs connu</p>
 </blockquote>
-<p>Ensuite, il suffit d&rsquo;exécuter les commandes suivantes:</p>
-<pre tabindex="0"><code>cd self-hosted-22.5.0
-./install.sh
-# ou (en local)
-# ./install.sh --no-user-prompt
+<p>Example d&rsquo;usage sur OSX avec Python 3:</p>
+<pre tabindex="0"><code>pip insall requests
+brew install tor
+tor
+</code></pre><p>Dans programme Python:</p>
+<pre tabindex="0"><code>import requests
 
-# yes pour créer un compte admin
-# ou pour en recréer un:
-# docker-compose run --rm web createuser 
+proxies = {
+    &#39;http&#39;: &#39;socks5://127.0.0.1:9050&#39;,
+    &#39;https&#39;: &#39;socks5://127.0.0.1:9050&#39;
+}
 
-docker compose up -d
-</code></pre><p>Une fois installé, rendez-vous à l&rsquo;adresse <a href="http://localhost:9000">http://localhost:9000</a> pour accéder à l&rsquo;interface de Sentry.</p>
+req = requests.Session()
+url = &#34;&#34;
+req.get(url, proxies=proxies)
+</code></pre><br/>
+<p><strong>Proxies en tout genre</strong></p>
+<p>Utiliser des proxies publiques à la place de Tor.
+Scraping totalement indétectable si le proxy change très régulièrement.
+Par exemple, des failles XSS ou botnet (TDL4 rootkit de 2011 <a href="https://www.youtube.com/watch?v=k3g5gNcHoFM">https://www.youtube.com/watch?v=k3g5gNcHoFM</a>) sont exploitées&hellip;</p>
+<p>Quelques exemples de références que je recommende pour les Pythonistas.</p>
+<p><img src="https://leandeep.com/images/python-black-hat.png" alt="image">
+<img src="https://leandeep.com/images/rootkits-and-bootkits.png" alt="image">
+<img src="https://leandeep.com/images/malware-data-science.png" alt="image">
+<img src="https://leandeep.com/images/python-hacking.png" alt="image">
+<img src="https://leandeep.com/images/gray-hat-python.png" alt="image">
+<img src="https://leandeep.com/images/malware-analysis.png" alt="image">
+<img src="https://leandeep.com/images/violent-python.png" alt="image"></p>
+<p>Et enfin, cette référence pour avoir un point de vue plus entreprise.</p>
+<p><img src="https://leandeep.com/images/blue-team.png" alt="image"></p>
+<br/>
+<h2 id="browser-headless-type-selenium">Browser headless type Selenium</h2>
+<p>Il existe pas mal de solutions concurrentes.
+Selenium fontionne très bien. <a href="https://github.com/tebelorg/RPA-Python">RPA python</a> fonctionne également très bien et il permet de mieux intéragir avec le desktop.
+Selenium conjugé à <code>fake_useragent</code>, des tailles d&rsquo;écran différentes et le plugin <code>browsermob-proxy</code> permet de récupérer à peu près tout ce qu&rsquo;on veut. Il n&rsquo;est pas forcément nécessaire de contourner le filtrage IP ou plus généralement les quota limits car malheureusement rarement mis en place.</p>
+<blockquote>
+<p><code>rpa</code> a le mérite d&rsquo;être excessivement simple à boostraper. <br/>Un simple <code>pip install rpa</code> et un minuscule script comme ci-dessous permet de d&rsquo;ouvrir un browser sur une URL donnée.</p>
+<pre tabindex="0"><code>url = &#34;https://...&#34;
+r.init(
+   visual_automation=True,
+   chrome_browser=True,
+   headless_mode=False,
+   turbo_mode=False,
+)
+r.url(url)
+# r.click(&#39;//a[normalize-space()=&#34;Inventaire complet&#34;]&#39;) 
+r.wait(10)
+r.close()
+</code></pre><p>Pour les XPATHs utiliser l&rsquo;extensions <a href="https://chrome.google.com/webstore/detail/selectorshub/ndgimibanhlabgdgjcpbbndiehljcpfh?hl=en">SelectorsHUB</a></p>
+</blockquote>
+<br/>
+<h2 id="captcha">Captcha</h2>
+<p>Malheureusement ils se contournent. Exemple de resources:</p>
+<p><a href="https://2captcha.com/api-2captcha">https://2captcha.com/api-2captcha</a></p>
+<p><a href="https://2captcha.com/newapi-recaptcha-en">https://2captcha.com/newapi-recaptcha-en</a></p>
+<p><a href="https://pixodrom.com/">https://pixodrom.com/</a></p>
+<p><a href="https://www.9kw.eu/plugins.html">https://www.9kw.eu/plugins.html</a></p>
+<p><a href="https://www.ghstools.fr/api_captcha.php">https://www.ghstools.fr/api_captcha.php</a></p>
+<p><a href="http://caca.zoy.org/wiki/PWNtcha">http://caca.zoy.org/wiki/PWNtcha</a></p>
 
             </div>
         </article>
@@ -383,12 +417,12 @@ docker compose up -d
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/sentry">Sentry</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/security">Security</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>116 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>378 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 mai. 2022</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>30 juin. 2022</p>
         </div>
 
         
@@ -400,18 +434,11 @@ docker compose up -d
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/">
-                                <span class="button__text">Enregistrer l&#39;écran de son Mac avec le son built-in</span>
+                            <a href="https://leandeep.com/commandes-de-synchronisation/dev-geth/">
+                                <span class="button__text">Commandes de synchronisation/dev Geth</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

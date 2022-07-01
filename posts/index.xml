@@ -5,8 +5,188 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 30 May 2022 00:46:43 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 30 Jun 2022 22:45:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Protéger votre site internet/ web app du scraping</title>
+            <link>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</link>
+            <pubDate>Thu, 30 Jun 2022 22:45:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</guid>
+            <description>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&amp;rsquo;est un peu plus long qu&amp;rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet.</description>
+            <content type="html"><![CDATA[<p>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&rsquo;est un peu plus long qu&rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet. Il est abérrant de voir que certains business lancés sur internet n&rsquo;ont absolument rien fait pour se protéger. Pourtant si un dump de leurs données se retrouvait sur internet ils pourraient tout de suite fermer boutique&hellip;</p>
+<br/>
+<h2 id="filtrage-ip">Filtrage IP</h2>
+<p>Possibilité de passer sous le radar des API gateway avec des nouvelles IPs.</p>
+<p><strong>Tor (fonctionne dans 95% des cas)</strong></p>
+<blockquote>
+<p>Avantage: Rapidité de mise en oeuvre<br/>
+Inconvénient: Range d&rsquo;IPs connu</p>
+</blockquote>
+<p>Example d&rsquo;usage sur OSX avec Python 3:</p>
+<pre tabindex="0"><code>pip insall requests
+brew install tor
+tor
+</code></pre><p>Dans programme Python:</p>
+<pre tabindex="0"><code>import requests
+
+proxies = {
+    &#39;http&#39;: &#39;socks5://127.0.0.1:9050&#39;,
+    &#39;https&#39;: &#39;socks5://127.0.0.1:9050&#39;
+}
+
+req = requests.Session()
+url = &#34;&#34;
+req.get(url, proxies=proxies)
+</code></pre><br/>
+<p><strong>Proxies en tout genre</strong></p>
+<p>Utiliser des proxies publiques à la place de Tor.
+Scraping totalement indétectable si le proxy change très régulièrement.
+Par exemple, des failles XSS ou botnet (TDL4 rootkit de 2011 <a href="https://www.youtube.com/watch?v=k3g5gNcHoFM">https://www.youtube.com/watch?v=k3g5gNcHoFM</a>) sont exploitées&hellip;</p>
+<p>Quelques exemples de références que je recommende pour les Pythonistas.</p>
+<p><img src="/images/python-black-hat.png" alt="image">
+<img src="/images/rootkits-and-bootkits.png" alt="image">
+<img src="/images/malware-data-science.png" alt="image">
+<img src="/images/python-hacking.png" alt="image">
+<img src="/images/gray-hat-python.png" alt="image">
+<img src="/images/malware-analysis.png" alt="image">
+<img src="/images/violent-python.png" alt="image"></p>
+<p>Et enfin, cette référence pour avoir un point de vue plus entreprise.</p>
+<p><img src="/images/blue-team.png" alt="image"></p>
+<br/>
+<h2 id="browser-headless-type-selenium">Browser headless type Selenium</h2>
+<p>Il existe pas mal de solutions concurrentes.
+Selenium fontionne très bien. <a href="https://github.com/tebelorg/RPA-Python">RPA python</a> fonctionne également très bien et il permet de mieux intéragir avec le desktop.
+Selenium conjugé à <code>fake_useragent</code>, des tailles d&rsquo;écran différentes et le plugin <code>browsermob-proxy</code> permet de récupérer à peu près tout ce qu&rsquo;on veut. Il n&rsquo;est pas forcément nécessaire de contourner le filtrage IP ou plus généralement les quota limits car malheureusement rarement mis en place.</p>
+<blockquote>
+<p><code>rpa</code> a le mérite d&rsquo;être excessivement simple à boostraper. <br/>Un simple <code>pip install rpa</code> et un minuscule script comme ci-dessous permet de d&rsquo;ouvrir un browser sur une URL donnée.</p>
+<pre tabindex="0"><code>url = &#34;https://...&#34;
+r.init(
+   visual_automation=True,
+   chrome_browser=True,
+   headless_mode=False,
+   turbo_mode=False,
+)
+r.url(url)
+# r.click(&#39;//a[normalize-space()=&#34;Inventaire complet&#34;]&#39;) 
+r.wait(10)
+r.close()
+</code></pre><p>Pour les XPATHs utiliser l&rsquo;extensions <a href="https://chrome.google.com/webstore/detail/selectorshub/ndgimibanhlabgdgjcpbbndiehljcpfh?hl=en">SelectorsHUB</a></p>
+</blockquote>
+<br/>
+<h2 id="captcha">Captcha</h2>
+<p>Malheureusement ils se contournent. Exemple de resources:</p>
+<p><a href="https://2captcha.com/api-2captcha">https://2captcha.com/api-2captcha</a></p>
+<p><a href="https://2captcha.com/newapi-recaptcha-en">https://2captcha.com/newapi-recaptcha-en</a></p>
+<p><a href="https://pixodrom.com/">https://pixodrom.com/</a></p>
+<p><a href="https://www.9kw.eu/plugins.html">https://www.9kw.eu/plugins.html</a></p>
+<p><a href="https://www.ghstools.fr/api_captcha.php">https://www.ghstools.fr/api_captcha.php</a></p>
+<p><a href="http://caca.zoy.org/wiki/PWNtcha">http://caca.zoy.org/wiki/PWNtcha</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Commandes de synchronisation/dev Geth</title>
+            <link>https://leandeep.com/commandes-de-synchronisation/dev-geth/</link>
+            <pubDate>Thu, 30 Jun 2022 09:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/commandes-de-synchronisation/dev-geth/</guid>
+            <description>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&amp;rsquo;autres commandes utiles pour développer sur cette Blockchain.
+ Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
+curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545  Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces 2 commandes:</description>
+            <content type="html"><![CDATA[<p>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&rsquo;autres commandes utiles pour développer sur cette Blockchain.</p>
+<br/>
+<h2 id="synchronisation">Synchronisation</h2>
+<p>Si vous n&rsquo;avez pas accès la machine, vous pouvez utiliser <code>curl</code>:</p>
+<pre tabindex="0"><code>curl -H &#34;Content-Type: application/json&#34; -X POST --data &#39;{&#34;jsonrpc&#34;:&#34;2.0&#34;,&#34;method&#34;:&#34;eth_syncing&#34;,&#34;params&#34;:[],&#34;id&#34;:1}&#39; http://127.0.0.1:8545
+</code></pre><br/>
+<p>Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces 2 commandes:</p>
+<pre tabindex="0"><code>./geth_bsc --exec &#34;loadScript(&#39;GethSyncingProgress_2TimeEstimate.js&#39;)&#34; attach ./node/geth.ipc
+</code></pre><p>Le script MIT réalisé <a href="https://github.com/lyricalpolymath/Ethereum-Scripts/blob/master/GethSyncingProgress_2TimeEstimate.js">par Lyricalpolymath <code>GethSyncingProgress_2TimeEstimate.js</code></a> est le suivant:</p>
+<pre tabindex="0"><code>/**
+*   GETH SYNCING PROGRESS - TIME ESTIMATE
+*  a script to estimate how much time is left to fully sync the Ethereum Blockchain with Geth
+*  
+*  If it takes too long, consider restarting geth with 
+*		the &#39;--fast&#39; option (not suggested for developers), 
+*		or better the &#39;--cache=1024&#39; or &#39;--cache=2048 option that will assign more RAM to geth and make it faster
+* 
+*  (c) Lyricalpolymath 2016. MIT Licence 
+*  http://github.com/lyricalpolymath
+*/
+
+
+// run like this
+// $ geth --exec &#34;loadScript(&#39;GethSyncingProgress_2TimeEstimate.js&#39;)&#34; attach  
+
+                   
+//number of blocks to test before we give a timing estimate    
+var resolution = 10; 
+
+var startDate = new Date();
+var endDate;
+var s = eth.syncing;
+var block1 = s.currentBlock
+var blockLast = block1 + resolution
+ 
+
+// convert the duration for the stats
+function msToTime(duration) {
+    var milliseconds = parseInt((duration % 1000) / 100),
+        seconds = parseInt((duration / 1000) % 60),
+        minutes = parseInt((duration / (1000 * 60)) % 60),
+        hours = parseInt((duration / (1000 * 60 * 60)) % 24), 
+		days = parseInt((duration / (1000 * 60 * 60 * 24)) % 365);
+       
+    var h = (hours &lt; 10) ? &#34;0&#34; + hours : hours;
+    var m = (minutes &lt; 10) ? &#34;0&#34; + minutes : minutes;
+    var s = (seconds &lt; 10) ? &#34;0&#34; + seconds : seconds;
+
+    return days + &#34;d :&#34; + hours + &#34;h :&#34; + minutes + &#34;m :&#34; + seconds + &#34;s.&#34; + milliseconds;
+}
+    
+
+function displayTimeEstimate() {
+	s = eth.syncing;
+	var blocksLeft = (s.highestBlock-s.currentBlock)   
+	var time_duration = endDate - startDate  //returns amount of milliseconds passed
+	var time_duration_readable = msToTime(time_duration);
+	var time_left = msToTime( (time_duration / resolution) * blocksLeft );
+	
+	console.log(&#34;------------ GETH SYNCING PROGRESS - Time estimate&#34;)
+	console.log(&#34;progress: &#34; + (s.currentBlock/s.highestBlock*100));
+	console.log(&#34;Estimated Time left*: &#34; + time_left);
+	console.log(&#34;Time it took to parse &#34; + resolution + &#34; blocks: &#34; + time_duration_readable); 
+	console.log(&#34;blocks left to parse: &#34; + blocksLeft ); 
+	 
+	if(time_duration_readable.indexOf(&#34;0d&#34;) != -1) {
+		console.log(&#34;--------------------------------------------------&#34;) 
+		console.log(&#34;*WARNING: this is just an ESTIMATE based on how much time it took to parse &#34; + resolution + &#34; blocks. But each block is different, some take longer than others because they have more transactions, and also, new blocks are continuously added&#34;);
+		console.log(&#34;If it takes too long, consider restarting geth with the &#39;--fast&#39; option (not suggested for developers), or better the &#39;--cache=1024&#39; or &#39;--cache=2048 option that will assign more RAM to geth and make it faster&#34;);
+	}  
+}
+
+
+// wait untill the number of Blocks isn&#39;t like the BlockLast
+// and then calculate the time difference and show it on the console 
+console.log(&#34;\nGeth Syncing progress Time Estimate - STARTED - be patient, this might take ≈&#34; + (resolution*5) + &#34; seconds approximately&#34;)
+do {
+   var cb = eth.syncing.currentBlock;
+   if (cb &gt;= blockLast) {
+	   endDate = new Date();
+	   displayTimeEstimate()
+   }
+} while(cb &lt; blockLast) 
+</code></pre><br/>
+<p>Ou cette commande plus simple:</p>
+<pre tabindex="0"><code>./geth_bsc --exec &#39;var s = eth.syncing; console.log(&#34;\n------------ GETH SYNCING PROGRESS\nprogress: &#34; + (s.currentBlock/s.highestBlock*100)+ &#34; %\nblocks left to parse: &#34;+ (s.highestBlock-s.currentBlock) + &#34;\ncurrent Block: &#34; + s.currentBlock + &#34; of &#34; + s.highestBlock)&#39; attach ./node/geth.ipc
+</code></pre><br/>
+<h2 id="tunnel-vers-geth-si-remote-access-not-configured">Tunnel vers Geth si remote access not configured</h2>
+<p><em>Bien sûr à ne pas utiliser en production</em></p>
+<pre tabindex="0"><code>ssh -N -v -p PORT_SSH VOTRE_SSH_USER@VOTRE_SSH_SERVER -L 8545:localhost:8545
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer Neo4j 4.1 sur Ubuntu 20.04</title>
@@ -191,8 +371,14 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
 <p>Ensuite, il suffit d&rsquo;exécuter les commandes suivantes:</p>
 <pre tabindex="0"><code>cd self-hosted-22.5.0
 ./install.sh
+# ou (en local)
+# ./install.sh --no-user-prompt
+
 # yes pour créer un compte admin
-docker compose up
+# ou pour en recréer un:
+# docker-compose run --rm web createuser 
+
+docker compose up -d
 </code></pre><p>Une fois installé, rendez-vous à l&rsquo;adresse <a href="http://localhost:9000">http://localhost:9000</a> pour accéder à l&rsquo;interface de Sentry.</p>
 ]]></content>
         </item>
@@ -24968,6 +25154,9 @@ Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. ce
 </code></pre><br/>
 <p><strong>Voir les derniers commits locaux pas encore pushé sur l&rsquo;origin:</strong></p>
 <pre tabindex="0"><code>git log --branches --not --remotes
+</code></pre><br/>
+<p><strong>Effacer les fichiers du working directory en incluant les nouveaux untracked files</strong></p>
+<pre tabindex="0"><code>git clean -fd
 </code></pre><br/>
 <p><strong>Tagguer (le dernier commit d&rsquo;) une branche</strong></p>
 <pre tabindex="0"><code>git tag mon_tag
