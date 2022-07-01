@@ -40,6 +40,24 @@ req = requests.Session()
 url = &#34;&#34;
 req.get(url, proxies=proxies)
 </code></pre><br/>
+<p>ou
+<br/></p>
+<pre tabindex="0"><code># pip install requests
+# pip install pysocks
+
+import requests
+
+proxies = {
+  &#34;http&#34;: &#34;socks5://127.0.0.1:9050&#34;,
+  &#34;https&#34;: &#34;socks5://127.0.0.1:9050&#34;,
+}
+
+req = requests.Session()
+url = &#34;http://jsonip.com&#34;
+response = req.get(url, proxies=proxies)
+ip = response.json()[&#39;ip&#39;]
+print(&#39;Your public IP is:&#39;, ip)
+</code></pre><br/>
 <p><strong>Proxies en tout genre</strong></p>
 <p>Utiliser des proxies publiques à la place de Tor.
 Scraping totalement indétectable si le proxy change très régulièrement.
