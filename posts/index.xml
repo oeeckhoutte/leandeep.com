@@ -82,12 +82,26 @@ r.close()
 <p>Malheureusement ils se contournent.</p>
 <br/>
 <p>Exemple de resources:</p>
+<ul>
+<li>
 <p><a href="https://2captcha.com/api-2captcha">https://2captcha.com/api-2captcha</a></p>
+</li>
+<li>
 <p><a href="https://2captcha.com/newapi-recaptcha-en">https://2captcha.com/newapi-recaptcha-en</a></p>
+</li>
+<li>
 <p><a href="https://pixodrom.com/">https://pixodrom.com/</a></p>
+</li>
+<li>
 <p><a href="https://www.9kw.eu/plugins.html">https://www.9kw.eu/plugins.html</a></p>
+</li>
+<li>
 <p><a href="https://www.ghstools.fr/api_captcha.php">https://www.ghstools.fr/api_captcha.php</a></p>
+</li>
+<li>
 <p><a href="http://caca.zoy.org/wiki/PWNtcha">http://caca.zoy.org/wiki/PWNtcha</a></p>
+</li>
+</ul>
 ]]></content>
         </item>
         
@@ -99,14 +113,14 @@ r.close()
             <guid>https://leandeep.com/commandes-de-synchronisation/dev-geth/</guid>
             <description>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&amp;rsquo;autres commandes utiles pour développer sur cette Blockchain.
  Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
-curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545  Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces 2 commandes:</description>
+curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545  Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
             <content type="html"><![CDATA[<p>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&rsquo;autres commandes utiles pour développer sur cette Blockchain.</p>
 <br/>
 <h2 id="synchronisation">Synchronisation</h2>
 <p>Si vous n&rsquo;avez pas accès la machine, vous pouvez utiliser <code>curl</code>:</p>
 <pre tabindex="0"><code>curl -H &#34;Content-Type: application/json&#34; -X POST --data &#39;{&#34;jsonrpc&#34;:&#34;2.0&#34;,&#34;method&#34;:&#34;eth_syncing&#34;,&#34;params&#34;:[],&#34;id&#34;:1}&#39; http://127.0.0.1:8545
 </code></pre><br/>
-<p>Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces 2 commandes:</p>
+<p>Par contre, si vous avez accès à <code>geth</code> sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</p>
 <pre tabindex="0"><code>./geth_bsc --exec &#34;loadScript(&#39;GethSyncingProgress_2TimeEstimate.js&#39;)&#34; attach ./node/geth.ipc
 </code></pre><p>Le script MIT réalisé <a href="https://github.com/lyricalpolymath/Ethereum-Scripts/blob/master/GethSyncingProgress_2TimeEstimate.js">par Lyricalpolymath <code>GethSyncingProgress_2TimeEstimate.js</code></a> est le suivant:</p>
 <pre tabindex="0"><code>/**
