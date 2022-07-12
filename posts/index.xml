@@ -5,126 +5,112 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 30 Jun 2022 22:45:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 12 Jul 2022 21:03:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Protéger votre site internet/ web app du scraping</title>
-            <link>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</link>
-            <pubDate>Thu, 30 Jun 2022 22:45:00 +0000</pubDate>
+            <title>Utiliser Erigon pour ses Nodes sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</link>
+            <pubDate>Tue, 12 Jul 2022 21:03:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</guid>
-            <description>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&amp;rsquo;est un peu plus long qu&amp;rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet.</description>
-            <content type="html"><![CDATA[<p>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&rsquo;est un peu plus long qu&rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet. Il est abérrant de voir que certains business lancés sur internet n&rsquo;ont absolument rien fait pour se protéger. Pourtant si un dump de leurs données se retrouvait sur internet ils pourraient tout de suite fermer boutique&hellip;</p>
+            <guid>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</guid>
+            <description>Installation Go wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz Editer ~/.profile et ajouter les commandes suivantes
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version  Installation Erigon cd /data/ git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon  Run Polygon
+mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon  bsc
+mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.</description>
+            <content type="html"><![CDATA[<h2 id="installation-go">Installation Go</h2>
+<pre tabindex="0"><code>wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
+</code></pre><p>Editer <code>~/.profile</code> et ajouter les commandes suivantes</p>
+<pre tabindex="0"><code>export PATH=$PATH:/usr/local/go/bin
+export GOPATH=&#34;${HOME}/.go/bin&#34;
+export PATH=$GOPATH:$PATH
+</code></pre><pre tabindex="0"><code>source ~/.profile
+</code></pre><pre tabindex="0"><code>go version
+</code></pre><br/>
+<h2 id="installation-erigon">Installation Erigon</h2>
+<pre tabindex="0"><code>cd /data/
+git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git
+cd erigon
+make erigon
+</code></pre><br/>
+<h2 id="run">Run</h2>
+<p><strong>Polygon</strong></p>
+<pre tabindex="0"><code>mkdir /data/bor-mainnet
+./build/bin/erigon --datadir=&#34;/data/bor-mainnet&#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
+</code></pre><br/>
+<p><strong>bsc</strong></p>
+<pre tabindex="0"><code>mkdir /data/bsc
+./build/bin/erigon --datadir=&#34;/data/bsc&#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
+</code></pre><br/>
+<p><strong>Ethereum</strong></p>
+<pre tabindex="0"><code>mkdir /data/ethereum
+./build/bin/erigon --datadir=&#34;data/ethereum&#34; --chain=mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Installer ZeroTier sur Ubuntu 20.04</title>
+            <link>https://leandeep.com/installer-zerotier-sur-ubuntu-20.04/</link>
+            <pubDate>Tue, 12 Jul 2022 20:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-zerotier-sur-ubuntu-20.04/</guid>
+            <description>Installation curl -s https://install.zerotier.com | sudo bash curl -s &amp;#39;https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg&amp;#39; | gpg --import &amp;amp;&amp;amp; \ if z=$(curl -s &amp;#39;https://install.zerotier.com/&amp;#39; | gpg); then echo &amp;#34;$z&amp;#34; | sudo bash; fi sudo apt update sudo apt install -y zerotier-one  Configuration Récupérer votre network_id sur https://my.zerotier.com/ puis connecter votre serveur à votre réseau.
+sudo zerotier-cli join &amp;lt;network_id&amp;gt; Retourner sur https://my.zerotier.com/ pour autoriser le nouveau noeud ajouté à accéder à votre réseau.
+ Editer /etc/ssh/sshd_config et remplacer ListenAddress 0.</description>
+            <content type="html"><![CDATA[<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>curl -s https://install.zerotier.com | sudo bash
+curl -s &#39;https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg&#39; | gpg --import &amp;&amp; \
+if z=$(curl -s &#39;https://install.zerotier.com/&#39; | gpg); then echo &#34;$z&#34; | sudo bash; fi
+sudo apt update
+sudo apt install -y zerotier-one
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
+<p>Récupérer votre <code>network_id</code> sur <a href="https://my.zerotier.com/">https://my.zerotier.com/</a> puis connecter votre serveur à votre réseau.</p>
+<pre tabindex="0"><code>sudo zerotier-cli join &lt;network_id&gt;
+</code></pre><p>Retourner sur <a href="https://my.zerotier.com/">https://my.zerotier.com/</a> pour autoriser le nouveau noeud ajouté à accéder à votre réseau.</p>
 <br/>
-<h2 id="filtrage-ip">Filtrage IP</h2>
-<p>Possibilité de passer sous le radar des API gateway avec des nouvelles IPs.</p>
-<p><strong>Proxy Anonyme via Tor</strong></p>
-<blockquote>
-<p>Avantage: Rapidité de mise en oeuvre<br/>
-Inconvénient: Range d&rsquo;IPs connu</p>
-</blockquote>
-<p>Example d&rsquo;usage sur OSX avec Python 3:</p>
-<pre tabindex="0"><code>pip insall requests
-brew install tor
-tor
-
-ou 
-
-brew services start tor
-</code></pre><br/>
-<p>Dans un programme Python:</p>
-<pre tabindex="0"><code>import requests
-
-proxies = {
-    &#39;http&#39;: &#39;socks5://127.0.0.1:9050&#39;,
-    &#39;https&#39;: &#39;socks5://127.0.0.1:9050&#39;
-}
-
-req = requests.Session()
-url = &#34;&#34;
-req.get(url, proxies=proxies)
-</code></pre><br/>
-<p>ou
-<br/></p>
-<pre tabindex="0"><code># pip install requests
-# pip install pysocks
-
+<p>Editer <code>/etc/ssh/sshd_config</code> et remplacer <code>ListenAddress 0.0.0.0</code> par <code>ListenAddress IP_DE_VOTRE_RANGE</code> pour sécuriser davantage votre serveur SSH.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Télécharger les ABIs des smart contracts vérifiés sur bscscan</title>
+            <link>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</link>
+            <pubDate>Sun, 03 Jul 2022 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</guid>
+            <description>Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
+Créer un fichier get_abi.py et coller le contenu suivant:
+ #!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &amp;#34;https://api.etherscan.io/api?module=contract&amp;amp;action=getabi&amp;amp;address=&amp;#34; parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;-a&amp;#34;, &amp;#34;--address&amp;#34;, type=str, help=&amp;#34;Smart contract address&amp;#34;) parser.add_argument(&amp;#34;-o&amp;#34;, &amp;#34;--output&amp;#34;, type=str, help=&amp;#34;Path to store the output ABI JSON file&amp;#34;, required=True) def __main__() -&amp;gt; None: &amp;#34;&amp;#34;&amp;#34;Exports contract ABI in JSON&amp;#34;&amp;#34;&amp;#34; args = parser.</description>
+            <content type="html"><![CDATA[<p>Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.</p>
+<p>Créer un fichier <code>get_abi.py</code> et coller le contenu suivant:</p>
+<br/>
+<pre tabindex="0"><code>#!/usr/bin/python
+import argparse
 import requests
+import json
 
-proxies = {
-  &#34;http&#34;: &#34;socks5://127.0.0.1:9050&#34;,
-  &#34;https&#34;: &#34;socks5://127.0.0.1:9050&#34;,
-}
 
-req = requests.Session()
-url = &#34;http://jsonip.com&#34;
-response = req.get(url, proxies=proxies)
-ip = response.json()[&#39;ip&#39;]
-print(&#39;Your public IP is:&#39;, ip)
+ABI_ENDPOINT = &#34;https://api.etherscan.io/api?module=contract&amp;action=getabi&amp;address=&#34;
+
+parser = argparse.ArgumentParser()
+parser.add_argument(&#34;-a&#34;, &#34;--address&#34;, type=str, help=&#34;Smart contract address&#34;)
+parser.add_argument(&#34;-o&#34;, &#34;--output&#34;, type=str, help=&#34;Path to store the output ABI JSON file&#34;, required=True)
+
+def __main__() -&gt; None:
+    &#34;&#34;&#34;Exports contract ABI in JSON&#34;&#34;&#34;
+    args = parser.parse_args()
+    resp_json_ = requests.get(f&#34;{ABI_ENDPOINT}{args.addr}&#34;).json()
+    abi_json = json.loads(resp_json[&#34;result&#34;])
+    result = json.dumps({&#34;abi&#34;: abi_json}, indent=4, sort_keys=True)
+    open(args.output, &#34;w&#34;).write(result)
+
+if __name__ == &#34;__main__&#34;:
+    __main__()
 </code></pre><br/>
-<p><strong>Proxies en tout genre</strong></p>
-<p>Utiliser des proxies publiques à la place de Tor.
-Scraping totalement indétectable si le proxy change très régulièrement.
-Par exemple, des failles XSS ou botnet (TDL4 rootkit de 2011 <a href="https://www.youtube.com/watch?v=k3g5gNcHoFM">https://www.youtube.com/watch?v=k3g5gNcHoFM</a>) sont exploitées&hellip;</p>
-<br/>
-<blockquote>
-<p>Etant donné que l&rsquo;on parle de proxy, sécurité et Python dans cet article, j&rsquo;en profite pour vous indiquer quelques références que je recommende pour apprendre la sécurité avec Python.</p>
-</blockquote>
-<p><img src="/images/python-black-hat.png" alt="image">
-<img src="/images/rootkits-and-bootkits.png" alt="image">
-<img src="/images/malware-data-science.png" alt="image">
-<img src="/images/python-hacking.png" alt="image">
-<img src="/images/gray-hat-python.png" alt="image">
-<img src="/images/malware-analysis.png" alt="image">
-<img src="/images/violent-python.png" alt="image"></p>
-<p>Et enfin, cette référence pour avoir un point de vue plus entreprise.</p>
-<p><img src="/images/blue-team.png" alt="image"></p>
-<br/>
-<h2 id="browser-headless-type-selenium">Browser headless type Selenium</h2>
-<p>Il existe pas mal de solutions concurrentes.
-Selenium fontionne très bien. <a href="https://github.com/tebelorg/RPA-Python">RPA python</a> fonctionne également très bien et il permet de mieux intéragir avec le desktop.
-Selenium conjugé à <code>fake_useragent</code>, des tailles d&rsquo;écran différentes et le plugin <code>browsermob-proxy</code> permet de récupérer à peu près tout ce qu&rsquo;on veut. Il n&rsquo;est pas forcément nécessaire de contourner le filtrage IP ou plus généralement les quota limits car malheureusement rarement mis en place.</p>
-<blockquote>
-<p><code>rpa</code> a le mérite d&rsquo;être excessivement simple à boostraper. <br/>Un simple <code>pip install rpa</code> et un minuscule script comme ci-dessous permet de d&rsquo;ouvrir un browser sur une URL donnée.</p>
-<pre tabindex="0"><code>url = &#34;https://...&#34;
-r.init(
-   visual_automation=True,
-   chrome_browser=True,
-   headless_mode=False,
-   turbo_mode=False,
-)
-r.url(url)
-# r.click(&#39;//a[normalize-space()=&#34;Inventaire complet&#34;]&#39;) 
-r.wait(10)
-r.close()
-</code></pre><p>Pour les XPATHs utiliser l&rsquo;extensions <a href="https://chrome.google.com/webstore/detail/selectorshub/ndgimibanhlabgdgjcpbbndiehljcpfh?hl=en">SelectorsHUB</a></p>
-</blockquote>
-<br/>
-<h2 id="captcha">Captcha</h2>
-<p>Malheureusement ils se contournent.</p>
-<br/>
-<p>Exemple de resources:</p>
-<ul>
-<li>
-<p><a href="https://2captcha.com/api-2captcha">https://2captcha.com/api-2captcha</a></p>
-</li>
-<li>
-<p><a href="https://2captcha.com/newapi-recaptcha-en">https://2captcha.com/newapi-recaptcha-en</a></p>
-</li>
-<li>
-<p><a href="https://pixodrom.com/">https://pixodrom.com/</a></p>
-</li>
-<li>
-<p><a href="https://www.9kw.eu/plugins.html">https://www.9kw.eu/plugins.html</a></p>
-</li>
-<li>
-<p><a href="https://www.ghstools.fr/api_captcha.php">https://www.ghstools.fr/api_captcha.php</a></p>
-</li>
-<li>
-<p><a href="http://caca.zoy.org/wiki/PWNtcha">http://caca.zoy.org/wiki/PWNtcha</a></p>
-</li>
-</ul>
+<p>Et voici la commande pour utiliser ce script:</p>
+<p><code>python get_abi --address=ADDRESS_CONTRACT --output=OUTPUT_PATH</code></p>
 ]]></content>
         </item>
         
@@ -271,6 +257,126 @@ sudo systemctl enable neo4j.</description>
 </code></pre><blockquote>
 <p>Neo4j sera disponible sur localhost (<code>neo4j://127.0.0.1:7687</code>) uniquement. Rendez-vous dans <code>/etc/neo4j/neo4j.conf</code> pour binder Neo4j aux interfaces IPv4 ou IPv6 de votre serveur.</p>
 </blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Protéger votre site internet/ web app du scraping</title>
+            <link>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</link>
+            <pubDate>Sat, 28 May 2022 09:45:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</guid>
+            <description>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&amp;rsquo;est un peu plus long qu&amp;rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet.</description>
+            <content type="html"><![CDATA[<p>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&rsquo;est un peu plus long qu&rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet. Il est abérrant de voir que certains business lancés sur internet n&rsquo;ont absolument rien fait pour se protéger. Pourtant si un dump de leurs données se retrouvait sur internet ils pourraient tout de suite fermer boutique&hellip;</p>
+<br/>
+<h2 id="filtrage-ip">Filtrage IP</h2>
+<p>Possibilité de passer sous le radar des API gateway avec des nouvelles IPs.</p>
+<p><strong>Proxy Anonyme via Tor</strong></p>
+<blockquote>
+<p>Avantage: Rapidité de mise en oeuvre<br/>
+Inconvénient: Range d&rsquo;IPs connu</p>
+</blockquote>
+<p>Example d&rsquo;usage sur OSX avec Python 3:</p>
+<pre tabindex="0"><code>pip insall requests
+brew install tor
+tor
+
+ou 
+
+brew services start tor
+</code></pre><br/>
+<p>Dans un programme Python:</p>
+<pre tabindex="0"><code>import requests
+
+proxies = {
+    &#39;http&#39;: &#39;socks5://127.0.0.1:9050&#39;,
+    &#39;https&#39;: &#39;socks5://127.0.0.1:9050&#39;
+}
+
+req = requests.Session()
+url = &#34;&#34;
+req.get(url, proxies=proxies)
+</code></pre><br/>
+<p>ou
+<br/></p>
+<pre tabindex="0"><code># pip install requests
+# pip install pysocks
+
+import requests
+
+proxies = {
+  &#34;http&#34;: &#34;socks5://127.0.0.1:9050&#34;,
+  &#34;https&#34;: &#34;socks5://127.0.0.1:9050&#34;,
+}
+
+req = requests.Session()
+url = &#34;http://jsonip.com&#34;
+response = req.get(url, proxies=proxies)
+ip = response.json()[&#39;ip&#39;]
+print(&#39;Your public IP is:&#39;, ip)
+</code></pre><br/>
+<p><strong>Proxies en tout genre</strong></p>
+<p>Utiliser des proxies publiques à la place de Tor.
+Scraping totalement indétectable si le proxy change très régulièrement.
+Par exemple, des failles XSS ou botnet (TDL4 rootkit de 2011 <a href="https://www.youtube.com/watch?v=k3g5gNcHoFM">https://www.youtube.com/watch?v=k3g5gNcHoFM</a>) sont exploitées&hellip;</p>
+<br/>
+<blockquote>
+<p>Etant donné que l&rsquo;on parle de proxy, sécurité et Python dans cet article, j&rsquo;en profite pour vous indiquer quelques références que je recommende pour apprendre la sécurité avec Python.</p>
+</blockquote>
+<p><img src="/images/python-black-hat.png" alt="image">
+<img src="/images/rootkits-and-bootkits.png" alt="image">
+<img src="/images/malware-data-science.png" alt="image">
+<img src="/images/python-hacking.png" alt="image">
+<img src="/images/gray-hat-python.png" alt="image">
+<img src="/images/malware-analysis.png" alt="image">
+<img src="/images/violent-python.png" alt="image"></p>
+<p>Et enfin, cette référence pour avoir un point de vue plus entreprise.</p>
+<p><img src="/images/blue-team.png" alt="image"></p>
+<br/>
+<h2 id="browser-headless-type-selenium">Browser headless type Selenium</h2>
+<p>Il existe pas mal de solutions concurrentes.
+Selenium fontionne très bien. <a href="https://github.com/tebelorg/RPA-Python">RPA python</a> fonctionne également très bien et il permet de mieux intéragir avec le desktop.
+Selenium conjugé à <code>fake_useragent</code>, des tailles d&rsquo;écran différentes et le plugin <code>browsermob-proxy</code> permet de récupérer à peu près tout ce qu&rsquo;on veut. Il n&rsquo;est pas forcément nécessaire de contourner le filtrage IP ou plus généralement les quota limits car malheureusement rarement mis en place.</p>
+<blockquote>
+<p><code>rpa</code> a le mérite d&rsquo;être excessivement simple à boostraper. <br/>Un simple <code>pip install rpa</code> et un minuscule script comme ci-dessous permet de d&rsquo;ouvrir un browser sur une URL donnée.</p>
+<pre tabindex="0"><code>url = &#34;https://...&#34;
+r.init(
+   visual_automation=True,
+   chrome_browser=True,
+   headless_mode=False,
+   turbo_mode=False,
+)
+r.url(url)
+# r.click(&#39;//a[normalize-space()=&#34;Inventaire complet&#34;]&#39;) 
+r.wait(10)
+r.close()
+</code></pre><p>Pour les XPATHs utiliser l&rsquo;extensions <a href="https://chrome.google.com/webstore/detail/selectorshub/ndgimibanhlabgdgjcpbbndiehljcpfh?hl=en">SelectorsHUB</a></p>
+</blockquote>
+<br/>
+<h2 id="captcha">Captcha</h2>
+<p>Malheureusement ils se contournent.</p>
+<br/>
+<p>Exemple de resources:</p>
+<ul>
+<li>
+<p><a href="https://2captcha.com/api-2captcha">https://2captcha.com/api-2captcha</a></p>
+</li>
+<li>
+<p><a href="https://2captcha.com/newapi-recaptcha-en">https://2captcha.com/newapi-recaptcha-en</a></p>
+</li>
+<li>
+<p><a href="https://pixodrom.com/">https://pixodrom.com/</a></p>
+</li>
+<li>
+<p><a href="https://www.9kw.eu/plugins.html">https://www.9kw.eu/plugins.html</a></p>
+</li>
+<li>
+<p><a href="https://www.ghstools.fr/api_captcha.php">https://www.ghstools.fr/api_captcha.php</a></p>
+</li>
+<li>
+<p><a href="http://caca.zoy.org/wiki/PWNtcha">http://caca.zoy.org/wiki/PWNtcha</a></p>
+</li>
+</ul>
 ]]></content>
         </item>
         
@@ -423,6 +529,26 @@ brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
 docker compose up -d
 </code></pre><p>Une fois installé, rendez-vous à l&rsquo;adresse <a href="http://localhost:9000">http://localhost:9000</a> pour accéder à l&rsquo;interface de Sentry.</p>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Commandes Tor utiles pour travailler avec Tor sur OSX</title>
+            <link>https://leandeep.com/commandes-tor-utiles-pour-travailler-avec-tor-sur-osx/</link>
+            <pubDate>Tue, 03 May 2022 21:25:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/commandes-tor-utiles-pour-travailler-avec-tor-sur-osx/</guid>
+            <description>Voici quelques commandes utiles à ajouter à votre .zshrc pour vérifier que votre Mac est connecté ou non à Tor.
+echo &amp;#34;# Tor alias&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias myip=&amp;#39;curl -s https://api.ipify.org/&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias myiplookup=&amp;#39;ip2cc \$(curl -s https://api.ipify.org/)&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias mytorip=&amp;#39;curl -s --socks5 127.0.0.1:9050 https://api.ipify.org/&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias mytoriplookup=&amp;#39;ip2cc \$(curl -s --socks5 127.0.0.1:9050 https://api.ipify.org/)&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias tor_on=&amp;#39;sudo networksetup setsocksfirewallproxy \&amp;#34;Wi-Fi\&amp;#34; 127.0.0.1 9050 &amp;amp;&amp;amp; tor&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.</description>
+            <content type="html"><![CDATA[<p>Voici quelques commandes utiles à ajouter à votre <code>.zshrc</code> pour vérifier que votre Mac est connecté ou non à Tor.</p>
+<pre tabindex="0"><code>echo &#34;# Tor alias&#34; &gt;&gt; ~/.zshrc
+echo &#34;alias myip=&#39;curl -s https://api.ipify.org/&#39;&#34; &gt;&gt; ~/.zshrc
+echo &#34;alias myiplookup=&#39;ip2cc \$(curl -s https://api.ipify.org/)&#39;&#34; &gt;&gt; ~/.zshrc
+echo &#34;alias mytorip=&#39;curl -s --socks5 127.0.0.1:9050 https://api.ipify.org/&#39;&#34; &gt;&gt; ~/.zshrc
+echo &#34;alias mytoriplookup=&#39;ip2cc \$(curl -s --socks5 127.0.0.1:9050 https://api.ipify.org/)&#39;&#34; &gt;&gt; ~/.zshrc
+echo &#34;alias tor_on=&#39;sudo networksetup setsocksfirewallproxy \&#34;Wi-Fi\&#34; 127.0.0.1 9050 &amp;&amp; tor&#39;&#34; &gt;&gt; ~/.zshrc
+echo &#34;alias tor_off=&#39;sudo networksetup setsocksfirewallproxystate \&#34;Wi-Fi\&#34; off &amp;&amp; killall tor&#39;&#34; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+</code></pre>]]></content>
         </item>
         
         <item>

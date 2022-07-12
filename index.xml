@@ -6,14 +6,39 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 30 Jun 2022 22:45:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jul 2022 21:03:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Protéger votre site internet/ web app du scraping</title>
-      <link>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</link>
-      <pubDate>Thu, 30 Jun 2022 22:45:00 +0000</pubDate>
+      <title>Utiliser Erigon pour ses Nodes sur Ubuntu 20.04</title>
+      <link>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</link>
+      <pubDate>Tue, 12 Jul 2022 21:03:00 +0000</pubDate>
       
-      <guid>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</guid>
-      <description>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&amp;rsquo;est un peu plus long qu&amp;rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet.</description>
+      <guid>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</guid>
+      <description>Installation Go wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz Editer ~/.profile et ajouter les commandes suivantes
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version  Installation Erigon cd /data/ git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon  Run Polygon
+mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon  bsc
+mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.</description>
+    </item>
+    
+    <item>
+      <title>Installer ZeroTier sur Ubuntu 20.04</title>
+      <link>https://leandeep.com/installer-zerotier-sur-ubuntu-20.04/</link>
+      <pubDate>Tue, 12 Jul 2022 20:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-zerotier-sur-ubuntu-20.04/</guid>
+      <description>Installation curl -s https://install.zerotier.com | sudo bash curl -s &amp;#39;https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg&amp;#39; | gpg --import &amp;amp;&amp;amp; \ if z=$(curl -s &amp;#39;https://install.zerotier.com/&amp;#39; | gpg); then echo &amp;#34;$z&amp;#34; | sudo bash; fi sudo apt update sudo apt install -y zerotier-one  Configuration Récupérer votre network_id sur https://my.zerotier.com/ puis connecter votre serveur à votre réseau.
+sudo zerotier-cli join &amp;lt;network_id&amp;gt; Retourner sur https://my.zerotier.com/ pour autoriser le nouveau noeud ajouté à accéder à votre réseau.
+ Editer /etc/ssh/sshd_config et remplacer ListenAddress 0.</description>
+    </item>
+    
+    <item>
+      <title>Télécharger les ABIs des smart contracts vérifiés sur bscscan</title>
+      <link>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</link>
+      <pubDate>Sun, 03 Jul 2022 21:25:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</guid>
+      <description>Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
+Créer un fichier get_abi.py et coller le contenu suivant:
+ #!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &amp;#34;https://api.etherscan.io/api?module=contract&amp;amp;action=getabi&amp;amp;address=&amp;#34; parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;-a&amp;#34;, &amp;#34;--address&amp;#34;, type=str, help=&amp;#34;Smart contract address&amp;#34;) parser.add_argument(&amp;#34;-o&amp;#34;, &amp;#34;--output&amp;#34;, type=str, help=&amp;#34;Path to store the output ABI JSON file&amp;#34;, required=True) def __main__() -&amp;gt; None: &amp;#34;&amp;#34;&amp;#34;Exports contract ABI in JSON&amp;#34;&amp;#34;&amp;#34; args = parser.</description>
     </item>
     
     <item>
@@ -40,6 +65,15 @@ echo &amp;#34;deb [signed-by=/usr/share/keyrings/neo4j.gpg] https://debian.neo4j
 sudo apt update  Installer le package
 sudo apt install neo4j  Enable le service
 sudo systemctl enable neo4j.</description>
+    </item>
+    
+    <item>
+      <title>Protéger votre site internet/ web app du scraping</title>
+      <link>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</link>
+      <pubDate>Sat, 28 May 2022 09:45:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/prot%C3%A9ger-votre-site-internet/-web-app-du-scraping/</guid>
+      <description>Si vous avez besoin de protéger vos précieuses données, sécuriser votre API ne suffit pas. Il faut aussi protéger votre front du scraping sans quoi un hacker peut récupérer toutes vos données. Pour un hacker, c&amp;rsquo;est un peu plus long qu&amp;rsquo;attaquer une API mais pour une personne expérimentée, cela peut aller très vite. Dans cet article succinct, nous allons voir brièvement des techniques utilisées pour scraper des données. Il est important de les connaître pour mieux protéger son site internet.</description>
     </item>
     
     <item>
@@ -84,41 +118,6 @@ jq -r &amp;#39;.default | to_entries[] | .key + .value.version&amp;#39; \ Pipfil
       <guid>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</guid>
       <description>Voici la procédure pour corriger l&amp;rsquo;erreur qui fait crasher le terminal zsh avec le message d&amp;rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
 J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&amp;rsquo;est une erreur Openssl.</description>
-    </item>
-    
-    <item>
-      <title>Installer un serveur Sentry en moins de 5 minutes en 2022</title>
-      <link>https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes-en-2022/</link>
-      <pubDate>Sat, 14 May 2022 21:25:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes-en-2022/</guid>
-      <description>Dans cet article nous allons voir comment installer Sentry sur OSX via Docker. Il fait suite à un premier article sur le même sujet écrit en 2018. La procédure a totalement changé donc voici une mise à jour.
- Installation Installer le package suivant:
-brew install coreutils  Récupérer la dernière release de Sentry sur ce lien.
- Dans mon cas, j&amp;rsquo;ai téléchargé la version self-hosted-22.5.0
- Ensuite, il suffit d&amp;rsquo;exécuter les commandes suivantes:</description>
-    </item>
-    
-    <item>
-      <title>Enregistrer l&#39;écran de son Mac avec le son built-in</title>
-      <link>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</link>
-      <pubDate>Mon, 02 May 2022 22:45:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</guid>
-      <description>Dans cet article très court, nous allons voir comment faire un screen recording avec le son built-in à partir de Quicktime sur Mac. Pas besoin de soft payant; juste d&amp;rsquo;un driver supplémentaire open source
- Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
-brew install blackhole-16ch  Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
-Nous allons créer 2 interfaces audio. Une en input et une en output.</description>
-    </item>
-    
-    <item>
-      <title>Corriger l&#39;erreur ADB no permissions sur Arch</title>
-      <link>https://leandeep.com/corriger-lerreur-adb-no-permissions-sur-arch/</link>
-      <pubDate>Wed, 02 Mar 2022 22:59:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/corriger-lerreur-adb-no-permissions-sur-arch/</guid>
-      <description>Voici la procédure pour installer ADB sur Arch, fixer le problème de permissions et uploader des fichiers en cli. Je me sers de ces commandes pour copier des vidéos très lourdes filmées en 8K sur un Meta Quest 2 via USB.
- Installation sudo pacman -S android-tools  Permissions # Si adb tourne déjà # adb kill-server # Puis démarrage avec sudo sudo adb start-server  Upload de fichiers # Lister les directories du device # adb shell ls -R / # adb shell ls / adb push .</description>
     </item>
     
   </channel>
