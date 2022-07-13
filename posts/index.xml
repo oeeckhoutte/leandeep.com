@@ -46,7 +46,10 @@ make erigon
 <p><strong>Ethereum</strong></p>
 <pre tabindex="0"><code>mkdir /data/ethereum
 ./build/bin/erigon --datadir=&#34;data/ethereum&#34; --chain=mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
-</code></pre>]]></content>
+</code></pre><br/>
+<h2 id="exploitation">Exploitation</h2>
+<p>Tout est écrit dans cette documentation: <a href="https://pkg.go.dev/github.com/ledgerwatch/erigon/cmd/rpcdaemon#section-readme">RPC Daemon</a></p>
+]]></content>
         </item>
         
         <item>
@@ -25326,6 +25329,9 @@ Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. ce
 <p><strong>Effacer les fichiers du working directory en incluant les nouveaux untracked files</strong></p>
 <pre tabindex="0"><code>git clean -fd
 </code></pre><br/>
+<p><strong>Lister les tags sur un commit</strong></p>
+<pre tabindex="0"><code>git tag --points-at HEAD
+</code></pre><br/>
 <p><strong>Tagguer (le dernier commit d&rsquo;) une branche</strong></p>
 <pre tabindex="0"><code>git tag mon_tag
 git push origin mon_tag
@@ -25341,8 +25347,13 @@ git push --tags
 git push origin v1.0
 </code></pre><br/>
 <p><strong>Effacer un tag local et remote</strong></p>
-<pre tabindex="0"><code>git tag -d v1.0
+<pre tabindex="0"><code># Effacement local
+git tag -d v1.0
+
+# Effacement remote
 git push --delete origin v1.0
+ou
+git push origin :refs/tags/v1.0
 </code></pre><br/>
 <p><strong>Lister les commits entre un tag et HEAD</strong></p>
 <pre tabindex="0"><code>git log --pretty=oneline HEAD...v1.0
@@ -28034,6 +28045,108 @@ sudo umount -l /tmp/data
 <h2 id="jump-box">Jump box</h2>
 <pre tabindex="0"><code>ssh -J host1,host2,host3 user@host4.internal
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Vim basic tips</title>
+            <link>https://leandeep.com/vim-basic-tips/</link>
+            <pubDate>Mon, 10 Sep 2012 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/vim-basic-tips/</guid>
+            <description>Je suis en train d&amp;rsquo;apprendre à utiliser Vim. Cette page contient les commandes de base pour l&amp;rsquo;utiliser.
+ Déplacements Mot suivant (next Word)
+w
+ Mot précédent (word Backward)
+b
+ Sélection verticale et insert
+ctrl + v // sélection verticale shift + i // Entrer le texte à insérer esc esc  Fin de ligne
+$
+ Début de ligne
+0
+ Début de fichier
+gg
+ Fin de fichier</description>
+            <content type="html"><![CDATA[<p>Je suis en train d&rsquo;apprendre à utiliser Vim. Cette page contient les commandes de base pour l&rsquo;utiliser.</p>
+<br/>
+<h2 id="déplacements">Déplacements</h2>
+<p><strong>Mot suivant (next Word)</strong></p>
+<p><code>w</code></p>
+<br/>
+<p><strong>Mot précédent (word Backward)</strong></p>
+<p><code>b</code></p>
+<br/>
+<p><strong>Sélection verticale et insert</strong></p>
+<pre tabindex="0"><code>ctrl + v // sélection verticale
+shift + i // Entrer le texte à insérer
+esc esc
+</code></pre><br/>
+<p><strong>Fin de ligne</strong></p>
+<p><code>$</code></p>
+<br/>
+<p><strong>Début de ligne</strong></p>
+<p><code>0</code></p>
+<br/>
+<p><strong>Début de fichier</strong></p>
+<p><code>gg</code></p>
+<br/>
+<p><strong>Fin de fichier</strong></p>
+<p><code>G</code></p>
+<br/>
+<p><strong>Help</strong></p>
+<p><code>:help word-motions</code></p>
+<br/>
+<h2 id="copier">Copier</h2>
+<p><strong>Copier la ligne</strong></p>
+<p><code>yy</code></p>
+<br/>
+<p><strong>Copier du curseur jusqu&rsquo;au prochain Word</strong></p>
+<p><code>yw</code></p>
+<br/>
+<p><strong>Copier du curseur jusqu&rsquo;à la fin de la ligne</strong></p>
+<p><code>y$</code></p>
+<br/>
+<p><strong>Copier du curseur jusqu&rsquo;au début de la ligne</strong></p>
+<p><code>y0</code></p>
+<br/>
+<p><strong>Copier 4 lignes</strong></p>
+<p><code>4yy</code></p>
+<br/>
+<p><strong>Copier les 3 prochains Words</strong></p>
+<p><code>3yw</code></p>
+<br/>
+<h2 id="coller">Coller</h2>
+<p><strong>Coller 1 fois</strong></p>
+<p><code>p</code></p>
+<br/>
+<p><strong>Coller 4 fois</strong></p>
+<p><code>4p</code></p>
+<br/>
+<h2 id="annuler">Annuler</h2>
+<p><strong>Annuler la dernière commande</strong></p>
+<p><code>u</code></p>
+<br/>
+<p><strong>Annuler toutes les commandes faites sur la ligne</strong></p>
+<p><code>U</code></p>
+<br/>
+<p><strong>Annuler l&rsquo;annulation</strong></p>
+<p><code>ctrl + R</code></p>
+<br/>
+<h2 id="rechercher">Rechercher</h2>
+<p><strong>Recherche simple</strong></p>
+<p><code>/recherche</code></p>
+<br/>
+<p><strong>Next occurrence</strong></p>
+<p><code>n</code></p>
+<br/>
+<p><strong>Previous occurrence</strong></p>
+<p><code>N</code></p>
+<br/>
+<p><strong>Rechercher fermeture parenthèse</strong></p>
+<p>Placer le curseur sur une ouverture de parenthèse et appuyer sur <code>%</code></p>
+<blockquote>
+<p>Fonctionne aussi avec les square brackets et curly braces</p>
+</blockquote>
+]]></content>
         </item>
         
     </channel>
