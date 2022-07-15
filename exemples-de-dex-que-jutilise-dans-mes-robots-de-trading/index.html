@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Voici quelques exemples de DEXes sur lesquels mes robots de trading sont connectés ainsi que quelques informations de base les concernants. J&amp;rsquo;ai pris l&amp;rsquo;exemple des 2 Blockchains les plus utilisées après Ethereum à savoir BNB Smart Chain (BSC) et Polygon.
+Pour le moment, et jusqu&amp;rsquo;à ce qu&amp;rsquo;on passe en version 2, je n&amp;rsquo;utilise plus Ethereum à cause de gas fees qui rendent les trades moins intéressants.
+Bien sûr il y en a plein d&amp;rsquo;autres et sur des tas de blockchains différentes." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/exemples-de-dex-que-jutilise-dans-mes-robots-de-trading/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Exemples de DEX que j&#39;utilise dans mes robots de trading :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Exemples de DEX que j&#39;utilise dans mes robots de trading">
+<meta itemprop="description" content="Voici quelques exemples de DEXes sur lesquels mes robots de trading sont connectés ainsi que quelques informations de base les concernants. J&rsquo;ai pris l&rsquo;exemple des 2 Blockchains les plus utilisées après Ethereum à savoir BNB Smart Chain (BSC) et Polygon.
+Pour le moment, et jusqu&rsquo;à ce qu&rsquo;on passe en version 2, je n&rsquo;utilise plus Ethereum à cause de gas fees qui rendent les trades moins intéressants.
+Bien sûr il y en a plein d&rsquo;autres et sur des tas de blockchains différentes."><meta itemprop="datePublished" content="2022-07-03T21:25:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-03T21:25:00+00:00" />
+<meta itemprop="wordCount" content="577"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="RPC,Blockchain,DeFi,Trading," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Exemples de DEX que j&#39;utilise dans mes robots de trading"/>
+<meta name="twitter:description" content="Voici quelques exemples de DEXes sur lesquels mes robots de trading sont connectés ainsi que quelques informations de base les concernants. J&rsquo;ai pris l&rsquo;exemple des 2 Blockchains les plus utilisées après Ethereum à savoir BNB Smart Chain (BSC) et Polygon.
+Pour le moment, et jusqu&rsquo;à ce qu&rsquo;on passe en version 2, je n&rsquo;utilise plus Ethereum à cause de gas fees qui rendent les trades moins intéressants.
+Bien sûr il y en a plein d&rsquo;autres et sur des tas de blockchains différentes."/>
+
+
+
+
+
+<meta property="article:published_time" content="2022-07-03 21:25:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/exemples-de-dex-que-jutilise-dans-mes-robots-de-trading/">Exemples de DEX que j&rsquo;utilise dans mes robots de trading</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Voici quelques exemples de DEXes sur lesquels mes robots de trading sont connectés ainsi que quelques informations de base les concernants. J&rsquo;ai pris l&rsquo;exemple des 2 Blockchains les plus utilisées après Ethereum à savoir <strong>BNB Smart Chain (BSC)</strong> et <strong>Polygon</strong>.</p>
+<p>Pour le moment, et jusqu&rsquo;à ce qu&rsquo;on passe en version 2, je n&rsquo;utilise plus Ethereum à cause de gas fees qui rendent les trades moins intéressants.</p>
+<p>Bien sûr il y en a plein d&rsquo;autres et sur des tas de blockchains différentes. (Et il n&rsquo;y a pas que les blockchains EVM qui offrent des opportunités de trading&hellip;)</p>
+<ul>
+<li>Arbitrum</li>
+<li>Avalanche</li>
+<li>BNB Smart Chain (BSC)</li>
+<li>Celo</li>
+<li>Cronos</li>
+<li>Ethereum</li>
+<li>Fantom</li>
+<li>Fuse</li>
+<li>Gnosis (xDAI)</li>
+<li>Harmony (Mainnet Shard 0)</li>
+<li>Moonriver</li>
+<li>Optimism</li>
+<li>Polygon</li>
+<li>Solana</li>
+</ul>
+<br/>
+<h2 id="arbitrum">Arbitrum</h2>
+<ul>
+<li>Uniswap (v3) - <a href="https://info.uniswap.org/">https://info.uniswap.org/</a> - Factory: <code>0x1F98431c8aD98523631AE4a59f267346ea31F984</code> - Router: <code>0xE592427A0AEce92De3Edee1F18E0157C05861564</code></li>
+</ul>
+<br/>
+<h2 id="bnb-smart-chain-bsc">BNB Smart Chain (BSC)</h2>
+<ul>
+<li>
+<p>ApeSwap (v2) - <a href="https://apeswap.finance/">https://apeswap.finance/</a> - Factory: <code>0x0841BD0B734E4F5853f0dD8d7Ea041c241fb0Da6</code> - Router: <code>0xcF0feBd3f17CEf5b47b0cD257aCf6025c5BFf3b7</code> - Fees: 0.1%</p>
+</li>
+<li>
+<p>BabySwap (v2) - <a href="https://home.babyswap.finance/">https://home.babyswap.finance/</a> - Factory: <code>0x86407bEa2078ea5f5EB5A52B2caA963bC1F889Da</code> - Router: <code>0x325E343f1dE602396E256B67eFd1F61C3A6B38Bd</code> - Fees: 0.3%</p>
+</li>
+<li>
+<p>Biswap (v2) - <a href="https://biswap.org/">https://biswap.org/</a> - Factory: <code>0x858E3312ed3A876947EA49d572A7C42DE08af7EE</code> - Router: <code>0x3a6d8cA21D1CF76F653A67577FA0D27453350dD8</code> - Fees: 0.20%</p>
+</li>
+<li>
+<p>Eros Swap (custom v2) - <a href="https://bsc.erosswap.finance/">https://bsc.erosswap.finance/</a> - Factory &amp; Router: <code>0x3CD1C46068dAEa5Ebb0d3f55F6915B10648062B8</code> - Fees: 0% how? 0.1% maybe?</p>
+</li>
+<li>
+<p>FSTSwap (v2) - <a href="https://www.fstswap.pro/">https://www.fstswap.pro/</a> - Factory: <code>0x9A272d734c5a0d7d84E0a892e891a553e8066dce</code> - Router: <code>0x1B6C9c20693afDE803B27F8782156c0f892ABC2d</code> - Fees: 0.3%</p>
+</li>
+<li>
+<p>GIBX Swap (removed) - <a href="https://gibxswap.io/">https://gibxswap.io/</a> - Factory: <code>0x97bCD9BB482144291D77ee53bFa99317A82066E8</code></p>
+</li>
+<li>
+<p>Jetswap (v2) - <a href="https://jetswap.finance/">https://jetswap.finance/</a> - Factory: <code>0x0eb58E5c8aA63314ff5547289185cC4583DfCBD5</code> - Router: <code>0xBe65b8f75B9F20f4C522e0067a3887FADa714800</code> - Fees: 0.3%</p>
+</li>
+<li>
+<p>JustLiquidity (v2) - <a href="https://justliquidity.org/">https://justliquidity.org/</a> - Factory: <code>0x553990F2CBA90272390f62C5BDb1681fFc899675</code> - Router: <code>0xbd67d157502A23309Db761c41965600c2Ec788b2</code> - Fees same as Uniswap: 0.05%;0.3%;1%</p>
+</li>
+<li>
+<p>Nomiswap (≠v2) - <a href="https://nomiswap.io/">https://nomiswap.io/</a> - Factory: <code>0xd6715A8be3944ec72738F0BFDC739d48C3c29349</code> Router: <code>0xC471647c2c0fFe4E59E8841d5ce1726D052A2d17</code> - Fees: 0.1%</p>
+</li>
+<li>
+<p>Pancakeswap (v2) - <a href="https://pancakeswap.finance/">https://pancakeswap.finance/</a> - Factory: <code>0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73</code> - Router: <code>0x10ED43C718714eb63d5aA57B78B54704E256024E</code> - Fees: 0.30%</p>
+</li>
+</ul>
+<br/>
+<h2 id="cronos">Cronos</h2>
+<ul>
+<li>
+<p>CyborgSwap (v2) - <a href="https://cyborgswap.io/">https://cyborgswap.io/</a> - Factory: <code>0x6C50Ee65CFcfC59B09C570e55D76daa7c67D6da5</code> - Router: <code>0x5bFc95C3BbF50579bD57957cD074fa96a4d5fF9F</code> - Fees: 0.25%</p>
+</li>
+<li>
+<p>MM Finance (v2) - <a href="https://mm.finance/">https://mm.finance/</a> - Factory: <code>0xd590cC180601AEcD6eeADD9B7f2B7611519544f4</code> - Router: <code>0x145677FC4d9b8F19B5D56d1820c48e0443049a30</code> - Fees: 0.17%</p>
+</li>
+<li>
+<p>VVS Finance (v2) - <a href="https://vvs.finance/">https://vvs.finance/</a> - Factory: <code>0x3b44b2a187a7b3824131f8db5a74194d0a42fc15</code> - Router: <code>0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae</code> - Fees: 0.2%</p>
+</li>
+</ul>
+<br/>
+<h2 id="ethereum">Ethereum</h2>
+<ul>
+<li>
+<p>HoneySwap (v2) - <a href="https://honeyswap.org/">https://honeyswap.org/</a> - Factory: <code>0xd34971BaB6E5E356fd250715F5dE0492BB070452</code> - Router: <code>0xB9960d9bcA016e9748bE75dd52F02188B9d0829f</code> - Fees: 0.25%</p>
+</li>
+<li>
+<p>QuickSwap (v2) - <a href="https://quickswap.exchange/">https://quickswap.exchange/</a> - Factory: <code>0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32</code> - Router: <code>0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff</code> (pending. adresses à vérifier)</p>
+</li>
+<li>
+<p>ShibaSwap (v2) - <a href="https://shibaswap.com/">https://shibaswap.com/</a> - Factory: <code>0x115934131916c8b277dd010ee02de363c09d037c</code> - Router: <code>0x03f7724180AA6b939894B5Ca4314783B0b36b329</code> - Doc: <a href="https://shibaswap.gitbook.io/shibaswap/">https://shibaswap.gitbook.io/shibaswap/</a> - Fees: 0.3%</p>
+</li>
+<li>
+<p>SushiSwap (v2) - <a href="https://sushi.com/">https://sushi.com/</a> - Factory: <code>0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac</code> - Router: <code>0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F</code> - Fees: 0.3%</p>
+</li>
+<li>
+<p>Uniswap (v2) - <a href="https://app.uniswap.org">https://app.uniswap.org</a> - Factory: <code>0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f</code> - Router: <code>0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D</code> - Fees: 0.3%</p>
+</li>
+</ul>
+<br/>
+<h2 id="fantom">Fantom</h2>
+<ul>
+<li>
+<p>JetSwap (v2) - <a href="https://jetswap.finance/">https://jetswap.finance/</a> - Factory: <code>0xf6488205957f0b4497053d6422F49e27944eE3Dd</code> - Router: <code>0x845E76A8691423fbc4ECb8Dd77556Cb61c09eE25</code> - Fees: 0.3%</p>
+</li>
+<li>
+<p>Spookyi (v2) - <a href="https://spooky.fi">https://spooky.fi</a> - Factory: <code>0x152eE697f2E276fA89E96742e9bB9aB1F2E61bE3</code> - Router: <code>0xF491e7B69E4244ad4002BC14e878a34207E38c29</code> - Fees: 0.22%</p>
+</li>
+<li>
+<p>SushiSwap (v2) - <a href="https://sushi.com/">https://sushi.com/</a> - Factory: <code>0xc35DADB65012eC5796536bD9864eD8773aBc74C4</code> - Router: <code>0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506</code> - Fees: 0.3%</p>
+</li>
+<li>
+<p>TombSwap (v2) - <a href="https://swap.tomb.com/">https://swap.tomb.com/</a> - Factory: <code>0xE236f6890F1824fa0a7ffc39b1597A5A6077Cfe9</code> - Router: <code>0x6D0176C5ea1e44b08D3dd001b0784cE42F47a3A7</code> - Fees: 0.5%</p>
+</li>
+</ul>
+<br/>
+<h2 id="harmony">Harmony</h2>
+<ul>
+<li>Defi Kingdoms - <a href="https://defikingdoms.com/">https://defikingdoms.com/</a> - Factory: <code>0x9014B937069918bd319f80e8B3BB4A2cf6FAA5F7</code> - Router: <code>0x24ad62502d1C652Cc7684081169D04896aC20f30</code></li>
+</ul>
+<br/>
+<h2 id="polygon">Polygon</h2>
+<ul>
+<li>
+<p>ApeSwap (BANANA) (v2) - <a href="https://apeswap.finance">https://apeswap.finance</a> - Factory: <code>0xCf083Be4164828f00cAE704EC15a36D711491284</code> - Router: <code>0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607</code> - Fees: 0.1%</p>
+</li>
+<li>
+<p>Dfyn Network (v2) - <a href="https://dfyn.network/">https://dfyn.network/</a> - Factory: <code>0xE7Fb3e833eFE5F9c441105EB65Ef8b261266423B</code> - Router: <code>0xA102072A4C07F06EC3B4900FDC4C7B80b6c57429</code> - Fees:</p>
+</li>
+<li>
+<p>HoneySwap (v2) - <a href="https://honeyswap.org/">https://honeyswap.org/</a> - Factory: <code>0x03DAa61d8007443a6584e3d8f85105096543C19c</code> - Router: <code>0xaD340d0CD0B117B0140671E7cB39770e7675C848</code></p>
+</li>
+<li>
+<p>JetSwap (v2) - <a href="https://jetswap.finance/">https://jetswap.finance/</a> - Factory: <code>0x668ad0ed2622C62E24f0d5ab6B6Ac1b9D2cD4AC7</code> - Router: <code>0x5C6EC38fb0e2609672BDf628B1fD605A523E5923</code></p>
+</li>
+<li>
+<p>Polycat (v2) - <a href="https://polycat.finance/">https://polycat.finance/</a> - Factory: <code>0x477Ce834Ae6b7aB003cCe4BC4d8697763FF456FA</code> - Router: <code>0x94930a328162957FF1dd48900aF67B5439336cBD</code></p>
+</li>
+<li>
+<p>Quickswap (v2) - <a href="https://quickswap.exchange/">https://quickswap.exchange/</a> - Factory: <code>0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32</code> - Router: <code>0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff</code> - Fees:</p>
+</li>
+<li>
+<p>RadioShack (RADIO) (v2) - <a href="https://www.radioshack.org/">https://www.radioshack.org/</a> - Factory: <code>0xB581D0A3b7Ea5cDc029260e989f768Ae167Ef39B</code> - Router: <code>0xAf877420786516FC6692372c209e0056169eebAf</code> - Fees:</p>
+</li>
+<li>
+<p>Uniswap (v3) - Factory: <code>0x1F98431c8aD98523631AE4a59f267346ea31F984</code> - Router: <code>0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45</code></p>
+</li>
+<li>
+<p>SushiSwap (v2) - <a href="https://sushi.com/">https://sushi.com/</a> - Factory: <code>0xc35DADB65012eC5796536bD9864eD8773aBc74C4</code> - Router: <code>0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506</code> - Fees: 0.3%</p>
+</li>
+</ul>
+<br/>
+<h2 id="gnosis--xdai">Gnosis / xDAI</h2>
+<ul>
+<li>
+<p>Baoswap (v2) - <a href="https://www.baoswap.xyz/#/swap">https://www.baoswap.xyz/#/swap</a> - Factory: <code>0x45DE240fbE2077dd3e711299538A09854FAE9c9b</code> - Router: <code>0x6093AeBAC87d62b1A5a4cEec91204e35020E38bE</code> - Doc: <a href="https://docs.bao.finance/contracts-and-key-info/xdai">https://docs.bao.finance/contracts-and-key-info/xdai</a></p>
+</li>
+<li>
+<p>HoneySwap - <a href="https://honeyswap.org/">https://honeyswap.org/</a> - Factory: <code>0xA818b4F111Ccac7AA31D0BCc0806d64F2E0737D7</code> - Router: <code>0x1C232F01118CB8B424793ae03F870aa7D0ac7f77</code></p>
+</li>
+<li>
+<p>SushiSwap - <a href="https://sushi.com/">https://sushi.com/</a> - Factory: <code>0xc35DADB65012eC5796536bD9864eD8773aBc74C4</code> - Router: <code>0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506</code></p>
+</li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rpc">RPC</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span><span class="tag"><a href="https://leandeep.com/tags/defi">DeFi</a></span><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>577 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 juil.. 2022</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/blockchains-et-rpc-nodes-pour-mes-robots-de-trading/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Blockchains et RPC nodes pour mes robots de trading</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/">
+                                <span class="button__text">Télécharger les ABIs des smart contracts vérifiés sur bscscan</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Réalisé par <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+            Freelance & gérant de Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
