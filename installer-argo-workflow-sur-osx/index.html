@@ -5,9 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author"
-  content="Olivier Eeckhoutte ">
+  content="Olivier Eeckhoutte">
 <meta name="description"
-  content="" />
+  content="Introduction Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&amp;rsquo;agit d&amp;rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&amp;rsquo;est pas recommandée pour de la production. Elle permet de tester et d&amp;rsquo;évaluer l&amp;rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.
+ Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod &#43;x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version  déploiement d&amp;rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -23,7 +24,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/tags/kubernetes/" />
+<link rel="canonical" href="https://leandeep.com/installer-argo-workflow-sur-osx/" />
 
 
 
@@ -232,7 +233,7 @@
 
 <title>
   
-  Kubernetes :: Lean Deep Tech blog 
+  Installer Argo workflow sur OSX :: Lean Deep Tech blog 
   
 </title>
 
@@ -257,21 +258,26 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Kubernetes">
-<meta itemprop="description" content="Le blog d&#39;un Architecte Solutions/ Expert technique passionné par son métier."><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Installer Argo workflow sur OSX">
+<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&rsquo;agit d&rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&rsquo;est pas recommandée pour de la production. Elle permet de tester et d&rsquo;évaluer l&rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.
+ Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod &#43;x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version  déploiement d&rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw."><meta itemprop="datePublished" content="2022-07-26T22:13:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-26T22:13:00+00:00" />
+<meta itemprop="wordCount" content="114"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Docker,Kubernetes,Argo," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Kubernetes"/>
-<meta name="twitter:description" content="Le blog d&#39;un Architecte Solutions/ Expert technique passionné par son métier."/>
+<meta name="twitter:title" content="Installer Argo workflow sur OSX"/>
+<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&rsquo;agit d&rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&rsquo;est pas recommandée pour de la production. Elle permet de tester et d&rsquo;évaluer l&rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.
+ Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod &#43;x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version  déploiement d&rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw."/>
 
 
 
 
 
+<meta property="article:published_time" content="2022-07-26 22:13:00 &#43;0000 UTC" />
 
 
 
-<link rel="alternate" type="application/rss+xml" href="https://leandeep.com/tags/kubernetes/index.xml" title="Lean Deep Tech blog" />
 
 
 
@@ -320,186 +326,95 @@
 
             <div class="content">
                 
+    <main class="post">
 
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
-<div id="app"></div>
+            
 
-<div class="nav-search">
-    <div class="search-input">
-        <i class="material-icons search-icon">search</i>
-        <input type="text" placeholder="Search..." id="search-input" />
-        <div class="search-dropdown" id="hits-container"></div>
-        <i class="close-search material-icons">close</i>
-    </div>
-</div>
+            </p>
+        </div>
 
-<main class="posts">
-    <h1>Kubernetes</h1>
-    <div class="posts-group">
-        <div class="post-year">2022</div>
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/installer-argo-workflow-sur-osx/">Installer Argo workflow sur OSX</a>
+            </h1>
 
-        <ul class="posts-list">
-            <li class="post-item">
-                <a href="https://leandeep.com/installer-argo-workflow-sur-osx/">
-                    <span class="post-title">Installer Argo workflow sur OSX
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Jul 26</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="posts-group">
-        <div class="post-year">2020</div>
+            
 
-        <ul class="posts-list">
-            <li class="post-item">
-                <a href="https://leandeep.com/installer-un-cluster-kubernetes-sur-baremetal-avec-metallb-et-rancher-2/">
-                    <span class="post-title">Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Nov 19</span>
-                </a>
-            </li>
-            <li class="post-item">
-                <a href="https://leandeep.com/forcer-leffacement-dun-namespace-kubernetes/">
-                    <span class="post-title">Forcer l&#39;effacement d&#39;un namespace Kubernetes
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Oct 5</span>
-                </a>
-            </li>
-            <li class="post-item">
-                <a href="https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/">
-                    <span class="post-title">Lister les process Linux dans une image redhat ubi-minimal
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Jan 10</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="posts-group">
-        <div class="post-year">2019</div>
+            <div class="post-content">
+                <h2 id="introduction">Introduction</h2>
+<p>Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&rsquo;agit d&rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&rsquo;est pas recommandée pour de la production. Elle permet de tester et d&rsquo;évaluer l&rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.</p>
+<br/>
+<h2 id="installer-argo-cli">Installer Argo Cli</h2>
+<pre tabindex="0"><code>curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz
+gunzip argo-darwin-amd64.gz
+chmod +x argo-darwin-amd64
+mv ./argo-darwin-amd64 /usr/local/bin/argo
+argo version
+</code></pre><br/>
+<h2 id="déploiement-dargo-sur-k8s">déploiement d&rsquo;Argo sur k8s</h2>
+<pre tabindex="0"><code>kubectl create ns argo
+kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/quick-start-postgres.yaml
+</code></pre><br/>
+<h2 id="accès-linterface">Accès l&rsquo;interface</h2>
+<pre tabindex="0"><code>kubectl -n argo port-forward deployment/argo-server 2746:2746
+</code></pre><br/>
+<h2 id="déploiement-dun-worklow-de-test">Déploiement d&rsquo;un worklow de test</h2>
+<pre tabindex="0"><code>argo submit -n argo --watch https://raw.githubusercontent.com/argoproj/argo/master/examples/hello-world.yaml
+</code></pre><br/>
+<h2 id="debugging">Debugging</h2>
+<pre tabindex="0"><code>argo list -n argo
+argo get -n argo @latest
+argo logs -n argo @latest
+</code></pre>
+            </div>
+        </article>
 
-        <ul class="posts-list">
-            <li class="post-item">
-                <a href="https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/">
-                    <span class="post-title">Installer Rancher 2 sur Centos 7 (Dev setup)
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">May 5</span>
-                </a>
-            </li>
-            <li class="post-item">
-                <a href="https://leandeep.com/commandes-utiles-kubernetes/">
-                    <span class="post-title">Commandes utiles Kubernetes
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Mar 8</span>
-                </a>
-            </li>
-            <li class="post-item">
-                <a href="https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/">
-                    <span class="post-title">Provisionner un cluster Kubernetes avec AWS EKS
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Mar 7</span>
-                </a>
-            </li>
-            <li class="post-item">
-                <a href="https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/">
-                    <span class="post-title">Comparaison des services de conteneurisation AWS (ECS, Fargate et EKS) 
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Jan 16</span>
-                </a>
-            </li>
-            <li class="post-item">
-                <a href="https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/">
-                    <span class="post-title">Provisionner un cluster Kubernetes sur HCloud
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Jan 2</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="posts-group">
-        <div class="post-year">2017</div>
+        <hr />
 
-        <ul class="posts-list">
-            <li class="post-item">
-                <a href="https://leandeep.com/fonctionnement-interne-de-kubernetes/">
-                    <span class="post-title">Fonctionnement interne de Kubernetes
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </span>
-                    <span class="post-day">Jul 16</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</main>
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span><span class="tag"><a href="https://leandeep.com/tags/argo">Argo</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>114 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>26 juil.. 2022</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/blog-headless-mais-%C3%A9dition-de-contenu-avec-ghost/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Blog headless mais édition de contenu avec Ghost</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/autres-blockchains-et-rpc-nodes/">
+                                <span class="button__text">Autres Blockchains et RPC nodes</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
 
             </div>
 
