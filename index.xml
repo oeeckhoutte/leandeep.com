@@ -6,7 +6,17 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 31 Jul 2022 21:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Aug 2022 20:59:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Docker et mitmproxy sur Ubuntu 22.04</title>
+      <link>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</link>
+      <pubDate>Mon, 01 Aug 2022 20:59:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</guid>
+      <description>Tips très très rapide montrant comment installer Docker sur Ubuntu 22.04.
+ Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-certificates curl gnupg lsb-release curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt install docker-ce docker-ce-cli containerd.io -y sudo usermod -aG docker $USER newgrp docker  Vérification de l&amp;rsquo;installation de Docker docker version  Démarrage du proxy mitm sur VM distante tmux docker run --rm -it -v ~/.</description>
+    </item>
+    
     <item>
       <title>Blog headless avec édition de contenu sur Ghost app</title>
       <link>https://leandeep.com/blog-headless-avec-%C3%A9dition-de-contenu-sur-ghost-app/</link>
@@ -110,21 +120,6 @@ Créer un fichier get_abi.py et coller le contenu suivant:
       <description>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&amp;rsquo;autres commandes utiles pour développer sur cette Blockchain.
  Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
 curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545  Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
-    </item>
-    
-    <item>
-      <title>Installer Neo4j 4.1 sur Ubuntu 20.04</title>
-      <link>https://leandeep.com/installer-neo4j-4.1-sur-ubuntu-20.04/</link>
-      <pubDate>Mon, 30 May 2022 00:46:43 +0000</pubDate>
-      
-      <guid>https://leandeep.com/installer-neo4j-4.1-sur-ubuntu-20.04/</guid>
-      <description>Voici la procédure à suivre pour installer Neo4j 4.1 sur Ubuntu 20.04.
- Truster le repo Neo4j
-curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key |sudo gpg --dearmor -o /usr/share/keyrings/neo4j.gpg  Ajouter le repo Neo4j dans la liste des packages APT
-echo &amp;#34;deb [signed-by=/usr/share/keyrings/neo4j.gpg] https://debian.neo4j.com stable 4.1&amp;#34; | sudo tee -a /etc/apt/sources.list.d/neo4j.list  Prendre en compte la nouvelle source
-sudo apt update  Installer le package
-sudo apt install neo4j  Enable le service
-sudo systemctl enable neo4j.</description>
     </item>
     
   </channel>

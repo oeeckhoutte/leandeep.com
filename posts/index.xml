@@ -5,8 +5,50 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 31 Jul 2022 21:13:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 01 Aug 2022 20:59:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Docker et mitmproxy sur Ubuntu 22.04</title>
+            <link>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</link>
+            <pubDate>Mon, 01 Aug 2022 20:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</guid>
+            <description>Tips très très rapide montrant comment installer Docker sur Ubuntu 22.04.
+ Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-certificates curl gnupg lsb-release curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt install docker-ce docker-ce-cli containerd.io -y sudo usermod -aG docker $USER newgrp docker  Vérification de l&amp;rsquo;installation de Docker docker version  Démarrage du proxy mitm sur VM distante tmux docker run --rm -it -v ~/.</description>
+            <content type="html"><![CDATA[<p>Tips très très rapide montrant comment installer Docker sur Ubuntu 22.04.</p>
+<br/>
+<h2 id="installation-de-docker-sur-ubuntu-2204">Installation de Docker sur Ubuntu 22.04</h2>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install -y ca-certificates curl gnupg lsb-release
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo &#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&#34; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+
+sudo apt-get update
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+sudo usermod -aG docker $USER
+newgrp docker
+</code></pre><br/>
+<h2 id="vérification-de-linstallation-de-docker">Vérification de l&rsquo;installation de Docker</h2>
+<pre tabindex="0"><code>docker version
+</code></pre><br/>
+<h2 id="démarrage-du-proxy-mitm-sur-vm-distante">Démarrage du proxy mitm sur VM distante</h2>
+<pre tabindex="0"><code>tmux
+docker run --rm -it -v ~/.mitmproxy:/home/mitmproxy/.mitmproxy -p 8080:8080 mitmproxy/mitmproxy
+# ou mieux, binding sur machine locale:
+docker run --rm -it -v ~/.mitmproxy:/home/mitmproxy/.mitmproxy -p 127.0.0.1:8080:8080 mitmproxy/mitmproxy
+</code></pre><br/>
+<h2 id="vérification-du-bon-fonctionnement-de-votre-proxy-sur-vm-distante">Vérification du bon fonctionnement de votre proxy sur VM distante</h2>
+<pre tabindex="0"><code>https_proxy=http://localhost:8080/ curl http://example.com/
+https_proxy=http://localhost:8080/ curl -k https://example.com/
+</code></pre><br/>
+<h2 id="vérification-depuis-un-autre-host-du-bon-fonctionnement-du-proxy">Vérification depuis un autre host du bon fonctionnement du proxy</h2>
+<pre tabindex="0"><code>https_proxy=http://PUBLIC_IP:8080/ curl -k https://example.com/
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Blog headless avec édition de contenu sur Ghost app</title>
