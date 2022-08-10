@@ -87,7 +87,10 @@ http-server .
 </code></pre><br/>
 <p>Résultat pour un blog sur la micronutrition perso réalisé en 12 minutes (5 minutes de création de blog et 7 minutes pour écrire ce petit article):
 <img src="/images/headless-blog-ghost.png" alt="image"></p>
-]]></content>
+<br/>
+<h2 id="démarrer-un-blog-arrêté-existant">Démarrer un blog (arrêté) existant</h2>
+<pre tabindex="0"><code>ghost start
+</code></pre>]]></content>
         </item>
         
         <item>
@@ -97,7 +100,7 @@ http-server .
             
             <guid>https://leandeep.com/installer-argo-workflow-sur-osx/</guid>
             <description>Introduction Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&amp;rsquo;agit d&amp;rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&amp;rsquo;est pas recommandée pour de la production. Elle permet de tester et d&amp;rsquo;évaluer l&amp;rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.
- Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod +x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version  déploiement d&amp;rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw.</description>
+ Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod +x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version  Déploiement d&amp;rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&rsquo;agit d&rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&rsquo;est pas recommandée pour de la production. Elle permet de tester et d&rsquo;évaluer l&rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.</p>
 <br/>
@@ -108,7 +111,7 @@ chmod +x argo-darwin-amd64
 mv ./argo-darwin-amd64 /usr/local/bin/argo
 argo version
 </code></pre><br/>
-<h2 id="déploiement-dargo-sur-k8s">déploiement d&rsquo;Argo sur k8s</h2>
+<h2 id="déploiement-dargo-sur-k8s">Déploiement d&rsquo;Argo sur k8s</h2>
 <pre tabindex="0"><code>kubectl create ns argo
 kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/quick-start-postgres.yaml
 </code></pre><br/>
@@ -294,8 +297,9 @@ CRO</p>
             <guid>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</guid>
             <description>Installation Go wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz Editer ~/.profile et ajouter les commandes suivantes
 export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version  Installation Erigon cd /data/ git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon  Run Polygon
-mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon  bsc
-mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.</description>
+mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon  BSC
+Archive Node:
+mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.</description>
             <content type="html"><![CDATA[<h2 id="installation-go">Installation Go</h2>
 <pre tabindex="0"><code>wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
@@ -317,10 +321,41 @@ make erigon
 <pre tabindex="0"><code>mkdir /data/bor-mainnet
 ./build/bin/erigon --datadir=&#34;/data/bor-mainnet&#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
 </code></pre><br/>
-<p><strong>bsc</strong></p>
+<p><strong>BSC</strong></p>
+<p>Archive Node:</p>
 <pre tabindex="0"><code>mkdir /data/bsc
 ./build/bin/erigon --datadir=&#34;/data/bsc&#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
 </code></pre><br/>
+<p>Pruned Node:</p>
+<pre tabindex="0"><code>./build/bin/erigon --datadir=&#34;/data/bsc-prune&#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon --prune.h.older=90_000
+
+# Or
+
+./build/bin/erigon --datadir=&#34;/data/bsc-prune&#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon --prune.r.before=11184524 --prune htc
+</code></pre><br/>
+<p><strong>Service BNB Smart Chain</strong></p>
+<p>Exécuter la commande suivante <code>sudo systemctl edit --force --full erigon-bsc-pruned-mainnet.service</code> pour créer un nouveau systemctl unit puis ajouter le contenu suivant (à titre d&rsquo;example):</p>
+<pre tabindex="0"><code>[Unit]
+Description=Erigon BSC Pruned mainnet daemon
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+ExecStart=/home/olivier/Dev/erigon/build/bin/erigon --datadir=&#34;/data/bsc-prune&#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon --prune.r.before=11184524 --prune htc
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><br/>
+<p>Activer le service via les commandes:</p>
+<pre tabindex="0"><code>sudo systemctl enable erigon-bsc-pruned-mainnet.service
+sudo systemctl start erigon-bsc-pruned-mainnet.service
+sudo systemctl status erigon-bsc-pruned-mainnet.service
+</code></pre><br/>
+<p>Pour voir les logs il suffit d&rsquo;exécuter la commande suivante <code>journalctl -fu erigon-bsc-pruned-mainnet</code>.</p>
+<br/>
 <p><strong>Ethereum</strong></p>
 <pre tabindex="0"><code>mkdir /data/ethereum
 ./build/bin/erigon --datadir=&#34;data/ethereum&#34; --chain=mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon
