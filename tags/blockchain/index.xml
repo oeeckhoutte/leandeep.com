@@ -6,22 +6,40 @@
     <description>Recent content in Blockchain on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 15 Jul 2022 09:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Aug 2022 23:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Noeud Ethereum Nethermind sur Ubuntu 22.04</title>
+      <link>https://leandeep.com/noeud-ethereum-nethermind-sur-ubuntu-22.04/</link>
+      <pubDate>Sun, 14 Aug 2022 23:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/noeud-ethereum-nethermind-sur-ubuntu-22.04/</guid>
+      <description>Introduction Dans cet article, nous allons voir comment hoster un noeud light Ethereum mainnet avec Nethermind sur Ubuntu 22.04.
+Installation On commence par installer .NET:
+sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Ensuite on installer Nethermind:
+sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Configuration On créer un répertoire qui contiendra nos data:
+mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr/share/nethermind/configs/mainnet.cfg et on autorise les IPs, modules qui nous intéressent.</description>
+    </item>
+    
     <item>
       <title>Autres Blockchains et RPC nodes</title>
       <link>https://leandeep.com/autres-blockchains-et-rpc-nodes/</link>
       <pubDate>Fri, 15 Jul 2022 09:25:00 +0000</pubDate>
       
       <guid>https://leandeep.com/autres-blockchains-et-rpc-nodes/</guid>
-      <description>Algorand Aurora Cronos KuCoin Near IoTeX Tezos Theta (soon) TomoChain   Algorand Providers
- Pocket Network - https://mainnet.portal.pokt.network Quicknode - https://www.quicknode.com/   Own node
- https://developer.algorand.org/docs/run-a-node/setup/install/   Aurora Providers
- Infura - https://infura.io   Public Endpoints
- https://mainnet.aurora.dev   Own node
- https://doc.aurora.dev/#running-your-own-aurora-node   Cronos Public Endpoints
- https://rpc.artemisone.org/cronos https://evm.cronos.org/ https://rpc.vvs.finance/ https://rpc.crodex.app/ https://mmf-rpc.xstaking.sg https://gateway.nebkas.ro/   Chain Id 25
- Currency CRO
- Explorer</description>
+      <description>Algorand Aurora Cronos KuCoin Near IoTeX Tezos Theta (soon) TomoChain Algorand Providers
+Pocket Network - https://mainnet.portal.pokt.network Quicknode - https://www.quicknode.com/ Own node
+https://developer.algorand.org/docs/run-a-node/setup/install/ Aurora Providers
+Infura - https://infura.io Public Endpoints
+https://mainnet.aurora.dev Own node
+https://doc.aurora.dev/#running-your-own-aurora-node Cronos Public Endpoints
+https://rpc.artemisone.org/cronos https://evm.cronos.org/ https://rpc.vvs.finance/ https://rpc.crodex.app/ https://mmf-rpc.xstaking.sg https://gateway.nebkas.ro/ Chain Id 25
+Currency CRO
+Explorer
+https://cronos.org/explorer/ KuCoin Public Endpoints
+https://rpc-mainnet.kcc.network/ Own node
+https://docs.kcc.io/#/en-us/?id=node Near Providers
+ANKR - https://ankr.com Infura - https://infura.io Public Endpoints
+https://rpc.ankr.com/near https://near.public-rpc.com Own node</description>
     </item>
     
     <item>
@@ -31,10 +49,10 @@
       
       <guid>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</guid>
       <description>Installation Go wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz Editer ~/.profile et ajouter les commandes suivantes
-export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version  Installation Erigon cd /data/ git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon  Run Polygon
-mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon  BSC
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version Installation Erigon cd /data/ git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon Run Polygon
+mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon BSC
 Archive Node:
-mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.</description>
+mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.</description>
     </item>
     
     <item>
@@ -44,9 +62,13 @@ mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain
       
       <guid>https://leandeep.com/blockchains-et-rpc-nodes-pour-mes-robots-de-trading/</guid>
       <description>Voici des informations de base sur les blockchains sur lesquels sont connectés mes robots de trading.
- Arbitrum Avalanche BNB Smart Chain (BSC) Celo Ethereum Fantom Fuse Gnosis (xDAI) Harmony (Mainnet Shard 0) Moonriver Optimism Polygon Solana   Arbitrum Providers
- Alchemy - https://www.alchemy.com ANKR - https://ankr.com Moralis - https://moralis.io QuickNode - https://www.quicknode.com/ Infura - https://infura.io   Public Endpoints
- https://arb1.arbitrum.io/rpc https://arbitrum.public-rpc.com https://rpc.ankr.com/arbitrum   Chain Id 42161</description>
+Arbitrum Avalanche BNB Smart Chain (BSC) Celo Ethereum Fantom Fuse Gnosis (xDAI) Harmony (Mainnet Shard 0) Moonriver Optimism Polygon Solana Arbitrum Providers
+Alchemy - https://www.alchemy.com ANKR - https://ankr.com Moralis - https://moralis.io QuickNode - https://www.quicknode.com/ Infura - https://infura.io Public Endpoints
+https://arb1.arbitrum.io/rpc https://arbitrum.public-rpc.com https://rpc.ankr.com/arbitrum Chain Id 42161
+Currency ETH
+Explorer
+https://arbiscan.io/ https://explorer.arbitrum.io/ Avalanche (C-Chain) Providers
+AllNodes - https://www.</description>
     </item>
     
     <item>
@@ -68,7 +90,7 @@ Bien sûr il y en a plein d&amp;rsquo;autres et sur des tas de blockchains diff�
       <guid>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</guid>
       <description>Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
 Créer un fichier get_abi.py et coller le contenu suivant:
- #!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &amp;#34;https://api.etherscan.io/api?module=contract&amp;amp;action=getabi&amp;amp;address=&amp;#34; parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;-a&amp;#34;, &amp;#34;--address&amp;#34;, type=str, help=&amp;#34;Smart contract address&amp;#34;) parser.add_argument(&amp;#34;-o&amp;#34;, &amp;#34;--output&amp;#34;, type=str, help=&amp;#34;Path to store the output ABI JSON file&amp;#34;, required=True) def __main__() -&amp;gt; None: &amp;#34;&amp;#34;&amp;#34;Exports contract ABI in JSON&amp;#34;&amp;#34;&amp;#34; args = parser.</description>
+#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &amp;#34;https://api.etherscan.io/api?module=contract&amp;amp;action=getabi&amp;amp;address=&amp;#34; parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;-a&amp;#34;, &amp;#34;--address&amp;#34;, type=str, help=&amp;#34;Smart contract address&amp;#34;) parser.add_argument(&amp;#34;-o&amp;#34;, &amp;#34;--output&amp;#34;, type=str, help=&amp;#34;Path to store the output ABI JSON file&amp;#34;, required=True) def __main__() -&amp;gt; None: &amp;#34;&amp;#34;&amp;#34;Exports contract ABI in JSON&amp;#34;&amp;#34;&amp;#34; args = parser.</description>
     </item>
     
     <item>
@@ -78,8 +100,8 @@ Créer un fichier get_abi.py et coller le contenu suivant:
       
       <guid>https://leandeep.com/commandes-de-synchronisation/dev-geth/</guid>
       <description>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&amp;rsquo;autres commandes utiles pour développer sur cette Blockchain.
- Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
-curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545  Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
+Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
+curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545 Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
     </item>
     
     <item>
@@ -88,8 +110,8 @@ curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39
       <pubDate>Fri, 05 Nov 2021 09:08:00 +0000</pubDate>
       
       <guid>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-aave/</guid>
-      <description>Dans cet article nous allons voir comment réaliser un Flashloan sur Aave.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&amp;rsquo;on veut avec tant qu&amp;rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&amp;rsquo;intérêt&amp;hellip;
- Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle</description>
+      <description>Dans cet article nous allons voir comment réaliser un Flashloan sur Aave. Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&amp;rsquo;on veut avec tant qu&amp;rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&amp;rsquo;intérêt&amp;hellip;
+Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle</description>
     </item>
     
     <item>
@@ -98,9 +120,9 @@ curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39
       <pubDate>Fri, 05 Nov 2021 08:08:00 +0000</pubDate>
       
       <guid>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-dydx/</guid>
-      <description>Dans cet article nous allons voir comment réaliser un Flashloan sur DyDx.  Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais seulement de 2 wei. Crazy !
- Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
-  Création du Smart contract Créer un fichier SimpleDyDxFlashloan.sol dans le répertoire contracts/simple-dydx-flashloan de votre repo git et ajouter le contenu suivant:</description>
+      <description>Dans cet article nous allons voir comment réaliser un Flashloan sur DyDx. Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais seulement de 2 wei. Crazy !
+Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
+Création du Smart contract Créer un fichier SimpleDyDxFlashloan.sol dans le répertoire contracts/simple-dydx-flashloan de votre repo git et ajouter le contenu suivant:</description>
     </item>
     
     <item>
@@ -110,19 +132,9 @@ curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39
       
       <guid>https://leandeep.com/smart-contract-development-coder-un-swap-sur-uniswap-avec-des-data-de-prod/</guid>
       <description>Dans cet article nous allons voir comment réaliser un échange d&amp;rsquo;USDC avec de l&amp;rsquo;USDT en codant un smart contract qui utiliser Uniswap.
- Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
-  Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
-// SPDX-License-Identifier: MIT pragma solidity ^0.</description>
-    </item>
-    
-    <item>
-      <title>Développement Solidity tuto 1 - Pragma</title>
-      <link>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-1-pragma/</link>
-      <pubDate>Fri, 10 Sep 2021 08:08:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-1-pragma/</guid>
-      <description>Les pragma permettent de spécifier la version du compiler pour Solidity
-// SPDX-License-Identifier: MIT // La version doit être supérieure ou égale à 0.8.6 et inférieur à 0.9.0 pragma solidity ^0.8.6; contract HelloEthereum { string public greet = &amp;#34;Hello Solidity!&amp;#34;; } </description>
+Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
+Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
+// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &amp;#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&amp;#34;; import &amp;#34;.</description>
     </item>
     
   </channel>

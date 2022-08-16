@@ -14,8 +14,8 @@
       
       <guid>https://leandeep.com/commandes-de-synchronisation/dev-geth/</guid>
       <description>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&amp;rsquo;autres commandes utiles pour développer sur cette Blockchain.
- Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
-curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545  Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
+Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
+curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545 Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@ curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39
       
       <guid>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</guid>
       <description>Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
- Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod +x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.</description>
+Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod +x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f .</description>
     </item>
     
   </channel>

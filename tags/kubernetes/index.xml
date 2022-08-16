@@ -14,7 +14,7 @@
       
       <guid>https://leandeep.com/installer-argo-workflow-sur-osx/</guid>
       <description>Introduction Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&amp;rsquo;agit d&amp;rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&amp;rsquo;est pas recommandée pour de la production. Elle permet de tester et d&amp;rsquo;évaluer l&amp;rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.
- Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod +x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version  Déploiement d&amp;rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw.</description>
+Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod +x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version Déploiement d&amp;rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw.</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@
       
       <guid>https://leandeep.com/installer-un-cluster-kubernetes-sur-baremetal-avec-metallb-et-rancher-2/</guid>
       <description>Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &amp;ldquo;physiques&amp;rdquo;. On est sur de l&amp;rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &amp;ldquo;clouders&amp;rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
- Pré-requis  Docker   Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher  Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes.</description>
+Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes.</description>
     </item>
     
     <item>
@@ -45,8 +45,8 @@
       <description>ps n&amp;rsquo;est pas disponible dans les nouvelles images minimales Redhat ubi8-minimal. Voici un article de RedHat expliquant ce que sont ces images https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
 Pour réaliser un ps aux, cela va être compliqué&amp;hellip;
 2 options s&amp;rsquo;offrent à nous:
-  Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
-  Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois).</description>
+Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
+Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois).</description>
     </item>
     
     <item>
@@ -56,7 +56,7 @@ Pour réaliser un ps aux, cela va être compliqué&amp;hellip;
       
       <guid>https://leandeep.com/installer-rancher-2-sur-centos-7-dev-setup/</guid>
       <description>Please note that I do not recommend this setup for production. It is convenient for development/demo purposes.
- Docker installation Install needed packages:
+Docker installation Install needed packages:
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2 Configure the docker-ce repo:
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo Install docker-ce:
 sudo yum install docker-ce Create Docker group:
@@ -71,10 +71,10 @@ ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker.
       
       <guid>https://leandeep.com/commandes-utiles-kubernetes/</guid>
       <description>Commandes propres à Kubernetes Créer un namespace
-kubectl create ns &amp;lt;new-namespace&amp;gt;  Lister tous les types de ressources disponibles sur le cluster
-kubectl api-resources  Savoir si une ressource appartient à un namespace
-kubectl api-resources --namespaced=true  Savoir si une ressource appartient PAS à un namespace
-kubectl api-resources --namespaced=false  Switcher de namespace
+kubectl create ns &amp;lt;new-namespace&amp;gt; Lister tous les types de ressources disponibles sur le cluster
+kubectl api-resources Savoir si une ressource appartient à un namespace
+kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace
+kubectl api-resources --namespaced=false Switcher de namespace
 # Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.</description>
     </item>
     
@@ -85,7 +85,7 @@ kubectl api-resources --namespaced=false  Switcher de namespace
       
       <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/</guid>
       <description>Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&amp;rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
- Pré-requis  Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM)   Installation via Cloud9  Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt;   Depuis Cloud9, via le terminal générer une clé SSH  ssh-keygen  Uploader sa clé dans la région EC2  aws ec2 import-key-pair --key-name &amp;#34;&amp;lt;nom_de_votre_clé&amp;gt;&amp;#34; --public-key-material file://~/.</description>
+Pré-requis Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM) Installation via Cloud9 Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt; Depuis Cloud9, via le terminal générer une clé SSH ssh-keygen Uploader sa clé dans la région EC2 aws ec2 import-key-pair --key-name &amp;#34;&amp;lt;nom_de_votre_clé&amp;gt;&amp;#34; --public-key-material file://~/.</description>
     </item>
     
     <item>
@@ -96,8 +96,8 @@ kubectl api-resources --namespaced=false  Switcher de namespace
       <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
       <description>Il n&amp;rsquo;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
 Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.
- Avantages
-   ECS EKS Fargate     Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS   Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
+Avantages
+ECS EKS Fargate Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
     </item>
     
     <item>
@@ -107,7 +107,7 @@ Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il pe
       
       <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/</guid>
       <description>Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&amp;rsquo;est parfait quand on n&amp;rsquo;est pas en production.
- Pré-requis  Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube   Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</description>
+Pré-requis Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</description>
     </item>
     
     <item>
@@ -117,8 +117,7 @@ Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il pe
       
       <guid>https://leandeep.com/fonctionnement-interne-de-kubernetes/</guid>
       <description>Aujourd&amp;rsquo;hui, j&amp;rsquo;ai présenté Kubernetes à mes collègues et ai eu besoin de dessiner son architecture macro interne.
- Voici le Sketch réalisé en live durant la présentation:
- </description>
+Voici le Sketch réalisé en live durant la présentation:</description>
     </item>
     
   </channel>

@@ -15,8 +15,8 @@
       <guid>https://leandeep.com/compresser-un-pdf-gratuitement-et-en-ligne-de-commande-sur-osx/</guid>
       <description>J&amp;rsquo;avais impérativement besoin de compresser un PDF et le faire passer 33Mo à 5 ou 6Mo max en gardant une qualité correcte.
 Il y a pleins d&amp;rsquo;outils et d&amp;rsquo;articles sur internet expliquant comment faire cela et franchement c&amp;rsquo;est une perte de temps.
- Le compression intégrée directement dans Preview ne me donnait pas satisfaction car le rendu était flou.
-  Ghostscript brew install ghostscript gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/screen -dCompatibilityLevel=1.</description>
+Le compression intégrée directement dans Preview ne me donnait pas satisfaction car le rendu était flou.
+Ghostscript brew install ghostscript gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/screen -dCompatibilityLevel=1.4 -sOutputFile=output.pdf sign.</description>
     </item>
     
     <item>
@@ -47,8 +47,9 @@ diskutil list diskutil unmountDisk disk2 sudo dd if=/Users/olivier/Downloads/pro
       <guid>https://leandeep.com/monter-un-dossier-distant-avec-sshfs/</guid>
       <description>(Classique) Monter un disque remote en local SSHFS sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.
 C&amp;rsquo;est plutôt pratique. Voici la commande:
-sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local  Installer sshfs sur Ubuntu: sudo apt install -y sshfs
-  Installer sshfs sur OSX: brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs</description>
+sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local Installer sshfs sur Ubuntu: sudo apt install -y sshfs
+Installer sshfs sur OSX: brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs
+(L&amp;rsquo;inverse, plus cool) Monter un disque local sur un serveur remote export REMOTE_USER=root export IP_REMOTE_SERVEUR=vps export LOCAL_USER=olivier export REMOTE_BASE_PATH=/root # pas très secure mais j&amp;#39;utilise une trash machine # Pré-requis: # Le répertoire $REMOTE_BASE_PATH/disk_remote doit exister sur le serveur distant # Lancé depuis un MAC vers serveur Linux mkdir -p /Users/$LOCAL_USER/shared_data ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &amp;#34;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect,allow_other,nonempty -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&amp;#34; # Lancé depuis un serveur linux vers un autre serveur linux (en mode background) # autossh -M 0 -f -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &amp;#34;sshfs -o NoHostAuthenticationForLocalhost=yes,allow_other,nonempty,reconnect -p 10000 $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote&amp;#34; # Example: # ssh -t -p 22 root@vps -R 10000:localhost:22 &amp;#34;sshfs -o allow_other,cache=no,no_readahead,no_remote_lock,compression=no,uid=1000,gid=1000,NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 olivier@localhost:/Users/olivier/shared_data /root/disk_remote;bash&amp;#34; # Checker si le disque local a bien été monté # Normalement vous devriez être connecté à votre serveur distant après l&amp;#39;exécution de la commande précédente mount touch toto # disconnect umount -f $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data ls </description>
     </item>
     
     <item>
@@ -69,7 +70,7 @@ Pour convertir une vidéo .webm en .mp4, il suffit d&amp;rsquo;utiliser les comm
       
       <guid>https://leandeep.com/partager-des-cl%C3%A9s-priv%C3%A9es-entre-les-diff%C3%A9rents-membres-dune-%C3%A9quipe/</guid>
       <description>Lorsqu&amp;rsquo;on travaille dans une équipe de Devops il n&amp;rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&amp;hellip;). Ce sont les fichiers que l&amp;rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&amp;rsquo;entreprise) et que l&amp;rsquo;on ne peut pas mettre sur Git.
- Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&amp;hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter.</description>
+Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&amp;hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter.</description>
     </item>
     
     <item>
@@ -79,7 +80,7 @@ Pour convertir une vidéo .webm en .mp4, il suffit d&amp;rsquo;utiliser les comm
       
       <guid>https://leandeep.com/%C3%AAtre-notifi%C3%A9-lorsquun-long-traitement-est-termin%C3%A9/</guid>
       <description>Personnellement je trouve cela inutile de rester derrière mon écran à ne rien faire en attendant qu&amp;rsquo;un traitement long (entrainement Machine Learning, installation d&amp;rsquo;un Cluster&amp;hellip;) se termine. Du coup, je passe à autre chose en attendant. Pour éviter de devoir sans cesse basculer d&amp;rsquo;une fenêtre à une autre, j&amp;rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.
-Pour ce faire j&amp;rsquo;ai juste à executer la commande suivante derrière la commande qui exécutera un long process  &amp;amp;&amp;amp; warnov.</description>
+Pour ce faire j&amp;rsquo;ai juste à executer la commande suivante derrière la commande qui exécutera un long process &amp;amp;&amp;amp; warnov.</description>
     </item>
     
     <item>
@@ -101,7 +102,7 @@ docker run --rm --name subliminal -v /Users/olivier/Movies/Series/subliminal_cac
       <guid>https://leandeep.com/commandes-utiles-google-dork/</guid>
       <description>Voici une liste de commandes utiles pour télécharger l&amp;rsquo;intégralité de directory listings trouvés grâce à des Google Dorks:
 Un google Dork est une signature typique d’une technologie Web parmi tout ce qui est indexé par Google. Ils sont lié à ce qu&amp;rsquo;on appelle plus généralement les Google Hacks. Vous savez les fameuses commandes comme par exemple intitle:index.of? mkv &amp;lt;Movie Name&amp;gt; ou encore &amp;lt;Movie Name&amp;gt; -inurl:(htm|html|php|pls|txt) intitle:index.of “last modified” (mp4|wma|aac|avi)
- Le Google hacking est une technique consistant à utiliser un moteur de recherche, généralement Google, en vue de chercher des vulnérabilités ou de récupérer des données sensibles.</description>
+Le Google hacking est une technique consistant à utiliser un moteur de recherche, généralement Google, en vue de chercher des vulnérabilités ou de récupérer des données sensibles.</description>
     </item>
     
     <item>

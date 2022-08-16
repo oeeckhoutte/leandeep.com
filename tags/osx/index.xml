@@ -14,8 +14,8 @@
       
       <guid>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</guid>
       <description>Dans cet article très court, nous allons voir comment faire un screen recording avec le son built-in à partir de Quicktime sur Mac. Pas besoin de soft payant; juste d&amp;rsquo;un driver supplémentaire open source
- Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
-brew install blackhole-16ch  Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
+Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
+brew install blackhole-16ch Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
 Nous allons créer 2 interfaces audio. Une en input et une en output.</description>
     </item>
     
@@ -53,7 +53,7 @@ Nous allons créer 2 interfaces audio. Une en input et une en output.</descripti
       
       <guid>https://leandeep.com/convertir-des-images-dmg-ou-img-en-iso-sur-osx/</guid>
       <description>Convertir une image img en iso
-hdiutil convert input.img -format UDTO -o output.iso  Convertir une image dmg en iso
+hdiutil convert input.img -format UDTO -o output.iso Convertir une image dmg en iso
 hdiutil convert input.dmg -format UDTO -o output.iso </description>
     </item>
     
@@ -65,11 +65,12 @@ hdiutil convert input.dmg -format UDTO -o output.iso </description>
       <guid>https://leandeep.com/utilitaires-utiles-osx/</guid>
       <description>Voici certains (le minimum vital) utilitaires de développement que j&amp;rsquo;utilise sur Mac.
 Oh-my-zsh
-sh -c &amp;#34;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;#34;  Installer Node version manager (NVM)
+sh -c &amp;#34;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&amp;#34; Installer Node version manager (NVM)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash Puis au moins les paquets suivants:
-nvm install v12.13.0 nvm use v12.13.0 nvm alias default v12.13.0 npm i -g http-server  Installer Blockchain tools
-npm install -g truffle npm install -g ganache-cli  Installer Xcode CLI
-xcode-select --install sudo xcodebuild -license accept  Homebrew</description>
+nvm install v12.13.0 nvm use v12.13.0 nvm alias default v12.13.0 npm i -g http-server Installer Blockchain tools
+npm install -g truffle npm install -g ganache-cli Installer Xcode CLI
+xcode-select --install sudo xcodebuild -license accept Homebrew
+/usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.</description>
     </item>
     
     <item>
@@ -79,9 +80,9 @@ xcode-select --install sudo xcodebuild -license accept  Homebrew</description>
       
       <guid>https://leandeep.com/passer-de-oh-my-zsh-%C3%A0-oh-my-fish/</guid>
       <description>Dans cet article nous allons voir comment configurer le terminal Fish sur Mac.
- Si Homebrew n&amp;rsquo;est pas déjà installé sur votre poste, faites le via la commande. It&amp;rsquo;s worth it ! /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
-  Pourquoi je teste Fish Shell ? Pour ces features:
-- Autosuggestions as you type - Syntax highlighting with extensive error checking. - Searchable command history. - 256 terminal colors - Advanced tab completion.</description>
+Si Homebrew n&amp;rsquo;est pas déjà installé sur votre poste, faites le via la commande. It&amp;rsquo;s worth it ! /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+Pourquoi je teste Fish Shell ? Pour ces features:
+- Autosuggestions as you type - Syntax highlighting with extensive error checking. - Searchable command history. - 256 terminal colors - Advanced tab completion. - Web-based configuration - A special help command gives access to all the fish documentation in the user’s web browser - Error messages designed to actually tell the user what went wrong and what can be done about it - Universal variables - Support for the X clipboard - Change fish setting by editing the ~/.</description>
     </item>
     
     <item>
@@ -91,11 +92,11 @@ xcode-select --install sudo xcodebuild -license accept  Homebrew</description>
       
       <guid>https://leandeep.com/installer-rabbitmq-sur-osx/</guid>
       <description>Pour installer RabbitMQ sur OSX, c&amp;rsquo;est vraiment très simple:
- Installer RabbitMQ Exécuter la commande:
+Installer RabbitMQ Exécuter la commande:
 brew install rabbitmq Puis ajouter la ligne export PATH=$PATH:/usr/local/sbin dans votre fichier ~/.zshrc.
- Démarrer RabbitMQ Pour démarrer le service il suffit d&amp;rsquo;exécuter la commande suivante:
+Démarrer RabbitMQ Pour démarrer le service il suffit d&amp;rsquo;exécuter la commande suivante:
 brew services start rabbitmq Si vous vous rendez sur http://localhost:15672 vous pourrez voir l&amp;rsquo;interface d&amp;rsquo;administration de RabbitMQ.
- Il est également possible de démarrer le serveur en standalone via la commande rabbitmq-server.</description>
+Il est également possible de démarrer le serveur en standalone via la commande rabbitmq-server.</description>
     </item>
     
     <item>
@@ -106,12 +107,12 @@ brew services start rabbitmq Si vous vous rendez sur http://localhost:15672 vous
       <guid>https://leandeep.com/installer-redis-sur-osx/</guid>
       <description>Voici un petit article rapide pour installer et utiliser Redis en local sur son Mac.
 Installer Redis via HomeBrew
-brew install redis  Démarrage de Redis au boot d&amp;rsquo;OSX
-ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents  Démarrer Redis via launchctl
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist  Retirer le démarrage automatique de Redis au boot d&amp;rsquo;OSX
-launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.redis.plist  Désinstaller Redis
-brew uninstall redis rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist  Vérifier que Redis est bien démarré:
-redis-cli ping # PONG  Administration GUI</description>
+brew install redis Démarrage de Redis au boot d&amp;rsquo;OSX
+ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents Démarrer Redis via launchctl
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist Retirer le démarrage automatique de Redis au boot d&amp;rsquo;OSX
+launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.redis.plist Désinstaller Redis
+brew uninstall redis rm ~/Library/LaunchAgents/homebrew.mxcl.redis.plist Vérifier que Redis est bien démarré:
+redis-cli ping # PONG Administration GUI</description>
     </item>
     
     <item>
@@ -121,8 +122,7 @@ redis-cli ping # PONG  Administration GUI</description>
       
       <guid>https://leandeep.com/cr%C3%A9er-une-archive-zip-sans-.ds_store/</guid>
       <description>Utiliser tout simplement la commande:
-zip -r &amp;lt;name&amp;gt;.zip . -x &amp;#34;*.DS_Store&amp;#34;  .DS_Store est un fichier qui contient des attributs pour customiser le dossier dans lequel il se trouve comme par exemple la position des icônes ou l&amp;rsquo;image background.
- </description>
+zip -r &amp;lt;name&amp;gt;.zip . -x &amp;#34;*.DS_Store&amp;#34; .DS_Store est un fichier qui contient des attributs pour customiser le dossier dans lequel il se trouve comme par exemple la position des icônes ou l&amp;rsquo;image background.</description>
     </item>
     
   </channel>

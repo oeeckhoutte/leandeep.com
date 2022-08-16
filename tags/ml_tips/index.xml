@@ -13,7 +13,7 @@
       <pubDate>Mon, 04 Feb 2019 21:23:04 -0700</pubDate>
       
       <guid>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes-outliers/</guid>
-      <description>Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0  Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs  Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:</description>
+      <description>Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0 Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Sat, 02 Feb 2019 22:13:18 -0700</pubDate>
       
       <guid>https://leandeep.com/convertir-les-donn%C3%A9es-cat%C3%A9gorielles-en-integer-pour-sklearn/</guid>
-      <description>Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0  Charger les librairies from sklearn import preprocessing import pandas as pd  Création d&amp;rsquo;un faux dataset raw_data = { &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2], &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2], &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0], &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;] } df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;])  Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.</description>
+      <description>Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&amp;rsquo;un faux dataset raw_data = { &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2], &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2], &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0], &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;] } df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.</description>
     </item>
     
     <item>
@@ -31,9 +31,9 @@
       <pubDate>Sun, 30 Dec 2018 22:13:18 -0700</pubDate>
       
       <guid>https://leandeep.com/effacer-les-donn%C3%A9es-manquantes/</guid>
-      <description>Pré-requis pip install numpy pandas # va installer numpy 1.19.1 et pandas 1.1.0  Charger les librairies import numpy as np import pandas as pd  Création d&amp;rsquo;une matrice de données # Création de la feature matrice X = np.array([[1, 2], [6, 3], [8, 4], [9, 5], [np.nan, 4]])  Effacer les données manquantes Avec Numpy
+      <description>Pré-requis pip install numpy pandas # va installer numpy 1.19.1 et pandas 1.1.0 Charger les librairies import numpy as np import pandas as pd Création d&amp;rsquo;une matrice de données # Création de la feature matrice X = np.array([[1, 2], [6, 3], [8, 4], [9, 5], [np.nan, 4]]) Effacer les données manquantes Avec Numpy
 X[~np.isnan(X).any(axis=1)] Résultat:
-array([[1., 2.], [6., 3.], [8., 4.], [9., 5.]])  Avec Pandas
+array([[1., 2.], [6., 3.], [8., 4.], [9., 5.]]) Avec Pandas
 # On transforme les données en dataframe Pandas df = pd.</description>
     </item>
     

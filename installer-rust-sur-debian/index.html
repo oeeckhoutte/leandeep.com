@@ -7,7 +7,7 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Provisioning d&amp;rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash  Installation de Rust apt update apt install curl vim git -y curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &amp;#34;crti.o&amp;#34; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &amp;#34;Scrt1.o&amp;#34; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&amp;gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &amp;#34;libclang." />
+  content="Provisioning d&amp;rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash Installation de Rust apt update apt install curl vim git -y curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &amp;#34;crti.o&amp;#34; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &amp;#34;Scrt1.o&amp;#34; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&amp;gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &amp;#34;libclang.so&amp;#34; -print export LIBCLANG_PATH=&amp;#34;/usr/lib/llvm-11/lib/libclang." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -258,14 +258,14 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer Rust sur Debian">
-<meta itemprop="description" content="Provisioning d&rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash  Installation de Rust apt update apt install curl vim git -y curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &#34;crti.o&#34; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &#34;Scrt1.o&#34; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &#34;libclang."><meta itemprop="datePublished" content="2021-05-24T15:20:00+00:00" />
+<meta itemprop="description" content="Provisioning d&rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash Installation de Rust apt update apt install curl vim git -y curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &#34;crti.o&#34; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &#34;Scrt1.o&#34; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &#34;libclang.so&#34; -print export LIBCLANG_PATH=&#34;/usr/lib/llvm-11/lib/libclang."><meta itemprop="datePublished" content="2021-05-24T15:20:00+00:00" />
 <meta itemprop="dateModified" content="2021-05-24T15:20:00+00:00" />
 <meta itemprop="wordCount" content="120"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Rust,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer Rust sur Debian"/>
-<meta name="twitter:description" content="Provisioning d&rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash  Installation de Rust apt update apt install curl vim git -y curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &#34;crti.o&#34; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &#34;Scrt1.o&#34; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &#34;libclang."/>
+<meta name="twitter:description" content="Provisioning d&rsquo;une instance Debian docker run -it -v $PWD:/home debian:latest bash Installation de Rust apt update apt install curl vim git -y curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh apt install gcc gcc-multilib source $HOME/.cargo/env find /usr -iname &#34;crti.o&#34; -print export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH # dans ~/.zshrc find /usr -iname &#34;Scrt1.o&#34; -print # /usr/lib/x86_64-linux-gnu/Scrt1.o -&gt; No export necessary else add the dir containing Scrt1.o apt-get install libclang-dev find /usr -iname &#34;libclang.so&#34; -print export LIBCLANG_PATH=&#34;/usr/lib/llvm-11/lib/libclang."/>
 
 
 
@@ -457,7 +457,7 @@ rustup --version
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.5fb899bbe79feaa4c25d3b625cdf8714b7e904c3377458df39f9a29dc271fe25b5fedd8f8b2e2d9f1c1113688203f2d727cede28a05cf1a0a61ab76cc8a929d1.js" integrity="sha512-X7iZu&#43;ef6qTCXTtiXN&#43;HFLfpBMM3dFjfOfmincJx/iW1/t2Piy4tnxwRE2iCA/LXJ87eKKBc8aCmGrdsyKkp0Q=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.68628920df4cd4d5988593e35a62e4a8dad8a20217d6c78ecaddfdb8b8ac758eb757a487e273e3855fa571d25193282cbc3dd99bba288f8c9e34b1a63e6a14e9.js" integrity="sha512-aGKJIN9M1NWYhZPjWmLkqNrYogIX1seOyt39uLisdY63V6SH4nPjhV&#43;lcdJRkygsvD3Zm7ooj4yeNLGmPmoU6Q=="></script>
 
 
 

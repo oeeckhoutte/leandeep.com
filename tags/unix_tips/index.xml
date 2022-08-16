@@ -23,7 +23,7 @@
       
       <guid>https://leandeep.com/regarder-un-film-sur-vlc-over-ssh/</guid>
       <description>Tout est dans le titre. Avec la commande ci-dessous, vous pouvez visionner sur VLC un film présent sur une machine distante via SFTP (Secure File Transfer Protocol). C&amp;rsquo;est très pratique si vous avez du contenu vidéo sur une autre machine et vous ne voulez pas attendre de le télécharger pour le regarder.
- vlc sftp://user@host:/path/to/file  Bon visionnage.</description>
+vlc sftp://user@host:/path/to/file Bon visionnage.</description>
     </item>
     
     <item>
@@ -33,8 +33,8 @@
       
       <guid>https://leandeep.com/port-accessible-sur-une-machine-distante-et-quels-ports-utilis%C3%A9s/</guid>
       <description>Ports accessibles ? Via Telnet Sur les anciens systèmes telnet est installé. Il suffit de faire:
-telnet hostname port  Alternatives à telnet Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.
-NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports  Note: pour tester une port sur le protocole UDP, utiliser nc -u</description>
+telnet hostname port Alternatives à telnet Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.
+NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports Note: pour tester une port sur le protocole UDP, utiliser nc -u</description>
     </item>
     
     <item>
@@ -58,8 +58,10 @@ $ cd !d:2 $ cd ~/Dev </description>
       <guid>https://leandeep.com/retirer-les-commentaires-et-lignes-vides/</guid>
       <description>Dans la catégorie Manipulation de textes
 Voici une commande permettant de nettoyer un fichier de configuration et retirer les commentaires et lignes vides inutiles.
-grep -E -v &amp;#34;^#|^$&amp;#34; file  Ces commandes utilisent une regex grâce à l&amp;rsquo;option -E de grep.
- &amp;ldquo;^#&amp;rdquo; permet de trouver toutes lignes qui commencent par un &amp;ldquo;#&amp;rdquo;. &amp;ldquo;^$&amp;rdquo; permet de trouver toutes les lignes vides.  Pour info l&amp;rsquo;option -v permet d&amp;rsquo;inverser la sélection.</description>
+grep -E -v &amp;#34;^#|^$&amp;#34; file Ces commandes utilisent une regex grâce à l&amp;rsquo;option -E de grep.
+&amp;ldquo;^#&amp;rdquo; permet de trouver toutes lignes qui commencent par un &amp;ldquo;#&amp;rdquo;. &amp;ldquo;^$&amp;rdquo; permet de trouver toutes les lignes vides. Pour info l&amp;rsquo;option -v permet d&amp;rsquo;inverser la sélection.
+Exemple:
+grep -E -v &amp;#39;^#|^$&amp;#39; nginx.</description>
     </item>
     
     <item>
@@ -94,7 +96,7 @@ $ host www.google.com 8.8.8.8 Using domain server: Name: 8.8.8.8 Address: 8.8.8.
       <guid>https://leandeep.com/utiliser-une-boucle-dans-le-terminal/</guid>
       <description>Dans la catégorie Scripts Shell:
 Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&amp;rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.
-for VAR in LIST &amp;gt; do &amp;gt; # utilisez $VAR &amp;gt; done  Exemple:
+for VAR in LIST &amp;gt; do &amp;gt; # utilisez $VAR &amp;gt; done Exemple:
 $ for USER in olivier bob bill &amp;gt; do &amp;gt; sudo passwd -l $USER &amp;gt; logger -t bad-boy $USER &amp;gt; done Locking password for user olivier.</description>
     </item>
     

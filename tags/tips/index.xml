@@ -14,7 +14,7 @@
       
       <guid>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</guid>
       <description>Tips très très rapide montrant comment installer Docker et Mitmproxy sur Ubuntu 22.04.
- Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-certificates curl gnupg lsb-release curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt install docker-ce docker-ce-cli containerd.io -y sudo usermod -aG docker $USER newgrp docker  Vérification de l&amp;rsquo;installation de Docker docker version  Démarrage du proxy mitm sur VM distante tmux docker run --rm -it -v ~/.</description>
+Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-certificates curl gnupg lsb-release curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt install docker-ce docker-ce-cli containerd.io -y sudo usermod -aG docker $USER newgrp docker Vérification de l&amp;rsquo;installation de Docker docker version Démarrage du proxy mitm sur VM distante tmux docker run --rm -it -v ~/.</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@
       
       <guid>https://leandeep.com/lister-les-nouveaux-exit-nodes-sur-tor/</guid>
       <description>Si comme moi vous vous demandez à quelle fréquence des Exit Nodes sont ajoutés ou retirés du réseau Tor, alors vous aurez la réponse en exécutant le script suivant. Parfois prendre 5 minutes à écrire un script peut nous donner les réponses aux questions dont Google n&amp;rsquo;a pas la réponse.
-  Python 3+ pip install requests   import requests from datetime import datetime from time import sleep TOR_PROXIES_URI = &amp;#34;https://check.</description>
+Python 3+ pip install requests import requests from datetime import datetime from time import sleep TOR_PROXIES_URI = &amp;#34;https://check.torproject.org/torbulkexitlist&amp;#34; previous_ips = set() while True: result = requests.</description>
     </item>
     
     <item>
@@ -46,8 +46,8 @@ ls -l /usr/share/xsessions/ Output:
       <guid>https://leandeep.com/convertir-un-fichier-pipfile.lock-en-requirements.txt/</guid>
       <description>Petit tip du jour pour convertir un fichier Pipfile en requirements.txt
 En pré-requis, il faut avoir jq
- brew install jq
- Ensuite, il suffit d&amp;rsquo;exécuter la commande suivante:
+brew install jq
+Ensuite, il suffit d&amp;rsquo;exécuter la commande suivante:
 jq -r &amp;#39;.default | to_entries[] | .key + .value.version&amp;#39; \ Pipfile.lock &amp;gt; requirements.txt </description>
     </item>
     
@@ -78,8 +78,8 @@ echo &amp;#34;# Tor alias&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias
       
       <guid>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</guid>
       <description>Dans cet article très court, nous allons voir comment faire un screen recording avec le son built-in à partir de Quicktime sur Mac. Pas besoin de soft payant; juste d&amp;rsquo;un driver supplémentaire open source
- Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
-brew install blackhole-16ch  Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
+Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
+brew install blackhole-16ch Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
 Nous allons créer 2 interfaces audio. Une en input et une en output.</description>
     </item>
     
@@ -90,7 +90,7 @@ Nous allons créer 2 interfaces audio. Une en input et une en output.</descripti
       
       <guid>https://leandeep.com/corriger-lerreur-adb-no-permissions-sur-arch/</guid>
       <description>Voici la procédure pour installer ADB sur Arch, fixer le problème de permissions et uploader des fichiers en cli. Je me sers de ces commandes pour copier des vidéos très lourdes filmées en 8K sur un Meta Quest 2 via USB.
- Installation sudo pacman -S android-tools  Permissions # Si adb tourne déjà # adb kill-server # Puis démarrage avec sudo sudo adb start-server  Upload de fichiers # Lister les directories du device # adb shell ls -R / # adb shell ls / adb push .</description>
+Installation sudo pacman -S android-tools Permissions # Si adb tourne déjà # adb kill-server # Puis démarrage avec sudo sudo adb start-server Upload de fichiers # Lister les directories du device # adb shell ls -R / # adb shell ls / adb push .</description>
     </item>
     
     <item>
@@ -100,7 +100,7 @@ Nous allons créer 2 interfaces audio. Une en input et une en output.</descripti
       
       <guid>https://leandeep.com/installer-docker-sur-arch-linux/</guid>
       <description>Petit tip de 10 secondes décrivant comment installer Docker sur Arch Linux.
-Installation sudo pacman -S docker	sudo groupadd docker sudo usermod -aG docker $USER sudo chmod 666 /var/run/docker.sock sudo systemctl enable docker.service sudo systemctl start docker.service  Vérification docker run hello-world </description>
+Installation sudo pacman -S docker	sudo groupadd docker sudo usermod -aG docker $USER sudo chmod 666 /var/run/docker.sock sudo systemctl enable docker.service sudo systemctl start docker.service Vérification docker run hello-world </description>
     </item>
     
     <item>
@@ -111,7 +111,7 @@ Installation sudo pacman -S docker	sudo groupadd docker sudo usermod -aG docker 
       <guid>https://leandeep.com/aide-m%C3%A9moire-types-rust/</guid>
       <description>Literals Le type d&amp;rsquo;une variable peut être défini en ajoutant un suffixe derrière la valeur de la variable. Par exemple:
 let mon_test1: i32 = 12; Equivaut à let mon_test2 = 12i32; Equivaut à let mon_test3 = 12_i32; Retourner la taille d&amp;rsquo;une variable:
-println!(&amp;#34;Taille de `mon_test1` in bytes: {}&amp;#34;, std::mem::size_of_val(&amp;amp;mon_test1)); Taille de `mon_test1` in bytes: 4 // i32 -&amp;gt; 4 x 8  Casting  Il n&amp;rsquo;y a pas de coercion, c&amp;rsquo;est-à-dire de la conversion implicite, entre les types primitifs en Rust.</description>
+println!(&amp;#34;Taille de `mon_test1` in bytes: {}&amp;#34;, std::mem::size_of_val(&amp;amp;mon_test1)); Taille de `mon_test1` in bytes: 4 // i32 -&amp;gt; 4 x 8 Casting Il n&amp;rsquo;y a pas de coercion, c&amp;rsquo;est-à-dire de la conversion implicite, entre les types primitifs en Rust.</description>
     </item>
     
   </channel>

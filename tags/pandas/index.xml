@@ -15,7 +15,7 @@
       <guid>https://leandeep.com/mastering-pandas/</guid>
       <description>Cela fait pas mal de temps que j&amp;rsquo;utilise Pandas. Dans cet article je vais essayer de réunir et synthétiser tous les tips &amp;amp; tricks à savoir (comme si j&amp;rsquo;utilisais Jupyter Notebook).
 Voici la liste des tips:
- Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&amp;rsquo;une itération   Introduction à Pandas C&amp;rsquo;est une librairie opensource d&amp;rsquo;analyse de données qui fourni des structures de données ainsi que des outils d&amp;rsquo;analyse faciles à utiliser.</description>
+Introduction à Pandas Lire des données tabulaires Sélectionner une série Pandas Parenthèses Pandas Renommer des colonnes Effacer une colonne Effacer toutes les colonnes sauf Trier Filtrer Filtres multi-critères Examiner un dataset Numéro, index et contenu de la ligne lors d&amp;rsquo;une itération Introduction à Pandas C&amp;rsquo;est une librairie opensource d&amp;rsquo;analyse de données qui fourni des structures de données ainsi que des outils d&amp;rsquo;analyse faciles à utiliser.</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@ Voici la liste des tips:
       <pubDate>Sat, 02 Feb 2019 22:13:18 -0700</pubDate>
       
       <guid>https://leandeep.com/convertir-les-donn%C3%A9es-cat%C3%A9gorielles-en-integer-pour-sklearn/</guid>
-      <description>Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0  Charger les librairies from sklearn import preprocessing import pandas as pd  Création d&amp;rsquo;un faux dataset raw_data = { &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2], &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2], &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0], &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;] } df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;])  Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.</description>
+      <description>Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&amp;rsquo;un faux dataset raw_data = { &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2], &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2], &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0], &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;] } df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.</description>
     </item>
     
     <item>
@@ -33,9 +33,9 @@ Voici la liste des tips:
       <pubDate>Sun, 30 Dec 2018 22:13:18 -0700</pubDate>
       
       <guid>https://leandeep.com/effacer-les-donn%C3%A9es-manquantes/</guid>
-      <description>Pré-requis pip install numpy pandas # va installer numpy 1.19.1 et pandas 1.1.0  Charger les librairies import numpy as np import pandas as pd  Création d&amp;rsquo;une matrice de données # Création de la feature matrice X = np.array([[1, 2], [6, 3], [8, 4], [9, 5], [np.nan, 4]])  Effacer les données manquantes Avec Numpy
+      <description>Pré-requis pip install numpy pandas # va installer numpy 1.19.1 et pandas 1.1.0 Charger les librairies import numpy as np import pandas as pd Création d&amp;rsquo;une matrice de données # Création de la feature matrice X = np.array([[1, 2], [6, 3], [8, 4], [9, 5], [np.nan, 4]]) Effacer les données manquantes Avec Numpy
 X[~np.isnan(X).any(axis=1)] Résultat:
-array([[1., 2.], [6., 3.], [8., 4.], [9., 5.]])  Avec Pandas
+array([[1., 2.], [6., 3.], [8., 4.], [9., 5.]]) Avec Pandas
 # On transforme les données en dataframe Pandas df = pd.</description>
     </item>
     
@@ -47,7 +47,7 @@ array([[1., 2.], [6., 3.], [8., 4.], [9., 5.]])  Avec Pandas
       <guid>https://leandeep.com/importer-des-donn%C3%A9es-depuis-numpy-et-pandas-dans-tensorflow/</guid>
       <description>Exemple avec le jeu de données Iris:
 On importe le dataset:
-!mkdir /content/data !ls !wget https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data -P /content/data  Output:
+!mkdir /content/data !ls !wget https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data -P /content/data Output:
 data sample_data --2018-11-16 09:37:26-- https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data Resolving archive.ics.uci.edu (archive.ics.uci.edu)... 128.195.10.249 Connecting to archive.ics.uci.edu (archive.ics.uci.edu)|128.195.10.249|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 4551 (4.4K) [text/plain] Saving to: ‘/content/data/iris.data’ iris.data 100%[===================&amp;gt;] 4.44K --.-KB/s in 0s 2018-11-16 09:37:27 (102 MB/s) - ‘/content/data/iris.data’ saved [4551/4551] On crée le modèle Tensorflow en réutilisant les données que l&amp;rsquo;on vient de télécharger:</description>
     </item>
     
@@ -57,9 +57,8 @@ data sample_data --2018-11-16 09:37:26-- https://archive.ics.uci.edu/ml/machine-
       <pubDate>Mon, 14 Sep 2015 19:24:00 +0000</pubDate>
       
       <guid>https://leandeep.com/basics-python-commands-pour-matplotlib-numpy-pandas-et-debugging-misc/</guid>
-      <description>Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 
-1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
-from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4  2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4).</description>
+      <description>Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&amp;rsquo;en sert ensuite dans l&amp;rsquo;affichage d&amp;rsquo;un nuage de points avec Matplotlib.
+from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4 2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4).</description>
     </item>
     
   </channel>
