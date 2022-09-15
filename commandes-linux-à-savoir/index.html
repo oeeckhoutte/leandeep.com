@@ -9,7 +9,7 @@
 <meta name="description"
   content="Chercher une string dans les fichiers d&amp;rsquo;un répertoire de manière récursive grep -r &amp;#34;password&amp;#34; ~/Dev i stands for ignore case. r ou R stands for recursive. l stands for &amp;#34;show the file name, not the result itself&amp;#34;. Alternative: utiliser ack (https://beyondgrep.com/install/) $ ack &amp;quot;http://&amp;quot; ~/Dev/
 Autre alternative: utiliser ag (https://github.com/ggreer/the_silver_searcher) $ ag &amp;quot;password&amp;quot; ~/Dev
-Localiser un fichier sudo find / -name &amp;#34;*filename&amp;#34; Liste des ports par défaut des utilitaires de base vi /etc/services Créer un groupe sudo groupadd -g 4001 mon_groupe Ajouter/ Retirer un groupe à un utilisateur # delete gpasswd –d group user # add gpasswd –a group user # Alternative sudo usermod -aG mon_groupe olivier Ajouter un nouvel utilisateur sans droit de login useradd –s /sbin/nologin user Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:" />
+Localiser un fichier sudo find / -name &amp;#34;*filename&amp;#34; Changer la date d&amp;rsquo;un fichier touch -d &amp;#34;2 hours ago&amp;#34; /tmp/test Boucle infinie Pour ré-exécuter la même commande à l&amp;rsquo;infini par exemple:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -262,16 +262,16 @@ Localiser un fichier sudo find / -name &amp;#34;*filename&amp;#34; Liste des por
 <meta itemprop="name" content="Commandes linux à savoir">
 <meta itemprop="description" content="Chercher une string dans les fichiers d&rsquo;un répertoire de manière récursive grep -r &#34;password&#34; ~/Dev i stands for ignore case. r ou R stands for recursive. l stands for &#34;show the file name, not the result itself&#34;. Alternative: utiliser ack (https://beyondgrep.com/install/) $ ack &quot;http://&quot; ~/Dev/
 Autre alternative: utiliser ag (https://github.com/ggreer/the_silver_searcher) $ ag &quot;password&quot; ~/Dev
-Localiser un fichier sudo find / -name &#34;*filename&#34; Liste des ports par défaut des utilitaires de base vi /etc/services Créer un groupe sudo groupadd -g 4001 mon_groupe Ajouter/ Retirer un groupe à un utilisateur # delete gpasswd –d group user # add gpasswd –a group user # Alternative sudo usermod -aG mon_groupe olivier Ajouter un nouvel utilisateur sans droit de login useradd –s /sbin/nologin user Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:"><meta itemprop="datePublished" content="2013-01-16T19:40:00+00:00" />
+Localiser un fichier sudo find / -name &#34;*filename&#34; Changer la date d&rsquo;un fichier touch -d &#34;2 hours ago&#34; /tmp/test Boucle infinie Pour ré-exécuter la même commande à l&rsquo;infini par exemple:"><meta itemprop="datePublished" content="2013-01-16T19:40:00+00:00" />
 <meta itemprop="dateModified" content="2013-01-16T19:40:00+00:00" />
-<meta itemprop="wordCount" content="1393"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1478"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Unix Tip,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Commandes linux à savoir"/>
 <meta name="twitter:description" content="Chercher une string dans les fichiers d&rsquo;un répertoire de manière récursive grep -r &#34;password&#34; ~/Dev i stands for ignore case. r ou R stands for recursive. l stands for &#34;show the file name, not the result itself&#34;. Alternative: utiliser ack (https://beyondgrep.com/install/) $ ack &quot;http://&quot; ~/Dev/
 Autre alternative: utiliser ag (https://github.com/ggreer/the_silver_searcher) $ ag &quot;password&quot; ~/Dev
-Localiser un fichier sudo find / -name &#34;*filename&#34; Liste des ports par défaut des utilitaires de base vi /etc/services Créer un groupe sudo groupadd -g 4001 mon_groupe Ajouter/ Retirer un groupe à un utilisateur # delete gpasswd –d group user # add gpasswd –a group user # Alternative sudo usermod -aG mon_groupe olivier Ajouter un nouvel utilisateur sans droit de login useradd –s /sbin/nologin user Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:"/>
+Localiser un fichier sudo find / -name &#34;*filename&#34; Changer la date d&rsquo;un fichier touch -d &#34;2 hours ago&#34; /tmp/test Boucle infinie Pour ré-exécuter la même commande à l&rsquo;infini par exemple:"/>
 
 
 
@@ -364,6 +364,25 @@ l stands for &#34;show the file name, not the result itself&#34;.
 <br/>
 <h2 id="localiser-un-fichier">Localiser un fichier</h2>
 <pre tabindex="0"><code>sudo find / -name &#34;*filename&#34;
+</code></pre><br/>
+<h2 id="changer-la-date-dun-fichier">Changer la date d&rsquo;un fichier</h2>
+<pre tabindex="0"><code>touch -d &#34;2 hours ago&#34; /tmp/test
+</code></pre><br/>
+<h2 id="boucle-infinie">Boucle infinie</h2>
+<p>Pour ré-exécuter la même commande à l&rsquo;infini par exemple:</p>
+<pre tabindex="0"><code>while true
+&gt; do
+&gt;     touch -d &#34;2 hours ago&#34; /tmp/test
+&gt;     sleep 2
+&gt; done
+</code></pre><br/>
+<h2 id="voir-le-code-retour-de-la-dernière-commande">Voir le code retour de la dernière commande:</h2>
+<pre tabindex="0"><code>echo $?
+</code></pre><br/>
+<h2 id="inline-if-statement">Inline if statement</h2>
+<p>Example:
+Retourner un exit 1 si la date du fichier /tmp/test est supérieure à 50 minutes</p>
+<pre tabindex="0"><code>if [ $(find /tmp/test -type f -mmin +50 | wc -l) -gt 0 ]; then exit 1; fi
 </code></pre><br/>
 <h2 id="liste-des-ports-par-défaut-des-utilitaires-de-base">Liste des ports par défaut des utilitaires de base</h2>
 <pre tabindex="0"><code>vi /etc/services
@@ -759,7 +778,7 @@ olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/unix-tip">Unix Tip</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1393 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1478 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>16 janv.. 2013</p>
         </div>

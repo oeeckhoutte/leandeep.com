@@ -270,7 +270,7 @@ kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS �
 kubectl api-resources --namespaced=false Switcher de namespace
 # Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github."><meta itemprop="datePublished" content="2019-03-08T17:08:00+00:00" />
 <meta itemprop="dateModified" content="2019-03-08T17:08:00+00:00" />
-<meta itemprop="wordCount" content="1078"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1154"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Kubernetes,AWS EKS," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -456,6 +456,9 @@ kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP        46
 <pre tabindex="0"><code>kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl describe nodes
 </code></pre><br/>
+<p><strong>Voir tous les events d&rsquo;un deployment</strong></p>
+<pre tabindex="0"><code>kubectl get events --field-selector involvedObject.name=$DEPLOYMENT_NAME -n $NAMESPACE
+</code></pre><br/>
 <p><strong>Voir un &ldquo;disk pressure&rdquo;</strong></p>
 <pre tabindex="0"><code>kubectl describe nodes 2&gt;&amp;1 | grep -i Disk
 </code></pre><blockquote>
@@ -533,7 +536,7 @@ kubectl scale deployment deployment_name --replicas=1
 <p><strong>Pod anti affinity</strong></p>
 <p>Pour éviter un downtime si plusieurs pods se retrouvent sur un même node qui est KO</p>
 <p>Au niveau du Deployment, ajouter:</p>
-<pre tabindex="0"><code>...
+<pre tabindex="0"><code>[...]
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -542,7 +545,7 @@ metadata:
     app: api
 spec:
   replicas: 2
-...
+[...]
   spec:
     affinity:
       podAntiAffinity:
@@ -555,11 +558,37 @@ spec:
               - api
           topologyKey: &#34;kubernetes.io/hostname&#34;
     containers:
-    ...
+    [...]
 </code></pre><blockquote>
 <p>Plus d&rsquo;infos <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">ici</a>:</p>
 </blockquote>
 <br/>
+<p><strong>Liveness Probe sur job always running (no endpoint)</strong></p>
+<pre tabindex="0"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-de-dingue
+  labels:
+    app: job
+spec:
+  replicas: 1
+[...]
+  spec:
+    containers:
+      - name: my-job
+        image: ...
+        livenessProbe:
+          exec:
+            command:
+              - /bin/bash
+              - -c
+              - |-
+                if [ $(find /tmp/health -type f -mmin +5 | wc -l) -gt 0 ]; then exit 1; fi
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          timeoutSeconds: 5
+        [...]
+</code></pre><br/>
 <h2 id="commandes-propres-à-eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
 <p><strong>Se connecter à son cluster EKS nouvellement créé</strong></p>
 <pre tabindex="0"><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
@@ -637,7 +666,7 @@ az ad sp credential list --id $SP_ID --query &#34;[].endDate&#34; -o tsv
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span><span class="tag"><a href="https://leandeep.com/tags/aws-eks">AWS EKS</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1078 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1154 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 mars. 2019</p>
         </div>

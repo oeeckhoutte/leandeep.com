@@ -7,11 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Dans cet article, nous allons voir comment hoster un noeud light Ethereum mainnet avec Nethermind sur Ubuntu 22.04.
-Installation On commence par installer .NET:
-sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Ensuite on installer Nethermind:
-sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Configuration On créer un répertoire qui contiendra nos data:
-mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr/share/nethermind/configs/mainnet.cfg et on autorise les IPs, modules qui nous intéressent." />
+  content="Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
+Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&amp;rsquo;aplomb mes bots de trading. Désolé d&amp;rsquo;avance si des erreurs se sont glissées dans cet article. Il est 4h du matin, je n&amp;rsquo;ai plus les yeux en face des trous" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -27,7 +24,7 @@ mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/noeud-ethereum-nethermind-sur-ubuntu-22.04/" />
+<link rel="canonical" href="https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/" />
 
 
 
@@ -236,7 +233,7 @@ mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr
 
 <title>
   
-  Noeud Ethereum Nethermind sur Ubuntu 22.04 :: Lean Deep Tech blog 
+  Noeud RPC Ethereum après The Merge sur Ubuntu 22.04 :: Lean Deep Tech blog 
   
 </title>
 
@@ -261,29 +258,23 @@ mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Noeud Ethereum Nethermind sur Ubuntu 22.04">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment hoster un noeud light Ethereum mainnet avec Nethermind sur Ubuntu 22.04.
-Installation On commence par installer .NET:
-sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Ensuite on installer Nethermind:
-sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Configuration On créer un répertoire qui contiendra nos data:
-mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr/share/nethermind/configs/mainnet.cfg et on autorise les IPs, modules qui nous intéressent."><meta itemprop="datePublished" content="2022-08-14T23:49:00+02:00" />
-<meta itemprop="dateModified" content="2022-08-14T23:49:00+02:00" />
-<meta itemprop="wordCount" content="268"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="name" content="Noeud RPC Ethereum après The Merge sur Ubuntu 22.04">
+<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
+Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article. Il est 4h du matin, je n&rsquo;ai plus les yeux en face des trous"><meta itemprop="datePublished" content="2022-09-15T04:49:00+02:00" />
+<meta itemprop="dateModified" content="2022-09-15T04:49:00+02:00" />
+<meta itemprop="wordCount" content="210"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Ethereum,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Noeud Ethereum Nethermind sur Ubuntu 22.04"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment hoster un noeud light Ethereum mainnet avec Nethermind sur Ubuntu 22.04.
-Installation On commence par installer .NET:
-sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Ensuite on installer Nethermind:
-sudo add-apt-repository ppa:nethermindeth/nethermind sudo apt install nethermind Configuration On créer un répertoire qui contiendra nos data:
-mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr/share/nethermind/configs/mainnet.cfg et on autorise les IPs, modules qui nous intéressent."/>
+<meta name="twitter:title" content="Noeud RPC Ethereum après The Merge sur Ubuntu 22.04"/>
+<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
+Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article. Il est 4h du matin, je n&rsquo;ai plus les yeux en face des trous"/>
 
 
 
 
 
-<meta property="article:published_time" content="2022-08-14 23:49:00 &#43;0200 CEST" />
+<meta property="article:published_time" content="2022-09-15 04:49:00 &#43;0200 CEST" />
 
 
 
@@ -338,7 +329,7 @@ mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
             
 
@@ -347,110 +338,57 @@ mkdir -p /data/eth-mainnet-nethermind On édite le fichier de configuration /usr
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/noeud-ethereum-nethermind-sur-ubuntu-22.04/">Noeud Ethereum Nethermind sur Ubuntu 22.04</a>
+                <a href="https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/">Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</a>
             </h1>
 
             
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans cet article, nous allons voir comment hoster un noeud light Ethereum mainnet avec Nethermind sur Ubuntu 22.04.</p>
+<p>Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.</p>
+<blockquote>
+<p>Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article. Il est 4h du matin, je n&rsquo;ai plus les yeux en face des trous</p>
+</blockquote>
 <br/>
 <h2 id="installation">Installation</h2>
-<p>On commence par installer <code>.NET</code>:</p>
-<pre tabindex="0"><code>sudo add-apt-repository ppa:nethermindeth/nethermind
-sudo apt install nethermind
+<p>On télécharge Nethermind:</p>
+<pre tabindex="0"><code>mkdir -p /data/eth2-mainnet/{consensus,execution}
+cd /data/eth2-mainnet/execution
+wget https://github.com/NethermindEth/nethermind/archive/refs/tags/1.13.6.zip
+unzip 1.13.6.zip
 </code></pre><br/>
-<p>Ensuite on installer Nethermind:</p>
-<pre tabindex="0"><code>sudo add-apt-repository ppa:nethermindeth/nethermind
-sudo apt install nethermind
+<p>On installe le client pour le consensus POS:</p>
+<pre tabindex="0"><code>cd /data/eth2-mainnet/consensus
+mkdir prysm &amp;&amp; cd $_
+curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod +x prysm.sh
 </code></pre><br/>
 <h2 id="configuration">Configuration</h2>
-<p>On créer un répertoire qui contiendra nos data:</p>
-<pre tabindex="0"><code>mkdir -p /data/eth-mainnet-nethermind
-</code></pre><br/>
-<p>On édite le fichier de configuration <code>/usr/share/nethermind/configs/mainnet.cfg</code> et on autorise les IPs, modules qui nous intéressent. Dans mon cas à titre d&rsquo;exemple:</p>
-<pre tabindex="0"><code>{
-  &#34;Init&#34;: {
-    &#34;ChainSpecPath&#34;: &#34;chainspec/foundation.json&#34;,
-    &#34;GenesisHash&#34;: &#34;xxx&#34;,
-    &#34;BaseDbPath&#34;: &#34;nethermind_db/mainnet&#34;,
-    &#34;LogFileName&#34;: &#34;mainnet.logs.txt&#34;,
-    &#34;MemoryHint&#34;: 2048000000,
-  },
-  &#34;Network&#34;: {
-    &#34;ActivePeersMaxCount&#34;: 100
-  },
-  &#34;Sync&#34;: {
-    &#34;FastSync&#34;: true,
-    &#34;SnapSync&#34;: true,
-    &#34;PivotNumber&#34;: 15216000,
-    &#34;PivotHash&#34;: &#34;xxx&#34;,
-    &#34;PivotTotalDifficulty&#34;: &#34;xxx&#34;,
-    &#34;FastBlocks&#34;: true,
-    &#34;AncientBodiesBarrier&#34;: 11052984,
-    &#34;AncientReceiptsBarrier&#34;: 11052984,
-    &#34;WitnessProtocolEnabled&#34;: true
-  },
-  &#34;EthStats&#34;: {
-    &#34;Server&#34;: &#34;wss://ethstats.net/api&#34;
-  },
-  &#34;Metrics&#34;: {
-    &#34;NodeName&#34;: &#34;Mainnet&#34;
-  },
-  &#34;HealthChecks&#34;: {
-    &#34;Enabled&#34;: true,
-    &#34;WebhooksEnabled&#34;: true,
-    &#34;WebhooksUri&#34;: &#34;https://hooks.slack.com/services/...&#34;,
-    &#34;UIEnabled&#34;: true,
-    &#34;PollingInterval&#34;: 10,
-    &#34;Slug&#34;: &#34;/api/health&#34;
-  },
-  &#34;JsonRpc&#34;: {
-    &#34;Enabled&#34;: true,
-    &#34;Host&#34;: &#34;172.xxx.xxx.xxx&#34;,
-    &#34;Port&#34;: 8545,
-    &#34;EnabledModules&#34;: [&#34;Eth&#34;, &#34;Subscribe&#34;, &#34;Trace&#34;, &#34;TxPool&#34;, &#34;Web3&#34;, &#34;Personal&#34;, &#34;Proof&#34;, &#34;Net&#34;, &#34;Parity&#34;, &#34;Health&#34;],
+<p>On créer un token JWT à coller dans le directory consensus:</p>
+<pre tabindex="0"><code># Sur OSX
+# On génère un token de 256 bit 32 Byte Hex
+python3 -c &#34;import secrets; print(secrets.token_hex(32))&#34; | pbcopy
 
-  }
-}
+# On colle le token du presse papier dans ce fichier:
+vim /data/eth2-mainnet/consensus/jwt.hex
 </code></pre><br/>
-<h2 id="run">Run</h2>
-<p>Aussi simple qu&rsquo;exécuter cette command</p>
-<pre tabindex="0"><code>/usr/bin/nethermind --datadir /data/eth-mainnet-nethermind/
+<h2 id="démarrage-de-la-couche-dexécution">Démarrage de la couche d&rsquo;exécution</h2>
+<pre tabindex="0"><code>cd /data/eth2-mainnet/execution/
+./Nethermind.Runner --JsonRpc.Enabled true --HealthChecks.Enabled true --HealthChecks.UIEnabled true --JsonRpc.JwtSecretFile=/data/eth2-mainnet/consensus/jwt.hex
 </code></pre><br/>
-<p>Pour vérifier si le noeud est synchronisé:</p>
-<pre tabindex="0"><code>curl --data &#39;{&#34;method&#34;:&#34;eth_syncing&#34;,&#34;params&#34;:[],&#34;id&#34;:1,&#34;jsonrpc&#34;:&#34;2.0&#34;}&#39; -H &#34;Content-Type: application/json&#34; -X POST 172.xxx.xxx.xxx:8545
+<h2 id="démarrage-du-noeud-relais-via-prysm">Démarrage du noeud relais via Prysm</h2>
+<pre tabindex="0"><code>cd /data/eth2-mainnet/consensus/prysm/
+./prysm.sh beacon-chain --execution-endpoint=http://localhost:8551 --jwt-secret=/data/eth2-mainnet/consensus/jwt.hex --suggested-fee-recipient=VOTRE_OU_UNE_CLE_ETHEREUM_PUBLIQUE
 </code></pre><br/>
-<h2 id="service">Service</h2>
-<p>On crée un service via la commande:</p>
-<pre tabindex="0"><code>sudo systemctl edit --force --full neithermind-mainnent-light-mainnet.service
-</code></pre><p>Et on ajoute le contenu suivant</p>
-<pre tabindex="0"><code>[Unit]
-Description=Nethermind Eth Light Mainnet daemon
-Wants=network-online.target
-After=network-online.target
+<h2 id="vérification-du-status-de-la-synchro">Vérification du status de la synchro</h2>
+<pre tabindex="0"><code>curl http://localhost:3500/eth/v1/node/syncing | jq
+</code></pre><br/>
+<h2 id="vérification-la-connectivité-avec-les-clients">Vérification la connectivité avec les clients</h2>
+<pre tabindex="0"><code># Pour l&#39;exécution client:
+curl localhost:8545/health
 
-[Service]
-Type=simple
-Restart=always
-RestartSec=5
-ExecStart=/usr/bin/nethermind --datadir /data/eth-mainnet-nethermind/
-
-[Install]
-WantedBy=multi-user.target
-</code></pre><p>Et on démarre:</p>
-<pre tabindex="0"><code>sudo systemctl enable neithermind-mainnent-light-mainnet.service
-sudo systemctl start neithermind-mainnent-light-mainnet.service
-</code></pre><br/>
-<p>Voilà that&rsquo;s all. Next <code>pip install web3</code> or <code>npm i ethers</code> and we can call a RPC node directly. C&rsquo;est bien suffisant pour certains besoins.</p>
-<blockquote>
-<p>Sync duration: ~5h</p>
-</blockquote>
-<blockquote>
-<p>Logs: <code>journalctl -fu neithermind-mainnent-light-mainnet</code></p>
-</blockquote>
-
+# Pour le relais / consensus:
+curl http://localhost:8080/healthz
+</code></pre>
             </div>
         </article>
 
@@ -461,9 +399,9 @@ sudo systemctl start neithermind-mainnent-light-mainnet.service
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>268 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>210 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 août. 2022</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 sept.. 2022</p>
         </div>
 
         
@@ -475,18 +413,11 @@ sudo systemctl start neithermind-mainnent-light-mainnet.service
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/">
-                                <span class="button__text">Installer Docker et mitmproxy sur Ubuntu 22.04</span>
+                            <a href="https://leandeep.com/noeud-ethereum-nethermind-sur-ubuntu-22.04/">
+                                <span class="button__text">Noeud Ethereum Nethermind sur Ubuntu 22.04</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

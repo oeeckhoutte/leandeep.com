@@ -5,8 +5,63 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 14 Aug 2022 23:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 15 Sep 2022 04:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</title>
+            <link>https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/</link>
+            <pubDate>Thu, 15 Sep 2022 04:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/</guid>
+            <description>Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
+Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&amp;rsquo;aplomb mes bots de trading. Désolé d&amp;rsquo;avance si des erreurs se sont glissées dans cet article. Il est 4h du matin, je n&amp;rsquo;ai plus les yeux en face des trous</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.</p>
+<blockquote>
+<p>Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article. Il est 4h du matin, je n&rsquo;ai plus les yeux en face des trous</p>
+</blockquote>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>On télécharge Nethermind:</p>
+<pre tabindex="0"><code>mkdir -p /data/eth2-mainnet/{consensus,execution}
+cd /data/eth2-mainnet/execution
+wget https://github.com/NethermindEth/nethermind/archive/refs/tags/1.13.6.zip
+unzip 1.13.6.zip
+</code></pre><br/>
+<p>On installe le client pour le consensus POS:</p>
+<pre tabindex="0"><code>cd /data/eth2-mainnet/consensus
+mkdir prysm &amp;&amp; cd $_
+curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod +x prysm.sh
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
+<p>On créer un token JWT à coller dans le directory consensus:</p>
+<pre tabindex="0"><code># Sur OSX
+# On génère un token de 256 bit 32 Byte Hex
+python3 -c &#34;import secrets; print(secrets.token_hex(32))&#34; | pbcopy
+
+# On colle le token du presse papier dans ce fichier:
+vim /data/eth2-mainnet/consensus/jwt.hex
+</code></pre><br/>
+<h2 id="démarrage-de-la-couche-dexécution">Démarrage de la couche d&rsquo;exécution</h2>
+<pre tabindex="0"><code>cd /data/eth2-mainnet/execution/
+./Nethermind.Runner --JsonRpc.Enabled true --HealthChecks.Enabled true --HealthChecks.UIEnabled true --JsonRpc.JwtSecretFile=/data/eth2-mainnet/consensus/jwt.hex
+</code></pre><br/>
+<h2 id="démarrage-du-noeud-relais-via-prysm">Démarrage du noeud relais via Prysm</h2>
+<pre tabindex="0"><code>cd /data/eth2-mainnet/consensus/prysm/
+./prysm.sh beacon-chain --execution-endpoint=http://localhost:8551 --jwt-secret=/data/eth2-mainnet/consensus/jwt.hex --suggested-fee-recipient=VOTRE_OU_UNE_CLE_ETHEREUM_PUBLIQUE
+</code></pre><br/>
+<h2 id="vérification-du-status-de-la-synchro">Vérification du status de la synchro</h2>
+<pre tabindex="0"><code>curl http://localhost:3500/eth/v1/node/syncing | jq
+</code></pre><br/>
+<h2 id="vérification-la-connectivité-avec-les-clients">Vérification la connectivité avec les clients</h2>
+<pre tabindex="0"><code># Pour l&#39;exécution client:
+curl localhost:8545/health
+
+# Pour le relais / consensus:
+curl http://localhost:8080/healthz
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Noeud Ethereum Nethermind sur Ubuntu 22.04</title>
@@ -16705,6 +16760,9 @@ kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP        46
 <pre tabindex="0"><code>kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl describe nodes
 </code></pre><br/>
+<p><strong>Voir tous les events d&rsquo;un deployment</strong></p>
+<pre tabindex="0"><code>kubectl get events --field-selector involvedObject.name=$DEPLOYMENT_NAME -n $NAMESPACE
+</code></pre><br/>
 <p><strong>Voir un &ldquo;disk pressure&rdquo;</strong></p>
 <pre tabindex="0"><code>kubectl describe nodes 2&gt;&amp;1 | grep -i Disk
 </code></pre><blockquote>
@@ -16782,7 +16840,7 @@ kubectl scale deployment deployment_name --replicas=1
 <p><strong>Pod anti affinity</strong></p>
 <p>Pour éviter un downtime si plusieurs pods se retrouvent sur un même node qui est KO</p>
 <p>Au niveau du Deployment, ajouter:</p>
-<pre tabindex="0"><code>...
+<pre tabindex="0"><code>[...]
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16791,7 +16849,7 @@ metadata:
     app: api
 spec:
   replicas: 2
-...
+[...]
   spec:
     affinity:
       podAntiAffinity:
@@ -16804,11 +16862,37 @@ spec:
               - api
           topologyKey: &#34;kubernetes.io/hostname&#34;
     containers:
-    ...
+    [...]
 </code></pre><blockquote>
 <p>Plus d&rsquo;infos <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">ici</a>:</p>
 </blockquote>
 <br/>
+<p><strong>Liveness Probe sur job always running (no endpoint)</strong></p>
+<pre tabindex="0"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-de-dingue
+  labels:
+    app: job
+spec:
+  replicas: 1
+[...]
+  spec:
+    containers:
+      - name: my-job
+        image: ...
+        livenessProbe:
+          exec:
+            command:
+              - /bin/bash
+              - -c
+              - |-
+                if [ $(find /tmp/health -type f -mmin +5 | wc -l) -gt 0 ]; then exit 1; fi
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          timeoutSeconds: 5
+        [...]
+</code></pre><br/>
 <h2 id="commandes-propres-à-eks-kubernetes-aws">Commandes propres à EKS (Kubernetes AWS)</h2>
 <p><strong>Se connecter à son cluster EKS nouvellement créé</strong></p>
 <pre tabindex="0"><code>aws --profile=&lt;profile-name&gt; eks update-kubeconfig --name &lt;cluster-name&gt;
@@ -28484,7 +28568,7 @@ Un peu de redondance Remarque: Transférer des données entre instances dans la 
             <guid>https://leandeep.com/commandes-linux-%C3%A0-savoir/</guid>
             <description>Chercher une string dans les fichiers d&amp;rsquo;un répertoire de manière récursive grep -r &amp;#34;password&amp;#34; ~/Dev i stands for ignore case. r ou R stands for recursive. l stands for &amp;#34;show the file name, not the result itself&amp;#34;. Alternative: utiliser ack (https://beyondgrep.com/install/) $ ack &amp;quot;http://&amp;quot; ~/Dev/
 Autre alternative: utiliser ag (https://github.com/ggreer/the_silver_searcher) $ ag &amp;quot;password&amp;quot; ~/Dev
-Localiser un fichier sudo find / -name &amp;#34;*filename&amp;#34; Liste des ports par défaut des utilitaires de base vi /etc/services Créer un groupe sudo groupadd -g 4001 mon_groupe Ajouter/ Retirer un groupe à un utilisateur # delete gpasswd –d group user # add gpasswd –a group user # Alternative sudo usermod -aG mon_groupe olivier Ajouter un nouvel utilisateur sans droit de login useradd –s /sbin/nologin user Si useradd/adduser ne fonctionne pas, il est possible de créer un utilisateur manuellement:</description>
+Localiser un fichier sudo find / -name &amp;#34;*filename&amp;#34; Changer la date d&amp;rsquo;un fichier touch -d &amp;#34;2 hours ago&amp;#34; /tmp/test Boucle infinie Pour ré-exécuter la même commande à l&amp;rsquo;infini par exemple:</description>
             <content type="html"><![CDATA[<h2 id="chercher-une-string-dans-les-fichiers-dun-répertoire-de-manière-récursive">Chercher une string dans les fichiers d&rsquo;un répertoire de manière récursive</h2>
 <pre tabindex="0"><code>grep -r &#34;password&#34; ~/Dev
 
@@ -28502,6 +28586,25 @@ l stands for &#34;show the file name, not the result itself&#34;.
 <br/>
 <h2 id="localiser-un-fichier">Localiser un fichier</h2>
 <pre tabindex="0"><code>sudo find / -name &#34;*filename&#34;
+</code></pre><br/>
+<h2 id="changer-la-date-dun-fichier">Changer la date d&rsquo;un fichier</h2>
+<pre tabindex="0"><code>touch -d &#34;2 hours ago&#34; /tmp/test
+</code></pre><br/>
+<h2 id="boucle-infinie">Boucle infinie</h2>
+<p>Pour ré-exécuter la même commande à l&rsquo;infini par exemple:</p>
+<pre tabindex="0"><code>while true
+&gt; do
+&gt;     touch -d &#34;2 hours ago&#34; /tmp/test
+&gt;     sleep 2
+&gt; done
+</code></pre><br/>
+<h2 id="voir-le-code-retour-de-la-dernière-commande">Voir le code retour de la dernière commande:</h2>
+<pre tabindex="0"><code>echo $?
+</code></pre><br/>
+<h2 id="inline-if-statement">Inline if statement</h2>
+<p>Example:
+Retourner un exit 1 si la date du fichier /tmp/test est supérieure à 50 minutes</p>
+<pre tabindex="0"><code>if [ $(find /tmp/test -type f -mmin +50 | wc -l) -gt 0 ]; then exit 1; fi
 </code></pre><br/>
 <h2 id="liste-des-ports-par-défaut-des-utilitaires-de-base">Liste des ports par défaut des utilitaires de base</h2>
 <pre tabindex="0"><code>vi /etc/services
