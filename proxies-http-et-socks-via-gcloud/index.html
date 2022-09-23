@@ -7,10 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
-Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&amp;rsquo;aplomb mes bots de trading. Désolé d&amp;rsquo;avance si des erreurs se sont glissées dans cet article.
-Installation On télécharge Nethermind:
-mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/execution wget https://github.com/NethermindEth/nethermind/archive/refs/tags/1.13.6.zip unzip 1.13.6.zip On installe le client pour le consensus POS:" />
+  content="Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
+Lancement du proxy Socks cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
+Besoin d&amp;rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet Rust suivant https://github." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -26,7 +25,7 @@ mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/executio
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/" />
+<link rel="canonical" href="https://leandeep.com/proxies-http-et-socks-via-gcloud/" />
 
 
 
@@ -235,7 +234,7 @@ mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/executio
 
 <title>
   
-  Noeud RPC Ethereum après The Merge sur Ubuntu 22.04 :: Lean Deep Tech blog 
+  Proxies HTTP et SOCKS via gcloud :: Lean Deep Tech blog 
   
 </title>
 
@@ -260,27 +259,25 @@ mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/executio
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Noeud RPC Ethereum après The Merge sur Ubuntu 22.04">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
-Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article.
-Installation On télécharge Nethermind:
-mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/execution wget https://github.com/NethermindEth/nethermind/archive/refs/tags/1.13.6.zip unzip 1.13.6.zip On installe le client pour le consensus POS:"><meta itemprop="datePublished" content="2022-09-15T04:49:00+02:00" />
-<meta itemprop="dateModified" content="2022-09-15T04:49:00+02:00" />
-<meta itemprop="wordCount" content="196"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Ethereum,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Proxies HTTP et SOCKS via gcloud">
+<meta itemprop="description" content="Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
+Lancement du proxy Socks cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&#34;-D&#34; --ssh-flag=&#34;$PORT_DU_PROXY&#34; --ssh-flag=&#34;-N&#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
+Besoin d&rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet Rust suivant https://github."><meta itemprop="datePublished" content="2022-09-23T09:22:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-23T09:22:00+00:00" />
+<meta itemprop="wordCount" content="209"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="tips,Proxy,Rust,socks5,gcloud," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Noeud RPC Ethereum après The Merge sur Ubuntu 22.04"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.
-Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article.
-Installation On télécharge Nethermind:
-mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/execution wget https://github.com/NethermindEth/nethermind/archive/refs/tags/1.13.6.zip unzip 1.13.6.zip On installe le client pour le consensus POS:"/>
+<meta name="twitter:title" content="Proxies HTTP et SOCKS via gcloud"/>
+<meta name="twitter:description" content="Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
+Lancement du proxy Socks cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&#34;-D&#34; --ssh-flag=&#34;$PORT_DU_PROXY&#34; --ssh-flag=&#34;-N&#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
+Besoin d&rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet Rust suivant https://github."/>
 
 
 
 
 
-<meta property="article:published_time" content="2022-09-15 04:49:00 &#43;0200 CEST" />
+<meta property="article:published_time" content="2022-09-23 09:22:00 &#43;0000 UTC" />
 
 
 
@@ -344,57 +341,51 @@ mkdir -p /data/eth2-mainnet/{consensus,execution} cd /data/eth2-mainnet/executio
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/">Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</a>
+                <a href="https://leandeep.com/proxies-http-et-socks-via-gcloud/">Proxies HTTP et SOCKS via gcloud</a>
             </h1>
 
             
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans cet article, nous allons voir comment hoster un noeud relais pour Ethereum mainnet après The Merge avec Nethermind sur Ubuntu 22.04.</p>
-<blockquote>
-<p>Cette procédure a été écrite très rapidement quelques heures après la release de The Merge pour remettre d&rsquo;aplomb mes bots de trading. Désolé d&rsquo;avance si des erreurs se sont glissées dans cet article.</p>
-</blockquote>
+<p>Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli <code>gcloud</code> et un binaire open source.</p>
 <br/>
-<h2 id="installation">Installation</h2>
-<p>On télécharge Nethermind:</p>
-<pre tabindex="0"><code>mkdir -p /data/eth2-mainnet/{consensus,execution}
-cd /data/eth2-mainnet/execution
-wget https://github.com/NethermindEth/nethermind/archive/refs/tags/1.13.6.zip
-unzip 1.13.6.zip
+<h2 id="lancement-du-proxy-socks">Lancement du proxy Socks</h2>
+<pre tabindex="0"><code>cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH
+export PORT_DU_PROXY=
+./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&#34;-D&#34; --ssh-flag=&#34;$PORT_DU_PROXY&#34; --ssh-flag=&#34;-N&#34;
 </code></pre><br/>
-<p>On installe le client pour le consensus POS:</p>
-<pre tabindex="0"><code>cd /data/eth2-mainnet/consensus
-mkdir prysm &amp;&amp; cd $_
-curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod +x prysm.sh
-</code></pre><br/>
-<h2 id="configuration">Configuration</h2>
-<p>On créer un token JWT à coller dans le directory consensus:</p>
-<pre tabindex="0"><code># Sur OSX
-# On génère un token de 256 bit 32 Byte Hex
-python3 -c &#34;import secrets; print(secrets.token_hex(32))&#34; | pbcopy
+<h2 id="vérification">Vérification</h2>
+<p><code>curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip</code></p>
+<br/>
+<h2 id="besoin-dun-proxy-http-">Besoin d&rsquo;un proxy http ?</h2>
+<p>Pas de souci, vous pouvez utiliser le projet Rust suivant <a href="https://github.com/KaranGauswami/socks-to-http-proxy">https://github.com/KaranGauswami/socks-to-http-proxy</a> (licence MIT) qui convertit votre proxy SOCKS en proxy HTTP. Vous pouvez aussi utiliser le fork que j&rsquo;ai créé oeeckhoutte/socks-to-http-proxy. Je n&rsquo;ai pas détecté de vulnérabilité jusqu&rsquo;au commit 3323c5809b38db4425ae11b935651e8abccf4875 (commit de mon fork)</p>
+<pre tabindex="0"><code>git clone https://github.com/KaranGauswami/socks-to-http-proxy # ou oeeckhoutte/socks-to-http-proxy
+cd socks-to-http-proxy
+cargo build --release
+cargo install cargo-audit
+cargo audit
+cd ~/Dev/Leandeep/socks-to-http-proxy/target/release
 
-# On colle le token du presse papier dans ce fichier:
-vim /data/eth2-mainnet/consensus/jwt.hex
+# J&#39;ai analysé le code à la recherche de faille applicative et je n&#39;ai rien trouvé. J&#39;ai aussi modifié le code pour changer quelques options: interface d&#39;écoute et ports par défaut (modifs non poussées).
+./sthp
 </code></pre><br/>
-<h2 id="démarrage-de-la-couche-dexécution">Démarrage de la couche d&rsquo;exécution</h2>
-<pre tabindex="0"><code>cd /data/eth2-mainnet/execution/
-./Nethermind.Runner --JsonRpc.Enabled true --HealthChecks.Enabled true --HealthChecks.UIEnabled true --JsonRpc.JwtSecretFile=/data/eth2-mainnet/consensus/jwt.hex
+<h2 id="seconde-vérification">Seconde vérification</h2>
+<p><code>curl --proxy localhost:PORT_HTTP_PROXY https://ipinfo.io/ip</code></p>
+<br/>
+<h2 id="configurer-tout-le-terminal">Configurer tout le terminal</h2>
+<blockquote>
+<p>On exécute les 2 commandes suivantes pour que tout le terminal utilise le proxy http</p>
+</blockquote>
+<pre tabindex="0"><code>export http_proxy=http://127.0.0.1:8090
+export https_proxy=http://127.0.0.1:8090
 </code></pre><br/>
-<h2 id="démarrage-du-noeud-relais-via-prysm">Démarrage du noeud relais via Prysm</h2>
-<pre tabindex="0"><code>cd /data/eth2-mainnet/consensus/prysm/
-./prysm.sh beacon-chain --execution-endpoint=http://localhost:8551 --jwt-secret=/data/eth2-mainnet/consensus/jwt.hex --suggested-fee-recipient=VOTRE_OU_UNE_CLE_ETHEREUM_PUBLIQUE
-</code></pre><br/>
-<h2 id="vérification-du-status-de-la-synchro">Vérification du status de la synchro</h2>
-<pre tabindex="0"><code>curl http://localhost:3500/eth/v1/node/syncing | jq
-</code></pre><br/>
-<h2 id="vérification-la-connectivité-avec-les-clients">Vérification la connectivité avec les clients</h2>
-<pre tabindex="0"><code># Pour l&#39;exécution client:
-curl localhost:8545/health
+<p><strong>Vérifications</strong></p>
+<ul>
+<li><code>curl https://ipinfo.io/ip</code> -&gt; OK</li>
+<li><code>python3 -c &quot;import json; import urllib.request; url_data='https://ipinfo.io/ip'; webURL = urllib.request.urlopen(url_data); data = webURL.read(); print(data)&quot;</code> -&gt; OK</li>
+</ul>
 
-# Pour le relais / consensus:
-curl http://localhost:8080/healthz
-</code></pre>
             </div>
         </article>
 
@@ -402,12 +393,12 @@ curl http://localhost:8080/healthz
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/ethereum">Ethereum</a></span><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/proxy">Proxy</a></span><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span><span class="tag"><a href="https://leandeep.com/tags/socks5">socks5</a></span><span class="tag"><a href="https://leandeep.com/tags/gcloud">gcloud</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>196 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>209 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 sept.. 2022</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23 sept.. 2022</p>
         </div>
 
         
@@ -419,18 +410,11 @@ curl http://localhost:8080/healthz
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/proxies-http-et-socks-via-gcloud/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Proxies HTTP et SOCKS via gcloud</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/noeud-ethereum-nethermind-sur-ubuntu-22.04/">
-                                <span class="button__text">Noeud Ethereum Nethermind sur Ubuntu 22.04</span>
+                            <a href="https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/">
+                                <span class="button__text">Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

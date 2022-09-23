@@ -5,8 +5,58 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 15 Sep 2022 04:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 23 Sep 2022 09:22:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Proxies HTTP et SOCKS via gcloud</title>
+            <link>https://leandeep.com/proxies-http-et-socks-via-gcloud/</link>
+            <pubDate>Fri, 23 Sep 2022 09:22:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/proxies-http-et-socks-via-gcloud/</guid>
+            <description>Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
+Lancement du proxy Socks cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
+Besoin d&amp;rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet Rust suivant https://github.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli <code>gcloud</code> et un binaire open source.</p>
+<br/>
+<h2 id="lancement-du-proxy-socks">Lancement du proxy Socks</h2>
+<pre tabindex="0"><code>cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH
+export PORT_DU_PROXY=
+./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&#34;-D&#34; --ssh-flag=&#34;$PORT_DU_PROXY&#34; --ssh-flag=&#34;-N&#34;
+</code></pre><br/>
+<h2 id="vérification">Vérification</h2>
+<p><code>curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip</code></p>
+<br/>
+<h2 id="besoin-dun-proxy-http-">Besoin d&rsquo;un proxy http ?</h2>
+<p>Pas de souci, vous pouvez utiliser le projet Rust suivant <a href="https://github.com/KaranGauswami/socks-to-http-proxy">https://github.com/KaranGauswami/socks-to-http-proxy</a> (licence MIT) qui convertit votre proxy SOCKS en proxy HTTP. Vous pouvez aussi utiliser le fork que j&rsquo;ai créé oeeckhoutte/socks-to-http-proxy. Je n&rsquo;ai pas détecté de vulnérabilité jusqu&rsquo;au commit 3323c5809b38db4425ae11b935651e8abccf4875 (commit de mon fork)</p>
+<pre tabindex="0"><code>git clone https://github.com/KaranGauswami/socks-to-http-proxy # ou oeeckhoutte/socks-to-http-proxy
+cd socks-to-http-proxy
+cargo build --release
+cargo install cargo-audit
+cargo audit
+cd ~/Dev/Leandeep/socks-to-http-proxy/target/release
+
+# J&#39;ai analysé le code à la recherche de faille applicative et je n&#39;ai rien trouvé. J&#39;ai aussi modifié le code pour changer quelques options: interface d&#39;écoute et ports par défaut (modifs non poussées).
+./sthp
+</code></pre><br/>
+<h2 id="seconde-vérification">Seconde vérification</h2>
+<p><code>curl --proxy localhost:PORT_HTTP_PROXY https://ipinfo.io/ip</code></p>
+<br/>
+<h2 id="configurer-tout-le-terminal">Configurer tout le terminal</h2>
+<blockquote>
+<p>On exécute les 2 commandes suivantes pour que tout le terminal utilise le proxy http</p>
+</blockquote>
+<pre tabindex="0"><code>export http_proxy=http://127.0.0.1:8090
+export https_proxy=http://127.0.0.1:8090
+</code></pre><br/>
+<p><strong>Vérifications</strong></p>
+<ul>
+<li><code>curl https://ipinfo.io/ip</code> -&gt; OK</li>
+<li><code>python3 -c &quot;import json; import urllib.request; url_data='https://ipinfo.io/ip'; webURL = urllib.request.urlopen(url_data); data = webURL.read(); print(data)&quot;</code> -&gt; OK</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</title>
@@ -12975,6 +13025,8 @@ brew install gnupg
 brew install youtube-dl
 brew install telnet
 brew install terraform
+brew install colordiff
+brew install ncdu
 
 # Opencv 3.4.x
 # Sur Python 3.9 (example avec brew)
@@ -28772,11 +28824,12 @@ sar -A
 <p>Workaround:</p>
 <pre tabindex="0"><code>rsync -auv --delete --ignore-errors /Volumes/Olivier/* /Volumes/LaCie/
 </code></pre><br/>
-<h2 id="redhat">Redhat</h2>
 <p><strong>Lister les services</strong></p>
 <pre tabindex="0"><code>systemctl list-units --type=service
-</code></pre><br/>
-<h2 id="systemd-et-cgroup">Systemd et cgroup</h2>
+
+# Ou 
+systemctl -l -t service | less
+</code></pre><h2 id="systemd-et-cgroup">Systemd et cgroup</h2>
 <p><img src="/images/Linux_kernel_unified_hierarchy_cgroups_and_systemd.png" alt="image"></p>
 <!-- raw HTML omitted -->
 <br/>
@@ -28991,6 +29044,24 @@ olivier❌1000:1000:Olivier:/home/olivier:/bin/bash
 </code></pre><br/>
 <h2 id="lister-les-packages-debian-installés">Lister les packages Debian installés</h2>
 <pre tabindex="0"><code>sudo apt list --installed
+</code></pre><br/>
+<h2 id="convertir-un-timestamp-unix-en-date-lisible">Convertir un timestamp unix en date lisible</h2>
+<pre tabindex="0"><code>date -d 1656894384
+</code></pre><br/>
+<h2 id="voir-les-différences-entre-2-commandes">Voir les différences entre 2 commandes</h2>
+<pre tabindex="0"><code>diff -u &lt;(ls -l ~/Dev/ ) &lt;(ls -l ~/Dev2/ ) | colordiff
+</code></pre><br/>
+<h2 id="chercher-dans-apt-les-packages-disponibles">Chercher dans apt les packages disponibles</h2>
+<pre tabindex="0"><code>apt-cache search VOTRE_PACKAGE
+</code></pre><br/>
+<h2 id="jq-ou-python-pour-formatter-un-json">JQ ou Python pour formatter un json</h2>
+<pre tabindex="0"><code>cat mon_fichier.json | jq
+
+# ou
+cat mon_fichier.json | python -m json.tool
+</code></pre><br/>
+<h2 id="proxy-netcat">Proxy netcat</h2>
+<pre tabindex="0"><code>nc -l 8080 | nc VOTRE_HOST 80
 </code></pre>]]></content>
         </item>
         
