@@ -97,7 +97,7 @@ vim /data/eth2-mainnet/consensus/jwt.hex
 </code></pre><br/>
 <h2 id="démarrage-de-la-couche-dexécution">Démarrage de la couche d&rsquo;exécution</h2>
 <pre tabindex="0"><code>cd /data/eth2-mainnet/execution/
-./Nethermind.Runner --JsonRpc.Enabled true --HealthChecks.Enabled true --HealthChecks.UIEnabled true --JsonRpc.JwtSecretFile=/data/eth2-mainnet/consensus/jwt.hex
+./Nethermind.Runner --JsonRpc.Enabled true --JsonRpc.EnginePort=8551 --JsonRpc.EngineHost=0.0.0.0 --HealthChecks.Enabled true --HealthChecks.UIEnabled true --JsonRpc.JwtSecretFile=/data/eth2-mainnet/consensus/jwt.hex
 </code></pre><br/>
 <h2 id="démarrage-du-noeud-relais-via-prysm">Démarrage du noeud relais via Prysm</h2>
 <pre tabindex="0"><code>cd /data/eth2-mainnet/consensus/prysm/
@@ -2996,18 +2996,20 @@ sudo systemctl start docker.service
 <p>Sur l&rsquo;Ubuntu nouvellement démarré sur Android, exécuter les commandes suivantes:</p>
 <pre tabindex="0"><code>sudo apt update
 sudo apt upgrade -y
-sudo apt install vim git wget net-tools -y
+sudo apt install vim git wget net-tools tmux -y
 # Récupérer l&#39;adresse IP de votre smartphone
 ifconfig 
-wget https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-linux-arm64.tar.gz
-tar -xvf ./code-server-3.12.0-linux-arm64.tar.gz
-cd code-server-3.12.0-linux-arm64/bin
+wget https://bit.ly/3CveNfu -O vscode.tar.gz
+#wget https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-linux-arm64.tar.gz
+tar -zxvf ./vscode.tar.gz
+#tar -xvf ./code-server-3.12.0-linux-arm64.tar.gz
+cd code-server-*/bin
 export PASSWORD=&#34;password&#34;
 ./code-server
 ctrl+c
 </code></pre><p>Editer le fichier <code>~/.config/code-server/config.yaml</code> et spécifier <code>0.0.0.0</code> comme bind address à la place de <code>127.0.0.1</code>.</p>
 <p><br/>
-Pour avoir de l&rsquo;<a href="https://10.157.254.22:443">HTTPS</a> sur votre instance code-server, exécutez les commandes suivantes:</p>
+Pour avoir de l&rsquo;HTTPS sur votre instance code-server, exécutez les commandes suivantes:</p>
 <pre tabindex="0"><code># Replaces &#34;cert: false&#34; with &#34;cert: true&#34; in the code-server config.
 sed -i.bak &#39;s/cert: false/cert: true/&#39; ~/.config/code-server/config.yaml
 # Replaces &#34;bind-addr: 0.0.0.0:8080&#34; with &#34;bind-addr: 0.0.0.0:443&#34; in the code-server config.
@@ -3016,11 +3018,14 @@ sed -i.bak &#39;s/bind-addr: 0.0.0.0:8080/bind-addr: 0.0.0.0:443/&#39; ~/.config
 sudo apt install -y libcap2-bin
 sudo setcap cap_net_bind_service=+ep /home/olivier/code-server-3.10.2-linux-arm64/lib/node
 ./code-server
-</code></pre><p>Relancer ensuite code-server.</p>
+</code></pre><p>Relancer ensuite code-server puis rendez-vous sur <a href="https://192.168.43.1:2443/">https://192.168.43.1:2443/</a></p>
 <br/>
 <h2 id="test">Test</h2>
-<p>Sur votre iPad, ouvrez une nouvelle fenêtre Safari et rendez-vous à l&rsquo;adresse sur laquelle tourne code-server. Pour ma part, il s&rsquo;agit de l&rsquo;adresse <a href="https://10.157.254.22:2443">https://10.157.254.22:2443</a>.</p>
+<p>Sur votre iPad, ouvrez une nouvelle fenêtre Safari et rendez-vous à l&rsquo;adresse sur laquelle tourne code-server. Pour ma part, il s&rsquo;agit de l&rsquo;adresse <a href="https://10.157.254.22:8080">http://10.157.254.22:8080</a>.</p>
 <p>Pour accéder au terminal de votre Ubuntu installé sur votre smartphone depuis votre iPad, installez l&rsquo;app WebSSH. Le port SSH d&rsquo;Ubuntu sur Userland est le <code>2022</code>.</p>
+<blockquote>
+<p>Ou depuis un Mac: ssh <a href="mailto:userland@192.168.43.1">userland@192.168.43.1</a> -p 2022</p>
+</blockquote>
 <blockquote>
 <p>Installer une app de type <a href="https://play.google.com/store/apps/details?id=in.snapcore.screen_alive">Keep Screen On</a> sur votre Android pour éviter que UserLand ne se stoppe.</p>
 </blockquote>
@@ -3093,7 +3098,7 @@ case &#34;$1&#34; in
 esac
 
 exit 0
-</code></pre><p>Puis démarrer le service <code>/etc/init.d/code start</code></p>
+</code></pre><p>Puis démarrer le service <code>/etc/init.d/code start</code> après avoir ajouté les droits d&rsquo;exécution sur le script <code>sudo chmod +x /etc/init.d/code</code></p>
 <p>Lister les services: <code>service --status-all</code></p>
 <p>Voir si le pid file a bien été créé: <code>ls /var/run</code></p>
 <br/>
@@ -16809,6 +16814,20 @@ kubernetes    ClusterIP   10.96.0.1        &lt;none&gt;        443/TCP        46
 <p>Se rendre sur l&rsquo;URL suivante pour accéder au service Nginx (Nodeport):
 <code>http://localhost:31256/</code></p>
 <br/>
+<p><strong>Prioriser des pods</strong></p>
+<p>Récupérer le nom de la classe de prioritié</p>
+<pre tabindex="0"><code>kubectl get priorityClass
+</code></pre><p>Modifier le deployment et ajouter cette propriété:</p>
+<pre tabindex="0"><code>[...]
+spec:
+    containers:
+      - name: nimportequelleimage
+        image: imagegeniale
+    priorityClassName: priority-classname
+[...]
+</code></pre><p>Vérification:</p>
+<pre tabindex="0"><code>kubectl get pods --all-namespaces -o custom-columns=NAME:.metadata.name,PRIORITY:.spec.priorityClassName
+</code></pre><br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>Voir les events et status des noeuds</strong></p>
 <pre tabindex="0"><code>kubectl get events --sort-by=.metadata.creationTimestamp
@@ -16892,7 +16911,7 @@ kubectl scale deployment deployment_name --replicas=0
 kubectl scale deployment deployment_name --replicas=1
 </code></pre><br/>
 <p><strong>Pod anti affinity</strong></p>
-<p>Pour éviter un downtime si plusieurs pods se retrouvent sur un même node qui est KO</p>
+<p>Pour éviter un downtime si plusieurs pods se retrouvent sur un même node KO</p>
 <p>Au niveau du Deployment, ajouter:</p>
 <pre tabindex="0"><code>[...]
 apiVersion: apps/v1
@@ -16908,7 +16927,7 @@ spec:
     affinity:
       podAntiAffinity:
         requireDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
+          - labelSelector:
             matchExpressions:
             - key: app
               operator: In
@@ -26644,6 +26663,17 @@ Switched to a new branch &#39;pr/999&#39;
 <p><strong>Ajouter automatiquement cette commande à tous les repos</strong></p>
 <pre tabindex="0"><code>git config --global --add remote.origin.fetch &#34;+refs/pull/*/head:refs/remotes/origin/pr/*&#34;
 </code></pre><br/>
+<h2 id="effacer-git-config-globale">Effacer git config globale</h2>
+<pre tabindex="0"><code>git config --global --unset user.name
+git config --global --unset user.email
+# Check
+git config --global -l
+</code></pre><br/>
+<h2 id="git-config-local">git config local</h2>
+<pre tabindex="0"><code>git config user.name = &#34;&#34;
+git config user.email = &#34;&#34;
+git config core.sshCommand &#34;ssh -i ~/.ssh/id_rsa_example -F /dev/null&#34;
+</code></pre><br/>
 <h2 id="différences-entre-branches">Différences entre branches</h2>
 <p><strong>Différences entre branche actuelle et master:</strong></p>
 <pre tabindex="0"><code>git diff master
@@ -29490,13 +29520,13 @@ sudo umount -l /tmp/data
         </item>
         
         <item>
-            <title>Vim basic tips</title>
-            <link>https://leandeep.com/vim-basic-tips/</link>
+            <title>Commandes de base pour Vim et Tmux</title>
+            <link>https://leandeep.com/commandes-de-base-pour-vim-et-tmux/</link>
             <pubDate>Mon, 10 Sep 2012 08:08:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/vim-basic-tips/</guid>
-            <description>Je suis en train d&amp;rsquo;apprendre à utiliser Vim. Cette page contient les commandes de base pour l&amp;rsquo;utiliser.
-Déplacements Mot suivant (next Word)
+            <guid>https://leandeep.com/commandes-de-base-pour-vim-et-tmux/</guid>
+            <description>Je suis en train d&amp;rsquo;apprendre à utiliser Vim et Tmux. Cette page contient les commandes de base pour l&amp;rsquo;utiliser.
+Vim Déplacements Mot suivant (next Word)
 w
 Mot précédent (word Backward)
 b
@@ -29510,10 +29540,10 @@ gg
 Fin de fichier
 G
 Help
-:help word-motions
-Copier Copier la ligne</description>
-            <content type="html"><![CDATA[<p>Je suis en train d&rsquo;apprendre à utiliser Vim. Cette page contient les commandes de base pour l&rsquo;utiliser.</p>
+:help word-motions</description>
+            <content type="html"><![CDATA[<p>Je suis en train d&rsquo;apprendre à utiliser Vim et Tmux. Cette page contient les commandes de base pour l&rsquo;utiliser.</p>
 <br/>
+<h1 id="vim">Vim</h1>
 <h2 id="déplacements">Déplacements</h2>
 <p><strong>Mot suivant (next Word)</strong></p>
 <p><code>w</code></p>
@@ -29592,6 +29622,28 @@ esc esc
 <blockquote>
 <p>Fonctionne aussi avec les square brackets et curly braces</p>
 </blockquote>
+<br/>
+<h1 id="tmux">Tmux</h1>
+<p><strong>Démarrer une session et lui donner un nom</strong></p>
+<p><code>tmux new -s ma-session</code></p>
+<br/>
+<p><strong>Renommer une session</strong></p>
+<p><code>tmux rename-session -t 0 ma-session-renommee</code></p>
+<br/>
+<p><strong>Split window vertical</strong></p>
+<p><code>Ctrl + b + %</code></p>
+<br/>
+<p><strong>Split window horizontal</strong></p>
+<p><code>Ctrl + b + &quot;</code></p>
+<br/>
+<p><strong>Switch to next panel</strong></p>
+<p><code>Ctrl + b + o</code></p>
+<br/>
+<p><strong>Switch de panel dans n&rsquo;importe quelle direction</strong></p>
+<p><code>Ctrl + b + Arrow</code></p>
+<br/>
+<p><strong>Killer un panel</strong></p>
+<p><code>Ctrl + d</code></p>
 ]]></content>
         </item>
         

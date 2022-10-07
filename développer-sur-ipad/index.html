@@ -260,7 +260,7 @@
 <meta itemprop="name" content="Développer sur iPad">
 <meta itemprop="description" content="Je ne rentrerais pas dans les détails de ce que je pense d&rsquo;Apple et ses techniques Marketing douteuses pour pousser ses clients à la (sur)consommation. Je peux néanmoins toujours pas me passer du Macbook Pro et d&rsquo;un iPad pour la qualité du matériel et surtout pour OSX et son interopérabilité avec les logiciels Enterprise de l&rsquo;écosystème Microsoft (Office, Teams, etc). J&rsquo;aurais préféré un Linux mais on est très loin du niveau d&rsquo;OSX parfaitement intégré."><meta itemprop="datePublished" content="2022-02-12T19:02:00+00:00" />
 <meta itemprop="dateModified" content="2022-02-12T19:02:00+00:00" />
-<meta itemprop="wordCount" content="878"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="911"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -352,18 +352,20 @@
 <p>Sur l&rsquo;Ubuntu nouvellement démarré sur Android, exécuter les commandes suivantes:</p>
 <pre tabindex="0"><code>sudo apt update
 sudo apt upgrade -y
-sudo apt install vim git wget net-tools -y
+sudo apt install vim git wget net-tools tmux -y
 # Récupérer l&#39;adresse IP de votre smartphone
 ifconfig 
-wget https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-linux-arm64.tar.gz
-tar -xvf ./code-server-3.12.0-linux-arm64.tar.gz
-cd code-server-3.12.0-linux-arm64/bin
+wget https://bit.ly/3CveNfu -O vscode.tar.gz
+#wget https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-linux-arm64.tar.gz
+tar -zxvf ./vscode.tar.gz
+#tar -xvf ./code-server-3.12.0-linux-arm64.tar.gz
+cd code-server-*/bin
 export PASSWORD=&#34;password&#34;
 ./code-server
 ctrl+c
 </code></pre><p>Editer le fichier <code>~/.config/code-server/config.yaml</code> et spécifier <code>0.0.0.0</code> comme bind address à la place de <code>127.0.0.1</code>.</p>
 <p><br/>
-Pour avoir de l&rsquo;<a href="https://10.157.254.22:443">HTTPS</a> sur votre instance code-server, exécutez les commandes suivantes:</p>
+Pour avoir de l&rsquo;HTTPS sur votre instance code-server, exécutez les commandes suivantes:</p>
 <pre tabindex="0"><code># Replaces &#34;cert: false&#34; with &#34;cert: true&#34; in the code-server config.
 sed -i.bak &#39;s/cert: false/cert: true/&#39; ~/.config/code-server/config.yaml
 # Replaces &#34;bind-addr: 0.0.0.0:8080&#34; with &#34;bind-addr: 0.0.0.0:443&#34; in the code-server config.
@@ -372,11 +374,14 @@ sed -i.bak &#39;s/bind-addr: 0.0.0.0:8080/bind-addr: 0.0.0.0:443/&#39; ~/.config
 sudo apt install -y libcap2-bin
 sudo setcap cap_net_bind_service=+ep /home/olivier/code-server-3.10.2-linux-arm64/lib/node
 ./code-server
-</code></pre><p>Relancer ensuite code-server.</p>
+</code></pre><p>Relancer ensuite code-server puis rendez-vous sur <a href="https://192.168.43.1:2443/">https://192.168.43.1:2443/</a></p>
 <br/>
 <h2 id="test">Test</h2>
-<p>Sur votre iPad, ouvrez une nouvelle fenêtre Safari et rendez-vous à l&rsquo;adresse sur laquelle tourne code-server. Pour ma part, il s&rsquo;agit de l&rsquo;adresse <a href="https://10.157.254.22:2443">https://10.157.254.22:2443</a>.</p>
+<p>Sur votre iPad, ouvrez une nouvelle fenêtre Safari et rendez-vous à l&rsquo;adresse sur laquelle tourne code-server. Pour ma part, il s&rsquo;agit de l&rsquo;adresse <a href="https://10.157.254.22:8080">http://10.157.254.22:8080</a>.</p>
 <p>Pour accéder au terminal de votre Ubuntu installé sur votre smartphone depuis votre iPad, installez l&rsquo;app WebSSH. Le port SSH d&rsquo;Ubuntu sur Userland est le <code>2022</code>.</p>
+<blockquote>
+<p>Ou depuis un Mac: ssh <a href="mailto:userland@192.168.43.1">userland@192.168.43.1</a> -p 2022</p>
+</blockquote>
 <blockquote>
 <p>Installer une app de type <a href="https://play.google.com/store/apps/details?id=in.snapcore.screen_alive">Keep Screen On</a> sur votre Android pour éviter que UserLand ne se stoppe.</p>
 </blockquote>
@@ -449,7 +454,7 @@ case &#34;$1&#34; in
 esac
 
 exit 0
-</code></pre><p>Puis démarrer le service <code>/etc/init.d/code start</code></p>
+</code></pre><p>Puis démarrer le service <code>/etc/init.d/code start</code> après avoir ajouté les droits d&rsquo;exécution sur le script <code>sudo chmod +x /etc/init.d/code</code></p>
 <p>Lister les services: <code>service --status-all</code></p>
 <p>Voir si le pid file a bien été créé: <code>ls /var/run</code></p>
 <br/>
@@ -464,7 +469,7 @@ exit 0
 
         <div class="post-info">
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>878 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>911 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>12 févr.. 2022</p>
         </div>
