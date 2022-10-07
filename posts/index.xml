@@ -26670,9 +26670,15 @@ git config --global --unset user.email
 git config --global -l
 </code></pre><br/>
 <h2 id="git-config-local">git config local</h2>
-<pre tabindex="0"><code>git config user.name = &#34;&#34;
-git config user.email = &#34;&#34;
+<pre tabindex="0"><code>git config user.name = &#34;username&#34;
+git config user.email = &#34;email&#34;
 git config core.sshCommand &#34;ssh -i ~/.ssh/id_rsa_example -F /dev/null&#34;
+</code></pre><br/>
+<h2 id="préciser-git-ssh-key-globale">Préciser git ssh key globale</h2>
+<p>Editer le fichier ~/.ssh/config et ajouter le contenu suivant:</p>
+<pre tabindex="0"><code>Host github.com
+    HostName github.com
+    IdentityFile ~/.ssh/id_rsa_example
 </code></pre><br/>
 <h2 id="différences-entre-branches">Différences entre branches</h2>
 <p><strong>Différences entre branche actuelle et master:</strong></p>
