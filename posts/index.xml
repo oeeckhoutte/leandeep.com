@@ -1778,7 +1778,35 @@ while True:
 </li>
 </ul>
 </blockquote>
-]]></content>
+<br/>
+<h2 id="raccourci-zshrc">Raccourci .zshrc</h2>
+<pre tabindex="0"><code>update_ip_tor_browser ()
+{
+    content=&#34;
+    ClientOnionAuthDir /Users/olivier/Library/Application Support/TorBrowser-Data/Tor/onion-auth
+    DataDirectory /Users/olivier/Library/Application Support/TorBrowser-Data/Tor
+    GeoIPFile /Applications/Tor Browser.app/Contents/Resources/TorBrowser/Tor/geoip
+    GeoIPv6File /Applications/Tor Browser.app/Contents/Resources/TorBrowser/Tor/geoip6
+    ExitNodes $1
+    &#34;
+    echo $content &gt; ~/Library/Application\ Support/TorBrowser-Data/Tor/torrc
+    osascript -e &#39;quit app &#34;Tor Browser&#34;&#39;
+    open -a &#34;Tor Browser&#34;
+}
+
+reset_tor_browser ()
+{
+    content=&#34;
+    ClientOnionAuthDir /Users/olivier/Library/Application Support/TorBrowser-Data/Tor/onion-auth
+    DataDirectory /Users/olivier/Library/Application Support/TorBrowser-Data/Tor
+    GeoIPFile /Applications/Tor Browser.app/Contents/Resources/TorBrowser/Tor/geoip
+    GeoIPv6File /Applications/Tor Browser.app/Contents/Resources/TorBrowser/Tor/geoip6
+    &#34;
+    echo $content &gt; ~/Library/Application\ Support/TorBrowser-Data/Tor/torrc
+    osascript -e &#39;quit app &#34;Tor Browser&#34;&#39;
+    open -a &#34;Tor Browser&#34;
+}
+</code></pre>]]></content>
         </item>
         
         <item>
@@ -26666,8 +26694,9 @@ Switched to a new branch &#39;pr/999&#39;
 <h2 id="effacer-git-config-globale">Effacer git config globale</h2>
 <pre tabindex="0"><code>git config --global --unset user.name
 git config --global --unset user.email
-# Check
-git config --global -l
+</code></pre><br/>
+<h2 id="vérifier-la-config-globale">Vérifier la config globale</h2>
+<pre tabindex="0"><code>git config --global -l
 </code></pre><br/>
 <h2 id="git-config-local">git config local</h2>
 <pre tabindex="0"><code>git config user.name = &#34;username&#34;
