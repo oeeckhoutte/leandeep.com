@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Petit guide rapide pour les Pythonistas souhaitant devenir Rustaceans.
+Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py PyPI pip setuptools &amp; poetry pour distribuer des libs pipenv pour la gestion des dépendances twine pour uploader un package venv pour isoler un env pyenv pour gérer ≠ versions de Python pydoc &amp; Sphinx pour générer la doc Python pour interpréter/ compiler ipython comme REPL ipdb pour debugguer 3. Librairies et frameworks urllib requests json pyYAML csv datetime &amp; dateutils click &amp; argparse docopt re subprocess multiprocessing logging pathlib pickle heapq flask cryptography pymongo jinja2 pyside pytest Flake8 Black itertools celery boto 4." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/rust-pour-d%C3%A9veloppeurs-python/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Rust pour développeurs Python :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Rust pour développeurs Python">
+<meta itemprop="description" content="Petit guide rapide pour les Pythonistas souhaitant devenir Rustaceans.
+Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py PyPI pip setuptools & poetry pour distribuer des libs pipenv pour la gestion des dépendances twine pour uploader un package venv pour isoler un env pyenv pour gérer ≠ versions de Python pydoc & Sphinx pour générer la doc Python pour interpréter/ compiler ipython comme REPL ipdb pour debugguer 3. Librairies et frameworks urllib requests json pyYAML csv datetime & dateutils click & argparse docopt re subprocess multiprocessing logging pathlib pickle heapq flask cryptography pymongo jinja2 pyside pytest Flake8 Black itertools celery boto 4."><meta itemprop="datePublished" content="2022-10-23T07:49:00+02:00" />
+<meta itemprop="dateModified" content="2022-10-23T07:49:00+02:00" />
+<meta itemprop="wordCount" content="1029"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Rust," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Rust pour développeurs Python"/>
+<meta name="twitter:description" content="Petit guide rapide pour les Pythonistas souhaitant devenir Rustaceans.
+Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py PyPI pip setuptools & poetry pour distribuer des libs pipenv pour la gestion des dépendances twine pour uploader un package venv pour isoler un env pyenv pour gérer ≠ versions de Python pydoc & Sphinx pour générer la doc Python pour interpréter/ compiler ipython comme REPL ipdb pour debugguer 3. Librairies et frameworks urllib requests json pyYAML csv datetime & dateutils click & argparse docopt re subprocess multiprocessing logging pathlib pickle heapq flask cryptography pymongo jinja2 pyside pytest Flake8 Black itertools celery boto 4."/>
+
+
+
+
+
+<meta property="article:published_time" content="2022-10-23 07:49:00 &#43;0200 CEST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/rust-pour-d%C3%A9veloppeurs-python/">Rust pour développeurs Python</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Petit guide rapide pour les <code>Pythonistas</code> souhaitant devenir <code>Rustaceans</code>.</p>
+<br/>
+
+
+<div style="width: 100%; float: left; position: relative;">
+  
+  <div style="float: left; width: 49%;">
+    <div style="width:100%; text-align: center;"><b><u>Python</u></b></div>
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>1. Conventions et guidelines</b>
+      <br/>
+      <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>2. Tooling</b>
+      <br/>
+      <ul>
+      <li>requirements.txt</li>
+      <li>setup.py</li>
+      <li><a href="https://pypi.org/">PyPI</a></li>
+      <li><a href="https://pypi.python.org/pypi/pip">pip</a></li>
+      <li><a href="https://pypi.python.org/pypi/setuptools">setuptools</a> & <a href="https://python-poetry.org/">poetry</a> pour distribuer des libs</li>
+      <li><a href="https://pypi.python.org/pypi/pipenv">pipenv</a> pour la gestion des dépendances</li>
+      <li><a href="https://pypi.python.org/pypi/twine">twine</a> pour uploader un package</li>
+      <li>venv pour isoler un env</li>
+      <li><a href="https://github.com/pyenv/pyenv-installer">pyenv</a> pour gérer ≠ versions de Python</li>
+      <li><a href="https://docs.python.org/library/pydoc.html">pydoc</a> & <a href="https://pypi.python.org/pypi/sphinx">Sphinx</a> pour générer la doc</li>
+      <li>Python pour interpréter/ compiler</li>
+      <li><a href="https://pypi.python.org/pypi/ipython">ipython</a> comme REPL</li>
+      <li><a href="https://pypi.python.org/pypi/ipdb">ipdb</a> pour debugguer</li>
+      </ul>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>3. Librairies et frameworks</b>
+      <br/>
+      <ul>
+      <li>urllib</li>
+      <li>requests</li>
+      <li>json</li>
+      <li><a href="https://pypi.python.org/pypi/pyyaml">pyYAML</li>
+      <li>csv</li>
+      <li>datetime & <a href="https://pypi.python.org/pypi/dateutils">dateutils</a></li>
+      <li><a href="https://pypi.python.org/pypi/click">click</a> & <a href="https://pypi.python.org/pypi/argparse">argparse</a></li>
+      <li><a href="https://pypi.python.org/pypi/docopt"></a>docopt</li>
+      <li>re</li>
+      <li>subprocess</li>
+      <li>multiprocessing</li>
+      <li>logging</li>
+      <li>pathlib</li>
+      <li>pickle</li>
+      <li>heapq</li>
+      <li>flask</li>
+      <li><a href="https://pypi.python.org/pypi/cryptography">cryptography</a></li>
+      <li><a href="https://pypi.python.org/pypi/pymongo">pymongo</a></li>
+      <li><a href="https://pypi.python.org/pypi/jinja2">jinja2</a></li>
+      <li><a href="http://www.pyside.org/">pyside</a></li>
+      <li>pytest</li>
+      <li>Flake8</li>
+      <li>Black</li>
+      <li>itertools</li>
+      <li>celery</li>
+      <li>boto</li>
+      </ul>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>4. Python like features</b>
+      <br/>
+      <ul>
+      <li>dict</li>
+      <li>constructor avec valeurs par défaut</li>
+      <li>itertools</li>
+      <li>hashlib</li>
+      </ul>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>5. Hello world</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>if __name__ == "__main__":
+    print("Hello, World")</code>
+</pre>
+    </div>
+    <br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>6. Types</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>age = 33
+name = 'olivier'
+weight = 75.3
+cartoons = ['riri', 'fifi', 'loulou']
+ages = {
+    'riri': 7,
+    'fifi': 7,
+    'loulou': 7,
+}</code>
+</pre>
+    </div>
+    <br/><br/><br/><br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>7. Fonctions</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>def substract(a: int, b: int) -> int:
+    """Substracts b from a"""
+    return a - b</code>
+</pre>
+    </div>
+    <br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>8. Manipulation de listes</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>
+
+cartoons = ["riri", "fifi", "loulou"]
+print(cartoons[0])  # riri
+cartoons.append("donald")
+print(len(cartoons))  # 4
+print(cartoons[2:])  # ["loulou", "donald"]
+
+for cartoon in cartoons:
+    print(cartoon)
+
+for i, cartoon in enumerate(cartoons):
+    print(f"{cartoon} at {i}")
+
+# Lexicographical order
+cartoons.sort()
+
+# Reversed lexicographical order
+cartoons.sort(reverse=True)
+
+# Sort by length
+cartoons.sort(key=len)</code>
+</pre>
+    </div>
+    <br/><br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>9. Range</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>for i in range(0,6,2):
+   print(i) # 0, 2, 4
+    </code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>10. Manipulation de dictionnaires (hash map)</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code># Create new dict
+cartoons_age = {}
+cartoons_age["riri"] = 7
+cartoons_age["fifi"] = 7
+cartoons_age["loulou"] = 7
+
+# or using for loop
+cartoons_age = {}
+for cartoon, age in [("riri", 7), ("fifi", 7), ("loulou", 7)]:
+    cartoons_age[cartoon] = age
+
+# or using a list
+cartoons_age = dict([("riri", 7), ("fifi", 7), ("loulou", 7)])
+
+# or using key values
+cartoons_age = {
+    "riri": 7,
+    "fifi": 7,
+    "loulou": 7,
+}
+
+cartoons_age["donald"] = 45
+print(cartoons_age["riri"])  # 7
+print("riri" in cartoons_age)  # True
+
+del cartoons_age["loulou"]
+
+for cartoon in cartoons_age:  # Keys
+    print(cartoon)
+
+for cartoon, age in cartoons_age.items():  # Keys & values
+    print(f"{cartoon} is {age} years old")</code>
+</pre>
+    </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>11. Lire contenu d'un fichier</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>from pathlib import Path
+
+with Path("/tmp/mon_fichier.txt").open() as fp:
+    #  Iterate over lines
+    for line in fp:
+        print(line.strip())</code>
+</pre>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>12. Exceptions/ Retour d'erreur</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>def div(a, b):
+    if b == 0:
+        raise ValueError("Division par 0 impossible")
+    return a / b
+
+try:
+    div(1, 0)
+except ValueError:
+    print('Oops an error occurred!')</code>
+</pre>
+    </div>
+    <br/><br/><br/><br/><br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>13. "Printer" des objets</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>class Cartoon:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __repr__(self):
+      return str(self.__dict__)
+
+riri = Cartoon(
+    name='Riri',
+    age=7,
+)
+
+print('{!r}'.format(riri))  
+# {'name': 'Riri', 'age': 7}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>14. Set (hashSet)</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>
+cartoons = set()
+cartoons.add("riri")
+cartoons.add("fifi")
+cartoons.add("loulou")
+cartoons.add("loulou")
+
+# or using literal syntax
+cartoons = {'riri', 'fifi', 'loulou', 'loulou'}
+
+# or using an iterator
+cartoons = set(['riri', 'fifi', 'loulou', 'loulou'])
+
+# Manipulation sur les sets
+cartoons = {'riri', 'fifi', 'loulou', 'donald', 'picsou'}
+some_cartoons = {"donald", "picsou"}
+
+# difference
+print(cartoons.difference(some_cartoons))
+# {'riri', 'fifi', 'loulou'}
+
+# intersection
+print(cartoons.intersection(some_cartoons))  
+# {'donald', picsou}
+
+# union
+print(cartoons.union(some_cartoons))
+# {'riri', 'fifi', 'loulou', 'donald', 'picsou'}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/>
+    <div style="width:100%; padding-top: 20px; ">
+      <b>15. while et for loops</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code># While loop
+counter = 0
+while counter < 10:
+    print(counter)
+    counter += 1
+
+# infinite while loop
+while True:
+    print("Infinite loop")
+
+# infinite while loop with break
+counter = 0
+while True:
+    print(counter)
+    counter += 1
+    if counter >= 10:
+        break
+
+
+# while loop with continue
+counter = 0
+while True:
+    counter += 1
+    if counter == 5:
+        continue
+    print(counter)
+    if counter >= 10:
+        break
+
+# For loop over a list
+for cartoon in ["riri", "fifi", "loulou"]:
+    print(cartoon)
+
+# Enumerating indexes
+for  i, cartoon in enumerate(["riri", "fifi", "loulou"]):
+    print(f"{cartoon} at index {i}")
+
+# For in a range
+for number in range(0, 100):
+    print(number)  # from 0 to 99
+</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+
+  </div>
+
+  <!-- -->
+  <!-- -->
+  <!-- -->
+
+  <div style="float: right; width: 49%;">
+    <div style="width:100%; text-align: center;"><b><u>Rust</u></b></div>
+    <!-- -->
+    <div style="width:100%; padding-top: 20px;">
+      <b>1. Conventions et guidelines</b>
+      <br/>
+<a href="https://rust-lang-nursery.github.io/api-guidelines/">RustAPI Guidelines</a>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>2. Tooling</b>
+      <br/>
+      <ul>
+      <li>Cargo.toml</li>
+      <li>Cargo.toml</li>
+      <li><a href="http://crates.io/">Crates.io</a></li>
+      <li><a href="http://doc.crates.io/">Cargo</a></li>
+      <li><a href="http://doc.crates.io/">Cargo</a></li>
+      <li><a href="http://doc.crates.io/">Cargo</a></li>
+      <li><a href="http://doc.crates.io/">Cargo</a> & <a href="https://github.com/semantic-rs/semantic-rs">Semantic</a></li>
+      <li><a href="http://doc.crates.io/">Cargo</a></li>
+      <li><a href="https://www.rustup.rs/">Rustup</a></li>
+      <li><a href="https://doc.rust-lang.org/stable/rustdoc/">Rustdoc</a> & Cargo</li>
+      <li><a href="https://doc.rust-lang.org/1.1.0/rustc/">rustc</a> & Cargo</li>
+      <li><a href="https://github.com/murarth/rusti">rusti</a></li>
+      <li><a href="https://github.com/rust-lang/rust/blob/master/src/etc/rust-gdb">rust-gdb</a></li>
+      </ul>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>3. Librairies et frameworks</b>
+      <br/>
+      <ul>
+      <li><a href="https://crates.io/crates/hyper">hyper</a></li>
+      <li><a href="https://github.com/seanmonstar/reqwest">reqwest</a></li>
+      <li><a href="https://github.com/serde-rs/serde">serde</a></li>
+      <li><a href="https://github.com/serde-rs/serde">serde</a></li>
+      <li><a href="https://github.com/BurntSushi/rust-csv">rust-csv</a></li>
+      <li><a href="https://github.com/chronotope/chrono">Chrono</a></li>
+      <li><a href="https://github.com/kbknapp/clap-rs">clap</a></li>
+      <li><a href="https://github.com/docopt/docopt.rs">docopt</a></li>
+      <li><a href="https://github.com/rust-lang/regex">regex</a></li>
+      <li><a href="https://crates.io/crates/subprocess">subprocess</a></li>
+      <li><a href="https://crates.io/crates/rayon">Rayon</a></li>
+      <li><a href="https://github.com/rust-lang-nursery/log">log</a></li>
+      <li><a href="https://doc.rust-lang.org/std/fs/">fs</a> & <a href="https://github.com/webdesus/fs_extra">fs_extra</a></li>
+      <li><a href="https://github.com/ron-rs/ron">RON</a></li>
+      <li>BinaryHeap</li>
+      <li><a href="https://github.com/SergioBenitez/Rocket">Rocket</a></li>
+      <li><a href="https://github.com/DaGenix/rust-crypto">crypto</a></li>
+      <li><a href="https://crates.io/keywords/mongodb">mongodb</a></li>
+      <li><a href="https://github.com/Keats/tera">Tera</a></li>
+      <li><a href="https://github.com/rust-qt">rust-qt</a></li>
+      <li><a href="https://github.com/AlKass/polish">polish</a></li>
+      <li><a href="https://github.com/rust-lang-nursery/rust-clippy">Clippy</a></li>
+      <li>rustfmt</li>
+      <li><a href="https://github.com/bluss/rust-itertools">rust-itertools</a></li>
+      <li><a href="https://github.com/antimonyproject/antimony">antimony</a></li>
+      <li><a href="https://github.com/rusoto/rusoto">rusoto</a></li>
+      </ul>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>4. Python like features</b>
+      <br/>
+      <ul>
+      <li><a href="https://crates.io/crates/maplit">maplit</a></li>
+      <li><a href="https://github.com/nrc/derive-new">derive_new</a></li>
+      <li><a href="https://crates.io/crates/itertools">itertools</a></li>
+      <li><a href="https://github.com/libpasta/libpasta">libpasta</a></li>
+      </ul>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>5. Hello world</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>fn main() {
+  println!("Hello, World");
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>6. Types</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>use std::collections::HashMap;
+
+fn main() {
+    let age = 33;
+    let name = "olivier";
+    let weight = 75.3;
+    let mut cartoons = vec!["riri", "fifi", "loulou"];
+
+    let mut ages = HashMap::new();
+    ages.insert("riri", 7);
+    ages.insert("fifi", 7);
+    ages.insert("loulou", 7);
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>7. Fonctions</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>/// Substracts b from a
+fn substract(a: i32, b: i32) -> i32 {
+  a - b
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>8. Manipulation de listes</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>fn main() {
+    let mut cartoons = vec!["riri", "fifi", "loulou"];
+    println!("{}", cartoons[0]);  // riri
+    cartoons.push("donald");
+    println!("{}", cartoons.len());  // 4
+    println!("{:?}", &cartoons[2..]);  // ["loulou", "donald"]
+
+    for cartoon in &cartoons {
+        println!("{}", cartoon);
+    }
+
+    for (i, cartoon) in cartoons.iter().enumerate() {
+        println!("{} at {}", i, cartoon);
+    }
+
+    // Lexicographical order
+    cartoons.sort();
+
+    // Reversed lexicographical order
+    cartoons.sort_by(|a, b| b.cmp(a));
+
+    // Sort by length
+    cartoons.sort_by_key(|a| a.len());
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>9. Range</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>for i in (0..6).step_by(2) {
+    println!("{}", i);  // 0, 2, 4
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>10. Manipulation de dictionnaires (hash map)</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>use std::iter::FromIterator;
+use std::collections::HashMap;
+
+fn main() {
+
+    // Create new HashMap
+    let mut cartoons_ages = HashMap::new();
+    cartoons_ages.insert("riri", 7);
+    cartoons_ages.insert("fifi", 7);
+    cartoons_ages.insert("loulou", 7);
+
+    // or using a loop
+    let mut cartoons_ages = HashMap::new();
+    for &(name, age) in [("riri", 7), ("fifi", 7), ("loulou", 7)].iter() {
+        // Possible to remove & and use iter().clone()
+        cartoons_ages.insert(name, age);
+    }
+
+    // or using an Array
+    let mut cartoons_ages: HashMap<&str, i32> =
+        [("riri", 7), 
+         ("fifi", 7), 
+         ("loulou", 7)]
+        .iter().cloned().collect();
+
+    // or using a Vec (Iterator)
+    let mut cartoons_ages: HashMap<&str, i32> =
+        HashMap::from_iter(
+            vec![
+               ("riri", 7),
+               ("fifi", 7),
+               ("taz", 7)
+            ]
+        );
+
+    cartoons_ages.insert("donald", 45);
+    println!("{}", cartoons_ages["fifi"]);  // 7
+    println!("{}", cartoons_ages.contains_key("fifi")); // true
+    cartoons_ages.remove("loulou");
+
+
+    for name in cartoons_ages.keys() {  // Keys
+      println!("{}", name);
+    }
+
+    for (name, age) in &cartoons_ages {  // Keys & values
+      println!("{} is {} years old", name, age);
+    }
+
+}</code>
+</pre>
+    <br/><b>Alternative</b>
+    <br/>
+    Ajouter la dependency dans Cargo.toml
+<pre style="margin: 0px; padding: 5px;">
+<code>[dependencies]
+maplit = "*"
+</code></pre>
+<br/>
+Puis utiliser juste:
+<pre style="margin: 0px; padding: 5px;">
+<code>#[macro_use] extern crate maplit;
+
+let map = hashmap!{
+    "riri" => 7,
+    "fifi" => 7,
+    "loulou" => 7,
+};</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>11. Lire contenu d'un fichier</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>use std::io::{BufReader, BufRead};
+use std::fs::File;
+use std::path::Path;
+
+fn main () {
+    let fp = File::open(Path::new("/tmp/mon_fichier.txt")).unwrap();
+    let file = BufReader::new(&fp);
+    for line in file.lines() {
+        //  Iterate over lines
+        println!("{}", line.unwrap());
+    }
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>12. Exceptions/ Retour d'erreur</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>fn div(a: f64, b: f64) -> Result<f64, &'static str> {
+    if b == 0 {
+        Err("Division par 0 impossible")
+    } else {
+        Ok(a / b)
+    }
+}
+
+fn main() {
+    match div(1, 0) {
+        Ok(_) => {},
+        Err(_) => println!("Oops an error occurred!"),
+    };
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>13. "Printer" des objets</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>#[derive(Debug)]
+struct Cartoon {
+    name: String,
+    age: i32
+}
+
+fn main() {
+    let riri = Cartoon {name: "Riri".into(), age: 7};
+    println!("{:#?}", riri);
+    // Actor {name: "Riri", age: 7 }
+}
+</code>
+</pre>
+    </div>
+    <br/><br/><br/>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>14. Set (hashSet)</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>use std::collections::HashSet;
+use std::iter::FromIterator;
+
+fn main() {
+    let mut cartoons = HashSet::new();
+    cartoons.insert("riri");
+    cartoons.insert("fifi");
+    cartoons.insert("loulou");
+    cartoons.insert("loulou");
+
+    // from an iterator
+    let mut cartoons: HashSet<&str> = HashSet::from_iter(vec!["riri", "fifi", "loulou", "loulou"]);
+
+    // deduplication
+    println!("{:?}", cartoons); 
+    // {"riri", "fifi", "loulou"}
+
+    // Manipulation sur les hashSet
+    let mut cartoons: HashSet<&str> = HashSet::from_iter(vec!["riri", "fifi", "loulou", "loulou", "donald", "picsou"]);
+    let mut some_cartoons: HashSet<&str> = HashSet::from_iter(vec!["donald", "picsou"]);
+
+    // difference
+    cartoons.difference(&some_cartoons); 
+    // ["riri", "fifi", "loulou"]
+
+    // intersection
+    cartoons.intersection(&some_cartoons); 
+    // ["riri"]
+
+    // union
+    cartoons.union(&some_cartoons); 
+    // ["red", "fifi", "loulou, "donald", "picsou"]
+}</code>
+</pre>
+<br/><b>Alternative</b>
+    <br/>
+    Ajouter la dependency dans Cargo.toml
+<pre style="margin: 0px; padding: 5px;">
+<code>[dependencies]
+maplit = "*"
+</code></pre>
+<br/>
+Puis utiliser juste:
+<pre style="margin: 0px; padding: 5px;">
+<code>#[macro_use] extern crate maplit;
+
+let cartoons = hashset!{"riri", "fifi", "loulou", "loulou"};</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>15. while et for loops</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>fn main() {
+
+    // While loop
+    let mut counter = 0;
+    while counter < 10 {
+        println!("{}", counter);
+        counter += 1;
+    }
+
+    // infinite while loop
+    loop {
+        println!("Infinite loop");
+    }
+
+    // infinite while loop with break
+    let mut counter = 0;
+    loop {
+        println!("{}", counter);
+        counter += 1;
+        if counter >= 10 { break; }
+    }
+
+    // infinite while loop with continue
+    let mut counter = 0;
+    loop {
+        counter += 1;
+        if counter == 5 { continue; }
+        println!("{}", counter);
+        if counter >= 10 { break; }
+    }
+
+    // for loop over a list
+    for cartoon in ["riri", "fifi", "loulou"].iter() {
+        println!("{}", cartoon);
+    }
+
+    // Enumerating indexes
+    for (i, cartoon) in ["riri", "fifi", "loulou"].iter().enumerate() {
+        println!("{} at index {}", cartoon, i);
+    }
+
+    // for in a range
+    for number in 0..100 {
+        println!("{}", number);  
+        // from 0 to 99
+    }
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    
+  </div>
+
+</div>
+</div>
+
+
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1029 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23 oct.. 2022</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/proxies-http-et-socks-via-gcloud/">
+                                <span class="button__text">Proxies HTTP et SOCKS via gcloud</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance at Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/%20posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.68628920df4cd4d5988593e35a62e4a8dad8a20217d6c78ecaddfdb8b8ac758eb757a487e273e3855fa571d25193282cbc3dd99bba288f8c9e34b1a63e6a14e9.js" integrity="sha512-aGKJIN9M1NWYhZPjWmLkqNrYogIX1seOyt39uLisdY63V6SH4nPjhV&#43;lcdJRkygsvD3Zm7ooj4yeNLGmPmoU6Q=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
