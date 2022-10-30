@@ -262,7 +262,7 @@ Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py Py
 <meta itemprop="description" content="Petit guide rapide pour les Pythonistas souhaitant devenir Rustaceans.
 Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py PyPI pip setuptools & poetry pour distribuer des libs pipenv pour la gestion des dépendances twine pour uploader un package venv pour isoler un env pyenv pour gérer ≠ versions de Python pydoc & Sphinx pour générer la doc Python pour interpréter/ compiler ipython comme REPL ipdb pour debugguer 3. Librairies et frameworks urllib requests json pyYAML csv datetime & dateutils click & argparse docopt re subprocess multiprocessing logging pathlib pickle heapq flask cryptography pymongo jinja2 pyside pytest Flake8 Black itertools celery boto 4."><meta itemprop="datePublished" content="2022-10-23T07:49:00+02:00" />
 <meta itemprop="dateModified" content="2022-10-23T07:49:00+02:00" />
-<meta itemprop="wordCount" content="1029"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1160"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Rust," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -329,7 +329,7 @@ Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py Py
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
 
             
 
@@ -489,7 +489,7 @@ cartoons.sort()
 cartoons.sort(reverse=True)
 
 # Sort by length
-cartoons.sort(key=len)</code>
+cartoons.gpg(key=len)</code>
 </pre>
     </div>
     <br/><br/>
@@ -683,6 +683,92 @@ for  i, cartoon in enumerate(["riri", "fifi", "loulou"]):
 for number in range(0, 100):
     print(number)  # from 0 to 99
 </code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <br/><br/><br/><br/><br/><br/>
+    <div style="width:100%; padding-top: 20px; ">
+      <b>16. Flask vs Rocket</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return 'Hello Python'
+
+
+if __name__ == '__main__':
+    app.run(port=8080)
+</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>17. Request vs Reqwest</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>import requests
+
+url = 'https://httpbin.org/ip'
+
+try:
+    resp = requests.get(url)
+except HTTPError as err:
+    msg = f"error: cannot get {url} - {err}"
+    raise SystemExit(msg)
+
+assert resp.status_code == 200
+
+print(f"The response content is: {resp.content}")</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <br/><br/><br/><br/><br/>
+    <div style="width:100%; padding-top: 20px; ">
+      <b>18. JSON encoding decoding</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>import json
+
+# Decode/Deserialize
+cartoon_data = '''{
+    "name": "riri",
+    "age": 7
+}'''
+
+cartoon = json.loads(cartoon_data)
+
+# Do things like with any other Python data structure
+print(f"{cartoon['name']} was born {cartoon['age']} years ago")
+
+# Encode/Serialize
+serialized = json.dumps(obj)
+print(f"The serialized value is: {serialized}")</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/>
+    <br/><br/>
+    <div style="width:100%; padding-top: 20px; ">
+      <b>19. Object oriented</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>class Soldier:
+    def __init__(self, name: str):
+        self.name = name
+
+    def present(self, other_family_name: str):
+        print(f"Hi M. {other}, I'm solider {self.name}")
+
+# ...
+
+soldier = Soldier("Ryan")
+soldier.present("Bond")</code>
 </pre>
     </div>
     <!-- -->
@@ -1096,7 +1182,113 @@ let cartoons = hashset!{"riri", "fifi", "loulou", "loulou"};</code>
     </div>
     <!-- -->
     <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>16. Flask vs Rocket</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>#![feature(plugin)]
+#![plugin(rocket_codegen)]
+
+extern crate rocket;
+
+#[get("/")]
+fn index() -> &'static str {
+    "Hello Rust"
+}
+
+fn main() {
+    rocket::ignite().mount("/", routes![index]).launch();
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>17. Request vs Reqwest</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>extern crate reqwest;
+use std::io::Read;
+
+fn main() {
+    let url = "https://httpbin.org/ip";
+
+    let mut resp = match reqwest::get(url) {
+        Ok(response) => response,
+        Err(e) => panic!("error: could not perform get request {}", e),
+    };
+
+    assert!(resp.status().is_success());
+
+    let mut content = String::new();
+    resp.read_to_string(&mut content).expect("valid UTF-8");
+
+    println!("The response content is: {}", content);
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>18. JSON encoding decoding</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>extern crate serde;
+extern crate serde_json;
+
+#[macro_use]
+extern crate serde_derive;
+
+#[derive(Serialize, Deserialize)]
+struct Cartoon {
+    name: String,
+    age: u8,
+}
+
+fn main() {
+    // Decode/Deserialize
+    let cartoon_data = r#"{"name": "riri", "age": 7}"#;
+
+    let c: Cartoon = match serde_json::from_str(cartoon_data) {
+        Ok(cartoon) => cartoon,
+        Err(e) => panic!("error: could not deserialize: {}", e),
+    };
+
+    // Do things just like with any other Rust data structure.
+    println!("{} was born {} years ago.", c.name, c.age);
+
+    // Encode/Serialize
+    let serialized = serde_json::to_string(&c).unwrap();
+    println!("The serialized value is: {}", serialized);
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
+    <div style="width:100%; padding-top: 20px; ">
+      <b>19. Object oriented</b>
+      <pre style="margin: 0px; padding: 5px;">
+<code>struct Soldier {
+    name: String
+}
+
+impl Soldier {
+
+    pub fn new<S>(name: S) -> Soldier where S: Into<String> {
+        Cat { name: name.into() }
+    }
     
+    pub fn present<S: Into<String>>(&self, other_family_name:S) {
+        println!("Hi M. {}, I'm {}", other_family_name.into(), self.name);
+    }     
+    
+}
+
+fn main() {
+    let soldier = Cat::new("Ryan");
+    soldier.present("Bond");
+}</code>
+</pre>
+    </div>
+    <!-- -->
+    <!-- -->
   </div>
 
 </div>
@@ -1114,7 +1306,7 @@ let cartoons = hashset!{"riri", "fifi", "loulou", "loulou"};</code>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1029 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1160 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>23 oct.. 2022</p>
         </div>
