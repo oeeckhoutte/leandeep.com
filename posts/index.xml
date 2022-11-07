@@ -27505,6 +27505,18 @@ git merge master
 <pre tabindex="0"><code># Exemple:
 git stash apply stash@{0}
 </code></pre><br/>
+<p><strong>Annuler un <code>git stash pop</code> ou <code>git stash apply</code> si conflit</strong></p>
+<pre tabindex="0"><code>git reset --merge
+</code></pre><br/>
+<p><strong>Annuler le conflit sur un fichier après git stash (reprendre version serveur)</strong></p>
+<pre tabindex="0"><code># Après un $ git stash pop
+git add sur_le_fichier_avec_confict
+git reset HEAD -- sur_le_fichier_avec_confict
+git checkout sur_le_fichier_avec_confict
+
+# Note perso: 
+# Tester si git rm --cached sur_le_fichier_avec_confict peut faire le job
+</code></pre><br/>
 <p><strong>Créer un nouveau stash (stasher tous les fichiers)</strong></p>
 <pre tabindex="0"><code>git stash save &#34;&lt;nom du stash&gt;&#34;
 </code></pre><br/>
