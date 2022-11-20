@@ -5,8 +5,36 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 14 Nov 2022 21:51:00 +0000</lastBuildDate>
+        <lastBuildDate>Sun, 20 Nov 2022 09:22:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Activer l&#39;IP forwarding sur une instance GCP après sa création</title>
+            <link>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</link>
+            <pubDate>Sun, 20 Nov 2022 09:22:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</guid>
+            <description>Introduction Dans cet article très rapide nous allons voir comment activer l&amp;rsquo;IP forwarding sur une instance GCP déjà créée. L&amp;rsquo;idée est d&amp;rsquo;éviter de l&amp;rsquo;effacer et de la recréer comme on peut le voir dans trop d&amp;rsquo;articles
+Exporter la config de votre VM ./gcloud compute instances export instance-name \ --project VOTRE-PROJET \ --zone LA-ZONE-CONTENANT-VOTRE-VM \ --destination=instance-name_export Modification de la config exportéee Editer le fichier instance-name_export et changer canIpForward: false par canIpForward: true</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article très rapide nous allons voir comment activer l&rsquo;IP forwarding sur une instance GCP déjà créée. L&rsquo;idée est d&rsquo;éviter de l&rsquo;effacer et de la recréer comme on peut le voir dans trop d&rsquo;articles</p>
+<br/>
+<h2 id="exporter-la-config-de-votre-vm">Exporter la config de votre VM</h2>
+<pre tabindex="0"><code>./gcloud compute instances export instance-name \
+    --project VOTRE-PROJET \
+    --zone LA-ZONE-CONTENANT-VOTRE-VM \
+    --destination=instance-name_export
+</code></pre><br/>
+<h2 id="modification-de-la-config-exportéee">Modification de la config exportéee</h2>
+<p>Editer le fichier <code>instance-name_export</code> et changer <code>canIpForward: false</code> par <code>canIpForward: true</code></p>
+<br/>
+<h2 id="update-de-votre-instance">Update de votre instance</h2>
+<pre tabindex="0"><code>./gcloud compute instances update-from-file instance-name \
+    --project VOTRE-PROJET \
+    --zone LA-ZONE-CONTENANT-VOTRE-VM \
+    --source=instance-name_export
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Ma présentation des 12 factors</title>
