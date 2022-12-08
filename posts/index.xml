@@ -5,8 +5,123 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 20 Nov 2022 09:22:00 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 08 Dec 2022 20:50:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Compiler et uploader son code sur une board esp8266</title>
+            <link>https://leandeep.com/compiler-et-uploader-son-code-sur-une-board-esp8266/</link>
+            <pubDate>Thu, 08 Dec 2022 20:50:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/compiler-et-uploader-son-code-sur-une-board-esp8266/</guid>
+            <description>Introduction Je suis en train de créer un arrosage automatique pour mes productions de emicro-pousses et régulateur de PH/ EC pour jardin hydroponique connecté. Dans cet article, nous allons voir comment piloter la board ESP12F Relay X1 V2.1 qui embarque un esp8266.
+Je cherchais à me mettre à jour sur l&amp;rsquo;IoT et j&amp;rsquo;ai découvert les vidéos des Frères Poulain disponibles sur Youtube. Je les recommande fortement https://www.youtube.com/@lesfrerespoulain .
+Après avoir cherché plusieurs heures comment envoyer mon code sur l&amp;rsquo;esp, car bien-sûr il n&amp;rsquo;y avait pas de documentation livré avec mon colis, je me dis que cela pourrait être utile de documenter la procédure.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Je suis en train de créer un arrosage automatique pour mes productions de emicro-pousses et régulateur de PH/ EC pour jardin hydroponique connecté.
+Dans cet article, nous allons voir comment piloter la board <code>ESP12F Relay X1 V2.1</code> qui embarque un esp8266.</p>
+<p><img src="/images/esp8266.png" alt="image"></p>
+<blockquote>
+<p>Je cherchais à me mettre à jour sur l&rsquo;IoT et j&rsquo;ai découvert les vidéos des Frères Poulain disponibles sur Youtube. Je les recommande fortement <a href="https://www.youtube.com/@lesfrerespoulain">https://www.youtube.com/@lesfrerespoulain</a> .</p>
+</blockquote>
+<p>Après avoir cherché plusieurs heures comment envoyer mon code sur l&rsquo;esp, car bien-sûr il n&rsquo;y avait pas de documentation livré avec mon colis, je me dis que cela pourrait être utile de documenter la procédure.</p>
+<br/>
+<h2 id="alimentation-de-la-board-en-mode-programmation">Alimentation de la board en mode programmation</h2>
+<p>Tout simplement par usb. On ne s&rsquo;embête à brancher quoique ce soit en mode développemeent. On branche le micro-usb.</p>
+<br/>
+<h2 id="branchement-usb-to-serial">Branchement usb-to-serial</h2>
+<p>Alimenter la board en énergie ne suffit pas. Il faut pouvoir envoyer son code dans l&rsquo;esp.</p>
+<p>Pour se faire, il faut une carte usb-to-serial:</p>
+<p><img src="/images/usb-to-serial.png" alt="image"></p>
+<blockquote>
+<p>Voici la référence: <code>DSD TECH SH-U06B Adaptateur série USB vers TTL avec Puce PL2303GC</code></p>
+</blockquote>
+<p>Il faut relier:</p>
+<ul>
+<li>le pin RX de la carte au pin TX de la board esp (dans mon cas fil noir)</li>
+<li>le pin TX de la carte au pin RX de la board esp (dans mon cas fil bleu)</li>
+<li>le GND de la carte au GND de la board esp (dans mon cas fil rouge)</li>
+</ul>
+<p>Ensuite il faut démarrer la board esp en mode programmation. Pour cela, il faut brancher un fil entre IO0 et GND et appuyer sur le bouton <code>reset</code>. Si un programme tourait, il s&rsquo;arrête et vous pouvez flasher la board depuis Arduino IDE.</p>
+<br/>
+<h2 id="configuration-darduino-ide">Configuration d&rsquo;Arduino IDE</h2>
+<p>Après avoir installé Arduino IDE, l&rsquo;ouvrir et aller dans <code>File</code> -&gt; <code>Preferences</code>. Cliquer sur <code>Add URL</code> et ajouter l&rsquo;URL suivante <code>https://arduino.esp8266.com/stable/package_esp8266com_index.json</code> dans la section <code>Additional Development Board Manager URL</code>.</p>
+<p>Ensuite ajouter la libraire esp8266. Cliquer sur l&rsquo;onglet <code>Tools</code> -&gt; <code>Boards:</code> -&gt; <code>Boards manager</code>. Puis dans la barre de recherche entrere <code>ESP8266</code> pour module/librairie esp8266 complémentaire.</p>
+<p>Un fois installé, cliquer une nouvelle fois sur <code>Tools</code> -&gt; <code>Boards:</code> -&gt; <code>esp8266</code> et choisissez soit la board <code>ESPino (ESP-12 Module)</code> ou <code>Generic ESP8266 Module</code>.</p>
+<br/>
+<h2 id="premier-code">Premier code</h2>
+<p>Voici le premier merveilleux code que j&rsquo;ai écrit pour tester le bon fonctionnement de mon setup:</p>
+<pre tabindex="0"><code>#define PIN_LED 16
+#define PIN_RELAY 5
+
+void setup() {
+  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_RELAY, OUTPUT);
+  digitalWrite(PIN_LED, HIGH);
+  digitalWrite(PIN_RELAY, HIGH);
+}
+
+void loop() {
+  digitalWrite(PIN_LED, LOW);
+  digitalWrite(PIN_RELAY, LOW);
+  delay(5000);              
+  digitalWrite(PIN_LED, HIGH);
+  digitalWrite(PIN_RELAY, HIGH);
+  delay(5000);
+}
+</code></pre><br/>
+<h2 id="compilationupload">Compilation/Upload</h2>
+<p>On clique sur <code>Upload</code> et si tout est bien branché et configuré, vous pourrez voir ces logs dans la console output d&rsquo;Arduino:</p>
+<pre tabindex="0"><code>Executable segment sizes:
+
+ICACHE : 32768           - flash instruction cache 
+
+IROM   : 231788          - code in flash         (default or ICACHE_FLASH_ATTR) 
+
+IRAM   : 26793   / 32768 - code in IRAM          (IRAM_ATTR, ISRs...) 
+
+DATA   : 1496  )         - initialized variables (global, static) in RAM/HEAP 
+
+RODATA : 876   ) / 81920 - constants             (global, static) in RAM/HEAP 
+
+BSS    : 25608 )         - zeroed variables      (global, static) in RAM/HEAP 
+
+Sketch uses 260953 bytes (24%) of program storage space. Maximum is 1044464 bytes.
+Global variables use 27980 bytes (34%) of dynamic memory, leaving 53940 bytes for local variables. Maximum is 81920 bytes.
+esptool.py v3.0
+Serial port COM3
+Connecting....
+Chip is ESP8266EX
+Features: WiFi
+Crystal is 26MHz
+MAC: bc:ff:4d:f9:76:7a
+Uploading stub...
+Running stub...
+Stub running...
+Configuring flash size...
+Auto-detected Flash size: 4MB
+Compressed 265104 bytes to 195077...
+Writing at 0x00000000... (8 %)
+Writing at 0x00004000... (16 %)
+Writing at 0x00008000... (25 %)
+Writing at 0x0000c000... (33 %)
+Writing at 0x00010000... (41 %)
+Writing at 0x00014000... (50 %)
+Writing at 0x00018000... (58 %)
+Writing at 0x0001c000... (66 %)
+Writing at 0x00020000... (75 %)
+Writing at 0x00024000... (83 %)
+Writing at 0x00028000... (91 %)
+Writing at 0x0002c000... (100 %)
+Wrote 265104 bytes (195077 compressed) at 0x00000000 in 17.7 seconds (effective 120.1 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+</code></pre><p>Une fois votre code compilé et uploadé sur l&rsquo;esp, retirer le cable entre IO0 et GND et cliquer sur le bouton reset sur la board.
+Et voilà, le relais et une LED vont s&rsquo;activer et se désactiver toutes les 5s.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Activer l&#39;IP forwarding sur une instance GCP après sa création</title>
