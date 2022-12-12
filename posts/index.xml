@@ -5,8 +5,145 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 08 Dec 2022 20:50:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 12 Dec 2022 23:10:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Piloter une pompe péristaltique avec un esp8266</title>
+            <link>https://leandeep.com/piloter-une-pompe-p%C3%A9ristaltique-avec-un-esp8266/</link>
+            <pubDate>Mon, 12 Dec 2022 23:10:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/piloter-une-pompe-p%C3%A9ristaltique-avec-un-esp8266/</guid>
+            <description>Introduction Cet article fait suite à mon article précédent sur l&amp;rsquo;utilisation d&amp;rsquo;une board avec esp8266. Voici ici comment piloter le relai de la même board ESP12F Relay X1 V2.1 en utilisant Blynk. C&amp;rsquo;est plus une prise de notes pour partage et reminder personel pour réutilisation future.
+Utilisation de Blynk Créer un compte et &amp;ldquo;skipper&amp;rdquo; tous les quickstart guides et tutorials. Créer un nouveau template. Donnez lui le nom que vous souhaitez.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Cet article fait suite à <a href="https://leandeep.com/compiler-et-uploader-son-code-sur-une-board-esp8266/">mon article précédent</a> sur l&rsquo;utilisation d&rsquo;une board avec esp8266. Voici ici comment piloter le relai de la même board <code>ESP12F Relay X1 V2.1</code> en utilisant Blynk. C&rsquo;est plus une prise de notes pour partage et reminder personel pour réutilisation future.</p>
+<br/>
+<h2 id="utilisation-de-blynk">Utilisation de Blynk</h2>
+<ul>
+<li>Créer un compte et &ldquo;skipper&rdquo; tous les quickstart guides et tutorials.</li>
+<li>Créer un nouveau template. Donnez lui le nom que vous souhaitez.</li>
+<li>Créer un datastream. Nommez le pompe par exemple et sélectionnez V0 comme PIN virtuel.</li>
+<li>Créer une automation. Nommez la pompe, sélectionnez le datastream que vous venez de créer et sélectionnez switch comme type d&rsquo;automation.</li>
+<li>Dans web dashboard, drag and drop un switch button sur le dashboard/ grid et cliquez sur la wheel settings du switch button que vous venez de déposer.</li>
+<li>Dans les settings du switch button, sélectionnez pompe (V0) comme data stream et laissez &ldquo;On value&rdquo; = 1 et &ldquo;Off value&rdquo; = 0.</li>
+<li>Sauvegardez vos changements dans Blynk</li>
+<li>Ouvrir Arduino IDE et installer le librairie Blynk depuis la section Manage libraries.</li>
+<li>On ne va pas créer un projet Blynk from scratch. On va ouvrir un projet example Blynk. Pour se faire, cliquez sur <code>Fichier</code> -&gt; <code>Examples</code> -&gt; <code>Blynk</code> -&gt; <code>Blynk.Edgent</code> -&gt; <code>Edgent_ESP8266</code>. L&rsquo;IDE va ouvrir une nouvelle fenêtre avec plusieurs fichiers. Le fichier <code>Edgent_ESP8266.ino</code> ressemble à ceci:</li>
+</ul>
+<pre tabindex="0"><code>// Fill-in information from your Blynk Template here
+#define BLYNK_TEMPLATE_ID &#34;...&#34;
+#define BLYNK_DEVICE_NAME &#34;...&#34;
+
+#define BLYNK_FIRMWARE_VERSION        &#34;0.1.0&#34;
+
+#define BLYNK_PRINT Serial
+//#define BLYNK_DEBUG
+
+#define APP_DEBUG
+
+
+// Uncomment your board, or configure a custom board in Settings.h
+//#define USE_SPARKFUN_BLYNK_BOARD
+//#define USE_NODE_MCU_BOARD
+//#define USE_WITTY_CLOUD_BOARD
+//#define USE_WEMOS_D1_MINI
+
+#include &#34;BlynkEdgent.h&#34;
+
+void setup()
+{
+  Serial.begin(115200);
+  delay(100);
+  pinMode(PIN_RELAY, OUTPUT);
+  BlynkEdgent.begin();
+}
+
+void loop() {
+  BlynkEdgent.run();
+}
+</code></pre><ul>
+<li>Retournez dans Blynk et copier le code &ldquo;Firmware configuration&rdquo; depuis la section &ldquo;Info&rdquo; de votre template. Voici un exemple du code dont je parle:</li>
+</ul>
+<pre tabindex="0"><code>#define BLYNK_TEMPLATE_ID &#34;....&#34;
+#define BLYNK_DEVICE_NAME &#34;...&#34;
+</code></pre><ul>
+<li>Collez ce code à la place des lignes commentées dans votre fichier <code>Edgent_ESP8266.ino</code>.</li>
+<li>Ajouter la ligne suivante pour spécifier quel Pin sera utilisé sur la board.</li>
+</ul>
+<pre tabindex="0"><code>#define PIN_RELAY 5
+</code></pre><ul>
+<li>Enfin ajouter le code suivant pour binder et intéragir avec le pin (ici 5) de la board au pin virtuel (v0).</li>
+</ul>
+<pre tabindex="0"><code>BLYNK_WRITE(V0)
+{
+  if (param.asInt() == 1)
+  {
+    digitalWrite(PIN_RELAY, HIGH); 
+  }
+  else
+  {
+    digitalWrite(PIN_RELAY, LOW); 
+  }
+}
+</code></pre><br/>
+<h2 id="code-final">Code final</h2>
+<p>Voici le code du fichier principal <code>Edgent_ESP8266.ino</code> (le seul fichier que j&rsquo;ai dû modifier):</p>
+<pre tabindex="0"><code>// Fill-in information from your Blynk Template here
+#define BLYNK_TEMPLATE_ID &#34;VOTRE_ID&#34;
+#define BLYNK_DEVICE_NAME &#34;LE_NOM_DE_VOTRE_DEVICE&#34;
+
+#define BLYNK_FIRMWARE_VERSION        &#34;0.1.0&#34;
+
+#define BLYNK_PRINT Serial
+//#define BLYNK_DEBUG
+
+#define APP_DEBUG
+
+#define PIN_RELAY 5
+
+
+// Uncomment your board, or configure a custom board in Settings.h
+//#define USE_SPARKFUN_BLYNK_BOARD
+//#define USE_NODE_MCU_BOARD
+//#define USE_WITTY_CLOUD_BOARD
+//#define USE_WEMOS_D1_MINI
+
+#include &#34;BlynkEdgent.h&#34;
+
+void setup()
+{
+  Serial.begin(115200);
+  delay(100);
+  pinMode(PIN_RELAY, OUTPUT);
+  BlynkEdgent.begin();
+}
+
+BLYNK_WRITE(V0)
+{
+  if (param.asInt() == 1)
+  {
+    digitalWrite(PIN_RELAY, HIGH); 
+  }
+  else
+  {
+    digitalWrite(PIN_RELAY, LOW); 
+  }
+}
+
+void loop() {
+  BlynkEdgent.run();
+}
+</code></pre><br/>
+<h2 id="pilotage-via-app-mobile">Pilotage via App mobile</h2>
+<p>Après avoir compilé et uploadé le sketch sur l&rsquo;esp8266, il est maintenant temps de connecter l&rsquo;esp8266 au wifi pour pouvoir piloter le relai via internet, donc depuis n&rsquo;importe où.</p>
+<p>Télécharger l&rsquo;app Android <code>Blynk IoT</code> depuis le Play Store et cliquer sur &ldquo;Add Device&rdquo;. Cliquer sur &ldquo;Search nearby device&rdquo;. Il vous sera demandé d&rsquo;activer le wifi sur votre téléphone. Faites le et sélectionnez le hotspot de votre esp8266. Une fois votre SmartPhone connecté à votre esp8266 en wifi, vous pourrez configurer le Wifi de votre esp8266 en sélectionnant le wifi de votre domicile et en entrant son mot de passe tout simplement. Une fois votre esp8266 configuré et connecté à internet, vous pourrez contrôler votre relai de n&rsquo;importe où dans le monde et créer des automations plus avancées directement via Blynk dashboard. Il ne sera plus nécessaire d&rsquo;intéragir avec le code. Cette solution Blynk est très bien pour créer de petits projets personnels très rapidement.</p>
+<p>Dans mon cas, je pilote des pompes péristaltiques comme celle ci:</p>
+<p><img src="/images/pompe-peristaltique.jpg" alt="image"></p>
+<p>Et je peux les activer via l&rsquo;app mobile Blynk. Par exemple:</p>
+<p><img src="/images/blynk-interface-android.jpg" alt="image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Compiler et uploader son code sur une board esp8266</title>
@@ -125,6 +262,9 @@ Leaving...
 Hard resetting via RTS pin...
 </code></pre><p>Une fois votre code compilé et uploadé sur l&rsquo;esp, retirer le cable entre IO0 et GND et cliquer sur le bouton reset sur la board.
 Et voilà, le relais et une LED vont s&rsquo;activer et se désactiver toutes les 5s.</p>
+<br/>
+<h2 id="drivers-pour-osx">Drivers pour OSX</h2>
+<p>Pour OSX, j&rsquo;ai utilisé le driver <code>PL2303HXD_G_Mac Driver_v2.1.0_20210311.zip</code> disponible sur <a href="https://www.prolific.com.tw/US/ShowProduct.aspx?p_id=229&amp;pcid=41">https://www.prolific.com.tw/US/ShowProduct.aspx?p_id=229&amp;pcid=41</a></p>
 ]]></content>
         </item>
         
