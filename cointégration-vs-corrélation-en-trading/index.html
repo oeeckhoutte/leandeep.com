@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
+Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&amp;rsquo;une des variables change, l&amp;rsquo;autre suivra également cette tendance sur une période de temps prolongée.
+La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Cointégration vs Corrélation en Trading :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.2516edd1014c71ff667bbc5abfd506af171a02538f9f15382fff1b836b3078c8.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Cointégration vs Corrélation en Trading">
+<meta itemprop="description" content="Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
+Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&rsquo;une des variables change, l&rsquo;autre suivra également cette tendance sur une période de temps prolongée.
+La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné."><meta itemprop="datePublished" content="2023-01-03T07:00:00+02:00" />
+<meta itemprop="dateModified" content="2023-01-03T07:00:00+02:00" />
+<meta itemprop="wordCount" content="1321"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Trading," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Cointégration vs Corrélation en Trading"/>
+<meta name="twitter:description" content="Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
+Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&rsquo;une des variables change, l&rsquo;autre suivra également cette tendance sur une période de temps prolongée.
+La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné."/>
+
+
+
+
+
+<meta property="article:published_time" content="2023-01-03 07:00:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/">Cointégration vs Corrélation en Trading</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="introduction">Introduction</h2>
+<p>Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.</p>
+<br/>
+<h2 id="corrélation-vs-cointégration">Corrélation vs Cointégration</h2>
+<p>La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&rsquo;une des variables change, l&rsquo;autre suivra également cette tendance sur une période de temps prolongée.</p>
+<p>La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné. Si deux variables sont corrélées, cela signifie qu&rsquo;elles varient de manière similaire, mais cela ne garantit pas qu&rsquo;elles continueront de le faire à long terme.</p>
+<p>En résumé, la cointégration implique une relation à long terme entre deux variables, tandis que la corrélation ne mesure que la relation à un moment donné. Dans cet article, nous allons donc approfondir le concept de cointégration.</p>
+<br/>
+<h1 id="cointégration">Cointégration</h1>
+<p><strong>Cointégration</strong></p>
+<p>La cointégration est donc une relation à long terme entre deux séries de données qui évoluent de manière similaire sur une période de temps prolongée.</p>
+<br/>
+<p><strong>Spread</strong></p>
+<p>Pour rappel, un spread est la différence entre les valeurs de deux séries de données.
+On va donc rechercher un spread qui franchit zéro pour acheter ou vendre des pairs; pour trader.</p>
+<p><br/>
+<strong>Z-score</strong></p>
+<p>Le z-score est une mesure statistique qui indique si une valeur est éloignée ou proche de la moyenne des valeurs d&rsquo;une série de données.</p>
+<p>En d&rsquo;autres termes, <strong>le z-score est une mesure de l&rsquo;écart entre une valeur et la moyenne (ou espérance) d&rsquo;une distribution de données.</strong>
+Plus précisément, si X est une variable aléatoire suivant une distribution normale de moyenne μ et de déviation standard σ, le z-score de X est donné par la formule suivante :</p>
+<p><code>z = (X - μ) / σ</code></p>
+<br/>
+<p>Par exemple, si la moyenne des notes d&rsquo;un examen est de 70 et que la déviation standard est de 5, et si vous obtenez une note de 80, votre z-score sera de (80 - 70) / 5 = 2.</p>
+<p>Le z-score peut être utilisé pour évaluer si une valeur est &ldquo;normale&rdquo; ou &ldquo;anormale&rdquo; par rapport à la distribution des données.</p>
+<p>Par exemple, si la moyenne des tailles d&rsquo;une population est de 1,75 m et que la déviation standard est de 0,1 m, on peut dire qu&rsquo;une personne mesurant 1,90 m a un z-score de (1,90 - 1,75) / 0,1 = 2, ce qui signifie qu&rsquo;elle est 2 écarts-types au-dessus de la moyenne.</p>
+<p>On peut également utiliser les z-scores pour faire des prévisions sur les valeurs futurs, en utilisant la loi normale.</p>
+<p><em>Vulgairement, le Z-Score nous indique à quelle distance se situe un point de la moyenne.</em></p>
+<br/>
+<p><strong>En utilisant ces trois termes ensemble</strong>, nous pouvons comprendre comment la cointégration peut être utilisée pour mesurer l&rsquo;écart entre deux séries de données et déterminer si cet écart est statistiquement significatif.</p>
+<p>Par exemple, si nous avons deux séries de données qui sont cointégrées, nous pouvons utiliser le spread pour mesurer l&rsquo;écart entre elles et le z-score pour savoir si cet écart est significatif.</p>
+<p>Si le z-score est élevé, cela signifie que l&rsquo;écart entre les deux séries de données est important et pourrait être utilisé pour ouvrir une position.</p>
+<br/>
+<h2 id="importance-de-la-stationnarité">Importance de la stationnarité</h2>
+<p>Une courbe stationnaire en trading est une courbe qui ne montre pas de tendance claire ni de variation significative de prix sur une période de temps donnée. Elle est souvent utilisée pour déterminer si un actif est en surachat ou en survente et peut aider les traders à prendre des décisions sur le moment opportun pour acheter ou vendre.</p>
+<blockquote>
+<p>Une courbe stationnaire peut être le résultat d&rsquo;une période de consolidation du marché, où les investisseurs hésitent à prendre des positions et où le prix reste stable.</p>
+</blockquote>
+<p>La stationnarité est importante en trading car elle permet de prévoir de manière plus précise les mouvements futurs des prix. En effet, lorsque les données sont stationnaires, cela signifie qu&rsquo;elles ont une moyenne et une variance constante au fil du temps et ne sont pas influencées par des événements externes. Cela permet de mettre en place des modèles de prévision fiables et de prendre des décisions de trading en toute confiance.</p>
+<p>De plus, la stationnarité est importante pour éviter les erreurs de modélisation qui peuvent entraîner des pertes financières importantes. Si les données ne sont pas stationnaires, il est possible que les modèles de prévision utilisés ne soient pas adaptés et ne reflètent pas correctement les mouvements futurs des prix.</p>
+<p>Enfin, la stationnarité est également importante car elle permet de comparer les performances des différentes stratégies de trading et de choisir celle qui est la plus adaptée. Si les données ne sont pas stationnaires, il est difficile de déterminer si une stratégie est performante ou non, car elle peut être influencée par des facteurs externes qui ne sont pas pris en compte dans les modèles de prévision.</p>
+<p>Faire des statistiques sur des données non stationnaires peut amener à des résultats inutiles.</p>
+<br/>
+<h2 id="déterminer-si-une-série-est-stationnaire">Déterminer si une série est stationnaire</h2>
+<p>Pour déterminer si une série temporelle est stationnaire ou non, on peut utiliser l&rsquo;Augmented Dickey Fuller (ADF). La stationnarité signifie que les caractéristiques de la série temporelle, telles que la moyenne et la variance, ne varient pas au fil du temps.</p>
+<p>Pour utiliser l&rsquo;ADF, nous devons d&rsquo;abord supposer qu&rsquo;une série temporelle est non stationnaire et que sa moyenne et sa variance augmentent au fil du temps. Nous testons alors cette hypothèse en utilisant l&rsquo;ADF et en comparant les résultats à une valeur seuil connue. Si les résultats de l&rsquo;ADF sont inférieurs à la valeur seuil, cela signifie que l&rsquo;hypothèse de non-stationnarité est rejetée et que la série temporelle est considérée comme stationnaire. Si les résultats de l&rsquo;ADF sont supérieurs à la valeur seuil, cela signifie que l&rsquo;hypothèse de non-stationnarité est acceptée et que la série temporelle est considérée comme non stationnaire.</p>
+<pre tabindex="0"><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+
+
+def generate_data(params):
+    mu = params[0]
+    sigma = params[1]
+    return np.random.normal(mu, sigma)
+
+def generate_series():
+    params = (0, 1)
+    T = 100
+
+    Serie_stationnaire = pd.Series(index=range(T))
+    Serie_stationnaire.name = &#39;Série stationnaire&#39;
+
+    for t in range(T):
+        Serie_stationnaire[t] = generate_data(params)
+
+    T = 100
+
+    Serie_non_stationnaire = pd.Series(index=range(T))
+    Serie_non_stationnaire.name = &#39;Série non stationnaire&#39;
+
+    for t in range(T):
+        params = (t * 0.1, 1)
+        Serie_non_stationnaire[t] = generate_data(params)
+        
+    fig, (ax1, ax2) = plt.subplots(nrows =1, ncols =2, figsize=(16,6))
+
+    ax1.plot(A)
+    ax2.plot(Serie_non_stationnaire)
+    ax1.legend([&#39;Série stationnaire&#39;])
+    ax2.legend([&#39;Série non stationnaire&#39;])
+    ax1.set_title(&#39;Stationaire&#39;)
+    ax2.set_title(&#39;Non-Stationnaire&#39;)
+    return (Serie_stationnaire, Serie_non_stationnaire)
+
+def stationarity_test(X, cutoff=0.01):
+    pvalue = adfuller(X)[1]
+    if pvalue &lt; cutoff:
+        print(f&#34;p-value = {pvalue} La série &#39;{X.name}&#39; est stationnaire&#34;)
+    else:
+        print(&#39;p-value = {pvalue} La série &#39;{X.name}&#39; est non-stationnaire&#39;)
+
+if __name__ == &#34;__main__&#34;:
+    Serie_stationnaire, Serie_non_stationnaire = generate_series()
+    stationarity_test(Serie_stationnaire)
+    stationarity_test(Serie_non_stationnaire)
+</code></pre><p><code>p-value = 7.792133892275302e-08 La série 'Série stationnaire' est stationnaire</code>
+<code>p-value = 0.9499837920490491 La série 'Série non stationnaire' est non-stationnaire</code></p>
+<p><img src="https://leandeep.com/images/stationnaire-non-stationnaire.png" alt="image"></p>
+<br/>
+<h2 id="calcul-cointégration">Calcul cointégration</h2>
+<pre tabindex="0"><code>def generate_two_series_corrolated_but_not_cointegrated()
+    X_returns = np.random.normal(1, 1, 100)
+    Y_returns = np.random.normal(2, 1, 100)
+
+    X_diverging = pd.Series(np.cumsum(X_returns), name=&#39;X&#39;)
+    Y_diverging = pd.Series(np.cumsum(Y_returns), name=&#39;Y&#39;)
+
+
+    pd.concat([X_diverging, Y_diverging], axis=1).plot(figsize=(12,6));
+    plt.xlim(0, 99)
+
+
+if __name__ == &#34;__main__&#34;:
+    X,Y = generate_two_series_corrolated_but_not_cointegrated()
+    print(&#39;Corrélation: &#39; + str(X_diverging.corr(Y_diverging)))
+    score, pvalue, _ = coint(X_diverging,Y_diverging)
+    print(&#39;Cointégration test p-value: &#39; + str(pvalue))
+</code></pre><p><code>Corrélation: 0.9984106502979461</code></p>
+<p><code>Cointegration test p-value: 0.17832558792675923</code></p>
+<p><img src="https://leandeep.com/images/correlation-mais-non-cointegration.png" alt="image"></p>
+<p>La valeur p-value nécessaire pour considérer que deux séries sont cointégrées dépend de l&rsquo;hypothèse de base de l&rsquo;analyse et de l&rsquo;importance de la précision de l&rsquo;analyse. <strong>En général, une valeur p-value inférieure à 0,05</strong> (c&rsquo;est-à-dire une probabilité inférieure à 5%) <strong>est souvent considérée comme indiquant une cointégration significative entre les deux séries</strong>. Cependant, cette valeur peut être ajustée en fonction des exigences de précision de l&rsquo;analyse et de l&rsquo;hypothèse de base.</p>
+<br/>
+<h2 id="botscreener-intéressant-à-créer">Bot/Screener intéressant à créer</h2>
+<p>Voici une petite stratégie que l&rsquo;on peut appeler Opportunité Z-score et que je laisse publique vous permettant de trouver des opportunités de trading.</p>
+<p>Vous pouvez construire un screener qui analyse le Z-index sur toutes les pairs de cryptos cointégrées et qui se met à jour toutes les heures. Pour chaque pair, il suffit de prendre une timeframe de 2 semaines et un période d'1h et regarder si le z-score a bougé fortement.</p>
+<br/>
+<h2 id="calcul-du-z-score">Calcul du z-score</h2>
+<pre tabindex="0"><code>def zscore(series):
+    return (series - series.mean()) / np.std(series)
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1321 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 janv.. 2023</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/">
+                                <span class="button__text">Data Version Control pour vos projets data ou algo-trading</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance at Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/%20posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.68628920df4cd4d5988593e35a62e4a8dad8a20217d6c78ecaddfdb8b8ac758eb757a487e273e3855fa571d25193282cbc3dd99bba288f8c9e34b1a63e6a14e9.js" integrity="sha512-aGKJIN9M1NWYhZPjWmLkqNrYogIX1seOyt39uLisdY63V6SH4nPjhV&#43;lcdJRkygsvD3Zm7ooj4yeNLGmPmoU6Q=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
