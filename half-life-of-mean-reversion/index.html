@@ -7,7 +7,7 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&amp;rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git." />
+  content="Intro Corrélation " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -23,7 +23,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/" />
+<link rel="canonical" href="https://leandeep.com/half-life-of-mean-reversion/" />
 
 
 
@@ -232,7 +232,7 @@
 
 <title>
   
-  Data Version Control pour vos projets data ou algo-trading :: Lean Deep Tech blog 
+  Half-life of mean reversion :: Lean Deep Tech blog 
   
 </title>
 
@@ -257,21 +257,21 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Data Version Control pour vos projets data ou algo-trading">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git."><meta itemprop="datePublished" content="2023-01-02T12:00:00+02:00" />
-<meta itemprop="dateModified" content="2023-01-02T12:00:00+02:00" />
-<meta itemprop="wordCount" content="370"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Trading,dvc,data science," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Half-life of mean reversion">
+<meta itemprop="description" content="Intro Corrélation "><meta itemprop="datePublished" content="2023-01-03T07:00:00+02:00" />
+<meta itemprop="dateModified" content="2023-01-03T07:00:00+02:00" />
+<meta itemprop="wordCount" content="2"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Trading," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Data Version Control pour vos projets data ou algo-trading"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git."/>
+<meta name="twitter:title" content="Half-life of mean reversion"/>
+<meta name="twitter:description" content="Intro Corrélation "/>
 
 
 
 
 
-<meta property="article:published_time" content="2023-01-02 12:00:00 &#43;0200 &#43;0200" />
+<meta property="article:published_time" content="2023-01-03 07:00:00 &#43;0200 &#43;0200" />
 
 
 
@@ -326,7 +326,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
             
 
@@ -335,89 +335,15 @@
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/">Data Version Control pour vos projets data ou algo-trading</a>
+                <a href="https://leandeep.com/half-life-of-mean-reversion/">Half-life of mean reversion</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h2 id="introduction">Introduction</h2>
-<p>Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git. C&rsquo;est simple mais excessivement efficace.</p>
-<blockquote>
-<p>Pourquoi Google Drive ?<br/>
-Il est possible de connecter DVC à plusieurs data storages. Minio est une alternative très intéressante. J&rsquo;ai déjà utilisé cet outil plusieurs fois par le passé en remplacement d&rsquo;un bucket s3 classique sur AWS. C&rsquo;est qualitatif et donc je le recommande. Néanmoins il faut le maintenir. Un abonnement Google Drive à 2 To par an coûte 100€ par an. C&rsquo;est largement <em>worth it</em> et on a largement de quoi voir venir avecc autant de stockage.</p>
-</blockquote>
-<p>Voici l&rsquo;arborescence des projets data/algo-trading que j&rsquo;utilise:</p>
-<pre tabindex="0"><code>├── README.md
-├── data
-│   └── raw
-│       ├── BTCUSDT-2017-2022-1mth.csv
-│       └── BTCUSDT-2017-2022-1mth.csv.dvc (generated)
-├── docs.md
-├── mypy.ini
-├── processes
-│   └── get_data.py
-├── pyproject.toml
-├── requirements.txt
-├── results
-│   ├── RSI-BTCUSDT-20170101-20201231-12h.csv
-...
-</code></pre><br/>
-<h2 id="setup-dvc-and-add-first-dataset">Setup dvc and add first dataset</h2>
-<pre tabindex="0"><code># cd dans_mon_repo
-git init
-git remote add origin git@github.com:...
-git branch -M master
-git push -u origin master
-git checkout -b votre_branch
-dvc init
-dvc add data/raw/BTCUSDT-2017-2022-1mth.csv 
-# cette commande génère le fichier BTCUSDT-2017-2022-1mth.csv.dvc
-# L&#39;output de la commande dvc add affiche la commande suivante à exécuter:
-git add data/raw/BTCUSDT-2017-2022-1mth.csv.dvc data/raw/.gitignore 
-git commit
-dvc remote add -d storage gdrive://uri_de_votre_dossier_sur_gdrive_le_folder_id
-git commit .dvc/config -m &#34;Configure remote storage on Google Drive&#34;
-git push origin votre_branch
-dvc push
-</code></pre><br/>
-<h2 id="récupérer-ses-data-sur-nouveau-repo-cloné">Récupérer ses data sur nouveau repo cloné</h2>
-<pre tabindex="0"><code># cd /tmp
-# git clone repo_url
-# cd repo
+                <h1 id="intro">Intro</h1>
+<h1 id="corrélation">Corrélation</h1>
 
-tree
-├── README.md
-├── data
-│   └── raw
-│       └── BTCUSDT-2017-2022-1mth.csv.dvc
-├── docs.md
-├── mypy.ini
-├── processes
-│   └── get_data.py
-├── pyproject.toml
-├── requirements.txt
-└── results
-dvc pull
-
-tree
-├── README.md
-├── data
-│   └── raw
-│       ├── BTCUSDT-2017-2022-1mth.csv
-│       └── BTCUSDT-2017-2022-1mth.csv.dvc
-├── docs.md
-├── mypy.ini
-├── processes
-│   └── get_data.py
-├── pyproject.toml
-└── results
-</code></pre><br/>
-<h2 id="git-checkout-et-récupérer-les-data-lié-au-commit">git checkout et récupérer les data lié au commit</h2>
-<pre tabindex="0"><code>git checkout mon_commit_hash
-dvc checkout
-# cela va automatiquement modifier le dataset
-</code></pre>
             </div>
         </article>
 
@@ -425,12 +351,12 @@ dvc checkout
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span><span class="tag"><a href="https://leandeep.com/tags/dvc">dvc</a></span><span class="tag"><a href="https://leandeep.com/tags/data-science">data science</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>370 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 janv.. 2023</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 janv.. 2023</p>
         </div>
 
         
@@ -443,17 +369,17 @@ dvc checkout
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/z-score/">
+                            <a href="https://leandeep.com/cointegration-vs-correlation/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Z-Score</span>
+                                <span class="button__text">Cointegration vs Correlation</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2023/">
-                                <span class="button__text">Et vous quels sont vos projets pour 2023 ?</span>
+                            <a href="https://leandeep.com/hurst-exponent/">
+                                <span class="button__text">Hurst exponent</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
