@@ -9,7 +9,7 @@
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Cointégration vs Corrélation en Trading</title>
+            <title>Cointégration vs Corrélation en trading</title>
             <link>https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/</link>
             <pubDate>Tue, 03 Jan 2023 07:00:00 +0200</pubDate>
             
@@ -147,7 +147,21 @@ if __name__ == &#34;__main__&#34;:
 <h2 id="calcul-du-z-score">Calcul du z-score</h2>
 <pre tabindex="0"><code>def zscore(series):
     return (series - series.mean()) / np.std(series)
-</code></pre>]]></content>
+</code></pre><br/>
+<h2 id="autres-indicateurs">Autres indicateurs</h2>
+<ul>
+<li>
+<p>t-value (test-value = test de valeur): Le test de valeur est utilisé pour déterminer si les deux séries peuvent être utilisées pour construire un modèle de prévision à long terme.
+Pour réaliser le test de valeur, on calcule d&rsquo;abord une régression linéaire entre les deux séries. On peut alors utiliser un test statistique, comme le test de Durbin-Watson ou le test de Breusch-Godfrey, pour vérifier si le coefficient de la régression est significativement différent de zéro. Si le coefficient est significativement différent de zéro, cela signifie que les deux séries sont cointégrées et qu&rsquo;un modèle de prévision à long terme peut être construit. Si le coefficient n&rsquo;est pas significativement différent de zéro, cela signifie que les deux séries ne sont pas cointégrées et qu&rsquo;un modèle de prévision à long terme ne peut pas être construit.</p>
+</li>
+<li>
+<p>c-value (critical value): C-value est une mesure de la force de la cointégration entre deux variables. Cela mesure à quel point les deux variables sont liées et dépendent l&rsquo;une de l&rsquo;autre à long terme. Plus le C-value est élevé, plus la cointégration est forte. Cela peut être utilisé pour évaluer la qualité de la relation entre les deux variables et pour déterminer si elles peuvent être utilisées comme base d&rsquo;un modèle de cointégration.</p>
+</li>
+</ul>
+<blockquote>
+<p>t-value doit être inférieur à c-value.</p>
+</blockquote>
+]]></content>
         </item>
         
         <item>

@@ -234,7 +234,7 @@ La corrélation, en revanche, mesure simplement la relation entre deux variables
 
 <title>
   
-  Cointégration vs Corrélation en Trading :: Lean Deep Tech blog 
+  Cointégration vs Corrélation en trading :: Lean Deep Tech blog 
   
 </title>
 
@@ -259,16 +259,16 @@ La corrélation, en revanche, mesure simplement la relation entre deux variables
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Cointégration vs Corrélation en Trading">
+<meta itemprop="name" content="Cointégration vs Corrélation en trading">
 <meta itemprop="description" content="Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
 Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&rsquo;une des variables change, l&rsquo;autre suivra également cette tendance sur une période de temps prolongée.
 La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné."><meta itemprop="datePublished" content="2023-01-03T07:00:00+02:00" />
 <meta itemprop="dateModified" content="2023-01-03T07:00:00+02:00" />
-<meta itemprop="wordCount" content="1321"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1537"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Trading," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Cointégration vs Corrélation en Trading"/>
+<meta name="twitter:title" content="Cointégration vs Corrélation en trading"/>
 <meta name="twitter:description" content="Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
 Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&rsquo;une des variables change, l&rsquo;autre suivra également cette tendance sur une période de temps prolongée.
 La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné."/>
@@ -332,7 +332,7 @@ La corrélation, en revanche, mesure simplement la relation entre deux variables
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 minutes
 
             
 
@@ -341,7 +341,7 @@ La corrélation, en revanche, mesure simplement la relation entre deux variables
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/">Cointégration vs Corrélation en Trading</a>
+                <a href="https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/">Cointégration vs Corrélation en trading</a>
             </h1>
 
             
@@ -477,7 +477,21 @@ if __name__ == &#34;__main__&#34;:
 <h2 id="calcul-du-z-score">Calcul du z-score</h2>
 <pre tabindex="0"><code>def zscore(series):
     return (series - series.mean()) / np.std(series)
-</code></pre>
+</code></pre><br/>
+<h2 id="autres-indicateurs">Autres indicateurs</h2>
+<ul>
+<li>
+<p>t-value (test-value = test de valeur): Le test de valeur est utilisé pour déterminer si les deux séries peuvent être utilisées pour construire un modèle de prévision à long terme.
+Pour réaliser le test de valeur, on calcule d&rsquo;abord une régression linéaire entre les deux séries. On peut alors utiliser un test statistique, comme le test de Durbin-Watson ou le test de Breusch-Godfrey, pour vérifier si le coefficient de la régression est significativement différent de zéro. Si le coefficient est significativement différent de zéro, cela signifie que les deux séries sont cointégrées et qu&rsquo;un modèle de prévision à long terme peut être construit. Si le coefficient n&rsquo;est pas significativement différent de zéro, cela signifie que les deux séries ne sont pas cointégrées et qu&rsquo;un modèle de prévision à long terme ne peut pas être construit.</p>
+</li>
+<li>
+<p>c-value (critical value): C-value est une mesure de la force de la cointégration entre deux variables. Cela mesure à quel point les deux variables sont liées et dépendent l&rsquo;une de l&rsquo;autre à long terme. Plus le C-value est élevé, plus la cointégration est forte. Cela peut être utilisé pour évaluer la qualité de la relation entre les deux variables et pour déterminer si elles peuvent être utilisées comme base d&rsquo;un modèle de cointégration.</p>
+</li>
+</ul>
+<blockquote>
+<p>t-value doit être inférieur à c-value.</p>
+</blockquote>
+
             </div>
         </article>
 
@@ -488,7 +502,7 @@ if __name__ == &#34;__main__&#34;:
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1321 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1537 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 janv.. 2023</p>
         </div>
