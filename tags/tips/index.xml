@@ -6,7 +6,18 @@
     <description>Recent content in tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 20 Nov 2022 09:22:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Afficher les 500 dernières bougies d&#39;une paire crypto de Binance</title>
+      <link>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</link>
+      <pubDate>Thu, 05 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</guid>
+      <description>Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&amp;rsquo;évolution du cours d&amp;rsquo;une paire crypto présente sur Binance.
+Installer les packages cctx et plotly puis créer un fichier contenant le code suivant:
+import ccxt from datetime import datetime import plotly.graph_objects as go def run(): binance = ccxt.binance() trading_pair = &amp;#34;BTC/USDT&amp;#34; candles = binance.fetch_ohlcv(trading_pair, &amp;#34;1d&amp;#34;) dates = [] open_data = [] high_data = [] low_data = [] close_data = [] for candle in candles: dates.</description>
+    </item>
+    
     <item>
       <title>Activer l&#39;IP forwarding sur une instance GCP après sa création</title>
       <link>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</link>
@@ -101,18 +112,6 @@ J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi
       <guid>https://leandeep.com/commandes-tor-utiles-pour-osx/</guid>
       <description>Voici quelques commandes utiles à ajouter à votre .zshrc pour vérifier que votre Mac est connecté ou non à Tor.
 echo &amp;#34;# Tor alias&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias myip=&amp;#39;curl -s https://api.ipify.org/&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias myiplookup=&amp;#39;ip2cc \$(curl -s https://api.ipify.org/)&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias mytorip=&amp;#39;curl -s --socks5 127.0.0.1:9050 https://api.ipify.org/&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias mytoriplookup=&amp;#39;ip2cc \$(curl -s --socks5 127.0.0.1:9050 https://api.ipify.org/)&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.zshrc echo &amp;#34;alias tor_on=&amp;#39;sudo networksetup setsocksfirewallproxy \&amp;#34;Wi-Fi\&amp;#34; 127.0.0.1 9050 &amp;amp;&amp;amp; tor&amp;#39;&amp;#34; &amp;gt;&amp;gt; ~/.</description>
-    </item>
-    
-    <item>
-      <title>Enregistrer l&#39;écran de son Mac avec le son built-in</title>
-      <link>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</link>
-      <pubDate>Mon, 02 May 2022 22:45:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/enregistrer-l%C3%A9cran-de-son-mac-avec-le-son-built-in/</guid>
-      <description>Dans cet article très court, nous allons voir comment faire un screen recording avec le son built-in à partir de Quicktime sur Mac. Pas besoin de soft payant; juste d&amp;rsquo;un driver supplémentaire open source
-Installation du driver Installer le driver virtuel permettant d&amp;rsquo;enregistrer le son built-in.
-brew install blackhole-16ch Création de nouvelles interfaces audio Ouvrir l&amp;rsquo;application officielle Apple Audio MIDI setup.
-Nous allons créer 2 interfaces audio. Une en input et une en output.</description>
     </item>
     
   </channel>

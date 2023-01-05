@@ -5,8 +5,68 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 03 Jan 2023 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 05 Jan 2023 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Afficher les 500 dernières bougies d&#39;une paire crypto de Binance</title>
+            <link>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</link>
+            <pubDate>Thu, 05 Jan 2023 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</guid>
+            <description>Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&amp;rsquo;évolution du cours d&amp;rsquo;une paire crypto présente sur Binance.
+Installer les packages cctx et plotly puis créer un fichier contenant le code suivant:
+import ccxt from datetime import datetime import plotly.graph_objects as go def run(): binance = ccxt.binance() trading_pair = &amp;#34;BTC/USDT&amp;#34; candles = binance.fetch_ohlcv(trading_pair, &amp;#34;1d&amp;#34;) dates = [] open_data = [] high_data = [] low_data = [] close_data = [] for candle in candles: dates.</description>
+            <content type="html"><![CDATA[<p>Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&rsquo;évolution du cours d&rsquo;une paire crypto présente sur Binance.</p>
+<p>Installer les packages <code>cctx</code> et <code>plotly</code> puis créer un fichier contenant le code suivant:</p>
+<pre tabindex="0"><code>import ccxt
+from datetime import datetime
+import plotly.graph_objects as go
+
+
+def run():
+    binance = ccxt.binance()
+    trading_pair = &#34;BTC/USDT&#34;
+    candles = binance.fetch_ohlcv(trading_pair, &#34;1d&#34;)
+
+    dates = []
+    open_data = []
+    high_data = []
+    low_data = []
+    close_data = []
+
+    for candle in candles:
+        dates.append(
+            datetime.fromtimestamp(candle[0] / 1000.0).strftime(
+                &#34;%Y-%m-%d %H:%M:%S.%f&#34;
+            )
+        )
+        open_data.append(candle[1])
+        high_data.append(candle[2])
+        low_data.append(candle[3])
+        close_data.append(candle[4])
+
+    fig = go.Figure(
+        data=[
+            go.Candlestick(
+                x=dates,
+                open=open_data,
+                high=high_data,
+                low=low_data,
+                close=close_data,
+            )
+        ]
+    )
+    fig.show()
+
+
+if __name__ == &#34;__main__&#34;:
+    run()
+</code></pre><br/>
+<p>Résultat:
+<img src="/images/plotly-btc-usdt.png" alt="image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Cointégration vs Corrélation en trading</title>
@@ -161,6 +221,9 @@ Pour réaliser le test de valeur, on calcule d&rsquo;abord une régression liné
 <blockquote>
 <p>t-value doit être inférieur à c-value.</p>
 </blockquote>
+<ul>
+<li>Hedge ratio: Le ratio de couverture est un concept utilisé pour décrire la proportion de la position d&rsquo;un actif qui est couverte par une autre position dans un actif de couverture. Le ratio de couverture est généralement utilisé pour minimiser le risque d&rsquo;une position en diversifiant la portefeuille. Le ratio de couverture ne garantit pas la neutralisation complète du risque, mais il peut être utilisé pour atténuer les fluctuations de la valeur de la position.</li>
+</ul>
 ]]></content>
         </item>
         
