@@ -9,13 +9,26 @@
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
+            <title>Ajouter un prefix sur les noms des fichiers d&#39;un répertoire</title>
+            <link>https://leandeep.com/ajouter-un-prefix-sur-les-noms-des-fichiers-dun-r%C3%A9pertoire/</link>
+            <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/ajouter-un-prefix-sur-les-noms-des-fichiers-dun-r%C3%A9pertoire/</guid>
+            <description>Petit tip du jour de 5 secondes pour ajouter un prefix devant tous les fichiers d&amp;rsquo;un répertoire:
+for f in * ; do mv &amp;#34;$f&amp;#34; Prefix_&amp;#34;$f&amp;#34; ; done </description>
+            <content type="html"><![CDATA[<p>Petit tip du jour de 5 secondes pour ajouter un prefix devant tous les fichiers d&rsquo;un répertoire:</p>
+<pre tabindex="0"><code>for f in * ; do mv &#34;$f&#34; Prefix_&#34;$f&#34; ; done
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Enregistrer vos playlists Youtube en mp3 ou mp4</title>
             <link>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4/</link>
             <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
             
             <guid>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4/</guid>
             <description>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&amp;rsquo;utiliser le package Python yt-dlp.
-pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist # Enregistrement mp4 yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; </description>
+pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist # Enregistrement mp4 # Best video quality yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; # Enregistrement mp4 # Worst video quality mais high quality audio yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; </description>
             <content type="html"><![CDATA[<p>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&rsquo;utiliser le package Python <code>yt-dlp</code>.</p>
 <pre tabindex="0"><code>pip install yt-dlp
 
@@ -23,7 +36,12 @@ pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audi
 yt-dlp -f &#39;ba&#39; -x --audio-format mp3 lien_vers_votre_playlist
 
 # Enregistrement mp4
+# Best video quality
 yt-dlp lien_vers_votre_playlist -f &#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&#34;
+
+# Enregistrement mp4
+# Worst video quality mais high quality audio
+yt-dlp lien_vers_votre_playlist -f &#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&#34;
 </code></pre>]]></content>
         </item>
         

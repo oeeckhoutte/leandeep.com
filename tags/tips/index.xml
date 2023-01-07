@@ -8,13 +8,23 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 07 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Ajouter un prefix sur les noms des fichiers d&#39;un répertoire</title>
+      <link>https://leandeep.com/ajouter-un-prefix-sur-les-noms-des-fichiers-dun-r%C3%A9pertoire/</link>
+      <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/ajouter-un-prefix-sur-les-noms-des-fichiers-dun-r%C3%A9pertoire/</guid>
+      <description>Petit tip du jour de 5 secondes pour ajouter un prefix devant tous les fichiers d&amp;rsquo;un répertoire:
+for f in * ; do mv &amp;#34;$f&amp;#34; Prefix_&amp;#34;$f&amp;#34; ; done </description>
+    </item>
+    
+    <item>
       <title>Enregistrer vos playlists Youtube en mp3 ou mp4</title>
       <link>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4/</link>
       <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
       
       <guid>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4/</guid>
       <description>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&amp;rsquo;utiliser le package Python yt-dlp.
-pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist # Enregistrement mp4 yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; </description>
+pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist # Enregistrement mp4 # Best video quality yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; # Enregistrement mp4 # Worst video quality mais high quality audio yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; </description>
     </item>
     
     <item>
@@ -102,16 +112,6 @@ En pré-requis, il faut avoir jq
 brew install jq
 Ensuite, il suffit d&amp;rsquo;exécuter la commande suivante:
 jq -r &amp;#39;.default | to_entries[] | .key + .value.version&amp;#39; \ Pipfile.lock &amp;gt; requirements.txt </description>
-    </item>
-    
-    <item>
-      <title>Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX</title>
-      <link>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</link>
-      <pubDate>Wed, 18 May 2022 22:59:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/corriger-lerreur-is-loading-libcrypto-in-an-unsafe-way-zsh-crash-sur-osx/</guid>
-      <description>Voici la procédure pour corriger l&amp;rsquo;erreur qui fait crasher le terminal zsh avec le message d&amp;rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
-J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&amp;rsquo;est une erreur Openssl.</description>
     </item>
     
   </channel>
