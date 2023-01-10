@@ -5,8 +5,57 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 07 Jan 2023 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 09 Jan 2023 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Terraform REPL</title>
+            <link>https://leandeep.com/terraform-repl/</link>
+            <pubDate>Mon, 09 Jan 2023 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/terraform-repl/</guid>
+            <description>Dans cet article, nous allons voir comment tester son code Terraform façon REPL. L&amp;rsquo;idée c&amp;rsquo;est de pouvoir rapidement dégainer un REPL pour pouvoir tester la bonne syntaxe de son code lorsqu&amp;rsquo;on veut le faire évoluer.
+J&amp;rsquo;ai vu qu&amp;rsquo;il y avait des projets non officiel open source sur Github comme celui-ci avec apparemment un vrai REPL mais je n&amp;rsquo;ai pas eu le temps de l&amp;rsquo;analyser et de vérifier qu&amp;rsquo;il n&amp;rsquo;y avait pas de bug et surtout de faille de sécurité.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment tester son code Terraform façon REPL.
+L&rsquo;idée c&rsquo;est de pouvoir rapidement dégainer un REPL pour pouvoir tester la bonne syntaxe de son code lorsqu&rsquo;on veut le faire évoluer.</p>
+<p>J&rsquo;ai vu qu&rsquo;il y avait des projets non officiel open source sur Github <a href="https://github.com/paololazzari/terraform-repl">comme celui-ci</a> avec apparemment un vrai REPL mais je n&rsquo;ai pas eu le temps de l&rsquo;analyser et de vérifier qu&rsquo;il n&rsquo;y avait pas de bug et surtout de faille de sécurité.</p>
+<p>Pour mon besoin simple (test de syntaxe), on peut se contenter de <code>terraform console</code>, car c&rsquo;est largement suffisant.</p>
+<br/>
+<p>Ouvrir un terminal et entrer les commandes suivantes:</p>
+<pre tabindex="0"><code>cd /tmp
+
+cat &lt;&lt;EOF &gt;test.tf
+locals {
+  ip_addresses = [&#34;127.0.0.1&#34;, &#34;0.0.0.1&#34;]
+}
+
+terraform console &lt;&lt;EOF
+concat(&#34;192.168.0.1&#34;, local.ip_addresses)
+EOF
+</code></pre><p><strong>Error en output car commande invalide:</strong></p>
+<pre tabindex="0"><code>╷
+│ Error: Invalid function argument
+│
+│   on &lt;console-input&gt; line 1:
+│   (source code not available)
+│
+│ Invalid value for &#34;seqs&#34; parameter: all arguments must be lists or tuples; got string.
+╵
+</code></pre><br/>
+<p>Même test mais avec une commande valide:</p>
+<pre tabindex="0"><code>terraform console &lt;&lt;EOF
+concat([&#34;192.168.0.1&#34;], local.ip_addresses)
+EOF
+</code></pre><p><strong>Output ok:</strong></p>
+<pre tabindex="0"><code>[
+  &#34;192.168.0.1&#34;,
+  &#34;0.0.0.1&#34;,
+  &#34;127.0.0.1&#34;,
+]
+</code></pre><br/>
+<p>Une fois terminé, <code>rm /tmp/test.tf</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>Ajouter un prefix sur les noms des fichiers d&#39;un répertoire</title>
