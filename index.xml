@@ -6,7 +6,17 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 09 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
+      <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
+      <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
+      <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
+import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
+    </item>
+    
     <item>
       <title>Terraform REPL</title>
       <link>https://leandeep.com/terraform-repl/</link>
@@ -99,16 +109,6 @@ Utilisation de Blynk Créer un compte et &amp;ldquo;skipper&amp;rdquo; tous les 
       <description>Introduction Je suis en train de créer un arrosage automatique pour mes productions de emicro-pousses et régulateur de PH/ EC pour jardin hydroponique connecté. Dans cet article, nous allons voir comment piloter la board ESP12F Relay X1 V2.1 qui embarque un esp8266.
 Je cherchais à me mettre à jour sur l&amp;rsquo;IoT et j&amp;rsquo;ai découvert les vidéos des Frères Poulain disponibles sur Youtube. Je les recommande fortement https://www.youtube.com/@lesfrerespoulain .
 Après avoir cherché plusieurs heures comment envoyer mon code sur l&amp;rsquo;esp, car bien-sûr il n&amp;rsquo;y avait pas de documentation livré avec mon colis, je me dis que cela pourrait être utile de documenter la procédure.</description>
-    </item>
-    
-    <item>
-      <title>Activer l&#39;IP forwarding sur une instance GCP après sa création</title>
-      <link>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</link>
-      <pubDate>Sun, 20 Nov 2022 09:22:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</guid>
-      <description>Introduction Dans cet article très rapide nous allons voir comment activer l&amp;rsquo;IP forwarding sur une instance GCP déjà créée. L&amp;rsquo;idée est d&amp;rsquo;éviter de l&amp;rsquo;effacer et de la recréer comme on peut le voir dans trop d&amp;rsquo;articles
-Exporter la config de votre VM ./gcloud compute instances export instance-name \ --project VOTRE-PROJET \ --zone LA-ZONE-CONTENANT-VOTRE-VM \ --destination=instance-name_export Modification de la config exportéee Editer le fichier instance-name_export et changer canIpForward: false par canIpForward: true</description>
     </item>
     
   </channel>

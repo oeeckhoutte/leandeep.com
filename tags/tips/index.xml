@@ -6,7 +6,17 @@
     <description>Recent content in tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 09 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
+      <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
+      <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
+      <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
+import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
+    </item>
+    
     <item>
       <title>Terraform REPL</title>
       <link>https://leandeep.com/terraform-repl/</link>
@@ -98,17 +108,6 @@ Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-c
       <guid>https://leandeep.com/lister-les-nouveaux-exit-nodes-sur-tor/</guid>
       <description>Si comme moi vous vous demandez à quelle fréquence des Exit Nodes sont ajoutés ou retirés du réseau Tor, alors vous aurez la réponse en exécutant le script suivant. Parfois prendre 5 minutes à écrire un script peut nous donner les réponses aux questions dont Google n&amp;rsquo;a pas la réponse.
 Python 3+ pip install requests import requests from datetime import datetime from time import sleep TOR_PROXIES_URI = &amp;#34;https://check.torproject.org/torbulkexitlist&amp;#34; previous_ips = set() while True: result = requests.</description>
-    </item>
-    
-    <item>
-      <title>Lister les desktop environments installés sur Ubuntu</title>
-      <link>https://leandeep.com/lister-les-desktop-environments-install%C3%A9s-sur-ubuntu/</link>
-      <pubDate>Thu, 26 May 2022 21:35:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/lister-les-desktop-environments-install%C3%A9s-sur-ubuntu/</guid>
-      <description>Second tiny tip du jour. Voici comment lister tous les desktop environments installés sur Ubuntu.
-ls -l /usr/share/xsessions/ Output:
--rw-r--r-- 1 root root 155 janv. 9 2021 cinnamon.desktop -rw-r--r-- 1 root root 268 janv. 9 2021 cinnamon2d.desktop -rw-r--r-- 1 root root 8192 mars 23 2020 mate.desktop -rw-r--r-- 1 root root 303 mars 26 2020 ubuntu.desktop </description>
     </item>
     
   </channel>

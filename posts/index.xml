@@ -5,8 +5,93 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 09 Jan 2023 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 14 Jan 2023 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
+            <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
+            <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
+            <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
+import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
+            <content type="html"><![CDATA[<p>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.</p>
+<pre tabindex="0"><code>import ccxt
+import calendar
+from datetime import datetime
+import pandas as pd
+import numpy as np
+from typing import List
+
+binance = ccxt.binance()
+
+
+def min_ohlcv(dt: datetime, pair: str, limit: int) -&gt; list:
+    # UTC native object
+    since = calendar.timegm(dt.utctimetuple()) * 1000
+    ohlcv1 = binance.fetch_ohlcv(
+        symbol=pair, timeframe=&#34;1m&#34;, since=since, limit=limit
+    )
+    ohlcv2 = binance.fetch_ohlcv(
+        symbol=pair, timeframe=&#34;1m&#34;, since=since, limit=limit
+    )
+    ohlcv = ohlcv1 + ohlcv2
+    return ohlcv
+
+
+def ohlcv(dt: List[str], pair: str, period: str = &#34;1d&#34;) -&gt; pd.DataFrame:
+    ohlcv = []
+    limit = 1000
+    if period == &#34;1m&#34;:
+        limit = 720
+    elif period == &#34;1d&#34;:
+        limit = 365
+    elif period == &#34;1h&#34;:
+        limit = 24
+    elif period == &#34;5m&#34;:
+        limit = 288
+    for i in dt:
+        start_dt = datetime.strptime(i, &#34;%Y%m%d&#34;)
+        since = calendar.timegm(start_dt.utctimetuple()) * 1000
+        if period == &#34;1m&#34;:
+            ohlcv.extend(min_ohlcv(start_dt, pair, limit))
+        else:
+            ohlcv.extend(
+                binance.fetch_ohlcv(
+                    symbol=pair, timeframe=period, since=since, limit=limit
+                )
+            )
+    df = pd.DataFrame(
+        ohlcv,
+        columns=[&#34;Date&#34;, &#34;Open&#34;, &#34;High&#34;, &#34;Low&#34;, &#34;Close&#34;, &#34;Volume&#34;],
+    )
+    df[&#34;Date&#34;] = [
+        datetime.fromtimestamp(float(time) / 1000) for time in df[&#34;Date&#34;]
+    ]
+    df[&#34;Open&#34;] = df[&#34;Open&#34;].astype(np.float64)
+    df[&#34;High&#34;] = df[&#34;High&#34;].astype(np.float64)
+    df[&#34;Low&#34;] = df[&#34;Low&#34;].astype(np.float64)
+    df[&#34;Close&#34;] = df[&#34;Close&#34;].astype(np.float64)
+    df[&#34;Volume&#34;] = df[&#34;Volume&#34;].astype(np.float64)
+    df.set_index(&#34;Date&#34;, inplace=True)
+    return df
+
+
+dt = [&#34;20190101&#34;, &#34;20200101&#34;]
+df = ohlcv(dt, &#34;BTC/USDT&#34;, &#34;1m&#34;)
+print(df.head())
+</code></pre><br/>
+<p>Résultat:</p>
+<pre tabindex="0"><code>                        Open     High      Low    Close     Volume
+Date
+2019-01-01 01:00:00  3701.23  3703.72  3701.09  3702.46  17.100110
+2019-01-01 01:01:00  3702.44  3702.63  3695.66  3697.04  23.700604
+2019-01-01 01:02:00  3699.42  3702.04  3696.08  3698.14  14.488615
+2019-01-01 01:03:00  3697.49  3698.19  3695.97  3696.51   8.499966
+2019-01-01 01:04:00  3697.20  3697.62  3695.00  3696.32  21.782886
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Terraform REPL</title>
