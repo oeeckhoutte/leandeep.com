@@ -6,7 +6,18 @@
     <description>Recent content in tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 14 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 15 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Utiliser des binaires NodeJS avec nvm et Xcode</title>
+      <link>https://leandeep.com/utiliser-des-binaires-nodejs-avec-nvm-et-xcode/</link>
+      <pubDate>Sun, 15 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/utiliser-des-binaires-nodejs-avec-nvm-et-xcode/</guid>
+      <description>Lorsqu&amp;rsquo;on utilise un binaire NodeJS sur xcode mais qu&amp;rsquo;on n&amp;rsquo;utilise pas NodeJS &amp;ldquo;classiquement&amp;rdquo; installé avec brew ou curl, on obtient la magnifiquer error &amp;ldquo;command not found&amp;rdquo; lorsque que Xcode build
+Correctif Pour remédier à ce problème, il suffit d&amp;rsquo;ajouter le script suivant dans la section build phase de son projet Xcode, avant bien sûr que la commande node soit exécutée.
+if [[ -s &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; ]]; then . &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; elif [[ -x &amp;#34;$(command -v brew)&amp;#34; &amp;amp;&amp;amp; -s &amp;#34;$(brew --prefix nvm)/nvm.</description>
+    </item>
+    
     <item>
       <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
       <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
@@ -98,16 +109,6 @@ Besoin d&amp;rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet 
       <guid>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</guid>
       <description>Tips très très rapide montrant comment installer Docker et Mitmproxy sur Ubuntu 22.04.
 Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-certificates curl gnupg lsb-release curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt install docker-ce docker-ce-cli containerd.io -y sudo usermod -aG docker $USER newgrp docker Vérification de l&amp;rsquo;installation de Docker docker version Démarrage du proxy mitm sur VM distante tmux docker run --rm -it -v ~/.</description>
-    </item>
-    
-    <item>
-      <title>Lister les nouveaux Exit Nodes sur Tor</title>
-      <link>https://leandeep.com/lister-les-nouveaux-exit-nodes-sur-tor/</link>
-      <pubDate>Fri, 27 May 2022 13:50:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/lister-les-nouveaux-exit-nodes-sur-tor/</guid>
-      <description>Si comme moi vous vous demandez à quelle fréquence des Exit Nodes sont ajoutés ou retirés du réseau Tor, alors vous aurez la réponse en exécutant le script suivant. Parfois prendre 5 minutes à écrire un script peut nous donner les réponses aux questions dont Google n&amp;rsquo;a pas la réponse.
-Python 3+ pip install requests import requests from datetime import datetime from time import sleep TOR_PROXIES_URI = &amp;#34;https://check.torproject.org/torbulkexitlist&amp;#34; previous_ips = set() while True: result = requests.</description>
     </item>
     
   </channel>
