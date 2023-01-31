@@ -6,7 +6,42 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 15 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Jan 2023 10:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</title>
+      <link>https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/</link>
+      <pubDate>Fri, 27 Jan 2023 10:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/</guid>
+      <description>Sans utiliser la librairie CCTX dont j&amp;rsquo;ai parlé dans l&amp;rsquo;article, voici comment récupérer directement les données OHLCV depuis l&amp;rsquo;API de Binance:
+import requests import datetime import pandas as pd import numpy as np start_date = &amp;#34;2022-01-01&amp;#34; end_date = &amp;#34;2022-01-31&amp;#34; interval = &amp;#34;1m&amp;#34; symbol = &amp;#34;BTCUSDT&amp;#34; def get_binance_data( ticker: str, interval: str = &amp;#34;4h&amp;#34;, limit: int = 500, start: str = &amp;#34;2018-01-01 00:00:00&amp;#34;, ) -&amp;gt; pd.DataFrame: &amp;#34;&amp;#34;&amp;#34;Get X (limit) OHLCV entries from Binance&amp;#34;&amp;#34;&amp;#34; columns = [ &amp;#34;open_time&amp;#34;, &amp;#34;open&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;close&amp;#34;, &amp;#34;volume&amp;#34;, &amp;#34;close_time&amp;#34;, &amp;#34;qav&amp;#34;, &amp;#34;num_trades&amp;#34;, &amp;#34;taker_base_vol&amp;#34;, &amp;#34;taker_quote_vol&amp;#34;, &amp;#34;ignore&amp;#34;, ] start = int(datetime.</description>
+    </item>
+    
+    <item>
+      <title>Installer InfluxDB 2 sur Debian 11</title>
+      <link>https://leandeep.com/installer-influxdb-2-sur-debian-11/</link>
+      <pubDate>Fri, 27 Jan 2023 09:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-influxdb-2-sur-debian-11/</guid>
+      <description>Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
+Installation de Docker apt install docker.io curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose chmod +x /usr/local/bin/docker-compose On active ensuite le service:
+systemctl enable docker systemctl start docker Installation d&amp;rsquo;InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
+Contenu du fichier docker-compose.yml:
+version: &amp;#39;3&amp;#39; services: influxdb: image: influxdb:2.</description>
+    </item>
+    
+    <item>
+      <title>Erigon full node sur Debian 11</title>
+      <link>https://leandeep.com/erigon-full-node-sur-debian-11/</link>
+      <pubDate>Fri, 27 Jan 2023 07:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/erigon-full-node-sur-debian-11/</guid>
+      <description>Installation des pré-requis Installation de go
+wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
+# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;amp;&amp;amp; chmod +x prysm.sh Ouvrir le fichier /root/.</description>
+    </item>
+    
     <item>
       <title>Utiliser des binaires NodeJS avec nvm et Xcode</title>
       <link>https://leandeep.com/utiliser-des-binaires-nodejs-avec-nvm-et-xcode/</link>
@@ -78,37 +113,6 @@ import ccxt from datetime import datetime import plotly.graph_objects as go def 
       <description>Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
 Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&amp;rsquo;une des variables change, l&amp;rsquo;autre suivra également cette tendance sur une période de temps prolongée.
 La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné.</description>
-    </item>
-    
-    <item>
-      <title>Data Version Control pour vos projets data ou algo-trading</title>
-      <link>https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/</link>
-      <pubDate>Mon, 02 Jan 2023 12:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/</guid>
-      <description>Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&amp;rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git.</description>
-    </item>
-    
-    <item>
-      <title>Et vous quels sont vos projets pour 2023 ?</title>
-      <link>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2023/</link>
-      <pubDate>Mon, 02 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2023/</guid>
-      <description>Chaque année, j&amp;rsquo;aime me fixer des objectifs professionnels en plus de mon activité principale. Depuis 3 ans je les publie sur ce blog.
-Voici mon programme pour l&amp;rsquo;année 2023:
-1. Pérennisation trading bots #TopPrio1
-Arbitrage bots Focus DeFi &amp;lt;-&amp;gt; CeFi trades automatiques en Rust Documenter les formules de prices calculations pour les différents DEXes pour point #2 Ajouter une nouvelle brique/feature (en Rust) pour sortir automatiquement les fonds sur cold wallet après trade (cold wallet sécurisé et pas chez moi.</description>
-    </item>
-    
-    <item>
-      <title>Piloter une pompe péristaltique avec un esp8266</title>
-      <link>https://leandeep.com/piloter-une-pompe-p%C3%A9ristaltique-avec-un-esp8266/</link>
-      <pubDate>Mon, 12 Dec 2022 23:10:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/piloter-une-pompe-p%C3%A9ristaltique-avec-un-esp8266/</guid>
-      <description>Introduction Cet article fait suite à mon article précédent sur l&amp;rsquo;utilisation d&amp;rsquo;une board avec esp8266. Voici ici comment piloter le relai de la même board ESP12F Relay X1 V2.1 en utilisant Blynk. C&amp;rsquo;est plus une prise de notes pour partage et reminder personel pour réutilisation future.
-Utilisation de Blynk Créer un compte et &amp;ldquo;skipper&amp;rdquo; tous les quickstart guides et tutorials. Créer un nouveau template. Donnez lui le nom que vous souhaitez.</description>
     </item>
     
   </channel>

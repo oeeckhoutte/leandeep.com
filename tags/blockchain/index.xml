@@ -6,7 +6,19 @@
     <description>Recent content in Blockchain on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 15 Sep 2022 04:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Jan 2023 07:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Erigon full node sur Debian 11</title>
+      <link>https://leandeep.com/erigon-full-node-sur-debian-11/</link>
+      <pubDate>Fri, 27 Jan 2023 07:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/erigon-full-node-sur-debian-11/</guid>
+      <description>Installation des pré-requis Installation de go
+wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
+# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;amp;&amp;amp; chmod +x prysm.sh Ouvrir le fichier /root/.</description>
+    </item>
+    
     <item>
       <title>Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</title>
       <link>https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/</link>
@@ -61,10 +73,10 @@ https://rpc.ankr.com/near https://near.public-rpc.com Own node</description>
       
       <guid>https://leandeep.com/utiliser-erigon-pour-ses-nodes-sur-ubuntu-20.04/</guid>
       <description>Installation Go wget https://dl.google.com/go/go1.18.linux-amd64.tar.gz sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz Editer ~/.profile et ajouter les commandes suivantes
-export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version Installation Erigon cd /data/ git clone git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon Run Polygon
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH source ~/.profile go version Installation Erigon cd /data/ git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git cd erigon make erigon Run Polygon
 mkdir /data/bor-mainnet ./build/bin/erigon --datadir=&amp;#34;/data/bor-mainnet&amp;#34; --chain=bor-mainnet --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon BSC
 Archive Node:
-mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.</description>
+mkdir /data/bsc ./build/bin/erigon --datadir=&amp;#34;/data/bsc&amp;#34; --chain=bsc --port=30303 --http.port=8545 --torrent.port=42069 --private.api.addr=127.0.0.1:9090 --http --ws --http.api=eth,debug,net,trace,web3,erigon Pruned Node:</description>
     </item>
     
     <item>
@@ -124,17 +136,6 @@ curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39
       <guid>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-aave/</guid>
       <description>Dans cet article nous allons voir comment réaliser un Flashloan sur Aave. Nous allons emprunter $1 000 000 et le rembourser instantanément avec 0.09% de frais. Pour emprunter $1 000 000 et faire ce qu&amp;rsquo;on veut avec tant qu&amp;rsquo;il est remboursé dans la même transaction, on ne va payer que $900 d&amp;rsquo;intérêt&amp;hellip;
 Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle</description>
-    </item>
-    
-    <item>
-      <title>Smart contract development: Emprunter 1 million de DAI (~dollars) avec un flashloan sur DyDx</title>
-      <link>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-dydx/</link>
-      <pubDate>Fri, 05 Nov 2021 08:08:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/smart-contract-development-emprunter-1-million-de-dai-~dollars-avec-un-flashloan-sur-dydx/</guid>
-      <description>Dans cet article nous allons voir comment réaliser un Flashloan sur DyDx. Nous allons emprunter $1 000 000 et le rembourser instantanément avec des frais seulement de 2 wei. Crazy !
-Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
-Création du Smart contract Créer un fichier SimpleDyDxFlashloan.sol dans le répertoire contracts/simple-dydx-flashloan de votre repo git et ajouter le contenu suivant:</description>
     </item>
     
   </channel>
