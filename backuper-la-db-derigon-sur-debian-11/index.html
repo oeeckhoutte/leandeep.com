@@ -7,8 +7,7 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Sans utiliser la librairie CCTX dont j&amp;rsquo;ai parlé dans l&amp;rsquo;article, voici comment récupérer directement les données OHLCV depuis l&amp;rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &amp;#34;2022-01-01&amp;#34; end_date = &amp;#34;2022-01-31&amp;#34; interval = &amp;#34;1m&amp;#34; symbol = &amp;#34;BTCUSDT&amp;#34; def get_binance_data( ticker: str, interval: str = &amp;#34;4h&amp;#34;, limit: int = 500, start: str = &amp;#34;2018-01-01 00:00:00&amp;#34;, ) -&amp;gt; pd.DataFrame: &amp;#34;&amp;#34;&amp;#34;Get X (limit) OHLCV entries from Binance&amp;#34;&amp;#34;&amp;#34; columns = [ &amp;#34;open_time&amp;#34;, &amp;#34;open&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;close&amp;#34;, &amp;#34;volume&amp;#34;, &amp;#34;close_time&amp;#34;, &amp;#34;qav&amp;#34;, &amp;#34;num_trades&amp;#34;, &amp;#34;taker_base_vol&amp;#34;, &amp;#34;taker_quote_vol&amp;#34;, &amp;#34;ignore&amp;#34;, ] start = int(datetime." />
+  content="Pour backuper les data de votre Node Erigon, rien de tel qu&amp;rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&amp;rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&amp;rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&amp;rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -24,7 +23,7 @@ import requests import datetime import pandas as pd import numpy as np start_dat
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/" />
+<link rel="canonical" href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/" />
 
 
 
@@ -233,7 +232,7 @@ import requests import datetime import pandas as pd import numpy as np start_dat
 
 <title>
   
-  Créer un dataset avec les données Binance OHLCV pour réaliser des backtests :: Lean Deep Tech blog 
+  Backuper la DB d&#39;Erigon sur Debian 11 :: Lean Deep Tech blog 
   
 </title>
 
@@ -258,23 +257,21 @@ import requests import datetime import pandas as pd import numpy as np start_dat
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Créer un dataset avec les données Binance OHLCV pour réaliser des backtests">
-<meta itemprop="description" content="Sans utiliser la librairie CCTX dont j&rsquo;ai parlé dans l&rsquo;article, voici comment récupérer directement les données OHLCV depuis l&rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime."><meta itemprop="datePublished" content="2023-01-27T10:49:00+02:00" />
-<meta itemprop="dateModified" content="2023-01-27T10:49:00+02:00" />
-<meta itemprop="wordCount" content="204"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Backtesting,Backtest,Binance,OHLCV,Pandas,Dataset,tips," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Backuper la DB d&#39;Erigon sur Debian 11">
+<meta itemprop="description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB."><meta itemprop="datePublished" content="2023-02-03T07:49:00+02:00" />
+<meta itemprop="dateModified" content="2023-02-03T07:49:00+02:00" />
+<meta itemprop="wordCount" content="188"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Blockchain,Linux,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Créer un dataset avec les données Binance OHLCV pour réaliser des backtests"/>
-<meta name="twitter:description" content="Sans utiliser la librairie CCTX dont j&rsquo;ai parlé dans l&rsquo;article, voici comment récupérer directement les données OHLCV depuis l&rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime."/>
+<meta name="twitter:title" content="Backuper la DB d&#39;Erigon sur Debian 11"/>
+<meta name="twitter:description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB."/>
 
 
 
 
 
-<meta property="article:published_time" content="2023-01-27 10:49:00 &#43;0200 &#43;0200" />
+<meta property="article:published_time" content="2023-02-03 07:49:00 &#43;0200 &#43;0200" />
 
 
 
@@ -338,85 +335,39 @@ import requests import datetime import pandas as pd import numpy as np start_dat
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/">Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</a>
+                <a href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/">Backuper la DB d&rsquo;Erigon sur Debian 11</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Sans utiliser la librairie CCTX dont j&rsquo;ai parlé <a href="https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/">dans l&rsquo;article</a>, voici comment récupérer directement les données OHLCV depuis l&rsquo;API de Binance:</p>
-<pre tabindex="0"><code>import requests
-import datetime
-import pandas as pd
-import numpy as np
+                <p>Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB.</p>
+<p>Dans cet article très court nous allons voir comment formater un disk de backup (ici <code>sda</code>), le monter sur Debian et l&rsquo;utiliser pour backuper Erigon.</p>
+<blockquote>
+<p>Pré-requis: <code>apt-get install progress</code> (petit utilitaire utile pour suivre la progression de la copie entre 2 disques tellement la DB est volumineuse)</p>
+</blockquote>
+<br/>
+<h2 id="lister-les-disques-présent">Lister les disques présent</h2>
+<pre tabindex="0"><code>lsblk -f
+</code></pre><br/>
+<h2 id="formatage-en-ext4">Formatage en ext4</h2>
+<pre tabindex="0"><code>mkfs -t ext4 /dev/sda1
+lsblk -f
+</code></pre><br/>
+<h2 id="montage">Montage</h2>
+<pre tabindex="0"><code>mkdir -p /backup
+mount -t auto /dev/sda1 /backup
+</code></pre><br/>
+<h2 id="backup">Backup</h2>
+<pre tabindex="0"><code>systemctl stop erigon-rpc.service
+systemctl stop erigon.service
+cp -R /backup/erigon /backup/erigon-$(date +&#34;%d-%m-%Y&#34;)
+rm -r /backup/erigon
+cp -R /erigon /backup/erigon &amp; progress -mp $!
+systemctl start erigon.service
+systemctl start erigon-rpc.service
+</code></pre><p>Voilà maintenant je peux tester l&rsquo;upgrade d&rsquo;Erigon sans trop de risque.</p>
 
-start_date = &#34;2022-01-01&#34;
-end_date = &#34;2022-01-31&#34;
-interval = &#34;1m&#34;
-symbol = &#34;BTCUSDT&#34;
-
-
-def get_binance_data(
-    ticker: str,
-    interval: str = &#34;4h&#34;,
-    limit: int = 500,
-    start: str = &#34;2018-01-01 00:00:00&#34;,
-) -&gt; pd.DataFrame:
-    &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34;
-    columns = [
-        &#34;open_time&#34;,
-        &#34;open&#34;,
-        &#34;high&#34;,
-        &#34;low&#34;,
-        &#34;close&#34;,
-        &#34;volume&#34;,
-        &#34;close_time&#34;,
-        &#34;qav&#34;,
-        &#34;num_trades&#34;,
-        &#34;taker_base_vol&#34;,
-        &#34;taker_quote_vol&#34;,
-        &#34;ignore&#34;,
-    ]
-    start = int(datetime.datetime.timestamp(pd.to_datetime(start)) * 1000)
-    base_url = &#34;https://www.binance.com/api/v3/klines&#34;
-    query_params = (
-        f&#34;?symbol={ticker}&amp;interval={interval}&amp;limit={limit}&amp;startTime={start}&#34;
-    )
-    url = base_url + query_params
-    data = pd.DataFrame(
-        requests.get(url).json(), columns=columns, dtype=np.float
-    )
-    data.index = [
-        pd.to_datetime(x, unit=&#34;ms&#34;).strftime(&#34;%Y-%m-%d %H:%M:%S&#34;)
-        for x in data.open_time
-    ]
-    use_cols = [
-        &#34;open&#34;,
-        &#34;high&#34;,
-        &#34;low&#34;,
-        &#34;close&#34;,
-        &#34;volume&#34;,
-        &#34;qav&#34;,
-        &#34;num_trades&#34;,
-        &#34;taker_base_vol&#34;,
-        &#34;taker_quote_vol&#34;,
-    ]
-    data = data[use_cols]
-    return data
-
-
-if __name__ == &#34;__main__&#34;:
-    df = get_binance_data(&#34;BTCUSDT&#34;, &#34;1m&#34;)
-    print(df.head())
-</code></pre><p><br/>
-Résultat:</p>
-<pre tabindex="0"><code>                         open      high       low  ...  num_trades  taker_base_vol  taker_quote_vol
-2017-12-31 23:00:00  13829.97  13829.99  13804.29  ...        44.0        1.164005     16097.885201
-2017-12-31 23:01:00  13829.97  13829.97  13788.86  ...        57.0        2.079160     28704.375784
-2017-12-31 23:02:00  13788.88  13804.27  13784.61  ...        57.0        1.619601     22352.031033
-2017-12-31 23:03:00  13799.98  13799.98  13777.59  ...        71.0        3.725320     51357.627303
-2017-12-31 23:04:00  13788.83  13788.83  13700.01  ...        91.0        2.388566     32905.122453
-</code></pre>
             </div>
         </article>
 
@@ -424,12 +375,12 @@ Résultat:</p>
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/backtesting">Backtesting</a></span><span class="tag"><a href="https://leandeep.com/tags/backtest">Backtest</a></span><span class="tag"><a href="https://leandeep.com/tags/binance">Binance</a></span><span class="tag"><a href="https://leandeep.com/tags/ohlcv">OHLCV</a></span><span class="tag"><a href="https://leandeep.com/tags/pandas">Pandas</a></span><span class="tag"><a href="https://leandeep.com/tags/dataset">Dataset</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>204 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>188 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27 janv.. 2023</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 févr.. 2023</p>
         </div>
 
         
@@ -441,18 +392,11 @@ Résultat:</p>
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Backuper la DB d&#39;Erigon sur Debian 11</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-influxdb-2-sur-debian-11/">
-                                <span class="button__text">Installer InfluxDB 2 sur Debian 11</span>
+                            <a href="https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/">
+                                <span class="button__text">Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
