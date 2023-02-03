@@ -7,7 +7,7 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour backuper les data de votre Node Erigon, rien de tel qu&amp;rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&amp;rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&amp;rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&amp;rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB." />
+  content="Pour backuper les data de votre Node Erigon, rien de tel qu&amp;rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&amp;rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&amp;rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&amp;rsquo;ajouter un endpoint RPC non disponible dans l&amp;rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&amp;rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -258,14 +258,14 @@
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Backuper la DB d&#39;Erigon sur Debian 11">
-<meta itemprop="description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB."><meta itemprop="datePublished" content="2023-02-03T07:49:00+02:00" />
+<meta itemprop="description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&rsquo;ajouter un endpoint RPC non disponible dans l&rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB."><meta itemprop="datePublished" content="2023-02-03T07:49:00+02:00" />
 <meta itemprop="dateModified" content="2023-02-03T07:49:00+02:00" />
-<meta itemprop="wordCount" content="188"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="201"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Blockchain,Linux,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Backuper la DB d&#39;Erigon sur Debian 11"/>
-<meta name="twitter:description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB."/>
+<meta name="twitter:description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&rsquo;ajouter un endpoint RPC non disponible dans l&rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB."/>
 
 
 
@@ -341,8 +341,8 @@
             
 
             <div class="post-content">
-                <p>Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso. Comme je ne suis pas certain que mon dev est safe car c&rsquo;est mon premier dev sur un client Ethereum, je préfère faire un backup de ma DB.</p>
-<p>Dans cet article très court nous allons voir comment formater un disk de backup (ici <code>sda</code>), le monter sur Debian et l&rsquo;utiliser pour backuper Erigon.</p>
+                <p>Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&rsquo;ajouter un endpoint RPC non disponible dans l&rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB.</p>
+<p>Dans cet article très court nous allons donc voir comment formater un disk de backup (ici <code>sda</code>), le monter sur Debian et l&rsquo;utiliser pour backuper Erigon.</p>
 <blockquote>
 <p>Pré-requis: <code>apt-get install progress</code> (petit utilitaire utile pour suivre la progression de la copie entre 2 disques tellement la DB est volumineuse)</p>
 </blockquote>
@@ -378,7 +378,7 @@ systemctl start erigon-rpc.service
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>188 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>201 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 févr.. 2023</p>
         </div>
