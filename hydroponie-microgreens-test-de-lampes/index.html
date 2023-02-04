@@ -7,7 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour backuper les data de votre Node Erigon, rien de tel qu&amp;rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&amp;rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&amp;rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&amp;rsquo;ajouter un endpoint RPC non disponible dans l&amp;rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&amp;rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB." />
+  content="Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.
+Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.
+C&amp;rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&amp;rsquo;apporter de l&amp;rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -23,7 +25,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/" />
+<link rel="canonical" href="https://leandeep.com/hydroponie-microgreens-test-de-lampes/" />
 
 
 
@@ -232,7 +234,7 @@
 
 <title>
   
-  Backuper la DB d&#39;Erigon sur Debian 11 :: Lean Deep Tech blog 
+  Hydroponie &amp; microgreens - Test de lampes :: Lean Deep Tech blog 
   
 </title>
 
@@ -257,15 +259,19 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Backuper la DB d&#39;Erigon sur Debian 11">
-<meta itemprop="description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&rsquo;ajouter un endpoint RPC non disponible dans l&rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB."><meta itemprop="datePublished" content="2023-02-03T07:49:00+02:00" />
+<meta itemprop="name" content="Hydroponie &amp; microgreens - Test de lampes">
+<meta itemprop="description" content="Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.
+Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.
+C&rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&rsquo;apporter de l&rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser."><meta itemprop="datePublished" content="2023-02-03T07:49:00+02:00" />
 <meta itemprop="dateModified" content="2023-02-03T07:49:00+02:00" />
-<meta itemprop="wordCount" content="201"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Blockchain,Linux,tips," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="wordCount" content="724"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Hydroponie,Agritech," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Backuper la DB d&#39;Erigon sur Debian 11"/>
-<meta name="twitter:description" content="Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&rsquo;ajouter un endpoint RPC non disponible dans l&rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB."/>
+<meta name="twitter:title" content="Hydroponie &amp; microgreens - Test de lampes"/>
+<meta name="twitter:description" content="Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.
+Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.
+C&rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&rsquo;apporter de l&rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser."/>
 
 
 
@@ -326,7 +332,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
 
             
 
@@ -335,38 +341,75 @@
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/">Backuper la DB d&rsquo;Erigon sur Debian 11</a>
+                <a href="https://leandeep.com/hydroponie-microgreens-test-de-lampes/">Hydroponie &amp; microgreens - Test de lampes</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Pour backuper les data de votre Node Erigon, rien de tel qu&rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&rsquo;ajouter un endpoint RPC non disponible dans l&rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB.</p>
-<p>Dans cet article très court nous allons donc voir comment formater un disk de backup (ici <code>sda</code>), le monter sur Debian et l&rsquo;utiliser pour backuper Erigon.</p>
+                <p>Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.</p>
+<p>Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.</p>
+<p>C&rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&rsquo;apporter de l&rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser. Le tout dans un esprit DIY, créatif et surtout respectueux de l&rsquo;environnement. Mon idée est de pouvoir produire des légumes bio toute l&rsquo;année, <strong>sans effort</strong> (très important mais passion première n&rsquo;est pas du tout le jardinage) et des micro-pousses pour leurs richesses nutitionnelles.</p>
+<p>Malgré le fait que mes arrières grands-parents étaient agriculteurs et que mes grands-parents et parents ont des potagers (de compétition), personnellement je n&rsquo;y connais absolument rien. J&rsquo;ai envi de faire les choses différemment (très futuristes en prenant en compte les contraintes environmentales à venir). Dans ces articles je ne fais que simplement partager mes notes et expériences sur ce sujet.</p>
+<br/>
+<h2 id="choix-des-lampes">Choix des lampes</h2>
+<p>Mes premières expérimentations de culture de micropousses se sont faites d&rsquo;abord sans lampe horticole. Ce fut un fiasco, les micropousses ont filés. J&rsquo;avais laissé poussé des bacs de culture en intérieur placés devant ma fenêtre en été mais cela n&rsquo;a rien donné. En mode &ldquo;baby step&rdquo; (&ldquo;Agile un jour Agile toujours&rdquo;) et afin d&rsquo;expérimenter, je me suis procuré une petite lampe à LED chinoise avec beaucoup d&rsquo;avis positifs sur Amazon et j&rsquo;ai réussi à faire pousser pas mal de micro-pousses. L&rsquo;inconvénient de cette lampe plutôt <em>cheap</em> c&rsquo;est qu&rsquo;elle n&rsquo;est pas très grande et pas très puissante. Il est donc difficile de produire en masse. J&rsquo;en ai donc acheté une lampe à LED plus grande mais recommandée nulle part. En effet, comme je vais devoir acheter des dizaines de lampes (et oui, il faut bien les 7 fruits et légumes par jours tous les jours de l&rsquo;année + des smoothies concentrés en micro-pousses pour les vitamines), je préfère commencer par dépenser 30 euros en testant une lampe et me faire ma propre idée avant d&rsquo;investir dans des lampes à 300 euros pièces malgré qu&rsquo;elles soient recommendées sur des sites spécialisés en horticulture&hellip;</p>
+<p>Si j&rsquo;obtient un résultat similaire à celui obtenu avec ma lampe chinoise, mais sur une surface beaucoup grande cela m&rsquo;irait très bien. J&rsquo;aurais 10 lampes pour le prix d&rsquo;une&hellip; Ou plutot je dépenserai 300 euros plutôt que 3000. <a href="https://www.youtube.com/watch?v=8VSFjyF3B5E">&ldquo;Moi je pense que la question elle est vite répondu&rdquo;</a></p>
 <blockquote>
-<p>Pré-requis: <code>apt-get install progress</code> (petit utilitaire utile pour suivre la progression de la copie entre 2 disques tellement la DB est volumineuse)</p>
+<p>Les lampes seront branchées sur un panneau solaire et/ou éolienne(s) DIY</p>
 </blockquote>
 <br/>
-<h2 id="lister-les-disques-présent">Lister les disques présent</h2>
-<pre tabindex="0"><code>lsblk -f
-</code></pre><br/>
-<h2 id="formatage-en-ext4">Formatage en ext4</h2>
-<pre tabindex="0"><code>mkfs -t ext4 /dev/sda1
-lsblk -f
-</code></pre><br/>
-<h2 id="montage">Montage</h2>
-<pre tabindex="0"><code>mkdir -p /backup
-mount -t auto /dev/sda1 /backup
-</code></pre><br/>
-<h2 id="backup">Backup</h2>
-<pre tabindex="0"><code>systemctl stop erigon-rpc.service
-systemctl stop erigon.service
-cp -R /backup/erigon /backup/erigon-$(date +&#34;%d-%m-%Y&#34;)
-rm -r /backup/erigon
-cp -R /erigon /backup/erigon &amp; progress -mp $!
-systemctl start erigon.service
-systemctl start erigon-rpc.service
-</code></pre><p>Voilà maintenant je peux tester l&rsquo;upgrade d&rsquo;Erigon sans trop de risque.</p>
+<h2 id="expérimentation">Expérimentation</h2>
+<p>6 pots de culture sur essuie-tout</p>
+<blockquote>
+<p>Je profite de cet expérimentation pour tester la germination d&rsquo;une graine à mucilage (roquette bio) en faisant 4 pots au lieu de 2: 2 pots avec trempage et 2 pots sans trempage pour voir comment réagissent ces graines si on les pré-trempe.</p>
+</blockquote>
+<ul>
+<li>1 pot de roquette sous lampe chinoise avec trempage</li>
+<li>1 pot de roquette sous lampe chinoise sans trempage</li>
+<li>1 pot de roquette sous nouvelle lampe avec trempage</li>
+<li>1 pot de roquette sous nouvelle lampe sans trempage</li>
+<li>1 pot de raifort sous lampe chinoise avec trempage</li>
+<li>1 pot de raifort sous nouvelle lampe avec trempage</li>
+</ul>
+<p>Temps de trempage:
+4h petites graines et 8h pour les grandes. Donc on ramène tout à 8h.</p>
+<p>Les Résultats seront dans 15 jours.</p>
+<blockquote>
+<p>Bien sûr, malgré le fait que 4 pots / 6 ont des graines avec trempage, on démarre tout en même temps.</p>
+</blockquote>
+<br/>
+<h2 id="autres-graines-à-mucilage">Autres graines à mucilage</h2>
+<ul>
+<li>Basilic</li>
+<li>Cameline</li>
+<li>Chia</li>
+<li>Cresson</li>
+<li>Cressonnette</li>
+<li>Lin</li>
+<li>Moutarde</li>
+<li>Pourpier</li>
+<li>Perilla</li>
+<li>Roquette</li>
+</ul>
+<br/>
+<h2 id="autres-notes">Autres notes</h2>
+<p><strong>Pour micro-pousses dans terreau (1cm d&rsquo;épaisseur):</strong></p>
+<ul>
+<li>Laisser les poids sur bac de culture environ 4j à 5j pour le sarazin. Donc plantes dans l&rsquo;obscurité pendant toute cette période.</li>
+<li>Pour tournesol on est plus sur 6j dans le noir sous poids.</li>
+<li>Arroser tous les matins et tous les soirs</li>
+</ul>
+<br/>
+<p><strong>Laitue avec méthode Kratky:</strong></p>
+<ul>
+<li>Résultat avec utilisation de laine de coco + Engrais liquide bio (1/4 de bouchon dilué dans 3/4 de litre d&rsquo;eau): attendre 6 à 7 jours pour voir sortir la pousse.</li>
+</ul>
+<br/>
+<p><strong>Astuce fun:</strong></p>
+<ul>
+<li>Récupérer boites à œufs biodégradables et coquilles d&rsquo;œufs pour laisser pousser les micro-pousses restantes avant de recommencer un nouveau bac.</li>
+</ul>
 
             </div>
         </article>
@@ -375,10 +418,10 @@ systemctl start erigon-rpc.service
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/hydroponie">Hydroponie</a></span><span class="tag"><a href="https://leandeep.com/tags/agritech">Agritech</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>201 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>724 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 févr.. 2023</p>
         </div>
@@ -392,11 +435,18 @@ systemctl start erigon-rpc.service
 
                 <div class="pagination__buttons">
                     
+                        <span class="button previous">
+                            <a href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Backuper la DB d&#39;Erigon sur Debian 11</span>
+                            </a>
+                        </span>
+                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/hydroponie-microgreens-test-de-lampes/">
-                                <span class="button__text">Hydroponie &amp; microgreens - Test de lampes</span>
+                            <a href="https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/">
+                                <span class="button__text">Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
