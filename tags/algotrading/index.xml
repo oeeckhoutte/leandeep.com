@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AlgoTrading on Lean Deep Tech blog</title>
+    <link>https://leandeep.com/tags/algotrading/</link>
+    <description>Recent content in AlgoTrading on Lean Deep Tech blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 27 Jan 2023 10:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/algotrading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</title>
+      <link>https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/</link>
+      <pubDate>Fri, 27 Jan 2023 10:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/</guid>
+      <description>Sans utiliser la librairie CCTX dont j&amp;rsquo;ai parlé dans l&amp;rsquo;article, voici comment récupérer directement les données OHLCV depuis l&amp;rsquo;API de Binance:
+import requests import datetime import pandas as pd import numpy as np start_date = &amp;#34;2022-01-01&amp;#34; end_date = &amp;#34;2022-01-31&amp;#34; interval = &amp;#34;1m&amp;#34; symbol = &amp;#34;BTCUSDT&amp;#34; def get_binance_data( ticker: str, interval: str = &amp;#34;4h&amp;#34;, limit: int = 500, start: str = &amp;#34;2018-01-01 00:00:00&amp;#34;, ) -&amp;gt; pd.DataFrame: &amp;#34;&amp;#34;&amp;#34;Get X (limit) OHLCV entries from Binance&amp;#34;&amp;#34;&amp;#34; columns = [ &amp;#34;open_time&amp;#34;, &amp;#34;open&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;close&amp;#34;, &amp;#34;volume&amp;#34;, &amp;#34;close_time&amp;#34;, &amp;#34;qav&amp;#34;, &amp;#34;num_trades&amp;#34;, &amp;#34;taker_base_vol&amp;#34;, &amp;#34;taker_quote_vol&amp;#34;, &amp;#34;ignore&amp;#34;, ] start = int(datetime.</description>
+    </item>
+    
+    <item>
+      <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
+      <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
+      <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
+      <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
+import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
+    </item>
+    
+    <item>
+      <title>Afficher les 500 dernières bougies d&#39;une paire crypto de Binance</title>
+      <link>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</link>
+      <pubDate>Thu, 05 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</guid>
+      <description>Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&amp;rsquo;évolution du cours d&amp;rsquo;une paire crypto présente sur Binance.
+Installer les packages cctx et plotly puis créer un fichier contenant le code suivant:
+import ccxt from datetime import datetime import plotly.graph_objects as go def run(): binance = ccxt.binance() trading_pair = &amp;#34;BTC/USDT&amp;#34; candles = binance.fetch_ohlcv(trading_pair, &amp;#34;1d&amp;#34;) dates = [] open_data = [] high_data = [] low_data = [] close_data = [] for candle in candles: dates.</description>
+    </item>
+    
+    <item>
+      <title>Cointégration vs Corrélation en trading</title>
+      <link>https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/</link>
+      <pubDate>Tue, 03 Jan 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/coint%C3%A9gration-vs-corr%C3%A9lation-en-trading/</guid>
+      <description>Introduction Miser sur la corrélation entre différents assets pour faire du pair trading est une mauvaise idée. Il vaut mieux miser sur la cointégration.
+Corrélation vs Cointégration La cointégration est une relation statistique entre deux variables qui évoluent de manière similaire à long terme. Cela signifie que si l&amp;rsquo;une des variables change, l&amp;rsquo;autre suivra également cette tendance sur une période de temps prolongée.
+La corrélation, en revanche, mesure simplement la relation entre deux variables à un moment donné.</description>
+    </item>
+    
+    <item>
+      <title>Data Version Control pour vos projets data ou algo-trading</title>
+      <link>https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/</link>
+      <pubDate>Mon, 02 Jan 2023 12:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/data-version-control-pour-vos-projets-data-ou-algo-trading/</guid>
+      <description>Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&amp;rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git.</description>
+    </item>
+    
+    <item>
+      <title>Afficher les spreads des produits dérivés dans Tradingview</title>
+      <link>https://leandeep.com/afficher-les-spreads-des-produits-d%C3%A9riv%C3%A9s-dans-tradingview/</link>
+      <pubDate>Wed, 24 Nov 2021 19:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/afficher-les-spreads-des-produits-d%C3%A9riv%C3%A9s-dans-tradingview/</guid>
+      <description>Aujourd&amp;rsquo;hui j&amp;rsquo;écris mon premier article sur le trading. J&amp;rsquo;avais déjà écrit un article sur la finance en parlant d&amp;rsquo;un outil que j&amp;rsquo;avais construit pour suivre les mouvements des fonds d&amp;rsquo;investissement via le RPA (Robotic Process Automation) mais jamais sur le trading.
+Nous allons voir comment afficher les spreads dans Tradingview en construisant son propre indicateur EMA (Exponential Moving Average) sur 13 périodes. Voici la démarche à suivre à travers cette vidéo.</description>
+    </item>
+    
+  </channel>
+</rss>
