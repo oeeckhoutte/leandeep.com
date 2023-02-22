@@ -6,7 +6,19 @@
     <description>Recent content in tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 14 Feb 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Feb 2023 07:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Switcher entre releases Erigon</title>
+      <link>https://leandeep.com/switcher-entre-releases-erigon/</link>
+      <pubDate>Sat, 18 Feb 2023 07:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/switcher-entre-releases-erigon/</guid>
+      <description>J&amp;rsquo;ai déjà écrit plusieurs articles très similaires sur le sujet. Cette procédure décrit comment rapidement switcher de release Erigon pour tester une nouvelle feature ou vérifier qu&amp;rsquo;un fix fonctionne bien. En gros, cela me permet de switcher de release en release avec Erigon.
+Voir l&amp;rsquo;article suivant pour une full installation.
+Bien sûr commencer par un backup. Voir cet article
+Erigon build mkdir /root/erigon_release_2_38_1/ cd /root/erigon_release_2_38_1/ git clone https://github.com/ledgerwatch/erigon.git cd erigon git checkout 52fd6d60e180a267e99a25662f169797570e356e make erigon make rpcdaemon Création du service</description>
+    </item>
+    
     <item>
       <title>Bonnes résines pour maxi dureté en impression 3D</title>
       <link>https://leandeep.com/bonnes-r%C3%A9sines-pour-maxi-duret%C3%A9-en-impression-3d/</link>
@@ -97,16 +109,6 @@ pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audi
       <description>Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&amp;rsquo;évolution du cours d&amp;rsquo;une paire crypto présente sur Binance.
 Installer les packages cctx et plotly puis créer un fichier contenant le code suivant:
 import ccxt from datetime import datetime import plotly.graph_objects as go def run(): binance = ccxt.binance() trading_pair = &amp;#34;BTC/USDT&amp;#34; candles = binance.fetch_ohlcv(trading_pair, &amp;#34;1d&amp;#34;) dates = [] open_data = [] high_data = [] low_data = [] close_data = [] for candle in candles: dates.</description>
-    </item>
-    
-    <item>
-      <title>Activer l&#39;IP forwarding sur une instance GCP après sa création</title>
-      <link>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</link>
-      <pubDate>Sun, 20 Nov 2022 09:22:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/activer-lip-forwarding-sur-une-instance-gcp-apr%C3%A8s-sa-cr%C3%A9ation/</guid>
-      <description>Introduction Dans cet article très rapide nous allons voir comment activer l&amp;rsquo;IP forwarding sur une instance GCP déjà créée. L&amp;rsquo;idée est d&amp;rsquo;éviter de l&amp;rsquo;effacer et de la recréer comme on peut le voir dans trop d&amp;rsquo;articles
-Exporter la config de votre VM ./gcloud compute instances export instance-name \ --project VOTRE-PROJET \ --zone LA-ZONE-CONTENANT-VOTRE-VM \ --destination=instance-name_export Modification de la config exportéee Editer le fichier instance-name_export et changer canIpForward: false par canIpForward: true</description>
     </item>
     
   </channel>

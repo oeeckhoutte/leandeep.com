@@ -6,7 +6,28 @@
     <description>Recent content in Blockchain on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 07:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Feb 2023 07:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Switcher entre releases Erigon</title>
+      <link>https://leandeep.com/switcher-entre-releases-erigon/</link>
+      <pubDate>Sat, 18 Feb 2023 07:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/switcher-entre-releases-erigon/</guid>
+      <description>J&amp;rsquo;ai déjà écrit plusieurs articles très similaires sur le sujet. Cette procédure décrit comment rapidement switcher de release Erigon pour tester une nouvelle feature ou vérifier qu&amp;rsquo;un fix fonctionne bien. En gros, cela me permet de switcher de release en release avec Erigon.
+Voir l&amp;rsquo;article suivant pour une full installation.
+Bien sûr commencer par un backup. Voir cet article
+Erigon build mkdir /root/erigon_release_2_38_1/ cd /root/erigon_release_2_38_1/ git clone https://github.com/ledgerwatch/erigon.git cd erigon git checkout 52fd6d60e180a267e99a25662f169797570e356e make erigon make rpcdaemon Création du service</description>
+    </item>
+    
+    <item>
+      <title>Phases de synchronisation sur Erigon et liens sur l&#39;architecture</title>
+      <link>https://leandeep.com/phases-de-synchronisation-sur-erigon-et-liens-sur-larchitecture/</link>
+      <pubDate>Tue, 14 Feb 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/phases-de-synchronisation-sur-erigon-et-liens-sur-larchitecture/</guid>
+      <description>Steps de synchronisation sur Erigon var ( Snapshots SyncStage = &amp;#34;Snapshots&amp;#34; // Snapshots Headers SyncStage = &amp;#34;Headers&amp;#34; // Headers are downloaded, their Proof-Of-Work validity and chaining is verified CumulativeIndex SyncStage = &amp;#34;CumulativeIndex&amp;#34; // Calculate how much gas has been used up to each block. BlockHashes SyncStage = &amp;#34;BlockHashes&amp;#34; // Headers Number are written, fills blockHash =&amp;gt; number bucket Bodies SyncStage = &amp;#34;Bodies&amp;#34; // Block bodies are downloaded, TxHash and UncleHash are getting verified Senders SyncStage = &amp;#34;Senders&amp;#34; // &amp;#34;From&amp;#34; recovered from signatures, bodies re-written Execution SyncStage = &amp;#34;Execution&amp;#34; // Executing each block w/o buildinf a trie Translation SyncStage = &amp;#34;Translation&amp;#34; // Translation each marked for translation contract (from EVM to TEVM) VerkleTrie SyncStage = &amp;#34;VerkleTrie&amp;#34; IntermediateHashes SyncStage = &amp;#34;IntermediateHashes&amp;#34; // Generate intermediate hashes, calculate the state root hash HashState SyncStage = &amp;#34;HashState&amp;#34; // Apply Keccak256 to all the keys in the state AccountHistoryIndex SyncStage = &amp;#34;AccountHistoryIndex&amp;#34; // Generating history index for accounts StorageHistoryIndex SyncStage = &amp;#34;StorageHistoryIndex&amp;#34; // Generating history index for storage LogIndex SyncStage = &amp;#34;LogIndex&amp;#34; // Generating logs index (from receipts) CallTraces SyncStage = &amp;#34;CallTraces&amp;#34; // Generating call traces index TxLookup SyncStage = &amp;#34;TxLookup&amp;#34; // Generating transactions lookup index Finish SyncStage = &amp;#34;Finish&amp;#34; // Nominal stage after all other stages MiningCreateBlock SyncStage = &amp;#34;MiningCreateBlock&amp;#34; MiningExecution SyncStage = &amp;#34;MiningExecution&amp;#34; MiningFinish SyncStage = &amp;#34;MiningFinish&amp;#34; // Beacon chain stages BeaconHistoryReconstruction SyncStage = &amp;#34;BeaconHistoryReconstruction&amp;#34; // BeaconHistoryReconstruction reconstruct missing history.</description>
+    </item>
+    
     <item>
       <title>Backuper la DB d&#39;Erigon sur Debian 11</title>
       <link>https://leandeep.com/backuper-la-db-derigon-sur-debian-11/</link>
@@ -113,28 +134,6 @@ AllNodes - https://www.</description>
       <description>Voici quelques exemples de DEXes sur lesquels mes robots de trading sont connectés ainsi que quelques informations de base les concernants. J&amp;rsquo;ai pris l&amp;rsquo;exemple des 2 Blockchains les plus utilisées après Ethereum à savoir BNB Smart Chain (BSC) et Polygon.
 Pour le moment, et jusqu&amp;rsquo;à ce qu&amp;rsquo;on passe en version 2, je n&amp;rsquo;utilise plus Ethereum à cause de gas fees qui rendent les trades moins intéressants.
 Bien sûr il y en a plein d&amp;rsquo;autres et sur des tas de blockchains différentes.</description>
-    </item>
-    
-    <item>
-      <title>Télécharger les ABIs des smart contracts vérifiés sur bscscan</title>
-      <link>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</link>
-      <pubDate>Sun, 03 Jul 2022 21:25:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/t%C3%A9l%C3%A9charger-les-abis-des-smart-contracts-v%C3%A9rifi%C3%A9s-sur-bscscan/</guid>
-      <description>Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
-Créer un fichier get_abi.py et coller le contenu suivant:
-#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &amp;#34;https://api.etherscan.io/api?module=contract&amp;amp;action=getabi&amp;amp;address=&amp;#34; parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;-a&amp;#34;, &amp;#34;--address&amp;#34;, type=str, help=&amp;#34;Smart contract address&amp;#34;) parser.add_argument(&amp;#34;-o&amp;#34;, &amp;#34;--output&amp;#34;, type=str, help=&amp;#34;Path to store the output ABI JSON file&amp;#34;, required=True) def __main__() -&amp;gt; None: &amp;#34;&amp;#34;&amp;#34;Exports contract ABI in JSON&amp;#34;&amp;#34;&amp;#34; args = parser.</description>
-    </item>
-    
-    <item>
-      <title>Commandes de synchronisation/dev Geth</title>
-      <link>https://leandeep.com/commandes-de-synchronisation/dev-geth/</link>
-      <pubDate>Thu, 30 Jun 2022 09:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/commandes-de-synchronisation/dev-geth/</guid>
-      <description>Dans cet article très court, vous trouverez des commandes utiles pour vérifier si votre noeud BSC (Geth) est synchronisé ou non, ainsi que d&amp;rsquo;autres commandes utiles pour développer sur cette Blockchain.
-Synchronisation Si vous n&amp;rsquo;avez pas accès la machine, vous pouvez utiliser curl:
-curl -H &amp;#34;Content-Type: application/json&amp;#34; -X POST --data &amp;#39;{&amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;eth_syncing&amp;#34;,&amp;#34;params&amp;#34;:[],&amp;#34;id&amp;#34;:1}&amp;#39; http://127.0.0.1:8545 Par contre, si vous avez accès à geth sur le serveur faisant tourner la blockchain vous pouvez utiliser une de ces deux commandes:</description>
     </item>
     
   </channel>
