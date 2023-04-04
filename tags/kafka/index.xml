@@ -6,7 +6,17 @@
     <description>Recent content in Kafka on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 18 Aug 2019 17:53:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Kafka sur Kubernetes</title>
+      <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
+      <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
+      <description>Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
+Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.</description>
+    </item>
+    
     <item>
       <title>Commandes utiles Kafka</title>
       <link>https://leandeep.com/commandes-utiles-kafka/</link>

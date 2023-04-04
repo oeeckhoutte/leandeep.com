@@ -266,7 +266,7 @@ wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf
 export PATH=$PATH:/usr/local/go/bin export GOPATH=&#34;${HOME}/.go/bin&#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
 # Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/."><meta itemprop="datePublished" content="2023-01-27T07:49:00+02:00" />
 <meta itemprop="dateModified" content="2023-01-27T07:49:00+02:00" />
-<meta itemprop="wordCount" content="296"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="309"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -421,7 +421,10 @@ SyslogIdentifier=erigon
 
 [Install]
 WantedBy=multi-user.target
-</code></pre><br/>
+</code></pre><blockquote>
+<p>Enable debug logs and format logs as JSON with flags: <code>--log.console.json --log.console.verbosity debug</code></p>
+</blockquote>
+<br/>
 <p><strong>Création du second service</strong></p>
 <p><code>vim /etc/systemd/system/erigon-rpc.service</code></p>
 <pre tabindex="0"><code>[Unit]
@@ -470,7 +473,7 @@ tail -f /var/log/prysm.log
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/blockchain">Blockchain</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>296 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>309 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>27 janv.. 2023</p>
         </div>
@@ -535,7 +538,7 @@ tail -f /var/log/prysm.log
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.68628920df4cd4d5988593e35a62e4a8dad8a20217d6c78ecaddfdb8b8ac758eb757a487e273e3855fa571d25193282cbc3dd99bba288f8c9e34b1a63e6a14e9.js" integrity="sha512-aGKJIN9M1NWYhZPjWmLkqNrYogIX1seOyt39uLisdY63V6SH4nPjhV&#43;lcdJRkygsvD3Zm7ooj4yeNLGmPmoU6Q=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
 
 
 

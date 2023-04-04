@@ -6,7 +6,17 @@
     <description>Recent content in Docker on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 01 Aug 2022 20:59:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Kafka sur Kubernetes</title>
+      <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
+      <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
+      <description>Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
+Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.</description>
+    </item>
+    
     <item>
       <title>Installer Docker et mitmproxy sur Ubuntu 22.04</title>
       <link>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</link>
@@ -112,18 +122,6 @@ ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker.
 Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
 Installtion Docker-compose Créer un fichier docker-compose.yml:
 version: &amp;#34;3.</description>
-    </item>
-    
-    <item>
-      <title>Comparaison des services de conteneurisation AWS (ECS, Fargate et EKS) </title>
-      <link>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</link>
-      <pubDate>Wed, 16 Jan 2019 19:33:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
-      <description>Il n&amp;rsquo;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
-Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.
-Avantages
-ECS EKS Fargate Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
     </item>
     
   </channel>

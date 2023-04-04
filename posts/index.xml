@@ -5,8 +5,44 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 18 Feb 2023 07:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Kafka sur Kubernetes</title>
+            <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
+            <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
+            <description>Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
+Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes</p>
+<br/>
+<h2 id="installation-de-lopérateur-strimzi">Installation de l&rsquo;opérateur Strimzi</h2>
+<pre tabindex="0"><code>kubectl create namespace kafka
+kubectl create -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39; -n kafka
+kubectl get pod -n kafka --watch
+kubectl logs deployment/strimzi-cluster-operator -n kafka -f
+</code></pre><br/>
+<h2 id="création-du-cluster">Création du cluster</h2>
+<pre tabindex="0"><code>kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka
+kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka
+</code></pre><br/>
+<h2 id="envoyer-et-recevoir-des-messages">Envoyer et recevoir des messages</h2>
+<pre tabindex="0"><code># Envoyer
+kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic
+
+# Recevoir
+kubectl -n kafka run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning
+</code></pre><br/>
+<h2 id="effacer-le-cluster">Effacer le cluster</h2>
+<pre tabindex="0"><code>kubectl -n kafka delete $(kubectl get strimzi -o name -n kafka)
+</code></pre><br/>
+<h2 id="effacer-lopérateur">Effacer l&rsquo;opérateur</h2>
+<pre tabindex="0"><code>kubectl -n kafka delete -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39;
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Switcher entre releases Erigon</title>
@@ -545,7 +581,10 @@ SyslogIdentifier=erigon
 
 [Install]
 WantedBy=multi-user.target
-</code></pre><br/>
+</code></pre><blockquote>
+<p>Enable debug logs and format logs as JSON with flags: <code>--log.console.json --log.console.verbosity debug</code></p>
+</blockquote>
+<br/>
 <p><strong>Création du second service</strong></p>
 <p><code>vim /etc/systemd/system/erigon-rpc.service</code></p>
 <pre tabindex="0"><code>[Unit]
@@ -2467,12 +2506,16 @@ fn main() {
             
             <guid>https://leandeep.com/proxies-http-et-socks-via-gcloud/</guid>
             <description>Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
-Lancement du proxy Socks cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
-Besoin d&amp;rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet Rust suivant https://github.</description>
+Lancement du proxy Socks Récupérer l&amp;rsquo;ID de son instance ./gcloud compute instances list
+cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
+Besoin d&amp;rsquo;un proxy http ?</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli <code>gcloud</code> et un binaire open source.</p>
 <br/>
 <h2 id="lancement-du-proxy-socks">Lancement du proxy Socks</h2>
+<blockquote>
+<p>Récupérer l&rsquo;ID de son instance <code>./gcloud compute instances list</code></p>
+</blockquote>
 <pre tabindex="0"><code>cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH
 export PORT_DU_PROXY=
 ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&#34;-D&#34; --ssh-flag=&#34;$PORT_DU_PROXY&#34; --ssh-flag=&#34;-N&#34;
@@ -15467,6 +15510,7 @@ car les droits root sont nécessaires</li>
 <li>Microsoft Remote Desktop: oui oui vous avez bien lu. Pour certains outils Azure</li>
 <li><a href="https://www.raycast.com/">Raycast</a></li>
 <li><a href="https://www.derlien.com/downloads/index.html">Disk Inventory X</a>: Analyser le disk space</li>
+<li><a href="https://docs.getutm.app/installation/macos/">UTM</a>: Virtualization</li>
 </ul>
 <br/>
 <p><strong>Packages Payant très utiles</strong></p>

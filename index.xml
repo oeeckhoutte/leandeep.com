@@ -6,7 +6,17 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 18 Feb 2023 07:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Kafka sur Kubernetes</title>
+      <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
+      <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
+      <description>Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
+Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.</description>
+    </item>
+    
     <item>
       <title>Switcher entre releases Erigon</title>
       <link>https://leandeep.com/switcher-entre-releases-erigon/</link>
@@ -102,16 +112,6 @@ if [[ -s &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; ]]; then . &amp;#34;$HOME/.nvm/nvm.
       <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
       <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
 import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
-    </item>
-    
-    <item>
-      <title>Terraform REPL</title>
-      <link>https://leandeep.com/terraform-repl/</link>
-      <pubDate>Mon, 09 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/terraform-repl/</guid>
-      <description>Dans cet article, nous allons voir comment tester son code Terraform façon REPL. L&amp;rsquo;idée c&amp;rsquo;est de pouvoir rapidement dégainer un REPL pour pouvoir tester la bonne syntaxe de son code lorsqu&amp;rsquo;on veut le faire évoluer.
-J&amp;rsquo;ai vu qu&amp;rsquo;il y avait des projets non officiel open source sur Github comme celui-ci avec apparemment un vrai REPL mais je n&amp;rsquo;ai pas eu le temps de l&amp;rsquo;analyser et de vérifier qu&amp;rsquo;il n&amp;rsquo;y avait pas de bug et surtout de faille de sécurité.</description>
     </item>
     
   </channel>

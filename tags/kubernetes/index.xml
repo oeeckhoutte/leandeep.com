@@ -6,7 +6,17 @@
     <description>Recent content in Kubernetes on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 26 Jul 2022 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Kafka sur Kubernetes</title>
+      <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
+      <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
+      <description>Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
+Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.</description>
+    </item>
+    
     <item>
       <title>Installer Argo workflow sur OSX</title>
       <link>https://leandeep.com/installer-argo-workflow-sur-osx/</link>
@@ -108,16 +118,6 @@ ECS EKS Fargate Service gratuit (on ne paye que pour le compute sous jacent) Off
       <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/</guid>
       <description>Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&amp;rsquo;est parfait quand on n&amp;rsquo;est pas en production.
 Pré-requis Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</description>
-    </item>
-    
-    <item>
-      <title>Fonctionnement interne de Kubernetes</title>
-      <link>https://leandeep.com/fonctionnement-interne-de-kubernetes/</link>
-      <pubDate>Sun, 16 Jul 2017 21:02:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/fonctionnement-interne-de-kubernetes/</guid>
-      <description>Aujourd&amp;rsquo;hui, j&amp;rsquo;ai présenté Kubernetes à mes collègues et ai eu besoin de dessiner son architecture macro interne.
-Voici le Sketch réalisé en live durant la présentation:</description>
     </item>
     
   </channel>

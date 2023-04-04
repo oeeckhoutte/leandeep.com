@@ -24,8 +24,9 @@ Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py Py
       
       <guid>https://leandeep.com/proxies-http-et-socks-via-gcloud/</guid>
       <description>Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
-Lancement du proxy Socks cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
-Besoin d&amp;rsquo;un proxy http ? Pas de souci, vous pouvez utiliser le projet Rust suivant https://github.</description>
+Lancement du proxy Socks Récupérer l&amp;rsquo;ID de son instance ./gcloud compute instances list
+cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
+Besoin d&amp;rsquo;un proxy http ?</description>
     </item>
     
     <item>
