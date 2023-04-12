@@ -7,8 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
-Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer." />
+  content="Introduction Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)
+Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -259,16 +259,16 @@ Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka ku
     <meta name="theme-color" content="#252627">
 
 <meta itemprop="name" content="Installer Kafka sur Kubernetes">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
-Installation de l&rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer."><meta itemprop="datePublished" content="2023-04-03T22:13:00+00:00" />
+<meta itemprop="description" content="Introduction Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)
+Installation de l&rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay."><meta itemprop="datePublished" content="2023-04-03T22:13:00+00:00" />
 <meta itemprop="dateModified" content="2023-04-03T22:13:00+00:00" />
-<meta itemprop="wordCount" content="118"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="230"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Docker,Kubernetes,Kafka," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Installer Kafka sur Kubernetes"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes
-Installation de l&rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer."/>
+<meta name="twitter:description" content="Introduction Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)
+Installation de l&rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay."/>
 
 
 
@@ -329,7 +329,7 @@ Installation de l&rsquo;opérateur Strimzi kubectl create namespace kafka kubect
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
 
             
 
@@ -345,7 +345,7 @@ Installation de l&rsquo;opérateur Strimzi kubectl create namespace kafka kubect
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Dans cet article, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes</p>
+<p>Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)</p>
 <br/>
 <h2 id="installation-de-lopérateur-strimzi">Installation de l&rsquo;opérateur Strimzi</h2>
 <pre tabindex="0"><code>kubectl create namespace kafka
@@ -369,6 +369,42 @@ kubectl -n kafka run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.34.0-kaf
 </code></pre><br/>
 <h2 id="effacer-lopérateur">Effacer l&rsquo;opérateur</h2>
 <pre tabindex="0"><code>kubectl -n kafka delete -f &#39;https://strimzi.io/install/latest?namespace=kafka&#39;
+</code></pre><br/>
+<h2 id="autres">Autres</h2>
+<h3 id="tip-1">Tip 1</h3>
+<p>Dans le cas ou vous souhaitez récupérer des YAML distants en local (pour les backuper dans git par exemple) et les appliquer ensuite, on peut aussi utiliser la commande suivante:</p>
+<pre tabindex="0"><code>cat &lt;&lt;EOF | kubectl create -n kafka -f -
+apiVersion: kafka.strimzi.io/v1beta2
+...
+EOF
+</code></pre><br/>
+<h3 id="tip-2">Tip 2</h3>
+<p>Sinon en local, il y a toujours l&rsquo;option <code>docker-compose</code> qui est simple et efficace&hellip;</p>
+<pre tabindex="0"><code>version: &#39;3&#39;
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    restart: always
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    restart: always
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 </code></pre>
             </div>
         </article>
@@ -380,7 +416,7 @@ kubectl -n kafka run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.34.0-kaf
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span><span class="tag"><a href="https://leandeep.com/tags/kafka">Kafka</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>118 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>230 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 avr.. 2023</p>
         </div>
