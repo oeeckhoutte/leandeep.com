@@ -6,7 +6,39 @@
     <description>Recent content on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 May 2023 23:16:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Présentation - Retour d&#39;expérience DevOps</title>
+      <link>https://leandeep.com/pr%C3%A9sentation-retour-dexp%C3%A9rience-devops/</link>
+      <pubDate>Mon, 22 May 2023 23:16:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/pr%C3%A9sentation-retour-dexp%C3%A9rience-devops/</guid>
+      <description>&lt;p&gt;Voici une présentation dans laquelle je fais un Retour d&amp;rsquo;Expérience sur ce que nous avons mis en place côté DevOps chez mon dernier client.&lt;/p&gt;
+
+    &lt;iframe
+        src=&#34;//www.slideshare.net/slideshow/embed_code/key/dwd1w9HcPY0RQX&#34;
+        title=&#34;SlideShare Presentation&#34;
+        height=&#34;485&#34;
+        width=&#34;595&#34;
+        frameborder=&#34;0&#34;
+        marginwidth=&#34;0&#34;
+        marginheight=&#34;0&#34;
+        scrolling=&#34;no&#34;
+        style=&#34;border: 1px solid #CCC; border-width: 1px; margin-bottom: 20px; width: 100%;&#34;
+        allowfullscreen=&#34;true&#34;&gt;
+    &lt;/iframe&gt;</description>
+    </item>
+    
+    <item>
+      <title>Décoder une string HTML encoded en ligne de commande</title>
+      <link>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</link>
+      <pubDate>Wed, 03 May 2023 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</guid>
+      <description>Tip du jour pour rapidement convertir une string HTML encoded via le terminal.
+Pré-requis brew install recode Commande echo &amp;#34;string&amp;amp;#32;&amp;amp;#35;1&amp;amp;#46;&amp;#34; | recode html..ascii </description>
+    </item>
+    
     <item>
       <title>Installer Kafka sur Kubernetes</title>
       <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
@@ -91,27 +123,6 @@ version: &amp;#39;3&amp;#39; services: influxdb: image: influxdb:2.</description
 wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
 export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
 # Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;amp;&amp;amp; chmod +x prysm.sh Ouvrir le fichier /root/.</description>
-    </item>
-    
-    <item>
-      <title>Utiliser des binaires NodeJS avec nvm et Xcode</title>
-      <link>https://leandeep.com/utiliser-des-binaires-nodejs-avec-nvm-et-xcode/</link>
-      <pubDate>Sun, 15 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/utiliser-des-binaires-nodejs-avec-nvm-et-xcode/</guid>
-      <description>Lorsqu&amp;rsquo;on utilise un binaire NodeJS sur xcode mais qu&amp;rsquo;on n&amp;rsquo;utilise pas NodeJS &amp;ldquo;classiquement&amp;rdquo; installé avec brew ou curl, on obtient la magnifiquer error &amp;ldquo;command not found&amp;rdquo; lorsque que Xcode build
-Correctif Pour remédier à ce problème, il suffit d&amp;rsquo;ajouter le script suivant dans la section build phase de son projet Xcode, avant bien sûr que la commande node soit exécutée.
-if [[ -s &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; ]]; then . &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; elif [[ -x &amp;#34;$(command -v brew)&amp;#34; &amp;amp;&amp;amp; -s &amp;#34;$(brew --prefix nvm)/nvm.</description>
-    </item>
-    
-    <item>
-      <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
-      <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
-      <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
-      <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
-import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
     </item>
     
   </channel>
