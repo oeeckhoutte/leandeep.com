@@ -32238,6 +32238,129 @@ sudo umount -l /tmp/data
         </item>
         
         <item>
+            <title>La notation &#34;Big O&#34;</title>
+            <link>https://leandeep.com/la-notation-big-o/</link>
+            <pubDate>Tue, 18 Sep 2012 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/la-notation-big-o/</guid>
+            <description>La notation &amp;ldquo;big O&amp;rdquo; est utilisée pour analyser et comparer l&amp;rsquo;efficacité des algorithmes en termes de temps d&amp;rsquo;exécution ou de consommation de ressources.
+La notation big O est notée généralement comme O(f(n)), où f(n) est une fonction qui représente la complexité de l&amp;rsquo;algorithme en fonction de la taille de l&amp;rsquo;entrée, n. Le O indique l&amp;rsquo;ordre de grandeur ou la limite supérieure de la complexité.
+Par exemple, si un algorithme a une complexité de O(n), cela signifie que le temps d&amp;rsquo;exécution de l&amp;rsquo;algorithme est linéairement proportionnel à la taille de l&amp;rsquo;entrée.</description>
+            <content type="html"><![CDATA[<p>La notation &ldquo;big O&rdquo; est utilisée pour analyser et comparer l&rsquo;efficacité des algorithmes en termes de temps d&rsquo;exécution ou de consommation de ressources.</p>
+<p>La notation big O est notée généralement comme <code>O(f(n))</code>, où <code>f(n)</code> est une fonction qui représente la complexité de l&rsquo;algorithme en fonction de la taille de l&rsquo;entrée, n. Le O indique l&rsquo;ordre de grandeur ou la limite supérieure de la complexité.</p>
+<p>Par exemple, si un algorithme a une complexité de <code>O(n)</code>, cela signifie que le temps d&rsquo;exécution de l&rsquo;algorithme est linéairement proportionnel à la taille de l&rsquo;entrée.</p>
+<p><br/>
+<br/></p>
+<p>Voici quelques exemples courants de notations big O:</p>
+<p><strong><code>O(1)</code>: Notation constante</strong></p>
+<p>Cela signifie que l&rsquo;algorithme a un temps d&rsquo;exécution constant, indépendamment de la taille de l&rsquo;entrée. Par exemple, accéder à un élément spécifique dans un tableau de taille n a une complexité de <code>O(1)</code>.</p>
+<p>Exemple d&rsquo;algo:</p>
+<pre tabindex="0"><code>def get_first_element(arr):
+    return arr[0]
+</code></pre><br/>
+<p><strong><code>O(log n)</code>: Notation logarithmique</strong></p>
+<p>Cela indique que l&rsquo;algorithme a un temps d&rsquo;exécution qui croît de manière logarithmique par rapport à la taille de l&rsquo;entrée. Les algorithmes de recherche binaires ou les arbres de recherche équilibrés, comme les arbres binaires de recherche, ont une complexité de <code>O(log n)</code>.</p>
+<p>Exemple d&rsquo;algo:</p>
+<pre tabindex="0"><code>def recherche_binaire(liste, element):
+    debut = 0
+    fin = len(liste) - 1
+
+    while debut &lt;= fin:
+        milieu = (debut + fin) // 2  # Calcul de l&#39;indice du milieu
+
+        if liste[milieu] == element:
+            return milieu  # L&#39;élément a été trouvé à l&#39;indice milieu
+        elif liste[milieu] &lt; element:
+            debut = milieu + 1  # Recherche dans la moitié supérieure de la liste
+        else:
+            fin = milieu - 1  # Recherche dans la moitié inférieure de la liste
+
+    return -1  # L&#39;élément n&#39;a pas été trouvé
+
+# Exemple d&#39;utilisation
+ma_liste = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]
+element_recherche = 23
+
+indice = recherche_binaire(ma_liste, element_recherche)
+
+if indice != -1:
+    print(&#34;L&#39;élément&#34;, element_recherche, &#34;a été trouvé à l&#39;indice&#34;, indice)
+else:
+    print(&#34;L&#39;élément&#34;, element_recherche, &#34;n&#39;a pas été trouvé dans la liste.&#34;)
+</code></pre><p>Voici les étapes de base de l&rsquo;algorithme de recherche binaire :</p>
+<ol>
+<li>Comparer l&rsquo;élément recherché avec l&rsquo;élément du milieu de la liste.</li>
+<li>Si les deux éléments sont égaux, la recherche est terminée et l&rsquo;élément est trouvé.</li>
+<li>Si l&rsquo;élément recherché est inférieur à celui du milieu de la liste, la recherche continue dans la moitié inférieure de la liste.</li>
+<li>Si l&rsquo;élément recherché est supérieur à celui du milieu de la liste, la recherche continue dans la moitié supérieure de la liste.</li>
+<li>Répéter les étapes 1 à 4 jusqu&rsquo;à ce que l&rsquo;élément soit trouvé ou que la liste soit réduite à une taille nulle.</li>
+</ol>
+<br/>
+<p><strong><code>O(n)</code>: Notation linéaire</strong></p>
+<p>Cela signifie que l&rsquo;algorithme a un temps d&rsquo;exécution proportionnel à la taille de l&rsquo;entrée. Par exemple, parcourir un tableau de n éléments a une complexité de <code>O(n)</code>.</p>
+<br/>
+<p><strong><code>O(n log n)</code>: Notation quasi-linéaire</strong></p>
+<p>Cela indique une complexité légèrement supérieure à linéaire. De nombreux algorithmes de tri efficaces, tels que le tri fusion (merge sort) ou le tri rapide (quick sort), ont une complexité de <code>O(n log n)</code>.</p>
+<p>Exemple d&rsquo;algo:</p>
+<pre tabindex="0"><code>def merge_sort(arr):
+    if len(arr) &lt;= 1:
+        return arr
+    
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+    
+    left_half = merge_sort(left_half)
+    right_half = merge_sort(right_half)
+    
+    return merge(left_half, right_half)
+
+def merge(left, right):
+    merged = []
+    i, j = 0, 0
+    
+    while i &lt; len(left) and j &lt; len(right):
+        if left[i] &lt; right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+            
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    
+    return merged
+
+arr = [7, 2, 5, 1, 8, 3]
+sorted_arr = merge_sort(arr)
+print(sorted_arr)
+</code></pre><br/>
+<p><strong><code>O(n^2)</code>: Notation quadratique</strong></p>
+<p>Cela signifie que l&rsquo;algorithme a un temps d&rsquo;exécution quadratique par rapport à la taille de l&rsquo;entrée. Par exemple, une méthode de tri par sélection (selection sort) a une complexité de <code>O(n^2)</code>.</p>
+<p>Exemple d&rsquo;algo:</p>
+<pre tabindex="0"><code>def bubble_sort(arr):
+    n = len(arr)
+    
+    for i in range(n):
+        for j in range(n - i - 1):
+            if arr[j] &gt; arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                
+    return arr
+</code></pre><br/>
+<p><strong><code>O(2^n)</code>: Notation exponentielle</strong></p>
+<p>Cela indique une complexité exponentielle, où le temps d&rsquo;exécution double à chaque augmentation de la taille de l&rsquo;entrée. Les problèmes NP-complets, tels que le problème du sac à dos (knapsack problem), ont souvent une complexité exponentielle.</p>
+<p>Exemple d&rsquo;algo:</p>
+<pre tabindex="0"><code>def fibonacci(n):
+    if n &lt;= 1:
+        return n
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Commandes de base pour Vim et Tmux</title>
             <link>https://leandeep.com/commandes-de-base-pour-vim-et-tmux/</link>
             <pubDate>Mon, 10 Sep 2012 08:08:00 +0000</pubDate>
