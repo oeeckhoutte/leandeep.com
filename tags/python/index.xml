@@ -6,7 +6,32 @@
     <description>Recent content in Python on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 14 May 2022 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Aug 2023 23:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fixer l&#39;erreur &#39;ModuleNotFoundError: No module named _lzma&#39; sur OSX</title>
+      <link>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</link>
+      <pubDate>Mon, 21 Aug 2023 23:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</guid>
+      <description>Voici un tip pour fixer l&amp;rsquo;erreur ennuyeuse ModuleNotFoundError: No module named &#39;_lzma&#39; sur OSX lorsqu&amp;rsquo;on utilise torch et pyenv.
+Installer les packages suivants:
+brew install zlib brew install sqlite brew install bzip2 brew install libiconv brew install libzip Ouvrir le fichier ~/.zshrc et ajouter les lignes suivantes:
+export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/zlib/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/zlib/include&amp;#34; export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/sqlite/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/sqlite/include&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig&amp;#34; Installer une nouvelle version de Python via pyenv.</description>
+    </item>
+    
+    <item>
+      <title>direnv avec pyenv et anaconda</title>
+      <link>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</link>
+      <pubDate>Mon, 21 Aug 2023 21:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</guid>
+      <description>Dans cet article nous allons voir comment installer Anaconda3 sur OSX et l&amp;rsquo;utiliser directement dans direnv.
+Pré-requis direnv installé Installation On commence par installer Anaconda via brew
+brew install --cask anaconda On édite ~/.zshrc et on ajoute le path vers les binaires d&amp;rsquo;Anaconda.
+export PATH=&amp;#34;/opt/homebrew/anaconda3/bin:$PATH&amp;#34; Nouvel environnement conda Si votre projet contient un fichier environment.yml, les packages s&amp;rsquo;installeront automatiquement lors de la première exécution du direnv allow.
+Créer un fichier .</description>
+    </item>
+    
     <item>
       <title>Installer un serveur Sentry en moins de 5 minutes en 2022</title>
       <link>https://leandeep.com/installer-un-serveur-sentry-en-moins-de-5-minutes-en-2022/</link>
@@ -96,24 +121,6 @@ On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-
 Example pour une fonction qui prend un argument de type int ou str et qui retourne un objet de type int ou str:
 def ma_fonction(argument: int | str) -&amp;gt; int | str: pass On utilise le caractère: |.
 Avant, de Python 3.5 à 3.</description>
-    </item>
-    
-    <item>
-      <title>Installation de Python propre sur OSX Catalina</title>
-      <link>https://leandeep.com/installation-de-python-propre-sur-osx-catalina/</link>
-      <pubDate>Thu, 01 Oct 2020 19:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/installation-de-python-propre-sur-osx-catalina/</guid>
-      <description>Introduction Il existe tellement d&amp;rsquo;outils pour gérer son installation de Python sur OSX que cela peut vite devenir un cauchemar. Nous sommes début octobre 2020, peu de temps avant la sortie de OSX Big Sur, cet article dédié à Catalina peut paraître déjà dépassé mais je vous recommande vraiment d&amp;rsquo;attendre avant de l&amp;rsquo;installer. Personnellement j&amp;rsquo;attends toujours minimum 6 mois à 1 an avant d&amp;rsquo;upgrader OSX, le temps que les premiers correctifs en tous genres aient été réalisé.</description>
-    </item>
-    
-    <item>
-      <title>Rendre du code plus propre avec des namedtuples</title>
-      <link>https://leandeep.com/rendre-du-code-plus-propre-avec-des-namedtuples/</link>
-      <pubDate>Tue, 18 Aug 2020 23:02:09 -0700</pubDate>
-      
-      <guid>https://leandeep.com/rendre-du-code-plus-propre-avec-des-namedtuples/</guid>
-      <description>Imaginons que nous souhaitions afficher le contenu d&amp;rsquo;une table de base de données contenant des informations sur les salariés d&amp;rsquo;une entreprise. On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&amp;rsquo;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &amp;ldquo;name&amp;rdquo;, &amp;ldquo;birthdate&amp;rdquo;, &amp;ldquo;salary&amp;rdquo; et &amp;ldquo;employment_date&amp;rdquo;, l&#39;index 2 correspond donc au salaire d&amp;rsquo;un employé. C&amp;rsquo;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir.</description>
     </item>
     
   </channel>

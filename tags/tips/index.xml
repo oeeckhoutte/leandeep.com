@@ -6,7 +6,32 @@
     <description>Recent content in tips on Lean Deep Tech blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 03 May 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Aug 2023 23:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fixer l&#39;erreur &#39;ModuleNotFoundError: No module named _lzma&#39; sur OSX</title>
+      <link>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</link>
+      <pubDate>Mon, 21 Aug 2023 23:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</guid>
+      <description>Voici un tip pour fixer l&amp;rsquo;erreur ennuyeuse ModuleNotFoundError: No module named &#39;_lzma&#39; sur OSX lorsqu&amp;rsquo;on utilise torch et pyenv.
+Installer les packages suivants:
+brew install zlib brew install sqlite brew install bzip2 brew install libiconv brew install libzip Ouvrir le fichier ~/.zshrc et ajouter les lignes suivantes:
+export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/zlib/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/zlib/include&amp;#34; export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/sqlite/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/sqlite/include&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig&amp;#34; Installer une nouvelle version de Python via pyenv.</description>
+    </item>
+    
+    <item>
+      <title>direnv avec pyenv et anaconda</title>
+      <link>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</link>
+      <pubDate>Mon, 21 Aug 2023 21:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</guid>
+      <description>Dans cet article nous allons voir comment installer Anaconda3 sur OSX et l&amp;rsquo;utiliser directement dans direnv.
+Pré-requis direnv installé Installation On commence par installer Anaconda via brew
+brew install --cask anaconda On édite ~/.zshrc et on ajoute le path vers les binaires d&amp;rsquo;Anaconda.
+export PATH=&amp;#34;/opt/homebrew/anaconda3/bin:$PATH&amp;#34; Nouvel environnement conda Si votre projet contient un fichier environment.yml, les packages s&amp;rsquo;installeront automatiquement lors de la première exécution du direnv allow.
+Créer un fichier .</description>
+    </item>
+    
     <item>
       <title>Décoder une string HTML encoded en ligne de commande</title>
       <link>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</link>
@@ -88,26 +113,6 @@ import ccxt import calendar from datetime import datetime import pandas as pd im
       <guid>https://leandeep.com/terraform-repl/</guid>
       <description>Dans cet article, nous allons voir comment tester son code Terraform façon REPL. L&amp;rsquo;idée c&amp;rsquo;est de pouvoir rapidement dégainer un REPL pour pouvoir tester la bonne syntaxe de son code lorsqu&amp;rsquo;on veut le faire évoluer.
 J&amp;rsquo;ai vu qu&amp;rsquo;il y avait des projets non officiel open source sur Github comme celui-ci avec apparemment un vrai REPL mais je n&amp;rsquo;ai pas eu le temps de l&amp;rsquo;analyser et de vérifier qu&amp;rsquo;il n&amp;rsquo;y avait pas de bug et surtout de faille de sécurité.</description>
-    </item>
-    
-    <item>
-      <title>Ajouter un prefix sur les noms des fichiers d&#39;un répertoire</title>
-      <link>https://leandeep.com/ajouter-un-prefix-sur-les-noms-des-fichiers-dun-r%C3%A9pertoire/</link>
-      <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/ajouter-un-prefix-sur-les-noms-des-fichiers-dun-r%C3%A9pertoire/</guid>
-      <description>Petit tip du jour de 5 secondes pour ajouter un prefix devant tous les fichiers d&amp;rsquo;un répertoire:
-for f in * ; do mv &amp;#34;$f&amp;#34; Prefix_&amp;#34;$f&amp;#34; ; done </description>
-    </item>
-    
-    <item>
-      <title>Enregistrer vos playlists Youtube en mp3 ou mp4 via le CLI</title>
-      <link>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4-via-le-cli/</link>
-      <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4-via-le-cli/</guid>
-      <description>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&amp;rsquo;utiliser le package Python yt-dlp.
-pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist # Enregistrement mp4 # Best video quality yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; # Enregistrement mp4 # Worst video quality mais high quality audio yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; </description>
     </item>
     
   </channel>

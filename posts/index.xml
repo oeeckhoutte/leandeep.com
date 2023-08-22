@@ -5,8 +5,72 @@
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 22 May 2023 23:16:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 21 Aug 2023 23:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Fixer l&#39;erreur &#39;ModuleNotFoundError: No module named _lzma&#39; sur OSX</title>
+            <link>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</link>
+            <pubDate>Mon, 21 Aug 2023 23:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</guid>
+            <description>Voici un tip pour fixer l&amp;rsquo;erreur ennuyeuse ModuleNotFoundError: No module named &#39;_lzma&#39; sur OSX lorsqu&amp;rsquo;on utilise torch et pyenv.
+Installer les packages suivants:
+brew install zlib brew install sqlite brew install bzip2 brew install libiconv brew install libzip Ouvrir le fichier ~/.zshrc et ajouter les lignes suivantes:
+export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/zlib/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/zlib/include&amp;#34; export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/sqlite/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/sqlite/include&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig&amp;#34; Installer une nouvelle version de Python via pyenv.</description>
+            <content type="html"><![CDATA[<p>Voici un tip pour fixer l&rsquo;erreur ennuyeuse <code>ModuleNotFoundError: No module named '_lzma'</code> sur OSX lorsqu&rsquo;on utilise <code>torch</code> et <code>pyenv</code>.</p>
+<p>Installer les packages suivants:</p>
+<pre tabindex="0"><code>brew install zlib
+brew install sqlite
+brew install bzip2
+brew install libiconv
+brew install libzip
+</code></pre><br/>
+<p>Ouvrir le fichier <code>~/.zshrc</code> et ajouter les lignes suivantes:</p>
+<pre tabindex="0"><code>export LDFLAGS=&#34;${LDFLAGS} -L/usr/local/opt/zlib/lib&#34;
+export CPPFLAGS=&#34;${CPPFLAGS} -I/usr/local/opt/zlib/include&#34;
+export LDFLAGS=&#34;${LDFLAGS} -L/usr/local/opt/sqlite/lib&#34;
+export CPPFLAGS=&#34;${CPPFLAGS} -I/usr/local/opt/sqlite/include&#34;
+export PKG_CONFIG_PATH=&#34;${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig&#34;
+export PKG_CONFIG_PATH=&#34;${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig&#34;
+</code></pre><br/>
+<p>Installer une nouvelle version de Python via pyenv. Par exemple:</p>
+<pre tabindex="0"><code>pyenv install 3.10.11
+</code></pre><br/>
+<p>Et voilà <code>torch</code> fonctionne&hellip; Je peux finir mon script d&rsquo;Upscaling d&rsquo;anciennes photos de famille.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>direnv avec pyenv et anaconda</title>
+            <link>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</link>
+            <pubDate>Mon, 21 Aug 2023 21:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</guid>
+            <description>Dans cet article nous allons voir comment installer Anaconda3 sur OSX et l&amp;rsquo;utiliser directement dans direnv.
+Pré-requis direnv installé Installation On commence par installer Anaconda via brew
+brew install --cask anaconda On édite ~/.zshrc et on ajoute le path vers les binaires d&amp;rsquo;Anaconda.
+export PATH=&amp;#34;/opt/homebrew/anaconda3/bin:$PATH&amp;#34; Nouvel environnement conda Si votre projet contient un fichier environment.yml, les packages s&amp;rsquo;installeront automatiquement lors de la première exécution du direnv allow.
+Créer un fichier .</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment installer Anaconda3 sur OSX et l&rsquo;utiliser directement dans direnv.</p>
+<h2 id="pré-requis">Pré-requis</h2>
+<ul>
+<li>direnv installé</li>
+</ul>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>On commence par installer Anaconda via brew</p>
+<pre tabindex="0"><code>brew install --cask anaconda
+</code></pre><br/>
+<p>On édite <code>~/.zshrc</code> et on ajoute le path vers les binaires d&rsquo;Anaconda.</p>
+<pre tabindex="0"><code>export PATH=&#34;/opt/homebrew/anaconda3/bin:$PATH&#34;
+</code></pre><br/>
+<h1 id="nouvel-environnement-conda">Nouvel environnement conda</h1>
+<p>Si votre projet contient un fichier environment.yml, les packages s&rsquo;installeront automatiquement lors de la première exécution du <code>direnv allow</code>.</p>
+<p>Créer un fichier <code>.envrc</code> et ajouter simplement le layout suivant: <code>layout anaconda</code>.</p>
+<p>Et c&rsquo;est tout, c&rsquo;est aussi simple que cela. Enregistrer les modifications de votre fichier .envrc, exécuter la fameuse commande <code>direnv allow</code> et vous voilà dans un environnement anaconda.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Présentation - Retour d&#39;expérience DevOps</title>
