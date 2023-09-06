@@ -4,9 +4,40 @@
         <link>https://leandeep.com/posts/</link>
         <description>Recent content in Posts on Lean Deep Tech blog</description>
         <generator>Hugo -- gohugo.io</generator>
+        <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 21 Aug 2023 23:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Tue, 05 Sep 2023 23:46:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Utiliser une IP fixe dans son terminal via proxy socks</title>
+            <link>https://leandeep.com/utiliser-une-ip-fixe-dans-son-terminal-via-proxy-socks/</link>
+            <pubDate>Tue, 05 Sep 2023 23:46:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/utiliser-une-ip-fixe-dans-son-terminal-via-proxy-socks/</guid>
+            <description>Voici un tip pour utiliser une IP fixe depuis son terminal quand son FAI ne fournit pas d&amp;rsquo;adresse IP statique. C&amp;rsquo;est le cas par exemple avec Starlink, SFR ou Orange&amp;hellip;
+Pour se faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
+Dans un premier onglet de votre terminal exécuter la commande suivante:
+ssh -D 6006 -q -C -N user@ip_or_reverse_dns Puis dans un second onglet:</description>
+            <content type="html"><![CDATA[<p>Voici un tip pour utiliser une IP fixe depuis son terminal quand son FAI ne fournit pas d&rsquo;adresse IP statique. C&rsquo;est le cas par exemple avec Starlink, SFR ou Orange&hellip;</p>
+<p>Pour se faire, il suffit d&rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:</p>
+<br/>
+<p>Dans un premier onglet de votre terminal exécuter la commande suivante:</p>
+<pre tabindex="0"><code>ssh -D 6006 -q -C -N user@ip_or_reverse_dns
+</code></pre><br/>
+<p>Puis dans un second onglet:</p>
+<pre tabindex="0"><code>curl https://ipinfo.io/ip # Résultat: IP dynamique
+export http_proxy=http://127.0.0.1:6006
+export https_proxy=http://127.0.0.1:6006
+curl https://ipinfo.io/ip # Résultat: IP de votre remote VM
+</code></pre><br/>
+<p>That&rsquo;s it as simple as that.</p>
+<br/>
+<blockquote>
+<p>Si vous utilisez Python, vous aurez besoin du package <code>pip install pysocks</code></p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Fixer l&#39;erreur &#39;ModuleNotFoundError: No module named _lzma&#39; sur OSX</title>
