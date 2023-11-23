@@ -244,7 +244,7 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 
 
 
-<link rel="stylesheet" href="https://leandeep.com/main.min.75f4fccf704dff01fea880bd845a14a4f05d9c04ee40d8b8563f1a6ab98fe848.css">
+<link rel="stylesheet" href="https://leandeep.com/main.min.5a145ada8612b7e3e366691ddad4ba3ce6007aa2562c494a29f0b76b636f9789.css">
 
 
 
@@ -262,7 +262,7 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
 <meta itemprop="description" content="Voici une liste des commandes de base pour commencer à travailler avec Matplotlib et Pandas et Numpy. 1. Charger un dataset On charge un dataset basic (fleurs Iris très connu). On s&rsquo;en sert ensuite dans l&rsquo;affichage d&rsquo;un nuage de points avec Matplotlib.
 from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features = iris.data.shape print(n_samples) print(n_features) # 150 # 4 2. Afficher un nuage de points (scatter plot) On considère travailler avec un array (150,4)."><meta itemprop="datePublished" content="2015-09-14T19:24:00+00:00" />
 <meta itemprop="dateModified" content="2015-09-14T19:24:00+00:00" />
-<meta itemprop="wordCount" content="1384"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="1541"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Python,pandas,Numpy,Matplotlib,Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -329,7 +329,7 @@ from sklearn.datasets import load_iris iris = load_iris() n_samples, n_features 
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>7 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 minutes
 
             
 
@@ -697,7 +697,7 @@ df[&#39;colonne_name&#39;].nunique()
 # Pour afficher le top 5
 df[&#39;ma_colonne&#39;].value_counts().iloc[:5]
 </code></pre><br/>
-<p><strong>6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</strong></p>
+<p><strong>6.7. Combien de ligne d&rsquo;un dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeurs de la colonne ma_colonne</strong></p>
 <pre tabindex="0"><code>sum(df[&#39;ma_colonne&#39;].apply(lambda nom: &#39;blabla&#39; not in nom))
 </code></pre><br/>
 <p><strong>6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</strong></p>
@@ -705,6 +705,38 @@ df[&#39;ma_colonne&#39;].value_counts().iloc[:5]
 </code></pre><br/>
 <p><strong>6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</strong></p>
 <pre tabindex="0"><code>sum(pd.to_datetime(df[&#39;date&#39;]).apply(lambda date: date.year) == 2020)
+</code></pre><br/>
+<p><strong>6.10. Exploser le dict d&rsquo;une colonne d&rsquo;un dataframe</strong></p>
+<p>Pour exploser un dictionnaire présent dans une colonne de son dataframe et ajouter les éléments du dictionnaire en tant que nouvelles colonnes dans le même DataFrame d&rsquo;origine, on peut utiliser le code suivant:</p>
+<pre tabindex="0"><code>df = pd.concat([df, df[&#39;ma_colonne&#39;].apply(pd.Series)], axis=1)
+df.drop(&#39;ma_colonne&#39;, axis=1, inplace=True)
+</code></pre><br/>
+<p><strong>6.11. Exploser un JSON imbriqué avec un structure hiérarchique</strong></p>
+<pre tabindex="0"><code># Utilisez json_normalize pour exploser le dictionnaire dans un nouveau dataframe
+new_df = pd.json_normalize(df[&#39;ma_colonne&#39;])
+
+# Ajoutez les colonnes résultantes à votre DataFrame d&#39;origine
+df = pd.concat([df, new_df], axis=1)
+
+# Eventuellement supprimez la colonne d&#39;origine contenant le dictionnaire
+df.drop(&#39;ma_colonne&#39;, axis=1, inplace=True)
+</code></pre><br/>
+<p><strong>6.12. Renommer des colonnes</strong></p>
+<pre tabindex="0"><code>df.rename(
+    columns={
+        &#34;ma_ma_colonne1&#34;: &#34;ma_colonne1&#34;,
+        &#34;ma_ma_colonne2&#34;: &#34;ma_colonne2&#34;,
+    },
+    inplace=True,
+)
+</code></pre><br/>
+<p><strong>6.13. Retourner la première ligne d&rsquo;un dataframe dont la valeur est supérieur à 0</strong></p>
+<pre tabindex="0"><code>import pandas as pd
+condition = df[&#39;ma_colonne&#39;] &gt; 0
+
+# la méthode &#34;loc&#34; permet d&#39;obtenir les lignes qui remplissent la condition
+# puis iloc permet de retourner la première
+first_row = df.loc[condition].iloc[0]
 </code></pre><br/>
 <h2 id="debugging-misc">Debugging Misc</h2>
 <p><strong>&ldquo;Dumper&rdquo; un objet</strong></p>
@@ -744,7 +776,7 @@ print_format_table()
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/pandas">pandas</a></span><span class="tag"><a href="https://leandeep.com/tags/numpy">Numpy</a></span><span class="tag"><a href="https://leandeep.com/tags/matplotlib">Matplotlib</a></span><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1384 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1541 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>14 sept.. 2015</p>
         </div>

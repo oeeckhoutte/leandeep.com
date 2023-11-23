@@ -6,8 +6,29 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 05 Sep 2023 23:46:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 24 Sep 2023 22:13:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Encrypt a file with GPG</title>
+            <link>https://leandeep.com/encrypt-a-file-with-gpg/</link>
+            <pubDate>Sun, 24 Sep 2023 22:13:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/encrypt-a-file-with-gpg/</guid>
+            <description>Tiny/Pico tip explaining how to encrypt a file using GPG to share it with one of your colleague or friend.
+We start by checking if our friend key is aleady registered in our system using the following command:
+gpg --list-public-keys If it&amp;rsquo;s ok we just have to execute the following command to encrypt our file to share it securly to our friend:
+gpg --encrypt --recipient your_friend@email.com secret_file_to_encrypt.txt And voila that&amp;rsquo;s all.</description>
+            <content type="html"><![CDATA[<p>Tiny/Pico tip explaining how to encrypt a file using GPG to share it with one of your colleague or friend.</p>
+<p>We start by checking if our friend key is aleady registered in our system using the following command:</p>
+<pre tabindex="0"><code>gpg --list-public-keys
+</code></pre><br/>
+<p>If it&rsquo;s ok we just have to execute the following command to encrypt our file to share it securly to our friend:</p>
+<pre tabindex="0"><code>gpg --encrypt --recipient your_friend@email.com secret_file_to_encrypt.txt 
+</code></pre><br/>
+<p>And voila that&rsquo;s all.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Utiliser une IP fixe dans son terminal via proxy socks</title>
@@ -16,11 +37,11 @@
             
             <guid>https://leandeep.com/utiliser-une-ip-fixe-dans-son-terminal-via-proxy-socks/</guid>
             <description>Voici un tip pour utiliser une IP fixe depuis son terminal quand son FAI ne fournit pas d&amp;rsquo;adresse IP statique. C&amp;rsquo;est le cas par exemple avec Starlink, SFR ou Orange&amp;hellip;
-Pour se faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
+Pour ce faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
 Dans un premier onglet de votre terminal exécuter la commande suivante:
 ssh -D 6006 -q -C -N user@ip_or_reverse_dns Puis dans un second onglet:</description>
             <content type="html"><![CDATA[<p>Voici un tip pour utiliser une IP fixe depuis son terminal quand son FAI ne fournit pas d&rsquo;adresse IP statique. C&rsquo;est le cas par exemple avec Starlink, SFR ou Orange&hellip;</p>
-<p>Pour se faire, il suffit d&rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:</p>
+<p>Pour ce faire, il suffit d&rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:</p>
 <br/>
 <p>Dans un premier onglet de votre terminal exécuter la commande suivante:</p>
 <pre tabindex="0"><code>ssh -D 6006 -q -C -N user@ip_or_reverse_dns
@@ -1435,7 +1456,7 @@ Utilisation de Blynk Créer un compte et &amp;ldquo;skipper&amp;rdquo; tous les 
 <li>Dans les settings du switch button, sélectionnez pompe (V0) comme data stream et laissez &ldquo;On value&rdquo; = 1 et &ldquo;Off value&rdquo; = 0.</li>
 <li>Sauvegardez vos changements dans Blynk</li>
 <li>Ouvrir Arduino IDE et installer le librairie Blynk depuis la section Manage libraries.</li>
-<li>On ne va pas créer un projet Blynk from scratch. On va ouvrir un projet example Blynk. Pour se faire, cliquez sur <code>Fichier</code> -&gt; <code>Examples</code> -&gt; <code>Blynk</code> -&gt; <code>Blynk.Edgent</code> -&gt; <code>Edgent_ESP8266</code>. L&rsquo;IDE va ouvrir une nouvelle fenêtre avec plusieurs fichiers. Le fichier <code>Edgent_ESP8266.ino</code> ressemble à ceci:</li>
+<li>On ne va pas créer un projet Blynk from scratch. On va ouvrir un projet example Blynk. Pour ce faire, cliquez sur <code>Fichier</code> -&gt; <code>Examples</code> -&gt; <code>Blynk</code> -&gt; <code>Blynk.Edgent</code> -&gt; <code>Edgent_ESP8266</code>. L&rsquo;IDE va ouvrir une nouvelle fenêtre avec plusieurs fichiers. Le fichier <code>Edgent_ESP8266.ino</code> ressemble à ceci:</li>
 </ul>
 <pre tabindex="0"><code>// Fill-in information from your Blynk Template here
 #define BLYNK_TEMPLATE_ID &#34;...&#34;
@@ -1574,7 +1595,7 @@ Dans cet article, nous allons voir comment piloter la board <code>ESP12F Relay X
 <br/>
 <h2 id="branchement-usb-to-serial">Branchement usb-to-serial</h2>
 <p>Alimenter la board en énergie ne suffit pas. Il faut pouvoir envoyer son code dans l&rsquo;esp.</p>
-<p>Pour se faire, il faut une carte usb-to-serial:</p>
+<p>Pour ce faire, il faut une carte usb-to-serial:</p>
 <p><img src="/images/usb-to-serial.png" alt="image"></p>
 <blockquote>
 <p>Voici la référence: <code>DSD TECH SH-U06B Adaptateur série USB vers TTL avec Puce PL2303GC</code></p>
@@ -3050,6 +3071,28 @@ kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/
 <pre tabindex="0"><code>argo list -n argo
 argo get -n argo @latest
 argo logs -n argo @latest
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Renouveler son TLS cert</title>
+            <link>https://leandeep.com/renouveler-son-tls-cert/</link>
+            <pubDate>Tue, 26 Jul 2022 22:13:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/renouveler-son-tls-cert/</guid>
+            <description>Vérifier la validité d&amp;rsquo;un certificat depuis le fichier CRT openssl x509 -enddate -noout -in server.crt Vérifier la date de validité d&amp;rsquo;un service distant openssl s_client -servername www.leandeep.com -connect www.leandeep.com:443 Renouveler le CSR à partir de la clé privée csr pour Certificate Signing Request
+openssl req -new -key star_leandeep_com-private-key.key -out csr.txt </description>
+            <content type="html"><![CDATA[<h2 id="vérifier-la-validité-dun-certificat-depuis-le-fichier-crt">Vérifier la validité d&rsquo;un certificat depuis le fichier CRT</h2>
+<pre tabindex="0"><code>openssl x509 -enddate -noout -in server.crt
+</code></pre><br/>
+<h2 id="vérifier-la-date-de-validité-dun-service-distant">Vérifier la date de validité d&rsquo;un service distant</h2>
+<pre tabindex="0"><code>openssl s_client -servername www.leandeep.com -connect www.leandeep.com:443
+</code></pre><br/>
+<h2 id="renouveler-le-csr-à-partir-de-la-clé-privée">Renouveler le CSR à partir de la clé privée</h2>
+<blockquote>
+<p><code>csr</code> pour <code>Certificate Signing Request</code></p>
+</blockquote>
+<pre tabindex="0"><code>openssl req -new -key star_leandeep_com-private-key.key -out csr.txt
 </code></pre>]]></content>
         </item>
         
@@ -4676,6 +4719,40 @@ Cocher la case Use BlackHole 16ch dans la fenêtre de droite et renommer l&rsquo
         </item>
         
         <item>
+            <title>Créer des Pull Requests sur Github depuis son terminal</title>
+            <link>https://leandeep.com/cr%C3%A9er-des-pull-requests-sur-github-depuis-son-terminal/</link>
+            <pubDate>Sun, 24 Apr 2022 22:45:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-des-pull-requests-sur-github-depuis-son-terminal/</guid>
+            <description>Dans ce court article, nous allons voir comment créer des PRs automatiquement via le cli; toujours dans le but de booster sa productivité.
+Installation du client cli Github Adresse officielle du package
+brew install gh gh auth login Création de la PR gh pr create --base master --head your_branch --title &amp;#34;$(git log -1 --pretty=format:&amp;#39;%s&amp;#39;)&amp;#34; --body &amp;#34;$(cat pull_request_template.md)&amp;#34; Raccourcis pour récupérer les infos du dernier commit Editer le fichier ~/.zshrc et ajouter les fonctions suivantes:</description>
+            <content type="html"><![CDATA[<p>Dans ce court article, nous allons voir comment créer des PRs automatiquement via le cli; toujours dans le but de booster sa productivité.</p>
+<h2 id="installation-du-client-cli-github">Installation du client cli Github</h2>
+<blockquote>
+<p><a href="https://github.com/cli/cli">Adresse officielle</a> du package</p>
+</blockquote>
+<pre tabindex="0"><code>brew install gh
+gh auth login
+</code></pre><br/>
+<h2 id="création-de-la-pr">Création de la PR</h2>
+<pre tabindex="0"><code>gh pr create --base master --head your_branch --title &#34;$(git log -1 --pretty=format:&#39;%s&#39;)&#34; --body &#34;$(cat pull_request_template.md)&#34;
+</code></pre><br/>
+<h2 id="raccourcis-pour-récupérer-les-infos-du-dernier-commit">Raccourcis pour récupérer les infos du dernier commit</h2>
+<p>Editer le fichier <code>~/.zshrc</code> et ajouter les fonctions suivantes:</p>
+<pre tabindex="0"><code>function get_last_commit_message ()
+{
+  text=$(git log -1 --pretty=format:&#39;%s%n%n%b&#39;) &amp;&amp; echo $text | pbcopy
+}
+
+function get_last_commit_title ()
+{
+  text=$(git log -1 --pretty=format:&#39;%s&#39;) &amp;&amp; echo $text | pbcopy
+}
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Corriger l&#39;erreur ADB no permissions sur Arch</title>
             <link>https://leandeep.com/corriger-lerreur-adb-no-permissions-sur-arch/</link>
             <pubDate>Wed, 02 Mar 2022 22:59:00 +0000</pubDate>
@@ -6148,7 +6225,7 @@ Enfin, restaurer: <code>rsync -aAXv --delete --exclude=&quot;lost+found&quot; /m
 <h2 id="desktop-environment">Desktop environment</h2>
 <p>On va maintenant installer Gnome.</p>
 <pre tabindex="0"><code>sudo pacman -Syu gnome gnome-extra xorg-xinit
-</code></pre><p>On va ensuite configurer le système pour que la commande <code>startx</code> démarre une session gnome. Pour se faire, on va créer un fichier <code>sudo vim ~/.xinitrc</code> et on va ajouter la ligne suivante: <code>exec gnome-session</code>.</p>
+</code></pre><p>On va ensuite configurer le système pour que la commande <code>startx</code> démarre une session gnome. Pour ce faire, on va créer un fichier <code>sudo vim ~/.xinitrc</code> et on va ajouter la ligne suivante: <code>exec gnome-session</code>.</p>
 <p>On redémarre et vérifie que tout fonctionne bien. Exécuter <code>startx</code> après s&rsquo;être authentifié.</p>
 <br/>
 <h2 id="keyring-fix">Keyring fix</h2>
@@ -8562,6 +8639,26 @@ En gros, il n&rsquo;y a pas à gérer la partie CI (mobile) du tout.</p>
         </item>
         
         <item>
+            <title>Renouveler un certificat TLS et garder la même clé publique</title>
+            <link>https://leandeep.com/renouveler-un-certificat-tls-et-garder-la-m%C3%AAme-cl%C3%A9-publique/</link>
+            <pubDate>Tue, 21 Sep 2021 08:08:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/renouveler-un-certificat-tls-et-garder-la-m%C3%AAme-cl%C3%A9-publique/</guid>
+            <description>Voici la procédure à suivre pour renouveler un certificat TLS et garder la même clé publique que précédemment (donc pas changer la clé privée).
+Pour ce faire, il vous faudra récupérer la clé privée précédemment utilisée. Dans notre exemple la clé privée sera contenue dans le fichier private_key.key.
+Ensuite, il n&amp;rsquo;y a plus qu&amp;rsquo;à générer un CSR (Certificate Signing Request) et de l&amp;rsquo;uploader sur le site vous fournissant un certif valide (autorité de certification).</description>
+            <content type="html"><![CDATA[<p>Voici la procédure à suivre pour renouveler un certificat TLS et garder la même clé publique que précédemment (donc pas changer la clé privée).</p>
+<p>Pour ce faire, il vous faudra récupérer la clé privée précédemment utilisée. Dans notre exemple la clé privée sera contenue dans le fichier <code>private_key.key</code>.</p>
+<p>Ensuite, il n&rsquo;y a plus qu&rsquo;à générer un CSR (Certificate Signing Request) et de l&rsquo;uploader sur le site vous fournissant un certif valide (autorité de certification).</p>
+<p>Vous obtiendrez certainement un fichier <code>.crt</code> qu&rsquo;il faudra installer sur le serveur où le certificat a expiré.</p>
+<pre tabindex="0"><code>openssl req -new -key private_key.key -out new_csr.csr
+</code></pre><blockquote>
+<p>Le &ldquo;challenge password&rdquo; n&rsquo;est pas indispensable. Il n&rsquo;est pas utilisé comme une passphase. Il permet de s&rsquo;identifier auprès de l&rsquo;autorité de certification si nécessaire.</p>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
             <title>Développement Solidity tuto 1 - Pragma</title>
             <link>https://leandeep.com/d%C3%A9veloppement-solidity-tuto-1-pragma/</link>
             <pubDate>Fri, 10 Sep 2021 08:08:00 +0000</pubDate>
@@ -10009,7 +10106,7 @@ Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet v
             
             <guid>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</guid>
             <description>Bien sûr il y a Docker mais parfois on ne peut pas faire autrement que d&amp;rsquo;utiliser une VM&amp;hellip;
-Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;#34;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;#34; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&amp;rsquo;extension Oracle.</description>
+Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;#34;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;#34; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER Comme notre serveur est headless, il nous faut un accès remote. Pour ce faire, nous devons installer l&amp;rsquo;extension Oracle.</description>
             <content type="html"><![CDATA[<p>Bien sûr il y a Docker mais parfois on ne peut pas faire autrement que d&rsquo;utiliser une VM&hellip;</p>
 <br/>
 <h2 id="installation">Installation</h2>
@@ -10021,7 +10118,7 @@ sudo systemctl status vboxdrv
 
 sudo usermod -aG vboxusers $USER
 </code></pre><br/>
-<p>Comme notre serveur est headless, il nous faut un accès remote. Pour se faire, nous devons installer l&rsquo;extension Oracle.</p>
+<p>Comme notre serveur est headless, il nous faut un accès remote. Pour ce faire, nous devons installer l&rsquo;extension Oracle.</p>
 <pre tabindex="0"><code>VBOXVER=`vboxmanage -v | cut -dr -f1`
 wget -P /tmp https://download.virtualbox.org/virtualbox/$VBOXVER/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack
 vboxmanage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-$VBOXVER.vbox-extpack
@@ -10202,7 +10299,7 @@ Visser toutes les vis du plateau à fond sans forcer et desserrer de 1 tour.</de
 <p>Une fois les températures atteintes, cliquer sur <code>MENU: Settings &gt; Level mode</code>. La buse va se placer sur la position du milieu et avec les touches <code>Z+</code> et <code>Z-</code> ajuster la hauteur avec une feuille de papier A4. Il faut que la buse frotte le papier sans l’accrocher.</p>
 <p><img src="/images/3d_print_z3.png" alt="image"></p>
 <br/>
-<p>On va régler le détecteur de leveling. Pour se faire, dévisser la vis du dessus jusqu&rsquo;à ce que la led rouge soit éteinte, et revisser jusqu’à ce qu&rsquo;elle se rallume.</p>
+<p>On va régler le détecteur de leveling. Pour ce faire, dévisser la vis du dessus jusqu&rsquo;à ce que la led rouge soit éteinte, et revisser jusqu’à ce qu&rsquo;elle se rallume.</p>
 <p><img src="/images/3d_print_z4.png" alt="image"></p>
 <br/>
 <p>Appuyer sur <code>Z Home</code>. La buse va se placer sur la position du milieu et ajuster de nouveau la buse avec une feuille de papier avec les touches <code>Z+</code> et <code>Z-</code> et cliquer à nouveau sur <code>Z Home</code>.</p>
@@ -10996,7 +11093,7 @@ GRUB_CMDLINE_LINUX=&#34;&#34;
 sudo reboot
 </code></pre><br/>
 <h2 id="autoriser-le-driver-nvidia-a-accélérer-le-server-x">Autoriser le Driver Nvidia a accélérer le server X.</h2>
-<p>Pour se faire, éditer le fichier <code>/usr/share/X11/xorg.conf.d/10-nvidia.conf</code> et ajouter les lignes suivantes:</p>
+<p>Pour ce faire, éditer le fichier <code>/usr/share/X11/xorg.conf.d/10-nvidia.conf</code> et ajouter les lignes suivantes:</p>
 <pre tabindex="0"><code>Section &#34;OutputClass&#34;
    Identifier &#34;nvidia&#34;
    MatchDriver &#34;nvidia-drm&#34;
@@ -18934,7 +19031,7 @@ C&rsquo;est l&rsquo;équivalent de <code>npm</code> en NodeJS. Il est un peu plu
 <h2 id="virtual-environment-création--pipenv-installation">Virtual environment création &amp; pipenv installation</h2>
 <p>Imaginez que vous cloniez un projet qui contient un fichier Pipfile. La première chose à faire est d&rsquo;excuter la commande <code>pipenv install --dev --python version_installee_par_pyenv</code>. Cette commande va créer un environnement virtuel dans le répertoire suivant <code>~/.local/share/virtualenvs/</code> ou dans <code>~/.virtualenvs/</code> en fonction de votre OS et paramètres d&rsquo;installation.</p>
 <blockquote>
-<p>Bien sûr pipenv doit être installé sur votre poste. Pour se faire, il suffit d&rsquo;exécuter la commande suivante: <code>pip3 install --user pipenv</code>.</p>
+<p>Bien sûr pipenv doit être installé sur votre poste. Pour ce faire, il suffit d&rsquo;exécuter la commande suivante: <code>pip3 install --user pipenv</code>.</p>
 </blockquote>
 <br/>
 <h2 id="pyenv">pyenv</h2>
@@ -22882,11 +22979,11 @@ kubectl expose deployment dh-nginx --type=NodePort
             <pubDate>Thu, 21 Jun 2018 18:19:00 +0000</pubDate>
             
             <guid>https://leandeep.com/d%C3%A9tecter-des-memory-leaks-en-python/</guid>
-            <description>Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour se faire, nous allons mesurer l&amp;rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&amp;rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+            <description>Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l&amp;rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&amp;rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
 Installation de l&amp;rsquo;outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d&amp;rsquo;habitude vous démarriez votre programme via la commande python votre_programme.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks.
-Pour se faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package <code>memory_profiler</code>. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.</p>
+Pour ce faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package <code>memory_profiler</code>. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.</p>
 <br/>
 <h2 id="installation-de-loutil">Installation de l&rsquo;outil</h2>
 <pre tabindex="0"><code>pip install memory_profiler
@@ -23009,7 +23106,7 @@ services:
       SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
 </code></pre><p>Puis exécuter la commande <code>docker-compose up -d</code>.</p>
-<p>Créer ensuite un compte admin. Pour se faire, exécuter la commande <code>docker-compose exec sentry sentry upgrade</code></p>
+<p>Créer ensuite un compte admin. Pour ce faire, exécuter la commande <code>docker-compose exec sentry sentry upgrade</code></p>
 <p>Restart Sentry avec <code>docker-compose restart sentry</code></p>
 <p>Puis rendez-vous à l&rsquo;adresse: <a href="http://localhost:9000">http://localhost:9000</a></p>
 ]]></content>
@@ -26476,6 +26573,12 @@ http://www.myfileserver.com/file3.zip
 </code></pre><br/>
 <p>Pour télécharger tous les fichiers d&rsquo;un dossier de manière récursive:</p>
 <pre tabindex="0"><code>wget -r www.myfileserver.com
+</code></pre><blockquote>
+<p>if the TLS is not valid anymore: <code>--no-check-certificate</code></p>
+</blockquote>
+<br/>
+<p>Pour télécharger tout le contenu d&rsquo;un dossier</p>
+<pre tabindex="0"><code>wget -np -r -l 2 --no-check-certificate www.myfileserver.com
 </code></pre><br/>
 <p>Par défaut la profondeur de téléchargement est de 5. Pour avoir un téléchargement de tout le contenu d&rsquo;un site:</p>
 <pre tabindex="0"><code>wget -r -l inf www.myfileserver.com
@@ -27496,7 +27599,7 @@ for i in range(128):
 <p><img src="/images/mnist.png" alt="image"></p>
 <br/>
 <h1 id="visualisation-des-données">Visualisation des données</h1>
-<p>Pour beaucoup de problème, la première étape est de visualiser les données en utilisant une technique de réduction de dimensions. Pour se faire, l&rsquo;algorithme le plus simple est PCA (Principal Component Analysis)</p>
+<p>Pour beaucoup de problème, la première étape est de visualiser les données en utilisant une technique de réduction de dimensions. Pour ce faire, l&rsquo;algorithme le plus simple est PCA (Principal Component Analysis)</p>
 <p>Cet algorithme cherche à trouver les combinaisons linéaires orthogonales qui ont la plus grande variance entre les <em>features</em> du dataset. Cela permet d&rsquo;avoir une bonne idée de la structure du dataset.</p>
 <pre tabindex="0"><code>from sklearn.decomposition import RandomizedPCA
 pca = RandomizedPCA(n_components=2)
@@ -30184,7 +30287,7 @@ df[&#39;colonne_name&#39;].nunique()
 # Pour afficher le top 5
 df[&#39;ma_colonne&#39;].value_counts().iloc[:5]
 </code></pre><br/>
-<p><strong>6.7. Combien de ligne d&rsquo;une dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeur de la colonne ma_colonne</strong></p>
+<p><strong>6.7. Combien de ligne d&rsquo;un dataframe n&rsquo;ont pas la string &ldquo;blabla&rdquo; dans les valeurs de la colonne ma_colonne</strong></p>
 <pre tabindex="0"><code>sum(df[&#39;ma_colonne&#39;].apply(lambda nom: &#39;blabla&#39; not in nom))
 </code></pre><br/>
 <p><strong>6.8. Afficher le nombre de lignes que possède un dataframe ayant la valeur &ldquo;toto&rdquo; dans la colonne ma_colonne</strong></p>
@@ -30192,6 +30295,38 @@ df[&#39;ma_colonne&#39;].value_counts().iloc[:5]
 </code></pre><br/>
 <p><strong>6.9. Pour une série temporelle, combien d&rsquo;éléments y a-t-il dans notre dataframe avec une date supérieure à l&rsquo;annéee 2020</strong></p>
 <pre tabindex="0"><code>sum(pd.to_datetime(df[&#39;date&#39;]).apply(lambda date: date.year) == 2020)
+</code></pre><br/>
+<p><strong>6.10. Exploser le dict d&rsquo;une colonne d&rsquo;un dataframe</strong></p>
+<p>Pour exploser un dictionnaire présent dans une colonne de son dataframe et ajouter les éléments du dictionnaire en tant que nouvelles colonnes dans le même DataFrame d&rsquo;origine, on peut utiliser le code suivant:</p>
+<pre tabindex="0"><code>df = pd.concat([df, df[&#39;ma_colonne&#39;].apply(pd.Series)], axis=1)
+df.drop(&#39;ma_colonne&#39;, axis=1, inplace=True)
+</code></pre><br/>
+<p><strong>6.11. Exploser un JSON imbriqué avec un structure hiérarchique</strong></p>
+<pre tabindex="0"><code># Utilisez json_normalize pour exploser le dictionnaire dans un nouveau dataframe
+new_df = pd.json_normalize(df[&#39;ma_colonne&#39;])
+
+# Ajoutez les colonnes résultantes à votre DataFrame d&#39;origine
+df = pd.concat([df, new_df], axis=1)
+
+# Eventuellement supprimez la colonne d&#39;origine contenant le dictionnaire
+df.drop(&#39;ma_colonne&#39;, axis=1, inplace=True)
+</code></pre><br/>
+<p><strong>6.12. Renommer des colonnes</strong></p>
+<pre tabindex="0"><code>df.rename(
+    columns={
+        &#34;ma_ma_colonne1&#34;: &#34;ma_colonne1&#34;,
+        &#34;ma_ma_colonne2&#34;: &#34;ma_colonne2&#34;,
+    },
+    inplace=True,
+)
+</code></pre><br/>
+<p><strong>6.13. Retourner la première ligne d&rsquo;un dataframe dont la valeur est supérieur à 0</strong></p>
+<pre tabindex="0"><code>import pandas as pd
+condition = df[&#39;ma_colonne&#39;] &gt; 0
+
+# la méthode &#34;loc&#34; permet d&#39;obtenir les lignes qui remplissent la condition
+# puis iloc permet de retourner la première
+first_row = df.loc[condition].iloc[0]
 </code></pre><br/>
 <h2 id="debugging-misc">Debugging Misc</h2>
 <p><strong>&ldquo;Dumper&rdquo; un objet</strong></p>

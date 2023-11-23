@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 05 Sep 2023 23:46:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Sep 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Encrypt a file with GPG</title>
+      <link>https://leandeep.com/encrypt-a-file-with-gpg/</link>
+      <pubDate>Sun, 24 Sep 2023 22:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/encrypt-a-file-with-gpg/</guid>
+      <description>Tiny/Pico tip explaining how to encrypt a file using GPG to share it with one of your colleague or friend.
+We start by checking if our friend key is aleady registered in our system using the following command:
+gpg --list-public-keys If it&amp;rsquo;s ok we just have to execute the following command to encrypt our file to share it securly to our friend:
+gpg --encrypt --recipient your_friend@email.com secret_file_to_encrypt.txt And voila that&amp;rsquo;s all.</description>
+    </item>
+    
     <item>
       <title>Utiliser une IP fixe dans son terminal via proxy socks</title>
       <link>https://leandeep.com/utiliser-une-ip-fixe-dans-son-terminal-via-proxy-socks/</link>
@@ -15,7 +27,7 @@
       
       <guid>https://leandeep.com/utiliser-une-ip-fixe-dans-son-terminal-via-proxy-socks/</guid>
       <description>Voici un tip pour utiliser une IP fixe depuis son terminal quand son FAI ne fournit pas d&amp;rsquo;adresse IP statique. C&amp;rsquo;est le cas par exemple avec Starlink, SFR ou Orange&amp;hellip;
-Pour se faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
+Pour ce faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
 Dans un premier onglet de votre terminal exécuter la commande suivante:
 ssh -D 6006 -q -C -N user@ip_or_reverse_dns Puis dans un second onglet:</description>
     </item>
@@ -106,16 +118,6 @@ import requests import datetime import pandas as pd import numpy as np start_dat
       <description>Lorsqu&amp;rsquo;on utilise un binaire NodeJS sur xcode mais qu&amp;rsquo;on n&amp;rsquo;utilise pas NodeJS &amp;ldquo;classiquement&amp;rdquo; installé avec brew ou curl, on obtient la magnifiquer error &amp;ldquo;command not found&amp;rdquo; lorsque que Xcode build
 Correctif Pour remédier à ce problème, il suffit d&amp;rsquo;ajouter le script suivant dans la section build phase de son projet Xcode, avant bien sûr que la commande node soit exécutée.
 if [[ -s &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; ]]; then . &amp;#34;$HOME/.nvm/nvm.sh&amp;#34; elif [[ -x &amp;#34;$(command -v brew)&amp;#34; &amp;amp;&amp;amp; -s &amp;#34;$(brew --prefix nvm)/nvm.</description>
-    </item>
-    
-    <item>
-      <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
-      <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
-      <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
-      <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
-import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
     </item>
     
   </channel>
