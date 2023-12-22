@@ -7,11 +7,10 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="ps n&amp;rsquo;est pas disponible dans les nouvelles images minimales Redhat ubi8-minimal. Voici un article de RedHat expliquant ce que sont ces images https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
-Pour réaliser un ps aux, cela va être compliqué&amp;hellip;
-2 options s&amp;rsquo;offrent à nous:
-Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
-Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois)." />
+  content="Introduction Dans cet article rapide, nous allons voir comment vérifier qu&amp;rsquo;un pod peut accéder à un serveur distant. Dans l&amp;rsquo;image Docker utiliséz dans le pod, aucun outil n&amp;rsquo;est installé (ping command not found&amp;hellip;).
+ICMP Ping, c&amp;rsquo;est ICMP, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.
+Connexion tcp/udp via device Depuis le pod, kubectl exec..., exécuter les commandes suivantes:
+export host=le_host_de_votre_serveur_distant export port=le_port_de_votre_serveur_distant (echo &amp;gt;/dev/tcp/${host}/${port}) &amp;amp;&amp;gt;/dev/null &amp;amp;&amp;amp; echo &amp;#34;open&amp;#34; || echo &amp;#34;closed&amp;#34; Rappel autres outils telnet:" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -27,7 +26,7 @@ Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarr�
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/" />
+<link rel="canonical" href="https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/" />
 
 
 
@@ -236,7 +235,7 @@ Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarr�
 
 <title>
   
-  Lister les process Linux dans une image redhat ubi-minimal :: Lean Deep Tech blog 
+  Vérifier les ouvertures réseau depuis un pod Kubernetes :: Lean Deep Tech blog 
   
 </title>
 
@@ -261,29 +260,27 @@ Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarr�
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Lister les process Linux dans une image redhat ubi-minimal">
-<meta itemprop="description" content="ps n&rsquo;est pas disponible dans les nouvelles images minimales Redhat ubi8-minimal. Voici un article de RedHat expliquant ce que sont ces images https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
-Pour réaliser un ps aux, cela va être compliqué&hellip;
-2 options s&rsquo;offrent à nous:
-Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
-Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois)."><meta itemprop="datePublished" content="2020-01-10T19:49:00+02:00" />
-<meta itemprop="dateModified" content="2020-01-10T19:49:00+02:00" />
-<meta itemprop="wordCount" content="155"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Linux,Redhat,Docker,Openshift,Kubernetes," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Vérifier les ouvertures réseau depuis un pod Kubernetes">
+<meta itemprop="description" content="Introduction Dans cet article rapide, nous allons voir comment vérifier qu&rsquo;un pod peut accéder à un serveur distant. Dans l&rsquo;image Docker utiliséz dans le pod, aucun outil n&rsquo;est installé (ping command not found&hellip;).
+ICMP Ping, c&rsquo;est ICMP, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.
+Connexion tcp/udp via device Depuis le pod, kubectl exec..., exécuter les commandes suivantes:
+export host=le_host_de_votre_serveur_distant export port=le_port_de_votre_serveur_distant (echo &gt;/dev/tcp/${host}/${port}) &amp;&gt;/dev/null &amp;&amp; echo &#34;open&#34; || echo &#34;closed&#34; Rappel autres outils telnet:"><meta itemprop="datePublished" content="2022-02-08T06:59:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-08T06:59:00+00:00" />
+<meta itemprop="wordCount" content="109"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Kubernetes,Network,Container,unix_tips,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Lister les process Linux dans une image redhat ubi-minimal"/>
-<meta name="twitter:description" content="ps n&rsquo;est pas disponible dans les nouvelles images minimales Redhat ubi8-minimal. Voici un article de RedHat expliquant ce que sont ces images https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
-Pour réaliser un ps aux, cela va être compliqué&hellip;
-2 options s&rsquo;offrent à nous:
-Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
-Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois)."/>
+<meta name="twitter:title" content="Vérifier les ouvertures réseau depuis un pod Kubernetes"/>
+<meta name="twitter:description" content="Introduction Dans cet article rapide, nous allons voir comment vérifier qu&rsquo;un pod peut accéder à un serveur distant. Dans l&rsquo;image Docker utiliséz dans le pod, aucun outil n&rsquo;est installé (ping command not found&hellip;).
+ICMP Ping, c&rsquo;est ICMP, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.
+Connexion tcp/udp via device Depuis le pod, kubectl exec..., exécuter les commandes suivantes:
+export host=le_host_de_votre_serveur_distant export port=le_port_de_votre_serveur_distant (echo &gt;/dev/tcp/${host}/${port}) &amp;&gt;/dev/null &amp;&amp; echo &#34;open&#34; || echo &#34;closed&#34; Rappel autres outils telnet:"/>
 
 
 
 
 
-<meta property="article:published_time" content="2020-01-10 19:49:00 &#43;0200 &#43;0200" />
+<meta property="article:published_time" content="2022-02-08 06:59:00 &#43;0000 UTC" />
 
 
 
@@ -347,39 +344,36 @@ Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarr�
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/">Lister les process Linux dans une image redhat ubi-minimal</a>
+                <a href="https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/">Vérifier les ouvertures réseau depuis un pod Kubernetes</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p><code>ps</code> n&rsquo;est pas disponible dans les nouvelles images minimales Redhat <code>ubi8-minimal</code>. Voici un article de RedHat expliquant ce que sont ces images <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image</a></p>
-<p>Pour réaliser un <code>ps aux</code>, cela va être compliqué&hellip;</p>
-<p>2 options s&rsquo;offrent à nous:</p>
-<ul>
-<li>
-<p>Option 1: Soit On veut ajouter <em>at vitam eternam</em> le binaire <code>ps</code> dans son container/ ou pod.</p>
-</li>
-<li>
-<p>Option 2: Ou soit on veut ajouter <code>ps</code> une fois que le container ou pod a démarré (juste une fois).</p>
-</li>
-</ul>
+                <h2 id="introduction">Introduction</h2>
+<p>Dans cet article rapide, nous allons voir comment vérifier qu&rsquo;un pod peut accéder à un serveur distant. Dans l&rsquo;image Docker utiliséz dans le pod, aucun outil n&rsquo;est installé (<code>ping command not found</code>&hellip;).</p>
 <br/>
-<h2 id="option-1">Option 1</h2>
-<p>Il faut surcharger l&rsquo;image Docker <code>ubi8-minimal</code>. Il suffit de faire dans un nouveau Dockerfile:</p>
-<pre tabindex="0"><code>FROM registry.access.redhat.com/ubi8-minimal
-RUN microdnf update &amp;&amp; microdnf install procps; 
-</code></pre><p>Et suite, la builder et la pusher sur votre propre registry Docker.</p>
+<h2 id="icmp">ICMP</h2>
+<p>Ping, c&rsquo;est <a href="https://fr.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a>, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.</p>
 <br/>
-<h2 id="option-2">Option 2</h2>
-<p>Entrer dans le container/ pod qui tourne et exécuter les commandes suivantes:</p>
-<pre tabindex="0"><code>kubectl exec -it MON_POD_ID bash
-microdnf update &amp;&amp; microdnf install procps
+<h2 id="connexion-tcpudp-via-device">Connexion tcp/udp via device</h2>
+<p>Depuis le pod, <code>kubectl exec...</code>, exécuter les commandes suivantes:</p>
+<pre tabindex="0"><code>export host=le_host_de_votre_serveur_distant
+export port=le_port_de_votre_serveur_distant
+(echo &gt;/dev/tcp/${host}/${port}) &amp;&gt;/dev/null &amp;&amp; echo &#34;open&#34; || echo &#34;closed&#34;
 </code></pre><br/>
-<h2 id="jouer-avec-ps">Jouer avec ps</h2>
-<p>Voir l&rsquo;utilisation de la mémoire des processes:</p>
-<pre tabindex="0"><code>ps -o pid,user,%mem,command ax | sort -b -k3 -r
-</code></pre>
+<h2 id="rappel-autres-outils">Rappel autres outils</h2>
+<p><strong>telnet:</strong></p>
+<pre tabindex="0"><code>telnet IP_DE_VOTRE_HOST 80
+</code></pre><br/>
+<p><strong>Netcat:</strong></p>
+<pre tabindex="0"><code>nc -nv ip_address port_number
+</code></pre><br/>
+<p><strong>tcpconnect:</strong></p>
+<pre tabindex="0"><code>tcpconnect -v remote_host remote_port
+# for i in seq 1 65535 ; do tcpconnect -v remotehost $i ; done
+</code></pre><p>Et voilà.</p>
+
             </div>
         </article>
 
@@ -387,12 +381,12 @@ microdnf update &amp;&amp; microdnf install procps
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/redhat">Redhat</a></span><span class="tag"><a href="https://leandeep.com/tags/docker">Docker</a></span><span class="tag"><a href="https://leandeep.com/tags/openshift">Openshift</a></span><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/kubernetes">Kubernetes</a></span><span class="tag"><a href="https://leandeep.com/tags/network">Network</a></span><span class="tag"><a href="https://leandeep.com/tags/container">Container</a></span><span class="tag"><a href="https://leandeep.com/tags/unix_tips">unix_tips</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>155 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>109 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 janv.. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>08 févr.. 2022</p>
         </div>
 
         
@@ -405,17 +399,17 @@ microdnf update &amp;&amp; microdnf install procps
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/ajouter-un-contributeur-dans-un-repo-git-s%C3%A9curis%C3%A9-avec-git-crypt/">
+                            <a href="https://leandeep.com/d%C3%A9velopper-sur-ipad/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Ajouter un contributeur dans un repo git sécurisé avec git-crypt</span>
+                                <span class="button__text">Développer sur iPad</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/demander-pardon-plut%C3%B4t-que-la-permission/">
-                                <span class="button__text">Demander Pardon plutôt que la permission</span>
+                            <a href="https://leandeep.com/installation-darch-linux/">
+                                <span class="button__text">Installation d&#39;Arch linux</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

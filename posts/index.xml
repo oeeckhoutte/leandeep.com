@@ -267,6 +267,94 @@ services:
         </item>
         
         <item>
+            <title>Keycloak installation using Docker</title>
+            <link>https://leandeep.com/keycloak-installation-using-docker/</link>
+            <pubDate>Tue, 14 Mar 2023 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/keycloak-installation-using-docker/</guid>
+            <description>Introduction The purpose of the short article is the describe the commands to launch a Keycloak instance on your local dev environment. For production purpose I would suggest a Kubernetes deployment.
+Option 1 (without docker-compose) Create Docker Network
+docker network create keycloak-network Launch Postgres DB
+export POSTGRES_KEYCLOAK_PWD=&amp;#34;&amp;#34; docker run --name postgres --net keycloak-network -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=$POSTGRES_KEYCLOAK_PWD -p 5432:5432 postgres Launch Keyclaok instance and pass it Postgres environment variables</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>The purpose of the short article is the describe the commands to launch a Keycloak instance on your local dev environment.
+For production purpose I would suggest a Kubernetes deployment.</p>
+<h2 id="option-1-without-docker-compose">Option 1 (without docker-compose)</h2>
+<p><strong>Create Docker Network</strong></p>
+<pre tabindex="0"><code>docker network create keycloak-network
+</code></pre><br/>
+<p><strong>Launch Postgres DB</strong></p>
+<pre tabindex="0"><code>export POSTGRES_KEYCLOAK_PWD=&#34;&#34;
+docker run --name postgres --net keycloak-network -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=$POSTGRES_KEYCLOAK_PWD -p 5432:5432 postgres
+</code></pre><br/>
+<p><strong>Launch Keyclaok instance and pass it Postgres environment variables</strong></p>
+<pre tabindex="0"><code>docker run --name keycloak --net keycloak-network -p 8080:8080 -e DB_ADDR=postgres -e DB_USER=keycloak -e DB_PASSWORD=$POSTGRES_KEYCLOAK_PWD jboss/keycloak:16.1.1
+</code></pre><p><br/>
+<strong>Create a Keycloak admin user</strong></p>
+<pre tabindex="0"><code># Get the Keycloak container id
+docker ps
+export CONTAINER_ID=...
+docker exec -it $CONTAINER_ID bash
+cd /opt/jboss/keycloak/bin/
+./add-user.sh -u your_username -p your_password --silent
+./add-user-keycloak.sh -u your_username -p your_password
+exit
+docker restart $CONTAINER_ID
+</code></pre><p>Now you can go to http://localhost:8080 and connect using the admin account you just created.</p>
+<br/>
+<h2 id="option-2-with-docker-compose-way-easier">Option 2 (with docker-compose way easier)</h2>
+<p>Simply create a file called <code>docker-compose.yml</code> and add the following content:</p>
+<pre tabindex="0"><code>version: &#39;3&#39;
+
+volumes:
+  postgres_data:
+      driver: local
+
+services:
+  postgres:
+      image: postgres
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+      ports:
+        - 5432:5432
+  keycloak:
+      image: jboss/keycloak:16.1.1
+      environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: postgres
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_SCHEMA: public
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: Pa55w0rd
+        # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn&#39;t be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+        #JDBC_PARAMS: &#34;ssl=true&#34;
+      ports:
+        - 8080:8080
+      depends_on:
+        - postgres
+</code></pre><p>And then simply execute <code>docker-compose up</code></p>
+<br/>
+<h2 id="run-keycloak-on-apple-m1m2-processors">Run Keycloak on Apple M1/M2 processors</h2>
+<p>Si vous voulez faire tourner Keycloak, dans sa version actuelle <code>16.1.1</code>, sur un Mac équipé d&rsquo;un processeur M1/M2, alors vous devez le builder vous-même sur votre Mac.</p>
+<pre tabindex="0"><code>export VERSION=16.1.1
+
+cd /tmp
+git clone git@github.com:keycloak/keycloak-containers.git
+cd keycloak-containers/server
+git checkout $VERSION
+docker build -t &#34;jboss/keycloak:${VERSION}&#34; .
+
+# docker build -t &#34;quay.io/keycloak/keycloak:${VERSION}&#34; .
+</code></pre>]]></content>
+        </item>
+        
+        <item>
             <title>Switcher entre releases Erigon</title>
             <link>https://leandeep.com/switcher-entre-releases-erigon/</link>
             <pubDate>Sat, 18 Feb 2023 07:49:00 +0200</pubDate>
@@ -5925,6 +6013,42 @@ exit 0
 <h2 id="répertoire-partagé-entre-android-et-ubuntu">Répertoire partagé entre Android et Ubuntu</h2>
 <p>Depuis Ubuntu, créer un fichier dans <code>touch /storage/internal/test-ubuntu-android.txt</code>.</p>
 <p>Rendez-vous ensuite sur Android, ouvrez l&rsquo;app Fichier et vérifiez que le nouveau fichier a bien été créé dans le répertoire <strong>Téléphone &ndash;&gt; Android &ndash;&gt; data &ndash;&gt; tech.ula &ndash;&gt; files &ndash;&gt; storage</strong></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Vérifier les ouvertures réseau depuis un pod Kubernetes</title>
+            <link>https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/</link>
+            <pubDate>Tue, 08 Feb 2022 06:59:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/</guid>
+            <description>Introduction Dans cet article rapide, nous allons voir comment vérifier qu&amp;rsquo;un pod peut accéder à un serveur distant. Dans l&amp;rsquo;image Docker utiliséz dans le pod, aucun outil n&amp;rsquo;est installé (ping command not found&amp;hellip;).
+ICMP Ping, c&amp;rsquo;est ICMP, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.
+Connexion tcp/udp via device Depuis le pod, kubectl exec..., exécuter les commandes suivantes:
+export host=le_host_de_votre_serveur_distant export port=le_port_de_votre_serveur_distant (echo &amp;gt;/dev/tcp/${host}/${port}) &amp;amp;&amp;gt;/dev/null &amp;amp;&amp;amp; echo &amp;#34;open&amp;#34; || echo &amp;#34;closed&amp;#34; Rappel autres outils telnet:</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article rapide, nous allons voir comment vérifier qu&rsquo;un pod peut accéder à un serveur distant. Dans l&rsquo;image Docker utiliséz dans le pod, aucun outil n&rsquo;est installé (<code>ping command not found</code>&hellip;).</p>
+<br/>
+<h2 id="icmp">ICMP</h2>
+<p>Ping, c&rsquo;est <a href="https://fr.wikipedia.org/wiki/Internet_Control_Message_Protocol">ICMP</a>, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.</p>
+<br/>
+<h2 id="connexion-tcpudp-via-device">Connexion tcp/udp via device</h2>
+<p>Depuis le pod, <code>kubectl exec...</code>, exécuter les commandes suivantes:</p>
+<pre tabindex="0"><code>export host=le_host_de_votre_serveur_distant
+export port=le_port_de_votre_serveur_distant
+(echo &gt;/dev/tcp/${host}/${port}) &amp;&gt;/dev/null &amp;&amp; echo &#34;open&#34; || echo &#34;closed&#34;
+</code></pre><br/>
+<h2 id="rappel-autres-outils">Rappel autres outils</h2>
+<p><strong>telnet:</strong></p>
+<pre tabindex="0"><code>telnet IP_DE_VOTRE_HOST 80
+</code></pre><br/>
+<p><strong>Netcat:</strong></p>
+<pre tabindex="0"><code>nc -nv ip_address port_number
+</code></pre><br/>
+<p><strong>tcpconnect:</strong></p>
+<pre tabindex="0"><code>tcpconnect -v remote_host remote_port
+# for i in seq 1 65535 ; do tcpconnect -v remotehost $i ; done
+</code></pre><p>Et voilà.</p>
 ]]></content>
         </item>
         
@@ -14488,6 +14612,68 @@ for idx in range(0, len(prenoms)):
 for idx, prenom in enumerate(prenoms):
     print(idx, prenom)
 </code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Ajouter un contributeur dans un repo git sécurisé avec git-crypt</title>
+            <link>https://leandeep.com/ajouter-un-contributeur-dans-un-repo-git-s%C3%A9curis%C3%A9-avec-git-crypt/</link>
+            <pubDate>Fri, 10 Jan 2020 19:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/ajouter-un-contributeur-dans-un-repo-git-s%C3%A9curis%C3%A9-avec-git-crypt/</guid>
+            <description>Pré-requis Installer GPG et git-crypt localement
+Sur OSX:
+brew install gpg brew install git-crypt Sur Linux Ubuntu/ Debian:
+apt-get install gnupg git-crypt gnupg-agent -y Verification de l&amp;rsquo;installation gpg --gen-key gpg --list-keys Generate a new GPG key On the new developer laptop execute:
+Generate a new GPG key gpg --gen-key Get the public key ID Send the key to an admin to trust it and add it to git-crypt repo DB</description>
+            <content type="html"><![CDATA[<h2 id="pré-requis">Pré-requis</h2>
+<p>Installer <code>GPG</code> et <code>git-crypt</code> localement</p>
+<br/>
+<p><strong>Sur OSX:</strong></p>
+<pre tabindex="0"><code>brew install gpg
+brew install git-crypt
+</code></pre><br/>
+<p><strong>Sur Linux Ubuntu/ Debian:</strong></p>
+<pre tabindex="0"><code>apt-get install gnupg git-crypt gnupg-agent -y
+</code></pre><br/>
+<h2 id="verification-de-linstallation">Verification de l&rsquo;installation</h2>
+<pre tabindex="0"><code>gpg --gen-key
+gpg --list-keys
+</code></pre><p>Generate a new GPG key
+On the new developer laptop execute:</p>
+<br/>
+<h2 id="generate-a-new-gpg-key">Generate a new GPG key</h2>
+<pre tabindex="0"><code>gpg --gen-key
+</code></pre><br/>
+<h2 id="get-the-public-key-id">Get the public key ID</h2>
+<p>Send the key to an admin to trust it and add it to git-crypt repo DB</p>
+<pre tabindex="0"><code>gpg --list-keys
+# example 4037B9596FB8CF790CF5D2BB66281416CB86764B
+</code></pre><br/>
+<h2 id="export-the-gpg-keys-to-a-file">Export the GPG keys to a file</h2>
+<pre tabindex="0"><code># If your machine contains one GPG key
+gpg --armor --export --output /tmp/user_pubkey.gpg
+
+# Else
+gpg --export -a CEDFA26469..................CEC966794F8D &gt; /tmp/olivier_pubkey.gpg
+</code></pre><p>Send to file to a repository contributor/ admin.</p>
+<br/>
+<h2 id="import-the-public-key-locally">Import the public key locally</h2>
+<p>On the admin laptop import the public key to GPG local DB and trust it.</p>
+<pre tabindex="0"><code>gpg --import /tmp/user_pubkey.gpg
+
+# Trust the public key
+gpg --edit-key F987DFB4E7F6B40A03FC152A3C3B8C1BDB3C11EF trust quit
+5 
+y
+</code></pre><br/>
+<h2 id="add-the-trusted-key-on-git-repo">Add the trusted key on git repo</h2>
+<p>On the admin laptop add the public key to the repo (it automatically creates a commit)</p>
+<pre tabindex="0"><code>git-crypt add-gpg-user 4037B9596FB8CF990CF5D2BB66281416CB86764B
+# Replace the example key bellow with the new developer key: example 4037B9596FB8CF790CF5D2BCC3281416CB86764B
+</code></pre><br/>
+<h2 id="push-the-change-to-git">Push the change to git</h2>
+<p>Just git push. On the previous step a commit has been automatically created (git log to see it)</p>
+]]></content>
         </item>
         
         <item>

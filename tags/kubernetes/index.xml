@@ -29,6 +29,18 @@ Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases
     </item>
     
     <item>
+      <title>Vérifier les ouvertures réseau depuis un pod Kubernetes</title>
+      <link>https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/</link>
+      <pubDate>Tue, 08 Feb 2022 06:59:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/</guid>
+      <description>Introduction Dans cet article rapide, nous allons voir comment vérifier qu&amp;rsquo;un pod peut accéder à un serveur distant. Dans l&amp;rsquo;image Docker utiliséz dans le pod, aucun outil n&amp;rsquo;est installé (ping command not found&amp;hellip;).
+ICMP Ping, c&amp;rsquo;est ICMP, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.
+Connexion tcp/udp via device Depuis le pod, kubectl exec..., exécuter les commandes suivantes:
+export host=le_host_de_votre_serveur_distant export port=le_port_de_votre_serveur_distant (echo &amp;gt;/dev/tcp/${host}/${port}) &amp;amp;&amp;gt;/dev/null &amp;amp;&amp;amp; echo &amp;#34;open&amp;#34; || echo &amp;#34;closed&amp;#34; Rappel autres outils telnet:</description>
+    </item>
+    
+    <item>
       <title>Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2</title>
       <link>https://leandeep.com/installer-un-cluster-kubernetes-sur-baremetal-avec-metallb-et-rancher-2/</link>
       <pubDate>Thu, 19 Nov 2020 23:12:00 +0200</pubDate>
@@ -109,16 +121,6 @@ Pré-requis Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM) I
 Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.
 Avantages
 ECS EKS Fargate Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
-    </item>
-    
-    <item>
-      <title>Provisionner un cluster Kubernetes sur HCloud</title>
-      <link>https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/</link>
-      <pubDate>Wed, 02 Jan 2019 00:45:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-sur-hcloud/</guid>
-      <description>Introduction Dans cet article nous allons voir comment provisionner un cluster avec ou sans haute disponibilité sur HCloud. Sans haute disponibilité, on va créer un cluster contenant 2 noeuds (1 master et 1 worker). C&amp;rsquo;est parfait quand on n&amp;rsquo;est pas en production.
-Pré-requis Installer Go Installer le binaire Go disponible sur le repository https://github.com/xetys/hetzner-kube Déploiement du cluster Créer un compte sur HCloud (entrez vos informations personnelles et surtout une CB)</description>
     </item>
     
   </channel>
