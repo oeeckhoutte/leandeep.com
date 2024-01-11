@@ -6,8 +6,129 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 24 Sep 2023 22:13:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 10 Jan 2024 23:14:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Extraire x secondes d&#39;une video</title>
+            <link>https://leandeep.com/extraire-x-secondes-dune-video/</link>
+            <pubDate>Wed, 10 Jan 2024 23:14:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/extraire-x-secondes-dune-video/</guid>
+            <description>Voici la commande pour extraire les 10 premières secondes d&amp;rsquo;une vidéo mp4:
+Retirer le son
+ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 -an &amp;#34;target_file.mp4&amp;#34; # ffmpeg -threads $(nproc) -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 -an &amp;#34;target_file.mp4&amp;#34; Avec le son
+ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 &amp;#34;target_file.mp4&amp;#34; Avec le son et garder 10s à partir d&amp;rsquo;une minute 51
+ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:01:51.000 -t 10 &amp;#34;target_file.mp4&amp;#34; </description>
+            <content type="html"><![CDATA[<p>Voici la commande pour extraire les 10 premières secondes d&rsquo;une vidéo mp4:</p>
+<p><strong>Retirer le son</strong></p>
+<pre tabindex="0"><code>ffmpeg -i &#34;source_file.mp4&#34; -ss 00:00:0.0 -t 10 -an &#34;target_file.mp4&#34;
+
+# ffmpeg -threads $(nproc) -i &#34;source_file.mp4&#34; -ss 00:00:0.0 -t 10 -an &#34;target_file.mp4&#34; 
+</code></pre><br/>
+<p><strong>Avec le son</strong></p>
+<pre tabindex="0"><code>ffmpeg -i &#34;source_file.mp4&#34; -ss 00:00:0.0 -t 10 &#34;target_file.mp4&#34;
+</code></pre><br/>
+<p><strong>Avec le son et garder 10s à partir d&rsquo;une minute 51</strong></p>
+<pre tabindex="0"><code>ffmpeg -i &#34;source_file.mp4&#34; -ss 00:01:51.000 -t 10 &#34;target_file.mp4&#34;
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Setup local development environments with direnv and poetry</title>
+            <link>https://leandeep.com/setup-local-development-environments-with-direnv-and-poetry/</link>
+            <pubDate>Tue, 02 Jan 2024 23:43:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/setup-local-development-environments-with-direnv-and-poetry/</guid>
+            <description>In this short article we are going to configure direnv to be able to use poetry smoothly.
+Poetry installation Option 1 brew install pipx pipx ensurepath pipx install poetry Option 2 (The option I prefer) If you have pyenv and zsh:
+Select the Python version you want to use:
+# for example pyenv global 3.11.2 Then add the following line in your ~/.zshrc file:
+eval &amp;#34;$(pyenv init --path)&amp;#34; Finally install poetry with a simple pip install poetry</description>
+            <content type="html"><![CDATA[<p>In this short article we are going to configure direnv to be able to use poetry smoothly.</p>
+<br/>
+<h2 id="poetry-installation">Poetry installation</h2>
+<h2 id="option-1">Option 1</h2>
+<pre tabindex="0"><code>brew install pipx
+pipx ensurepath
+pipx install poetry
+</code></pre><br/>
+<h2 id="option-2-the-option-i-prefer">Option 2 (The option I prefer)</h2>
+<p>If you have <code>pyenv</code> and <code>zsh</code>:</p>
+<p>Select the Python version you want to use:</p>
+<pre tabindex="0"><code># for example
+pyenv global 3.11.2
+</code></pre><p>Then add the following line in your <code>~/.zshrc</code> file:</p>
+<pre tabindex="0"><code>eval &#34;$(pyenv init --path)&#34;
+</code></pre><p>Finally install poetry with a simple <code>pip install poetry</code></p>
+<br/>
+<h2 id="direnv-configuration">direnv configuration</h2>
+<p>Edit the global <code>.direnvrc</code> file located vim in your home directory and add the following code:</p>
+<pre tabindex="0"><code>layout_poetry() {
+  if [[ ! -f pyproject.toml ]]; then
+    log_error &#39;No pyproject.toml found.  Use `poetry new` or `poetry init` to create one first.&#39;
+    exit 2
+  fi
+
+  local VENV=$(dirname $(poetry run which python))
+  export VIRTUAL_ENV=$(echo &#34;$VENV&#34; | rev | cut -d&#39;/&#39; -f2- | rev)
+  export POETRY_ACTIVE=1
+  PATH_add &#34;$VENV&#34;
+}
+</code></pre><br/>
+<p>Now each time you have a project created with Poetry you simply need to execute the following commands:</p>
+<pre tabindex="0"><code>echo &#34;layout poetry&#34; &gt;&gt; .envrc
+direnv allow
+</code></pre><br/>
+<p>That&rsquo;s all folks !</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Et vous quels sont vos projets pour 2024 ?</title>
+            <link>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2024/</link>
+            <pubDate>Tue, 02 Jan 2024 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2024/</guid>
+            <description>Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&amp;rsquo;année et surtout de me challenger chaque année. Cette année, je me suis fixé un énorme challenge personnel du coup je vais lever le pied sur les challenges pro.
+Voici donc mon programme pour cette année 2024:
+1. Pérennisation trading bots #TopPrio2
+Arbitrage bots Focus DeFi &amp;lt;-&amp;gt; CeFi trades automatiques Monter un nouveau node archive hosté chez moi et noeud TheGraph 2.</description>
+            <content type="html"><![CDATA[<p>Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&rsquo;année et surtout de me challenger chaque année. Cette année, je me suis fixé un énorme challenge personnel du coup je vais lever le pied sur les challenges pro.</p>
+<p>Voici donc mon programme pour cette année 2024:</p>
+<br/>
+<p><strong>1. Pérennisation trading bots</strong> #TopPrio2</p>
+<ul>
+<li>Arbitrage bots
+<ul>
+<li>Focus DeFi &lt;-&gt; CeFi trades automatiques</li>
+<li>Monter un nouveau node archive hosté chez moi et noeud TheGraph</li>
+</ul>
+</li>
+</ul>
+<p><strong>2. Gérer le prochain bullrun</strong> #TopPrio1</p>
+<ul>
+<li>Suivre mon plan défini l&rsquo;année dernière et améliorer continuellement mes outils de pilotage</li>
+</ul>
+<p><strong>3. Automatiser et scaler mon jardin hydroponique</strong> #TopPrio3</p>
+<ul>
+<li>Arrosage auto avec eps8266 ou alternative (pouvoir &ldquo;abandonner mon jardin et plantes pendant 3 mois sans risque&rdquo;)</li>
+</ul>
+<p><strong>4. Lire 3 livres autour de l&rsquo;IT</strong></p>
+<ul>
+<li>Craftmanship</li>
+<li>Hacking</li>
+</ul>
+<p><strong>5. Lire 3 livres de développement personnel</strong></p>
+<p><strong>6. Créer un plugin Home Assistant autour du chauffage</strong></p>
+<p><strong>7. Personnaliser totalement l&rsquo;interface de Home Assistant avec représentation 3D exacte de mon domicile</strong></p>
+<p><strong>8. Comprendre dans le détail le fonctionnement des AI generative</strong></p>
+<ul>
+<li>Voir les synergies avec la sécurité</li>
+<li>Voir les synergies avec la VR pour générer des environnements</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Encrypt a file with GPG</title>
@@ -31362,7 +31483,7 @@ torsocks -i wget -qO- http://ipecho.net/plain 2&amp;gt; /dev/null ; echo Si vous
 <p>Si vous relancez la même commande sans passer par tor:</p>
 <pre tabindex="0"><code>wget -qO- http://ipecho.net/plain ; echo 
 </code></pre><br/>
-<p>Vous verrez une autre IP. Ce sera en effet celle de votre propre box internet. La première commande est donc bien passée par Tor. Vous pouvez utiliser cette astuce pour à peu près tout. Attention, n&rsquo;utilisez pas cela à des fins malveillantes; vous êtes responsables de vos actes.</p>
+<p>Vous verrez une autre IP. Ce sera en effet celle de votre propre box internet. La première commande est donc bien passée par Tor. Vous pouvez utiliser cette astuce pour à peu près tout. Attention, n&rsquo;utilisez pas cela à des fins malveillantes; vous êtes $$responsables de vos actes.</p>
 ]]></content>
         </item>
         
