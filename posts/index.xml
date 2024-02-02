@@ -6,8 +6,386 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 10 Jan 2024 23:14:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 02 Feb 2024 18:10:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Backtester ses stratégie de trading avec Backtrader</title>
+            <link>https://leandeep.com/backtester-ses-strat%C3%A9gie-de-trading-avec-backtrader/</link>
+            <pubDate>Fri, 02 Feb 2024 18:10:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/backtester-ses-strat%C3%A9gie-de-trading-avec-backtrader/</guid>
+            <description>Voici un exemple de code Python permettant de backtester une stratégie (ici j&amp;rsquo;en ai créé une complètement inutile mais cela permet d&amp;rsquo;illustrer mon propose).
+Pré-requis
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &amp;#34;apiKey&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;secret&amp;#34;: &amp;#34;&amp;#34;, } ) symbol = &amp;#34;ETH/USDT&amp;#34; timeframe = &amp;#34;1h&amp;#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd.</description>
+            <content type="html"><![CDATA[<p>Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).</p>
+<p><br/>
+<strong>Pré-requis</strong></p>
+<pre tabindex="0"><code>pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2
+</code></pre><br/>
+<pre tabindex="0"><code>import math
+import pandas as pd
+import backtrader as bt
+import ccxt
+
+# Charger les données historiques depuis Binance
+exchange = ccxt.binance(
+    {
+        &#34;apiKey&#34;: &#34;&#34;,
+        &#34;secret&#34;: &#34;&#34;,
+    }
+)
+
+symbol = &#34;ETH/USDT&#34;
+timeframe = &#34;1h&#34;
+
+ohlcv = exchange.fetch_ohlcv(symbol, timeframe)
+df = pd.DataFrame(
+    ohlcv, columns=[&#34;timestamp&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;]
+)
+df[&#34;timestamp&#34;] = pd.to_datetime(df[&#34;timestamp&#34;], unit=&#34;ms&#34;)
+df.set_index(&#34;timestamp&#34;, inplace=True)
+
+
+# Définir la stratégie
+class MovingAverageCrossStrategy(bt.Strategy):
+    params = (
+        (&#34;short_period&#34;, 20),
+        (&#34;long_period&#34;, 50),
+    )
+
+    def __init__(self):
+        self.short_ma = bt.indicators.SimpleMovingAverage(
+            self.data.close, period=self.params.short_period
+        )
+        self.long_ma = bt.indicators.SimpleMovingAverage(
+            self.data.close, period=self.params.long_period
+        )
+        self.crossover = bt.indicators.CrossOver(self.short_ma, self.long_ma)
+
+    def next(self):
+        if self.crossover &gt; 0:
+            # Signal d&#39;achat
+            self.buy()
+        elif self.crossover &lt; 0:
+            # Signal de vente
+            self.sell()
+
+
+# Convertir les données pandas en format compréhensible par backtrader
+data = bt.feeds.PandasData(dataname=df)
+
+# Configurer le cerveau du backtest
+cerebro = bt.Cerebro()
+cerebro.adddata(data)
+cerebro.addstrategy(MovingAverageCrossStrategy)
+
+# Ajouter un observer pour afficher les gains/pertes
+cerebro.addobserver(bt.observers.Value)
+
+# Paramètres du backtest
+start_date = pd.to_datetime(&#34;2022-01-01&#34;)
+end_date = pd.to_datetime(&#34;2022-12-31&#34;)
+cerebro.run(stdstats=False, tradehistory=True, fromdate=start_date, todate=end_date)
+
+# Afficher les gains/pertes
+final_portfolio_value = cerebro.broker.getvalue()
+print(f&#34;Capital final: {final_portfolio_value} USDT&#34;)
+cerebro.plot()
+</code></pre><p><img src="/images/backtrader.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Mean Reversion:</strong></p>
+<pre tabindex="0"><code># Définir la stratégie
+class MeanReversionStrategy(bt.Strategy):
+    params = (
+        (&#39;rsi_period&#39;, 14),
+        (&#39;rsi_overbought&#39;, 70),
+        (&#39;rsi_oversold&#39;, 30),
+        (&#39;bbands_period&#39;, 20),
+        (&#39;bbands_dev&#39;, 2),
+    )
+
+    def __init__(self):
+        self.rsi = bt.indicators.RelativeStrengthIndex(period=self.params.rsi_period)
+        self.bbands = bt.indicators.BollingerBands(period=self.params.bbands_period, devfactor=self.params.bbands_dev)
+
+    def next(self):
+        if self.rsi &lt; self.params.rsi_oversold and self.data.close &lt; self.bbands.lines.bot:
+            # Conditions d&#39;achat
+            self.buy()
+
+        elif self.rsi &gt; self.params.rsi_overbought and self.data.close &gt; self.bbands.lines.top:
+            # Conditions de vente
+            self.sell()
+</code></pre><p>Dans cette stratégie, des signaux d&rsquo;achat sont générés lorsque le RSI est en zone de survente et que le prix est en dessous de la bande inférieure de Bollinger. Des signaux de vente sont générés lorsque le RSI est en zone de surachat et que le prix est au-dessus de la bande supérieure de Bollinger.</p>
+<p><img src="/images/backtrader2.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Ichimoku:</strong></p>
+<pre tabindex="0"><code>class Ichimoku(bt.Strategy):
+
+    def __init__(self):
+
+        self.ichimoku = bt.indicators.Ichimoku()
+   
+    def next(self):
+
+         if not self.position and self.ichimoku.lines.senkou_span_a &gt; self.ichimoku.lines.senkou_span_b: 
+            amount_to_invest = (0.95 * self.broker.cash)
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+         if self.position and self.ichimoku.lines.senkou_span_a &lt; self.ichimoku.lines.senkou_span_b:
+            print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.close()
+</code></pre><p>Aucun paramètre spécifique n&rsquo;est fourni à l&rsquo;indicateur, ce qui signifie que les valeurs par défaut des périodes Ichimoku sont utilisées (9, 26, 52).</p>
+<p>La fonction next est appelée à chaque barre de prix. La stratégie vérifie d&rsquo;abord si elle n&rsquo;a pas de position (not self.position) et si la ligne Senkou Span A est au-dessus de la ligne Senkou Span B. Si ces conditions sont remplies, cela signifie que la tendance est à la hausse, et un signal d&rsquo;achat est généré.
+En cas de signal d&rsquo;achat, la stratégie calcule la quantité d&rsquo;actions à acheter en fonction de 95% du capital disponible (0.95 * self.broker.cash) et achète ces actions en utilisant la fonction self.buy.
+Ensuite, la stratégie vérifie si elle a déjà une position (self.position) et si la ligne Senkou Span A est en dessous de la ligne Senkou Span B. Si ces conditions sont remplies, cela signifie que la tendance est à la baisse, et un signal de vente est généré.
+En cas de signal de vente, la stratégie ferme la position en utilisant la fonction self.close.</p>
+<p><img src="/images/backtrader3.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Aroon:</strong></p>
+<p>La stratégie Aroon est basée sur l&rsquo;utilisation des indicateurs Aroon, qui sont conçus pour mesurer la force de la tendance et identifier les périodes de consolidation ou de retournement de tendance sur un marché financier. Les indicateurs Aroon se composent de deux lignes principales : Aroon Up et Aroon Down.</p>
+<p>Aroon Up (Aroon Haut) : Mesure le nombre de périodes écoulées depuis le plus haut récent.</p>
+<p>Aroon Down (Aroon Bas) : Mesure le nombre de périodes écoulées depuis le plus bas récent.</p>
+<p>La stratégie Aroon utilise ces deux indicateurs pour générer des signaux de trading. Voici comment interpréter les signaux Aroon dans une stratégie de base :</p>
+<p>Signal d&rsquo;Achat (Aroon Up fort) : Lorsque l&rsquo;Aroon Up est élevé, cela indique que la tendance à la hausse est forte. Un signal d&rsquo;achat est généré lorsque l&rsquo;Aroon Up traverse à la hausse l&rsquo;Aroon Down.</p>
+<p>Signal de Vente (Aroon Down fort) : Lorsque l&rsquo;Aroon Down est élevé, cela indique que la tendance à la baisse est forte. Un signal de vente est généré lorsque l&rsquo;Aroon Down traverse à la hausse l&rsquo;Aroon Up.</p>
+<p>Période de Consolidation (Aroon Up et Aroon Down faibles) : Si les deux Aroon Up et Aroon Down sont faibles, cela indique une période de consolidation où le marché ne montre pas de tendance claire. Certains traders choisissent d&rsquo;éviter de prendre des positions pendant ces périodes.</p>
+<pre tabindex="0"><code>class AroonStrategy(bt.Strategy):
+
+    params = ((&#34;upperband&#34;, 99), (&#34;lowerband&#34;, -99), (&#34;order_percentage&#34;, 0.95))
+
+    def __init__(self):
+        self.Aroon = bt.indicators.AroonOscillator(self.data, period=14)
+
+    def next(self):
+        if not self.position and self.Aroon &lt; self.params.lowerband:
+            amount_to_invest = self.params.order_percentage * self.broker.cash
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares  at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+        if self.position and self.Aroon &gt; self.params.upperband:
+            print(&#34;Sell {} shares  at {}&#34;.format(self.size, self.data.close[0]))
+            self.close()
+</code></pre><p><img src="/images/backtrader4.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Buy and Hold:</strong></p>
+<pre tabindex="0"><code>class BuyHoldStrategy(bt.Strategy):
+
+    def next(self):
+        if self.position.size == 0:
+            amount_to_invest = 0.95 * self.broker.getcash()
+            size = math.floor(amount_to_invest / self.data)
+            print(&#34;Buy {} shares at {}&#34;.format(size, self.data.close[0]))
+            self.buy(size=size)
+</code></pre><br/>
+<p><strong>Stratégie Golden cross:</strong></p>
+<p>La stratégie Golden Cross est une approche de trading basée sur l&rsquo;identification d&rsquo;un signal lorsque deux moyennes mobiles se croisent à la hausse. C&rsquo;est une stratégie populaire dans l&rsquo;analyse technique et est souvent utilisée pour repérer des changements potentiels dans la tendance d&rsquo;un actif financier.</p>
+<p>Voici comment fonctionne la stratégie Golden Cross:</p>
+<ol>
+<li>Moyenne Mobile à Court Terme (Short-Term Moving Average):</li>
+</ol>
+<p>Une moyenne mobile à court terme est calculée en prenant la moyenne des prix de clôture sur une période relativement courte.
+Cette moyenne mobile réagit plus rapidement aux fluctuations des prix.</p>
+<br/>
+<ol start="2">
+<li>Moyenne Mobile à Long Terme (Long-Term Moving Average):</li>
+</ol>
+<p>Une moyenne mobile à long terme est calculée de manière similaire, mais sur une période plus longue.
+Cette moyenne mobile réagit plus lentement aux changements de prix.</p>
+<br/>
+<ol start="3">
+<li>Signal d&rsquo;Achat - Golden Cross:</li>
+</ol>
+<p>Un signal d&rsquo;achat est généré lorsque la moyenne mobile à court terme (plus rapide) croise à la hausse la moyenne mobile à long terme (plus lente). Ce point de croisement est souvent appelé un &ldquo;Golden Cross&rdquo; (croix dorée).
+Le Golden Cross indique un potentiel changement dans la dynamique du marché, suggérant que la tendance pourrait passer d&rsquo;une tendance baissière à une tendance haussière.</p>
+<br/>
+<ol start="4">
+<li>Signal de Vente - Death Cross:</li>
+</ol>
+<p>À l&rsquo;inverse, un signal de vente, souvent appelé &ldquo;Death Cross&rdquo; (croix de la mort), se produit lorsque la moyenne mobile à court terme croise à la baisse la moyenne mobile à long terme. Cela peut indiquer un potentiel changement de tendance à la baisse.
+La stratégie Golden Cross est souvent utilisée comme indicateur de confirmation de tendance. Cependant, il est important de noter que les signaux générés par cette stratégie peuvent parfois être retardés, et il existe des périodes où ils peuvent être trompeurs, surtout dans des marchés instables.</p>
+<pre tabindex="0"><code>class GoldenCrossStrategy(bt.Strategy):
+    params = ((&#39;sma_50&#39;, 50), (&#39;sma_200&#39;, 200), (&#39;order_percentage&#39;, 0.95))
+
+    def __init__(self):
+        # Create 50 SMA
+        self.sma_moving_average_50 = bt.indicators.SMA(
+            self.data.close, period=self.params.sma_50, plotname=&#39;50 day moving average&#39;
+        )
+
+        # Create 200 SMA
+        self.sma_moving_average_200 = bt.indicators.SMA(
+            self.data.close, period=self.params.sma_200, plotname=&#39;200 day moving average&#39;
+        )
+
+        # Create crossover using the SMA&#39;s
+        self.crossover = bt.indicators.CrossOver(self.sma_moving_average_50, self.sma_moving_average_200)
+
+    def next(self):
+
+        # Open trade
+        if self.position.size == 0:
+            if self.crossover &gt; 0:
+                amount_to_invest = (self.params.order_percentage * self.broker.cash)
+                self.size = math.floor(amount_to_invest / self.data.close)
+
+                print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.buy(size=self.size)
+        
+        # Close trade
+        if self.position.size &gt; 0:
+            if self.crossover &lt; 0:      
+                print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.close()
+</code></pre><p><img src="/images/backtrader5.png" alt="image"></p>
+<br/>
+<p><strong>EMA Stratégie:</strong></p>
+<pre tabindex="0"><code>class EMAStrategy(bt.Strategy):
+    params = (
+        (&#34;short_period&#34;, 20),
+        (&#34;long_period&#34;, 50),
+    )
+
+    def __init__(self):
+        self.short_ema = bt.indicators.ExponentialMovingAverage(
+            self.data.close, period=self.params.short_period
+        )
+        self.long_ema = bt.indicators.ExponentialMovingAverage(
+            self.data.close, period=self.params.long_period
+        )
+
+    def next(self):
+        if self.short_ema &gt; self.long_ema:
+            # Condition d&#39;achat pour la stratégie EMA
+            self.buy()
+
+        elif self.short_ema &lt; self.long_ema:
+            # Condition de vente pour la stratégie EMA
+            self.sell()
+</code></pre><p><img src="/images/backtrader6.png" alt="image"></p>
+<br/>
+<p><strong>SMA Stratégie:</strong></p>
+<pre tabindex="0"><code>class SMAStrategy(bt.Strategy):
+
+    def __init__(self):
+        self.sma = bt.indicators.SMA()
+
+    def next(self):
+        if not self.position and self.data &gt; self.sma.lines.sma: 
+           amount_to_invest = (0.95 * self.broker.cash)
+           self.size = math.floor(amount_to_invest / self.data.close)
+
+           print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+           self.buy(size=self.size)
+
+        if self.position and self.data &lt; self.sma.lines.sma:
+                print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.close()
+</code></pre><p><img src="/images/backtrader7.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie RMI:</strong></p>
+<pre tabindex="0"><code>class RMI(bt.Strategy):
+    
+    params = ((&#39;upperband&#39;, 70.0), (&#39;lowerband&#39;, 30.0), (&#39;order_percentage&#39;, 0.95))
+
+    def __init__(self):
+        self.rmi = bt.indicators.RMI(self.data, period=20)
+
+    def next(self):
+        if not self.position and self.rmi &lt; self.params.lowerband: 
+           amount_to_invest = (self.params.order_percentage * self.broker.cash)
+           self.size = math.floor(amount_to_invest / self.data.close)
+
+           print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+           self.buy(size=self.size)
+
+        if self.position and self.rmi &gt; self.params.upperband:
+                print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.close()
+</code></pre><p><img src="/images/backtrader8.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie RSI:</strong></p>
+<pre tabindex="0"><code>class RSIStrategy(bt.Strategy):
+
+    params = ((&#34;upperband&#34;, 85), (&#34;lowerband&#34;, 25), (&#34;order_percentage&#34;, 0.95))
+
+    def __init__(self):
+        self.rsi = bt.indicators.RSI(self.data, period=14)
+
+    def next(self):
+        if not self.position and self.rsi &lt; self.params.lowerband:
+            amount_to_invest = self.params.order_percentage * self.broker.cash
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+        if self.position and self.rsi &gt; self.params.upperband:
+            print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.close()
+</code></pre><p><img src="/images/backtrader9.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie MACD:</strong></p>
+<pre tabindex="0"><code>class MACDStrategy(bt.Strategy):
+
+    params = ((&#39;ema_12&#39;, 12), (&#39;ema_26&#39;, 26), (&#39;order_percentage&#39;, 0.95))
+
+    def __init__(self):     
+        self.fast_ema_12 = bt.indicators.EMA(
+            self.data.close, period = self.params.ema_12, plotname = &#39;12 day EMA&#39;
+        )
+
+        self.slow_ema_26 = bt.indicators.EMA(
+            self.data.close, period = self.params.ema_26, plotname = &#39;26 day EMA&#39;
+        )
+
+        self.macd = bt.indicators.MACDHistogram(self.fast_ema_12, self.slow_ema_26)
+
+    def next (self):
+        if not self.position and self.macd &gt; 0:
+            amount_to_invest = (self.params.order_percentage * self.broker.cash)
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+        if self.position and self.macd &lt; 0:
+             print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+             self.close()
+</code></pre><p><img src="/images/backtrader10.png" alt="image"></p>
+<br/>
+<p>Et voilà, vous voyez à quel point il est simple de coder des stratégies. Maintenant il ne vous reste plus qu&rsquo;à être inventif pour créer une stratégie qui vous rapportera de l&rsquo;argent. Au moins vous avez un outil pour vérifier qu&rsquo;elle pourrait fonctionner (je dis bien pourrait car le passé ne présage pas le futur)&hellip; Je ne suis pas conseiller financier. Je ne recommande pas ces stratégies qui vous aurait fait perdre de l&rsquo;argent en 2022. Faites vos recherches.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Fixer l&#39;écran noir de Kali avec UTM</title>
+            <link>https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/</link>
+            <pubDate>Fri, 12 Jan 2024 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/</guid>
+            <description>UTM sur OSX est un hyperviseur gratuit permettant d&amp;rsquo;installer différentes VMs. Je l&amp;rsquo;utilise par exemple pour utiliser Windows ARM et Kali ARM.
+Lorsqu&amp;rsquo;on installe Kali depuis la librairie de VMs disponibles et qu&amp;rsquo;on le démarre pour la première fois on a un écran noir.
+Pour le fixer, il suffit d&amp;rsquo;aller dans les settings de la VM et de changer l&amp;rsquo;emulated display card. Sélectionner virtio-ramfb.
+Pensez à configurer la carte réseau en bridge.</description>
+            <content type="html"><![CDATA[<p>UTM sur OSX est un hyperviseur gratuit permettant d&rsquo;installer différentes VMs. Je l&rsquo;utilise par exemple pour utiliser Windows ARM et Kali ARM.</p>
+<p>Lorsqu&rsquo;on installe Kali depuis la librairie de VMs disponibles et qu&rsquo;on le démarre pour la première fois on a un écran noir.</p>
+<p>Pour le fixer, il suffit d&rsquo;aller dans les settings de la VM et de changer l&rsquo;emulated display card. Sélectionner <code>virtio-ramfb</code>.</p>
+<p><img src="/images/kali-utm.png" alt="image"></p>
+<blockquote>
+<p>Pensez à configurer la carte réseau en bridge.
+Et pensez à installer ssh et activer le service <code>sudo service ssh enable &amp;&amp; sudo service ssh start</code>.
+Pensez à sélectionner l&rsquo;option permettant de faire du USB passthrough et configurer les USB ports en USB 3.0. Pour vérifier que les USB arrivent bien à se connecter sur Kali, utiliser la commande <code>lsusb</code>.</p>
+</blockquote>
+<p>Voilà c&rsquo;est tout pour le tip.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Extraire x secondes d&#39;une video</title>

@@ -7,7 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 10 Jan 2024 23:14:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Feb 2024 18:10:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Backtester ses stratégie de trading avec Backtrader</title>
+      <link>https://leandeep.com/backtester-ses-strat%C3%A9gie-de-trading-avec-backtrader/</link>
+      <pubDate>Fri, 02 Feb 2024 18:10:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/backtester-ses-strat%C3%A9gie-de-trading-avec-backtrader/</guid>
+      <description>Voici un exemple de code Python permettant de backtester une stratégie (ici j&amp;rsquo;en ai créé une complètement inutile mais cela permet d&amp;rsquo;illustrer mon propose).
+Pré-requis
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &amp;#34;apiKey&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;secret&amp;#34;: &amp;#34;&amp;#34;, } ) symbol = &amp;#34;ETH/USDT&amp;#34; timeframe = &amp;#34;1h&amp;#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd.</description>
+    </item>
+    
+    <item>
+      <title>Fixer l&#39;écran noir de Kali avec UTM</title>
+      <link>https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/</link>
+      <pubDate>Fri, 12 Jan 2024 07:00:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/</guid>
+      <description>UTM sur OSX est un hyperviseur gratuit permettant d&amp;rsquo;installer différentes VMs. Je l&amp;rsquo;utilise par exemple pour utiliser Windows ARM et Kali ARM.
+Lorsqu&amp;rsquo;on installe Kali depuis la librairie de VMs disponibles et qu&amp;rsquo;on le démarre pour la première fois on a un écran noir.
+Pour le fixer, il suffit d&amp;rsquo;aller dans les settings de la VM et de changer l&amp;rsquo;emulated display card. Sélectionner virtio-ramfb.
+Pensez à configurer la carte réseau en bridge.</description>
+    </item>
+    
     <item>
       <title>Extraire x secondes d&#39;une video</title>
       <link>https://leandeep.com/extraire-x-secondes-dune-video/</link>
@@ -115,26 +138,6 @@ Créer un fichier .</description>
         style=&#34;border: 1px solid #CCC; border-width: 1px; margin-bottom: 20px; width: 100%;&#34;
         allowfullscreen=&#34;true&#34;&gt;
     &lt;/iframe&gt;</description>
-    </item>
-    
-    <item>
-      <title>Décoder une string HTML encoded en ligne de commande</title>
-      <link>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</link>
-      <pubDate>Wed, 03 May 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</guid>
-      <description>Tip du jour pour rapidement convertir une string HTML encoded via le terminal.
-Pré-requis brew install recode Commande echo &amp;#34;string&amp;amp;#32;&amp;amp;#35;1&amp;amp;#46;&amp;#34; | recode html..ascii </description>
-    </item>
-    
-    <item>
-      <title>Installer Kafka sur Kubernetes</title>
-      <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
-      <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
-      <description>Introduction Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)
-Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.</description>
     </item>
     
   </channel>
