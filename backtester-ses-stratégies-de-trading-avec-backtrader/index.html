@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&amp;rsquo;en ai créé une complètement inutile mais cela permet d&amp;rsquo;illustrer mon propose).
+Pré-requis
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &amp;#34;apiKey&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;secret&amp;#34;: &amp;#34;&amp;#34;, } ) symbol = &amp;#34;ETH/USDT&amp;#34; timeframe = &amp;#34;1h&amp;#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/backtester-ses-strat%C3%A9gies-de-trading-avec-backtrader/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Backtester ses stratégies de trading avec Backtrader :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.5a145ada8612b7e3e366691ddad4ba3ce6007aa2562c494a29f0b76b636f9789.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Backtester ses stratégies de trading avec Backtrader">
+<meta itemprop="description" content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).
+Pré-requis
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd."><meta itemprop="datePublished" content="2024-02-02T18:10:00+00:00" />
+<meta itemprop="dateModified" content="2024-02-02T18:10:00+00:00" />
+<meta itemprop="wordCount" content="1614"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Python,Backtesting,Backtrader,Trading,AlgoTrading," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Backtester ses stratégies de trading avec Backtrader"/>
+<meta name="twitter:description" content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).
+Pré-requis
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd."/>
+
+
+
+
+
+<meta property="article:published_time" content="2024-02-02 18:10:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/backtester-ses-strat%C3%A9gies-de-trading-avec-backtrader/">Backtester ses stratégies de trading avec Backtrader</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).</p>
+<p><br/>
+<strong>Pré-requis</strong></p>
+<pre tabindex="0"><code>pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2
+</code></pre><br/>
+<pre tabindex="0"><code>import math
+import pandas as pd
+import backtrader as bt
+import ccxt
+
+# Charger les données historiques depuis Binance
+exchange = ccxt.binance(
+    {
+        &#34;apiKey&#34;: &#34;&#34;,
+        &#34;secret&#34;: &#34;&#34;,
+    }
+)
+
+symbol = &#34;ETH/USDT&#34;
+timeframe = &#34;1h&#34;
+
+ohlcv = exchange.fetch_ohlcv(symbol, timeframe)
+df = pd.DataFrame(
+    ohlcv, columns=[&#34;timestamp&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;]
+)
+df[&#34;timestamp&#34;] = pd.to_datetime(df[&#34;timestamp&#34;], unit=&#34;ms&#34;)
+df.set_index(&#34;timestamp&#34;, inplace=True)
+
+
+# Définir la stratégie
+class MovingAverageCrossStrategy(bt.Strategy):
+    params = (
+        (&#34;short_period&#34;, 20),
+        (&#34;long_period&#34;, 50),
+    )
+
+    def __init__(self):
+        self.short_ma = bt.indicators.SimpleMovingAverage(
+            self.data.close, period=self.params.short_period
+        )
+        self.long_ma = bt.indicators.SimpleMovingAverage(
+            self.data.close, period=self.params.long_period
+        )
+        self.crossover = bt.indicators.CrossOver(self.short_ma, self.long_ma)
+
+    def next(self):
+        if self.crossover &gt; 0:
+            # Signal d&#39;achat
+            self.buy()
+        elif self.crossover &lt; 0:
+            # Signal de vente
+            self.sell()
+
+
+# Convertir les données pandas en format compréhensible par backtrader
+data = bt.feeds.PandasData(dataname=df)
+
+# Configurer le cerveau du backtest
+cerebro = bt.Cerebro()
+cerebro.adddata(data)
+cerebro.addstrategy(MovingAverageCrossStrategy)
+
+# Ajouter un observer pour afficher les gains/pertes
+cerebro.addobserver(bt.observers.Value)
+
+# Paramètres du backtest
+start_date = pd.to_datetime(&#34;2022-01-01&#34;)
+end_date = pd.to_datetime(&#34;2022-12-31&#34;)
+cerebro.run(stdstats=False, tradehistory=True, fromdate=start_date, todate=end_date)
+
+# Afficher les gains/pertes
+final_portfolio_value = cerebro.broker.getvalue()
+print(f&#34;Capital final: {final_portfolio_value} USDT&#34;)
+cerebro.plot()
+</code></pre><p><img src="https://leandeep.com/images/backtrader.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Mean Reversion:</strong></p>
+<pre tabindex="0"><code># Définir la stratégie
+class MeanReversionStrategy(bt.Strategy):
+    params = (
+        (&#39;rsi_period&#39;, 14),
+        (&#39;rsi_overbought&#39;, 70),
+        (&#39;rsi_oversold&#39;, 30),
+        (&#39;bbands_period&#39;, 20),
+        (&#39;bbands_dev&#39;, 2),
+    )
+
+    def __init__(self):
+        self.rsi = bt.indicators.RelativeStrengthIndex(period=self.params.rsi_period)
+        self.bbands = bt.indicators.BollingerBands(period=self.params.bbands_period, devfactor=self.params.bbands_dev)
+
+    def next(self):
+        if self.rsi &lt; self.params.rsi_oversold and self.data.close &lt; self.bbands.lines.bot:
+            # Conditions d&#39;achat
+            self.buy()
+
+        elif self.rsi &gt; self.params.rsi_overbought and self.data.close &gt; self.bbands.lines.top:
+            # Conditions de vente
+            self.sell()
+</code></pre><p>Dans cette stratégie, des signaux d&rsquo;achat sont générés lorsque le RSI est en zone de survente et que le prix est en dessous de la bande inférieure de Bollinger. Des signaux de vente sont générés lorsque le RSI est en zone de surachat et que le prix est au-dessus de la bande supérieure de Bollinger.</p>
+<p><img src="https://leandeep.com/images/backtrader2.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Ichimoku:</strong></p>
+<pre tabindex="0"><code>class Ichimoku(bt.Strategy):
+
+    def __init__(self):
+
+        self.ichimoku = bt.indicators.Ichimoku()
+   
+    def next(self):
+
+         if not self.position and self.ichimoku.lines.senkou_span_a &gt; self.ichimoku.lines.senkou_span_b: 
+            amount_to_invest = (0.95 * self.broker.cash)
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+         if self.position and self.ichimoku.lines.senkou_span_a &lt; self.ichimoku.lines.senkou_span_b:
+            print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.close()
+</code></pre><p>Aucun paramètre spécifique n&rsquo;est fourni à l&rsquo;indicateur, ce qui signifie que les valeurs par défaut des périodes Ichimoku sont utilisées (9, 26, 52).</p>
+<p>La fonction next est appelée à chaque barre de prix. La stratégie vérifie d&rsquo;abord si elle n&rsquo;a pas de position (not self.position) et si la ligne Senkou Span A est au-dessus de la ligne Senkou Span B. Si ces conditions sont remplies, cela signifie que la tendance est à la hausse, et un signal d&rsquo;achat est généré.
+En cas de signal d&rsquo;achat, la stratégie calcule la quantité d&rsquo;actions à acheter en fonction de 95% du capital disponible (0.95 * self.broker.cash) et achète ces actions en utilisant la fonction self.buy.
+Ensuite, la stratégie vérifie si elle a déjà une position (self.position) et si la ligne Senkou Span A est en dessous de la ligne Senkou Span B. Si ces conditions sont remplies, cela signifie que la tendance est à la baisse, et un signal de vente est généré.
+En cas de signal de vente, la stratégie ferme la position en utilisant la fonction self.close.</p>
+<p><img src="https://leandeep.com/images/backtrader3.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Aroon:</strong></p>
+<p>La stratégie Aroon est basée sur l&rsquo;utilisation des indicateurs Aroon, qui sont conçus pour mesurer la force de la tendance et identifier les périodes de consolidation ou de retournement de tendance sur un marché financier. Les indicateurs Aroon se composent de deux lignes principales : Aroon Up et Aroon Down.</p>
+<p>Aroon Up (Aroon Haut) : Mesure le nombre de périodes écoulées depuis le plus haut récent.</p>
+<p>Aroon Down (Aroon Bas) : Mesure le nombre de périodes écoulées depuis le plus bas récent.</p>
+<p>La stratégie Aroon utilise ces deux indicateurs pour générer des signaux de trading. Voici comment interpréter les signaux Aroon dans une stratégie de base :</p>
+<p>Signal d&rsquo;Achat (Aroon Up fort) : Lorsque l&rsquo;Aroon Up est élevé, cela indique que la tendance à la hausse est forte. Un signal d&rsquo;achat est généré lorsque l&rsquo;Aroon Up traverse à la hausse l&rsquo;Aroon Down.</p>
+<p>Signal de Vente (Aroon Down fort) : Lorsque l&rsquo;Aroon Down est élevé, cela indique que la tendance à la baisse est forte. Un signal de vente est généré lorsque l&rsquo;Aroon Down traverse à la hausse l&rsquo;Aroon Up.</p>
+<p>Période de Consolidation (Aroon Up et Aroon Down faibles) : Si les deux Aroon Up et Aroon Down sont faibles, cela indique une période de consolidation où le marché ne montre pas de tendance claire. Certains traders choisissent d&rsquo;éviter de prendre des positions pendant ces périodes.</p>
+<pre tabindex="0"><code>class AroonStrategy(bt.Strategy):
+
+    params = ((&#34;upperband&#34;, 99), (&#34;lowerband&#34;, -99), (&#34;order_percentage&#34;, 0.95))
+
+    def __init__(self):
+        self.Aroon = bt.indicators.AroonOscillator(self.data, period=14)
+
+    def next(self):
+        if not self.position and self.Aroon &lt; self.params.lowerband:
+            amount_to_invest = self.params.order_percentage * self.broker.cash
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares  at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+        if self.position and self.Aroon &gt; self.params.upperband:
+            print(&#34;Sell {} shares  at {}&#34;.format(self.size, self.data.close[0]))
+            self.close()
+</code></pre><p><img src="https://leandeep.com/images/backtrader4.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie Buy and Hold:</strong></p>
+<pre tabindex="0"><code>class BuyHoldStrategy(bt.Strategy):
+
+    def next(self):
+        if self.position.size == 0:
+            amount_to_invest = 0.95 * self.broker.getcash()
+            size = math.floor(amount_to_invest / self.data)
+            print(&#34;Buy {} shares at {}&#34;.format(size, self.data.close[0]))
+            self.buy(size=size)
+</code></pre><br/>
+<p><strong>Stratégie Golden cross:</strong></p>
+<p>La stratégie Golden Cross est une approche de trading basée sur l&rsquo;identification d&rsquo;un signal lorsque deux moyennes mobiles se croisent à la hausse. C&rsquo;est une stratégie populaire dans l&rsquo;analyse technique et est souvent utilisée pour repérer des changements potentiels dans la tendance d&rsquo;un actif financier.</p>
+<p>Voici comment fonctionne la stratégie Golden Cross:</p>
+<ol>
+<li>Moyenne Mobile à Court Terme (Short-Term Moving Average):</li>
+</ol>
+<p>Une moyenne mobile à court terme est calculée en prenant la moyenne des prix de clôture sur une période relativement courte.
+Cette moyenne mobile réagit plus rapidement aux fluctuations des prix.</p>
+<br/>
+<ol start="2">
+<li>Moyenne Mobile à Long Terme (Long-Term Moving Average):</li>
+</ol>
+<p>Une moyenne mobile à long terme est calculée de manière similaire, mais sur une période plus longue.
+Cette moyenne mobile réagit plus lentement aux changements de prix.</p>
+<br/>
+<ol start="3">
+<li>Signal d&rsquo;Achat - Golden Cross:</li>
+</ol>
+<p>Un signal d&rsquo;achat est généré lorsque la moyenne mobile à court terme (plus rapide) croise à la hausse la moyenne mobile à long terme (plus lente). Ce point de croisement est souvent appelé un &ldquo;Golden Cross&rdquo; (croix dorée).
+Le Golden Cross indique un potentiel changement dans la dynamique du marché, suggérant que la tendance pourrait passer d&rsquo;une tendance baissière à une tendance haussière.</p>
+<br/>
+<ol start="4">
+<li>Signal de Vente - Death Cross:</li>
+</ol>
+<p>À l&rsquo;inverse, un signal de vente, souvent appelé &ldquo;Death Cross&rdquo; (croix de la mort), se produit lorsque la moyenne mobile à court terme croise à la baisse la moyenne mobile à long terme. Cela peut indiquer un potentiel changement de tendance à la baisse.
+La stratégie Golden Cross est souvent utilisée comme indicateur de confirmation de tendance. Cependant, il est important de noter que les signaux générés par cette stratégie peuvent parfois être retardés, et il existe des périodes où ils peuvent être trompeurs, surtout dans des marchés instables.</p>
+<pre tabindex="0"><code>class GoldenCrossStrategy(bt.Strategy):
+    params = ((&#39;sma_50&#39;, 50), (&#39;sma_200&#39;, 200), (&#39;order_percentage&#39;, 0.95))
+
+    def __init__(self):
+        # Create 50 SMA
+        self.sma_moving_average_50 = bt.indicators.SMA(
+            self.data.close, period=self.params.sma_50, plotname=&#39;50 day moving average&#39;
+        )
+
+        # Create 200 SMA
+        self.sma_moving_average_200 = bt.indicators.SMA(
+            self.data.close, period=self.params.sma_200, plotname=&#39;200 day moving average&#39;
+        )
+
+        # Create crossover using the SMA&#39;s
+        self.crossover = bt.indicators.CrossOver(self.sma_moving_average_50, self.sma_moving_average_200)
+
+    def next(self):
+
+        # Open trade
+        if self.position.size == 0:
+            if self.crossover &gt; 0:
+                amount_to_invest = (self.params.order_percentage * self.broker.cash)
+                self.size = math.floor(amount_to_invest / self.data.close)
+
+                print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.buy(size=self.size)
+        
+        # Close trade
+        if self.position.size &gt; 0:
+            if self.crossover &lt; 0:      
+                print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.close()
+</code></pre><p><img src="https://leandeep.com/images/backtrader5.png" alt="image"></p>
+<br/>
+<p><strong>EMA Stratégie:</strong></p>
+<pre tabindex="0"><code>class EMAStrategy(bt.Strategy):
+    params = (
+        (&#34;short_period&#34;, 20),
+        (&#34;long_period&#34;, 50),
+    )
+
+    def __init__(self):
+        self.short_ema = bt.indicators.ExponentialMovingAverage(
+            self.data.close, period=self.params.short_period
+        )
+        self.long_ema = bt.indicators.ExponentialMovingAverage(
+            self.data.close, period=self.params.long_period
+        )
+
+    def next(self):
+        if self.short_ema &gt; self.long_ema:
+            # Condition d&#39;achat pour la stratégie EMA
+            self.buy()
+
+        elif self.short_ema &lt; self.long_ema:
+            # Condition de vente pour la stratégie EMA
+            self.sell()
+</code></pre><p><img src="https://leandeep.com/images/backtrader6.png" alt="image"></p>
+<br/>
+<p><strong>SMA Stratégie:</strong></p>
+<pre tabindex="0"><code>class SMAStrategy(bt.Strategy):
+
+    def __init__(self):
+        self.sma = bt.indicators.SMA()
+
+    def next(self):
+        if not self.position and self.data &gt; self.sma.lines.sma: 
+           amount_to_invest = (0.95 * self.broker.cash)
+           self.size = math.floor(amount_to_invest / self.data.close)
+
+           print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+           self.buy(size=self.size)
+
+        if self.position and self.data &lt; self.sma.lines.sma:
+                print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.close()
+</code></pre><p><img src="https://leandeep.com/images/backtrader7.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie RMI:</strong></p>
+<pre tabindex="0"><code>class RMI(bt.Strategy):
+    
+    params = ((&#39;upperband&#39;, 70.0), (&#39;lowerband&#39;, 30.0), (&#39;order_percentage&#39;, 0.95))
+
+    def __init__(self):
+        self.rmi = bt.indicators.RMI(self.data, period=20)
+
+    def next(self):
+        if not self.position and self.rmi &lt; self.params.lowerband: 
+           amount_to_invest = (self.params.order_percentage * self.broker.cash)
+           self.size = math.floor(amount_to_invest / self.data.close)
+
+           print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+           self.buy(size=self.size)
+
+        if self.position and self.rmi &gt; self.params.upperband:
+                print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+                self.close()
+</code></pre><p><img src="https://leandeep.com/images/backtrader8.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie RSI:</strong></p>
+<pre tabindex="0"><code>class RSIStrategy(bt.Strategy):
+
+    params = ((&#34;upperband&#34;, 85), (&#34;lowerband&#34;, 25), (&#34;order_percentage&#34;, 0.95))
+
+    def __init__(self):
+        self.rsi = bt.indicators.RSI(self.data, period=14)
+
+    def next(self):
+        if not self.position and self.rsi &lt; self.params.lowerband:
+            amount_to_invest = self.params.order_percentage * self.broker.cash
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+        if self.position and self.rsi &gt; self.params.upperband:
+            print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.close()
+</code></pre><p><img src="https://leandeep.com/images/backtrader9.png" alt="image"></p>
+<br/>
+<p><strong>Stratégie MACD:</strong></p>
+<pre tabindex="0"><code>class MACDStrategy(bt.Strategy):
+
+    params = ((&#39;ema_12&#39;, 12), (&#39;ema_26&#39;, 26), (&#39;order_percentage&#39;, 0.95))
+
+    def __init__(self):     
+        self.fast_ema_12 = bt.indicators.EMA(
+            self.data.close, period = self.params.ema_12, plotname = &#39;12 day EMA&#39;
+        )
+
+        self.slow_ema_26 = bt.indicators.EMA(
+            self.data.close, period = self.params.ema_26, plotname = &#39;26 day EMA&#39;
+        )
+
+        self.macd = bt.indicators.MACDHistogram(self.fast_ema_12, self.slow_ema_26)
+
+    def next (self):
+        if not self.position and self.macd &gt; 0:
+            amount_to_invest = (self.params.order_percentage * self.broker.cash)
+            self.size = math.floor(amount_to_invest / self.data.close)
+
+            print(&#34;Buy {} shares at {}&#34;.format(self.size, self.data.close[0]))
+            self.buy(size=self.size)
+
+        if self.position and self.macd &lt; 0:
+             print(&#34;Sell {} shares at {}&#34;.format(self.size, self.data.close[0]))
+             self.close()
+</code></pre><p><img src="https://leandeep.com/images/backtrader10.png" alt="image"></p>
+<br/>
+<p>Et voilà, vous voyez à quel point il est simple de coder des stratégies. Maintenant il ne vous reste plus qu&rsquo;à être inventif pour créer une stratégie qui vous rapportera de l&rsquo;argent. Au moins vous avez un outil pour vérifier qu&rsquo;elle pourrait fonctionner (je dis bien pourrait car le passé ne présage pas le futur)&hellip; Je ne suis pas conseiller financier. Je ne recommande pas ces stratégies qui vous aurait fait perdre de l&rsquo;argent en 2022. Faites vos recherches.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/backtesting">Backtesting</a></span><span class="tag"><a href="https://leandeep.com/tags/backtrader">Backtrader</a></span><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span><span class="tag"><a href="https://leandeep.com/tags/algotrading">AlgoTrading</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1614 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 févr.. 2024</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/">
+                                <span class="button__text">Fixer l&#39;écran noir de Kali avec UTM</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
