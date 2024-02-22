@@ -518,6 +518,74 @@ En 2024 j&rsquo;aimerais l&rsquo;optimiser pour que les pics de consommation él
         </item>
         
         <item>
+            <title>Configurer un SSO entre Saleor et Azure Entra ID (Azure AD)</title>
+            <link>https://leandeep.com/configurer-un-sso-entre-saleor-et-azure-entra-id-azure-ad/</link>
+            <pubDate>Fri, 22 Dec 2023 18:21:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/configurer-un-sso-entre-saleor-et-azure-entra-id-azure-ad/</guid>
+            <description>Dans cet article nous allons voir comment configurer Saleor pour pouvoir se connecter au dashboard via Single Sign On (SSO) avec Azure Entra ID (anciennement Azure Active Directory).
+Pré-requis Avoir un compte Azure Portal Une instance de Saleor exposée sur internet Configuration d&amp;rsquo;Azure Entra ID Personnellement je suis connecté à Azure avec une adresse gmail. Cela devrait fonctionner avec tout autre domaine.
+Rendez-vous sur le portail Azure et cliquer sur Microsoft Entra ID.</description>
+            <content type="html"><![CDATA[<p>Dans cet article nous allons voir comment configurer Saleor pour pouvoir se connecter au dashboard via Single Sign On (SSO) avec Azure Entra ID (anciennement Azure Active Directory).</p>
+<h2 id="pré-requis">Pré-requis</h2>
+<ul>
+<li>Avoir un compte Azure Portal</li>
+<li>Une instance de Saleor exposée sur internet</li>
+</ul>
+<br/>
+<h2 id="configuration-dazure-entra-id">Configuration d&rsquo;Azure Entra ID</h2>
+<p>Personnellement je suis connecté à Azure avec une adresse gmail. Cela devrait fonctionner avec tout autre domaine.</p>
+<p>Rendez-vous sur le portail Azure et cliquer sur <code>Microsoft Entra ID</code>.
+Si vous vous rendez dans la section users via le menu de gauche, vous devriez voir votre adresse email. Vérifier que c&rsquo;est le cas car nous allons nous connecter avec cette adresse email dans le process de SSO.</p>
+<p>Retourner sur la home page d&rsquo;Azure Entra ID:</p>
+<p><img src="/images/azure-entra-id-home.png" alt="image"></p>
+<br/>
+<p>Cliquer sur le bouton <code>Add</code> -&gt; <code>App Registration</code></p>
+<p>Indiquer un nom à votre app. Dans mon cas j&rsquo;ai mais <code>Saleor OIDC dev</code>.</p>
+<p>Ensuite, pour <code>Supported account types</code> laissez le bouton radio sélectionné par défaut.</p>
+<p>Puis dans <code>Redirect URI (optional)</code>, sélectionner <code>Web</code> comme plateforme et indiquez l&rsquo;URL de redirection de votre dashboard Saleor. Dans mon cas: <code>https://blablabla.saleor.cloud/dashboard/login/callback/</code>.</p>
+<br/>
+<p>Une fois votre application enregistrée, cliquer sur le bouton <code>overview</code> dans le menu de gauche sur la page Entra ID du portail Azure et cliquer sur le bouton <code>endpoints</code> tout en haut de la page.</p>
+<p><img src="/images/azure-entra-id-endpoints.png" alt="image"></p>
+<p>La liste de ces endpoints est utile pour pouvoir configurer Saleor.</p>
+<br/>
+<h2 id="configuration-de-saleor">Configuration de Saleor</h2>
+<p>Rendez-vous donc dans le dashboard de Saleor via votre compte admin.</p>
+<p><img src="/images/saleor-dashboard-home.png" alt="image"></p>
+<p>Et cliquez sur le bouton configurer en bas à gauche dans le menu.</p>
+<br/>
+<p>Tout en bas de la page configuration, cliquez sur le bouton plugins:</p>
+<p><img src="/images/saleor-dashboard-config-page.png" alt="image"></p>
+<br/>
+<p>Editer le plugin appelé <code>Openid Connect</code> et configurer le plugin:</p>
+<ul>
+<li>Activer la case <code>Set plugin as active</code>.</li>
+<li>En client ID, entrer la client ID de l&rsquo;app que vous venez d&rsquo;enregistrer dans Entra ID.</li>
+<li>Dans <code>OAuth Authorization URL</code>, entrer une URL du type: <code>https://login.microsoftonline.com/blablabla-bla-bla-bla-blablabla/oauth2/v2.0/authorize</code>. (Vous trouverez cette URL dans Entra ID dans la liste des endpoints dont on a parlé plus haut. Idem pour les URLs qui suivent)</li>
+<li>Dans <code>OAuth Token URL</code>, entrer une URL du type <code>https://login.microsoftonline.com/blablabla-bla-bla-bla-blablabla/oauth2/v2.0/token</code></li>
+<li>Dans <code>JSON Web Key Set URL</code>, entrer une URL du type <code>https://login.microsoftonline.com/blablabla-bla-bla-bla-blablabla/discovery/v2.0/keys</code></li>
+<li>Dans <code>OAuth logout URL</code>, entrer une URL du type <code>https://login.microsoftonline.com/blablabla-bla-bla-bla-blablabla/oauth2/v2.0/logout</code></li>
+<li>Dans <code>User info URL</code>, entrer une URL du type <code>https://graph.microsoft.com/oidc/userinfo</code></li>
+<li>N&rsquo;indiquer rien dans Audience</li>
+<li>Garder <code>Use OAuth scope permissions</code> désactivé</li>
+<li>Pour <code>Staff user domains</code>, indiquer gmail.com si comme moi vous avez votre email gmail configurée comme User dans Entra.</li>
+<li>Dans Default Permission grous name for staff users, indiquez ce que vous voulez. Dans Saleor vous avez la possibilité de créer des groupes d&rsquo;utilisateurs avec des rôles particuliers. Dans mon cas j&rsquo;ai créé un groupe appelé <code>SSO</code> dans Saleor. C&rsquo;était pour un test, donc ici j&rsquo;ai indiqué <code>SSO</code>.</li>
+</ul>
+<br/>
+<p>Enfin pour <code>Authorization</code> -&gt;  <code>Client secret</code>, il vous faudra un secret dans Entra ID.
+Je me suis fait avoir car il y a 2 valeurs possibles de secret dans Entra ID. Il faut utiliser la <code>value</code> et pas le <code>Secret ID</code>.</p>
+<p><img src="/images/entra-secret-value-for-registered-app.png" alt="image"></p>
+<p>Générer donc un secret dans Entra et insérer le dans Saleor.</p>
+<p>Et voilà. Il ne vous reste plus qu&rsquo;à vous connecter à votre instance de Saleor, de cliquer sur le bouton <code>OpenID connect</code> et de vous logguer à Azure portal.</p>
+<p><img src="/images/saleor-login.png" alt="image"></p>
+<br/>
+<p><img src="/images/azure-login-openid-connect.jpg" alt="image"></p>
+<br/>
+<p><img src="/images/saleor-logged.png" alt="image"></p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Encrypt a file with GPG</title>
             <link>https://leandeep.com/encrypt-a-file-with-gpg/</link>
             <pubDate>Sun, 24 Sep 2023 22:13:00 +0000</pubDate>
