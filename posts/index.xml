@@ -6,8 +6,89 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 02 Feb 2024 18:10:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 24 Feb 2024 18:10:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Install tailscale and Pi Hole on Debian 11 Bullseye</title>
+            <link>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</link>
+            <pubDate>Sat, 24 Feb 2024 18:10:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</guid>
+            <description>In this short article we are going to see the commands to install Tailscale (and PiHole) on a Raspberry Pi version 2 and Debian 11 Bullseye (or Raspios equivalent of Debian 11).
+Pré-requis
+A Raspberry Pi 2 connected to internet A fresh Debian 11 installation OS preparation
+sudo apt update sudo apt upgrade -y # Grab a large coffee. It takes forever... sudo reboot sudo apt install curl -y Pi Hole installation</description>
+            <content type="html"><![CDATA[<p>In this short article we are going to see the commands to install Tailscale (and PiHole) on a Raspberry Pi version 2 and Debian 11 Bullseye (or Raspios equivalent of Debian 11).</p>
+<br/>
+<p><strong>Pré-requis</strong></p>
+<ul>
+<li>A Raspberry Pi 2 connected to internet</li>
+<li>A fresh Debian 11 installation</li>
+</ul>
+<br/>
+<p><strong>OS preparation</strong></p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt upgrade -y
+# Grab a large coffee. It takes forever...
+sudo reboot
+sudo apt install curl -y
+</code></pre><br/>
+<p><strong>Pi Hole installation</strong></p>
+<pre tabindex="0"><code>curl -sSL https://install.pi-hole.net | bash
+
+        .;;,.
+        .ccccc:,.
+         :cccclll:.      ..,,
+          :ccccclll.   ;ooodc
+           &#39;ccll:;ll .oooodc
+             .;cll.;;looo:.
+                 .. &#39;,&#39;.
+                .&#39;,,,,,,&#39;.
+              .&#39;,,,,,,,,,,.
+            .&#39;,,,,,,,,,,,,....
+          ....&#39;&#39;&#39;,,,,,,,&#39;.......
+        .........  ....  .........
+        ..........      ..........
+        ..........      ..........
+        .........  ....  .........
+          ........,,,,,,,&#39;......
+            ....&#39;,,,,,,,,,,,,.
+               .&#39;,,,,,,,,,&#39;.
+                .&#39;,,,,,,&#39;.
+                  ..&#39;&#39;&#39;.
+</code></pre><p>Write the admin password somewhere and checks everything is alright: http://your_pi_network_ip/admin</p>
+<p>You should see something like this:</p>
+<p><img src="/images/pihole.png" alt="image"></p>
+<br/>
+<p><strong>Tailscale installation</strong></p>
+<pre tabindex="0"><code>curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg &gt;/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt-get update
+sudo apt-get install tailscale
+</code></pre><br/>
+<blockquote>
+<p>Edit the file <code>/etc/sysctl.d/99-tailscale.conf</code> and add the following lines:</p>
+<pre tabindex="0"><code>net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 1
+</code></pre></blockquote>
+<p><strong>Start Tailscale</strong></p>
+<pre tabindex="0"><code>sudo tailscale up --accept-dns=false --advertise-exit-node --advertise-routes=192.168.68.0/24
+# Get IP
+tailscale ip -4
+Reboot to make sure everything is fine even after a complete reboot
+</code></pre><br/>
+<p><strong>Test</strong></p>
+<p>Grab your phone and use a 4G/5G network for this test.
+Connect to tailscale from your phone. Once connected (and your connection is approved in Tailscale admin panel) browser internet. It should not work. Now we are going to configure PiHole and let all interfaces connect to internet.</p>
+<br/>
+<p><strong>Configure PiHole</strong></p>
+<p>In the Pi-hole Admin page go to <code>Settings &gt; DNS</code> and make sure that <code>Listen on all interfaces</code> or <code>permit all origins</code> is selected.</p>
+<br/>
+<p><strong>Last Test</strong></p>
+<p>Now that PiHole is configure make sure you are still connected to your Tailscale network. Browse any web page. You should be able to retrieve the internet content and it should have be delivered after PiHole has resolved the DNS. Go back to PiHole admin panel and you should see that the amount of total queries inscreased. You are all set.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Backtester ses stratégies de trading avec Backtrader</title>
