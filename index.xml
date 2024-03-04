@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 24 Feb 2024 18:10:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Mar 2024 00:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Remote access to termux from OSX</title>
+      <link>https://leandeep.com/remote-access-to-termux-from-osx/</link>
+      <pubDate>Fri, 01 Mar 2024 00:13:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/remote-access-to-termux-from-osx/</guid>
+      <description>Open Termux on Android and then execute the following commands:
+pkg upgrade pkg install openssh passwd whoami sshd -e -d -d -d On OSX:
+# ssh username@&amp;lt;android_ip&amp;gt; -p8022 # ssh u0_412@&amp;lt;........&amp;gt; -p8022 To kill the server:
+pkill sshd sshd: no hostkeys available &amp;ndash; exiting ssh-keygen -A
+Bonus
+pkg install termux-api </description>
+    </item>
+    
     <item>
       <title>Install tailscale and Pi Hole on Debian 11 Bullseye</title>
       <link>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</link>
@@ -114,18 +128,6 @@ gpg --encrypt --recipient your_friend@email.com secret_file_to_encrypt.txt And v
 Pour ce faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
 Dans un premier onglet de votre terminal exécuter la commande suivante:
 ssh -D 6006 -q -C -N user@ip_or_reverse_dns Puis dans un second onglet:</description>
-    </item>
-    
-    <item>
-      <title>Fixer l&#39;erreur &#39;ModuleNotFoundError: No module named _lzma&#39; sur OSX</title>
-      <link>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</link>
-      <pubDate>Mon, 21 Aug 2023 23:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</guid>
-      <description>Voici un tip pour fixer l&amp;rsquo;erreur ennuyeuse ModuleNotFoundError: No module named &#39;_lzma&#39; sur OSX lorsqu&amp;rsquo;on utilise torch et pyenv.
-Installer les packages suivants:
-brew install zlib brew install sqlite brew install bzip2 brew install libiconv brew install libzip Ouvrir le fichier ~/.zshrc et ajouter les lignes suivantes:
-export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/zlib/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/zlib/include&amp;#34; export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/sqlite/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/sqlite/include&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig&amp;#34; Installer une nouvelle version de Python via pyenv.</description>
     </item>
     
   </channel>

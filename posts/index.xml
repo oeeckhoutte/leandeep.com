@@ -6,8 +6,40 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 24 Feb 2024 18:10:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 01 Mar 2024 00:13:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Remote access to termux from OSX</title>
+            <link>https://leandeep.com/remote-access-to-termux-from-osx/</link>
+            <pubDate>Fri, 01 Mar 2024 00:13:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/remote-access-to-termux-from-osx/</guid>
+            <description>Open Termux on Android and then execute the following commands:
+pkg upgrade pkg install openssh passwd whoami sshd -e -d -d -d On OSX:
+# ssh username@&amp;lt;android_ip&amp;gt; -p8022 # ssh u0_412@&amp;lt;........&amp;gt; -p8022 To kill the server:
+pkill sshd sshd: no hostkeys available &amp;ndash; exiting ssh-keygen -A
+Bonus
+pkg install termux-api </description>
+            <content type="html"><![CDATA[<p>Open Termux on Android and then execute the following commands:</p>
+<pre tabindex="0"><code>pkg upgrade
+pkg install openssh
+passwd
+whoami
+sshd -e -d -d -d
+</code></pre><p>On OSX:</p>
+<pre tabindex="0"><code># ssh username@&lt;android_ip&gt; -p8022
+# ssh u0_412@&lt;........&gt; -p8022
+</code></pre><p>To kill the server:</p>
+<pre tabindex="0"><code>pkill sshd
+</code></pre><blockquote>
+<p>sshd: no hostkeys available &ndash; exiting
+<code>ssh-keygen -A</code></p>
+</blockquote>
+<p>Bonus</p>
+<pre tabindex="0"><code>pkg install termux-api
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Install tailscale and Pi Hole on Debian 11 Bullseye</title>
@@ -76,7 +108,7 @@ net.ipv6.conf.all.forwarding = 1
 <pre tabindex="0"><code>sudo tailscale up --accept-dns=false --advertise-exit-node --advertise-routes=192.168.68.0/24
 # Get IP
 tailscale ip -4
-Reboot to make sure everything is fine even after a complete reboot
+Reboot to make sure everything is fine
 </code></pre><br/>
 <p><strong>Test</strong></p>
 <p>Grab your phone and use a 4G/5G network for this test.
