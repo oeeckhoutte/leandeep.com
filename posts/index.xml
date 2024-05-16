@@ -6,8 +6,58 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 01 Mar 2024 00:13:00 +0000</lastBuildDate>
+        <lastBuildDate>Sun, 24 Mar 2024 06:34:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Install Kali Nethunter on Android 14 [Rootless procedure]</title>
+            <link>https://leandeep.com/install-kali-nethunter-on-android-14-rootless-procedure/</link>
+            <pubDate>Sun, 24 Mar 2024 06:34:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/install-kali-nethunter-on-android-14-rootless-procedure/</guid>
+            <description>Introduction (Between 2 baby&amp;rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&amp;rsquo;s see how to do it.
+Prerequisites Android 13+ Termux installed Android developer mode enabled Installation On termux execute the following commands:
+pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-termux https://offsec.ec/2MceZWr chmod +x install-nethunter-termux ./install-nethunter-termux Then on the installation page KALI select option 1 to have a full installation.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>(Between 2 baby&rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&rsquo;s see how to do it.</p>
+<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Android 13+</li>
+<li>Termux installed</li>
+<li>Android developer mode enabled</li>
+</ul>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>On termux execute the following commands:</p>
+<pre tabindex="0"><code>pkg update -y
+termux-setup-storage
+pkg install wget
+wget -O install-nethunter-termux https://offsec.ec/2MceZWr
+chmod +x install-nethunter-termux
+./install-nethunter-termux
+</code></pre><p>Then on the installation page KALI select option 1 to have a full installation.</p>
+<p>Then for the question &ldquo;Delete downloaded rootfs file&rdquo; -&gt; Select &ldquo;no&rdquo;.</p>
+<br/>
+<h2 id="kix-dbus-error">Kix dbus error</h2>
+<p>Fix the DNS server by editing the /etc/resolv.conf file. Change the local IP (or 9.9.9.9) by Google&rsquo;s DNS IP or use another DNS service provider. So set <code>nameserver 8.8.8.8</code>
+Then run <code>apt update</code>
+And install the package <code>apt install dbus-x11</code></p>
+<p>Finally open the settings of your Android phone and go to developer options. Enable <code>Disable child process restrictions</code>.</p>
+<br/>
+<h2 id="kali-nethunter-desktop-experience-kex-installation">Kali NetHunter Desktop Experience (KeX) installation</h2>
+<p>Go back to Termux. Exit your current session if you already ran <code>nh -r</code> and run the command <code>nh kex</code>.</p>
+<p>Now download Kali nethunter app store. To do so go to <a href="https://store.nethunter.com/en">https://store.nethunter.com/en</a> and click the download button. Install the APK using the package manager and open the store F-Droid. From there search <code>nethunter kex</code> using the magnifier and install Nethunter keX bVNC.</p>
+<br/>
+<h2 id="load-kex-from-android">Load KeX from Android</h2>
+<p>Open Nethunter Kex using the newly created icon and create a new connection.
+Let localhost as host and 5900 as port and set your password.
+On the small screen of my Pixel Kali&rsquo;s GUI is not very usable but apparently it is possible to output the screen to an external cable using a OTG cable or a USB cable directly.</p>
+<blockquote>
+<p>To stop kex you will need to open a new session in Termux and execute the command <code>nh kex stop</code>.</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Remote access to termux from OSX</title>
@@ -584,7 +634,7 @@ direnv allow
             <description>Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&amp;rsquo;année et surtout de me challenger chaque année. Cette année, je me suis fixé un énorme challenge personnel du coup je vais lever le pied sur les challenges pro.
 Voici donc mon programme pour cette année 2024:
 1. Pérennisation trading bots #TopPrio2
-Arbitrage bots Focus DeFi &amp;lt;-&amp;gt; CeFi trades automatiques Monter un nouveau node archive hosté chez moi et noeud TheGraph 2.</description>
+Arbitrage bots Focus DeFi &amp;lt;-&amp;gt; CeFi trades automatiques Monter un nouveau node archive hosté chez moi et noeud TheGraph Monitoring++ et backup/switch auto sur nouveau node.</description>
             <content type="html"><![CDATA[<p>Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&rsquo;année et surtout de me challenger chaque année. Cette année, je me suis fixé un énorme challenge personnel du coup je vais lever le pied sur les challenges pro.</p>
 <p>Voici donc mon programme pour cette année 2024:</p>
 <br/>
@@ -594,19 +644,21 @@ Arbitrage bots Focus DeFi &amp;lt;-&amp;gt; CeFi trades automatiques Monter un n
 <ul>
 <li>Focus DeFi &lt;-&gt; CeFi trades automatiques</li>
 <li>Monter un nouveau node archive hosté chez moi et noeud TheGraph</li>
+<li>Monitoring++ et backup/switch auto sur nouveau node.</li>
 </ul>
 </li>
 </ul>
 <p><strong>2. Gérer le prochain bullrun</strong> #TopPrio1</p>
 <ul>
-<li>Suivre mon plan défini l&rsquo;année dernière et améliorer continuellement mes outils de pilotage</li>
+<li>Suivre mon plan défini l&rsquo;année dernière et améliorer continuellement mes outils de pilotage. Objectif: &ldquo;ne pas sortir du plan prévu (contrôle absolu des émotions)&rdquo;</li>
+<li>Et bien sûr être présents virtuellement en automatique (#semaineDe4Heures spirit) pendant les bear traps et phases de paniques.</li>
 </ul>
 <p><strong>3. Automatiser et scaler mon jardin hydroponique</strong> #TopPrio3</p>
 <ul>
-<li>Arrosage auto avec eps8266 ou alternative (pouvoir &ldquo;abandonner mon jardin et plantes pendant 3 mois sans risque&rdquo;)</li>
-<li>&ldquo;Scaler&rdquo; dans le sens passer de 2 étagères remplies de légumes à 12</li>
+<li>Arrosage auto avec eps8266 ou alternative (pouvoir &ldquo;abandonner mon jardin et plantes pendant 3 mois sans risque&rdquo;).</li>
+<li>&ldquo;Scaler&rdquo; dans le sens passer de 2 étagères remplies de légumes à 12.</li>
 </ul>
-<p><strong>4. Lire 3 livres de développement personnel</strong></p>
+<p><strong>4. Lire 1 livre de développement personnel</strong></p>
 <p><strong>5. Créer un plugin Home Assistant pour mieux piloter mon chauffage</strong></p>
 <ul>
 <li>J&rsquo;ai domotisé mon chauffage au sol en 2023.
@@ -621,11 +673,10 @@ En 2024 j&rsquo;aimerais l&rsquo;optimiser pour que les pics de consommation él
 <li>Voir les synergies avec la sécurité</li>
 <li>Voir les synergies avec la VR pour générer des environnements</li>
 </ul>
-<p><strong>8. Lire 3 livres autour de l&rsquo;IT</strong></p>
+<p><strong>8. Lire 2 livres autour de l&rsquo;IT</strong></p>
 <ul>
 <li>Craftmanship</li>
 <li>Hacking</li>
-<li>J&rsquo;aurais bien lu un livre sur les IA generative mais au bout de 6 mois c&rsquo;est dépassé</li>
 </ul>
 ]]></content>
         </item>
@@ -1813,20 +1864,29 @@ for f in * ; do mv &amp;#34;$f&amp;#34; Prefix_&amp;#34;$f&amp;#34; ; done </des
             
             <guid>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4-via-le-cli/</guid>
             <description>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&amp;rsquo;utiliser le package Python yt-dlp.
-pip install yt-dlp # Enregistrement mp3 yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist # Enregistrement mp4 # Best video quality yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; # Enregistrement mp4 # Worst video quality mais high quality audio yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; </description>
+pip install yt-dlp Enregistrement mp3
+yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist Enregistrement mp4
+# Best video quality yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; # Worst video quality mais high quality audio yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; Enregistrement en qualité 720p
+-S &amp;#34;res:720,fps&amp;#34; Enregistrement avec sous-titres anglais
+--write-sub --write-auto-sub --sub-lang &amp;#34;en.</description>
             <content type="html"><![CDATA[<p>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&rsquo;utiliser le package Python <code>yt-dlp</code>.</p>
 <pre tabindex="0"><code>pip install yt-dlp
-
-# Enregistrement mp3
-yt-dlp -f &#39;ba&#39; -x --audio-format mp3 lien_vers_votre_playlist
-
-# Enregistrement mp4
-# Best video quality
+</code></pre><p><br/>
+<strong>Enregistrement mp3</strong></p>
+<pre tabindex="0"><code>yt-dlp -f &#39;ba&#39; -x --audio-format mp3 lien_vers_votre_playlist
+</code></pre><p><br/>
+<strong>Enregistrement mp4</strong></p>
+<pre tabindex="0"><code># Best video quality
 yt-dlp lien_vers_votre_playlist -f &#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&#34;
 
-# Enregistrement mp4
 # Worst video quality mais high quality audio
 yt-dlp lien_vers_votre_playlist -f &#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&#34;
+</code></pre><p><br/>
+<strong>Enregistrement en qualité 720p</strong></p>
+<pre tabindex="0"><code>-S &#34;res:720,fps&#34;
+</code></pre><p><br/>
+<strong>Enregistrement avec sous-titres anglais</strong></p>
+<pre tabindex="0"><code>--write-sub --write-auto-sub --sub-lang &#34;en.*&#34;
 </code></pre>]]></content>
         </item>
         
