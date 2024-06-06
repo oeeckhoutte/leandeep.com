@@ -6,8 +6,30 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 24 Mar 2024 06:34:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 05 Jun 2024 20:28:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to verify if I am using LVM ?</title>
+            <link>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</link>
+            <pubDate>Wed, 05 Jun 2024 20:28:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</guid>
+            <description>Simply use the following command:
+cat /etc/fstab And have a look at the line with your root filesystem.
+From there we have 3 possibilities:
+If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. </description>
+            <content type="html"><![CDATA[<p>Simply use the following command:</p>
+<pre tabindex="0"><code>cat /etc/fstab
+</code></pre><p>And have a look at the line with your root filesystem.</p>
+<p>From there we have 3 possibilities:</p>
+<ul>
+<li>If the line starts with UUID=xyz, then it means it is a physical partition.</li>
+<li>If the line starst with /dev/sdaX, it is a physical partition.</li>
+<li>The indicator for LVM would be something with /dev/mapper/xyz.</li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Install Kali Nethunter on Android 14 [Rootless procedure]</title>

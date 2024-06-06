@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 24 Feb 2024 18:10:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jun 2024 20:28:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to verify if I am using LVM ?</title>
+      <link>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</link>
+      <pubDate>Wed, 05 Jun 2024 20:28:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</guid>
+      <description>Simply use the following command:
+cat /etc/fstab And have a look at the line with your root filesystem.
+From there we have 3 possibilities:
+If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. </description>
+    </item>
+    
     <item>
       <title>Install tailscale and Pi Hole on Debian 11 Bullseye</title>
       <link>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</link>
@@ -102,16 +114,6 @@ Pour réaliser un ps aux, cela va être compliqué&amp;hellip;
 2 options s&amp;rsquo;offrent à nous:
 Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
 Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois).</description>
-    </item>
-    
-    <item>
-      <title>Monter un raid existant sur une nouvelle installation d&#39;Ubuntu</title>
-      <link>https://leandeep.com/monter-un-raid-existant-sur-une-nouvelle-installation-dubuntu/</link>
-      <pubDate>Fri, 15 Nov 2019 13:31:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/monter-un-raid-existant-sur-une-nouvelle-installation-dubuntu/</guid>
-      <description>Si vous aviez créé votre raid avec l&amp;rsquo;utilitaire mdadm (comme expliqué dans l&amp;rsquo;article suivant https://leandeep.com/creer-un-raid-pour-stocker-ses-precieux-datasets/ ), les commandes pour le remonter ou réassembler sur un Ubuntu tout neuf sont les suivantes:
-# Installation de mdadm sudo apt-get update sudo apt-get install -y mdadm # On détecte le raid sudo mdadm --assemble --scan # On monte le raid en local sudo mkdir /mnt/md0 sudo mount /dev/md0 /mnt/md0 # Vérifier qu&amp;#39;il est bien monté df -h Troubleshooting Avoir des informations (type et disques utilisés) sur les raids existants</description>
     </item>
     
   </channel>

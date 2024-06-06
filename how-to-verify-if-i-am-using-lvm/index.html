@@ -7,9 +7,10 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction (Between 2 baby&amp;rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&amp;rsquo;s see how to do it.
-Prerequisites Android 13&#43; Termux installed Android developer mode enabled Installation On termux execute the following commands:
-pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-termux https://offsec.ec/2MceZWr chmod &#43;x install-nethunter-termux ./install-nethunter-termux Then on the installation page KALI select option 1 to have a full installation." />
+  content="Simply use the following command:
+cat /etc/fstab And have a look at the line with your root filesystem.
+From there we have 3 possibilities:
+If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -25,7 +26,7 @@ pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-te
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/install-kali-nethunter-on-android-14-rootless-procedure/" />
+<link rel="canonical" href="https://leandeep.com/how-to-verify-if-i-am-using-lvm/" />
 
 
 
@@ -234,7 +235,7 @@ pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-te
 
 <title>
   
-  Install Kali Nethunter on Android 14 [Rootless procedure] :: Lean Deep Tech blog 
+  How to verify if I am using LVM ? :: Lean Deep Tech blog 
   
 </title>
 
@@ -259,25 +260,27 @@ pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-te
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Install Kali Nethunter on Android 14 [Rootless procedure]">
-<meta itemprop="description" content="Introduction (Between 2 baby&rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&rsquo;s see how to do it.
-Prerequisites Android 13&#43; Termux installed Android developer mode enabled Installation On termux execute the following commands:
-pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-termux https://offsec.ec/2MceZWr chmod &#43;x install-nethunter-termux ./install-nethunter-termux Then on the installation page KALI select option 1 to have a full installation."><meta itemprop="datePublished" content="2024-03-24T06:34:00+00:00" />
-<meta itemprop="dateModified" content="2024-03-24T06:34:00+00:00" />
-<meta itemprop="wordCount" content="304"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Android,Kali," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="How to verify if I am using LVM ?">
+<meta itemprop="description" content="Simply use the following command:
+cat /etc/fstab And have a look at the line with your root filesystem.
+From there we have 3 possibilities:
+If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. "><meta itemprop="datePublished" content="2024-06-05T20:28:00+00:00" />
+<meta itemprop="dateModified" content="2024-06-05T20:28:00+00:00" />
+<meta itemprop="wordCount" content="58"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="tips,Linux," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Install Kali Nethunter on Android 14 [Rootless procedure]"/>
-<meta name="twitter:description" content="Introduction (Between 2 baby&rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&rsquo;s see how to do it.
-Prerequisites Android 13&#43; Termux installed Android developer mode enabled Installation On termux execute the following commands:
-pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-termux https://offsec.ec/2MceZWr chmod &#43;x install-nethunter-termux ./install-nethunter-termux Then on the installation page KALI select option 1 to have a full installation."/>
+<meta name="twitter:title" content="How to verify if I am using LVM ?"/>
+<meta name="twitter:description" content="Simply use the following command:
+cat /etc/fstab And have a look at the line with your root filesystem.
+From there we have 3 possibilities:
+If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. "/>
 
 
 
 
 
-<meta property="article:published_time" content="2024-03-24 06:34:00 &#43;0000 UTC" />
+<meta property="article:published_time" content="2024-06-05 20:28:00 &#43;0000 UTC" />
 
 
 
@@ -332,7 +335,7 @@ pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-te
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
 
             
 
@@ -341,50 +344,21 @@ pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-te
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/install-kali-nethunter-on-android-14-rootless-procedure/">Install Kali Nethunter on Android 14 [Rootless procedure]</a>
+                <a href="https://leandeep.com/how-to-verify-if-i-am-using-lvm/">How to verify if I am using LVM ?</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h2 id="introduction">Introduction</h2>
-<p>(Between 2 baby&rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&rsquo;s see how to do it.</p>
-<br/>
-<h2 id="prerequisites">Prerequisites</h2>
+                <p>Simply use the following command:</p>
+<pre tabindex="0"><code>cat /etc/fstab
+</code></pre><p>And have a look at the line with your root filesystem.</p>
+<p>From there we have 3 possibilities:</p>
 <ul>
-<li>Android 13+</li>
-<li>Termux installed</li>
-<li>Android developer mode enabled</li>
+<li>If the line starts with UUID=xyz, then it means it is a physical partition.</li>
+<li>If the line starst with /dev/sdaX, it is a physical partition.</li>
+<li>The indicator for LVM would be something with /dev/mapper/xyz.</li>
 </ul>
-<br/>
-<h2 id="installation">Installation</h2>
-<p>On termux execute the following commands:</p>
-<pre tabindex="0"><code>pkg update -y
-termux-setup-storage
-pkg install wget
-wget -O install-nethunter-termux https://offsec.ec/2MceZWr
-chmod +x install-nethunter-termux
-./install-nethunter-termux
-</code></pre><p>Then on the installation page KALI select option 1 to have a full installation.</p>
-<p>Then for the question &ldquo;Delete downloaded rootfs file&rdquo; -&gt; Select &ldquo;no&rdquo;.</p>
-<br/>
-<h2 id="kix-dbus-error">Kix dbus error</h2>
-<p>Fix the DNS server by editing the /etc/resolv.conf file. Change the local IP (or 9.9.9.9) by Google&rsquo;s DNS IP or use another DNS service provider. So set <code>nameserver 8.8.8.8</code>
-Then run <code>apt update</code>
-And install the package <code>apt install dbus-x11</code></p>
-<p>Finally open the settings of your Android phone and go to developer options. Enable <code>Disable child process restrictions</code>.</p>
-<br/>
-<h2 id="kali-nethunter-desktop-experience-kex-installation">Kali NetHunter Desktop Experience (KeX) installation</h2>
-<p>Go back to Termux. Exit your current session if you already ran <code>nh -r</code> and run the command <code>nh kex</code>.</p>
-<p>Now download Kali nethunter app store. To do so go to <a href="https://store.nethunter.com/en">https://store.nethunter.com/en</a> and click the download button. Install the APK using the package manager and open the store F-Droid. From there search <code>nethunter kex</code> using the magnifier and install Nethunter keX bVNC.</p>
-<br/>
-<h2 id="load-kex-from-android">Load KeX from Android</h2>
-<p>Open Nethunter Kex using the newly created icon and create a new connection.
-Let localhost as host and 5900 as port and set your password.
-On the small screen of my Pixel Kali&rsquo;s GUI is not very usable but apparently it is possible to output the screen to an external cable using a OTG cable or a USB cable directly.</p>
-<blockquote>
-<p>To stop kex you will need to open a new session in Termux and execute the command <code>nh kex stop</code>.</p>
-</blockquote>
 
             </div>
         </article>
@@ -393,12 +367,12 @@ On the small screen of my Pixel Kali&rsquo;s GUI is not very usable but apparent
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/android">Android</a></span><span class="tag"><a href="https://leandeep.com/tags/kali">Kali</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>304 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>58 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>24 mars. 2024</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>05 juin. 2024</p>
         </div>
 
         
@@ -410,18 +384,11 @@ On the small screen of my Pixel Kali&rsquo;s GUI is not very usable but apparent
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/how-to-verify-if-i-am-using-lvm/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">How to verify if I am using LVM ?</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/remote-access-to-termux-from-osx/">
-                                <span class="button__text">Remote access to termux from OSX</span>
+                            <a href="https://leandeep.com/install-kali-nethunter-on-android-14-rootless-procedure/">
+                                <span class="button__text">Install Kali Nethunter on Android 14 [Rootless procedure]</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
