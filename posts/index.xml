@@ -18,7 +18,7 @@
             <description>Simply use the following command:
 cat /etc/fstab And have a look at the line with your root filesystem.
 From there we have 3 possibilities:
-If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. </description>
+If the line starts with UUID=xyz, then it means it is a physical partition. If the line starst with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. You can also check in the mounts and fstab using this command:</description>
             <content type="html"><![CDATA[<p>Simply use the following command:</p>
 <pre tabindex="0"><code>cat /etc/fstab
 </code></pre><p>And have a look at the line with your root filesystem.</p>
@@ -28,7 +28,13 @@ If the line starts with UUID=xyz, then it means it is a physical partition. If t
 <li>If the line starst with /dev/sdaX, it is a physical partition.</li>
 <li>The indicator for LVM would be something with /dev/mapper/xyz.</li>
 </ul>
-]]></content>
+<br/>
+<p>You can also check in the mounts and fstab using this command:</p>
+<pre tabindex="0"><code>if  grep -Pq &#39;/dev/(mapper/|disk/by-id/dm)&#39; /etc/fstab  ||  mount | grep -q /dev/mapper/
+then
+    echo &#34;LVM in use&#34;
+fi
+</code></pre>]]></content>
         </item>
         
         <item>
