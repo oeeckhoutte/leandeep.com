@@ -19497,18 +19497,24 @@ oc get clusterrolebinding -o json | jq &amp;#39;.items[] | select(.metadata.name
             
             <guid>https://leandeep.com/useful-postgres-commands/</guid>
             <description>Here is a list of Postgres basic commands:
-Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt list tables of the public schema \dt &amp;lt;schema-name&amp;gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \q quit psql I recommand the usage of pgadmin4 to manage your Postgres Databases.</description>
+Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt (list tables of the public schema) \dt &amp;lt;schema-name&amp;gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \d table (Describe table structure) \q (quit psql) \i path/to/file.</description>
             <content type="html"><![CDATA[<p>Here is a list of Postgres basic commands:</p>
 <h2 id="basics">Basics</h2>
 <pre tabindex="0"><code>\? list all the commands
 \l list databases
 \conninfo display information about current connection
 \c [DBNAME] connect to new database, e.g., \c template1
-\dt list tables of the public schema
+\dt (list tables of the public schema)
 \dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.*
 \dt *.* list tables of all schemas
 Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;)
-\q quit psql
+\d table (Describe table structure)
+\q (quit psql)
+\i path/to/file.sql (Import data)
+\copy (SELECT * FROM utilisateurs) TO &#39;path/to/file.csv&#39; WITH CSV HEADER; (export data)
+SET search_path TO myschema; (Select schema)
+SHOW search_path; (See selected schema)
+\dn (list schemas OR &#34;SELECT schema_name FROM information_schema.schemata;&#34;)
 </code></pre><blockquote>
 <p>I recommand the usage of pgadmin4 to manage your Postgres Databases.</p>
 </blockquote>
@@ -19595,7 +19601,7 @@ FROM
 <p><strong>Grant all priviledges to user on database:</strong></p>
 <pre tabindex="0"><code>grant all privileges on database your_db to your_user;
 </code></pre><br/>
-<h2 id="installations">Installations</h2>
+<h2 id="installation">Installation</h2>
 <h3 id="on-centos-7">On Centos 7</h3>
 <pre tabindex="0"><code>yum install postgresql-server postgresql-contrib
 # Initialize the DB

@@ -8,7 +8,7 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Here is a list of Postgres basic commands:
-Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt list tables of the public schema \dt &amp;lt;schema-name&amp;gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \q quit psql I recommand the usage of pgadmin4 to manage your Postgres Databases." />
+Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt (list tables of the public schema) \dt &amp;lt;schema-name&amp;gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \d table (Describe table structure) \q (quit psql) \i path/to/file." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -260,15 +260,15 @@ Basics \? list all the commands \l list databases \conninfo display information 
 
 <meta itemprop="name" content="Useful Postgres commands">
 <meta itemprop="description" content="Here is a list of Postgres basic commands:
-Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt list tables of the public schema \dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \q quit psql I recommand the usage of pgadmin4 to manage your Postgres Databases."><meta itemprop="datePublished" content="2019-06-21T19:43:00+00:00" />
+Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt (list tables of the public schema) \dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \d table (Describe table structure) \q (quit psql) \i path/to/file."><meta itemprop="datePublished" content="2019-06-21T19:43:00+00:00" />
 <meta itemprop="dateModified" content="2019-06-21T19:43:00+00:00" />
-<meta itemprop="wordCount" content="580"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="620"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Postgres," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Useful Postgres commands"/>
 <meta name="twitter:description" content="Here is a list of Postgres basic commands:
-Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt list tables of the public schema \dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \q quit psql I recommand the usage of pgadmin4 to manage your Postgres Databases."/>
+Basics \? list all the commands \l list databases \conninfo display information about current connection \c [DBNAME] connect to new database, e.g., \c template1 \dt (list tables of the public schema) \dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.* \dt *.* list tables of all schemas Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;) \d table (Describe table structure) \q (quit psql) \i path/to/file."/>
 
 
 
@@ -350,11 +350,17 @@ Basics \? list all the commands \l list databases \conninfo display information 
 \l list databases
 \conninfo display information about current connection
 \c [DBNAME] connect to new database, e.g., \c template1
-\dt list tables of the public schema
+\dt (list tables of the public schema)
 \dt &lt;schema-name&gt;.* list tables of certain schema, e.g., \dt public.*
 \dt *.* list tables of all schemas
 Then you can run SQL statements, e.g., SELECT * FROM my_table;(Note: a statement must be terminated with semicolon ;)
-\q quit psql
+\d table (Describe table structure)
+\q (quit psql)
+\i path/to/file.sql (Import data)
+\copy (SELECT * FROM utilisateurs) TO &#39;path/to/file.csv&#39; WITH CSV HEADER; (export data)
+SET search_path TO myschema; (Select schema)
+SHOW search_path; (See selected schema)
+\dn (list schemas OR &#34;SELECT schema_name FROM information_schema.schemata;&#34;)
 </code></pre><blockquote>
 <p>I recommand the usage of pgadmin4 to manage your Postgres Databases.</p>
 </blockquote>
@@ -441,7 +447,7 @@ FROM
 <p><strong>Grant all priviledges to user on database:</strong></p>
 <pre tabindex="0"><code>grant all privileges on database your_db to your_user;
 </code></pre><br/>
-<h2 id="installations">Installations</h2>
+<h2 id="installation">Installation</h2>
 <h3 id="on-centos-7">On Centos 7</h3>
 <pre tabindex="0"><code>yum install postgresql-server postgresql-contrib
 # Initialize the DB
@@ -489,7 +495,7 @@ Here are few useful links to manage to model your Postgres DB using Python and t
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/postgres">Postgres</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>580 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>620 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>21 juin. 2019</p>
         </div>
