@@ -260,7 +260,7 @@
 <meta itemprop="name" content="Configure Keycloak to secure your apps and API endpoints">
 <meta itemprop="description" content="In this brief article we are going to create a basic realm in Keycloak to secure an API. It&rsquo;s a very minimal setup to quickly get started and secure your app and API. No RBAC, no security defense, and no Google/ Facebook Connect&hellip; configs are explained in this article. I will probably create other articles about these subjets later as I am extensively leveraging Keycloak features. There is indeed no need to setup a complexe Identity and Access Management tool like Keycloak if you are not going to leverage it&hellip;"><meta itemprop="datePublished" content="2024-11-13T07:00:00+02:00" />
 <meta itemprop="dateModified" content="2024-11-13T07:00:00+02:00" />
-<meta itemprop="wordCount" content="559"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="562"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Keycloak,ciam," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -477,7 +477,7 @@ services:
 <pre tabindex="0"><code>curl -X GET &#34;http://localhost:8080/realms/realm_test/protocol/openid-connect/userinfo&#34; \
      -H &#34;Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqaTNPRHRHS0tmcW9XNHVtOGptN1p4eVVUU3NxMGFEWFJJSnYtZGRNQXZ3In0.eyJleHAiOjE3MzE1MzQ2MzksImlhdCI6MTczMTUzNDMzOSwianRpIjoiMGQ4NDRjNWQtZGRhYi00YTg1LTljMjItY2FjNTg0NWI4NWU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy90ZV9kaXJlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImUzYzhkZjM2LWY3NmEtNDc4OC05OWM1LWU0N...&#34;
 </code></pre><br/>
-<p>If you get a response like above it means Keycloak is properly configured for your development environment and you can put it in front of your API and use it in your app to login your users.</p>
+<p>If you get a response like the one below, it means Keycloak is properly configured for your development environment. You can then place it in front of your API and use it in your app to log in your users.</p>
 <pre tabindex="0"><code>{&#34;sub&#34;:&#34;e3c8df36-f76a-4788-99c5-e45553d71893&#34;,&#34;email_verified&#34;:true,&#34;name&#34;:&#34;Olivier Olivier&#34;,&#34;preferred_username&#34;:&#34;olivier.olivier@example.com&#34;,&#34;given_name&#34;:&#34;Olivier&#34;,&#34;family_name&#34;:&#34;Olivier&#34;,&#34;email&#34;:&#34;olivier.olivier@example.com&#34;}%
 </code></pre><br/>
 <h2 id="create-an-account-in-a-non-admin-realm-via-the-api">Create an account in a non admin realm via the API</h2>
@@ -517,7 +517,7 @@ if response.status_code == 201:
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/keycloak">Keycloak</a></span><span class="tag"><a href="https://leandeep.com/tags/ciam">ciam</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>559 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>562 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 nov.. 2024</p>
         </div>
