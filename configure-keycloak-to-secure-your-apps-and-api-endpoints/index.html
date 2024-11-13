@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="In this brief article we are going to create a basic realm in Keycloak to secure an API. It&amp;rsquo;s the minimal setup. No RBAC, no security defense, and no Google/ Facebook Connect&amp;hellip; configs are explained in this article. I will certainly create other articles for these other concepts.
+Installation Via Docker compose
+x-logging: &amp;amp;logging driver: &amp;#34;json-file&amp;#34; options: max-size: &amp;#34;10m&amp;#34; max-file: &amp;#34;3&amp;#34; services: postgres: image: postgres:${POSTGRES_VERSION} restart: unless-stopped healthcheck: test: [&amp;#34;CMD&amp;#34;, &amp;#34;pg_isready&amp;#34;, &amp;#34;-U&amp;#34;, &amp;#34;keycloak&amp;#34;] environment: POSTGRES_DB: keycloak POSTGRES_USER: keycloak POSTGRES_PASSWORD: password volumes: - type: tmpfs target: /var/lib/postgresql/data tmpfs: size: 100000000 logging: *logging keycloak: image: quay." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/configure-keycloak-to-secure-your-apps-and-api-endpoints/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Configure Keycloak to secure your apps and API endpoints :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.5a145ada8612b7e3e366691ddad4ba3ce6007aa2562c494a29f0b76b636f9789.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Configure Keycloak to secure your apps and API endpoints">
+<meta itemprop="description" content="In this brief article we are going to create a basic realm in Keycloak to secure an API. It&rsquo;s the minimal setup. No RBAC, no security defense, and no Google/ Facebook Connect&hellip; configs are explained in this article. I will certainly create other articles for these other concepts.
+Installation Via Docker compose
+x-logging: &amp;logging driver: &#34;json-file&#34; options: max-size: &#34;10m&#34; max-file: &#34;3&#34; services: postgres: image: postgres:${POSTGRES_VERSION} restart: unless-stopped healthcheck: test: [&#34;CMD&#34;, &#34;pg_isready&#34;, &#34;-U&#34;, &#34;keycloak&#34;] environment: POSTGRES_DB: keycloak POSTGRES_USER: keycloak POSTGRES_PASSWORD: password volumes: - type: tmpfs target: /var/lib/postgresql/data tmpfs: size: 100000000 logging: *logging keycloak: image: quay."><meta itemprop="datePublished" content="2024-11-13T07:00:00+02:00" />
+<meta itemprop="dateModified" content="2024-11-13T07:00:00+02:00" />
+<meta itemprop="wordCount" content="517"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Keycloak,ciam," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Configure Keycloak to secure your apps and API endpoints"/>
+<meta name="twitter:description" content="In this brief article we are going to create a basic realm in Keycloak to secure an API. It&rsquo;s the minimal setup. No RBAC, no security defense, and no Google/ Facebook Connect&hellip; configs are explained in this article. I will certainly create other articles for these other concepts.
+Installation Via Docker compose
+x-logging: &amp;logging driver: &#34;json-file&#34; options: max-size: &#34;10m&#34; max-file: &#34;3&#34; services: postgres: image: postgres:${POSTGRES_VERSION} restart: unless-stopped healthcheck: test: [&#34;CMD&#34;, &#34;pg_isready&#34;, &#34;-U&#34;, &#34;keycloak&#34;] environment: POSTGRES_DB: keycloak POSTGRES_USER: keycloak POSTGRES_PASSWORD: password volumes: - type: tmpfs target: /var/lib/postgresql/data tmpfs: size: 100000000 logging: *logging keycloak: image: quay."/>
+
+
+
+
+
+<meta property="article:published_time" content="2024-11-13 07:00:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/configure-keycloak-to-secure-your-apps-and-api-endpoints/">Configure Keycloak to secure your apps and API endpoints</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>In this brief article we are going to create a basic realm in Keycloak to secure an API. It&rsquo;s the minimal setup. No RBAC, no security defense, and no Google/ Facebook Connect&hellip; configs are explained in this article. I will certainly create other articles for these other concepts.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<p><strong>Via Docker compose</strong></p>
+<pre tabindex="0"><code>x-logging: &amp;logging
+  driver: &#34;json-file&#34;
+  options:
+    max-size: &#34;10m&#34;
+    max-file: &#34;3&#34;
+
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: unless-stopped
+    healthcheck:
+      test: [&#34;CMD&#34;, &#34;pg_isready&#34;, &#34;-U&#34;, &#34;keycloak&#34;]
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - type: tmpfs
+        target: /var/lib/postgresql/data
+        tmpfs:
+          size: 100000000
+    logging: *logging
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KC_VERSION}
+    command: [&#34;start-dev&#34;, &#34;--import-realm&#34;]
+    restart: unless-stopped
+    environment:
+      KC_DB: postgres
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_DB_URL: &#34;jdbc:postgresql://postgres:5432/keycloak&#34;
+      KC_METRICS_ENABLED: true
+      KC_LOG_LEVEL: ${KC_LOG_LEVEL}
+      KC_REALM_NAME: ${KC_REALM_NAME}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      GF_URL: ${GF_HOSTNAME}:${GF_SERVER_HTTP_PORT}
+      GF_ADMIN_USERNAME: ${GF_ADMIN_USERNAME}
+      GF_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD}
+    ports:
+      - ${KC_PORT}:8080
+    volumes:
+      - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json:ro
+    logging: *logging
+
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION}
+    command:
+      - &#39;--config.file=/etc/prometheus/prometheus.yml&#39;
+      - &#39;--storage.tsdb.path=/prometheus&#39;
+      - &#39;--storage.tsdb.retention.time=30d&#39;
+      - &#39;--storage.tsdb.wal-compression&#39;
+      - &#39;--web.enable-lifecycle&#39;
+    restart: unless-stopped
+    healthcheck:
+      test: [&#34;CMD&#34;, &#34;wget&#34;, &#34;--tries=1&#34;, &#34;--spider&#34;, &#34;http://localhost:9090/-/healthy&#34;]
+    ports:
+      - ${PROMETHEUS_PORT}:9090
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    logging: *logging
+
+  grafana:
+    image: grafana/grafana-oss:${GF_VERSION}
+    restart: unless-stopped
+    ports:
+      - ${GF_SERVER_HTTP_PORT}:${GF_SERVER_HTTP_PORT}
+    healthcheck:
+      test: [&#34;CMD&#34;, &#34;wget&#34;, &#34;--spider&#34;, &#34;http://localhost:${GF_SERVER_HTTP_PORT}/api/health&#34;]
+    environment:
+      GF_SERVER_HTTP_PORT: ${GF_SERVER_HTTP_PORT}
+      GF_SERVER_ROOT_URL: ${GF_HOSTNAME}:${GF_SERVER_HTTP_PORT}
+      GF_LOG_LEVEL: ${GF_LOG_LEVEL}
+      GF_AUTH_BASIC_ENABLED: true
+      GF_AUTH_DISABLE_LOGIN_FORM: true
+      GF_AUTH_GENERIC_OAUTH_TLS_SKIP_VERIFY_INSECURE: true
+      GF_AUTH_GENERIC_OAUTH_ENABLED: true
+      GF_AUTH_GENERIC_OAUTH_NAME: Keycloak
+      GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: true
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: &#34;grafana&#34;
+      GF_AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_NAME: &#34;email:primary&#34;
+      GF_AUTH_GENERIC_OAUTH_SCOPES: &#34;openid profile email&#34;
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: ${KC_HOSTNAME}:${KC_PORT}/realms/${KC_REALM_NAME}/protocol/openid-connect/auth
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://keycloak:${KC_PORT}/realms/${KC_REALM_NAME}/protocol/openid-connect/token
+      GF_AUTH_GENERIC_OAUTH_API_URL: ${KC_HOSTNAME}:${KC_PORT}/realms/${KC_REALM_NAME}/protocol/openid-connect/userinfo
+    volumes:
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    logging: *logging
+</code></pre><blockquote>
+<p>Obviously it&rsquo;s not the config for your prod environment.</p>
+</blockquote>
+<br/>
+<h2 id="configuration">Configuration</h2>
+<p>Go to http://localhost:8080/ and login using <code>admin</code>/<code>keycloak</code> credentials.</p>
+<ol>
+<li>Create a new realm: <code>realm_test</code></li>
+<li>On realm settings check <code>Email as username</code>.</li>
+<li>Create a new client and select:
+<ul>
+<li>Client type: <code>OpenID Connect</code></li>
+<li>Clent ID: <code>test_config</code></li>
+<li>Name: <code>test_config</code></li>
+<li>Client authentication: <code>Off</code></li>
+<li>Authorization: <code>Off</code></li>
+<li>Authentication Flow: <code>Standard flow</code> + <code>Direct access grants</code></li>
+<li>Web origins: <code>*</code> (for CORS -&gt; We don&rsquo;t care in dev)</li>
+</ul>
+</li>
+<li>Create a user: <code>olivier.olivier@example.com</code> with email verified and set a non temporary password <code>olivierolivier</code>.</li>
+</ol>
+<br/>
+<h2 id="login-verify-config-ok">Login/ Verify config OK</h2>
+<p>Verify you can connect using your newly created account on the realm.</p>
+<p>To do so go to <a href="http://localhost:8080/realms/realm_test/protocol/openid-connect/auth?client_id=account-console">http://localhost:8080/realms/realm_test/protocol/openid-connect/auth?client_id=account-console</a> and try to login using the UI.</p>
+<br/>
+<p>If it&rsquo;s ok let&rsquo;s try to get an access_token using the REST API:</p>
+<pre tabindex="0"><code>curl -X POST &#34;http://localhost:8080/realms/realm_test/protocol/openid-connect/token&#34; \
+     -H &#34;Content-Type: application/x-www-form-urlencoded&#34; \
+     -d &#34;client_id=test_config&#34; \
+     -d &#34;grant_type=password&#34; \
+     -d &#34;username=olivier.olivier@example.com&#34; \
+     -d &#34;password=olivierolivier&#34; \
+     -d &#34;scope=openid&#34;
+</code></pre><p>If you get a response like this you are all set:</p>
+<pre tabindex="0"><code>{&#34;access_token&#34;:&#34;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqaTNPRHRHS0tmcW9XNHVtOGptN1p4eVVUU3NxMGFEWFJJSnYtZGRNQXZ3In0.eyJleHAiOjE3MzE1MzQ2MzksImlhdCI6MTczMTUzNDMzOSwianRpIjoiMGQ4NDRjNWQtZGRhYi00YTg1LTljMjItY2FjNTg0NWI4NWU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy90ZV9kaXJlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImUzYzhkZjM2LWY3NmEtNDc4OC05OWM1LWU0N...
+</code></pre><br/>
+<p>Extract your access_token and now try to retrieve your account personal info:</p>
+<pre tabindex="0"><code>curl -X GET &#34;http://localhost:8080/realms/realm_test/protocol/openid-connect/userinfo&#34; \
+     -H &#34;Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqaTNPRHRHS0tmcW9XNHVtOGptN1p4eVVUU3NxMGFEWFJJSnYtZGRNQXZ3In0.eyJleHAiOjE3MzE1MzQ2MzksImlhdCI6MTczMTUzNDMzOSwianRpIjoiMGQ4NDRjNWQtZGRhYi00YTg1LTljMjItY2FjNTg0NWI4NWU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy90ZV9kaXJlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImUzYzhkZjM2LWY3NmEtNDc4OC05OWM1LWU0N...&#34;
+</code></pre><br/>
+<p>If you get a response like above it means Keycloak is properly configured for your development environment and you can put it in front of your API and use it in your app to login your users.</p>
+<pre tabindex="0"><code>{&#34;sub&#34;:&#34;e3c8df36-f76a-4788-99c5-e45553d71893&#34;,&#34;email_verified&#34;:true,&#34;name&#34;:&#34;Olivier Olivier&#34;,&#34;preferred_username&#34;:&#34;olivier.olivier@example.com&#34;,&#34;given_name&#34;:&#34;Olivier&#34;,&#34;family_name&#34;:&#34;Olivier&#34;,&#34;email&#34;:&#34;olivier.olivier@example.com&#34;}%
+</code></pre><br/>
+<h2 id="create-an-account-in-a-non-admin-realm-via-the-api">Create an account in a non admin realm via the API</h2>
+<p><strong>Python code example:</strong></p>
+<pre tabindex="0"><code># Get an admin token using the master realm and then execute something like:
+url = f&#34;{settings.keycloak_base_url}/admin/realms/{settings.keycloak_realm}/users&#34;
+headers = {
+    &#34;Authorization&#34;: f&#34;Bearer {admin_token}&#34;,
+    &#34;Content-Type&#34;: &#34;application/json&#34;,
+}
+user_data = {
+    &#34;username&#34;: email,
+    &#34;email&#34;: email,
+    &#34;firstName&#34;: first_name,
+    &#34;lastName&#34;: last_name,
+    &#34;enabled&#34;: enabled,
+    &#34;credentials&#34;: [
+        {
+            &#34;type&#34;: &#34;password&#34;,
+            &#34;value&#34;: &#34;olivierolivier2&#34;,
+            &#34;temporary&#34;: False,
+        }
+    ],
+}
+response = requests.post(url, headers=headers, data=json.dumps(user_data))
+if response.status_code == 201:
+  ...
+# You get the idea...
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/keycloak">Keycloak</a></span><span class="tag"><a href="https://leandeep.com/tags/ciam">ciam</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>517 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 nov.. 2024</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/how-to-verify-if-i-am-using-lvm/">
+                                <span class="button__text">How to verify if I am using LVM ?</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
