@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Pour configurer pfSense de manière à ce qu&amp;rsquo;un serveur soit accessible uniquement par un seul autre ordinateur sur le même réseau, vous pouvez suivre les étapes suivantes en utilisant les règles de pare-feu.
+Hypothèses Serveur à l&amp;rsquo;adresse IP: 192.168.1.10 Ordinateur autorisé à accéder à l&amp;rsquo;adresse IP: 192.168.1.20 Réseau local (LAN) est 192.168.1.0/24 Le serveur et l&amp;rsquo;ordinateur autorisé sont tous les deux sur l&amp;rsquo;interface LAN de pfSense. Configuration Accéder à l&amp;rsquo;interface de pfSense : Connectez-vous à l&amp;rsquo;interface web de pfSense via https://&amp;lt;ip_de_pfSense&amp;gt;." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/configure-pfsense-pour-quun-serveur-ne-soit-accessible-que-par-un-seul-host/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Configure Pfsense pour qu&#39;un serveur ne soit accessible que par un seul host :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.5a145ada8612b7e3e366691ddad4ba3ce6007aa2562c494a29f0b76b636f9789.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Configure Pfsense pour qu&#39;un serveur ne soit accessible que par un seul host">
+<meta itemprop="description" content="Pour configurer pfSense de manière à ce qu&rsquo;un serveur soit accessible uniquement par un seul autre ordinateur sur le même réseau, vous pouvez suivre les étapes suivantes en utilisant les règles de pare-feu.
+Hypothèses Serveur à l&rsquo;adresse IP: 192.168.1.10 Ordinateur autorisé à accéder à l&rsquo;adresse IP: 192.168.1.20 Réseau local (LAN) est 192.168.1.0/24 Le serveur et l&rsquo;ordinateur autorisé sont tous les deux sur l&rsquo;interface LAN de pfSense. Configuration Accéder à l&rsquo;interface de pfSense : Connectez-vous à l&rsquo;interface web de pfSense via https://&lt;ip_de_pfSense&gt;."><meta itemprop="datePublished" content="2024-11-15T21:00:00+02:00" />
+<meta itemprop="dateModified" content="2024-11-15T21:00:00+02:00" />
+<meta itemprop="wordCount" content="424"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Keycloak,ciam," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Configure Pfsense pour qu&#39;un serveur ne soit accessible que par un seul host"/>
+<meta name="twitter:description" content="Pour configurer pfSense de manière à ce qu&rsquo;un serveur soit accessible uniquement par un seul autre ordinateur sur le même réseau, vous pouvez suivre les étapes suivantes en utilisant les règles de pare-feu.
+Hypothèses Serveur à l&rsquo;adresse IP: 192.168.1.10 Ordinateur autorisé à accéder à l&rsquo;adresse IP: 192.168.1.20 Réseau local (LAN) est 192.168.1.0/24 Le serveur et l&rsquo;ordinateur autorisé sont tous les deux sur l&rsquo;interface LAN de pfSense. Configuration Accéder à l&rsquo;interface de pfSense : Connectez-vous à l&rsquo;interface web de pfSense via https://&lt;ip_de_pfSense&gt;."/>
+
+
+
+
+
+<meta property="article:published_time" content="2024-11-15 21:00:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/configure-pfsense-pour-quun-serveur-ne-soit-accessible-que-par-un-seul-host/">Configure Pfsense pour qu&rsquo;un serveur ne soit accessible que par un seul host</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Pour configurer pfSense de manière à ce qu&rsquo;un serveur soit accessible uniquement par un seul autre ordinateur sur le même réseau, vous pouvez suivre les étapes suivantes en utilisant les règles de pare-feu.</p>
+<br/>
+<h2 id="hypothèses">Hypothèses</h2>
+<ul>
+<li>Serveur à l&rsquo;adresse IP: <code>192.168.1.10</code></li>
+<li>Ordinateur autorisé à accéder à l&rsquo;adresse IP: <code>192.168.1.20</code></li>
+<li>Réseau local (LAN) est <code>192.168.1.0/24</code></li>
+<li>Le serveur et l&rsquo;ordinateur autorisé sont tous les deux sur l&rsquo;interface LAN de pfSense.</li>
+</ul>
+<br/>
+<h2 id="configuration">Configuration</h2>
+<ol>
+<li>Accéder à l&rsquo;interface de pfSense :</li>
+</ol>
+<p>Connectez-vous à l&rsquo;interface web de pfSense via https://&lt;ip_de_pfSense&gt;.</p>
+<br/>
+<ol start="2">
+<li>Accéder à la configuration du pare-feu :</li>
+</ol>
+<ul>
+<li>Allez dans Firewall &gt; Rules.</li>
+<li>Sélectionnez l&rsquo;interface LAN (ou l&rsquo;interface appropriée si vos appareils sont sur une autre interface).</li>
+</ul>
+<br/>
+<ol start="3">
+<li>Créer une règle d&rsquo;autorisation pour l&rsquo;ordinateur autorisé :</li>
+</ol>
+<ul>
+<li>
+<p>Cliquez sur Add pour ajouter une nouvelle règle.</p>
+</li>
+<li>
+<p>Configurez la règle comme suit:</p>
+<ul>
+<li>Action: Pass</li>
+<li>Interface: LAN</li>
+<li>Address Family: IPv4</li>
+<li>Protocol: Any (ou choisissez un protocole spécifique si nécessaire, comme TCP)</li>
+<li>Source: Single host or alias, puis entrez 192.168.1.20 (IP de l&rsquo;ordinateur autorisé)</li>
+<li>Destination: Single host or alias, puis entrez 192.168.1.10 (IP du serveur)</li>
+<li>Description: Entrez une description comme <code>Autoriser accès à 192.168.1.10 depuis 192.168.1.20</code></li>
+</ul>
+</li>
+<li>
+<p>Cliquez sur Save pour enregistrer la règle.</p>
+</li>
+<li>
+<p>Cliquez sur Apply Changes pour appliquer la règle.</p>
+</li>
+</ul>
+<br/>
+<ol start="4">
+<li>Bloquer l&rsquo;accès pour tous les autres appareils:</li>
+</ol>
+<ul>
+<li>Ajoutez une nouvelle règle sous celle que vous venez de créer.</li>
+<li>Configurez la règle comme suit:
+<ul>
+<li>Action: Block</li>
+<li>Interface: LAN</li>
+<li>Address Family: IPv4</li>
+<li>Protocol: Any (ou choisissez un protocole spécifique)</li>
+<li>Source: LAN net (ou choisissez Any si vous souhaitez bloquer tout le trafic)</li>
+<li>Destination: Single host or alias, puis entrez 192.168.1.10 (IP du serveur)</li>
+<li>Description: Entrez une description comme <code>Bloquer accès à 192.168.1.10 pour tous sauf 192.168.1.20</code></li>
+</ul>
+</li>
+<li>Cliquez sur Save pour enregistrer la règle.</li>
+<li>Cliquez sur Apply Changes pour appliquer la règle.</li>
+</ul>
+<br/>
+<h2 id="important-ordre-des-règles">Important: Ordre des règles</h2>
+<p>Assurez-vous que la règle qui autorise l&rsquo;accès depuis l&rsquo;ordinateur autorisé (Pass) est placée avant la règle qui bloque tout le monde (Block). L&rsquo;ordre des règles est crucial dans pfSense, car les règles sont évaluées de haut en bas.</p>
+<br/>
+<h2 id="tester-la-configuration">Tester la configuration</h2>
+<p>Depuis l&rsquo;ordinateur autorisé (192.168.1.20), essayez d&rsquo;accéder au serveur (192.168.1.10). Vous devriez avoir accès.
+Depuis un autre ordinateur sur le réseau (192.168.1.X), essayez d&rsquo;accéder au serveur. L&rsquo;accès devrait être refusé.</p>
+<br/>
+<h2 id="autre">Autre</h2>
+<ul>
+<li>Vous pouvez surveiller le trafic et voir les logs dans Status &gt; System Logs &gt; Firewall pour vérifier si les règles fonctionnent comme prévu.</li>
+<li>Pour des configurations plus avancées, envisagez d&rsquo;utiliser des alias dans pfSense, ce qui permet de simplifier la gestion des règles.</li>
+</ul>
+<br/>
+<p>Cette configuration garantit que seul l&rsquo;ordinateur spécifié peut accéder au serveur, tout en bloquant tous les autres appareils du réseau local.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/keycloak">Keycloak</a></span><span class="tag"><a href="https://leandeep.com/tags/ciam">ciam</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>424 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 nov.. 2024</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/configure-keycloak-to-secure-your-apps-and-api-endpoints/">
+                                <span class="button__text">Configure Keycloak to secure your apps and API endpoints</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
