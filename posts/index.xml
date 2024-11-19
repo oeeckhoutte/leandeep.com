@@ -6,8 +6,47 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 15 Nov 2024 21:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Tue, 19 Nov 2024 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Calibre web sur Synology</title>
+            <link>https://leandeep.com/installer-calibre-web-sur-synology/</link>
+            <pubDate>Tue, 19 Nov 2024 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-calibre-web-sur-synology/</guid>
+            <description>Dans cet article, nous allons voir comment installer Calibre Web sur un Synology.
+Installation Installer Container Manager depuis le Package Center.
+Depuis File Station, ouvrir le dossier docker dans le menu de gauche. A l&amp;rsquo;intérieur de ce dossier docker, créer un nouveau dossier appelé calibre.
+Créer un User-defined script permettant de démarrer le container Calibre Web. Pour se faire, aller dans Control Panel / Task Scheduler / Create / Scheduled Task / User-defined script puis créer la tâche dans la fenêtre qui s&amp;rsquo;ouvre comme ceci:</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer Calibre Web sur un Synology.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>Installer <code>Container Manager</code> depuis le <code>Package Center</code>.</p>
+<p>Depuis <code>File Station</code>, ouvrir le dossier <code>docker</code> dans le menu de gauche. A l&rsquo;intérieur de ce dossier <code>docker</code>, créer un nouveau dossier appelé <code>calibre</code>.</p>
+<p>Créer un <code>User-defined script</code> permettant de démarrer le container Calibre Web. Pour se faire, aller dans <code>Control Panel / Task Scheduler / Create / Scheduled Task / User-defined script</code> puis créer la tâche dans la fenêtre qui s&rsquo;ouvre comme ceci:</p>
+<ol>
+<li>General: Dans le champ Task entrer <code>Install Calibre</code>. Décochez le bouton <code>Enabled</code> et sélectionner l&rsquo;utilisateur <code>root</code>.</li>
+<li>Schedule: Sélectionner <code>Run on the following date</code> et sélectionner <code>Do not repeat</code>.</li>
+<li>Task Settings: Cocher <code>Send run details by email</code>, ajouter votre email et copier coller le code suivant dans la section Run avant de cliquer sur OK.</li>
+</ol>
+<pre tabindex="0"><code>docker run -d --name=calibre \
+-p 7080:8080 \
+-p 7081:8081 \
+-e PUID=0 \
+-e PGID=0 \
+-e TZ=Europe/Paris \
+-e CUSTOM_USER=calibre \
+-e PASSWORD=password_for_calibre \
+-v /volume1/docker/calibre:/config \
+--security-opt seccomp=unconfined \
+--restart always \
+ghcr.io/linuxserver/calibre
+</code></pre><br/>
+<h2 id="vérification">Vérification</h2>
+<p>Démarrer la task puis rendez-vous à l&rsquo;adresse suivante: <code>http://Synology-ip-address:7080</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>Configure Pfsense pour qu&#39;un serveur ne soit accessible que par un seul host</title>
