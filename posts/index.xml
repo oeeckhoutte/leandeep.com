@@ -6,8 +6,53 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 19 Nov 2024 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Tue, 10 Dec 2024 23:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Simuler un mode offline pour certains tests Pytest</title>
+            <link>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</link>
+            <pubDate>Tue, 10 Dec 2024 23:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</guid>
+            <description>Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.
+Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet. Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests.</description>
+            <content type="html"><![CDATA[<p>Pour certains, cet article peut sembler inutile car ils vous diront qu&rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&rsquo;est pas toujours possible de travailler offline pendant des heures.</p>
+<br/>
+<p>Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&rsquo;internet.
+Il suffit de créer la fixture pytest suivante et de l&rsquo;appeler dans vos tests.</p>
+<br/>
+<p>En pré-requis, il suffit d&rsquo;installer le package <code>pytest-network</code>.</p>
+<pre tabindex="0"><code>import pytest
+import socket
+
+_original_connect = socket.socket.connect
+
+
+def patched_connect(*args, **kwargs):
+    ...
+    # It depends on your testing purpose
+    # You may want a exception, add here
+    # If you test unconnectable situations
+    # it can stay like this
+
+
+@pytest.fixture
+def enable_network():
+    socket.socket.connect = _original_connect
+    yield
+    socket.socket.connect = patched_connect
+
+
+@pytest.fixture
+def disable_network():
+    socket.socket.connect = patched_connect
+    yield
+    socket.socket.connect = _original_connect
+</code></pre><br/>
+<p>Testé et approuvé, très utile en ce qui me concerne.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Installer Calibre sur Synology</title>
