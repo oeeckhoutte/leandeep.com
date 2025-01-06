@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.
+Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.
+C&amp;rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&amp;rsquo;apporter de l&amp;rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/hydroponie-microgreens-test-de-lampes/" />
+
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+<script src="https://fb.me/react-15.1.0.min.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+<style>
+  .nav-search {
+    display: none;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    position: relative;
+    width: 90%;
+    height: 47px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1000;
+  }
+
+  .nav-search.active {
+    box-shadow: 0 4px 4px rgba(79, 79, 79, 0.21);
+  }
+
+  .nav-search.active .search-dropdown {
+    display: block;
+  }
+
+  .nav-search.active .search-input {
+    -webkit-animation: expand-search-box-animation 0.5s forwards;
+    animation: expand-search-box-animation 0.5s forwards;
+  }
+
+  .nav-search.active .search-input input {
+    border-width: 2px;
+  }
+
+  .nav-search.active .search-input .close-search {
+    display: inline-block;
+  }
+
+  .nav-search.active .search-input .search-dropdown {
+    display: block;
+  }
+
+  .nav-search .search-input {
+    transition: left 0.2s ease-in-out;
+    transition: width 0s ease-in-out;
+  }
+
+  .nav-search .search-input .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    z-index: 999;
+    color: black;
+  }
+
+  .nav-search .search-input input {
+    font: 16px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    border: 1px solid #1b98f4;
+    border-radius: 4px;
+    min-width: 200px;
+    width: 100%;
+    padding-left: 50px;
+    background-color: white;
+  }
+
+  .nav-search .search-input input:focus {
+    outline: none;
+  }
+
+  .nav-search .search-input i.close-search {
+    color: #1b98f4;
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    cursor: pointer;
+  }
+
+  .search-dropdown {
+    box-sizing: border-box;
+    color: #B3B3B3;
+    font: 14px/1.875 "Avenir Next W01", "Avenir Next", "Helvetica Neue", Helvetica, sans-serif;
+    opacity: 1.00;
+    padding: 20px;
+    width: 100%;
+    -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+    animation: expand-search-dropdown-animation 0.5s forwards;
+    overflow-y: scroll;
+    max-height: 400px;
+    border-radius: 0 0 4px 4px;
+    background-color: #FCFCFC;
+    border: 1px solid #E0E0E0;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.09);
+    display: none;
+    background-color: white;
+  }
+
+  .search-dropdown .small {
+    -webkit-flex-basis: 35%;
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
+  }
+
+  .search-dropdown .search-section .hits-blank {
+    color: #666;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .search-dropdown a {
+    text-decoration: none;
+    color: inherit;
+    z-index: 2000;
+  }
+
+  .hit {
+    border-bottom: 1px solid #E6E6E6;
+    margin-bottom: 20px;
+  }
+
+  .hit .hit-title {
+    color: #1b98f4;
+    font-family: 'bt_mono', monospace;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .hit .hit-description {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    display: block;
+    margin-top: 3px;
+  }
+
+  .hit .hit-anchor {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .hit .algolia-docsearch-suggestion--highlight {
+    background-color: #FFE9A4;
+  }
+
+  .hit:last-child {
+     
+  }
+
+  .ais-hits--item:last-child .hit {
+    border: 0;
+  }
+</style>
+
+<style>
+  #app {
+    display: none;
+     
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Hydroponie &amp; microgreens - Test de lampes :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.75f4fccf704dff01fea880bd845a14a4f05d9c04ee40d8b8563f1a6ab98fe848.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+<meta itemprop="name" content="Hydroponie &amp; microgreens - Test de lampes">
+<meta itemprop="description" content="Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.
+Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.
+C&rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&rsquo;apporter de l&rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser."><meta itemprop="datePublished" content="2023-02-03T07:49:00+02:00" />
+<meta itemprop="dateModified" content="2023-02-03T07:49:00+02:00" />
+<meta itemprop="wordCount" content="724"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="Hydroponie,Agritech," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://leandeep.com"/>
+
+<meta name="twitter:title" content="Hydroponie &amp; microgreens - Test de lampes"/>
+<meta name="twitter:description" content="Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.
+Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.
+C&rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&rsquo;apporter de l&rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser."/>
+
+
+
+
+
+<meta property="article:published_time" content="2023-02-03 07:49:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About</a></li><li><a href="https://leandeep.com/finance/">Finance</a></li><li><a href="https://leandeep.com/notebooks/">ML Notebooks</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/hydroponie-microgreens-test-de-lampes/">Hydroponie &amp; microgreens - Test de lampes</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article (et futurs à venir) je partage mes expériences sur ma montée en compétence sur les cultures de micro-pousses et légumes en hydroponie.</p>
+<p>Mon objectif à terme est de constuire une serre Walipini passive et connectée pour cultiver à la fois des légumes classiques à la verticale en hydroponie et des micro-pousses.</p>
+<p>C&rsquo;est un gros side-project de domotique dans lequel il y aura des lampes, des pompes, des microcontrollers de type ESP, un moyen d&rsquo;apporter de l&rsquo;énergie sans se brancher au réseau, un régulateur de PH et EC et des capteurs en tout genre pour tout contrôler et optimiser. Le tout dans un esprit DIY, créatif et surtout respectueux de l&rsquo;environnement. Mon idée est de pouvoir produire des légumes bio toute l&rsquo;année, <strong>sans effort</strong> (très important mais passion première n&rsquo;est pas du tout le jardinage) et des micro-pousses pour leurs richesses nutitionnelles.</p>
+<p>Malgré le fait que mes arrières grands-parents étaient agriculteurs et que mes grands-parents et parents ont des potagers (de compétition), personnellement je n&rsquo;y connais absolument rien. J&rsquo;ai envi de faire les choses différemment (très futuristes en prenant en compte les contraintes environmentales à venir). Dans ces articles je ne fais que simplement partager mes notes et expériences sur ce sujet.</p>
+<br/>
+<h2 id="choix-des-lampes">Choix des lampes</h2>
+<p>Mes premières expérimentations de culture de micropousses se sont faites d&rsquo;abord sans lampe horticole. Ce fut un fiasco, les micropousses ont filés. J&rsquo;avais laissé poussé des bacs de culture en intérieur placés devant ma fenêtre en été mais cela n&rsquo;a rien donné. En mode &ldquo;baby step&rdquo; (&ldquo;Agile un jour Agile toujours&rdquo;) et afin d&rsquo;expérimenter, je me suis procuré une petite lampe à LED chinoise avec beaucoup d&rsquo;avis positifs sur Amazon et j&rsquo;ai réussi à faire pousser pas mal de micro-pousses. L&rsquo;inconvénient de cette lampe plutôt <em>cheap</em> c&rsquo;est qu&rsquo;elle n&rsquo;est pas très grande et pas très puissante. Il est donc difficile de produire en masse. J&rsquo;en ai donc acheté une lampe à LED plus grande mais recommandée nulle part. En effet, comme je vais devoir acheter des dizaines de lampes (et oui, il faut bien les 7 fruits et légumes par jours tous les jours de l&rsquo;année + des smoothies concentrés en micro-pousses pour les vitamines), je préfère commencer par dépenser 30 euros en testant une lampe et me faire ma propre idée avant d&rsquo;investir dans des lampes à 300 euros pièces malgré qu&rsquo;elles soient recommendées sur des sites spécialisés en horticulture&hellip;</p>
+<p>Si j&rsquo;obtient un résultat similaire à celui obtenu avec ma lampe chinoise, mais sur une surface beaucoup grande cela m&rsquo;irait très bien. J&rsquo;aurais 10 lampes pour le prix d&rsquo;une&hellip; Ou plutot je dépenserai 300 euros plutôt que 3000. <a href="https://www.youtube.com/watch?v=8VSFjyF3B5E">&ldquo;Moi je pense que la question elle est vite répondu&rdquo;</a></p>
+<blockquote>
+<p>Les lampes seront branchées sur un panneau solaire et/ou éolienne(s) DIY</p>
+</blockquote>
+<br/>
+<h2 id="expérimentation">Expérimentation</h2>
+<p>6 pots de culture sur essuie-tout</p>
+<blockquote>
+<p>Je profite de cet expérimentation pour tester la germination d&rsquo;une graine à mucilage (roquette bio) en faisant 4 pots au lieu de 2: 2 pots avec trempage et 2 pots sans trempage pour voir comment réagissent ces graines si on les pré-trempe.</p>
+</blockquote>
+<ul>
+<li>1 pot de roquette sous lampe chinoise avec trempage</li>
+<li>1 pot de roquette sous lampe chinoise sans trempage</li>
+<li>1 pot de roquette sous nouvelle lampe avec trempage</li>
+<li>1 pot de roquette sous nouvelle lampe sans trempage</li>
+<li>1 pot de raifort sous lampe chinoise avec trempage</li>
+<li>1 pot de raifort sous nouvelle lampe avec trempage</li>
+</ul>
+<p>Temps de trempage:
+4h petites graines et 8h pour les grandes. Donc on ramène tout à 8h.</p>
+<p>Les Résultats seront dans 15 jours.</p>
+<blockquote>
+<p>Bien sûr, malgré le fait que 4 pots / 6 ont des graines avec trempage, on démarre tout en même temps.</p>
+</blockquote>
+<br/>
+<h2 id="autres-graines-à-mucilage">Autres graines à mucilage</h2>
+<ul>
+<li>Basilic</li>
+<li>Cameline</li>
+<li>Chia</li>
+<li>Cresson</li>
+<li>Cressonnette</li>
+<li>Lin</li>
+<li>Moutarde</li>
+<li>Pourpier</li>
+<li>Perilla</li>
+<li>Roquette</li>
+</ul>
+<br/>
+<h2 id="autres-notes">Autres notes</h2>
+<p><strong>Pour micro-pousses dans terreau (1cm d&rsquo;épaisseur):</strong></p>
+<ul>
+<li>Laisser les poids sur bac de culture environ 4j à 5j pour le sarazin. Donc plantes dans l&rsquo;obscurité pendant toute cette période.</li>
+<li>Pour tournesol on est plus sur 6j dans le noir sous poids.</li>
+<li>Arroser tous les matins et tous les soirs</li>
+</ul>
+<br/>
+<p><strong>Laitue avec méthode Kratky:</strong></p>
+<ul>
+<li>Résultat avec utilisation de laine de coco + Engrais liquide bio (1/4 de bouchon dilué dans 3/4 de litre d&rsquo;eau): attendre 6 à 7 jours pour voir sortir la pousse.</li>
+</ul>
+<br/>
+<p><strong>Astuce fun:</strong></p>
+<ul>
+<li>Récupérer boites à œufs biodégradables et coquilles d&rsquo;œufs pour laisser pousser les micro-pousses restantes avant de recommencer un nouveau bac.</li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/hydroponie">Hydroponie</a></span><span class="tag"><a href="https://leandeep.com/tags/agritech">Agritech</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>724 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 févr.. 2023</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Backuper la DB d&#39;Erigon sur Debian 11</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/">
+                                <span class="button__text">Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance at Lean Deep</span>
+            <span>Siret: 83825337500011</span>
+            
+            <span> <a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                        height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.68628920df4cd4d5988593e35a62e4a8dad8a20217d6c78ecaddfdb8b8ac758eb757a487e273e3855fa571d25193282cbc3dd99bba288f8c9e34b1a63e6a14e9.js" integrity="sha512-aGKJIN9M1NWYhZPjWmLkqNrYogIX1seOyt39uLisdY63V6SH4nPjhV&#43;lcdJRkygsvD3Zm7ooj4yeNLGmPmoU6Q=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
