@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 05 Jan 2025 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Jan 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié</title>
+      <link>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</link>
+      <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
+      <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis
+pip install watchdog
+Créer un script de surveillance
+Créer par exemple un fichier appelé run_and_reload.py
+import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self.</description>
+    </item>
+    
     <item>
       <title>Et vous quels sont vos projets pour 2025 ?</title>
       <link>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2025/</link>
@@ -18,6 +32,35 @@
 Voici donc mon programme pour cette année 2025:
 1. Investissements en immobilier
 2. Créer mon propre Arduino avec un PCB maison #learn</description>
+    </item>
+    
+    <item>
+      <title>Installer Tailscale sur Fedora</title>
+      <link>https://leandeep.com/installer-tailscale-sur-fedora/</link>
+      <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-tailscale-sur-fedora/</guid>
+      <description>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.
+Installer Tailscale
+sudo dnf install tailscale Démarrer et activer Tailscale
+sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
+Editer le fichier sudo vim /etc/sysctl.conf:
+net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
+sudo sysctl -p Lancer l&amp;rsquo;authentification</description>
+    </item>
+    
+    <item>
+      <title>RDP sécurisé avec SSH</title>
+      <link>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/</link>
+      <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/</guid>
+      <description>Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</description>
     </item>
     
     <item>
@@ -82,43 +125,6 @@ If the line starts with UUID=xyz, then it means it is a physical partition. If t
       <description>Introduction (Between 2 baby&amp;rsquo;s bottles) I am going to explain how to install Kali Nethunter on an Android phone not rooted. The procedure is quite simple. Without further ado let&amp;rsquo;s see how to do it.
 Prerequisites Android 13+ Termux installed Android developer mode enabled Installation On termux execute the following commands:
 pkg update -y termux-setup-storage pkg install wget wget -O install-nethunter-termux https://offsec.ec/2MceZWr chmod +x install-nethunter-termux ./install-nethunter-termux Then on the installation page KALI select option 1 to have a full installation.</description>
-    </item>
-    
-    <item>
-      <title>Remote access to termux from OSX</title>
-      <link>https://leandeep.com/remote-access-to-termux-from-osx/</link>
-      <pubDate>Fri, 01 Mar 2024 00:13:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/remote-access-to-termux-from-osx/</guid>
-      <description>Open Termux on Android and then execute the following commands:
-pkg upgrade pkg install openssh passwd whoami sshd -e -d -d -d On OSX:
-# ssh username@&amp;lt;android_ip&amp;gt; -p8022 # ssh u0_412@&amp;lt;........&amp;gt; -p8022 To kill the server:
-pkill sshd sshd: no hostkeys available &amp;ndash; exiting ssh-keygen -A
-Bonus
-pkg install termux-api </description>
-    </item>
-    
-    <item>
-      <title>Install tailscale and Pi Hole on Debian 11 Bullseye</title>
-      <link>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</link>
-      <pubDate>Sat, 24 Feb 2024 18:10:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</guid>
-      <description>In this short article we are going to see the commands to install Tailscale (and PiHole) on a Raspberry Pi version 2 and Debian 11 Bullseye (or Raspios equivalent of Debian 11).
-Pré-requis
-A Raspberry Pi 2 connected to internet A fresh Debian 11 installation OS preparation
-sudo apt update sudo apt upgrade -y # Grab a large coffee. It takes forever... sudo reboot sudo apt install curl -y Pi Hole installation</description>
-    </item>
-    
-    <item>
-      <title>Backtester ses stratégies de trading avec Backtrader</title>
-      <link>https://leandeep.com/backtester-ses-strat%C3%A9gies-de-trading-avec-backtrader/</link>
-      <pubDate>Fri, 02 Feb 2024 18:10:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/backtester-ses-strat%C3%A9gies-de-trading-avec-backtrader/</guid>
-      <description>Voici un exemple de code Python permettant de backtester une stratégie (ici j&amp;rsquo;en ai créé une complètement inutile mais cela permet d&amp;rsquo;illustrer mon propose).
-Pré-requis
-pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &amp;#34;apiKey&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;secret&amp;#34;: &amp;#34;&amp;#34;, } ) symbol = &amp;#34;ETH/USDT&amp;#34; timeframe = &amp;#34;1h&amp;#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd.</description>
     </item>
     
   </channel>

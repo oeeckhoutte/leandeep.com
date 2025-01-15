@@ -7,7 +7,50 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 10 Dec 2024 23:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Jan 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié</title>
+      <link>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</link>
+      <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
+      <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis
+pip install watchdog
+Créer un script de surveillance
+Créer par exemple un fichier appelé run_and_reload.py
+import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self.</description>
+    </item>
+    
+    <item>
+      <title>Installer Tailscale sur Fedora</title>
+      <link>https://leandeep.com/installer-tailscale-sur-fedora/</link>
+      <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-tailscale-sur-fedora/</guid>
+      <description>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.
+Installer Tailscale
+sudo dnf install tailscale Démarrer et activer Tailscale
+sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
+Editer le fichier sudo vim /etc/sysctl.conf:
+net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
+sudo sysctl -p Lancer l&amp;rsquo;authentification</description>
+    </item>
+    
+    <item>
+      <title>RDP sécurisé avec SSH</title>
+      <link>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/</link>
+      <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/</guid>
+      <description>Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</description>
+    </item>
+    
     <item>
       <title>Simuler un mode offline pour certains tests Pytest</title>
       <link>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</link>
@@ -91,41 +134,6 @@ gpg --encrypt --recipient your_friend@email.com secret_file_to_encrypt.txt And v
 Pour ce faire, il suffit d&amp;rsquo;utiliser un proxy socks. Si vous avez une VM sur le cloud accessible directement via SSH, vous pouvez utiliser les commandes suivantes:
 Dans un premier onglet de votre terminal exécuter la commande suivante:
 ssh -D 6006 -q -C -N user@ip_or_reverse_dns Puis dans un second onglet:</description>
-    </item>
-    
-    <item>
-      <title>Fixer l&#39;erreur &#39;ModuleNotFoundError: No module named _lzma&#39; sur OSX</title>
-      <link>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</link>
-      <pubDate>Mon, 21 Aug 2023 23:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/fixer-lerreur-modulenotfounderror-no-module-named-_lzma-sur-osx/</guid>
-      <description>Voici un tip pour fixer l&amp;rsquo;erreur ennuyeuse ModuleNotFoundError: No module named &#39;_lzma&#39; sur OSX lorsqu&amp;rsquo;on utilise torch et pyenv.
-Installer les packages suivants:
-brew install zlib brew install sqlite brew install bzip2 brew install libiconv brew install libzip Ouvrir le fichier ~/.zshrc et ajouter les lignes suivantes:
-export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/zlib/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/zlib/include&amp;#34; export LDFLAGS=&amp;#34;${LDFLAGS} -L/usr/local/opt/sqlite/lib&amp;#34; export CPPFLAGS=&amp;#34;${CPPFLAGS} -I/usr/local/opt/sqlite/include&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig&amp;#34; export PKG_CONFIG_PATH=&amp;#34;${PKG_CONFIG_PATH} /usr/local/opt/sqlite/lib/pkgconfig&amp;#34; Installer une nouvelle version de Python via pyenv.</description>
-    </item>
-    
-    <item>
-      <title>direnv avec pyenv et anaconda</title>
-      <link>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</link>
-      <pubDate>Mon, 21 Aug 2023 21:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/direnv-avec-pyenv-et-anaconda/</guid>
-      <description>Dans cet article nous allons voir comment installer Anaconda3 sur OSX et l&amp;rsquo;utiliser directement dans direnv.
-Pré-requis direnv installé Installation On commence par installer Anaconda via brew
-brew install --cask anaconda On édite ~/.zshrc et on ajoute le path vers les binaires d&amp;rsquo;Anaconda.
-export PATH=&amp;#34;/opt/homebrew/anaconda3/bin:$PATH&amp;#34; Nouvel environnement anaconda Si votre projet contient un fichier environment.yml, les packages s&amp;rsquo;installeront automatiquement lors de la première exécution du direnv allow.
-Créer un fichier .</description>
-    </item>
-    
-    <item>
-      <title>Décoder une string HTML encoded en ligne de commande</title>
-      <link>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</link>
-      <pubDate>Wed, 03 May 2023 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/d%C3%A9coder-une-string-html-encoded-en-ligne-de-commande/</guid>
-      <description>Tip du jour pour rapidement convertir une string HTML encoded via le terminal.
-Pré-requis brew install recode Commande echo &amp;#34;string&amp;amp;#32;&amp;amp;#35;1&amp;amp;#46;&amp;#34; | recode html..ascii </description>
     </item>
     
   </channel>

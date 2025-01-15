@@ -7,8 +7,12 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.
-Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet. Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests." />
+  content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis
+pip install watchdog
+Créer un script de surveillance
+Créer par exemple un fichier appelé run_and_reload.py
+import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -24,7 +28,7 @@ Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rs
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/" />
+<link rel="canonical" href="https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/" />
 
 
 
@@ -233,7 +237,7 @@ Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rs
 
 <title>
   
-  Simuler un mode offline pour certains tests Pytest :: Lean Deep Tech blog 
+  Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié :: Lean Deep Tech blog 
   
 </title>
 
@@ -258,23 +262,31 @@ Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rs
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Simuler un mode offline pour certains tests Pytest">
-<meta itemprop="description" content="Pour certains, cet article peut sembler inutile car ils vous diront qu&rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&rsquo;est pas toujours possible de travailler offline pendant des heures.
-Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&rsquo;internet. Il suffit de créer la fixture pytest suivante et de l&rsquo;appeler dans vos tests."><meta itemprop="datePublished" content="2024-12-10T23:49:00+02:00" />
-<meta itemprop="dateModified" content="2024-12-10T23:49:00+02:00" />
-<meta itemprop="wordCount" content="151"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python,tips,pytest," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié">
+<meta itemprop="description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis
+pip install watchdog
+Créer un script de surveillance
+Créer par exemple un fichier appelé run_and_reload.py
+import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self."><meta itemprop="datePublished" content="2025-01-11T23:32:00+02:00" />
+<meta itemprop="dateModified" content="2025-01-11T23:32:00+02:00" />
+<meta itemprop="wordCount" content="174"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="tips,Python," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Simuler un mode offline pour certains tests Pytest"/>
-<meta name="twitter:description" content="Pour certains, cet article peut sembler inutile car ils vous diront qu&rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&rsquo;est pas toujours possible de travailler offline pendant des heures.
-Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&rsquo;internet. Il suffit de créer la fixture pytest suivante et de l&rsquo;appeler dans vos tests."/>
+<meta name="twitter:title" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié"/>
+<meta name="twitter:description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis
+pip install watchdog
+Créer un script de surveillance
+Créer par exemple un fichier appelé run_and_reload.py
+import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self."/>
 
 
 
 
 
-<meta property="article:published_time" content="2024-12-10 23:49:00 &#43;0200 &#43;0200" />
+<meta property="article:published_time" content="2025-01-11 23:32:00 &#43;0200 &#43;0200" />
 
 
 
@@ -338,46 +350,72 @@ Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&rsquo;
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/">Simuler un mode offline pour certains tests Pytest</a>
+                <a href="https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/">Surveiller et redémarrer un script Python dès qu&rsquo;un fichier est modifié</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Pour certains, cet article peut sembler inutile car ils vous diront qu&rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&rsquo;est pas toujours possible de travailler offline pendant des heures.</p>
+                <p>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:</p>
+<p><strong>Pré-requis</strong></p>
+<p><code>pip install watchdog</code></p>
 <br/>
-<p>Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&rsquo;internet.
-Il suffit de créer la fixture pytest suivante et de l&rsquo;appeler dans vos tests.</p>
-<br/>
-<p>En pré-requis, il suffit d&rsquo;installer le package <code>pytest-network</code>.</p>
-<pre tabindex="0"><code>import pytest
-import socket
+<p><strong>Créer un script de surveillance</strong></p>
+<p>Créer par exemple un fichier appelé <code>run_and_reload.py</code></p>
+<pre tabindex="0"><code>import os
+import subprocess
+import sys
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
-_original_connect = socket.socket.connect
+class RestartOnChangeHandler(FileSystemEventHandler):
+    def __init__(self, run_command):
+        super().__init__()
+        self.run_command = run_command
+        self.process = None
+        self.start_process()
 
+    def start_process(self):
+        if self.process:
+            self.process.terminate()
+            self.process.wait()
+        self.process = subprocess.Popen(self.run_command, shell=True)
 
-def patched_connect(*args, **kwargs):
-    ...
-    # It depends on your testing purpose
-    # You may want a exception, add here
-    # If you test unconnectable situations
-    # it can stay like this
+    def on_any_event(self, event):
+        # Trigger the restart on any file change
+        print(f&#34;File {event.src_path} changed, restarting process...&#34;)
+        self.start_process()
 
+    def stop_process(self):
+        if self.process:
+            self.process.terminate()
+            self.process.wait()
 
-@pytest.fixture
-def enable_network():
-    socket.socket.connect = _original_connect
-    yield
-    socket.socket.connect = patched_connect
+if __name__ == &#34;__main__&#34;:
+    # On pourrait améliorer facilement ce script en ayant mon_module comme input de ce script
+    command = &#34;python -m mon_module&#34;
+    watch_directory = &#34;.&#34;
 
+    # Set up the event handler and observer
+    event_handler = RestartOnChangeHandler(command)
+    observer = Observer()
+    observer.schedule(event_handler, watch_directory, recursive=True)
 
-@pytest.fixture
-def disable_network():
-    socket.socket.connect = patched_connect
-    yield
-    socket.socket.connect = _original_connect
+    try:
+        print(f&#34;Watching for changes in &#39;{watch_directory}&#39;...&#34;)
+        observer.start()
+        while True:
+            pass  # Keep the script running
+    except KeyboardInterrupt:
+        print(&#34;\nStopping...&#34;)
+        event_handler.stop_process()
+        observer.stop()
+    observer.join()
 </code></pre><br/>
-<p>Testé et approuvé, très utile en ce qui me concerne.</p>
+<p><strong>Utilisation</strong></p>
+<p><code>python run_and_reload.py</code></p>
+<p><br/>
+Et voilà, aussi simple que cela.</p>
 
             </div>
         </article>
@@ -386,12 +424,12 @@ def disable_network():
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/pytest">pytest</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>151 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>174 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>10 déc.. 2024</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>11 janv.. 2025</p>
         </div>
 
         
@@ -403,18 +441,11 @@ def disable_network():
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">RDP sécurisé avec SSH</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-calibre-sur-synology/">
-                                <span class="button__text">Installer Calibre sur Synology</span>
+                            <a href="https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2025/">
+                                <span class="button__text">Et vous quels sont vos projets pour 2025 ?</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

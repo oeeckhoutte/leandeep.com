@@ -6,8 +6,83 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 05 Jan 2025 07:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 11 Jan 2025 23:32:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié</title>
+            <link>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</link>
+            <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
+            <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis
+pip install watchdog
+Créer un script de surveillance
+Créer par exemple un fichier appelé run_and_reload.py
+import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self.</description>
+            <content type="html"><![CDATA[<p>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:</p>
+<p><strong>Pré-requis</strong></p>
+<p><code>pip install watchdog</code></p>
+<br/>
+<p><strong>Créer un script de surveillance</strong></p>
+<p>Créer par exemple un fichier appelé <code>run_and_reload.py</code></p>
+<pre tabindex="0"><code>import os
+import subprocess
+import sys
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+
+class RestartOnChangeHandler(FileSystemEventHandler):
+    def __init__(self, run_command):
+        super().__init__()
+        self.run_command = run_command
+        self.process = None
+        self.start_process()
+
+    def start_process(self):
+        if self.process:
+            self.process.terminate()
+            self.process.wait()
+        self.process = subprocess.Popen(self.run_command, shell=True)
+
+    def on_any_event(self, event):
+        # Trigger the restart on any file change
+        print(f&#34;File {event.src_path} changed, restarting process...&#34;)
+        self.start_process()
+
+    def stop_process(self):
+        if self.process:
+            self.process.terminate()
+            self.process.wait()
+
+if __name__ == &#34;__main__&#34;:
+    # On pourrait améliorer facilement ce script en ayant mon_module comme input de ce script
+    command = &#34;python -m mon_module&#34;
+    watch_directory = &#34;.&#34;
+
+    # Set up the event handler and observer
+    event_handler = RestartOnChangeHandler(command)
+    observer = Observer()
+    observer.schedule(event_handler, watch_directory, recursive=True)
+
+    try:
+        print(f&#34;Watching for changes in &#39;{watch_directory}&#39;...&#34;)
+        observer.start()
+        while True:
+            pass  # Keep the script running
+    except KeyboardInterrupt:
+        print(&#34;\nStopping...&#34;)
+        event_handler.stop_process()
+        observer.stop()
+    observer.join()
+</code></pre><br/>
+<p><strong>Utilisation</strong></p>
+<p><code>python run_and_reload.py</code></p>
+<p><br/>
+Et voilà, aussi simple que cela.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Et vous quels sont vos projets pour 2025 ?</title>
@@ -39,6 +114,86 @@ Voici donc mon programme pour cette année 2025:
 <p><strong>15. Créer un panneau de contrôle digne de ce nom pour ma box domotique</strong></p>
 <p><strong>16. Créer un IMSI catcher passif (légal)</strong></p>
 <p><strong>17. Lire un autre livre de trading</strong></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Installer Tailscale sur Fedora</title>
+            <link>https://leandeep.com/installer-tailscale-sur-fedora/</link>
+            <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-tailscale-sur-fedora/</guid>
+            <description>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.
+Installer Tailscale
+sudo dnf install tailscale Démarrer et activer Tailscale
+sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
+Editer le fichier sudo vim /etc/sysctl.conf:
+net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
+sudo sysctl -p Lancer l&amp;rsquo;authentification</description>
+            <content type="html"><![CDATA[<p>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&rsquo;appuyant sur WireGuard.</p>
+<p><strong>Installer Tailscale</strong></p>
+<pre tabindex="0"><code>sudo dnf install tailscale
+</code></pre><br/>
+<p><strong>Démarrer et activer Tailscale</strong></p>
+<pre tabindex="0"><code>sudo systemctl start tailscaled
+sudo systemctl enable tailscaled
+</code></pre><br/>
+<p><strong>Connecter votre desktop à Tailscale</strong></p>
+<p>Editer le fichier <code>sudo vim /etc/sysctl.conf</code>:</p>
+<pre tabindex="0"><code>net.ipv4.ip_forward = 1
+net.ipv6.conf.all.forwarding = 1
+</code></pre><p>Et appliquer les changements:</p>
+<pre tabindex="0"><code>sudo sysctl -p
+</code></pre><br/>
+<p><strong>Lancer l&rsquo;authentification</strong></p>
+<pre tabindex="0"><code>sudo tailscale up --advertise-exit-node
+</code></pre><br/>
+<p><strong>Troubleshooting</strong></p>
+<pre tabindex="0"><code>tailscale status
+</code></pre><br/>
+<p><strong>Update</strong></p>
+<p>Tailscale sera mis à jour automatiquement via dnf lors des mises à jour du système. Vous pouvez également le mettre à jour manuellement avec:</p>
+<pre tabindex="0"><code>sudo dnf update tailscale
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>RDP sécurisé avec SSH</title>
+            <link>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/</link>
+            <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh/</guid>
+            <description>Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.</p>
+<br/>
+<p><strong>Installation</strong></p>
+<pre tabindex="0"><code>sudo dnf install -y xrdp
+sudo systemctl enable xrdp --now
+</code></pre><br/>
+<p><strong>Configuration</strong></p>
+<pre tabindex="0"><code>sudo firewall-cmd --add-port=3389/tcp --permanent
+sudo firewall-cmd --reload
+</code></pre><br/>
+<p><strong>Connexion</strong></p>
+<p>On finalise la configuration. On désactive Wayland:</p>
+<blockquote>
+<p>Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</p>
+</blockquote>
+<pre tabindex="0"><code>ssh -L 3389:localhost:3389 user@adresse_ip_fedora
+</code></pre><p>Editer le fichier <code>sudo nano /etc/gdm/custom.conf</code> et ajouter la ligne suivante:</p>
+<pre tabindex="0"><code>WaylandEnable=false
+</code></pre><pre tabindex="0"><code>sudo systemctl restart gdm
+</code></pre><blockquote>
+<p>GDM (pour GNOME Display Manager) est un gestionnaire de session et d&rsquo;affichage utilisé principalement avec l&rsquo;environnement de bureau GNOME</p>
+</blockquote>
+<br/>
+<p><strong>Utilisation</strong></p>
+<p>Pour prendre le contrôle de votre Fedora depuis OSX par exemple, installez <code>Windows Apps</code> depuis l&rsquo;AppStore et configurez votre connexion avec vos credentials SSH + <code>localhost:3389</code></p>
 ]]></content>
         </item>
         
