@@ -6,8 +6,38 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 23 Jan 2025 23:32:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 25 Jan 2025 22:32:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Hashcat sur Fedora 41</title>
+            <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
+            <pubDate>Sat, 25 Jan 2025 22:32:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-hashcat-sur-fedora-41/</guid>
+            <description>Installation
+sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
+hashcat -I Réaliser un benchmark
+hashcat -b Faire un test avec un hash MD5
+wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;amp;&amp;amp; unzip SecList.zip \ &amp;amp;&amp;amp; rm -f SecList.zip echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt </description>
+            <content type="html"><![CDATA[<p><strong>Installation</strong></p>
+<pre tabindex="0"><code>sudo dnf install hashcat hashcat-devel hashcat-doc
+</code></pre><br/>
+<p><strong>Vérifier si votre GPU est détecté</strong></p>
+<pre tabindex="0"><code>hashcat -I
+</code></pre><br/>
+<p><strong>Réaliser un benchmark</strong></p>
+<pre tabindex="0"><code>hashcat -b
+</code></pre><br/>
+<p><strong>Faire un test avec un hash MD5</strong></p>
+<pre tabindex="0"><code>wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
+  &amp;&amp; unzip SecList.zip \
+  &amp;&amp; rm -f SecList.zip
+
+echo &#34;5d41402abc4b2a76b9719d911017c592&#34; &gt; test.hash
+hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer un eGPU Razer Core X sur Fedora 41 et faire tourner Pytorch</title>

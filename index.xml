@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 23 Jan 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Jan 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Hashcat sur Fedora 41</title>
+      <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
+      <pubDate>Sat, 25 Jan 2025 22:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-hashcat-sur-fedora-41/</guid>
+      <description>Installation
+sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
+hashcat -I Réaliser un benchmark
+hashcat -b Faire un test avec un hash MD5
+wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;amp;&amp;amp; unzip SecList.zip \ &amp;amp;&amp;amp; rm -f SecList.zip echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt </description>
+    </item>
+    
     <item>
       <title>Installer un eGPU Razer Core X sur Fedora 41 et faire tourner Pytorch</title>
       <link>https://leandeep.com/installer-un-egpu-razer-core-x-sur-fedora-41-et-faire-tourner-pytorch/</link>
@@ -114,18 +127,6 @@ Hypothèses Serveur à l&amp;rsquo;adresse IP: 192.168.1.10 Ordinateur autorisé
       
       <guid>https://leandeep.com/configure-keycloak-to-secure-your-apps-and-api-endpoints/</guid>
       <description>In this brief article we are going to create a basic realm in Keycloak to secure an API. It&amp;rsquo;s a very minimal setup to quickly get started and secure your app and API. No RBAC, no security defense, and no Google/ Facebook Connect&amp;hellip; configs are explained in this article. I will probably create other articles about these subjets later as I am extensively leveraging Keycloak features. There is indeed no need to setup a complexe Identity and Access Management tool like Keycloak if you are not going to leverage it&amp;hellip;</description>
-    </item>
-    
-    <item>
-      <title>How to verify if I am using LVM ?</title>
-      <link>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</link>
-      <pubDate>Wed, 05 Jun 2024 20:28:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</guid>
-      <description>Simply use the following command:
-cat /etc/fstab And have a look at the line with your root filesystem.
-From there we have 3 possibilities:
-If the line starts with UUID=xyz, then it means it is a physical partition. If the line starts with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. You can also check in the mounts and fstab using this command:</description>
     </item>
     
   </channel>
