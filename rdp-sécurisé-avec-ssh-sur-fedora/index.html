@@ -7,13 +7,12 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.
-Installer Tailscale
-sudo dnf install tailscale Démarrer et activer Tailscale
-sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
-Editer le fichier sudo vim /etc/sysctl.conf:
-net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
-sudo sysctl -p Lancer l&amp;rsquo;authentification" />
+  content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -29,7 +28,7 @@ sudo sysctl -p Lancer l&amp;rsquo;authentification" />
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/installer-tailscale-sur-fedora/" />
+<link rel="canonical" href="https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh-sur-fedora/" />
 
 
 
@@ -238,7 +237,7 @@ sudo sysctl -p Lancer l&amp;rsquo;authentification" />
 
 <title>
   
-  Installer Tailscale sur Fedora :: Lean Deep Tech blog 
+  RDP sécurisé avec SSH sur Fedora :: Lean Deep Tech blog 
   
 </title>
 
@@ -263,27 +262,25 @@ sudo sysctl -p Lancer l&amp;rsquo;authentification" />
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer Tailscale sur Fedora">
-<meta itemprop="description" content="Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&rsquo;appuyant sur WireGuard.
-Installer Tailscale
-sudo dnf install tailscale Démarrer et activer Tailscale
-sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
-Editer le fichier sudo vim /etc/sysctl.conf:
-net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
-sudo sysctl -p Lancer l&rsquo;authentification"><meta itemprop="datePublished" content="2024-12-11T23:32:00+02:00" />
+<meta itemprop="name" content="RDP sécurisé avec SSH sur Fedora">
+<meta itemprop="description" content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies."><meta itemprop="datePublished" content="2024-12-11T23:32:00+02:00" />
 <meta itemprop="dateModified" content="2024-12-11T23:32:00+02:00" />
-<meta itemprop="wordCount" content="106"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="151"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="tips,Linux," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer Tailscale sur Fedora"/>
-<meta name="twitter:description" content="Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&rsquo;appuyant sur WireGuard.
-Installer Tailscale
-sudo dnf install tailscale Démarrer et activer Tailscale
-sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
-Editer le fichier sudo vim /etc/sysctl.conf:
-net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
-sudo sysctl -p Lancer l&rsquo;authentification"/>
+<meta name="twitter:title" content="RDP sécurisé avec SSH sur Fedora"/>
+<meta name="twitter:description" content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies."/>
 
 
 
@@ -353,37 +350,38 @@ sudo sysctl -p Lancer l&rsquo;authentification"/>
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/installer-tailscale-sur-fedora/">Installer Tailscale sur Fedora</a>
+                <a href="https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh-sur-fedora/">RDP sécurisé avec SSH sur Fedora</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&rsquo;appuyant sur WireGuard.</p>
-<p><strong>Installer Tailscale</strong></p>
-<pre tabindex="0"><code>sudo dnf install tailscale
+                <p>Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.</p>
+<br/>
+<p><strong>Installation</strong></p>
+<pre tabindex="0"><code>sudo dnf install -y xrdp
+sudo systemctl enable xrdp --now
 </code></pre><br/>
-<p><strong>Démarrer et activer Tailscale</strong></p>
-<pre tabindex="0"><code>sudo systemctl start tailscaled
-sudo systemctl enable tailscaled
+<p><strong>Configuration</strong></p>
+<pre tabindex="0"><code>sudo firewall-cmd --add-port=3389/tcp --permanent
+sudo firewall-cmd --reload
 </code></pre><br/>
-<p><strong>Connecter votre desktop à Tailscale</strong></p>
-<p>Editer le fichier <code>sudo vim /etc/sysctl.conf</code>:</p>
-<pre tabindex="0"><code>net.ipv4.ip_forward = 1
-net.ipv6.conf.all.forwarding = 1
-</code></pre><p>Et appliquer les changements:</p>
-<pre tabindex="0"><code>sudo sysctl -p
-</code></pre><br/>
-<p><strong>Lancer l&rsquo;authentification</strong></p>
-<pre tabindex="0"><code>sudo tailscale up --advertise-exit-node
-</code></pre><br/>
-<p><strong>Troubleshooting</strong></p>
-<pre tabindex="0"><code>tailscale status
-</code></pre><br/>
-<p><strong>Update</strong></p>
-<p>Tailscale sera mis à jour automatiquement via dnf lors des mises à jour du système. Vous pouvez également le mettre à jour manuellement avec:</p>
-<pre tabindex="0"><code>sudo dnf update tailscale
-</code></pre>
+<p><strong>Connexion</strong></p>
+<p>On finalise la configuration. On désactive Wayland:</p>
+<blockquote>
+<p>Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</p>
+</blockquote>
+<pre tabindex="0"><code>ssh -L 3389:localhost:3389 user@adresse_ip_fedora
+</code></pre><p>Editer le fichier <code>sudo nano /etc/gdm/custom.conf</code> et ajouter la ligne suivante:</p>
+<pre tabindex="0"><code>WaylandEnable=false
+</code></pre><pre tabindex="0"><code>sudo systemctl restart gdm
+</code></pre><blockquote>
+<p>GDM (pour GNOME Display Manager) est un gestionnaire de session et d&rsquo;affichage utilisé principalement avec l&rsquo;environnement de bureau GNOME</p>
+</blockquote>
+<br/>
+<p><strong>Utilisation</strong></p>
+<p>Pour prendre le contrôle de votre Fedora depuis OSX par exemple, installez <code>Windows Apps</code> depuis l&rsquo;AppStore et configurez votre connexion avec vos credentials SSH + <code>localhost:3389</code></p>
+
             </div>
         </article>
 
@@ -394,7 +392,7 @@ net.ipv6.conf.all.forwarding = 1
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>106 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>151 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>11 déc.. 2024</p>
         </div>
@@ -409,17 +407,17 @@ net.ipv6.conf.all.forwarding = 1
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2025/">
+                            <a href="https://leandeep.com/installer-tailscale-sur-fedora/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Et vous quels sont vos projets pour 2025 ?</span>
+                                <span class="button__text">Installer Tailscale sur Fedora</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh-sur-fedora/">
-                                <span class="button__text">RDP sécurisé avec SSH sur Fedora</span>
+                            <a href="https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/">
+                                <span class="button__text">Simuler un mode offline pour certains tests Pytest</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
