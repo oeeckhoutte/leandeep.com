@@ -7,7 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 25 Jan 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Feb 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Hashcat sur Ubuntu 22.04</title>
+      <link>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</link>
+      <pubDate>Thu, 06 Feb 2025 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</guid>
+      <description>Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
+Pré-requis
+nvidia-smi déjà installé.
+Installation de hashcat
+sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia # Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc Vérification
+nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.</description>
+    </item>
+    
     <item>
       <title>Installer Hashcat sur Fedora 41</title>
       <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
@@ -123,18 +138,6 @@ Retirer le son
 ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 -an &amp;#34;target_file.mp4&amp;#34; # ffmpeg -threads $(nproc) -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 -an &amp;#34;target_file.mp4&amp;#34; Avec le son
 ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 &amp;#34;target_file.mp4&amp;#34; Avec le son et garder 10s à partir d&#39;1min51
 ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:01:51.000 -t 10 &amp;#34;target_file.mp4&amp;#34; </description>
-    </item>
-    
-    <item>
-      <title>Encrypt a file with GPG</title>
-      <link>https://leandeep.com/encrypt-a-file-with-gpg/</link>
-      <pubDate>Sun, 24 Sep 2023 22:13:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/encrypt-a-file-with-gpg/</guid>
-      <description>Tiny/Pico tip explaining how to encrypt a file using GPG to share it with one of your colleague or friend.
-We start by checking if our friend key is aleady registered in our system using the following command:
-gpg --list-public-keys If it&amp;rsquo;s ok we just have to execute the following command to encrypt our file to share it securly to our friend:
-gpg --encrypt --recipient your_friend@email.com secret_file_to_encrypt.txt And voila that&amp;rsquo;s all.</description>
     </item>
     
   </channel>

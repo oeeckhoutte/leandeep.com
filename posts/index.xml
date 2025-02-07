@@ -6,8 +6,79 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 25 Jan 2025 22:32:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 06 Feb 2025 23:32:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Hashcat sur Ubuntu 22.04</title>
+            <link>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</link>
+            <pubDate>Thu, 06 Feb 2025 23:32:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</guid>
+            <description>Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
+Pré-requis
+nvidia-smi déjà installé.
+Installation de hashcat
+sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia # Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc Vérification
+nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.</description>
+            <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).</p>
+<br/>
+<p><strong>Pré-requis</strong></p>
+<p><code>nvidia-smi</code> déjà installé.</p>
+<br/>
+<p><strong>Installation de hashcat</strong></p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt upgrade
+apt install hashcat
+</code></pre><br/>
+<p><strong>Installation de Cuda Toolkit 11.7</strong></p>
+<pre tabindex="0"><code>wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run
+sudo sh cuda_11.7.0_515.43.04_linux.run
+# Installer Cuda et refuser l&#39;installation du Driver Nvidia
+# Une fois l&#39;installation terminée, ajouter cuda au bashrc
+
+echo &#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&#34; &gt;&gt; ~/.bashrc
+echo &#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&#34; &gt;&gt; ~/.bashrc
+</code></pre><br/>
+<p><strong>Vérification</strong></p>
+<pre tabindex="0"><code>nvcc --version
+hashcat -I
+
+Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.
+echo &#34;82a4b202be22fbbcd236d2f65988acde&#34; &gt; hash.txt
+hashcat -a 3 -m 0 --increment --increment-min=1 --increment-max=20 hash.txt -1 ?l?u?d ?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1
+</code></pre><br/>
+<p><strong>Extraire des hashes (d&rsquo;un zip par exemple)</strong></p>
+<pre tabindex="0"><code>sudo apt install john build-essential libssl-dev zlib1g-dev -y
+git clone &#34;https://github.com/magnumripper/JohnTheRipper.git&#34; &amp;&amp; cd JohnTheRipper/src &amp;&amp; ./configure &amp;&amp; sudo make -s clean &amp;&amp; sudo make -sj4 
+
+# Trouver le path de zip2john
+sudo find / -name zip2john 2&gt;/dev/null
+echo &#34;export PATH=/home/olivier/JohnTheRipper/run:$PATH&#34; &gt;&gt; ~/.bashrc
+zip2john archive.zip &gt; archive.hash
+</code></pre><br/>
+<p><strong>Trouver un mot de passe</strong></p>
+<pre tabindex="0"><code># Cleaner le hash du zip
+sed &#39;s/^.*\(\$pkzip\$.*\$\/pkzip\$\).*/\1/&#39; archive.hash &gt; fixed.hash
+
+hashcat -a 3 -m 13600 --increment --increment-min=1 --increment-max=20 fixed.hash ?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a
+Ou
+hashcat -m 17200 -a 3 -w 4 --optimized-kernel-enable fixed.hash ?a?a?a?a?a?a
+</code></pre><p>Voir ~/.hashcat/hashcat.potfile pour le résultat ou <code>hashcat --show archive.hash</code></p>
+<br/>
+<p><strong>Troubleshooting</strong></p>
+<p><code>Hashfile 'archive_hash.txt' on line 1 (archiv....04.png:archive.zip::archive.zip): Signature unmatched</code> -&gt; Vérifiez le type de chiffrement utilisé:</p>
+<pre tabindex="0"><code>sudo apt install p7zip-full 
+7z l -slt archive.zip | grep Method
+
+Method = ZipCrypto → OK pour zip2john.
+Method = AES-256 → Nécessite une approche différente.
+</code></pre><br/>
+<p>Bloquer la mise en veille automatique d&rsquo;Ubuntu pour éviter que tout s&rsquo;arrête&hellip;</p>
+<pre tabindex="0"><code>sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer Hashcat sur Fedora 41</title>

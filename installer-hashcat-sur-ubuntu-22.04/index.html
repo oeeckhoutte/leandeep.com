@@ -7,11 +7,13 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Installation
-sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
-hashcat -I Réaliser un benchmark
-hashcat -b Faire un test avec un hash MD5
-wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;amp;&amp;amp; unzip SecList.zip \ &amp;amp;&amp;amp; rm -f SecList.zip echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt " />
+  content="Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
+Pré-requis
+nvidia-smi déjà installé.
+Installation de hashcat
+sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia # Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc Vérification
+nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -27,7 +29,7 @@ wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/installer-hashcat-sur-fedora-41/" />
+<link rel="canonical" href="https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/" />
 
 
 
@@ -236,7 +238,7 @@ wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList
 
 <title>
   
-  Installer Hashcat sur Fedora 41 :: Lean Deep Tech blog 
+  Installer Hashcat sur Ubuntu 22.04 :: Lean Deep Tech blog 
   
 </title>
 
@@ -261,29 +263,33 @@ wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer Hashcat sur Fedora 41">
-<meta itemprop="description" content="Installation
-sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
-hashcat -I Réaliser un benchmark
-hashcat -b Faire un test avec un hash MD5
-wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;&amp; unzip SecList.zip \ &amp;&amp; rm -f SecList.zip echo &#34;5d41402abc4b2a76b9719d911017c592&#34; &gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt "><meta itemprop="datePublished" content="2025-01-25T22:32:00+02:00" />
-<meta itemprop="dateModified" content="2025-01-25T22:32:00+02:00" />
-<meta itemprop="wordCount" content="52"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Hashcat,Python,tips," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Installer Hashcat sur Ubuntu 22.04">
+<meta itemprop="description" content="Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
+Pré-requis
+nvidia-smi déjà installé.
+Installation de hashcat
+sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&#39;installation du Driver Nvidia # Une fois l&#39;installation terminée, ajouter cuda au bashrc echo &#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&#34; &gt;&gt; ~/.bashrc echo &#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&#34; &gt;&gt; ~/.bashrc Vérification
+nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok."><meta itemprop="datePublished" content="2025-02-06T23:32:00+02:00" />
+<meta itemprop="dateModified" content="2025-02-06T23:32:00+02:00" />
+<meta itemprop="wordCount" content="263"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="tips,Linux," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer Hashcat sur Fedora 41"/>
-<meta name="twitter:description" content="Installation
-sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
-hashcat -I Réaliser un benchmark
-hashcat -b Faire un test avec un hash MD5
-wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;&amp; unzip SecList.zip \ &amp;&amp; rm -f SecList.zip echo &#34;5d41402abc4b2a76b9719d911017c592&#34; &gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt "/>
+<meta name="twitter:title" content="Installer Hashcat sur Ubuntu 22.04"/>
+<meta name="twitter:description" content="Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
+Pré-requis
+nvidia-smi déjà installé.
+Installation de hashcat
+sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&#39;installation du Driver Nvidia # Une fois l&#39;installation terminée, ajouter cuda au bashrc echo &#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&#34; &gt;&gt; ~/.bashrc echo &#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&#34; &gt;&gt; ~/.bashrc Vérification
+nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok."/>
 
 
 
 
 
-<meta property="article:published_time" content="2025-01-25 22:32:00 &#43;0200 &#43;0200" />
+<meta property="article:published_time" content="2025-02-06 23:32:00 &#43;0200 &#43;0200" />
 
 
 
@@ -338,7 +344,7 @@ wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>Une minute
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
 
             
 
@@ -347,28 +353,67 @@ wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/installer-hashcat-sur-fedora-41/">Installer Hashcat sur Fedora 41</a>
+                <a href="https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/">Installer Hashcat sur Ubuntu 22.04</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p><strong>Installation</strong></p>
-<pre tabindex="0"><code>sudo dnf install hashcat hashcat-devel hashcat-doc
+                <p>Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).</p>
+<br/>
+<p><strong>Pré-requis</strong></p>
+<p><code>nvidia-smi</code> déjà installé.</p>
+<br/>
+<p><strong>Installation de hashcat</strong></p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt upgrade
+apt install hashcat
 </code></pre><br/>
-<p><strong>Vérifier si votre GPU est détecté</strong></p>
-<pre tabindex="0"><code>hashcat -I
-</code></pre><br/>
-<p><strong>Réaliser un benchmark</strong></p>
-<pre tabindex="0"><code>hashcat -b
-</code></pre><br/>
-<p><strong>Faire un test avec un hash MD5</strong></p>
-<pre tabindex="0"><code>wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
-  &amp;&amp; unzip SecList.zip \
-  &amp;&amp; rm -f SecList.zip
+<p><strong>Installation de Cuda Toolkit 11.7</strong></p>
+<pre tabindex="0"><code>wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run
+sudo sh cuda_11.7.0_515.43.04_linux.run
+# Installer Cuda et refuser l&#39;installation du Driver Nvidia
+# Une fois l&#39;installation terminée, ajouter cuda au bashrc
 
-echo &#34;5d41402abc4b2a76b9719d911017c592&#34; &gt; test.hash
-hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt
+echo &#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&#34; &gt;&gt; ~/.bashrc
+echo &#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&#34; &gt;&gt; ~/.bashrc
+</code></pre><br/>
+<p><strong>Vérification</strong></p>
+<pre tabindex="0"><code>nvcc --version
+hashcat -I
+
+Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.
+echo &#34;82a4b202be22fbbcd236d2f65988acde&#34; &gt; hash.txt
+hashcat -a 3 -m 0 --increment --increment-min=1 --increment-max=20 hash.txt -1 ?l?u?d ?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1?1
+</code></pre><br/>
+<p><strong>Extraire des hashes (d&rsquo;un zip par exemple)</strong></p>
+<pre tabindex="0"><code>sudo apt install john build-essential libssl-dev zlib1g-dev -y
+git clone &#34;https://github.com/magnumripper/JohnTheRipper.git&#34; &amp;&amp; cd JohnTheRipper/src &amp;&amp; ./configure &amp;&amp; sudo make -s clean &amp;&amp; sudo make -sj4 
+
+# Trouver le path de zip2john
+sudo find / -name zip2john 2&gt;/dev/null
+echo &#34;export PATH=/home/olivier/JohnTheRipper/run:$PATH&#34; &gt;&gt; ~/.bashrc
+zip2john archive.zip &gt; archive.hash
+</code></pre><br/>
+<p><strong>Trouver un mot de passe</strong></p>
+<pre tabindex="0"><code># Cleaner le hash du zip
+sed &#39;s/^.*\(\$pkzip\$.*\$\/pkzip\$\).*/\1/&#39; archive.hash &gt; fixed.hash
+
+hashcat -a 3 -m 13600 --increment --increment-min=1 --increment-max=20 fixed.hash ?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a
+Ou
+hashcat -m 17200 -a 3 -w 4 --optimized-kernel-enable fixed.hash ?a?a?a?a?a?a
+</code></pre><p>Voir ~/.hashcat/hashcat.potfile pour le résultat ou <code>hashcat --show archive.hash</code></p>
+<br/>
+<p><strong>Troubleshooting</strong></p>
+<p><code>Hashfile 'archive_hash.txt' on line 1 (archiv....04.png:archive.zip::archive.zip): Signature unmatched</code> -&gt; Vérifiez le type de chiffrement utilisé:</p>
+<pre tabindex="0"><code>sudo apt install p7zip-full 
+7z l -slt archive.zip | grep Method
+
+Method = ZipCrypto → OK pour zip2john.
+Method = AES-256 → Nécessite une approche différente.
+</code></pre><br/>
+<p>Bloquer la mise en veille automatique d&rsquo;Ubuntu pour éviter que tout s&rsquo;arrête&hellip;</p>
+<pre tabindex="0"><code>sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 </code></pre>
             </div>
         </article>
@@ -377,12 +422,12 @@ hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/hashcat">Hashcat</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>52 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>263 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 janv.. 2025</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 févr.. 2025</p>
         </div>
 
         
@@ -394,18 +439,11 @@ hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Installer Hashcat sur Ubuntu 22.04</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-un-egpu-razer-core-x-sur-fedora-41-et-faire-tourner-pytorch/">
-                                <span class="button__text">Installer un eGPU Razer Core X sur Fedora 41 et faire tourner Pytorch</span>
+                            <a href="https://leandeep.com/installer-hashcat-sur-fedora-41/">
+                                <span class="button__text">Installer Hashcat sur Fedora 41</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

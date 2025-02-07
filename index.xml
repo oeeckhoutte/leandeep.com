@@ -7,7 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 25 Jan 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Feb 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Hashcat sur Ubuntu 22.04</title>
+      <link>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</link>
+      <pubDate>Thu, 06 Feb 2025 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</guid>
+      <description>Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
+Pré-requis
+nvidia-smi déjà installé.
+Installation de hashcat
+sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
+wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia # Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc Vérification
+nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.</description>
+    </item>
+    
     <item>
       <title>Installer Hashcat sur Fedora 41</title>
       <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
@@ -118,15 +133,6 @@ Créer un User-defined script permettant de démarrer le container Calibre Web. 
       <guid>https://leandeep.com/configure-pfsense-pour-quun-serveur-ne-soit-accessible-que-par-un-seul-host/</guid>
       <description>Pour configurer pfSense de manière à ce qu&amp;rsquo;un serveur soit accessible uniquement par un seul autre ordinateur sur le même réseau, vous pouvez suivre les étapes suivantes en utilisant les règles de pare-feu.
 Hypothèses Serveur à l&amp;rsquo;adresse IP: 192.168.1.10 Ordinateur autorisé à accéder à l&amp;rsquo;adresse IP: 192.168.1.20 Réseau local (LAN) est 192.168.1.0/24 Le serveur et l&amp;rsquo;ordinateur autorisé sont tous les deux sur l&amp;rsquo;interface LAN de pfSense. Configuration Accéder à l&amp;rsquo;interface de pfSense : Connectez-vous à l&amp;rsquo;interface web de pfSense via https://&amp;lt;ip_de_pfSense&amp;gt;.</description>
-    </item>
-    
-    <item>
-      <title>Configure Keycloak to secure your apps and API endpoints</title>
-      <link>https://leandeep.com/configure-keycloak-to-secure-your-apps-and-api-endpoints/</link>
-      <pubDate>Wed, 13 Nov 2024 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/configure-keycloak-to-secure-your-apps-and-api-endpoints/</guid>
-      <description>In this brief article we are going to create a basic realm in Keycloak to secure an API. It&amp;rsquo;s a very minimal setup to quickly get started and secure your app and API. No RBAC, no security defense, and no Google/ Facebook Connect&amp;hellip; configs are explained in this article. I will probably create other articles about these subjets later as I am extensively leveraging Keycloak features. There is indeed no need to setup a complexe Identity and Access Management tool like Keycloak if you are not going to leverage it&amp;hellip;</description>
     </item>
     
   </channel>
