@@ -272,7 +272,7 @@ sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolki
 wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&#39;installation du Driver Nvidia # Une fois l&#39;installation terminée, ajouter cuda au bashrc echo &#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&#34; &gt;&gt; ~/.bashrc echo &#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&#34; &gt;&gt; ~/.bashrc Vérification
 nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok."><meta itemprop="datePublished" content="2025-02-06T23:32:00+02:00" />
 <meta itemprop="dateModified" content="2025-02-06T23:32:00+02:00" />
-<meta itemprop="wordCount" content="263"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="329"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -394,12 +394,28 @@ git clone &#34;https://github.com/magnumripper/JohnTheRipper.git&#34; &amp;&amp;
 sudo find / -name zip2john 2&gt;/dev/null
 echo &#34;export PATH=/home/olivier/JohnTheRipper/run:$PATH&#34; &gt;&gt; ~/.bashrc
 zip2john archive.zip &gt; archive.hash
+
+# Ou sur OSX 
+/opt/homebrew/Cellar/john-jumbo/1.9.0_1/share/john/zip2john archive.zip &gt; archive.hash
 </code></pre><br/>
 <p><strong>Trouver un mot de passe</strong></p>
 <pre tabindex="0"><code># Cleaner le hash du zip
 sed &#39;s/^.*\(\$pkzip\$.*\$\/pkzip\$\).*/\1/&#39; archive.hash &gt; fixed.hash
 
+# Exemples: 
+## Exemple 1 pour mot de passe monMotDePasse:
+$pkzip2$1*2*2*0*11*5*3bb935c6*0*46*0*11*3bb9*7421*049b7aaecce339b3f7252da83f0a1b1231*$/pkzip2$
+## Exemple 2 pour mot de passe monMDP:
+$pkzip2$1*2*2*0*15*9*4af10d19*0*46*0*15*4af1*8d6f*651a278b80d96268b1a8ec6cbc400c7ebc6592f377*$/pkzip2$
+
+- Mode 13600 (ou similaire) pour le chiffrement traditionnel (ZipCrypto).
+- Mode 17210 pour les archives utilisant AES (PKZIP2).
+
+# Pour du pkzip
 hashcat -a 3 -m 13600 --increment --increment-min=1 --increment-max=20 fixed.hash ?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a
+Ou
+# Pour du pkzip2
+hashcat -a 3 -m 17210 --increment --increment-min=1 --increment-max=20 fixed.hash ?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a
 Ou
 hashcat -m 17200 -a 3 -w 4 --optimized-kernel-enable fixed.hash ?a?a?a?a?a?a
 </code></pre><p>Voir ~/.hashcat/hashcat.potfile pour le résultat ou <code>hashcat --show archive.hash</code></p>
@@ -425,7 +441,7 @@ Method = AES-256 → Nécessite une approche différente.
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>263 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>329 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>06 févr.. 2025</p>
         </div>

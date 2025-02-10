@@ -38,6 +38,8 @@ sudo apt install quickgui
 <p><strong>CLI usage</strong></p>
 <pre tabindex="0"><code>quickget ubuntu-mate 20.04
 quickemu --vm ubuntu-mate-20.04.conf
+
+# doc: https://github.com/quickemu-project/quickemu/wiki/06-Advanced-quickget-features
 </code></pre><br/>
 <blockquote>
 <p>Tip: Cliquez sur <code>Ctrl</code> + <code>Alt</code> + <code>f</code> pour quitter le mode fullscreen</p>
@@ -93,12 +95,28 @@ git clone &#34;https://github.com/magnumripper/JohnTheRipper.git&#34; &amp;&amp;
 sudo find / -name zip2john 2&gt;/dev/null
 echo &#34;export PATH=/home/olivier/JohnTheRipper/run:$PATH&#34; &gt;&gt; ~/.bashrc
 zip2john archive.zip &gt; archive.hash
+
+# Ou sur OSX 
+/opt/homebrew/Cellar/john-jumbo/1.9.0_1/share/john/zip2john archive.zip &gt; archive.hash
 </code></pre><br/>
 <p><strong>Trouver un mot de passe</strong></p>
 <pre tabindex="0"><code># Cleaner le hash du zip
 sed &#39;s/^.*\(\$pkzip\$.*\$\/pkzip\$\).*/\1/&#39; archive.hash &gt; fixed.hash
 
+# Exemples: 
+## Exemple 1 pour mot de passe monMotDePasse:
+$pkzip2$1*2*2*0*11*5*3bb935c6*0*46*0*11*3bb9*7421*049b7aaecce339b3f7252da83f0a1b1231*$/pkzip2$
+## Exemple 2 pour mot de passe monMDP:
+$pkzip2$1*2*2*0*15*9*4af10d19*0*46*0*15*4af1*8d6f*651a278b80d96268b1a8ec6cbc400c7ebc6592f377*$/pkzip2$
+
+- Mode 13600 (ou similaire) pour le chiffrement traditionnel (ZipCrypto).
+- Mode 17210 pour les archives utilisant AES (PKZIP2).
+
+# Pour du pkzip
 hashcat -a 3 -m 13600 --increment --increment-min=1 --increment-max=20 fixed.hash ?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a
+Ou
+# Pour du pkzip2
+hashcat -a 3 -m 17210 --increment --increment-min=1 --increment-max=20 fixed.hash ?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a?a
 Ou
 hashcat -m 17200 -a 3 -w 4 --optimized-kernel-enable fixed.hash ?a?a?a?a?a?a
 </code></pre><p>Voir ~/.hashcat/hashcat.potfile pour le résultat ou <code>hashcat --show archive.hash</code></p>
