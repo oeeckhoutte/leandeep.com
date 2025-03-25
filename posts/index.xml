@@ -6,8 +6,69 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 07 Feb 2025 07:32:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 24 Mar 2025 22:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Run Rust code on ESP32</title>
+            <link>https://leandeep.com/run-rust-code-on-esp32/</link>
+            <pubDate>Mon, 24 Mar 2025 22:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/run-rust-code-on-esp32/</guid>
+            <description>In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.
+Installation Install Ubuntu packages
+sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
+sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust</description>
+            <content type="html"><![CDATA[<p>In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<p><strong>Install Ubuntu packages</strong></p>
+<pre tabindex="0"><code>sudo apt install -y build-essential libssl-dev pkg-config git
+sudo apt install -y python3-pip python3-venv
+</code></pre><br/>
+<p><strong>Configure USB permissions</strong></p>
+<pre tabindex="0"><code>sudo usermod -aG dialout $USER
+sudo usermod -aG tty $USER
+# Restart the session
+</code></pre><br/>
+<p><strong>Install Rust</strong></p>
+<pre tabindex="0"><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+</code></pre><br/>
+<p><strong>Install espup for Xtensa (ESP-WROOM-32 architecture)</strong></p>
+<pre tabindex="0"><code>cargo install espup
+espup install
+source ~/export-esp.sh
+</code></pre><br/>
+<p><strong>Additional tools</strong></p>
+<pre tabindex="0"><code>cargo install cargo-generate espflash cargo-espflash ldproxy
+</code></pre><br/>
+<h2 id="create-a-package">Create a package</h2>
+<pre tabindex="0"><code>cargo generate --git https://github.com/esp-rs/esp-idf-template cargo
+cd esp32-project
+</code></pre><br/>
+<p><strong>Build</strong></p>
+<pre tabindex="0"><code>source ~/export-esp.sh
+cargo build
+</code></pre><br/>
+<p><strong>Flash on ESP32</strong></p>
+<pre tabindex="0"><code>espflash flash target/xtensa-esp32-espidf/debug/esp32-project --monitor
+</code></pre><br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<pre tabindex="0"><code>sudo apt install libudev-dev libusb-1.0-0-dev
+</code></pre><p><br/>
+<strong>Check permissions</strong></p>
+<pre tabindex="0"><code>ls -l /dev/ttyUSB0  # Must belong to &#39;dialout&#39; group
+# sudo usermod -a -G dialout $USER
+# sudo chown $USER /dev/ttyUSB0
+</code></pre><br/>
+<p><strong>Check espflash version</strong></p>
+<pre tabindex="0"><code>espflash --version  # Requires v2.0+
+</code></pre><br/>
+<p><strong>Verify communication with ESP</strong></p>
+<pre tabindex="0"><code>espflash board-info
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer quickemu sur Ubuntu 22.04</title>
@@ -31439,6 +31500,9 @@ git diff HEAD~2 HEAD -- mon_fichier.js
 <p><strong>Annuler le dernier git amend:</strong></p>
 <pre tabindex="0"><code>git reset --soft HEAD@{1}
 </code></pre><br/>
+<p><strong>Annuler le dernier git cherry-pick (successful):</strong></p>
+<pre tabindex="0"><code>git reset --hard HEAD~1
+</code></pre><br/>
 <p><strong>Renommer une branche locale:</strong></p>
 <pre tabindex="0"><code>git checkout ancien_nom
 git branch -m nouveau_nom
@@ -31492,234 +31556,291 @@ Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. ce
 <p><strong>Pull remote branch sans merge</strong></p>
 <p>On suppose que l&rsquo;on est déjà sur la branch que l&rsquo;on souhaite resynchroniser</p>
 <pre tabindex="0"><code>git pull --rebase
-</code></pre><br/>
-<p><strong>Voir les derniers commits locaux pas encore pushé sur l&rsquo;origin:</strong></p>
-<pre tabindex="0"><code>git log --branches --not --remotes
-</code></pre><br/>
-<p><strong>Effacer les fichiers du working directory en incluant les nouveaux untracked files</strong></p>
-<pre tabindex="0"><code>git clean -fd
-</code></pre><br/>
-<p><strong>Lister les tags sur un commit</strong></p>
-<pre tabindex="0"><code>git tag --points-at HEAD
-</code></pre><br/>
-<p><strong>Tagguer (le dernier commit d&rsquo;) une branche</strong></p>
-<pre tabindex="0"><code>git tag mon_tag
-git push origin mon_tag
 
-# (non recommandé) pousser tous les tags
-git push --tags
-</code></pre><br/>
-<p><strong>Lister les fichiers modifiés dans une branche par rapport à master:</strong></p>
-<pre tabindex="0"><code>git diff --name-only ma_branche $(git merge-base ma_branche master)
-</code></pre><br/>
-<p><strong>Ajouter un tag sur un commit particulier</strong></p>
-<pre tabindex="0"><code>git tag -a v1.0 d613c59
-git push origin v1.0
-</code></pre><br/>
-<p><strong>Effacer un tag local et remote</strong></p>
-<pre tabindex="0"><code># Effacement local
-git tag -d v1.0
+<br/>
 
-# Effacement remote
-git push --delete origin v1.0
+**Retirer un commit particulier sur une branch**
+</code></pre><p>git reset &ndash;hard commit-hash</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Voir les derniers commits locaux pas encore pushé sur l&#39;origin:**
+</code></pre><p>git log &ndash;branches &ndash;not &ndash;remotes</p>
+<pre tabindex="0"><code><br/>
+
+**Effacer les fichiers du working directory en incluant les nouveaux untracked files**
+</code></pre><p>git clean -fd</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Lister les tags sur un commit**
+</code></pre><p>git tag &ndash;points-at HEAD</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Tagguer (le dernier commit d&#39;) une branche**
+</code></pre><p>git tag mon_tag
+git push origin mon_tag</p>
+<h1 id="non-recommandé-pousser-tous-les-tags">(non recommandé) pousser tous les tags</h1>
+<p>git push &ndash;tags</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Lister les fichiers modifiés dans une branche par rapport à master:**
+</code></pre><p>git diff &ndash;name-only ma_branche $(git merge-base ma_branche master)</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Ajouter un tag sur un commit particulier**
+</code></pre><p>git tag -a v1.0 d613c59
+git push origin v1.0</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Effacer un tag local et remote**
+</code></pre><h1 id="effacement-local">Effacement local</h1>
+<p>git tag -d v1.0</p>
+<h1 id="effacement-remote">Effacement remote</h1>
+<p>git push &ndash;delete origin v1.0
 ou
-git push origin :refs/tags/v1.0
-</code></pre><br/>
-<p><strong>Lister les commits entre un tag et HEAD</strong></p>
-<pre tabindex="0"><code>git log --pretty=oneline HEAD...v1.0
-</code></pre><blockquote>
-<p>Alternative sans les commits de merge: <code>git log --pretty=oneline HEAD...v1.0 --no-merges</code></p>
-</blockquote>
-<blockquote>
-<p>Alternative avec tous les détails: <code>git log HEAD...v1.0</code></p>
-</blockquote>
-<blockquote>
-<p>Autre alternative: <code>git log --pretty=format:&quot;%h; author: %cn; date: %ci; subject:%s&quot; HEAD...v1.0</code></p>
-</blockquote>
+git push origin :refs/tags/v1.0</p>
+<pre tabindex="0"><code>
 <br/>
-<p><strong>Lister les commits de merge depuis le dernier tag et afficher uniquement le commit message</strong></p>
-<pre tabindex="0"><code>git log $(git describe --abbrev=0 --tags)..HEAD --merges --pretty=format:&#34;%b&#34;
-</code></pre><br/>
-<p><strong>Lister les commits de merge entre les 2 derniers tags et afficher uniquement le commit message</strong></p>
-<pre tabindex="0"><code>git log $(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)..$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`) --merges --pretty=format:&#34;%b&#34;
-</code></pre><br/>
-<p><strong>Récupérer le dernier tag</strong></p>
-<pre tabindex="0"><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
-</code></pre><br/>
-<p><strong>Récupérer l&rsquo;avant dernier tag</strong></p>
-<pre tabindex="0"><code>git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
-</code></pre><br/>
-<p><strong>Voir les commits par contributeur depuis la dernière release/tag</strong></p>
-<pre tabindex="0"><code>git shortlog --merges $(git describe --abbrev=0 --tags)..HEAD
-</code></pre><br/>
-<p><strong>Get current branch</strong></p>
-<pre tabindex="0"><code>git rev-parse --abbrev-ref HEAD
-</code></pre><br/>
-<p><strong>Voir les changements/ commits sur un fichier</strong></p>
-<pre tabindex="0"><code>git log --follow -p -- full_path_mon_fichier
-# --follow permet de suivre un fichier s&#39;il a été renommé
-</code></pre><blockquote>
-<p>Alternative:
-<code>find . -name &quot;*mon_fichier&quot; | xargs git log</code></p>
-</blockquote>
-<blockquote>
-<p><strong>Super Alternative:</strong>  <br/>
-<code>tig full_path_mon_fichier</code> ou <code>tig '*mon_fichier'</code> <br/>
-Installation de tig via <code>brew install tig</code> ou <code>apt install tig</code> <br/>
-<a href="http://jonas.nitro.dk/tig/manual.html">Tig Full documentation</a></p>
-</blockquote>
-<br/>
-<h2 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h2>
-<pre tabindex="0"><code>$ git init
-Initialized empty Git repository in .git/
 
-$ echo &#34;testing reset&#34; &gt; file1
+**Lister les commits entre un tag et HEAD**
+</code></pre><p>git log &ndash;pretty=oneline HEAD&hellip;v1.0</p>
+<pre tabindex="0"><code>
+&gt; Alternative sans les commits de merge: `git log --pretty=oneline HEAD...v1.0 --no-merges`
+
+&gt; Alternative avec tous les détails: `git log HEAD...v1.0`
+
+&gt; Autre alternative: `git log --pretty=format:&#34;%h; author: %cn; date: %ci; subject:%s&#34; HEAD...v1.0`
+
+<br/>
+
+**Lister les commits de merge depuis le dernier tag et afficher uniquement le commit message**
+</code></pre><p>git log $(git describe &ndash;abbrev=0 &ndash;tags)..HEAD &ndash;merges &ndash;pretty=format:&quot;%b&quot;</p>
+<pre tabindex="0"><code>
+<br/>
+
+
+**Lister les commits de merge entre les 2 derniers tags et afficher uniquement le commit message**
+</code></pre><p>git log $(git describe &ndash;abbrev=0 &ndash;tags <code>git rev-list --tags --skip=1 --max-count=1</code>)..$(git describe &ndash;abbrev=0 &ndash;tags <code>git rev-list --tags --skip=0 --max-count=1</code>) &ndash;merges &ndash;pretty=format:&quot;%b&quot;</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Récupérer le dernier tag**
+</code></pre><p>git describe &ndash;abbrev=0 &ndash;tags <code>git rev-list --tags --skip=0 --max-count=1</code></p>
+<pre tabindex="0"><code><br/>
+
+**Récupérer l&#39;avant dernier tag**
+</code></pre><p>git describe &ndash;abbrev=0 &ndash;tags <code>git rev-list --tags --skip=0 --max-count=1</code></p>
+<pre tabindex="0"><code>
+<br/>
+
+**Voir les commits par contributeur depuis la dernière release/tag**
+</code></pre><p>git shortlog &ndash;merges $(git describe &ndash;abbrev=0 &ndash;tags)..HEAD</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Get current branch**
+</code></pre><p>git rev-parse &ndash;abbrev-ref HEAD</p>
+<pre tabindex="0"><code>
+<br/>
+
+**Voir les changements/ commits sur un fichier**
+</code></pre><p>git log &ndash;follow -p &ndash; full_path_mon_fichier</p>
+<h1 id="--follow-permet-de-suivre-un-fichier-sil-a-été-renommé">&ndash;follow permet de suivre un fichier s&rsquo;il a été renommé</h1>
+<pre tabindex="0"><code> 
+&gt; Alternative:
+&gt; `find . -name &#34;*mon_fichier&#34; | xargs git log`
+
+&gt; **Super Alternative:**  <br/>
+&gt; `tig full_path_mon_fichier` ou `tig &#39;*mon_fichier&#39;` <br/>
+&gt; Installation de tig via `brew install tig` ou `apt install tig` <br/>
+&gt; [Tig Full documentation](http://jonas.nitro.dk/tig/manual.html)
+
+<br/>
+
+## Naviguer dans tout son historique Git 
+</code></pre><p>$ git init
+Initialized empty Git repository in .git/</p>
+<p>$ echo &ldquo;testing reset&rdquo; &gt; file1
 $ git add file1
-$ git commit -m &#39;added file1&#39;
+$ git commit -m &lsquo;added file1&rsquo;
 Created initial commit 1a75c1d: added file1
- 1 files changed, 1 insertions(+), 0 deletions(-)
- create mode 100644 file1
-
-$ echo &#34;added new file&#34; &gt; file2
+1 files changed, 1 insertions(+), 0 deletions(-)
+create mode 100644 file1</p>
+<p>$ echo &ldquo;added new file&rdquo; &gt; file2
 $ git add file2
-$ git commit -m &#39;added file2&#39;
+$ git commit -m &lsquo;added file2&rsquo;
 Created commit f6e5064: added file2
- 1 files changed, 1 insertions(+), 0 deletions(-)
- create mode 100644 file2
+1 files changed, 1 insertions(+), 0 deletions(-)
+create mode 100644 file2</p>
+<p>$ git reset &ndash;hard HEAD^
+HEAD is now at 1a75c1d&hellip; added file1</p>
+<p>$ cat file2
+cat: file2: No such file or directory</p>
+<p>$ git reflog
+1a75c1d&hellip; HEAD@{0}: reset &ndash;hard HEAD^: updating HEAD
+f6e5064&hellip; HEAD@{1}: commit: added file2</p>
+<p>$ git reset &ndash;hard f6e5064
+HEAD is now at f6e5064&hellip; added file2</p>
+<p>$ cat file2
+added new file</p>
+<pre tabindex="0"><code>
+<br/>
 
-$ git reset --hard HEAD^
-HEAD is now at 1a75c1d... added file1
-
-$ cat file2
-cat: file2: No such file or directory
-
-$ git reflog
-1a75c1d... HEAD@{0}: reset --hard HEAD^: updating HEAD
-f6e5064... HEAD@{1}: commit: added file2
-
-$ git reset --hard f6e5064
-HEAD is now at f6e5064... added file2
-
-$ cat file2
-added new file
-</code></pre><br/>
-<h2 id="taille-en-local-du-repo">Taille en local du repo</h2>
-<pre tabindex="0"><code>$ git count-objects -v -H
-
-count: 6
+## Taille en local du repo
+</code></pre><p>$ git count-objects -v -H</p>
+<p>count: 6
 size: 24.00 KiB
 in-pack: 0
 packs: 0
 size-pack: 0 bytes
 prune-packable: 0
 garbage: 0
-size-garbage: 0 bytes
-</code></pre><br/>
-<h2 id="bisect">Bisect</h2>
-<blockquote>
-<p>Le bisect permet de réaliser une dichotimie sur un range de commit afin d&rsquo;identifier celui qui génère une régression.</p>
-</blockquote>
-<pre tabindex="0"><code>$ git bisect start          # Start the binary search process
-$ git bisect bad            # Identify the end of the range
-$ git bisect good v4.2.0    # Identify the start of the range
-</code></pre><p>Puis après un test sur votre app ou tests unitaires préciser soit <code>git bisect bad</code> ou <code>git bisect good</code></p>
+size-garbage: 0 bytes</p>
+<pre tabindex="0"><code>
 <br/>
-<h2 id="ajouter-un-submodule-dans-son-repo">Ajouter un submodule dans son repo</h2>
-<pre tabindex="0"><code>git submodule add https://github.com/&lt;user&gt;/mon_repo_as_submodule mon_repo_as_submodule
-</code></pre><br/>
-<h2 id="cloner-un-repo-git-contenant-un-submodule">Cloner un repo git contenant un submodule</h2>
-<pre tabindex="0"><code>git clone --recursive https://github.com/&lt;user&gt;/mon_repo
-</code></pre><br/>
-<h2 id="effacer-un-submodule-du-repo">Effacer un submodule du repo</h2>
-<pre tabindex="0"><code>git submodule deinit -f — mon_repo_as_submodule
+
+## Bisect 
+
+&gt; Le bisect permet de réaliser une dichotimie sur un range de commit afin d&#39;identifier celui qui génère une régression.
+</code></pre><p>$ git bisect start          # Start the binary search process
+$ git bisect bad            # Identify the end of the range
+$ git bisect good v4.2.0    # Identify the start of the range</p>
+<pre tabindex="0"><code>
+Puis après un test sur votre app ou tests unitaires préciser soit `git bisect bad` ou `git bisect good`
+
+<br/>
+
+
+## Ajouter un submodule dans son repo
+</code></pre><p>git submodule add <a href="https://github.com/">https://github.com/</a><!-- raw HTML omitted -->/mon_repo_as_submodule mon_repo_as_submodule</p>
+<pre tabindex="0"><code>
+<br/>
+
+
+## Cloner un repo git contenant un submodule
+</code></pre><p>git clone &ndash;recursive <a href="https://github.com/">https://github.com/</a><!-- raw HTML omitted -->/mon_repo</p>
+<pre tabindex="0"><code>
+<br/>
+
+
+## Effacer un submodule du repo
+</code></pre><p>git submodule deinit -f — mon_repo_as_submodule
 rm -rf .git/modules/mon_repo_as_submodule
-git rm -f mon_repo_as_submodule
-</code></pre><br/>
-<h2 id="pull-git-submodules-après-avoir-cloné-un-projet-sur-github">Pull git submodules après avoir cloné un projet sur GitHub</h2>
-<blockquote>
-<p>Normalement la commande suivante est automatiquement jouée par git sur les nouvelles versions</p>
-</blockquote>
-<pre tabindex="0"><code>git submodule update --init --recursive
-</code></pre><br/>
-<h2 id="importer-les-mises-à-jour-dun-submodule-dans-le-repo">Importer les mises à jour d&rsquo;un submodule dans le repo</h2>
-<pre tabindex="0"><code>git submodule update --recursive
-</code></pre><br/>
-<h2 id="mettre-à-jour-un-submodule-à-la-dernière-version">Mettre à jour un submodule à la dernière version</h2>
-<pre tabindex="0"><code>cd mon_repo_as_submodule
+git rm -f mon_repo_as_submodule</p>
+<pre tabindex="0"><code>
+<br/>
+
+## Pull git submodules après avoir cloné un projet sur GitHub
+
+&gt; Normalement la commande suivante est automatiquement jouée par git sur les nouvelles versions
+</code></pre><p>git submodule update &ndash;init &ndash;recursive</p>
+<pre tabindex="0"><code>
+<br/>
+
+## Importer les mises à jour d&#39;un submodule dans le repo
+</code></pre><p>git submodule update &ndash;recursive</p>
+<pre tabindex="0"><code>
+<br/>
+
+## Mettre à jour un submodule à la dernière version
+</code></pre><p>cd mon_repo_as_submodule
 git checkout master &amp;&amp; git pull
 cd ..
 git add mon_repo_as_submodule
-git commit -m &#34;updating submodule to latest&#34;
-</code></pre><br/>
-<h2 id="gitignore-global">.gitignore global</h2>
-<pre tabindex="0"><code>touch ~/.gitignore_global
-git config --global core.excludesfile ~/.gitignore_global
-</code></pre><h2 id="différence-entre-git-pull-et-git-pull---rebase">Différence entre git pull et git pull &ndash;rebase</h2>
-<p>Point de départ:</p>
-<pre tabindex="0"><code>      D---E master
-     /
-A---B---C---F origin/master
-</code></pre><p>Un <code>git pull</code> donnera:</p>
-<pre tabindex="0"><code>      D--------E  
-     /         \
-A---B---C---F----G   master, origin/master
-</code></pre><p>Un <code>git pull --rebase</code> donnera</p>
-<pre tabindex="0"><code>A---B---C---F---D&#39;---E&#39;   master, origin/master
-</code></pre><br/>
-<h2 id="ajouter-un-tag-en-2s-shortcuts">Ajouter un tag en 2s (shortcuts)</h2>
-<p>Ajouter ceci au fichier <code>~/.zshrc</code></p>
-<pre tabindex="0"><code>last_release ()
-{
-    git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`
-}
-
-previous_release ()
-{
-    last_release
-}
-
-last_tag ()
-{
-    last_release
-}
-
-previous_tag ()
-{
-    last_release
-}
-
-last_branches ()
-{
-    git branch --sort=-committerdate
-}
-
-function new_release {
-    readonly releaseversion=${1:?&#34;The release version (i.e. new_release vX.X.X) must be specified.&#34;}
-    current_branch=$(git rev-parse --abbrev-ref HEAD)
-    if [ &#34;$current_branch&#34; != &#34;master&#34; ]; then
-        echo &#34;Your are not on master branch. Please switch to it to create a new tag&#34;
-    else
-        git tag $releaseversion
-        git push origin $releaseversion
-    fi
-}
-</code></pre><br/>
-<h2 id="convertir-la-remote-url-de-https-en-ssh-et-vice-versa">Convertir la remote URL de HTTPS en SSH et vice-versa</h2>
-<pre tabindex="0"><code>alias git-https=&#34;git remote set-url origin https://github.com/$(git remote get-url origin | sed &#39;s/https:\/\/github.com\///&#39; | sed &#39;s/git@github.com://&#39;)&#34;
-
-alias git-ssh=&#34;git remote set-url origin git@github.com:$(git remote get-url origin | sed &#39;s/https:\/\/github.com\///&#39; | sed &#39;s/git@github.com://&#39;)&#34;
-</code></pre><br/>
-<h2 id="ajouter-une-clé-privé-dans-une-session-ssh-distante">Ajouter une clé privé dans une session SSH distante</h2>
-<pre tabindex="0"><code>eval `ssh-agent -s`
-</code></pre><br/>
-<h2 id="workflow-pour-travailler-en-équipe">Workflow pour travailler en équipe</h2>
-<p><strong>Gitflow:</strong>
-<a href="http://danielkummer.github.io/git-flow-cheatsheet/">http://danielkummer.github.io/git-flow-cheatsheet/</a></p>
+git commit -m &ldquo;updating submodule to latest&rdquo;</p>
+<pre tabindex="0"><code>
 <br/>
-<p><em>Edited 13 november 2016:</em></p>
-<p><strong>Better method: Github flow:</strong></p>
-<p><a href="https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/">https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/</a></p>
-]]></content>
+
+## .gitignore global
+</code></pre><p>touch ~/.gitignore_global
+git config &ndash;global core.excludesfile ~/.gitignore_global</p>
+<pre tabindex="0"><code>
+## Différence entre git pull et git pull --rebase
+
+
+Point de départ:
+</code></pre><pre><code>  D---E master
+ /
+</code></pre>
+<p>A&mdash;B&mdash;C&mdash;F origin/master</p>
+<pre tabindex="0"><code>
+Un `git pull` donnera:
+</code></pre><pre><code>  D--------E  
+ /         \
+</code></pre>
+<p>A&mdash;B&mdash;C&mdash;F&mdash;-G   master, origin/master</p>
+<pre tabindex="0"><code>
+Un `git pull --rebase` donnera
+</code></pre><p>A&mdash;B&mdash;C&mdash;F&mdash;D&rsquo;&mdash;E&rsquo;   master, origin/master</p>
+<pre tabindex="0"><code>
+<br/>
+
+## Ajouter un tag en 2s (shortcuts)
+
+Ajouter ceci au fichier `~/.zshrc`
+</code></pre><p>last_release ()
+{
+git describe &ndash;abbrev=0 &ndash;tags <code>git rev-list --tags --skip=0 --max-count=1</code>
+}</p>
+<p>previous_release ()
+{
+last_release
+}</p>
+<p>last_tag ()
+{
+last_release
+}</p>
+<p>previous_tag ()
+{
+last_release
+}</p>
+<p>last_branches ()
+{
+git branch &ndash;sort=-committerdate
+}</p>
+<p>function new_release {
+readonly releaseversion=${1:?&ldquo;The release version (i.e. new_release vX.X.X) must be specified.&rdquo;}
+current_branch=$(git rev-parse &ndash;abbrev-ref HEAD)
+if [ &ldquo;$current_branch&rdquo; != &ldquo;master&rdquo; ]; then
+echo &ldquo;Your are not on master branch. Please switch to it to create a new tag&rdquo;
+else
+git tag $releaseversion
+git push origin $releaseversion
+fi
+}</p>
+<pre tabindex="0"><code>
+<br/>
+
+## Convertir la remote URL de HTTPS en SSH et vice-versa
+</code></pre><p>alias git-https=&ldquo;git remote set-url origin <a href="https://github.com/$(git">https://github.com/$(git</a> remote get-url origin | sed &rsquo;s/https://github.com///&rsquo; | sed &rsquo;<a href="mailto:s/git@github.com">s/git@github.com</a>://&rsquo;)&rdquo;</p>
+<p>alias git-ssh=&ldquo;git remote set-url origin <a href="mailto:git@github.com">git@github.com</a>:$(git remote get-url origin | sed &rsquo;s/https://github.com///&rsquo; | sed &rsquo;<a href="mailto:s/git@github.com">s/git@github.com</a>://&rsquo;)&rdquo;</p>
+<pre tabindex="0"><code>
+<br/>
+
+## Ajouter une clé privé dans une session SSH distante
+</code></pre><p>eval <code>ssh-agent -s</code></p>
+<pre tabindex="0"><code>
+<br/>
+
+## Workflow pour travailler en équipe
+
+**Gitflow:**
+http://danielkummer.github.io/git-flow-cheatsheet/
+
+
+<br/>
+
+*Edited 13 november 2016:*
+
+**Better method: Github flow:**
+
+https://blogs.technet.microsoft.com/devops/2016/06/21/a-git-workflow-for-continuous-delivery/
+</code></pre>]]></content>
         </item>
         
         <item>
