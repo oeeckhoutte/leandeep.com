@@ -6,8 +6,87 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 10:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 28 Mar 2025 11:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Make onboard LED blink using Rust on ESP32</title>
+            <link>https://leandeep.com/make-onboard-led-blink-using-rust-on-esp32/</link>
+            <pubDate>Fri, 28 Mar 2025 11:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/make-onboard-led-blink-using-rust-on-esp32/</guid>
+            <description>AI tools are awesome. Lately, I&amp;rsquo;ve been wondering if they could replace us developers, but actually no it&amp;rsquo;s impossible because you always have issues. However, it&amp;rsquo;s crazy how much they boost my productivity. I now do my research directly on LLMs and get answers much faster than if I had searched on Google myself. It&amp;rsquo;s fantastic!
+In this new article, we will explore how to make an onboard LED blink on an ESP32 using Rust.</description>
+            <content type="html"><![CDATA[<p>AI tools are awesome. Lately, I&rsquo;ve been wondering if they could replace us developers, but actually no it&rsquo;s impossible because you always have issues. However, it&rsquo;s crazy how much they boost my productivity. I now do my research directly on LLMs and get answers much faster than if I had searched on Google myself. It&rsquo;s fantastic!</p>
+<p>In this new article, we will explore how to make an onboard LED blink on an ESP32 using Rust.</p>
+<br/>
+<h2 id="project-initialization">Project initialization</h2>
+<pre tabindex="0"><code>cargo generate --git https://github.com/esp-rs/esp-idf-template cargo
+cd blink
+source ~/export-esp.sh
+cargo build
+espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
+</code></pre><br/>
+<h2 id="update-template-code">Update template code</h2>
+<p><strong>Install Rust crate</strong></p>
+<pre tabindex="0"><code>cargo add esp-idf-hal
+</code></pre><br/>
+<p><code>Cargo.toml</code> looks like this:</p>
+<pre tabindex="0"><code>[package]
+name = &#34;blink&#34;
+version = &#34;0.1.0&#34;
+authors = [&#34;olivier&#34;]
+edition = &#34;2021&#34;
+resolver = &#34;2&#34;
+rust-version = &#34;1.77&#34;
+
+[[bin]]
+name = &#34;blink&#34;
+harness = false # do not use the built in cargo test harness -&gt; resolve rust-analyzer errors
+
+[profile.release]
+opt-level = &#34;s&#34;
+
+[profile.dev]
+debug = true    # Symbols are nice and they don&#39;t increase the size on Flash
+opt-level = &#34;z&#34;
+
+[features]
+default = []
+
+experimental = [&#34;esp-idf-svc/experimental&#34;]
+
+[dependencies]
+log = &#34;0.4&#34;
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] }
+esp-idf-hal = &#34;0.45.2&#34;
+
+[build-dependencies]
+embuild = &#34;0.33&#34;
+</code></pre><br/>
+<p>Now update <code>main.rs</code> and add this code:</p>
+<pre tabindex="0"><code>use esp_idf_hal::gpio::PinDriver;
+use esp_idf_hal::peripherals::Peripherals;
+use esp_idf_hal::delay::FreeRtos;
+
+fn main() -&gt; ! {
+
+    let peripherals = Peripherals::take().unwrap();
+    let pins = peripherals.pins;
+    let mut led = PinDriver::output(pins.gpio2).unwrap();
+    loop {
+        FreeRtos::delay_ms(50u32);
+        led.set_high().unwrap(); // Switch ON
+        FreeRtos::delay_ms(50u32);
+        led.set_low().unwrap();  // Switch OFF
+    }
+}
+</code></pre><br/>
+<p><strong>Build and Run</strong></p>
+<pre tabindex="0"><code>cargo build
+espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Installer code server sur Ubuntu 22</title>
