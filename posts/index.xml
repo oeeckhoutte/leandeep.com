@@ -6,13 +6,13 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 09:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 28 Mar 2025 10:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>Installer code server sur Ubuntu 22</title>
             <link>https://leandeep.com/installer-code-server-sur-ubuntu-22/</link>
-            <pubDate>Fri, 28 Mar 2025 09:49:00 +0200</pubDate>
+            <pubDate>Fri, 28 Mar 2025 10:49:00 +0200</pubDate>
             
             <guid>https://leandeep.com/installer-code-server-sur-ubuntu-22/</guid>
             <description>Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
@@ -33,6 +33,57 @@ sudo systemctl enable --now code-server@$USER
 <br/>
 <p>That&rsquo;s all!</p>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Installer Arduino cli Ubuntu 22</title>
+            <link>https://leandeep.com/installer-arduino-cli-ubuntu-22/</link>
+            <pubDate>Fri, 28 Mar 2025 09:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-arduino-cli-ubuntu-22/</guid>
+            <description>Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.
+Installation mkdir -p ~/local/bin curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh echo &amp;#39;export PATH=&amp;#34;$HOME/local/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc source ~/.bashrc arduino-cli version arduino-cli core update-index arduino-cli core install esp32:esp32 arduino-cli sketch new mon_projet_esp32_arduino arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino Test Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .</description>
+            <content type="html"><![CDATA[<p>Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>mkdir -p ~/local/bin
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh
+echo &#39;export PATH=&#34;$HOME/local/bin:$PATH&#34;&#39; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+arduino-cli version
+
+
+arduino-cli core update-index
+arduino-cli core install esp32:esp32
+arduino-cli sketch new mon_projet_esp32_arduino
+arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino
+arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino
+</code></pre><br/>
+<h2 id="test">Test</h2>
+<p>Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .ino.
+Insérer le code suivant:</p>
+<pre tabindex="0"><code>#define LED 2
+
+void setup() {
+  // Set pin mode
+  pinMode(LED,OUTPUT);
+}
+
+void loop() {
+  delay(50);
+// you can set the delay time by adjusting the parameter of delay();
+  digitalWrite(LED,HIGH);
+  delay(50);
+  digitalWrite(LED,LOW);
+}
+</code></pre><br/>
+<p>Puis pour rebuid et redeploy:</p>
+<pre tabindex="0"><code>arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino
+arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino
+</code></pre><br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<pre tabindex="0"><code>arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
+</code></pre>]]></content>
         </item>
         
         <item>
