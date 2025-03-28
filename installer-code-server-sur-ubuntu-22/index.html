@@ -7,10 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.
-Installation Install Ubuntu packages
-sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
-sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust" />
+  content="Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
+Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
+export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -26,7 +25,7 @@ sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session 
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/run-rust-code-on-esp32/" />
+<link rel="canonical" href="https://leandeep.com/installer-code-server-sur-ubuntu-22/" />
 
 
 
@@ -235,7 +234,7 @@ sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session 
 
 <title>
   
-  Run Rust code on ESP32 :: Lean Deep Tech blog 
+  Installer code server sur Ubuntu 22 :: Lean Deep Tech blog 
   
 </title>
 
@@ -260,27 +259,25 @@ sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session 
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Run Rust code on ESP32">
-<meta itemprop="description" content="In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.
-Installation Install Ubuntu packages
-sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
-sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust"><meta itemprop="datePublished" content="2025-03-24T22:49:00+02:00" />
-<meta itemprop="dateModified" content="2025-03-24T22:49:00+02:00" />
-<meta itemprop="wordCount" content="183"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="ESP32,Rust,ESP,IoT," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="Installer code server sur Ubuntu 22">
+<meta itemprop="description" content="Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
+Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
+export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&rsquo;utilisation d&rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&rsquo;accès à votre instance code-server."><meta itemprop="datePublished" content="2025-03-28T09:49:00+02:00" />
+<meta itemprop="dateModified" content="2025-03-28T09:49:00+02:00" />
+<meta itemprop="wordCount" content="90"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="VSCode,tips," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Run Rust code on ESP32"/>
-<meta name="twitter:description" content="In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.
-Installation Install Ubuntu packages
-sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
-sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust"/>
+<meta name="twitter:title" content="Installer code server sur Ubuntu 22"/>
+<meta name="twitter:description" content="Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
+Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
+export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&rsquo;utilisation d&rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&rsquo;accès à votre instance code-server."/>
 
 
 
 
 
-<meta property="article:published_time" content="2025-03-24 22:49:00 &#43;0200 &#43;0200" />
+<meta property="article:published_time" content="2025-03-28 09:49:00 &#43;0200 &#43;0200" />
 
 
 
@@ -344,61 +341,27 @@ sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session 
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/run-rust-code-on-esp32/">Run Rust code on ESP32</a>
+                <a href="https://leandeep.com/installer-code-server-sur-ubuntu-22/">Installer code server sur Ubuntu 22</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.</p>
+                <p>Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.</p>
 <br/>
 <h2 id="installation">Installation</h2>
-<p><strong>Install Ubuntu packages</strong></p>
-<pre tabindex="0"><code>sudo apt install -y build-essential libssl-dev pkg-config git
-sudo apt install -y python3-pip python3-venv
+<p>Rendez-vous sur <a href="https://github.com/coder/code-server/releases">https://github.com/coder/code-server/releases</a> pour sélectionner la version que vous souhaitez installer.</p>
+<pre tabindex="0"><code>export VERSION=4.98.2
+curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm
+sudo rpm -i code-server-$VERSION-amd64.rpm
+sudo systemctl enable --now code-server@$USER
 </code></pre><br/>
-<p><strong>Configure USB permissions</strong></p>
-<pre tabindex="0"><code>sudo usermod -aG dialout $USER
-sudo usermod -aG tty $USER
-# Restart the session
-</code></pre><br/>
-<p><strong>Install Rust</strong></p>
-<pre tabindex="0"><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-</code></pre><br/>
-<p><strong>Install espup for Xtensa (ESP-WROOM-32 architecture)</strong></p>
-<pre tabindex="0"><code>cargo install espup
-espup install
-source ~/export-esp.sh
-</code></pre><br/>
-<p><strong>Additional tools</strong></p>
-<pre tabindex="0"><code>cargo install cargo-generate espflash cargo-espflash ldproxy
-</code></pre><br/>
-<h2 id="create-a-package-build-and-deploy">Create a package, build and deploy</h2>
-<pre tabindex="0"><code>cargo generate --git https://github.com/esp-rs/esp-idf-template cargo
-cd esp32-project
-</code></pre><br/>
-<p><strong>Build</strong></p>
-<pre tabindex="0"><code>source ~/export-esp.sh
-cargo build
-</code></pre><br/>
-<p><strong>Flash on ESP32</strong></p>
-<pre tabindex="0"><code>espflash flash target/xtensa-esp32-espidf/debug/esp32-project --monitor
-</code></pre><br/>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<pre tabindex="0"><code>sudo apt install libudev-dev libusb-1.0-0-dev
-</code></pre><p><br/>
-<strong>Check permissions</strong></p>
-<pre tabindex="0"><code>ls -l /dev/ttyUSB0  # Must belong to &#39;dialout&#39; group
-# sudo usermod -a -G dialout $USER
-# sudo chown $USER /dev/ttyUSB0
-</code></pre><br/>
-<p><strong>Check espflash version</strong></p>
-<pre tabindex="0"><code>espflash --version  # Requires v2.0+
-</code></pre><br/>
-<p><strong>Verify communication with ESP</strong></p>
-<pre tabindex="0"><code>espflash board-info
-</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>Editer le fichier de config <code>~/.config/code-server/config.yaml</code> pour activer l&rsquo;utilisation d&rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&rsquo;accès à votre instance code-server.</p>
+<p>Un fois la config modifiée, redémarrer le service avec la commande: <code>sudo systemctl restart code-server@$USER</code></p>
+<br/>
+<p>That&rsquo;s all!</p>
+
             </div>
         </article>
 
@@ -406,12 +369,12 @@ cargo build
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/esp32">ESP32</a></span><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span><span class="tag"><a href="https://leandeep.com/tags/esp">ESP</a></span><span class="tag"><a href="https://leandeep.com/tags/iot">IoT</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/vscode">VSCode</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>183 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>90 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>24 mars. 2025</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 mars. 2025</p>
         </div>
 
         
@@ -423,18 +386,11 @@ cargo build
 
                 <div class="pagination__buttons">
                     
-                        <span class="button previous">
-                            <a href="https://leandeep.com/installer-code-server-sur-ubuntu-22/">
-                                <span class="button__icon">←</span>
-                                <span class="button__text">Installer code server sur Ubuntu 22</span>
-                            </a>
-                        </span>
-                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/">
-                                <span class="button__text">Installer quickemu sur Ubuntu 22.04</span>
+                            <a href="https://leandeep.com/run-rust-code-on-esp32/">
+                                <span class="button__text">Run Rust code on ESP32</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

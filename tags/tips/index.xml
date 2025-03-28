@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 07 Feb 2025 07:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Mar 2025 09:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer code server sur Ubuntu 22</title>
+      <link>https://leandeep.com/installer-code-server-sur-ubuntu-22/</link>
+      <pubDate>Fri, 28 Mar 2025 09:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-code-server-sur-ubuntu-22/</guid>
+      <description>Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
+Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
+export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server.</description>
+    </item>
+    
     <item>
       <title>Installer quickemu sur Ubuntu 22.04</title>
       <link>https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/</link>
@@ -121,19 +132,6 @@ pkg install termux-api </description>
 Lorsqu&amp;rsquo;on installe Kali depuis la librairie de VMs disponibles et qu&amp;rsquo;on le démarre pour la première fois on a un écran noir.
 Pour le fixer, il suffit d&amp;rsquo;aller dans les settings de la VM et de changer l&amp;rsquo;emulated display card. Sélectionner virtio-ramfb.
 Pensez à configurer la carte réseau en bridge.</description>
-    </item>
-    
-    <item>
-      <title>Extraire x secondes d&#39;une video</title>
-      <link>https://leandeep.com/extraire-x-secondes-dune-video/</link>
-      <pubDate>Wed, 10 Jan 2024 23:14:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/extraire-x-secondes-dune-video/</guid>
-      <description>Voici la commande pour extraire les 10 premières secondes d&amp;rsquo;une vidéo mp4:
-Retirer le son
-ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 -an &amp;#34;target_file.mp4&amp;#34; # ffmpeg -threads $(nproc) -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 -an &amp;#34;target_file.mp4&amp;#34; Avec le son
-ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:00:0.0 -t 10 &amp;#34;target_file.mp4&amp;#34; Avec le son et garder 10s à partir d&#39;1min51
-ffmpeg -i &amp;#34;source_file.mp4&amp;#34; -ss 00:01:51.000 -t 10 &amp;#34;target_file.mp4&amp;#34; </description>
     </item>
     
   </channel>
