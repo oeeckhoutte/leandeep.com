@@ -6,8 +6,66 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 11:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 28 Mar 2025 14:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Switch on a LED using Rust when a button is pushed on ESP32</title>
+            <link>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</link>
+            <pubDate>Fri, 28 Mar 2025 14:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</guid>
+            <description>The idea of this article is to explore how to switch on a LED when a push button is pressed. Once it is release the LED is switched off.
+Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
+use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; fn main() -&amp;gt; ! { esp_idf_svc::sys::link_patches(); // Bind the log crate to the ESP Logging facilities esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
+            <content type="html"><![CDATA[<p>The idea of this article is to explore how to switch on a LED when a push button is pressed. Once it is release the LED is switched off.</p>
+<p><img src="/images/push-button-rust-esp32.png" alt="image"></p>
+<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<pre tabindex="0"><code>[dependencies]
+log = &#34;0.4&#34;
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] }
+esp-idf-hal = &#34;0.45.2&#34;
+</code></pre><br/>
+<h2 id="code">Code</h2>
+<p>Now update <code>main.rs</code> and add this code:</p>
+<pre tabindex="0"><code>use esp_idf_hal::delay::FreeRtos;
+use esp_idf_hal::gpio::PinDriver;
+use esp_idf_hal::peripherals::Peripherals;
+
+
+fn main() -&gt; ! {
+    esp_idf_svc::sys::link_patches();
+
+    // Bind the log crate to the ESP Logging facilities
+    esp_idf_svc::log::EspLogger::initialize_default();
+
+    log::info!(&#34;Starting program...&#34;);
+
+    // Get ESP-IDF peripherals
+    let peripherals = Peripherals::take().unwrap();
+    let pins = peripherals.pins;
+
+    let mut led = PinDriver::output(pins.gpio2).unwrap();
+    let button = PinDriver::input(pins.gpio35).unwrap();
+
+    loop {
+        if button.is_high() {
+            log::info!(&#34;Switch ON&#34;);
+            led.set_high().unwrap(); // Switch ON LED
+        } else {
+            log::info!(&#34;Switch OFF&#34;);
+            led.set_low().unwrap();  // Switch OFF LED
+        }
+        FreeRtos::delay_ms(100u32);
+    }
+}
+</code></pre><br/>
+<h2 id="build-and-run">Build and Run</h2>
+<pre tabindex="0"><code>cargo build
+espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Make onboard LED blink using Rust on ESP32</title>
