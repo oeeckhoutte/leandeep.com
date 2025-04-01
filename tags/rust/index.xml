@@ -7,7 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 28 Mar 2025 14:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Mar 2025 15:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Connect ESP32 to wifi network using Rust</title>
+      <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
+      <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;amp;str = &amp;#34;SSID&amp;#34;; const PASSWORD: &amp;amp;str = &amp;#34;password&amp;#34;; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?</description>
+    </item>
+    
+    <item>
+      <title>Power on a PC when a button is pushed on an ESP32 using Rust</title>
+      <link>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</link>
+      <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; //use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; use std::net::{UdpSocket, Ipv4Addr, SocketAddrV4}; use std::time::Duration; use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; const SSID: &amp;amp;str = &amp;#34;.</description>
+    </item>
+    
     <item>
       <title>Switch on a LED using Rust when a button is pushed on ESP32</title>
       <link>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</link>
@@ -49,18 +69,6 @@ sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session 
       <guid>https://leandeep.com/rust-pour-d%C3%A9veloppeurs-python/</guid>
       <description>Petit guide rapide pour les Pythonistas souhaitant devenir Rustaceans.
 Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py PyPI pip setuptools &amp; poetry pour distribuer des libs pipenv pour la gestion des dépendances twine pour uploader un package venv pour isoler un env pyenv pour gérer ≠ versions de Python pydoc &amp; Sphinx pour générer la doc Python pour interpréter/ compiler ipython comme REPL ipdb pour debugguer 3. Librairies et frameworks urllib requests json pyYAML csv datetime &amp; dateutils click &amp; argparse docopt re subprocess multiprocessing logging pathlib pickle heapq flask cryptography pymongo jinja2 pyside pytest Flake8 Black itertools celery boto 4.</description>
-    </item>
-    
-    <item>
-      <title>Proxies HTTP et SOCKS via gcloud</title>
-      <link>https://leandeep.com/proxies-http-et-socks-via-gcloud/</link>
-      <pubDate>Fri, 23 Sep 2022 09:22:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/proxies-http-et-socks-via-gcloud/</guid>
-      <description>Introduction Dans cet article très rapide nous allons voir comment créer une proxy SOCKS ou HTTP via une instance Google Cloud. On va juste utiliser le cli gcloud et un binaire open source.
-Lancement du proxy Socks Récupérer l&amp;rsquo;ID de son instance ./gcloud compute instances list
-cd PATH_TO_GCLOUD_SI_PAS_DANS_$PATH export PORT_DU_PROXY= ./gcloud compute ssh NOM_DE_VOTRE_INSTANCE --project NOM_DE_VOTRE_PROJET --zone LA_ZONE_QUI_CONTIENT_VOTRE_INSTANCE --ssh-flag=&amp;#34;-D&amp;#34; --ssh-flag=&amp;#34;$PORT_DU_PROXY&amp;#34; --ssh-flag=&amp;#34;-N&amp;#34; Vérification curl --socks5 127.0.0.1:$PORT_DU_PROXY https://ipinfo.io/ip
-Besoin d&amp;rsquo;un proxy http ?</description>
     </item>
     
     <item>
@@ -109,20 +117,6 @@ let petit_tableau: [i8; 5] = [1, 2, 3, 4, 5]; Tableau de taille fixe, type connu
       <guid>https://leandeep.com/installer-un-repl-rust-et-jouer-avec-les-types-et-slices/</guid>
       <description>Introduction Dans cet article, nous allons voir comment installer le REPL evcxr pour Rust développé par Google. Ce genre d&amp;rsquo;outil est très utile lorsque vous apprenez un langage (ou même quand vous êtes expérimenté et que vous voulez vérifier quelque chose). Avec evcxr, il n&amp;rsquo;est pas nécessaire de recompiler son programme Rust à chaque nouvelle commande exécutée. Ce REPL le fait tout seul; un gros gain de temps.
 Installation rustup component add rust-src cargo install evcxr_repl Démarrage Lien vers la documentation</description>
-    </item>
-    
-    <item>
-      <title>Tips en vrac sur Rust</title>
-      <link>https://leandeep.com/tips-en-vrac-sur-rust/</link>
-      <pubDate>Fri, 31 Dec 2021 06:34:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/tips-en-vrac-sur-rust/</guid>
-      <description>Voir les &amp;ldquo;choses&amp;rdquo; chargées par défaut lors du démarrage d&amp;rsquo;un programme Rust
-&amp;ldquo;The prelude is the list of things that Rust automatically imports into every Rust program.&amp;rdquo; Source
-https://doc.rust-lang.org/std/prelude/v1/index.html
-Some()
-Some est une variante de l&amp;rsquo;enum Option.
-enum Option&amp;lt;T&amp;gt; { None, Some(T), } Si on veut parler d&amp;rsquo;une variable qui existe, on utilise Some(value). (Par contre, si on veut parler d&amp;rsquo;une variable qui pourrait ne pas exister, on utilise plutôt Option&amp;lt;IciAnyType&amp;gt;)</description>
     </item>
     
   </channel>

@@ -7,7 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 28 Mar 2025 14:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Mar 2025 15:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Connect ESP32 to wifi network using Rust</title>
+      <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
+      <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;amp;str = &amp;#34;SSID&amp;#34;; const PASSWORD: &amp;amp;str = &amp;#34;password&amp;#34;; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?</description>
+    </item>
+    
+    <item>
+      <title>Power on a PC when a button is pushed on an ESP32 using Rust</title>
+      <link>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</link>
+      <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; //use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; use std::net::{UdpSocket, Ipv4Addr, SocketAddrV4}; use std::time::Duration; use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; const SSID: &amp;amp;str = &amp;#34;.</description>
+    </item>
+    
     <item>
       <title>Switch on a LED using Rust when a button is pushed on ESP32</title>
       <link>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</link>
@@ -99,32 +119,6 @@ sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est d�
 hashcat -I Réaliser un benchmark
 hashcat -b Faire un test avec un hash MD5
 wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;amp;&amp;amp; unzip SecList.zip \ &amp;amp;&amp;amp; rm -f SecList.zip echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt </description>
-    </item>
-    
-    <item>
-      <title>Installer un eGPU Razer Core X sur Fedora 41 et faire tourner Pytorch</title>
-      <link>https://leandeep.com/installer-un-egpu-razer-core-x-sur-fedora-41-et-faire-tourner-pytorch/</link>
-      <pubDate>Thu, 23 Jan 2025 23:32:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/installer-un-egpu-razer-core-x-sur-fedora-41-et-faire-tourner-pytorch/</guid>
-      <description>Dans cet article écrit très rapidement, nous allons voir comment installer un GPU dans un boitier eGPU Razer Core X. L&amp;rsquo;ajout de cet eGPU permet d&amp;rsquo;avoir plus de puissance de calcul comparé au CPU pour l&amp;rsquo;inférence de modèles avec Pytorch.
-Activez le dépôt RPM Fusion
-Le dépôt RPM Fusion fournit les pilotes NVIDIA officiels pour Fedora.
-sudo dnf install \ https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \ https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm sudo dnf upgrade --refresh Installez les pilotes NVIDIA</description>
-    </item>
-    
-    <item>
-      <title>Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié</title>
-      <link>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</link>
-      <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
-      <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis
-pip install watchdog
-Créer un script de surveillance
-Créer par exemple un fichier appelé run_and_reload.py
-import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self.</description>
     </item>
     
   </channel>

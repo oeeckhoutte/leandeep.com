@@ -6,8 +6,244 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 28 Mar 2025 14:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 28 Mar 2025 15:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Connect ESP32 to wifi network using Rust</title>
+            <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
+            <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</guid>
+            <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;amp;str = &amp;#34;SSID&amp;#34;; const PASSWORD: &amp;amp;str = &amp;#34;password&amp;#34;; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?</description>
+            <content type="html"><![CDATA[<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<pre tabindex="0"><code>[dependencies]
+log = &#34;0.4&#34;
+anyhow = &#34;1&#34;
+embedded-svc = { version = &#34;0.28&#34;, default-features = false }
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] }
+</code></pre><br/>
+<h2 id="code">Code</h2>
+<p>Now update <code>main.rs</code> and add this code:</p>
+<pre tabindex="0"><code>use core::convert::TryInto;
+use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration};
+
+use esp_idf_svc::hal::prelude::Peripherals;
+use esp_idf_svc::log::EspLogger;
+use esp_idf_svc::wifi::{BlockingWifi, EspWifi};
+use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition};
+
+use log::info;
+
+const SSID: &amp;str = &#34;SSID&#34;;
+const PASSWORD: &amp;str = &#34;password&#34;;
+
+fn main() -&gt; anyhow::Result&lt;()&gt; {
+    esp_idf_svc::sys::link_patches();
+    EspLogger::initialize_default();
+
+    let peripherals = Peripherals::take()?;
+    let sys_loop = EspSystemEventLoop::take()?;
+    let nvs = EspDefaultNvsPartition::take()?;
+
+    let mut wifi = BlockingWifi::wrap(
+        EspWifi::new(peripherals.modem, sys_loop.clone(), Some(nvs))?,
+        sys_loop,
+    )?;
+
+    connect_wifi(&amp;mut wifi)?;
+
+    let ip_info = wifi.wifi().sta_netif().get_ip_info()?;
+
+    info!(&#34;Wifi DHCP info: {:?}&#34;, ip_info);
+
+    info!(&#34;Shutting down in 5s...&#34;);
+
+    std:🧵:sleep(core::time::Duration::from_secs(5));
+
+    Ok(())
+}
+
+fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -&gt; anyhow::Result&lt;()&gt; {
+    let wifi_configuration: Configuration = Configuration::Client(ClientConfiguration {
+        ssid: SSID.try_into().unwrap(),
+        bssid: None,
+        auth_method: AuthMethod::WPA2Personal,
+        password: PASSWORD.try_into().unwrap(),
+        channel: None,
+        ..Default::default()
+    });
+
+    wifi.set_configuration(&amp;wifi_configuration)?;
+
+    wifi.start()?;
+    info!(&#34;Wifi started&#34;);
+
+    wifi.connect()?;
+    info!(&#34;Wifi connected&#34;);
+
+    wifi.wait_netif_up()?;
+    info!(&#34;Wifi netif up&#34;);
+
+    Ok(())
+}
+</code></pre><br/>
+<h2 id="build-and-run">Build and Run</h2>
+<pre tabindex="0"><code>cargo build
+espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Power on a PC when a button is pushed on an ESP32 using Rust</title>
+            <link>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</link>
+            <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</guid>
+            <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; //use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; use std::net::{UdpSocket, Ipv4Addr, SocketAddrV4}; use std::time::Duration; use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; const SSID: &amp;amp;str = &amp;#34;.</description>
+            <content type="html"><![CDATA[<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<pre tabindex="0"><code>[dependencies]
+log = &#34;0.4&#34;
+anyhow = &#34;1&#34;
+embedded-svc = { version = &#34;0.28&#34;, default-features = false }
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] }
+esp-idf-hal = &#34;0.45.2&#34;
+</code></pre><br/>
+<h2 id="code">Code</h2>
+<p>Now update <code>main.rs</code> and add this code:</p>
+<pre tabindex="0"><code>
+use core::convert::TryInto;
+use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration};
+
+//use esp_idf_svc::hal::prelude::Peripherals;
+use esp_idf_svc::log::EspLogger;
+use esp_idf_svc::wifi::{BlockingWifi, EspWifi};
+use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition};
+
+use log::info;
+use std::net::{UdpSocket, Ipv4Addr, SocketAddrV4};
+use std::time::Duration;
+use esp_idf_hal::delay::FreeRtos;
+use esp_idf_hal::gpio::PinDriver;
+use esp_idf_hal::peripherals::Peripherals;
+
+const SSID: &amp;str = &#34;...&#34;;
+const PASSWORD: &amp;str = &#34;...&#34;;
+
+fn main() -&gt; anyhow::Result&lt;()&gt; {
+    esp_idf_svc::sys::link_patches();
+    EspLogger::initialize_default();
+
+    let peripherals = Peripherals::take()?;
+    let sys_loop = EspSystemEventLoop::take()?;
+    let nvs = EspDefaultNvsPartition::take()?;
+
+    let mut wifi = BlockingWifi::wrap(
+        EspWifi::new(peripherals.modem, sys_loop.clone(), Some(nvs))?,
+        sys_loop,
+    )?;
+
+    connect_wifi(&amp;mut wifi)?;
+
+    let ip_info = wifi.wifi().sta_netif().get_ip_info()?;
+
+    info!(&#34;Wifi DHCP info: {:?}&#34;, ip_info);
+    
+    //let peripherals = Peripherals::take().unwrap();
+    let pins = peripherals.pins;
+
+    let mut led = PinDriver::output(pins.gpio2).unwrap();
+    let button = PinDriver::input(pins.gpio35).unwrap();
+    let mac: [u8; 6] = [0x94, 0xC6, 0x91, 0xAD, 0x1D, 0x49];
+    loop {
+        if button.is_high() {
+            log::info!(&#34;Switch ON&#34;);
+            led.set_high().unwrap(); // Switch ON LED
+            send_wol(&amp;mac);
+            
+        } else {
+            log::info!(&#34;Switch OFF&#34;);
+            led.set_low().unwrap();  // Switch OFF LED
+        }
+        FreeRtos::delay_ms(1000u32);
+    }
+    
+    //info!(&#34;Shutting down in 5s...&#34;);
+
+    //std:🧵:sleep(core::time::Duration::from_secs(5));
+
+    //Ok(())
+}
+
+fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -&gt; anyhow::Result&lt;()&gt; {
+    let wifi_configuration: Configuration = Configuration::Client(ClientConfiguration {
+        ssid: SSID.try_into().unwrap(),
+        bssid: None,
+        auth_method: AuthMethod::WPA2Personal,
+        password: PASSWORD.try_into().unwrap(),
+        channel: None,
+        ..Default::default()
+    });
+
+    wifi.set_configuration(&amp;wifi_configuration)?;
+
+    wifi.start()?;
+    info!(&#34;Wifi started&#34;);
+
+    wifi.connect()?;
+    info!(&#34;Wifi connected&#34;);
+
+    wifi.wait_netif_up()?;
+    info!(&#34;Wifi netif up&#34;);
+
+    //94:c6:91:ad:1d:49
+    
+
+    // L&#39;adresse de diffusion du réseau local
+    //let broadcast_ip = &#34;255.255.255.255&#34;; // Adresse de diffusion
+
+    // Envoi du WOL
+    //send_wol(&amp;mac, broadcast_ip);
+    
+
+    Ok(())
+}
+
+
+
+
+fn send_wol(mac: &amp;[u8; 6]) {
+//fn send_wol(mac: &amp;[u8; 6], broadcast_ip: &amp;str) {
+    // Construction du paquet Magic Packet
+    info!(&#34;Sending WOL request on the LAN&#34;);
+    let mut packet: Vec&lt;u8&gt; = vec![0xFF; 6]; // 6 octets à 0xFF
+    packet.extend_from_slice(&amp;mac.repeat(16)); // Répéter le MAC address 16 fois
+
+    // Créer une socket UDP
+    let socket = UdpSocket::bind(&#34;0.0.0.0:0&#34;).expect(&#34;Impossible de lier la socket&#34;);
+    socket.set_read_timeout(Some(Duration::from_secs(2))).unwrap();
+
+    // Adresse de diffusion du réseau local
+    let addr = SocketAddrV4::new(Ipv4Addr::new(255, 255, 255, 255), 9); // Port 9 est souvent utilisé pour WOL
+
+    // Envoyer le paquet
+    socket
+        .send_to(&amp;packet, addr)
+        .expect(&#34;Échec de l&#39;envoi du paquet WOL&#34;);
+
+    info!(&#34;Wake-on-LAN envoyé au MAC: {:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}&#34;, mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+}
+</code></pre><br/>
+<h2 id="build-and-run">Build and Run</h2>
+<pre tabindex="0"><code>cargo build
+espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Switch on a LED using Rust when a button is pushed on ESP32</title>
