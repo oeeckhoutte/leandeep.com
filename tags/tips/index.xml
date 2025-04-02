@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 28 Mar 2025 10:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get GPS coordinates from basic Arduino code</title>
+      <link>https://leandeep.com/get-gps-coordinates-from-basic-arduino-code/</link>
+      <pubDate>Wed, 02 Apr 2025 20:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/get-gps-coordinates-from-basic-arduino-code/</guid>
+      <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
+arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
+#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.</description>
+    </item>
+    
     <item>
       <title>Installer code server sur Ubuntu 22</title>
       <link>https://leandeep.com/installer-code-server-sur-ubuntu-22/</link>
@@ -116,20 +128,6 @@ Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rs
 cat /etc/fstab And have a look at the line with your root filesystem.
 From there we have 3 possibilities:
 If the line starts with UUID=xyz, then it means it is a physical partition. If the line starts with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. You can also check in the mounts and fstab using this command:</description>
-    </item>
-    
-    <item>
-      <title>Remote access to termux from OSX</title>
-      <link>https://leandeep.com/remote-access-to-termux-from-osx/</link>
-      <pubDate>Fri, 01 Mar 2024 00:13:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/remote-access-to-termux-from-osx/</guid>
-      <description>Open Termux on Android and then execute the following commands:
-pkg upgrade pkg install openssh passwd whoami sshd -e -d -d -d On OSX:
-# ssh username@&amp;lt;android_ip&amp;gt; -p8022 # ssh u0_412@&amp;lt;........&amp;gt; -p8022 To kill the server:
-pkill sshd sshd: no hostkeys available &amp;ndash; exiting ssh-keygen -A
-Bonus
-pkg install termux-api </description>
     </item>
     
   </channel>

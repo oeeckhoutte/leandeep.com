@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 28 Mar 2025 15:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get GPS coordinates from basic Arduino code</title>
+      <link>https://leandeep.com/get-gps-coordinates-from-basic-arduino-code/</link>
+      <pubDate>Wed, 02 Apr 2025 20:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/get-gps-coordinates-from-basic-arduino-code/</guid>
+      <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
+arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
+#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.</description>
+    </item>
+    
     <item>
       <title>Connect ESP32 to wifi network using Rust</title>
       <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
@@ -106,19 +118,6 @@ Installation de hashcat
 sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
 wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia # Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc Vérification
 nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.</description>
-    </item>
-    
-    <item>
-      <title>Installer Hashcat sur Fedora 41</title>
-      <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
-      <pubDate>Sat, 25 Jan 2025 22:32:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/installer-hashcat-sur-fedora-41/</guid>
-      <description>Installation
-sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
-hashcat -I Réaliser un benchmark
-hashcat -b Faire un test avec un hash MD5
-wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;amp;&amp;amp; unzip SecList.zip \ &amp;amp;&amp;amp; rm -f SecList.zip echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt </description>
     </item>
     
   </channel>
