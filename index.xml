@@ -43,17 +43,6 @@ esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-
     </item>
     
     <item>
-      <title>Get GPS coordinates on ESP32 using Rust</title>
-      <link>https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/</link>
-      <pubDate>Wed, 02 Apr 2025 20:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/</guid>
-      <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Dependencies:
-esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&amp;gt; Result&amp;lt;(), Box&amp;lt;dyn std::error::Error&amp;gt;&amp;gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
-    </item>
-    
-    <item>
       <title>Connect ESP32 to wifi network using Rust</title>
       <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
       <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
@@ -113,6 +102,18 @@ export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/do
       <guid>https://leandeep.com/installer-arduino-cli-ubuntu-22/</guid>
       <description>Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.
 Installation mkdir -p ~/local/bin curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh echo &amp;#39;export PATH=&amp;#34;$HOME/local/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc source ~/.bashrc arduino-cli version arduino-cli core update-index arduino-cli core install esp32:esp32 arduino-cli sketch new mon_projet_esp32_arduino arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino Test Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .</description>
+    </item>
+    
+    <item>
+      <title>Run Rust code on ESP32</title>
+      <link>https://leandeep.com/run-rust-code-on-esp32/</link>
+      <pubDate>Mon, 24 Mar 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/run-rust-code-on-esp32/</guid>
+      <description>In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.
+Installation Install Ubuntu packages
+sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
+sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust</description>
     </item>
     
   </channel>
