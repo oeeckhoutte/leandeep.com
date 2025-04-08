@@ -8,9 +8,8 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
-arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial." />
+Connect the NEO-6M GPS module to the ESP32 Dependencies:
+esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&amp;gt; Result&amp;lt;(), Box&amp;lt;dyn std::error::Error&amp;gt;&amp;gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -26,7 +25,7 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/get-gps-coordinates-on-esp32-using-basic-arduino-code/" />
+<link rel="canonical" href="https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/" />
 
 
 
@@ -76,7 +75,7 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
 
 <title>
   
-  Get GPS coordinates on ESP32 using basic Arduino code :: Lean Deep Tech blog 
+  Get GPS coordinates on ESP32 using Rust :: Lean Deep Tech blog 
   
 </title>
 
@@ -101,21 +100,19 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Get GPS coordinates on ESP32 using basic Arduino code">
+<meta itemprop="name" content="Get GPS coordinates on ESP32 using Rust">
 <meta itemprop="description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
-arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial."><meta itemprop="datePublished" content="2025-04-02T20:49:00+02:00" />
+Connect the NEO-6M GPS module to the ESP32 Dependencies:
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!"><meta itemprop="datePublished" content="2025-04-02T20:49:00+02:00" />
 <meta itemprop="dateModified" content="2025-04-02T20:49:00+02:00" />
-<meta itemprop="wordCount" content="207"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="GPS,ESP32,tips," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="wordCount" content="211"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="GPS,ESP32,Rust," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Get GPS coordinates on ESP32 using basic Arduino code"/>
+<meta name="twitter:title" content="Get GPS coordinates on ESP32 using Rust"/>
 <meta name="twitter:description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
-arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial."/>
+Connect the NEO-6M GPS module to the ESP32 Dependencies:
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!"/>
 
 
 
@@ -185,7 +182,7 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/get-gps-coordinates-on-esp32-using-basic-arduino-code/">Get GPS coordinates on ESP32 using basic Arduino code</a>
+                <a href="https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/">Get GPS coordinates on ESP32 using Rust</a>
             </h1>
 
             
@@ -194,49 +191,77 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
                 <p>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.</p>
 <p><br/>
 Connect the NEO-6M GPS module to the ESP32
+<br/></p>
+<p><img src="https://leandeep.com/images/esp-gps.jpg" alt="image"></p>
 <br/>
-Then create an Arduino program and deploy it to the ESP-wroom-32.</p>
-<pre tabindex="0"><code>arduino-cli sketch new arduino-gps
-cd arduino-gps/
-</code></pre><p><br/>
-Edit the arduino-gps.ino file and add the following content:</p>
-<pre tabindex="0"><code>#define RXD2 16
-#define TXD2 17
-
-#define GPS_BAUD 9600
-
-// Create an instance of the HardwareSerial class for Serial 2
-HardwareSerial gpsSerial(2);
-
-void setup(){
-  // Serial Monitor
-  Serial.begin(115200);
-
-  // Start Serial 2 with the defined RX and TX pins and a baud rate of 9600
-  gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2);
-  Serial.println(&#34;Serial 2 started at 9600 baud rate&#34;);
-}
-
-void loop(){
-  while (gpsSerial.available() &gt; 0){
-    // get the byte data from the GPS
-    char gpsData = gpsSerial.read();
-    Serial.print(gpsData);
-  }
-  delay(1000);
-  Serial.println(&#34;-------------------------------&#34;);
-}
-</code></pre><p><br/>
-Compile and deploy:</p>
-<pre tabindex="0"><code>arduino-cli compile --fqbn esp32:esp32:esp32 arduino-gps.ino
-arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 arduino-gps.ino
-arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
-</code></pre><br/>
-<p>Put the GPS module outside your house and once it starts to blink it means he starts to get a precise position.</p>
 <blockquote>
-<p>The important line is the one that starts with <code>$GPGGA</code>. Ask chatgpt to explain you how it&rsquo;s structure. It&rsquo;s very simple and you have all kinds of information.</p>
-</blockquote>
+<p>Dependencies:</p>
+<pre tabindex="0"><code>esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] }
+esp-idf-hal = &#34;0.45.2&#34;
+</code></pre></blockquote>
+<br/>
+<pre tabindex="0"><code>use esp_idf_hal::peripherals::Peripherals;
+use esp_idf_hal::prelude::*;
+use esp_idf_hal::uart::*;
+use esp_idf_svc::hal::uart::config::DataBits;
+use esp_idf_svc::hal::uart::config::StopBits;
 
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    // Lien des patches ESP-IDF
+    esp_idf_svc::sys::link_patches();
+    
+    // Configuration du logger
+    esp_idf_svc::log::EspLogger::initialize_default();
+    log::info!(&#34;Démarrage de l&#39;application GPS&#34;);
+
+    // Initialisation des périphériques
+    let peripherals = Peripherals::take().unwrap();
+    
+    // Configuration de l&#39;UART
+    let config = config::Config::default()
+        .baudrate(Hertz(9600))
+        .data_bits(DataBits::DataBits8)
+        .parity_none()
+        .stop_bits(StopBits::STOP1);
+
+    // Création du driver UART avec typage explicite
+    let mut uart_driver = UartDriver::new(
+        peripherals.uart2,
+        peripherals.pins.gpio17, // TX
+        peripherals.pins.gpio16, // RX
+        Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // RTS (pas utilisé)
+        Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // CTS (pas utilisé)
+        &amp;config,
+    )?;
+
+    println!(&#34;UART initialisé avec un débit de 9600 bauds&#34;);
+
+    // Buffer pour stocker les données GPS
+    let mut buffer = [0u8; 128];
+    
+    loop {
+        // Lecture des données disponibles sur l&#39;UART avec timeout
+        match uart_driver.read(&amp;mut buffer, 1000) {
+            Ok(bytes_read) if bytes_read &gt; 0 =&gt; {
+                let gps_data = &amp;buffer[..bytes_read];
+                println!(
+                    &#34;Données GPS reçues : {}&#34;,
+                    String::from_utf8_lossy(gps_data)
+                );
+            },
+            Ok(_) =&gt; {
+                println!(&#34;Aucune donnée GPS reçue (timeout)&#34;);
+            },
+            Err(e) =&gt; {
+                println!(&#34;Erreur de lecture UART: {:?}&#34;, e);
+            }
+        }
+
+        println!(&#34;-------------------------------&#34;);
+        std:🧵:sleep(std::time::Duration::from_secs(1));
+    }
+}
+</code></pre>
             </div>
         </article>
 
@@ -244,10 +269,10 @@ arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/gps">GPS</a></span><span class="tag"><a href="https://leandeep.com/tags/esp32">ESP32</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/gps">GPS</a></span><span class="tag"><a href="https://leandeep.com/tags/esp32">ESP32</a></span><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>207 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>211 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 avr.. 2025</p>
         </div>
@@ -262,17 +287,17 @@ arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/">
+                            <a href="https://leandeep.com/get-gps-coordinates-on-esp32-using-basic-arduino-code/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Scan Wifi networks on ESP32 using Rust</span>
+                                <span class="button__text">Get GPS coordinates on ESP32 using basic Arduino code</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/">
-                                <span class="button__text">Get GPS coordinates on ESP32 using Rust</span>
+                            <a href="https://leandeep.com/connect-esp32-to-wifi-network-using-rust/">
+                                <span class="button__text">Connect ESP32 to wifi network using Rust</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

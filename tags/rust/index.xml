@@ -7,7 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 28 Mar 2025 15:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Scan Wifi networks on ESP32 using Rust</title>
+      <link>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</link>
+      <pubDate>Tue, 08 Apr 2025 20:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</guid>
+      <description>In this article we are going to see how to scan Wifi networks around you.
+The crates used are the following ones:
+[dependencies] log = &amp;#34;0.4&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::prelude::*; use esp_idf_svc::eventloop::EspSystemEventLoop; use esp_idf_svc::nvs::EspDefaultNvsPartition; use esp_idf_svc::sys::EspError; use esp_idf_svc::wifi::{AuthMethod, BlockingWifi, ClientConfiguration, Configuration, EspWifi}; use std::thread; use std::time::Duration; fn main() -&amp;gt; Result&amp;lt;(), EspError&amp;gt; { esp_idf_svc::sys::link_patches(); esp_idf_svc::log::EspLogger::initialize_default(); log::set_max_level(log::LevelFilter::Info); log::info!(&amp;#34;Program started!&amp;#34;); // Init needed components let peripherals = Peripherals::take().</description>
+    </item>
+    
+    <item>
+      <title>Get GPS coordinates on ESP32 using Rust</title>
+      <link>https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/</link>
+      <pubDate>Wed, 02 Apr 2025 20:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/</guid>
+      <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+Connect the NEO-6M GPS module to the ESP32 Dependencies:
+esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&amp;gt; Result&amp;lt;(), Box&amp;lt;dyn std::error::Error&amp;gt;&amp;gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
+    </item>
+    
     <item>
       <title>Connect ESP32 to wifi network using Rust</title>
       <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
@@ -95,28 +117,6 @@ println!(&amp;#34;{argument1} {argument2} {argument3}&amp;#34;, argument2=&amp;#
 println!(&amp;#34;{ma_variable:&amp;gt;width$}&amp;#34;, ma_variable=&amp;#34;toto&amp;#34;, width=10); Printer en alignant à droite et en préfixant avec des zéros
 println!(&amp;#34;{nombre:0&amp;gt;width$}&amp;#34;, nombre=100, width=6); Printer avec une conversion automatique en binaire
 println!(&amp;#34;{} en binaire s&amp;#39;écrit {:b}&amp;#34;, 4, 4); Printer une structure</description>
-    </item>
-    
-    <item>
-      <title>Aide mémoire primitives Rust</title>
-      <link>https://leandeep.com/aide-m%C3%A9moire-primitives-rust/</link>
-      <pubDate>Tue, 11 Jan 2022 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/aide-m%C3%A9moire-primitives-rust/</guid>
-      <description>Annoter le type des variables
-let is_rust_cool: bool = true; // let mon_float: f64 = 5.0; // Annotation simple // let mon_integer = 5i32; // Annotation via suffixe // Ou inférence de type: let mon_autre_float = 5.0; // f64 let mon_autre_integer = 5; // i32 Le type de variable ne peut pas être changé
-Tableau de taille fixe et type connu
-let petit_tableau: [i8; 5] = [1, 2, 3, 4, 5]; Tableau de taille fixe, type connu et initialisé à 0</description>
-    </item>
-    
-    <item>
-      <title>Installer un REPL Rust et jouer avec les types et slices</title>
-      <link>https://leandeep.com/installer-un-repl-rust-et-jouer-avec-les-types-et-slices/</link>
-      <pubDate>Fri, 31 Dec 2021 06:34:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/installer-un-repl-rust-et-jouer-avec-les-types-et-slices/</guid>
-      <description>Introduction Dans cet article, nous allons voir comment installer le REPL evcxr pour Rust développé par Google. Ce genre d&amp;rsquo;outil est très utile lorsque vous apprenez un langage (ou même quand vous êtes expérimenté et que vous voulez vérifier quelque chose). Avec evcxr, il n&amp;rsquo;est pas nécessaire de recompiler son programme Rust à chaque nouvelle commande exécutée. Ce REPL le fait tout seul; un gros gain de temps.
-Installation rustup component add rust-src cargo install evcxr_repl Démarrage Lien vers la documentation</description>
     </item>
     
   </channel>
