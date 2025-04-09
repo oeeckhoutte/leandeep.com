@@ -430,11 +430,6 @@ fn main() -&gt; anyhow::Result&lt;()&gt; {
         FreeRtos::delay_ms(1000u32);
     }
     
-    //info!(&#34;Shutting down in 5s...&#34;);
-
-    //std:🧵:sleep(core::time::Duration::from_secs(5));
-
-    //Ok(())
 }
 
 fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -&gt; anyhow::Result&lt;()&gt; {
@@ -457,15 +452,7 @@ fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -
 
     wifi.wait_netif_up()?;
     info!(&#34;Wifi netif up&#34;);
-
-    //94:c6:91:ad:1d:49
-    
-
-    // L&#39;adresse de diffusion du réseau local
-    //let broadcast_ip = &#34;255.255.255.255&#34;; // Adresse de diffusion
-
-    // Envoi du WOL
-    //send_wol(&amp;mac, broadcast_ip);
+    send_wol(&amp;mac);
     
 
     Ok(())
@@ -475,25 +462,17 @@ fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -
 
 
 fn send_wol(mac: &amp;[u8; 6]) {
-//fn send_wol(mac: &amp;[u8; 6], broadcast_ip: &amp;str) {
-    // Construction du paquet Magic Packet
     info!(&#34;Sending WOL request on the LAN&#34;);
-    let mut packet: Vec&lt;u8&gt; = vec![0xFF; 6]; // 6 octets à 0xFF
-    packet.extend_from_slice(&amp;mac.repeat(16)); // Répéter le MAC address 16 fois
-
-    // Créer une socket UDP
-    let socket = UdpSocket::bind(&#34;0.0.0.0:0&#34;).expect(&#34;Impossible de lier la socket&#34;);
+    let mut packet: Vec&lt;u8&gt; = vec![0xFF; 6]; // 6 octets at 0xFF
+    packet.extend_from_slice(&amp;mac.repeat(16)); // repeat the MAC address 16 times
+    let socket = UdpSocket::bind(&#34;0.0.0.0:0&#34;).expect(&#34;Impossible to bind socket&#34;);
     socket.set_read_timeout(Some(Duration::from_secs(2))).unwrap();
-
-    // Adresse de diffusion du réseau local
-    let addr = SocketAddrV4::new(Ipv4Addr::new(255, 255, 255, 255), 9); // Port 9 est souvent utilisé pour WOL
-
-    // Envoyer le paquet
+    let addr = SocketAddrV4::new(Ipv4Addr::new(255, 255, 255, 255), 9);
     socket
         .send_to(&amp;packet, addr)
-        .expect(&#34;Échec de l&#39;envoi du paquet WOL&#34;);
+        .expect(&#34;Failed sending WOL packet&#34;);
 
-    info!(&#34;Wake-on-LAN envoyé au MAC: {:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}&#34;, mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    info!(&#34;Wake-on-LAN sent to MAC: {:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}&#34;, mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
 }
 </code></pre><br/>
