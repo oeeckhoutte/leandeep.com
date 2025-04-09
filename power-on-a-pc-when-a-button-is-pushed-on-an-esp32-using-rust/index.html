@@ -277,12 +277,8 @@ fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -
     info!(&#34;Wifi netif up&#34;);
     send_wol(&amp;mac);
     
-
     Ok(())
 }
-
-
-
 
 fn send_wol(mac: &amp;[u8; 6]) {
     info!(&#34;Sending WOL request on the LAN&#34;);

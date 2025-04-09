@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get ESP32 cores count and use multithreading in Rust</title>
+      <link>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</link>
+      <pubDate>Tue, 08 Apr 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1.0&amp;#34; esp-idf-hal = &amp;#34;0.45.2&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Count cores code Now update main.rs and add this code:
+use esp_idf_hal::cpu; use esp_idf_svc::log::EspLogger; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { EspLogger::initialize_default(); log::info!(&amp;#34;Starting program...&amp;#34;); let cpu_cores = cpu::CORES; log::info!(&amp;#34;Cores count : {}&amp;#34;, cpu_cores); Ok(()) } Build and Run cargo generate --git https://github.com/esp-rs/esp-idf-template cargo cd core source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/core --monitor Execute code in different threads code use core::time::Duration; use std::thread; fn main() { esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
+    </item>
+    
     <item>
       <title>Scan Wifi networks on ESP32 using Rust</title>
       <link>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</link>
@@ -103,16 +113,6 @@ Installation mkdir -p ~/local/bin curl -fsSL https://raw.githubusercontent.com/a
 Installation Install Ubuntu packages
 sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
 sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust</description>
-    </item>
-    
-    <item>
-      <title>Piloter une pompe péristaltique avec un esp8266</title>
-      <link>https://leandeep.com/piloter-une-pompe-p%C3%A9ristaltique-avec-un-esp8266/</link>
-      <pubDate>Mon, 12 Dec 2022 23:10:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/piloter-une-pompe-p%C3%A9ristaltique-avec-un-esp8266/</guid>
-      <description>Introduction Cet article fait suite à mon article précédent sur l&amp;rsquo;utilisation d&amp;rsquo;une board avec esp8266. Voici ici comment piloter le relai de la même board ESP12F Relay X1 V2.1 en utilisant Blynk. C&amp;rsquo;est plus une prise de notes pour partage et reminder personel pour réutilisation future.
-Utilisation de Blynk Créer un compte et &amp;ldquo;skipper&amp;rdquo; tous les quickstart guides et tutorials. Créer un nouveau template. Donnez lui le nom que vous souhaitez.</description>
     </item>
     
   </channel>

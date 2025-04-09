@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get ESP32 cores count and use multithreading in Rust</title>
+      <link>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</link>
+      <pubDate>Tue, 08 Apr 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1.0&amp;#34; esp-idf-hal = &amp;#34;0.45.2&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Count cores code Now update main.rs and add this code:
+use esp_idf_hal::cpu; use esp_idf_svc::log::EspLogger; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { EspLogger::initialize_default(); log::info!(&amp;#34;Starting program...&amp;#34;); let cpu_cores = cpu::CORES; log::info!(&amp;#34;Cores count : {}&amp;#34;, cpu_cores); Ok(()) } Build and Run cargo generate --git https://github.com/esp-rs/esp-idf-template cargo cd core source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/core --monitor Execute code in different threads code use core::time::Duration; use std::thread; fn main() { esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
+    </item>
+    
     <item>
       <title>Scan Wifi networks on ESP32 using Rust</title>
       <link>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</link>
@@ -102,18 +112,6 @@ export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/do
       <guid>https://leandeep.com/installer-arduino-cli-ubuntu-22/</guid>
       <description>Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.
 Installation mkdir -p ~/local/bin curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh echo &amp;#39;export PATH=&amp;#34;$HOME/local/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc source ~/.bashrc arduino-cli version arduino-cli core update-index arduino-cli core install esp32:esp32 arduino-cli sketch new mon_projet_esp32_arduino arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino Test Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .</description>
-    </item>
-    
-    <item>
-      <title>Run Rust code on ESP32</title>
-      <link>https://leandeep.com/run-rust-code-on-esp32/</link>
-      <pubDate>Mon, 24 Mar 2025 22:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/run-rust-code-on-esp32/</guid>
-      <description>In this brief article, we will explore how to set up the ESP32 development environment to build and run Rust code on the ESP-WROOM-32. This procedure is written to work on Ubuntu 22 with a 64-bit Intel processor. The ESP32 is connected to the PC via USB.
-Installation Install Ubuntu packages
-sudo apt install -y build-essential libssl-dev pkg-config git sudo apt install -y python3-pip python3-venv Configure USB permissions
-sudo usermod -aG dialout $USER sudo usermod -aG tty $USER # Restart the session Install Rust</description>
     </item>
     
   </channel>

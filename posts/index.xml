@@ -6,8 +6,126 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 08 Apr 2025 20:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Tue, 08 Apr 2025 22:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Get ESP32 cores count and use multithreading in Rust</title>
+            <link>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</link>
+            <pubDate>Tue, 08 Apr 2025 22:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</guid>
+            <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1.0&amp;#34; esp-idf-hal = &amp;#34;0.45.2&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Count cores code Now update main.rs and add this code:
+use esp_idf_hal::cpu; use esp_idf_svc::log::EspLogger; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { EspLogger::initialize_default(); log::info!(&amp;#34;Starting program...&amp;#34;); let cpu_cores = cpu::CORES; log::info!(&amp;#34;Cores count : {}&amp;#34;, cpu_cores); Ok(()) } Build and Run cargo generate --git https://github.com/esp-rs/esp-idf-template cargo cd core source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/core --monitor Execute code in different threads code use core::time::Duration; use std::thread; fn main() { esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
+            <content type="html"><![CDATA[<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<pre tabindex="0"><code>[dependencies]
+log = &#34;0.4&#34;
+anyhow = &#34;1.0&#34;
+esp-idf-hal = &#34;0.45.2&#34;
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] }
+</code></pre><br/>
+<h2 id="count-cores-code">Count cores code</h2>
+<p>Now update <code>main.rs</code> and add this code:</p>
+<pre tabindex="0"><code>use esp_idf_hal::cpu;
+use esp_idf_svc::log::EspLogger;
+
+fn main() -&gt; anyhow::Result&lt;()&gt; {
+    EspLogger::initialize_default();
+    log::info!(&#34;Starting program...&#34;);
+
+    let cpu_cores = cpu::CORES;
+    log::info!(&#34;Cores count : {}&#34;, cpu_cores);
+
+    Ok(())
+}
+</code></pre><br/>
+<h2 id="build-and-run">Build and Run</h2>
+<pre tabindex="0"><code>cargo generate --git https://github.com/esp-rs/esp-idf-template cargo
+cd core
+source ~/export-esp.sh
+cargo build
+espflash flash target/xtensa-esp32-espidf/debug/core --monitor
+</code></pre><br/>
+<h2 id="execute-code-in-different-threads-code">Execute code in different threads code</h2>
+<pre tabindex="0"><code>use core::time::Duration;
+use std::thread;
+fn main() {
+    esp_idf_svc::log::EspLogger::initialize_default();
+    log::info!(&#34;Starting multi-threaded example on ESP32&#34;);
+
+    // Spawn thread 1 on Core 0
+    thread::spawn(|| {
+        loop {
+            log::info!(&#34;Task running on Core 0&#34;);
+            thread::sleep(Duration::from_secs(2)); // Simulate work
+        }
+    });
+
+    // Spawn thread 2 on Core 1
+    thread::spawn(|| {
+        loop {
+            log::info!(&#34;Task running on Core 1&#34;);
+            thread::sleep(Duration::from_secs(4)); // Simulate work
+        }
+    });
+
+    // Keep the main thread alive
+    loop {
+        thread::sleep(Duration::from_secs(10));
+    }
+}
+</code></pre><br/>
+<h2 id="execute-code-in-different-threads-and-share-variable">Execute code in different threads and share variable</h2>
+<pre tabindex="0"><code>use core::time::Duration;
+use std::sync::{Arc, Mutex};
+use std::thread;
+
+fn main() {
+    // Initialisation du logger
+    esp_idf_svc::log::EspLogger::initialize_default();
+    log::info!(&#34;Starting program&#34;);
+
+    // Shared variable between threads
+    let shared_counter = Arc::new(Mutex::new(0));
+
+    // Spawn thread 1 on Core 0
+    let counter_thread_1 = Arc::clone(&amp;shared_counter);
+    thread::spawn(move || {
+        loop {
+            {
+                let mut counter = counter_thread_1.lock().unwrap();
+                *counter += 1;
+                log::info!(&#34;Core 0 incremented counter to {}&#34;, *counter);
+            }
+            thread::sleep(Duration::from_secs(2)); // Simule du travail
+        }
+    });
+
+    // Spawn thread 2 on Core 1
+    let counter_thread_2 = Arc::clone(&amp;shared_counter);
+    thread::spawn(move || {
+        loop {
+            {
+                let mut counter = counter_thread_2.lock().unwrap();
+                *counter += 2;
+                log::info!(&#34;Core 1 incremented counter to {}&#34;, *counter);
+            }
+            thread::sleep(Duration::from_secs(4)); // Simule du travail
+        }
+    });
+
+    // Main Thread: read shared variable value
+    loop {
+        {
+            let counter = shared_counter.lock().unwrap();
+            log::info!(&#34;Main thread reads counter: {}&#34;, *counter);
+        }
+        thread::sleep(Duration::from_secs(5));
+    }
+}
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Scan Wifi networks on ESP32 using Rust</title>
@@ -454,12 +572,8 @@ fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -
     info!(&#34;Wifi netif up&#34;);
     send_wol(&amp;mac);
     
-
     Ok(())
 }
-
-
-
 
 fn send_wol(mac: &amp;[u8; 6]) {
     info!(&#34;Sending WOL request on the LAN&#34;);

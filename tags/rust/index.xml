@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get ESP32 cores count and use multithreading in Rust</title>
+      <link>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</link>
+      <pubDate>Tue, 08 Apr 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</guid>
+      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1.0&amp;#34; esp-idf-hal = &amp;#34;0.45.2&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Count cores code Now update main.rs and add this code:
+use esp_idf_hal::cpu; use esp_idf_svc::log::EspLogger; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { EspLogger::initialize_default(); log::info!(&amp;#34;Starting program...&amp;#34;); let cpu_cores = cpu::CORES; log::info!(&amp;#34;Cores count : {}&amp;#34;, cpu_cores); Ok(()) } Build and Run cargo generate --git https://github.com/esp-rs/esp-idf-template cargo cd core source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/core --monitor Execute code in different threads code use core::time::Duration; use std::thread; fn main() { esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
+    </item>
+    
     <item>
       <title>Scan Wifi networks on ESP32 using Rust</title>
       <link>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</link>
@@ -102,21 +112,6 @@ Python 1. Conventions et guidelines PEP8 2. Tooling requirements.txt setup.py Py
       <description>Literals Le type d&amp;rsquo;une variable peut être défini en ajoutant un suffixe derrière la valeur de la variable. Par exemple:
 let mon_test1: i32 = 12; Equivaut à let mon_test2 = 12i32; Equivaut à let mon_test3 = 12_i32; Retourner la taille d&amp;rsquo;une variable:
 println!(&amp;#34;Taille de `mon_test1` in bytes: {}&amp;#34;, std::mem::size_of_val(&amp;amp;mon_test1)); Taille de `mon_test1` in bytes: 4 // i32 -&amp;gt; 4 x 8 Casting Il n&amp;rsquo;y a pas de coercion, c&amp;rsquo;est-à-dire de la conversion implicite, entre les types primitifs en Rust.</description>
-    </item>
-    
-    <item>
-      <title>Aide mémoire pour printer en Rust</title>
-      <link>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</link>
-      <pubDate>Sun, 16 Jan 2022 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/aide-m%C3%A9moire-pour-printer-en-rust/</guid>
-      <description>Le print simple/ courant
-println!(&amp;#34;{}, l&amp;#39;origine&amp;#34;, 42); Print avec des arguments positionnels
-println!(&amp;#34;Hi {0}, I am {1}. Hi {1}, I am {0}&amp;#34;, &amp;#34;John&amp;#34;, &amp;#34;Peter&amp;#34;); Print avec des arguments nommés
-println!(&amp;#34;{argument1} {argument2} {argument3}&amp;#34;, argument2=&amp;#34;fifi&amp;#34;, argument1=&amp;#34;riri&amp;#34;, argument3=&amp;#34;loulou&amp;#34; ); Printer en alignant la variable à afficher à droite
-println!(&amp;#34;{ma_variable:&amp;gt;width$}&amp;#34;, ma_variable=&amp;#34;toto&amp;#34;, width=10); Printer en alignant à droite et en préfixant avec des zéros
-println!(&amp;#34;{nombre:0&amp;gt;width$}&amp;#34;, nombre=100, width=6); Printer avec une conversion automatique en binaire
-println!(&amp;#34;{} en binaire s&amp;#39;écrit {:b}&amp;#34;, 4, 4); Printer une structure</description>
     </item>
     
   </channel>
