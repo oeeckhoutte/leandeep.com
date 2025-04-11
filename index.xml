@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Add a MicroSD card adapter on a ESP32 (Arduino code and OSX)</title>
+      <link>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</link>
+      <pubDate>Fri, 11 Apr 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</guid>
+      <description>Prerequisites Arduino IDE installed arduino-cli installed on OSX (using brew install arduino-cli) to ease monitoring via the command arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200 Determine ESP32 SPI GPIO Pins. To do that you can the following code: void setup() { Serial.begin(115200); Serial.print(&amp;#34;MOSI: &amp;#34;); Serial.println(MOSI); // MOSI Pin by default Serial.print(&amp;#34;MISO: &amp;#34;); Serial.println(MISO); // MISO Pin by default Serial.print(&amp;#34;SCK: &amp;#34;); Serial.println(SCK); // SCK Pin by default Serial.print(&amp;#34;CS: &amp;#34;); Serial.println(SS); // CS Pin by default } void loop() { } Install SD library from Arduino IDE I connected VCC to 5V, GND to GND, MISO to pin 19, MOSI to pin 23, SCK to pin 18 and CS to pin 5.</description>
+    </item>
+    
     <item>
       <title>Get ESP32 cores count and use multithreading in Rust</title>
       <link>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</link>
@@ -102,16 +111,6 @@ In this new article, we will explore how to make an onboard LED blink on an ESP3
       <description>Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
 Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
 export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server.</description>
-    </item>
-    
-    <item>
-      <title>Installer Arduino cli Ubuntu 22</title>
-      <link>https://leandeep.com/installer-arduino-cli-ubuntu-22/</link>
-      <pubDate>Fri, 28 Mar 2025 09:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/installer-arduino-cli-ubuntu-22/</guid>
-      <description>Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.
-Installation mkdir -p ~/local/bin curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh echo &amp;#39;export PATH=&amp;#34;$HOME/local/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc source ~/.bashrc arduino-cli version arduino-cli core update-index arduino-cli core install esp32:esp32 arduino-cli sketch new mon_projet_esp32_arduino arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino Test Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .</description>
     </item>
     
   </channel>

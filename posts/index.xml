@@ -6,8 +6,124 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 08 Apr 2025 22:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Fri, 11 Apr 2025 22:49:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Add a MicroSD card adapter on a ESP32 (Arduino code and OSX)</title>
+            <link>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</link>
+            <pubDate>Fri, 11 Apr 2025 22:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</guid>
+            <description>Prerequisites Arduino IDE installed arduino-cli installed on OSX (using brew install arduino-cli) to ease monitoring via the command arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200 Determine ESP32 SPI GPIO Pins. To do that you can the following code: void setup() { Serial.begin(115200); Serial.print(&amp;#34;MOSI: &amp;#34;); Serial.println(MOSI); // MOSI Pin by default Serial.print(&amp;#34;MISO: &amp;#34;); Serial.println(MISO); // MISO Pin by default Serial.print(&amp;#34;SCK: &amp;#34;); Serial.println(SCK); // SCK Pin by default Serial.print(&amp;#34;CS: &amp;#34;); Serial.println(SS); // CS Pin by default } void loop() { } Install SD library from Arduino IDE I connected VCC to 5V, GND to GND, MISO to pin 19, MOSI to pin 23, SCK to pin 18 and CS to pin 5.</description>
+            <content type="html"><![CDATA[<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Arduino IDE installed</li>
+<li><code>arduino-cli</code> installed on OSX (using <code>brew install arduino-cli</code>) to ease monitoring via the command <code>arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200</code></li>
+<li>Determine ESP32 SPI GPIO Pins. To do that you can the following code:</li>
+</ul>
+<pre tabindex="0"><code>void setup() {
+  Serial.begin(115200);
+
+  Serial.print(&#34;MOSI: &#34;);
+  Serial.println(MOSI); // MOSI Pin by default
+  Serial.print(&#34;MISO: &#34;);
+  Serial.println(MISO); // MISO Pin by default
+  Serial.print(&#34;SCK: &#34;);
+  Serial.println(SCK); // SCK Pin by default
+  Serial.print(&#34;CS: &#34;);
+  Serial.println(SS); // CS Pin by default
+}
+
+void loop() {
+}
+</code></pre><ul>
+<li>Install <code>SD</code> library from Arduino IDE</li>
+<li>I connected VCC to 5V, GND to GND, MISO to pin 19, MOSI to pin 23, SCK to pin 18 and CS to pin 5.</li>
+</ul>
+<br/>
+<h2 id="arduino-code">Arduino Code</h2>
+<pre tabindex="0"><code>#include &lt;FS.h&gt;
+#include &lt;SD.h&gt;
+#include &lt;SPI.h&gt;
+
+void setup() {
+  Serial.begin(115200);
+
+  // Init SD card
+  if (!SD.begin(5)) { // GPIO 5 is used for CS
+    Serial.println(&#34;Could not mount SD card&#34;);
+    return;
+  }
+
+  Serial.println(&#34;SD card successfully mounted&#34;);
+
+  // Display SD card informations
+  uint64_t cardSize = SD.cardSize() / (1024 * 1024);
+  Serial.printf(&#34;SD card size: %llu MB\n&#34;, cardSize);
+
+  // Create example file
+  writeFile(SD, &#34;/example.txt&#34;, &#34;This is an example file.&#34;);
+  
+  // Read and display the files in the root dir
+  listDir(SD, &#34;/&#34;, 0);
+}
+
+void loop() {
+  // Nothing to do
+}
+
+// Function to list files in a directory
+void listDir(fs::FS &amp;fs, const char * dirname, uint8_t levels) {
+  Serial.printf(&#34;Directory listing: %s\n&#34;, dirname);
+
+  File root = fs.open(dirname);
+  if (!root || !root.isDirectory()) {
+    Serial.println(&#34;Could not open directory Or it is not a directory&#34;);
+    return;
+  }
+
+  File file = root.openNextFile();
+  while (file) {
+    if (file.isDirectory()) {
+      Serial.print(&#34;DIR : &#34;);
+      Serial.println(file.name());
+      if (levels) {
+        listDir(fs, file.name(), levels - 1);
+      }
+    } else {
+      Serial.print(&#34;FICHIER : &#34;);
+      Serial.print(file.name());
+      Serial.print(&#34; TAILLE : &#34;);
+      Serial.println(file.size());
+    }
+    file = root.openNextFile();
+  }
+}
+
+// Function to write a file
+void writeFile(fs::FS &amp;fs, const char * path, const char * message) {
+  Serial.printf(&#34;Writing in file: %s\n&#34;, path);
+
+  File file = fs.open(path, FILE_WRITE);
+  if (!file) {
+    Serial.println(&#34;Could not open file to write into it&#34;);
+    return;
+  }
+
+  if (file.print(message)) {
+    Serial.println(&#34;File successfully written&#34;);
+  } else {
+    Serial.println(&#34;Impossible to write file&#34;);
+  }
+
+  file.close();
+}
+</code></pre><br/>
+<p>In a next article we will see how to do the same thing with Rust.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Get ESP32 cores count and use multithreading in Rust</title>
