@@ -7,7 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 13 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use an Oled display on ESP32 using Arduino</title>
+      <link>https://leandeep.com/use-an-oled-display-on-esp32-using-arduino/</link>
+      <pubDate>Thu, 17 Apr 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/use-an-oled-display-on-esp32-using-arduino/</guid>
+      <description>In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Arduino code.
+Prerequisites Install Arduino libraries:
+Adafruit SSD1306 Adafruit GFX Library Connect the Oled display to the ESP32 board:
+Voici le branchement I2C entre ton ESP32 et l’écran :
+It is an OLED (NFP1315-61AY)
+Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Code #include &amp;lt;Wire.</description>
+    </item>
+    
+    <item>
+      <title>Use an Oled display on ESP32 using Rust</title>
+      <link>https://leandeep.com/use-an-oled-display-on-esp32-using-rust/</link>
+      <pubDate>Thu, 17 Apr 2025 22:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/use-an-oled-display-on-esp32-using-rust/</guid>
+      <description>In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Rust.
+Prerequisites Connect the Oled display to the ESP32 board:
+Voici le branchement I2C entre ton ESP32 et l’écran :
+It is an OLED (NFP1315-61AY)
+Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &amp;#34;0.</description>
+    </item>
+    
     <item>
       <title>Read and write file in sdcard from ESP32 and Rust</title>
       <link>https://leandeep.com/read-and-write-file-in-sdcard-from-esp32-and-rust/</link>
@@ -89,27 +116,6 @@ use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfigura
       <guid>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</guid>
       <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
 use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; //use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; use std::net::{UdpSocket, Ipv4Addr, SocketAddrV4}; use std::time::Duration; use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; const SSID: &amp;amp;str = &amp;#34;.</description>
-    </item>
-    
-    <item>
-      <title>Switch on a LED using Rust when a button is pushed on ESP32</title>
-      <link>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</link>
-      <pubDate>Fri, 28 Mar 2025 14:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</guid>
-      <description>The idea of this article is to explore how to switch on a LED when a push button is pressed. Once it is release the LED is switched off.
-Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
-use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; fn main() -&amp;gt; ! { esp_idf_svc::sys::link_patches(); // Bind the log crate to the ESP Logging facilities esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
-    </item>
-    
-    <item>
-      <title>Make onboard LED blink using Rust on ESP32</title>
-      <link>https://leandeep.com/make-onboard-led-blink-using-rust-on-esp32/</link>
-      <pubDate>Fri, 28 Mar 2025 11:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/make-onboard-led-blink-using-rust-on-esp32/</guid>
-      <description>AI tools are awesome. Lately, I&amp;rsquo;ve been wondering if they could replace us developers, but actually no it&amp;rsquo;s impossible because you always have issues. However, it&amp;rsquo;s crazy how much they boost my productivity. I now do my research directly on LLMs and get answers much faster than if I had searched on Google myself. It&amp;rsquo;s fantastic!
-In this new article, we will explore how to make an onboard LED blink on an ESP32 using Rust.</description>
     </item>
     
   </channel>
