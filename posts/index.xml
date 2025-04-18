@@ -43,7 +43,13 @@ chrono = { version = &#34;0.4.40&#34;, default-features = false }
 esp-println = { version = &#34;0.12.0&#34;, features = [&#34;esp32&#34;, &#34;log&#34;] }
 </code></pre><br/>
 <h2 id="code">Code</h2>
-<pre tabindex="0"><code>#![no_std]
+<pre tabindex="0"><code>//cargo install esp-generate@0.3.1
+//esp-generate --chip esp32 sd
+//source ~/export-esp.sh
+//cargo build
+//espflash flash target/xtensa-esp32-none-elf/debug/sd --monitor
+
+#![no_std]
 #![no_main]
 
 use embassy_executor::Spawner;
@@ -56,13 +62,14 @@ use esp_hal::spi;
 use esp_hal::spi::master::Spi;
 use esp_hal::time::Rate;
 use esp_hal:⏲:timg::TimerGroup;
-use esp_println::{self as _, print};
+use esp_println::{self as _, print, println};
 
 #[panic_handler]
 fn panic(_: &amp;core::panic::PanicInfo) -&gt; ! {
     loop {}
 }
 
+/// Code from https://github.com/rp-rs/rp-hal-boards/blob/main/boards/rp-pico/examples/pico_spi_sd_card.rs
 /// A dummy timesource, which is mostly important for creating files.
 #[derive(Default)]
 pub struct DummyTimesource();
@@ -84,15 +91,13 @@ impl TimeSource for DummyTimesource {
 
 #[esp_hal_embassy::main]
 async fn main(_spawner: Spawner) {
-    // generator version: 0.3.1
-
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
     let timer0 = TimerGroup::new(peripherals.TIMG1);
     esp_hal_embassy::init(timer0.timer0);
 
-    print!(&#34;Embassy initialized!&#34;);
+    println!(&#34;Embassy initialized!&#34;);
 
     let spi_bus = Spi::new(
         peripherals.SPI2,
@@ -111,40 +116,42 @@ async fn main(_spawner: Spawner) {
     let sdcard = SdCard::new(spi_dev, Delay);
     let mut volume_mgr = VolumeManager::new(sdcard, DummyTimesource::default());
 
-    print!(&#34;Init SD card controller and retrieve card size...&#34;);
+    println!(&#34;Init SD card controller and retrieve card size...&#34;);
     let sd_size = volume_mgr.device().num_bytes().unwrap();
-    print!(&#34;card size is {} bytes\r\n&#34;, sd_size);
+    println!(&#34;SD card size is {} bytes\r\n&#34;, sd_size);
 
     let mut volume0 = volume_mgr.open_volume(VolumeIdx(0)).unwrap();
     let mut root_dir = volume0.open_root_dir().unwrap();
+    {
+        let mut my_file = root_dir
+            .open_file_in_dir(
+                &#34;example.txt&#34;,
+                embedded_sdmmc::Mode::ReadWriteCreateOrTruncate,
+            )
+            .unwrap();
 
-    let mut my_file_to_read = root_dir
-        .open_file_in_dir(&#34;example.txt&#34;, embedded_sdmmc::Mode::ReadOnly)
-        .unwrap();
-
-    while !my_file_to_read.is_eof() {
-        let mut buffer = [0u8; 32];
-
-        if let Ok(n) = my_file_to_read.read(&amp;mut buffer) {
-            for b in &amp;buffer[..n] {
-                print!(&#34;{}&#34;, *b as char);
-            }
+        let line = &#34;Hello Rust!&#34;;
+        if let Ok(()) = my_file.write(line.as_bytes()) {
+            my_file.flush().unwrap();
+            println!(&#34;Written Data&#34;);
+        } else {
+            println!(&#34;Not written&#34;);
         }
     }
+    {
+        let mut my_file = root_dir
+            .open_file_in_dir(&#34;example.txt&#34;, embedded_sdmmc::Mode::ReadOnly)
+            .unwrap();
 
-    let mut my_file_to_write = root_dir
-        .open_file_in_dir(
-            &#34;example2.txt&#34;,
-            embedded_sdmmc::Mode::ReadWriteCreateOrTruncate,
-        )
-        .unwrap();
+        while !my_file.is_eof() {
+            let mut buffer = [0u8; 32];
 
-    let line = &#34;Hello, Olivier!&#34;;
-    if let Ok(()) = my_file_to_write.write(line.as_bytes()) {
-        my_file_to_write.flush().unwrap();
-        println!(&#34;Written Data&#34;);
-    } else {
-        println!(&#34;Not wrote&#34;);
+            if let Ok(n) = my_file.read(&amp;mut buffer) {
+                for b in &amp;buffer[..n] {
+                    print!(&#34;{}&#34;, *b as char);
+                }
+            }
+        }
     }
 
     loop {
