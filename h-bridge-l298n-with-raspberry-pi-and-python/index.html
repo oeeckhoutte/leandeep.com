@@ -7,12 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Arduino code.
-Prerequisites Install Arduino libraries:
-Adafruit SSD1306 Adafruit GFX Library Connect the Oled display to the ESP32 board:
-Voici le branchement I2C entre ton ESP32 et l’écran :
-It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Code #include &amp;lt;Wire." />
+  content="In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.
+Prerequisites Connect the bridge L298N to the raspberry pi
+Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4). Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi. Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -28,7 +25,7 @@ Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect S
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/use-an-oled-display-on-esp32-using-arduino/" />
+<link rel="canonical" href="https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/" />
 
 
 
@@ -78,7 +75,7 @@ Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect S
 
 <title>
   
-  Use an Oled display on ESP32 using Arduino :: Lean Deep Tech blog 
+  H-Bridge L298N with Raspberry Pi and Python :: Lean Deep Tech blog 
   
 </title>
 
@@ -103,31 +100,25 @@ Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect S
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Use an Oled display on ESP32 using Arduino">
-<meta itemprop="description" content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Arduino code.
-Prerequisites Install Arduino libraries:
-Adafruit SSD1306 Adafruit GFX Library Connect the Oled display to the ESP32 board:
-Voici le branchement I2C entre ton ESP32 et l’écran :
-It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Code #include &lt;Wire."><meta itemprop="datePublished" content="2025-04-17T22:49:00+02:00" />
-<meta itemprop="dateModified" content="2025-04-17T22:49:00+02:00" />
-<meta itemprop="wordCount" content="197"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Arduino,ESP32," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="name" content="H-Bridge L298N with Raspberry Pi and Python">
+<meta itemprop="description" content="In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.
+Prerequisites Connect the bridge L298N to the raspberry pi
+Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4). Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi. Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi."><meta itemprop="datePublished" content="2025-04-28T21:49:00+02:00" />
+<meta itemprop="dateModified" content="2025-04-28T21:49:00+02:00" />
+<meta itemprop="wordCount" content="200"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="python,Pi,raspberry," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Use an Oled display on ESP32 using Arduino"/>
-<meta name="twitter:description" content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Arduino code.
-Prerequisites Install Arduino libraries:
-Adafruit SSD1306 Adafruit GFX Library Connect the Oled display to the ESP32 board:
-Voici le branchement I2C entre ton ESP32 et l’écran :
-It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Code #include &lt;Wire."/>
+<meta name="twitter:title" content="H-Bridge L298N with Raspberry Pi and Python"/>
+<meta name="twitter:description" content="In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.
+Prerequisites Connect the bridge L298N to the raspberry pi
+Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4). Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi. Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi."/>
 
 
 
 
 
-<meta property="article:published_time" content="2025-04-17 22:49:00 &#43;0200 CEST" />
+<meta property="article:published_time" content="2025-04-28 21:49:00 &#43;0200 CEST" />
 
 
 
@@ -191,83 +182,75 @@ Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect S
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/use-an-oled-display-on-esp32-using-arduino/">Use an Oled display on ESP32 using Arduino</a>
+                <a href="https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/">H-Bridge L298N with Raspberry Pi and Python</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Arduino code.</p>
+                <p>In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.</p>
 <br/>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Install Arduino libraries:</p>
+<p><strong>Connect the bridge L298N to the raspberry pi</strong></p>
+<p><img src="https://leandeep.com/images/rsapberry-3b-gpio.svg" alt="image"></p>
+<br/>
 <ul>
-<li>Adafruit SSD1306</li>
-<li>Adafruit GFX Library</li>
+<li>Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4).</li>
+<li>Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi.</li>
+<li>Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi.</li>
+<li>Connect the pin VCC of the L298N to the pin 2 of the Raspberry Pi.</li>
+<li>Connect the pin GND of the L298N to the pin 6 of the Raspberry Pi.</li>
 </ul>
 <br/>
-<p>Connect the Oled display to the ESP32 board:</p>
-<p>Voici le branchement I2C entre ton ESP32 et l’écran :</p>
-<p>It is an OLED (NFP1315-61AY)</p>
-<ul>
-<li>Connect VCC to 3.3V</li>
-<li>Of course connect GND to GND</li>
-<li>Connect SCL to GPIO22</li>
-<li>Connect SDA to GPIO21</li>
-</ul>
-<br/>
+<p><strong>Install dependency</strong></p>
+<pre tabindex="0"><code>sudo apt-get install python3-rpi.gpio
+</code></pre><br/>
 <h2 id="code">Code</h2>
-<pre tabindex="0"><code>#include &lt;Wire.h&gt;
-#include &lt;Adafruit_GFX.h&gt;
-#include &lt;Adafruit_SSD1306.h&gt;
+<pre tabindex="0"><code>import RPi.GPIO as GPIO
+import time
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
+# Connect Pi GPIO to L298N
+IN1 = 7 
+IN2 = 8
+ENA = 25  # To control the speed
 
-// default I2C Adress is often 0x3C
-#define OLED_ADDR 0x3C
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(IN1, GPIO.OUT)
+GPIO.setup(IN2, GPIO.OUT)
+GPIO.setup(ENA, GPIO.OUT)
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &amp;Wire, -1);
+pwm = GPIO.PWM(ENA, 1000)  # 1 kHz
+pwm.start(100)  # 100% of the speed
 
-void setup() {
-  Wire.begin(21, 22); // SDA, SCL
-  display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
-  display.clearDisplay();
+try:
+    while True:
+        GPIO.output(IN1, GPIO.HIGH)
+        GPIO.output(IN2, GPIO.LOW)
+        print(&#34;Extension...&#34;)
+        time.sleep(5)  # Wait 5s
 
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0,0);
-  display.println(&#34;Hello Olivier!&#34;);
-  display.display();
-}
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.LOW)
+        print(&#34;Stop&#34;)
+        time.sleep(2)
 
-void loop() {
-}
-</code></pre><br/>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<p>To find the Oled display address:</p>
-<pre tabindex="0"><code>#include &lt;Wire.h&gt;
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.HIGH)
+        print(&#34;Contraction...&#34;)
+        time.sleep(5)
 
-void setup() {
-  Wire.begin();
-  Serial.begin(115200);
-  while (!Serial);
-  Serial.println(&#34;\nI2C Scanner&#34;);
-  for (uint8_t i = 1; i &lt; 127; ++i) {
-    Wire.beginTransmission(i);
-    if (Wire.endTransmission() == 0) {
-      Serial.print(&#34;I2C device found at 0x&#34;);
-      Serial.println(i, HEX);
-      delay(10);
-    }
-  }
-  Serial.println(&#34;Done.&#34;);
-}
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.LOW)
+        print(&#34;Stop&#34;)
+        time.sleep(2)
 
-void loop() {}
-</code></pre><br/>
-<p>In a next article we are going to see how to do the same in Rust.</p>
+except KeyboardInterrupt:
+    pass
 
+# Nettoyage des broches GPIO
+pwm.stop()
+GPIO.cleanup()
+</code></pre>
             </div>
         </article>
 
@@ -275,12 +258,12 @@ void loop() {}
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/arduino">Arduino</a></span><span class="tag"><a href="https://leandeep.com/tags/esp32">ESP32</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/python">python</a></span><span class="tag"><a href="https://leandeep.com/tags/pi">Pi</a></span><span class="tag"><a href="https://leandeep.com/tags/raspberry">raspberry</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>197 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>200 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>17 avr.. 2025</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>28 avr.. 2025</p>
         </div>
 
         
@@ -293,17 +276,17 @@ void loop() {}
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/">
+                            <a href="https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">H-Bridge L298N with Raspberry Pi and Python</span>
+                                <span class="button__text">Access Raspberry Pi Camera using Python and OpenCV</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/use-an-oled-display-on-esp32-using-rust/">
-                                <span class="button__text">Use an Oled display on ESP32 using Rust</span>
+                            <a href="https://leandeep.com/use-an-oled-display-on-esp32-using-arduino/">
+                                <span class="button__text">Use an Oled display on ESP32 using Arduino</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

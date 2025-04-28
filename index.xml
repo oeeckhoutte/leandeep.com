@@ -7,7 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 17 Apr 2025 22:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Apr 2025 21:55:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Access Raspberry Pi Camera using Python and OpenCV</title>
+      <link>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</link>
+      <pubDate>Mon, 28 Apr 2025 21:55:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</guid>
+      <description>In this article we are going to see how to install OpenCV on a Raspberry PI using Bookworm.
+Prerequisites Install dependencies on Raspberry Pi
+sudo apt update sudo apt install python3-picamera2 sudo apt install libcamera-apps sudo apt install python3-opencv Install dependencies on Macbook
+pip install opencv-python numpy Code import cv2 import numpy as np import time from datetime import datetime import os # ========================== # CONSTANTS (Configuration) # ========================== BLUR_SIZE = (7, 7) # Larger → less sensitive (e.</description>
+    </item>
+    
+    <item>
+      <title>H-Bridge L298N with Raspberry Pi and Python</title>
+      <link>https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/</link>
+      <pubDate>Mon, 28 Apr 2025 21:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/</guid>
+      <description>In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.
+Prerequisites Connect the bridge L298N to the raspberry pi
+Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4). Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi. Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi.</description>
+    </item>
+    
     <item>
       <title>Use an Oled display on ESP32 using Arduino</title>
       <link>https://leandeep.com/use-an-oled-display-on-esp32-using-arduino/</link>
@@ -96,26 +119,6 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
       <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
 Connect the NEO-6M GPS module to the ESP32 Dependencies:
 esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&amp;gt; Result&amp;lt;(), Box&amp;lt;dyn std::error::Error&amp;gt;&amp;gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
-    </item>
-    
-    <item>
-      <title>Connect ESP32 to wifi network using Rust</title>
-      <link>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</link>
-      <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/connect-esp32-to-wifi-network-using-rust/</guid>
-      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Code Now update main.rs and add this code:
-use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;amp;str = &amp;#34;SSID&amp;#34;; const PASSWORD: &amp;amp;str = &amp;#34;password&amp;#34;; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?</description>
-    </item>
-    
-    <item>
-      <title>Power on a PC when a button is pushed on an ESP32 using Rust</title>
-      <link>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</link>
-      <pubDate>Fri, 28 Mar 2025 15:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/power-on-a-pc-when-a-button-is-pushed-on-an-esp32-using-rust/</guid>
-      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; Code Now update main.rs and add this code:
-use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; //use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; use std::net::{UdpSocket, Ipv4Addr, SocketAddrV4}; use std::time::Duration; use esp_idf_hal::delay::FreeRtos; use esp_idf_hal::gpio::PinDriver; use esp_idf_hal::peripherals::Peripherals; const SSID: &amp;amp;str = &amp;#34;.</description>
     </item>
     
   </channel>

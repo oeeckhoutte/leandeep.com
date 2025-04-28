@@ -6,8 +6,249 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 17 Apr 2025 22:49:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 28 Apr 2025 21:55:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Access Raspberry Pi Camera using Python and OpenCV</title>
+            <link>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</link>
+            <pubDate>Mon, 28 Apr 2025 21:55:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</guid>
+            <description>In this article we are going to see how to install OpenCV on a Raspberry PI using Bookworm.
+Prerequisites Install dependencies on Raspberry Pi
+sudo apt update sudo apt install python3-picamera2 sudo apt install libcamera-apps sudo apt install python3-opencv Install dependencies on Macbook
+pip install opencv-python numpy Code import cv2 import numpy as np import time from datetime import datetime import os # ========================== # CONSTANTS (Configuration) # ========================== BLUR_SIZE = (7, 7) # Larger → less sensitive (e.</description>
+            <content type="html"><![CDATA[<p>In this article we are going to see how to install OpenCV on a Raspberry PI using Bookworm.</p>
+<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<p><strong>Install dependencies on Raspberry Pi</strong></p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install python3-picamera2
+sudo apt install libcamera-apps
+sudo apt install python3-opencv
+</code></pre><br/>
+<p><strong>Install dependencies on Macbook</strong></p>
+<pre tabindex="0"><code>pip install opencv-python numpy
+</code></pre><br/>
+<h2 id="code">Code</h2>
+<pre tabindex="0"><code>import cv2
+import numpy as np
+import time
+from datetime import datetime
+import os
+
+# ==========================
+#   CONSTANTS (Configuration)
+# ==========================
+BLUR_SIZE = (7, 7)              # Larger → less sensitive (e.g., (7,7) or (9,9))
+THRESHOLD_SENSITIVITY = 50       # Higher → less sensitive (e.g., 60, 70)
+MIN_CONTOUR_AREA = 2000          # Higher → only detects larger movements
+FRAME_WAIT_TIME = 0.1            # Time to wait between frames (in seconds)
+SAVE_DIR = &#34;captures&#34;            # Directory to save captured images
+
+# ==========================
+#   Camera Initialization
+# ==========================
+def initialize_camera():
+    try:
+        from picamera2 import Picamera2
+        picam2 = Picamera2()
+        config = picam2.create_preview_configuration(main={&#34;format&#34;: &#34;RGB888&#34;, &#34;size&#34;: (640, 480)})
+        picam2.configure(config)
+        picam2.start()
+        time.sleep(2)
+        print(&#34;[INFO] Raspberry Pi camera initialized.&#34;)
+        return picam2, True
+    except ImportError:
+        cap = cv2.VideoCapture(0)
+        if not cap.isOpened():
+            raise Exception(&#34;[ERROR] Cannot open webcam.&#34;)
+        time.sleep(2)
+        print(&#34;[INFO] Webcam initialized.&#34;)
+        return cap, False
+
+# ==========================
+#   Frame Capture
+# ==========================
+def capture_frame(camera, is_picam):
+    if is_picam:
+        return camera.capture_array()
+    else:
+        ret, frame = camera.read()
+        if not ret:
+            raise Exception(&#34;[ERROR] Failed to capture frame.&#34;)
+        return frame
+
+# ==========================
+#   Frame Processing
+# ==========================
+def process_frame(current_frame, previous_frame, is_picam):
+    # Apply Gaussian blur
+    current_blurred = cv2.GaussianBlur(current_frame, BLUR_SIZE, 0)
+    previous_blurred = cv2.GaussianBlur(previous_frame, BLUR_SIZE, 0)
+
+    # Convert to grayscale
+    if is_picam:
+        gray_current = cv2.cvtColor(current_blurred, cv2.COLOR_RGB2GRAY)
+        gray_previous = cv2.cvtColor(previous_blurred, cv2.COLOR_RGB2GRAY)
+    else:
+        gray_current = cv2.cvtColor(current_blurred, cv2.COLOR_BGR2GRAY)
+        gray_previous = cv2.cvtColor(previous_blurred, cv2.COLOR_BGR2GRAY)
+
+    # Compute difference and threshold
+    diff = cv2.absdiff(gray_previous, gray_current)
+    _, thresh = cv2.threshold(diff, THRESHOLD_SENSITIVITY, 255, cv2.THRESH_BINARY)
+    thresh = cv2.dilate(thresh, None, iterations=2)
+
+    return thresh
+
+# ==========================
+#   Movement Detection
+# ==========================
+def detect_movement(thresh):
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    for contour in contours:
+        if cv2.contourArea(contour) &gt;= MIN_CONTOUR_AREA:
+            return True
+    return False
+
+# ==========================
+#   Save Frame
+# ==========================
+def save_frame(frame, is_picam):
+    now = datetime.now()
+    timestamp = now.strftime(&#34;%Y-%m-%d_%H-%M-%S&#34;)
+    filename = os.path.join(SAVE_DIR, f&#34;capture_{timestamp}.jpg&#34;)
+
+    if is_picam:
+        frame_to_save = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    else:
+        frame_to_save = frame  # Already BGR
+
+    cv2.imwrite(filename, frame_to_save)
+    print(f&#34;[INFO] Image saved: {filename}&#34;)
+
+# ==========================
+#   Main Function
+# ==========================
+def main():
+    os.makedirs(SAVE_DIR, exist_ok=True)
+
+    camera, is_picam = initialize_camera()
+    previous_frame = capture_frame(camera, is_picam)
+
+    print(&#34;[INFO] Surveillance started... (Press Ctrl+C to exit)&#34;)
+
+    try:
+        while True:
+            current_frame = capture_frame(camera, is_picam)
+            thresh = process_frame(current_frame, previous_frame, is_picam)
+
+            if detect_movement(thresh):
+                print(f&#34;[{datetime.now().strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)}] Movement detected!&#34;)
+                save_frame(current_frame, is_picam)
+
+            previous_frame = current_frame.copy()
+            time.sleep(FRAME_WAIT_TIME)
+
+    except KeyboardInterrupt:
+        print(&#34;\n[INFO] Surveillance stopped by the user.&#34;)
+
+    finally:
+        if is_picam:
+            camera.stop()
+        else:
+            camera.release()
+
+# ==========================
+#   Entry Point
+# ==========================
+if __name__ == &#34;__main__&#34;:
+    main()
+</code></pre><br/>
+<ul>
+<li><code>BLUR_SIZE</code>: larger → less sensitive (e.g., (7,7) or (9,9))</li>
+<li><code>THRESHOLD_SENSITIVITY</code>: higher → less sensitive (e.g., 60, 70)</li>
+<li><code>MIN_CONTOUR_AREA</code>: higher → only detects larger movements</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>H-Bridge L298N with Raspberry Pi and Python</title>
+            <link>https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/</link>
+            <pubDate>Mon, 28 Apr 2025 21:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/</guid>
+            <description>In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.
+Prerequisites Connect the bridge L298N to the raspberry pi
+Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4). Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi. Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi.</description>
+            <content type="html"><![CDATA[<p>In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.</p>
+<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<p><strong>Connect the bridge L298N to the raspberry pi</strong></p>
+<p><img src="/images/rsapberry-3b-gpio.svg" alt="image"></p>
+<br/>
+<ul>
+<li>Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4).</li>
+<li>Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi.</li>
+<li>Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi.</li>
+<li>Connect the pin VCC of the L298N to the pin 2 of the Raspberry Pi.</li>
+<li>Connect the pin GND of the L298N to the pin 6 of the Raspberry Pi.</li>
+</ul>
+<br/>
+<p><strong>Install dependency</strong></p>
+<pre tabindex="0"><code>sudo apt-get install python3-rpi.gpio
+</code></pre><br/>
+<h2 id="code">Code</h2>
+<pre tabindex="0"><code>import RPi.GPIO as GPIO
+import time
+
+# Connect Pi GPIO to L298N
+IN1 = 7 
+IN2 = 8
+ENA = 25  # To control the speed
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(IN1, GPIO.OUT)
+GPIO.setup(IN2, GPIO.OUT)
+GPIO.setup(ENA, GPIO.OUT)
+
+pwm = GPIO.PWM(ENA, 1000)  # 1 kHz
+pwm.start(100)  # 100% of the speed
+
+try:
+    while True:
+        GPIO.output(IN1, GPIO.HIGH)
+        GPIO.output(IN2, GPIO.LOW)
+        print(&#34;Extension...&#34;)
+        time.sleep(5)  # Wait 5s
+
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.LOW)
+        print(&#34;Stop&#34;)
+        time.sleep(2)
+
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.HIGH)
+        print(&#34;Contraction...&#34;)
+        time.sleep(5)
+
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.LOW)
+        print(&#34;Stop&#34;)
+        time.sleep(2)
+
+except KeyboardInterrupt:
+    pass
+
+# Nettoyage des broches GPIO
+pwm.stop()
+GPIO.cleanup()
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Use an Oled display on ESP32 using Arduino</title>
