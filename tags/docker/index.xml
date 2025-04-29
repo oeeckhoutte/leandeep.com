@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Apr 2025 23:40:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Identify path to stop docker compose</title>
+      <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
+      <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
+      <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
+# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+    </item>
+    
     <item>
       <title>Installer Kafka sur Kubernetes</title>
       <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
@@ -111,18 +121,6 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 sudo yum install docker-ce Create Docker group:
 sudo groupadd docker It appeared that docker.sock was owned by root and in the group root:
 ls -l /var/run/docker.sock srw-rw---- 1 root root 0 May 6 15:42 /var/run/docker.</description>
-    </item>
-    
-    <item>
-      <title>Mettre en place Traefik en moins de 5 minutes</title>
-      <link>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</link>
-      <pubDate>Fri, 29 Mar 2019 21:44:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</guid>
-      <description>Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
-Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &amp;#34;3.</description>
     </item>
     
   </channel>

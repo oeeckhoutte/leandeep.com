@@ -6,8 +6,27 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 28 Apr 2025 21:55:00 +0200</lastBuildDate>
+        <lastBuildDate>Mon, 28 Apr 2025 23:40:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Identify path to stop docker compose</title>
+            <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
+            <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
+            <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
+# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+            <content type="html"><![CDATA[<p>Very quick tip on how to identify the directory from which a <code>docker compose</code> command was launched (as the standard docker ps output doesn&rsquo;t show it).</p>
+<pre tabindex="0"><code># Retrieve container ID
+docker ps 
+
+docker inspect \
+  --format=&#39;{{ index .Config.Labels &#34;com.docker.compose.project.working_dir&#34; }}&#39; \
+  0e6194178cf0
+/Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Access Raspberry Pi Camera using Python and OpenCV</title>

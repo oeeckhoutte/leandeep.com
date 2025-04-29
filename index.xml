@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 28 Apr 2025 21:55:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Apr 2025 23:40:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Identify path to stop docker compose</title>
+      <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
+      <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
+      <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
+# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+    </item>
+    
     <item>
       <title>Access Raspberry Pi Camera using Python and OpenCV</title>
       <link>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</link>
@@ -108,17 +118,6 @@ The crates used are the following ones:
 Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
 arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
 #define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.</description>
-    </item>
-    
-    <item>
-      <title>Get GPS coordinates on ESP32 using Rust</title>
-      <link>https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/</link>
-      <pubDate>Wed, 02 Apr 2025 20:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/get-gps-coordinates-on-esp32-using-rust/</guid>
-      <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Dependencies:
-esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&amp;gt; Result&amp;lt;(), Box&amp;lt;dyn std::error::Error&amp;gt;&amp;gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
     </item>
     
   </channel>

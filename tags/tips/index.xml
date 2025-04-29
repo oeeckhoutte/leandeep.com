@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 02 Apr 2025 20:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Apr 2025 23:40:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Identify path to stop docker compose</title>
+      <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
+      <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
+      
+      <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
+      <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
+# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+    </item>
+    
     <item>
       <title>Get GPS coordinates on ESP32 using basic Arduino code</title>
       <link>https://leandeep.com/get-gps-coordinates-on-esp32-using-basic-arduino-code/</link>
@@ -116,18 +126,6 @@ Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage po
       <guid>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</guid>
       <description>Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.
 Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet. Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests.</description>
-    </item>
-    
-    <item>
-      <title>How to verify if I am using LVM ?</title>
-      <link>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</link>
-      <pubDate>Wed, 05 Jun 2024 20:28:00 +0000</pubDate>
-      
-      <guid>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</guid>
-      <description>Simply use the following command:
-cat /etc/fstab And have a look at the line with your root filesystem.
-From there we have 3 possibilities:
-If the line starts with UUID=xyz, then it means it is a physical partition. If the line starts with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. You can also check in the mounts and fstab using this command:</description>
     </item>
     
   </channel>
