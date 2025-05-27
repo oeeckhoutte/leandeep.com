@@ -9,6 +9,18 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 04 May 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Install Nostr Rust relay without Docker</title>
+      <link>https://leandeep.com/install-nostr-rust-relay-without-docker/</link>
+      <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/install-nostr-rust-relay-without-docker/</guid>
+      <description>In this article we are going to see how to setup a Nostr relay without Docker.
+Prerequisites
+rust installed (else curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh) Run Nostr relay without Docker
+sudo apt-get install build-essential cmake protobuf-compiler pkg-config libssl-dev git clone -q https://git.sr.ht/\~gheartsfield/nostr-rs-relay cd nostr-rs-relay cargo build -q -r RUST_LOG=warn,nostr_rs_relay=info ./target/release/nostr-rs-relay And voila the relay will listen on port 8080.</description>
+    </item>
+    
+    <item>
       <title>Utiliser Ollama sur Ubuntu 22 via Docker et faire du LLM scraping</title>
       <link>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</link>
       <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
@@ -107,17 +119,6 @@ Prerequisites cargo install esp-generate@0.3.1 esp-generate --chip esp32 sd sour
       <guid>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</guid>
       <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1.0&amp;#34; esp-idf-hal = &amp;#34;0.45.2&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Count cores code Now update main.rs and add this code:
 use esp_idf_hal::cpu; use esp_idf_svc::log::EspLogger; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { EspLogger::initialize_default(); log::info!(&amp;#34;Starting program...&amp;#34;); let cpu_cores = cpu::CORES; log::info!(&amp;#34;Cores count : {}&amp;#34;, cpu_cores); Ok(()) } Build and Run cargo generate --git https://github.com/esp-rs/esp-idf-template cargo cd core source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/core --monitor Execute code in different threads code use core::time::Duration; use std::thread; fn main() { esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
-    </item>
-    
-    <item>
-      <title>Scan Wifi networks on ESP32 using Rust</title>
-      <link>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</link>
-      <pubDate>Tue, 08 Apr 2025 20:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/scan-wifi-networks-on-esp32-using-rust/</guid>
-      <description>In this article we are going to see how to scan Wifi networks around you.
-The crates used are the following ones:
-[dependencies] log = &amp;#34;0.4&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::prelude::*; use esp_idf_svc::eventloop::EspSystemEventLoop; use esp_idf_svc::nvs::EspDefaultNvsPartition; use esp_idf_svc::sys::EspError; use esp_idf_svc::wifi::{AuthMethod, BlockingWifi, ClientConfiguration, Configuration, EspWifi}; use std::thread; use std::time::Duration; fn main() -&amp;gt; Result&amp;lt;(), EspError&amp;gt; { esp_idf_svc::sys::link_patches(); esp_idf_svc::log::EspLogger::initialize_default(); log::set_max_level(log::LevelFilter::Info); log::info!(&amp;#34;Program started!&amp;#34;); // Init needed components let peripherals = Peripherals::take().</description>
     </item>
     
   </channel>
