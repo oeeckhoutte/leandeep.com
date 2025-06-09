@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 04 May 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Jun 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leveraging AI to play with fire safely</title>
+      <link>https://leandeep.com/leveraging-ai-to-play-with-fire-safely/</link>
+      <pubDate>Mon, 09 Jun 2025 22:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/leveraging-ai-to-play-with-fire-safely/</guid>
+      <description>I&amp;rsquo;m currently building an IoT device that will automatically start fires in my traditional chimney at scheduled times during cold winter days. The idea is to start a fire one hour before I wake up, while I&amp;rsquo;m still asleep, to warm up the house. Unlike a smart stove, a traditional fireplace can&amp;rsquo;t be controlled remotely. It’s old-school with a twist of AI, code, and electronics. Everything is getting automated! Here are the first two videos showing the progress of my side project.</description>
+    </item>
+    
     <item>
       <title>Install Nostr Rust relay without Docker</title>
       <link>https://leandeep.com/install-nostr-rust-relay-without-docker/</link>
@@ -109,16 +118,6 @@ Prerequisites cargo install esp-generate@0.3.1 esp-generate --chip esp32 sd sour
       
       <guid>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</guid>
       <description>Prerequisites Arduino IDE installed arduino-cli installed on OSX (using brew install arduino-cli) to ease monitoring via the command arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200 Determine ESP32 SPI GPIO Pins. To do that you can the following code: void setup() { Serial.begin(115200); Serial.print(&amp;#34;MOSI: &amp;#34;); Serial.println(MOSI); // MOSI Pin by default Serial.print(&amp;#34;MISO: &amp;#34;); Serial.println(MISO); // MISO Pin by default Serial.print(&amp;#34;SCK: &amp;#34;); Serial.println(SCK); // SCK Pin by default Serial.print(&amp;#34;CS: &amp;#34;); Serial.println(SS); // CS Pin by default } void loop() { } Install SD library from Arduino IDE I connected VCC to 5V, GND to GND, MISO to pin 19, MOSI to pin 23, SCK to pin 18 and CS to pin 5.</description>
-    </item>
-    
-    <item>
-      <title>Get ESP32 cores count and use multithreading in Rust</title>
-      <link>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</link>
-      <pubDate>Tue, 08 Apr 2025 22:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/get-esp32-cores-count-and-use-multithreading-in-rust/</guid>
-      <description>Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1.0&amp;#34; esp-idf-hal = &amp;#34;0.45.2&amp;#34; esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Count cores code Now update main.rs and add this code:
-use esp_idf_hal::cpu; use esp_idf_svc::log::EspLogger; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { EspLogger::initialize_default(); log::info!(&amp;#34;Starting program...&amp;#34;); let cpu_cores = cpu::CORES; log::info!(&amp;#34;Cores count : {}&amp;#34;, cpu_cores); Ok(()) } Build and Run cargo generate --git https://github.com/esp-rs/esp-idf-template cargo cd core source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/core --monitor Execute code in different threads code use core::time::Duration; use std::thread; fn main() { esp_idf_svc::log::EspLogger::initialize_default(); log::info!</description>
     </item>
     
   </channel>
