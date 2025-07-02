@@ -8,9 +8,10 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM.
-Setup Nix sur OSX sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install)\n source ~/.zshrc mkdir ~/.config/nix echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
+Setup Nix sur OSX sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install) source ~/.zshrc mkdir ~/.config/nix echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf Remarque: sur Ubuntu, l&amp;rsquo;installer avec sh &amp;lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon.
+Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
 Option 1
-{ description = &amp;#34;Environnement de développement PostgreSQL&amp;#34;; inputs = { nixpkgs.url = &amp;#34;github:NixOS/nixpkgs/nixpkgs-unstable&amp;#34;; flake-utils.url = &amp;#34;github:numtide/flake-utils&amp;#34;; }; outputs = { self, nixpkgs, flake-utils }: flake-utils." />
+{ description = &amp;#34;Environnement de développement PostgreSQL&amp;#34;; inputs = { nixpkgs." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -103,19 +104,21 @@ Option 1
 
 <meta itemprop="name" content="Première utilisation de Nix et setup Postgres">
 <meta itemprop="description" content="Petite précision, c&rsquo;est un setup sur Mac avec processeur ARM.
-Setup Nix sur OSX sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install)\n source ~/.zshrc mkdir ~/.config/nix echo &#34;experimental-features = nix-command flakes&#34; &gt;&gt; ~/.config/nix/nix.conf Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
+Setup Nix sur OSX sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) source ~/.zshrc mkdir ~/.config/nix echo &#34;experimental-features = nix-command flakes&#34; &gt;&gt; ~/.config/nix/nix.conf Remarque: sur Ubuntu, l&rsquo;installer avec sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon.
+Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
 Option 1
-{ description = &#34;Environnement de développement PostgreSQL&#34;; inputs = { nixpkgs.url = &#34;github:NixOS/nixpkgs/nixpkgs-unstable&#34;; flake-utils.url = &#34;github:numtide/flake-utils&#34;; }; outputs = { self, nixpkgs, flake-utils }: flake-utils."><meta itemprop="datePublished" content="2025-07-02T22:32:00+02:00" />
+{ description = &#34;Environnement de développement PostgreSQL&#34;; inputs = { nixpkgs."><meta itemprop="datePublished" content="2025-07-02T22:32:00+02:00" />
 <meta itemprop="dateModified" content="2025-07-02T22:32:00+02:00" />
-<meta itemprop="wordCount" content="455"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="475"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Nix,DevOps," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
 <meta name="twitter:title" content="Première utilisation de Nix et setup Postgres"/>
 <meta name="twitter:description" content="Petite précision, c&rsquo;est un setup sur Mac avec processeur ARM.
-Setup Nix sur OSX sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install)\n source ~/.zshrc mkdir ~/.config/nix echo &#34;experimental-features = nix-command flakes&#34; &gt;&gt; ~/.config/nix/nix.conf Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
+Setup Nix sur OSX sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) source ~/.zshrc mkdir ~/.config/nix echo &#34;experimental-features = nix-command flakes&#34; &gt;&gt; ~/.config/nix/nix.conf Remarque: sur Ubuntu, l&rsquo;installer avec sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon.
+Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
 Option 1
-{ description = &#34;Environnement de développement PostgreSQL&#34;; inputs = { nixpkgs.url = &#34;github:NixOS/nixpkgs/nixpkgs-unstable&#34;; flake-utils.url = &#34;github:numtide/flake-utils&#34;; }; outputs = { self, nixpkgs, flake-utils }: flake-utils."/>
+{ description = &#34;Environnement de développement PostgreSQL&#34;; inputs = { nixpkgs."/>
 
 
 
@@ -193,11 +196,14 @@ Option 1
             <div class="post-content">
                 <p>Petite précision, c&rsquo;est un setup sur Mac avec processeur ARM.</p>
 <h2 id="setup-nix-sur-osx">Setup Nix sur OSX</h2>
-<pre tabindex="0"><code>sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install)\n
+<pre tabindex="0"><code>sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install)
 source ~/.zshrc
 mkdir ~/.config/nix
 echo &#34;experimental-features = nix-command flakes&#34; &gt;&gt; ~/.config/nix/nix.conf
-</code></pre><br/>
+</code></pre><blockquote>
+<p>Remarque: sur Ubuntu, l&rsquo;installer avec <code>sh &lt;(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon</code>.</p>
+</blockquote>
+<br/>
 <h2 id="setup-pg">Setup PG</h2>
 <p>Créer un fichier <code>nix/flake.nix</code> dans votre repo git et ajouter le contenu suivant:</p>
 <p><strong>Option 1</strong></p>
@@ -320,6 +326,9 @@ PostgreSQL autorise toutes les connexions locales sans mot de passe. En producti
 <br/>
 <h2 id="incompatibilité-mac-m2">Incompatibilité Mac M2</h2>
 <pre tabindex="0"><code>NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix develop --impure
+</code></pre><br/>
+<h2 id="cleanup-complet-pas-uninstall">Cleanup complet (pas uninstall)</h2>
+<pre tabindex="0"><code>nix store gc
 </code></pre>
             </div>
         </article>
@@ -331,7 +340,7 @@ PostgreSQL autorise toutes les connexions locales sans mot de passe. En producti
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/nix">Nix</a></span><span class="tag"><a href="https://leandeep.com/tags/devops">DevOps</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>455 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>475 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>02 juil.. 2025</p>
         </div>
