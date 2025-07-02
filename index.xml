@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 09 Jun 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Jul 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Première utilisation de Nix et setup Postgres</title>
+      <link>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</link>
+      <pubDate>Wed, 02 Jul 2025 22:32:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</guid>
+      <description>Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM.
+Setup Nix sur OSX sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install)\n source ~/.zshrc mkdir ~/.config/nix echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
+Option 1
+{ description = &amp;#34;Environnement de développement PostgreSQL&amp;#34;; inputs = { nixpkgs.url = &amp;#34;github:NixOS/nixpkgs/nixpkgs-unstable&amp;#34;; flake-utils.url = &amp;#34;github:numtide/flake-utils&amp;#34;; }; outputs = { self, nixpkgs, flake-utils }: flake-utils.</description>
+    </item>
+    
     <item>
       <title>Using AI and IoT to Safely Automate Fireplace Fire Starting</title>
       <link>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</link>
@@ -109,15 +121,6 @@ Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect S
       <guid>https://leandeep.com/read-and-write-file-in-sdcard-from-esp32-and-rust/</guid>
       <description>In this article we are going to see how to read a file from a SD Card in Rust using the SPI port of the ESP32.
 Prerequisites cargo install esp-generate@0.3.1 esp-generate --chip esp32 sd source ~/export-esp.sh cargo build # espflash flash target/xtensa-esp32-none-elf/debug/sd --monitor Dependencies [dependencies] critical-section = &amp;#34;1.2.0&amp;#34; embassy-executor = { version = &amp;#34;0.7.0&amp;#34;, features = [&amp;#34;task-arena-size-20480&amp;#34;] } embassy-time = { version = &amp;#34;0.4.0&amp;#34;, features = [&amp;#34;generic-queue-8&amp;#34;] } esp-hal = { version = &amp;#34;1.</description>
-    </item>
-    
-    <item>
-      <title>Add a MicroSD card adapter on a ESP32 (Arduino code and OSX)</title>
-      <link>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</link>
-      <pubDate>Fri, 11 Apr 2025 22:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/add-a-microsd-card-adapter-on-a-esp32-arduino-code-and-osx/</guid>
-      <description>Prerequisites Arduino IDE installed arduino-cli installed on OSX (using brew install arduino-cli) to ease monitoring via the command arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200 Determine ESP32 SPI GPIO Pins. To do that you can the following code: void setup() { Serial.begin(115200); Serial.print(&amp;#34;MOSI: &amp;#34;); Serial.println(MOSI); // MOSI Pin by default Serial.print(&amp;#34;MISO: &amp;#34;); Serial.println(MISO); // MISO Pin by default Serial.print(&amp;#34;SCK: &amp;#34;); Serial.println(SCK); // SCK Pin by default Serial.print(&amp;#34;CS: &amp;#34;); Serial.println(SS); // CS Pin by default } void loop() { } Install SD library from Arduino IDE I connected VCC to 5V, GND to GND, MISO to pin 19, MOSI to pin 23, SCK to pin 18 and CS to pin 5.</description>
     </item>
     
   </channel>

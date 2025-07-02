@@ -6,8 +6,150 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 09 Jun 2025 22:32:00 +0200</lastBuildDate>
+        <lastBuildDate>Wed, 02 Jul 2025 22:32:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Première utilisation de Nix et setup Postgres</title>
+            <link>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</link>
+            <pubDate>Wed, 02 Jul 2025 22:32:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</guid>
+            <description>Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM.
+Setup Nix sur OSX sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install)\n source ~/.zshrc mkdir ~/.config/nix echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
+Option 1
+{ description = &amp;#34;Environnement de développement PostgreSQL&amp;#34;; inputs = { nixpkgs.url = &amp;#34;github:NixOS/nixpkgs/nixpkgs-unstable&amp;#34;; flake-utils.url = &amp;#34;github:numtide/flake-utils&amp;#34;; }; outputs = { self, nixpkgs, flake-utils }: flake-utils.</description>
+            <content type="html"><![CDATA[<p>Petite précision, c&rsquo;est un setup sur Mac avec processeur ARM.</p>
+<h2 id="setup-nix-sur-osx">Setup Nix sur OSX</h2>
+<pre tabindex="0"><code>sh &lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install)\n
+source ~/.zshrc
+mkdir ~/.config/nix
+echo &#34;experimental-features = nix-command flakes&#34; &gt;&gt; ~/.config/nix/nix.conf
+</code></pre><br/>
+<h2 id="setup-pg">Setup PG</h2>
+<p>Créer un fichier <code>nix/flake.nix</code> dans votre repo git et ajouter le contenu suivant:</p>
+<p><strong>Option 1</strong></p>
+<pre tabindex="0"><code>{
+  description = &#34;Environnement de développement PostgreSQL&#34;;
+
+  inputs = {
+    nixpkgs.url = &#34;github:NixOS/nixpkgs/nixpkgs-unstable&#34;;
+    flake-utils.url = &#34;github:numtide/flake-utils&#34;;
+  };
+
+  outputs = { self, nixpkgs, flake-utils }: 
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in {
+        devShells.default = pkgs.mkShell {
+          buildInputs = [
+            pkgs.postgresql
+          ];
+          shellHook = &#39;&#39;
+            export setup_postgres=${pkgs.postgresql}/bin/initdb
+          &#39;&#39;;
+        };
+      });
+}
+</code></pre><br/>
+<p><strong>Option 2 (avec démarrage du serveur automatique)</strong></p>
+<blockquote>
+<p>Chaque fois que <code>nix develop</code> sera démarré dans votre repo dans le dossier <code>nix</code>,
+le shell va s’ouvrir avec PostgreSQL installé et il va automatiquement lancer le serveur PostgreSQL (si la base est initialisée).</p>
+</blockquote>
+<pre tabindex="0"><code>{
+  description = &#34;Environnement de développement PostgreSQL&#34;;
+
+  inputs = {
+    nixpkgs.url = &#34;github:NixOS/nixpkgs/nixpkgs-unstable&#34;;
+    flake-utils.url = &#34;github:numtide/flake-utils&#34;;
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in {
+        devShells.default = pkgs.mkShell {
+          buildInputs = [
+            pkgs.postgresql
+          ];
+          shellHook = &#39;&#39;
+            export setup_postgres=${pkgs.postgresql}/bin/initdb
+
+            # Démarrage automatique de PostgreSQL si le dossier est initialisé
+            if [ -d &#34;$PWD/var/pgdata/base&#34; ]; then
+              echo &#34;⏳ Démarrage de PostgreSQL...&#34;
+              pg_ctl -D $PWD/var/pgdata -l $PWD/var/pglog start
+            else
+              echo &#34;⚠️  PostgreSQL n&#39;est pas encore initialisé. Lancez :&#34;
+              echo &#34;   $setup_postgres $PWD/var/pgdata&#34;
+            fi
+          &#39;&#39;;
+        };
+      });
+}
+</code></pre><br/>
+<p><strong>Option 3 (start &amp; stop automatique à l&rsquo;entrée et sortie de <code>nix develop</code>)</strong></p>
+<pre tabindex="0"><code>{
+  description = &#34;Environnement de développement PostgreSQL&#34;;
+
+  inputs = {
+    nixpkgs.url = &#34;github:NixOS/nixpkgs/nixpkgs-unstable&#34;;
+    flake-utils.url = &#34;github:numtide/flake-utils&#34;;
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in {
+        devShells.default = pkgs.mkShell {
+          buildInputs = [
+            pkgs.postgresql
+          ];
+          shellHook = &#39;&#39;
+            export setup_postgres=${pkgs.postgresql}/bin/initdb
+
+            # Démarrage automatique si base initialisée
+            if [ -d &#34;$PWD/var/pgdata/base&#34; ]; then
+              echo &#34;⏳ Démarrage de PostgreSQL...&#34;
+              pg_ctl -D $PWD/var/pgdata -l $PWD/var/pglog start
+
+              # À la sortie du shell, arrêter PostgreSQL
+              trap &#34;echo &#39;🛑 Arrêt de PostgreSQL...&#39;; pg_ctl -D $PWD/var/pgdata stop&#34; EXIT
+            else
+              echo &#34;⚠️  PostgreSQL n&#39;est pas encore initialisé. Lancez :&#34;
+              echo &#34;   $setup_postgres $PWD/var/pgdata&#34;
+            fi
+          &#39;&#39;;
+        };
+      });
+}
+</code></pre><br/>
+<pre tabindex="0"><code>cd nix
+nix develop
+$setup_postgres $PWD/var/pgdata
+/nix/store/smngl7zwd4mcz426w18p7lnx08m52im0-postgresql-17.5/bin/pg_ctl -D /Users/.../nix/var/pgdata -l logfile start
+createdb olivier
+</code></pre><br/>
+<p><strong>Vérification (connexion à PG)</strong></p>
+<pre tabindex="0"><code>psql -h localhost -p 5432 -U $USER
+</code></pre><br/>
+<h2 id="stopper-le-serveur-pg">Stopper le serveur PG</h2>
+<pre tabindex="0"><code>nix develop
+pg_ctl -D $PWD/var/pgdata stop
+</code></pre><blockquote>
+<p>Attention le serveur tourne en mode dev:
+<code>initdb: warning: enabling &quot;trust&quot; authentication for local connections</code>
+PostgreSQL autorise toutes les connexions locales sans mot de passe. En production, on peut modifier le fichier <code>var/pgdata/pg_hba.conf</code> et changer trust en md5 pour obliger une authentification avec mot de passe</p>
+</blockquote>
+<br/>
+<h2 id="incompatibilité-mac-m2">Incompatibilité Mac M2</h2>
+<pre tabindex="0"><code>NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix develop --impure
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Using AI and IoT to Safely Automate Fireplace Fire Starting</title>
