@@ -7,12 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis
-pip install watchdog
-Créer un script de surveillance
-Créer par exemple un fichier appelé run_and_reload.py
-import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self." />
+  content="Configurer une IP fixe dans pfSense
+Allez dans Services &amp;gt; DHCP Server. Sélectionnez l&amp;rsquo;interface correspondante (par exemple, LAN). Ajouter une réservation DHCP : Descendez jusqu&amp;rsquo;à la section DHCP Static Mappings for this Interface. Cliquez sur Add (&#43;). Configurer les détails de la réservation : MAC Address : Entrez l&amp;rsquo;adresse MAC de l&amp;rsquo;appareil. IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -28,7 +24,7 @@ import os import subprocess import sys from watchdog.observers import Observer f
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/" />
+<link rel="canonical" href="https://leandeep.com/fixer-une-ip-avec-pfsense/" />
 
 
 
@@ -78,7 +74,7 @@ import os import subprocess import sys from watchdog.observers import Observer f
 
 <title>
   
-  Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié :: Lean Deep Tech blog 
+  Fixer une IP avec Pfsense :: Lean Deep Tech blog 
   
 </title>
 
@@ -103,25 +99,17 @@ import os import subprocess import sys from watchdog.observers import Observer f
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié">
-<meta itemprop="description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis
-pip install watchdog
-Créer un script de surveillance
-Créer par exemple un fichier appelé run_and_reload.py
-import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self."><meta itemprop="datePublished" content="2025-01-11T23:32:00+02:00" />
+<meta itemprop="name" content="Fixer une IP avec Pfsense">
+<meta itemprop="description" content="Configurer une IP fixe dans pfSense
+Allez dans Services &gt; DHCP Server. Sélectionnez l&rsquo;interface correspondante (par exemple, LAN). Ajouter une réservation DHCP : Descendez jusqu&rsquo;à la section DHCP Static Mappings for this Interface. Cliquez sur Add (&#43;). Configurer les détails de la réservation : MAC Address : Entrez l&rsquo;adresse MAC de l&rsquo;appareil. IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP."><meta itemprop="datePublished" content="2025-01-11T23:32:00+02:00" />
 <meta itemprop="dateModified" content="2025-01-11T23:32:00+02:00" />
-<meta itemprop="wordCount" content="174"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="tips,Python," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="wordCount" content="75"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="keywords" content="tips,firewall,pfsense," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié"/>
-<meta name="twitter:description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis
-pip install watchdog
-Créer un script de surveillance
-Créer par exemple un fichier appelé run_and_reload.py
-import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self."/>
+<meta name="twitter:title" content="Fixer une IP avec Pfsense"/>
+<meta name="twitter:description" content="Configurer une IP fixe dans pfSense
+Allez dans Services &gt; DHCP Server. Sélectionnez l&rsquo;interface correspondante (par exemple, LAN). Ajouter une réservation DHCP : Descendez jusqu&rsquo;à la section DHCP Static Mappings for this Interface. Cliquez sur Add (&#43;). Configurer les détails de la réservation : MAC Address : Entrez l&rsquo;adresse MAC de l&rsquo;appareil. IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP."/>
 
 
 
@@ -191,72 +179,31 @@ import os import subprocess import sys from watchdog.observers import Observer f
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/">Surveiller et redémarrer un script Python dès qu&rsquo;un fichier est modifié</a>
+                <a href="https://leandeep.com/fixer-une-ip-avec-pfsense/">Fixer une IP avec Pfsense</a>
             </h1>
 
             
 
             <div class="post-content">
-                <p>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:</p>
-<p><strong>Pré-requis</strong></p>
-<p><code>pip install watchdog</code></p>
-<br/>
-<p><strong>Créer un script de surveillance</strong></p>
-<p>Créer par exemple un fichier appelé <code>run_and_reload.py</code></p>
-<pre tabindex="0"><code>import os
-import subprocess
-import sys
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
-
-class RestartOnChangeHandler(FileSystemEventHandler):
-    def __init__(self, run_command):
-        super().__init__()
-        self.run_command = run_command
-        self.process = None
-        self.start_process()
-
-    def start_process(self):
-        if self.process:
-            self.process.terminate()
-            self.process.wait()
-        self.process = subprocess.Popen(self.run_command, shell=True)
-
-    def on_any_event(self, event):
-        # Trigger the restart on any file change
-        print(f&#34;File {event.src_path} changed, restarting process...&#34;)
-        self.start_process()
-
-    def stop_process(self):
-        if self.process:
-            self.process.terminate()
-            self.process.wait()
-
-if __name__ == &#34;__main__&#34;:
-    # On pourrait améliorer facilement ce script en ayant mon_module comme input de ce script
-    command = &#34;python -m mon_module&#34;
-    watch_directory = &#34;.&#34;
-
-    # Set up the event handler and observer
-    event_handler = RestartOnChangeHandler(command)
-    observer = Observer()
-    observer.schedule(event_handler, watch_directory, recursive=True)
-
-    try:
-        print(f&#34;Watching for changes in &#39;{watch_directory}&#39;...&#34;)
-        observer.start()
-        while True:
-            pass  # Keep the script running
-    except KeyboardInterrupt:
-        print(&#34;\nStopping...&#34;)
-        event_handler.stop_process()
-        observer.stop()
-    observer.join()
-</code></pre><br/>
-<p><strong>Utilisation</strong></p>
-<p><code>python run_and_reload.py</code></p>
-<p><br/>
-Et voilà, aussi simple que cela.</p>
+                <p><strong>Configurer une IP fixe dans pfSense</strong></p>
+<ul>
+<li>Allez dans <code>Services &gt; DHCP Server</code>.</li>
+<li>Sélectionnez l&rsquo;interface correspondante (par exemple, LAN).</li>
+<li>Ajouter une réservation DHCP :
+<ul>
+<li>Descendez jusqu&rsquo;à la section <code>DHCP Static Mappings for this Interface</code>.</li>
+<li>Cliquez sur Add (+).</li>
+<li>Configurer les détails de la réservation :
+<ul>
+<li>MAC Address : Entrez l&rsquo;adresse MAC de l&rsquo;appareil.</li>
+<li>IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Save</li>
+<li>Appliquer</li>
+</ul>
 
             </div>
         </article>
@@ -265,10 +212,10 @@ Et voilà, aussi simple que cela.</p>
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span><span class="tag"><a href="https://leandeep.com/tags/firewall">firewall</a></span><span class="tag"><a href="https://leandeep.com/tags/pfsense">pfsense</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>174 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>75 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>11 janv.. 2025</p>
         </div>
@@ -283,17 +230,17 @@ Et voilà, aussi simple que cela.</p>
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/fixer-une-ip-avec-pfsense/">
+                            <a href="https://leandeep.com/installer-un-egpu-razer-core-x-sur-fedora-41-et-faire-tourner-pytorch/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Fixer une IP avec Pfsense</span>
+                                <span class="button__text">Installer un eGPU Razer Core X sur Fedora 41 et faire tourner Pytorch</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2025/">
-                                <span class="button__text">Et vous quels sont vos projets pour 2025 ?</span>
+                            <a href="https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/">
+                                <span class="button__text">Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
