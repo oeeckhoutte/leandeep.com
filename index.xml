@@ -7,7 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 02 Jul 2025 22:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jul 2025 10:59:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer Jupyter lab sur Ubuntu 22</title>
+      <link>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</link>
+      <pubDate>Sat, 19 Jul 2025 10:59:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</guid>
+      <description>Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.
+Attention cette installation n&#39;est pas sécurisée. C&#39;est de l&#39;ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.
+Pré-requis miniconda3-3.11-23.5.0-3 nvidia-smi pour vérifier que vous avez accès à un GPU Installation pip install notebook jupyterlab jupyter Configuration jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root Et voilà, rendez-vous sur http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE pour accéder à Jupyter lab.</description>
+    </item>
+    
+    <item>
+      <title>Installer direnv sur Ubuntu 22</title>
+      <link>https://leandeep.com/installer-direnv-sur-ubuntu-22/</link>
+      <pubDate>Sat, 19 Jul 2025 10:49:00 +0200</pubDate>
+      
+      <guid>https://leandeep.com/installer-direnv-sur-ubuntu-22/</guid>
+      <description>Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.
+Installation sudo apt install direnv curl https://pyenv.run | bash Configuration Ajouter les lignes suivantes dans votre .zshrc
+export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34; export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34; eval &amp;#34;$(pyenv init --path)&amp;#34; eval &amp;#34;$(pyenv init -)&amp;#34; eval &amp;#34;$(direnv hook zsh)&amp;#34; Exécuter soure ~/.zshrc puis installer un package python de votre choix.
+pyenv install 3.11.8 pyenv global 3.11.8 # Ou pyenv install miniconda3-3.11-23.5.0-3 pyenv global miniconda3-3.</description>
+    </item>
+    
     <item>
       <title>Première utilisation de Nix et setup Postgres</title>
       <link>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</link>
@@ -99,29 +122,6 @@ Adafruit SSD1306 Adafruit GFX Library Connect the Oled display to the ESP32 boar
 Voici le branchement I2C entre ton ESP32 et l’écran :
 It is an OLED (NFP1315-61AY)
 Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Code #include &amp;lt;Wire.</description>
-    </item>
-    
-    <item>
-      <title>Use an Oled display on ESP32 using Rust</title>
-      <link>https://leandeep.com/use-an-oled-display-on-esp32-using-rust/</link>
-      <pubDate>Thu, 17 Apr 2025 22:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/use-an-oled-display-on-esp32-using-rust/</guid>
-      <description>In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Rust.
-Prerequisites Connect the Oled display to the ESP32 board:
-Voici le branchement I2C entre ton ESP32 et l’écran :
-It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &amp;#34;0.</description>
-    </item>
-    
-    <item>
-      <title>Read and write file in sdcard from ESP32 and Rust</title>
-      <link>https://leandeep.com/read-and-write-file-in-sdcard-from-esp32-and-rust/</link>
-      <pubDate>Sun, 13 Apr 2025 22:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/read-and-write-file-in-sdcard-from-esp32-and-rust/</guid>
-      <description>In this article we are going to see how to read a file from a SD Card in Rust using the SPI port of the ESP32.
-Prerequisites cargo install esp-generate@0.3.1 esp-generate --chip esp32 sd source ~/export-esp.sh cargo build # espflash flash target/xtensa-esp32-none-elf/debug/sd --monitor Dependencies [dependencies] critical-section = &amp;#34;1.2.0&amp;#34; embassy-executor = { version = &amp;#34;0.7.0&amp;#34;, features = [&amp;#34;task-arena-size-20480&amp;#34;] } embassy-time = { version = &amp;#34;0.4.0&amp;#34;, features = [&amp;#34;generic-queue-8&amp;#34;] } esp-hal = { version = &amp;#34;1.</description>
     </item>
     
   </channel>

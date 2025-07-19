@@ -6,8 +6,73 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 02 Jul 2025 22:32:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 19 Jul 2025 10:59:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Jupyter lab sur Ubuntu 22</title>
+            <link>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</link>
+            <pubDate>Sat, 19 Jul 2025 10:59:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</guid>
+            <description>Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.
+Attention cette installation n&#39;est pas sécurisée. C&#39;est de l&#39;ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.
+Pré-requis miniconda3-3.11-23.5.0-3 nvidia-smi pour vérifier que vous avez accès à un GPU Installation pip install notebook jupyterlab jupyter Configuration jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root Et voilà, rendez-vous sur http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE pour accéder à Jupyter lab.</description>
+            <content type="html"><![CDATA[<p>Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.</p>
+<p><code>Attention cette installation n'est pas sécurisée. C'est de l'ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.</code></p>
+<br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<ul>
+<li>miniconda3-3.11-23.5.0-3</li>
+<li>nvidia-smi pour vérifier que vous avez accès à un GPU</li>
+</ul>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>pip install notebook jupyterlab jupyter
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
+<pre tabindex="0"><code>jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+</code></pre><br/>
+<p>Et voilà, rendez-vous sur <code>http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE</code> pour accéder à Jupyter lab.</p>
+<p><code>Attention, encore une fois, cette installation n'est pas secure!</code></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Installer direnv sur Ubuntu 22</title>
+            <link>https://leandeep.com/installer-direnv-sur-ubuntu-22/</link>
+            <pubDate>Sat, 19 Jul 2025 10:49:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-direnv-sur-ubuntu-22/</guid>
+            <description>Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.
+Installation sudo apt install direnv curl https://pyenv.run | bash Configuration Ajouter les lignes suivantes dans votre .zshrc
+export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34; export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34; eval &amp;#34;$(pyenv init --path)&amp;#34; eval &amp;#34;$(pyenv init -)&amp;#34; eval &amp;#34;$(direnv hook zsh)&amp;#34; Exécuter soure ~/.zshrc puis installer un package python de votre choix.
+pyenv install 3.11.8 pyenv global 3.11.8 # Ou pyenv install miniconda3-3.11-23.5.0-3 pyenv global miniconda3-3.</description>
+            <content type="html"><![CDATA[<p>Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>sudo apt install direnv
+curl https://pyenv.run | bash
+</code></pre><br/>
+<h2 id="configuration">Configuration</h2>
+<p>Ajouter les lignes suivantes dans votre <code>.zshrc</code></p>
+<pre tabindex="0"><code>export PYENV_ROOT=&#34;$HOME/.pyenv&#34;
+export PATH=&#34;$PYENV_ROOT/bin:$PATH&#34;
+eval &#34;$(pyenv init --path)&#34;
+eval &#34;$(pyenv init -)&#34;
+eval &#34;$(direnv hook zsh)&#34;
+</code></pre><p>Exécuter <code>soure ~/.zshrc</code> puis installer un package python de votre choix.</p>
+<pre tabindex="0"><code>pyenv install 3.11.8
+pyenv global 3.11.8
+
+# Ou 
+pyenv install miniconda3-3.11-23.5.0-3
+pyenv global miniconda3-3.11-23.5.0-3
+</code></pre><br/>
+<p>That&rsquo;s all!
+Vous pouvez maintenant exécuter <code>echo &quot;layout pyenv 3.11.8&quot; &gt;&gt; .envrc</code> où vous voulez</p>
+]]></content>
+        </item>
         
         <item>
             <title>Première utilisation de Nix et setup Postgres</title>
@@ -1813,16 +1878,20 @@ espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
             <pubDate>Fri, 28 Mar 2025 10:49:00 +0200</pubDate>
             
             <guid>https://leandeep.com/installer-code-server-sur-ubuntu-22/</guid>
-            <description>Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.
+            <description>Dans cet article très court, nous allons voir comment installer code-server sur Linux. Code-server est un vscode en remote.
 Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
-export VERSION=4.98.2 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server.</description>
-            <content type="html"><![CDATA[<p>Dans cet article très court, nous allons voir comment installer code-server sur Ubuntu 22. Code-server est un vscode en remote.</p>
+export VERSION=4.102.1 # Sur Fedora curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm # Sur Ubuntu 22 wget https://github.com/coder/code-server/releases/download/v4.102.1/code-server_4.102.1_amd64.deb sudo dpkg -i code-server_4.102.1_amd64.deb sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server.</description>
+            <content type="html"><![CDATA[<p>Dans cet article très court, nous allons voir comment installer code-server sur Linux. Code-server est un vscode en remote.</p>
 <br/>
 <h2 id="installation">Installation</h2>
 <p>Rendez-vous sur <a href="https://github.com/coder/code-server/releases">https://github.com/coder/code-server/releases</a> pour sélectionner la version que vous souhaitez installer.</p>
-<pre tabindex="0"><code>export VERSION=4.98.2
+<pre tabindex="0"><code>export VERSION=4.102.1
+# Sur Fedora
 curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm
 sudo rpm -i code-server-$VERSION-amd64.rpm
+# Sur Ubuntu 22
+wget https://github.com/coder/code-server/releases/download/v4.102.1/code-server_4.102.1_amd64.deb
+sudo dpkg -i code-server_4.102.1_amd64.deb
 sudo systemctl enable --now code-server@$USER
 </code></pre><br/>
 <h2 id="configuration">Configuration</h2>
@@ -1830,6 +1899,7 @@ sudo systemctl enable --now code-server@$USER
 <p>Un fois la config modifiée, redémarrer le service avec la commande: <code>sudo systemctl restart code-server@$USER</code></p>
 <br/>
 <p>That&rsquo;s all!</p>
+<p>Rendez-vous sur https://SERVER_IP:8080 (<code>8080</code> est le port par défaut)</p>
 ]]></content>
         </item>
         
