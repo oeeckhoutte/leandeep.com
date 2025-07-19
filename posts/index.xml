@@ -6,8 +6,123 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 19 Jul 2025 10:59:00 +0200</lastBuildDate>
+        <lastBuildDate>Sat, 19 Jul 2025 11:36:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Fine-tune Yolo pour détecter un feu</title>
+            <link>https://leandeep.com/fine-tune-yolo-pour-d%C3%A9tecter-un-feu/</link>
+            <pubDate>Sat, 19 Jul 2025 11:36:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/fine-tune-yolo-pour-d%C3%A9tecter-un-feu/</guid>
+            <description>On crée un jupyter notebook:
+mkdir yolo-finetune-fire &amp;amp;&amp;amp; cd $_ touch yolo-finetune.ipynb Contenu du Notebook
+MY_SECRET_KEY=&amp;#34;...&amp;#34; !pip install ultralytics !pip install roboflow import os import yaml import ultralytics import pandas as pd from roboflow import Roboflow from ultralytics import YOLO from IPython.display import Image, display Contenu Markdown
+yolov11s.pt vs yolov11n.pt
+Le &amp;ldquo;s&amp;rdquo; signifie &amp;ldquo;small&amp;rdquo; (petit). Modèle plus grand que &amp;ldquo;n&amp;rdquo;, avec plus de couches et de paramètres. Meilleure précision, mais plus lent et plus gourmand en ressources que &amp;ldquo;n&amp;rdquo;.</description>
+            <content type="html"><![CDATA[<p>On crée un jupyter notebook:</p>
+<pre tabindex="0"><code>mkdir yolo-finetune-fire &amp;&amp; cd $_
+touch yolo-finetune.ipynb
+</code></pre><br/>
+<p><strong>Contenu du Notebook</strong></p>
+<pre tabindex="0"><code>MY_SECRET_KEY=&#34;...&#34;
+</code></pre><pre tabindex="0"><code>!pip install ultralytics
+!pip install roboflow
+</code></pre><pre tabindex="0"><code>import os
+import yaml
+import ultralytics
+import pandas as pd
+from roboflow import Roboflow
+from ultralytics import YOLO
+from IPython.display import Image, display
+</code></pre><br/>
+<p><strong>Contenu Markdown</strong></p>
+<p>yolov11s.pt vs yolov11n.pt</p>
+<p>Le &ldquo;s&rdquo; signifie &ldquo;small&rdquo; (petit). Modèle plus grand que &ldquo;n&rdquo;, avec plus de couches et de paramètres. Meilleure précision, mais plus lent et plus gourmand en ressources que &ldquo;n&rdquo;. yolov11n.pt</p>
+<p>Le &ldquo;n&rdquo; signifie &ldquo;nano&rdquo; (très petit). Modèle très léger, moins de couches et de paramètres. Plus rapide et moins gourmand en ressources, mais précision généralement plus faible.</p>
+<br/>
+<pre tabindex="0"><code>!wget -nc https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11s.pt
+</code></pre><pre tabindex="0"><code>rf = Roboflow(api_key=MY_SECRET_KEY)
+#model_version = &#34;yolov8&#34;
+model_version = &#34;yolov11&#34;
+epoch_count = &#34;2&#34;
+os.environ[&#34;EPOCH_COUNT&#34;] = epoch_count
+run_dir_name = f&#34;runs_{model_version}&#34;
+os.environ[&#34;MODEL_VERSION&#34;] = model_version
+os.environ[&#34;RUN_DIR_NAME&#34;] = run_dir_name
+base_path = f&#34;/home/olivier/Dev/fire/machine_learning/yolo-finetune-fire&#34;
+os.environ[&#34;BASE_PATH&#34;] = base_path
+project = rf.workspace(&#34;-jwzpw&#34;).project(&#34;continuous_fire&#34;)
+print(f&#34;Downloading model {model_version} in path {base_path}&#34;)
+dataset = project.version(6).download(model_version, location=base_path)
+</code></pre><pre tabindex="0"><code>if model_version == &#34;yolov8&#34;:
+    os.environ[&#34;BASE_MODEL_FILENAME&#34;] = f&#34;{model_version}s.pt&#34;
+elif model_version == &#34;yolov11&#34;:
+    os.environ[&#34;BASE_MODEL_FILENAME&#34;] = f&#34;yolo11s.pt&#34;
+</code></pre><pre tabindex="0"><code>!yolo task=detect mode=train model=$BASE_MODEL_FILENAME data=$BASE_PATH/continuous_fire-6/data.yaml epochs=$EPOCH_COUNT imgsz=640 plots=True project=$BASE_PATH/$RUN_DIR_NAME/detect
+</code></pre><pre tabindex="0"><code>runs_path = os.path.join(base_path, f&#34;{run_dir_name}/detect&#34;)
+
+train_dirs = [d for d in os.listdir(runs_path) if d.startswith(&#34;train&#34;)]
+
+train_dirs_sorted = sorted(train_dirs, key=lambda x: int(x.replace(&#34;train&#34;, &#34;&#34;) or &#34;1&#34;))
+
+last_train_dir = train_dirs_sorted[-1]
+os.environ[&#34;LAST_TRAIN_DIR&#34;] = last_train_dir
+</code></pre><pre tabindex="0"><code>Image(filename=f&#34;{base_path}/{run_dir_name}/detect/{last_train_dir}/results.png&#34;, width=600)
+</code></pre><br/>
+<p><strong>Contenu Markdown</strong></p>
+<p>Le fichier results.csv contient les métriques d’entraînement et de validation pour chaque epoch. Voici comment interpréter les principales colonnes:</p>
+<p>epoch: numéro de l’époque (itération complète sur le dataset).</p>
+<p>time: temps écoulé pour chaque epoch.</p>
+<p>train/box_loss, train/cls_loss, train/dfl_loss: pertes (loss) sur l’entraînement pour la localisation des boîtes, la classification et la distribution des frontières (Dfl).</p>
+<p>val/box_loss, val/cls_loss, val/dfl_loss : mêmes pertes mais sur le jeu de validation.
+metrics/precision(B) : précision sur la validation (proportion de vraies détections parmi toutes les détections).</p>
+<p>metrics/recall(B) : rappel sur la validation (proportion de vraies détections parmi tous les objets à détecter).</p>
+<p>metrics/mAP50(B) : moyenne des précisions pour un IoU de 0.5 (métrique clé pour la détection d’objets).</p>
+<p>metrics/mAP50-95(B) : mAP moyenne pour des IoU de 0.5 à 0.95 (plus stricte, plus représentative).</p>
+<p>lr/pg0, lr/pg1, lr/pg2 : taux d’apprentissage pour différents groupes de paramètres.</p>
+<p>À retenir :</p>
+<p>Plus les valeurs de metrics/mAP50(B) et metrics/mAP50-95(B) sont élevées, meilleur est le modèle.</p>
+<p>Les pertes (loss) doivent généralement diminuer au fil des epochs.</p>
+<p>Surveille la différence entre les pertes d’entraînement et de validation pour détecter un éventuel surapprentissage (overfitting).</p>
+<p>Pour choisir le meilleur modèle, regarde l’epoch où metrics/mAP50(B) est maximal : c’est à cette epoch que le fichier best.pt est sauvegardé.</p>
+<br/>
+<pre tabindex="0"><code>!yolo task=detect mode=val model=$BASE_PATH/$RUN_DIR_NAME/detect/$LAST_TRAIN_DIR/weights/best.pt data=$BASE_PATH/continuous_fire-6/data.yaml project=$BASE_PATH/$RUN_DIR_NAME/detect/$LAST_TRAIN_DIR
+</code></pre><pre tabindex="0"><code>results_csv = os.path.join(runs_path, last_train_dir, &#34;results.csv&#34;)
+if os.path.exists(results_csv):
+    df = pd.read_csv(results_csv)
+    # On considère que la meilleure performance correspond au meilleur mAP50 sur la validation
+    best_idx = df[&#34;metrics/mAP50(B)&#34;].idxmax()
+    best_epoch = int(df.loc[best_idx, &#34;epoch&#34;])
+    best_map = df.loc[best_idx, &#34;metrics/mAP50(B)&#34;]
+    #print(f&#34;Le modèle est le plus performant à l&#39;epoch {best_epoch} avec un mAP50(B) de {best_map:.3f}.&#34;)
+    total_epochs = len(df)
+    print(f&#34;Le modèle est le plus performant à l&#39;epoch {best_epoch} / {total_epochs} avec un mAP50(B) de {best_map:.3f}.&#34;)
+    print(&#34;C&#39;est à cette epoch que le fichier best.pt a été sauvegardé, car il correspond à la meilleure performance sur le jeu de validation (mAP50).&#34;)
+    table = df[[&#34;epoch&#34;, &#34;metrics/mAP50(B)&#34;]]
+    print(table.to_string(index=False))
+else:
+    print(&#34;Le fichier results.csv n&#39;existe pas dans le dernier dossier train.&#34;)
+</code></pre><pre tabindex="0"><code>val_images_dir = os.path.join(base_path, f&#34;{run_dir_name}/detect&#34;, last_train_dir, &#34;val&#34;)
+
+if os.path.exists(val_images_dir):
+    images = [f for f in os.listdir(val_images_dir) if f.lower().endswith((&#39;.jpg&#39;, &#39;.png&#39;))]
+    if images:
+        for img_name in images:
+            img_path = os.path.join(val_images_dir, img_name)
+            display(Image(filename=img_path, width=600))
+    else:
+        print(&#34;Aucune image trouvée dans le dossier de validation.&#34;)
+else:
+    print(&#34;Le dossier de validation n&#39;existe pas.&#34;)
+</code></pre><blockquote>
+<p>Personal note: notebook location on AI Server: <code>/home/olivier/Dev/fire/machine_learning</code></p>
+</blockquote>
+<blockquote>
+<p><code>jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root</code> &lt;- commande à utiliser uniquement en développement (sans donnée de prod)</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Installer Jupyter lab sur Ubuntu 22</title>
