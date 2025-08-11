@@ -104,11 +104,10 @@ Allez dans Services &amp;gt; DHCP Server. Sélectionnez l&amp;rsquo;interface co
       
       <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
       <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis
-pip install watchdog
-Créer un script de surveillance
+Pré-requis pip install watchdog
+Créer un script de surveillance Tracker un fichier.py
 Créer par exemple un fichier appelé run_and_reload.py
-import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self.</description>
+import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os.</description>
     </item>
     
     <item>

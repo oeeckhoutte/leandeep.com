@@ -2385,69 +2385,193 @@ Allez dans Services &amp;gt; DHCP Server. Sélectionnez l&amp;rsquo;interface co
             
             <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
             <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis
-pip install watchdog
-Créer un script de surveillance
+Pré-requis pip install watchdog
+Créer un script de surveillance Tracker un fichier.py
 Créer par exemple un fichier appelé run_and_reload.py
-import os import subprocess import sys from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class RestartOnChangeHandler(FileSystemEventHandler): def __init__(self, run_command): super().__init__() self.run_command = run_command self.process = None self.start_process() def start_process(self): if self.</description>
+import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os.</description>
             <content type="html"><![CDATA[<p>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:</p>
-<p><strong>Pré-requis</strong></p>
+<h2 id="pré-requis">Pré-requis</h2>
 <p><code>pip install watchdog</code></p>
 <br/>
-<p><strong>Créer un script de surveillance</strong></p>
+<h2 id="créer-un-script-de-surveillance">Créer un script de surveillance</h2>
+<p><strong>Tracker un fichier.py</strong></p>
 <p>Créer par exemple un fichier appelé <code>run_and_reload.py</code></p>
-<pre tabindex="0"><code>import os
-import subprocess
+<pre tabindex="0"><code>import time
+import os
 import sys
+import argparse
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-class RestartOnChangeHandler(FileSystemEventHandler):
-    def __init__(self, run_command):
-        super().__init__()
-        self.run_command = run_command
-        self.process = None
-        self.start_process()
+class TargetFileHandler(FileSystemEventHandler):
+    def __init__(self, target_file):
+        self.target_file = os.path.abspath(target_file)
 
-    def start_process(self):
-        if self.process:
-            self.process.terminate()
-            self.process.wait()
-        self.process = subprocess.Popen(self.run_command, shell=True)
+    def on_modified(self, event):
+        if os.path.abspath(event.src_path) == self.target_file:
+            print(f&#34;[MODIFIED] {event.src_path}&#34;)
 
-    def on_any_event(self, event):
-        # Trigger the restart on any file change
-        print(f&#34;File {event.src_path} changed, restarting process...&#34;)
-        self.start_process()
+    def on_deleted(self, event):
+        if os.path.abspath(event.src_path) == self.target_file:
+            print(f&#34;[DELETED] {event.src_path}&#34;)
 
-    def stop_process(self):
-        if self.process:
-            self.process.terminate()
-            self.process.wait()
+    def on_created(self, event):
+        if os.path.abspath(event.src_path) == self.target_file:
+            print(f&#34;[CREATED] {event.src_path}&#34;)
 
-if __name__ == &#34;__main__&#34;:
-    # On pourrait améliorer facilement ce script en ayant mon_module comme input de ce script
-    command = &#34;python -m mon_module&#34;
-    watch_directory = &#34;.&#34;
+def main():
+    parser = argparse.ArgumentParser(description=&#34;Monitor a .py file for changes.&#34;)
+    parser.add_argument(&#34;file&#34;, help=&#34;Path to the .py file to monitor&#34;)
+    parser.add_argument(&#34;-d&#34;, &#34;--directory&#34;, help=&#34;Directory to monitor (default: file&#39;s directory)&#34;)
 
-    # Set up the event handler and observer
-    event_handler = RestartOnChangeHandler(command)
+    args = parser.parse_args()
+
+    file_path = os.path.abspath(args.file)
+
+    if not os.path.isfile(file_path):
+        print(f&#34;Error: File &#39;{file_path}&#39; does not exist.&#34;)
+        sys.exit(1)
+
+    # Use the provided directory or fallback to the file&#39;s directory
+    directory_to_watch = os.path.abspath(args.directory) if args.directory else os.path.dirname(file_path)
+
+    if not os.path.isdir(directory_to_watch):
+        print(f&#34;Error: Directory &#39;{directory_to_watch}&#39; does not exist.&#34;)
+        sys.exit(1)
+
+    event_handler = TargetFileHandler(file_path)
     observer = Observer()
-    observer.schedule(event_handler, watch_directory, recursive=True)
+    observer.schedule(event_handler, path=directory_to_watch, recursive=False)
+    observer.start()
+
+    print(f&#34;⏳ Monitoring: {file_path}&#34;)
+    print(f&#34;📁 Watched directory: {directory_to_watch}&#34;)
+    print(&#34;🔔 Press Ctrl+C to stop&#34;)
 
     try:
-        print(f&#34;Watching for changes in &#39;{watch_directory}&#39;...&#34;)
-        observer.start()
         while True:
-            pass  # Keep the script running
+            time.sleep(1)
     except KeyboardInterrupt:
-        print(&#34;\nStopping...&#34;)
-        event_handler.stop_process()
         observer.stop()
+        print(&#34;\nStopping monitor...&#34;)
+
     observer.join()
+
+if __name__ == &#34;__main__&#34;:
+    main()
 </code></pre><br/>
-<p><strong>Utilisation</strong></p>
-<p><code>python run_and_reload.py</code></p>
+<p>Usage:</p>
+<p><code>python run_and_reload.py my_script.py</code> ou <code>python run_and_reload.py my_script.py -d ./another/path</code></p>
+<br/>
+<p><strong>Tracker un module</strong></p>
+<pre tabindex="0"><code>import time
+import os
+import sys
+import argparse
+import subprocess
+import threading
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+
+
+class ModuleChangeHandler(FileSystemEventHandler):
+    def __init__(self, restart_callback, extensions=(&#34;.py&#34;,)):
+        self.restart_callback = restart_callback
+        self.extensions = extensions
+
+    def on_any_event(self, event):
+        if any(event.src_path.endswith(ext) for ext in self.extensions):
+            print(f&#34;[CHANGE DETECTED] {event.src_path}&#34;)
+            self.restart_callback()
+
+
+class ModuleRunner:
+    def __init__(self, module_command, watch_directory):
+        self.module_command = module_command
+        self.watch_directory = watch_directory
+        self.process = None
+
+    def start(self):
+        print(f&#34;▶️ Starting: {self.module_command}&#34;)
+        self.process = subprocess.Popen(
+            self.module_command,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True,
+            bufsize=1,
+        )
+        threading.Thread(target=self._stream_output, daemon=True).start()
+
+    def _stream_output(self):
+        # Read the output line-by-line and forward to main stdout
+        for line in self.process.stdout:
+            print(line, end=&#34;&#34;)  # already includes \n
+
+    def stop(self):
+        if self.process and self.process.poll() is None:
+            print(&#34;⏹️ Stopping previous process...&#34;)
+            self.process.terminate()
+            try:
+                self.process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                self.process.kill()
+
+    def restart(self):
+        self.stop()
+        self.start()
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description=&#34;Watch a Python module and auto-restart on changes.&#34;
+    )
+    parser.add_argument(&#34;module&#34;, help=&#34;Module to run (example: my_module.main)&#34;)
+    parser.add_argument(
+        &#34;-d&#34;,
+        &#34;--directory&#34;,
+        help=&#34;Directory to watch (default: current directory)&#34;,
+        default=&#34;.&#34;,
+    )
+
+    args = parser.parse_args()
+    module_name = args.module
+    directory = os.path.abspath(args.directory)
+
+    if not os.path.isdir(directory):
+        print(f&#34;Error: Directory &#39;{directory}&#39; does not exist.&#34;)
+        sys.exit(1)
+
+    command = f&#34;python -m {module_name}&#34;
+    runner = ModuleRunner(command, directory)
+
+    handler = ModuleChangeHandler(runner.restart)
+    observer = Observer()
+    observer.schedule(handler, path=directory, recursive=True)
+
+    runner.start()
+    observer.start()
+
+    print(f&#34;📦 Watching module: {module_name}&#34;)
+    print(f&#34;📁 Watching directory: {directory}&#34;)
+    print(&#34;🔄 Auto-restart on .py changes. Press Ctrl+C to exit.&#34;)
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print(&#34;\n👋 Exiting...&#34;)
+        observer.stop()
+        runner.stop()
+
+    observer.join()
+
+
+if __name__ == &#34;__main__&#34;:
+    main()
+</code></pre><br/>
+<p>Usage:</p>
+<p><code>python watch_module.py my_module.main -d .</code></p>
 <p><br/>
 Et voilà, aussi simple que cela.</p>
 ]]></content>
