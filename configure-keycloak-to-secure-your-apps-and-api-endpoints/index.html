@@ -101,7 +101,7 @@
 <meta itemprop="name" content="Configure Keycloak to secure your apps and API endpoints">
 <meta itemprop="description" content="In this brief article we are going to create a basic realm in Keycloak to secure an API. It&rsquo;s a very minimal setup to quickly get started and secure your app and API. No RBAC, no security defense, and no Google/ Facebook Connect&hellip; configs are explained in this article. I will probably create other articles about these subjets later as I am extensively leveraging Keycloak features. There is indeed no need to setup a complexe Identity and Access Management tool like Keycloak if you are not going to leverage it&hellip;"><meta itemprop="datePublished" content="2024-11-13T07:00:00+02:00" />
 <meta itemprop="dateModified" content="2024-11-13T07:00:00+02:00" />
-<meta itemprop="wordCount" content="562"><meta itemprop="image" content="https://leandeep.com"/>
+<meta itemprop="wordCount" content="758"><meta itemprop="image" content="https://leandeep.com"/>
 <meta itemprop="keywords" content="Keycloak,ciam," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://leandeep.com"/>
 
@@ -167,7 +167,7 @@
     <main class="post">
 
         <div class="post-info">
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
 
             
 
@@ -281,10 +281,11 @@ services:
 </blockquote>
 <br/>
 <h2 id="configuration">Configuration</h2>
+<h3 id="option-1-configuration-via-gui">Option 1: configuration via GUI</h3>
 <p>Go to http://localhost:8080/ and login using <code>admin</code>/<code>keycloak</code> credentials.</p>
 <ol>
 <li>Create a new realm: <code>realm_test</code></li>
-<li>On realm settings check <code>Email as username</code>.</li>
+<li>On <code>realm settings</code> -&gt; <code>login</code> check <code>Email as username</code>.</li>
 <li>Create a new client and select:
 <ul>
 <li>Client type: <code>OpenID Connect</code></li>
@@ -299,12 +300,76 @@ services:
 <li>Create a user: <code>olivier.olivier@example.com</code> with email verified and set a non temporary password <code>olivierolivier</code>.</li>
 </ol>
 <br/>
+<h3 id="option-2-configuration-via-curl">Option 2: configuration via curl</h3>
+<p>Get admin token</p>
+<pre tabindex="0"><code>export TOKEN=$(curl -s -X POST \
+  &#34;http://localhost:8080/realms/master/protocol/openid-connect/token&#34; \
+  -H &#34;Content-Type: application/x-www-form-urlencoded&#34; \
+  -d &#34;username=admin&#34; \
+  -d &#34;password=keycloak&#34; \
+  -d &#34;grant_type=password&#34; \
+  -d &#34;client_id=admin-cli&#34; | jq -r .access_token)
+</code></pre><br/>
+<p><code>realm</code> creation:</p>
+<pre tabindex="0"><code>curl -X POST &#34;http://localhost:8080/admin/realms&#34; \
+  -H &#34;Authorization: Bearer $TOKEN&#34; \
+  -H &#34;Content-Type: application/json&#34; \
+  -d &#39;{
+    &#34;realm&#34;: &#34;myrealm&#34;,
+    &#34;enabled&#34;: true,
+    &#34;registrationEmailAsUsername&#34;: true
+  }&#39;
+</code></pre><br/>
+<p>Create a new <code>client_id</code> (warning it is permissive as webOrigins &amp; redirectUris are equal to <code>*</code>)</p>
+<pre tabindex="0"><code>curl -X POST &#34;http://localhost:8080/admin/realms/myrealm/clients&#34; \
+  -H &#34;Authorization: Bearer $TOKEN&#34; \
+  -H &#34;Content-Type: application/json&#34; \
+  -d &#39;{
+    &#34;clientId&#34;: &#34;myrealm_client_id&#34;,
+    &#34;name&#34;: &#34;myrealm_client_id&#34;,
+    &#34;protocol&#34;: &#34;openid-connect&#34;,
+    &#34;publicClient&#34;: true,
+    &#34;authorizationServicesEnabled&#34;: false,
+    &#34;standardFlowEnabled&#34;: true,
+    &#34;directAccessGrantsEnabled&#34;: true,
+    &#34;implicitFlowEnabled&#34;: false,
+    &#34;serviceAccountsEnabled&#34;: false,
+    &#34;webOrigins&#34;: [&#34;*&#34;],
+    &#34;redirectUris&#34;: [&#34;*&#34;]
+  }&#39;
+</code></pre><br/>
+<p>Create a user</p>
+<pre tabindex="0"><code>curl -X POST &#34;http://localhost:8080/admin/realms/myrealm/users&#34; \
+  -H &#34;Authorization: Bearer $TOKEN&#34; \
+  -H &#34;Content-Type: application/json&#34; \
+  -d &#39;{
+        &#34;username&#34;: &#34;user&#34;,
+        &#34;email&#34;: &#34;user@example.com&#34;,
+        &#34;enabled&#34;: true,
+        &#34;emailVerified&#34;: true
+  }&#39;
+</code></pre><br/>
+<p>Get user id</p>
+<pre tabindex="0"><code>USER_ID=$(curl -s -X GET &#34;http://localhost:8080/admin/realms/myrealm/users?username=user&#34; \
+  -H &#34;Authorization: Bearer $TOKEN&#34; \
+  -H &#34;Content-Type: application/json&#34; | jq -r &#39;.[0].id&#39;)
+</code></pre><br/>
+<p>Set password</p>
+<pre tabindex="0"><code>curl -X PUT &#34;http://localhost:8080/admin/realms/myrealm/users/$USER_ID/reset-password&#34; \
+  -H &#34;Authorization: Bearer $TOKEN&#34; \
+  -H &#34;Content-Type: application/json&#34; \
+  -d &#39;{
+    &#34;type&#34;: &#34;password&#34;,
+    &#34;value&#34;: &#34;password&#34;,
+    &#34;temporary&#34;: false
+  }&#39;
+</code></pre><br/>
 <h2 id="login-verify-config-ok">Login/ Verify config OK</h2>
 <p>Verify you can connect using your newly created account on the realm.</p>
-<p>To do so go to <a href="http://localhost:8080/realms/realm_test/protocol/openid-connect/auth?client_id=account-console">http://localhost:8080/realms/realm_test/protocol/openid-connect/auth?client_id=account-console</a> and try to login using the UI.</p>
+<p>To do so go to <a href="http://localhost:8080/realms/myrealm/protocol/openid-connect/auth?client_id=account-console">http://localhost:8080/realms/myrealm/protocol/openid-connect/auth?client_id=account-console</a> and try to login using the UI.</p>
 <br/>
 <p>If it&rsquo;s ok let&rsquo;s try to get an access_token using the REST API:</p>
-<pre tabindex="0"><code>curl -X POST &#34;http://localhost:8080/realms/realm_test/protocol/openid-connect/token&#34; \
+<pre tabindex="0"><code>curl -X POST &#34;http://localhost:8080/realms/myrealm/protocol/openid-connect/token&#34; \
      -H &#34;Content-Type: application/x-www-form-urlencoded&#34; \
      -d &#34;client_id=test_config&#34; \
      -d &#34;grant_type=password&#34; \
@@ -315,7 +380,7 @@ services:
 <pre tabindex="0"><code>{&#34;access_token&#34;:&#34;eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqaTNPRHRHS0tmcW9XNHVtOGptN1p4eVVUU3NxMGFEWFJJSnYtZGRNQXZ3In0.eyJleHAiOjE3MzE1MzQ2MzksImlhdCI6MTczMTUzNDMzOSwianRpIjoiMGQ4NDRjNWQtZGRhYi00YTg1LTljMjItY2FjNTg0NWI4NWU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy90ZV9kaXJlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImUzYzhkZjM2LWY3NmEtNDc4OC05OWM1LWU0N...
 </code></pre><br/>
 <p>Extract your access_token and now try to retrieve your account personal info:</p>
-<pre tabindex="0"><code>curl -X GET &#34;http://localhost:8080/realms/realm_test/protocol/openid-connect/userinfo&#34; \
+<pre tabindex="0"><code>curl -X GET &#34;http://localhost:8080/realms/myrealm/protocol/openid-connect/userinfo&#34; \
      -H &#34;Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJqaTNPRHRHS0tmcW9XNHVtOGptN1p4eVVUU3NxMGFEWFJJSnYtZGRNQXZ3In0.eyJleHAiOjE3MzE1MzQ2MzksImlhdCI6MTczMTUzNDMzOSwianRpIjoiMGQ4NDRjNWQtZGRhYi00YTg1LTljMjItY2FjNTg0NWI4NWU5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy90ZV9kaXJlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImUzYzhkZjM2LWY3NmEtNDc4OC05OWM1LWU0N...&#34;
 </code></pre><br/>
 <p>If you get a response like the one below, it means Keycloak is properly configured for your development environment. You can then place it in front of your API and use it in your app to log in your users.</p>
@@ -358,7 +423,7 @@ if response.status_code == 201:
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/keycloak">Keycloak</a></span><span class="tag"><a href="https://leandeep.com/tags/ciam">ciam</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>562 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>758 Mots</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>13 nov.. 2024</p>
         </div>
