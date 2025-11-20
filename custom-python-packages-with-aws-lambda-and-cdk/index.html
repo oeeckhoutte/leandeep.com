@@ -7,7 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda." />
+  content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda. If you use a deployment script (.sh or Makefile) and AWS CDK like I do it becomes very easy to make Lambda execute any Python code.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -98,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Custom Python Packages with AWS lambda and CDK">
-<meta itemprop="description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda."><meta itemprop="datePublished" content="2019-06-18T21:27:00+00:00" />
-<meta itemprop="dateModified" content="2019-06-18T21:27:00+00:00" />
-<meta itemprop="wordCount" content="577"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python,AWS,AWS CDK,AWS Lambda," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Custom Python Packages with AWS lambda and CDK"/>
-<meta name="twitter:description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda."/>
+  <meta itemprop="name" content="Custom Python Packages with AWS lambda and CDK">
+  <meta itemprop="description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda. If you use a deployment script (.sh or Makefile) and AWS CDK like I do it becomes very easy to make Lambda execute any Python code.">
+  <meta itemprop="datePublished" content="2019-06-18T21:27:00+00:00">
+  <meta itemprop="dateModified" content="2019-06-18T21:27:00+00:00">
+  <meta itemprop="wordCount" content="577">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,AWS,AWS CDK,AWS Lambda">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Custom Python Packages with AWS lambda and CDK">
+  <meta name="twitter:description" content="Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda. If you use a deployment script (.sh or Makefile) and AWS CDK like I do it becomes very easy to make Lambda execute any Python code.">
 
 
 
@@ -228,8 +232,7 @@ docker cp $container_id:/app/zip.zip .
 cdk deploy --require-approval=never 
 </code></pre><p>Here is a CDK script example to deploy an AWS Lambda function with a zip file. In the following example the zip file is located locally. It could have been located in AWS S3.</p>
 <blockquote>
-<p>I use the package version 0.31.0 for aws-cdk.aws-lambda and aws-cdk.cdk</p>
-</blockquote>
+<p>I use the package version 0.31.0 for aws-cdk.aws-lambda and aws-cdk.cdk</p></blockquote>
 <pre tabindex="0"><code>from aws_cdk import (
     aws_lambda as lambda_,
     cdk,
@@ -253,8 +256,7 @@ app = cdk.App()
 BonjourExampleLambda(app, &#34;Example-lambda-cdk&#34;)
 app.run()
 </code></pre><blockquote>
-<p>If some of your dependences require shared objects (<code>*.so</code> files) to work you can also create one or few &ldquo;Layer(s)&rdquo; that contain the <code>*.so</code> files. AWS Lambda will use them and your dependences should work.</p>
-</blockquote>
+<p>If some of your dependences require shared objects (<code>*.so</code> files) to work you can also create one or few &ldquo;Layer(s)&rdquo; that contain the <code>*.so</code> files. AWS Lambda will use them and your dependences should work.</p></blockquote>
 <br/>
 <h2 id="conclusion">Conclusion</h2>
 <p><strong>Firstly use AWS CDK ! Secondly if you need to execute custom packages on Lambda you can ! Docker is great alternative (with AWS Fargate if you want to manage nothing) but it is not always the best solution. It depends on your team, your skills, your budget and above all your use case&hellip;</strong></p>
@@ -332,7 +334,7 @@ app.run()
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

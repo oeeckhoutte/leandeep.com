@@ -4,38 +4,31 @@
     <title>Dataset on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/dataset/</link>
     <description>Recent content in Dataset on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 27 Jan 2023 10:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/dataset/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Jan 2023 10:49:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/dataset/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Créer un dataset avec les données Binance OHLCV pour réaliser des backtests</title>
       <link>https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/</link>
       <pubDate>Fri, 27 Jan 2023 10:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/cr%C3%A9er-un-dataset-avec-les-donn%C3%A9es-binance-ohlcv-pour-r%C3%A9aliser-des-backtests/</guid>
-      <description>Sans utiliser la librairie CCTX dont j&amp;rsquo;ai parlé dans l&amp;rsquo;article, voici comment récupérer directement les données OHLCV depuis l&amp;rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &amp;#34;2022-01-01&amp;#34; end_date = &amp;#34;2022-01-31&amp;#34; interval = &amp;#34;1m&amp;#34; symbol = &amp;#34;BTCUSDT&amp;#34; def get_binance_data( ticker: str, interval: str = &amp;#34;4h&amp;#34;, limit: int = 500, start: str = &amp;#34;2018-01-01 00:00:00&amp;#34;, ) -&amp;gt; pd.DataFrame: &amp;#34;&amp;#34;&amp;#34;Get X (limit) OHLCV entries from Binance&amp;#34;&amp;#34;&amp;#34; columns = [ &amp;#34;open_time&amp;#34;, &amp;#34;open&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;close&amp;#34;, &amp;#34;volume&amp;#34;, &amp;#34;close_time&amp;#34;, &amp;#34;qav&amp;#34;, &amp;#34;num_trades&amp;#34;, &amp;#34;taker_base_vol&amp;#34;, &amp;#34;taker_quote_vol&amp;#34;, &amp;#34;ignore&amp;#34;, ] start = int(datetime.</description>
+      <description>&lt;p&gt;Sans utiliser la librairie CCTX dont j&amp;rsquo;ai parlé &lt;a href=&#34;https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/&#34;&gt;dans l&amp;rsquo;article&lt;/a&gt;, voici comment récupérer directement les données OHLCV depuis l&amp;rsquo;API de Binance:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import requests&#xA;import datetime&#xA;import pandas as pd&#xA;import numpy as np&#xA;&#xA;start_date = &amp;#34;2022-01-01&amp;#34;&#xA;end_date = &amp;#34;2022-01-31&amp;#34;&#xA;interval = &amp;#34;1m&amp;#34;&#xA;symbol = &amp;#34;BTCUSDT&amp;#34;&#xA;&#xA;&#xA;def get_binance_data(&#xA;    ticker: str,&#xA;    interval: str = &amp;#34;4h&amp;#34;,&#xA;    limit: int = 500,&#xA;    start: str = &amp;#34;2018-01-01 00:00:00&amp;#34;,&#xA;) -&amp;gt; pd.DataFrame:&#xA;    &amp;#34;&amp;#34;&amp;#34;Get X (limit) OHLCV entries from Binance&amp;#34;&amp;#34;&amp;#34;&#xA;    columns = [&#xA;        &amp;#34;open_time&amp;#34;,&#xA;        &amp;#34;open&amp;#34;,&#xA;        &amp;#34;high&amp;#34;,&#xA;        &amp;#34;low&amp;#34;,&#xA;        &amp;#34;close&amp;#34;,&#xA;        &amp;#34;volume&amp;#34;,&#xA;        &amp;#34;close_time&amp;#34;,&#xA;        &amp;#34;qav&amp;#34;,&#xA;        &amp;#34;num_trades&amp;#34;,&#xA;        &amp;#34;taker_base_vol&amp;#34;,&#xA;        &amp;#34;taker_quote_vol&amp;#34;,&#xA;        &amp;#34;ignore&amp;#34;,&#xA;    ]&#xA;    start = int(datetime.datetime.timestamp(pd.to_datetime(start)) * 1000)&#xA;    base_url = &amp;#34;https://www.binance.com/api/v3/klines&amp;#34;&#xA;    query_params = (&#xA;        f&amp;#34;?symbol={ticker}&amp;amp;interval={interval}&amp;amp;limit={limit}&amp;amp;startTime={start}&amp;#34;&#xA;    )&#xA;    url = base_url + query_params&#xA;    data = pd.DataFrame(&#xA;        requests.get(url).json(), columns=columns, dtype=np.float&#xA;    )&#xA;    data.index = [&#xA;        pd.to_datetime(x, unit=&amp;#34;ms&amp;#34;).strftime(&amp;#34;%Y-%m-%d %H:%M:%S&amp;#34;)&#xA;        for x in data.open_time&#xA;    ]&#xA;    use_cols = [&#xA;        &amp;#34;open&amp;#34;,&#xA;        &amp;#34;high&amp;#34;,&#xA;        &amp;#34;low&amp;#34;,&#xA;        &amp;#34;close&amp;#34;,&#xA;        &amp;#34;volume&amp;#34;,&#xA;        &amp;#34;qav&amp;#34;,&#xA;        &amp;#34;num_trades&amp;#34;,&#xA;        &amp;#34;taker_base_vol&amp;#34;,&#xA;        &amp;#34;taker_quote_vol&amp;#34;,&#xA;    ]&#xA;    data = data[use_cols]&#xA;    return data&#xA;&#xA;&#xA;if __name__ == &amp;#34;__main__&amp;#34;:&#xA;    df = get_binance_data(&amp;#34;BTCUSDT&amp;#34;, &amp;#34;1m&amp;#34;)&#xA;    print(df.head())&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;Résultat:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Mettre en place un datahub pour organiser ses datasets</title>
       <link>https://leandeep.com/mettre-en-place-un-datahub-pour-organiser-ses-datasets/</link>
       <pubDate>Sat, 12 Sep 2020 19:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/mettre-en-place-un-datahub-pour-organiser-ses-datasets/</guid>
-      <description>Introduction Dans cet article, nous allons créer voir comment créer un datahub pour organiser ses datasets. La solution open source que nous allons utiliser est CKAN. D&amp;rsquo;après leur site internet, il s&amp;rsquo;agit de &amp;ldquo;the world’s leading Open Source data portal platform&amp;rdquo;. Je ne sais pas si c&amp;rsquo;est vrai mais c&amp;rsquo;est utilisé par pas mal de sites institutionnels comme data.gouv (USA), opendata.swiss, Government of Canada, Berlin open data&amp;hellip; La solution est simple à installer et est très pratique.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article, nous allons créer voir comment créer un datahub pour organiser ses datasets.&#xA;La solution open source que nous allons utiliser est &lt;a href=&#34;https://ckan.org/&#34;&gt;CKAN&lt;/a&gt;. D&amp;rsquo;après leur site internet, il s&amp;rsquo;agit de &amp;ldquo;the world’s leading Open Source data portal platform&amp;rdquo;. Je ne sais pas si c&amp;rsquo;est vrai mais c&amp;rsquo;est utilisé par pas mal de sites institutionnels comme data.gouv (USA), opendata.swiss, Government of Canada, Berlin open data&amp;hellip; La solution est simple à installer et est très pratique. Elle permet d&amp;rsquo;organiser, d&amp;rsquo;avoir des stats d&amp;rsquo;utilisation et de centraliser tous ses datasets au même endroit.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Créer un raid pour stocker ses précieux datasets</title>
       <link>https://leandeep.com/cr%C3%A9er-un-raid-pour-stocker-ses-pr%C3%A9cieux-datasets/</link>
       <pubDate>Sat, 28 Sep 2019 09:51:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/cr%C3%A9er-un-raid-pour-stocker-ses-pr%C3%A9cieux-datasets/</guid>
-      <description>Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&amp;rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&amp;rsquo;un système raid.
-Voici donc la procédure d&amp;rsquo;installation.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second  est présent pour éviter de perdre nos précieuses données. J&amp;rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&amp;rsquo;un système raid.&lt;/p&gt;&#xA;&lt;p&gt;Voici donc la procédure d&amp;rsquo;installation. Dans un prochain article que j&amp;rsquo;intitulerai &amp;ldquo;Gérer ses datasets comme un pro&amp;rdquo; je parlerai de la manière dont j&amp;rsquo;organise mes données au sein de mon serveur. J&amp;rsquo;en ferais peut-être un autre sur le CICD du Data Scientist (différent de celui des développeurs).&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

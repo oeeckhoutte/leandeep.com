@@ -4,35 +4,24 @@
     <title>Timeseries on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/timeseries/</link>
     <description>Recent content in Timeseries on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 27 Jan 2023 09:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/timeseries/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Jan 2023 09:49:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/timeseries/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installer InfluxDB 2 sur Debian 11</title>
       <link>https://leandeep.com/installer-influxdb-2-sur-debian-11/</link>
       <pubDate>Fri, 27 Jan 2023 09:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-influxdb-2-sur-debian-11/</guid>
-      <description>Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
-Installation de Docker apt install docker.io curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose chmod +x /usr/local/bin/docker-compose On active ensuite le service:
-systemctl enable docker systemctl start docker Installation d&amp;rsquo;InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
-Contenu du fichier docker-compose.yml:
-version: &amp;#39;3&amp;#39; services: influxdb: image: influxdb:2.</description>
+      <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-de-docker&#34;&gt;Installation de Docker&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt install docker.io&#xA;&#xA;curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose&#xA;&#xA;chmod +x /usr/local/bin/docker-compose&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;On active ensuite le service:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl enable docker&#xA;systemctl start docker&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-dinfluxdb&#34;&gt;Installation d&amp;rsquo;InfluxDB&lt;/h2&gt;&#xA;&lt;p&gt;Une fois Docker et docker-compose installés, on peut créer nos fichiers &lt;code&gt;docker-compose.yml&lt;/code&gt;, &lt;code&gt;influx.env&lt;/code&gt; et &lt;code&gt;telegraf.conf&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Contenu du fichier &lt;code&gt;docker-compose.yml&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;version: &amp;#39;3&amp;#39;&#xA;&#xA;services:&#xA;  influxdb:&#xA;    image: influxdb:2.6-alpine&#xA;    restart: always&#xA;    env_file:&#xA;      - influxv2.env&#xA;    volumes:&#xA;      # Mount for influxdb data directory and configuration&#xA;      - influxdbv2:/var/lib/influxdb2:rw&#xA;    ports:&#xA;      - &amp;#34;8086:8086&amp;#34;&#xA;  telegraf:&#xA;    image: telegraf:1.25-alpine&#xA;    restart: always&#xA;    depends_on:&#xA;      - influxdb&#xA;    volumes:&#xA;      # Mount for telegraf config&#xA;      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro&#xA;    env_file:&#xA;      - influxv2.env&#xA;&#xA;volumes:&#xA;  influxdbv2:&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Contenu du fichier &lt;code&gt;telegraf.conf&lt;/code&gt;:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer InfluxDB 1.8 via Docker</title>
       <link>https://leandeep.com/installer-influxdb-1.8-via-docker/</link>
       <pubDate>Sun, 25 Apr 2021 20:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-influxdb-1.8-via-docker/</guid>
-      <description>Dans cet article, nous allons voir comment installer InfluxDB 1.8 et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.
-Pour me simplifier la vie, je suis resté sur la version 1.8. La v2 est déjà disponible mais la doc étant peu fournie ou fausse, j&amp;rsquo;ai préféré ne pas me prendre la tête. (Dev perso)
-Docker-compose
-Créer un fichier docker-compose.yml et ajouter le contenu suivant:
-Remplacer 192.</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment installer InfluxDB 1.8 et Grafana via Docker. Nous utiliserons aussi Telegraf pour vérifier que l&amp;rsquo;installation fonctionne bien.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Pour me simplifier la vie, je suis resté sur la version 1.8. La v2 est déjà disponible mais la doc étant peu fournie ou fausse, j&amp;rsquo;ai préféré ne pas me prendre la tête. (Dev perso)&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Docker-compose&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Créer un fichier &lt;code&gt;docker-compose.yml&lt;/code&gt; et ajouter le contenu suivant:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

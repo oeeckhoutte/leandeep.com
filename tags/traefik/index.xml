@@ -4,21 +4,17 @@
     <title>Traefik on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/traefik/</link>
     <description>Recent content in Traefik on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 29 Mar 2019 21:44:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/traefik/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Mar 2019 21:44:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/traefik/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mettre en place Traefik en moins de 5 minutes</title>
       <link>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</link>
       <pubDate>Fri, 29 Mar 2019 21:44:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/mettre-en-place-traefik-en-moins-de-5-minutes/</guid>
-      <description>Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
-Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &amp;#34;3.</description>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.&lt;/p&gt;&#xA;&lt;p&gt;Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages &lt;code&gt;Hello world 1&lt;/code&gt; et &lt;code&gt;Hello world 2&lt;/code&gt;. On ne peut pas plus simple !&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h1 id=&#34;installtion&#34;&gt;Installtion&lt;/h1&gt;&#xA;&lt;h2 id=&#34;docker-compose&#34;&gt;Docker-compose&lt;/h2&gt;&#xA;&lt;p&gt;Créer un fichier &lt;code&gt;docker-compose.yml&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;version: &amp;#34;3.5&amp;#34;&#xA;&#xA;services:&#xA;&#xA;  traefik:d&#xA;  &#x9;restart: alwaysd&#xA;    image: traefik:1.7.10&#xA;    command: --api --docker --docker.domain=app.test --logLevel=DEBUG # Enables the web UI and tells Traefik to listen to docker&#xA;    depends_on:&#xA;    # our setup relies on the 2 apps running. Trying to spin up traefik will bring up those too&#xA;    - &amp;#34;app1&amp;#34;&#xA;    - &amp;#34;app2&amp;#34;&#xA;    ports:&#xA;      - &amp;#34;80:80&amp;#34;&#xA;      # Management UI&#xA;      - &amp;#34;8080:8080&amp;#34;&#xA;    volumes:&#xA;      - /var/run/docker.sock:/var/run/docker.sock&#xA;      - ./traefik.toml:/etc/traefik/traefik.toml:ro&#xA;    networks:&#xA;      outside-world:&#xA;      internal-network:&#xA;&#xA;  app1:&#xA;    image: nginx:alpine&#xA;    labels:&#xA;    - &amp;#34;traefik.port=80&amp;#34;&#xA;    - &amp;#34;traefik.frontend.rule=Host:app1.test&amp;#34;&#xA;    volumes:&#xA;      - ./app1/:/usr/share/nginx/html:ro&#xA;    networks:&#xA;      internal-network:&#xA;        # the aliases are not required, but are useful if the applications want to internally&#xA;        # reference each other by host name&#xA;        aliases:&#xA;        - &amp;#34;app1.test&amp;#34;&#xA;&#xA;  app2:&#xA;    image: nginx:alpine&#xA;    labels:&#xA;    - &amp;#34;traefik.port=80&amp;#34;&#xA;    - &amp;#34;traefik.frontend.rule=Host:app2.test&amp;#34;&#xA;    volumes:&#xA;      - ./app2/:/usr/share/nginx/html:ro&#xA;    networks:&#xA;      internal-network:&#xA;        aliases:&#xA;        - &amp;#34;app2.test&amp;#34;&#xA;&#xA;networks:&#xA;  # everything that is *only* on &amp;#34;internal network&amp;#34; cannot talk to WAN&#xA;  internal-network:&#xA;    internal: true&#xA;  # add this network to a container to make it talk to the rest of the world&#xA;  outside-world:&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;contenus-html-des-apps&#34;&gt;Contenus HTML des apps&lt;/h2&gt;&#xA;&lt;p&gt;Créer 2 répertoires &lt;code&gt;app1&lt;/code&gt; et &lt;code&gt;app2&lt;/code&gt; contenant les fichiers index.html customisés.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

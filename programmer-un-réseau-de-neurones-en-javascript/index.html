@@ -7,9 +7,10 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&amp;rsquo;est intéressant d&amp;rsquo;en créer un de toute pièce avant de s&amp;rsquo;attaquer à des réseaux de neurones profonds ou d&amp;rsquo;utiliser des frameworks qui masquent toute la complexité.
-Introduction Un neurone biologique est composé d&amp;rsquo;un corps cellulaire, d&amp;rsquo;un réseau de dendrites et d&amp;rsquo;un axone.
-Le corps cellulaire contient le patrimoine génétique. Les signaux électriques transitent par le réseau de dendrites." />
+  content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&rsquo;est intéressant d&rsquo;en créer un de toute pièce avant de s&rsquo;attaquer à des réseaux de neurones profonds ou d&rsquo;utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d&rsquo;un corps cellulaire, d&rsquo;un réseau de dendrites et d&rsquo;un axone.
+Le corps cellulaire contient le patrimoine génétique. Les signaux électriques transitent par le réseau de dendrites. Ces dernières correspondent aux entrées du neurone. L&rsquo;axone à la sortie du neurone permet de véhiculer l&rsquo;influx nerveux. Les neurones artificiels s&rsquo;inspirent du comportement des neurones biologiques; c&rsquo;est-à-dire de leur capacité à s&rsquo;activer à partir d&rsquo;un seuil.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +101,22 @@ Le corps cellulaire contient le patrimoine génétique. Les signaux électriques
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Programmer un réseau de neurones en JavaScript">
-<meta itemprop="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&rsquo;est intéressant d&rsquo;en créer un de toute pièce avant de s&rsquo;attaquer à des réseaux de neurones profonds ou d&rsquo;utiliser des frameworks qui masquent toute la complexité.
-Introduction Un neurone biologique est composé d&rsquo;un corps cellulaire, d&rsquo;un réseau de dendrites et d&rsquo;un axone.
-Le corps cellulaire contient le patrimoine génétique. Les signaux électriques transitent par le réseau de dendrites."><meta itemprop="datePublished" content="2017-06-03T22:45:00+00:00" />
-<meta itemprop="dateModified" content="2017-06-03T22:45:00+00:00" />
-<meta itemprop="wordCount" content="2141"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Machine Learning,Javascript," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Programmer un réseau de neurones en JavaScript"/>
-<meta name="twitter:description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c&rsquo;est intéressant d&rsquo;en créer un de toute pièce avant de s&rsquo;attaquer à des réseaux de neurones profonds ou d&rsquo;utiliser des frameworks qui masquent toute la complexité.
-Introduction Un neurone biologique est composé d&rsquo;un corps cellulaire, d&rsquo;un réseau de dendrites et d&rsquo;un axone.
-Le corps cellulaire contient le patrimoine génétique. Les signaux électriques transitent par le réseau de dendrites."/>
+  <meta itemprop="name" content="Programmer un réseau de neurones en JavaScript">
+  <meta itemprop="description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c’est intéressant d’en créer un de toute pièce avant de s’attaquer à des réseaux de neurones profonds ou d’utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d’un corps cellulaire, d’un réseau de dendrites et d’un axone.
+Le corps cellulaire contient le patrimoine génétique. Les signaux électriques transitent par le réseau de dendrites. Ces dernières correspondent aux entrées du neurone. L’axone à la sortie du neurone permet de véhiculer l’influx nerveux. Les neurones artificiels s’inspirent du comportement des neurones biologiques; c’est-à-dire de leur capacité à s’activer à partir d’un seuil.">
+  <meta itemprop="datePublished" content="2017-06-03T22:45:00+00:00">
+  <meta itemprop="dateModified" content="2017-06-03T22:45:00+00:00">
+  <meta itemprop="wordCount" content="2141">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Machine Learning,Javascript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Programmer un réseau de neurones en JavaScript">
+  <meta name="twitter:description" content="Pour bien comprendre comment fonctionnent les réseaux de neurones, nous allons en créer un from scratch en JavaScript. Je pense que c’est intéressant d’en créer un de toute pièce avant de s’attaquer à des réseaux de neurones profonds ou d’utiliser des frameworks qui masquent toute la complexité.
+Introduction Un neurone biologique est composé d’un corps cellulaire, d’un réseau de dendrites et d’un axone.
+Le corps cellulaire contient le patrimoine génétique. Les signaux électriques transitent par le réseau de dendrites. Ces dernières correspondent aux entrées du neurone. L’axone à la sortie du neurone permet de véhiculer l’influx nerveux. Les neurones artificiels s’inspirent du comportement des neurones biologiques; c’est-à-dire de leur capacité à s’activer à partir d’un seuil.">
 
 
 
@@ -346,8 +350,7 @@ Le critère d&rsquo;arrêt peut être soit un seuil d&rsquo;erreur atteint ou so
 </ul>
 <blockquote>
 <p>Voici la formule que nous coderons qui permet de calculer l&rsquo;erreur propagée:
-<img src="https://leandeep.com/images/derivee-partielle.png" alt="image"></p>
-</blockquote>
+<img src="https://leandeep.com/images/derivee-partielle.png" alt="image"></p></blockquote>
 <ul>
 <li>Calcul des gradients d&rsquo;erreurs pour corriger les poids synaptiques des neurones de la couche cachée.</li>
 <li>Mise à jour des poids synaptiques de la couche de sortie et de la couche cachée</li>
@@ -490,7 +493,7 @@ L&rsquo;implémentation de notre réseau pour notre exemple simple était trivia
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

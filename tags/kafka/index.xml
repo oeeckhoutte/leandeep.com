@@ -4,32 +4,24 @@
     <title>Kafka on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/kafka/</link>
     <description>Recent content in Kafka on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Apr 2023 22:13:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installer Kafka sur Kubernetes</title>
       <link>https://leandeep.com/installer-kafka-sur-kubernetes/</link>
       <pubDate>Mon, 03 Apr 2023 22:13:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-kafka-sur-kubernetes/</guid>
-      <description>Introduction Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)
-Installation de l&amp;rsquo;opérateur Strimzi kubectl create namespace kafka kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka kubectl get pod -n kafka --watch kubectl logs deployment/strimzi-cluster-operator -n kafka -f Création du cluster kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka Envoyer et recevoir des messages # Envoyer kubectl -n kafka run kafka-producer -ti --image=quay.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article très rapide, nous allons voir comment installer Kafka (et Zookeeper) sur Kubernetes (ou avoir une version pour développer en local)&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-de-lopérateur-strimzi&#34;&gt;Installation de l&amp;rsquo;opérateur Strimzi&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl create namespace kafka&#xA;kubectl create -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39; -n kafka&#xA;kubectl get pod -n kafka --watch&#xA;kubectl logs deployment/strimzi-cluster-operator -n kafka -f&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;création-du-cluster&#34;&gt;Création du cluster&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml -n kafka&#xA;kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;envoyer-et-recevoir-des-messages&#34;&gt;Envoyer et recevoir des messages&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Envoyer&#xA;kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic&#xA;&#xA;# Recevoir&#xA;kubectl -n kafka run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.34.0-kafka-3.4.0 --rm=true --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-le-cluster&#34;&gt;Effacer le cluster&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl -n kafka delete $(kubectl get strimzi -o name -n kafka)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-lopérateur&#34;&gt;Effacer l&amp;rsquo;opérateur&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl -n kafka delete -f &amp;#39;https://strimzi.io/install/latest?namespace=kafka&amp;#39;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;autres&#34;&gt;Autres&lt;/h2&gt;&#xA;&lt;h3 id=&#34;tip-1&#34;&gt;Tip 1&lt;/h3&gt;&#xA;&lt;p&gt;Dans le cas ou vous souhaitez récupérer des YAML distants en local (pour les backuper dans git par exemple) et les appliquer ensuite, on peut aussi utiliser la commande suivante:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Commandes utiles Kafka</title>
       <link>https://leandeep.com/commandes-utiles-kafka/</link>
       <pubDate>Sun, 18 Aug 2019 17:53:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/commandes-utiles-kafka/</guid>
-      <description>Voici une liste de commandes utiles pour utiliser Kafka. Il y a pas mal de jargon dans Kafka, je vous renvoie à l&amp;rsquo;article suivant qui explique pas mal de choses.
-Lister les groupes de consommateurs (Consumer Groups):
-docker run wurstmeister/kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka:9092 --list Décrire/ Obtenir des informations sur un Consumer Group:
-docker run wurstmeister/kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka:9092 --group id1 --describe Créer un topic:
-docker exec -it wurstmeister/kafka sh -c &amp;#34;JMX_PORT=10001 /opt/kafka/bin/kafka-topics.</description>
+      <description>&lt;p&gt;Voici une liste de commandes utiles pour utiliser Kafka.&#xA;Il y a pas mal de jargon dans Kafka, je vous renvoie &lt;a href=&#34;https://blog.univalence.io/kafka-et-les-groupes-de-consommateurs/&#34;&gt;à l&amp;rsquo;article suivant&lt;/a&gt; qui explique pas mal de choses.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Lister les groupes de consommateurs (Consumer Groups):&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run wurstmeister/kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka:9092 --list&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Décrire/ Obtenir des informations sur un Consumer Group:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run wurstmeister/kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka:9092 --group id1 --describe&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Créer un topic:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker exec -it wurstmeister/kafka sh -c &amp;#34;JMX_PORT=10001 /opt/kafka/bin/kafka-topics.sh --create --topic topic --replication-factor 1 --partitions 1 --zookeeper zookeeper:2181&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Envoyer des messages:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

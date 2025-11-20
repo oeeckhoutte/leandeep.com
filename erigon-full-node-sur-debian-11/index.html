@@ -9,8 +9,9 @@
 <meta name="description"
   content="Installation des pré-requis Installation de go
 wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
-export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
-# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;amp;&amp;amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/." />
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&#34;${HOME}/.go/bin&#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
+# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/.bashrc et ajouter le contenu suivant:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ export PATH=$PATH:/usr/local/go/bin export GOPATH=&amp;#34;${HOME}/.go/bin&amp;#
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Erigon full node sur Debian 11">
-<meta itemprop="description" content="Installation des pré-requis Installation de go
-wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
-export PATH=$PATH:/usr/local/go/bin export GOPATH=&#34;${HOME}/.go/bin&#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
-# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/."><meta itemprop="datePublished" content="2023-01-27T07:49:00+02:00" />
-<meta itemprop="dateModified" content="2023-01-27T07:49:00+02:00" />
-<meta itemprop="wordCount" content="323"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Erigon full node sur Debian 11"/>
-<meta name="twitter:description" content="Installation des pré-requis Installation de go
+  <meta itemprop="name" content="Erigon full node sur Debian 11">
+  <meta itemprop="description" content="Installation des pré-requis Installation de go
 wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
 export PATH=$PATH:/usr/local/go/bin export GOPATH=&#34;${HOME}/.go/bin&#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
-# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/."/>
+# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/.bashrc et ajouter le contenu suivant:">
+  <meta itemprop="datePublished" content="2023-01-27T07:49:00+02:00">
+  <meta itemprop="dateModified" content="2023-01-27T07:49:00+02:00">
+  <meta itemprop="wordCount" content="323">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Blockchain">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Erigon full node sur Debian 11">
+  <meta name="twitter:description" content="Installation des pré-requis Installation de go
+wget https://dl.google.com/go/go1.19.5.linux-amd64.tar.gz tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz Editer /root/bashrc et ajouter les commandes suivantes
+export PATH=$PATH:/usr/local/go/bin export GOPATH=&#34;${HOME}/.go/bin&#34; export PATH=$GOPATH:$PATH Autres outils et consensus mechanism
+# Prevent Debian sleep or hibernation systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target apt vim curl install git make supervisor build-essential software-properties-common net-tools jq mkdir -p ethereum/consensus/prysm cd $_ curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh &amp;&amp; chmod &#43;x prysm.sh Ouvrir le fichier /root/.bashrc et ajouter le contenu suivant:">
 
 
 
@@ -263,8 +267,7 @@ SyslogIdentifier=erigon
 [Install]
 WantedBy=multi-user.target
 </code></pre><blockquote>
-<p>Enable debug logs and format logs as JSON with flags: <code>--log.console.json --log.console.verbosity debug</code></p>
-</blockquote>
+<p>Enable debug logs and format logs as JSON with flags: <code>--log.console.json --log.console.verbosity debug</code></p></blockquote>
 <br/>
 <p><strong>Création du second service</strong></p>
 <p><code>vim /etc/systemd/system/erigon-rpc.service</code></p>
@@ -297,8 +300,7 @@ with content:</p>
      ...
   } 
 }
-</code></pre><p>Methods: <a href="https://ethereum.github.io/execution-apis/api-documentation/">https://ethereum.github.io/execution-apis/api-documentation/</a></p>
-</blockquote>
+</code></pre><p>Methods: <a href="https://ethereum.github.io/execution-apis/api-documentation/">https://ethereum.github.io/execution-apis/api-documentation/</a></p></blockquote>
 <br/>
 <p><strong>On active et démarre les services</strong></p>
 <pre tabindex="0"><code>systemctl daemon-reload
@@ -387,7 +389,7 @@ tail -f /var/log/prysm.log
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

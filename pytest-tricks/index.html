@@ -7,8 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Mocker l&amp;rsquo;ouverture d&amp;rsquo;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&amp;rsquo;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
-Comment vérifier qu&amp;rsquo;un appel de fonction raise une exception Comment vérifier qu&amp;rsquo;un fichier de config est valide Comment créer un fichier de config temporaire &amp;ldquo;bouchonné&amp;rdquo;. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &amp;#39;r&amp;#39;) as json_file: return json.load(json_file) except (OSError, IOError, json." />
+  content="Mocker l&rsquo;ouverture d&rsquo;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&rsquo;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
+Comment vérifier qu&rsquo;un appel de fonction raise une exception Comment vérifier qu&rsquo;un fichier de config est valide Comment créer un fichier de config temporaire &ldquo;bouchonné&rdquo;. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json.JSONDecodeError) as exception: raise InvalidConfig(exception) def test_missing_conf_file(): with pytest.raises(InvalidConfig): load_config(&#39;does-not-exist.json&#39;) def test_invalid_conf_file(tmpdir): json_content = ( &#39;%%%%%%%%%%\n&#39; ) tmp_config = tmpdir.join(&#39;temp-config_file.json&#39;) tmp_config.write_text(json_content, encoding=&#39;utf-8&#39;) with pytest.raises(InvalidConfig): load_config(tmp_config.strpath) def test_valid_conf_file(tmpdir): json_content = ( &#39;{\n&#39; &#39;&#34;hello&#34;: &#34;olivier&#34;, \n&#39; &#39;&#34;titi&#34;: &#34;tata&#34;\n&#39; &#39;}\n&#39; ) tmp_config = tmpdir.join(&#39;temp-config_file.json&#39;) tmp_config.write_text(json_content, encoding=&#39;utf-8&#39;) parsed_config = load_config(tmp_config.strpath) assert parsed_config[&#39;hello&#39;] == &#39;olivier&#39; assert parsed_config[&#39;titi&#39;] == &#39;tata&#39; Parametrize tests with fixtures Option 1
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ Comment vérifier qu&amp;rsquo;un appel de fonction raise une exception Comment 
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Pytest tricks">
-<meta itemprop="description" content="Mocker l&rsquo;ouverture d&rsquo;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&rsquo;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
-Comment vérifier qu&rsquo;un appel de fonction raise une exception Comment vérifier qu&rsquo;un fichier de config est valide Comment créer un fichier de config temporaire &ldquo;bouchonné&rdquo;. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json."><meta itemprop="datePublished" content="2018-04-04T21:53:00+00:00" />
-<meta itemprop="dateModified" content="2018-04-04T21:53:00+00:00" />
-<meta itemprop="wordCount" content="1221"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python,Pytest," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Pytest tricks"/>
-<meta name="twitter:description" content="Mocker l&rsquo;ouverture d&rsquo;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&rsquo;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
-Comment vérifier qu&rsquo;un appel de fonction raise une exception Comment vérifier qu&rsquo;un fichier de config est valide Comment créer un fichier de config temporaire &ldquo;bouchonné&rdquo;. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json."/>
+  <meta itemprop="name" content="Pytest tricks">
+  <meta itemprop="description" content="Mocker l’ouverture d’un fichier et tester les exceptions Pour la fonction suivante, il est possible d’exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
+Comment vérifier qu’un appel de fonction raise une exception Comment vérifier qu’un fichier de config est valide Comment créer un fichier de config temporaire “bouchonné”. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json.JSONDecodeError) as exception: raise InvalidConfig(exception) def test_missing_conf_file(): with pytest.raises(InvalidConfig): load_config(&#39;does-not-exist.json&#39;) def test_invalid_conf_file(tmpdir): json_content = ( &#39;%%%%%%%%%%\n&#39; ) tmp_config = tmpdir.join(&#39;temp-config_file.json&#39;) tmp_config.write_text(json_content, encoding=&#39;utf-8&#39;) with pytest.raises(InvalidConfig): load_config(tmp_config.strpath) def test_valid_conf_file(tmpdir): json_content = ( &#39;{\n&#39; &#39;&#34;hello&#34;: &#34;olivier&#34;, \n&#39; &#39;&#34;titi&#34;: &#34;tata&#34;\n&#39; &#39;}\n&#39; ) tmp_config = tmpdir.join(&#39;temp-config_file.json&#39;) tmp_config.write_text(json_content, encoding=&#39;utf-8&#39;) parsed_config = load_config(tmp_config.strpath) assert parsed_config[&#39;hello&#39;] == &#39;olivier&#39; assert parsed_config[&#39;titi&#39;] == &#39;tata&#39; Parametrize tests with fixtures Option 1">
+  <meta itemprop="datePublished" content="2018-04-04T21:53:00+00:00">
+  <meta itemprop="dateModified" content="2018-04-04T21:53:00+00:00">
+  <meta itemprop="wordCount" content="1221">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,Pytest">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Pytest tricks">
+  <meta name="twitter:description" content="Mocker l’ouverture d’un fichier et tester les exceptions Pour la fonction suivante, il est possible d’exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
+Comment vérifier qu’un appel de fonction raise une exception Comment vérifier qu’un fichier de config est valide Comment créer un fichier de config temporaire “bouchonné”. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &#39;r&#39;) as json_file: return json.load(json_file) except (OSError, IOError, json.JSONDecodeError) as exception: raise InvalidConfig(exception) def test_missing_conf_file(): with pytest.raises(InvalidConfig): load_config(&#39;does-not-exist.json&#39;) def test_invalid_conf_file(tmpdir): json_content = ( &#39;%%%%%%%%%%\n&#39; ) tmp_config = tmpdir.join(&#39;temp-config_file.json&#39;) tmp_config.write_text(json_content, encoding=&#39;utf-8&#39;) with pytest.raises(InvalidConfig): load_config(tmp_config.strpath) def test_valid_conf_file(tmpdir): json_content = ( &#39;{\n&#39; &#39;&#34;hello&#34;: &#34;olivier&#34;, \n&#39; &#39;&#34;titi&#34;: &#34;tata&#34;\n&#39; &#39;}\n&#39; ) tmp_config = tmpdir.join(&#39;temp-config_file.json&#39;) tmp_config.write_text(json_content, encoding=&#39;utf-8&#39;) parsed_config = load_config(tmp_config.strpath) assert parsed_config[&#39;hello&#39;] == &#39;olivier&#39; assert parsed_config[&#39;titi&#39;] == &#39;tata&#39; Parametrize tests with fixtures Option 1">
 
 
 
@@ -308,8 +312,7 @@ def test_prime_factors(user):
 	assert prime_factors(user, 12) == [2, 2, 3]
 </code></pre><p>Exemple de fixture au niveau du module:</p>
 <blockquote>
-<p>Il suffit de changer le scope dans l&rsquo;annotation <code>@pytest.fixture()</code>:</p>
-</blockquote>
+<p>Il suffit de changer le scope dans l&rsquo;annotation <code>@pytest.fixture()</code>:</p></blockquote>
 <pre tabindex="0"><code>@pytest.fixture(scope=&#39;module&#39;)
 def user():
 	print(&#34;Creating user&#34;)
@@ -476,66 +479,66 @@ def test_olivier_data(db):
 <br/>
 <h2 id="cool-pytest-plugins">Cool Pytest plugins</h2>
 <table>
-<thead>
-<tr>
-<th>PLUGIN</th>
-<th style="text-align:center">DESCRIPTION</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pytest-server-fixtures</td>
-<td style="text-align:center">Extensible server-running framework with a suite of well-known databases and webservices included: mongodb, redis, rethinkd, Jenkins, Apache httpd, Xvfb</td>
-</tr>
-<tr>
-<td>pytest-shutil</td>
-<td style="text-align:center">Unix shell and environment management tools</td>
-</tr>
-<tr>
-<td>pytest-profiling</td>
-<td style="text-align:center">Profiling plugin with tabular heat graph output and gprof support for C-Extensions</td>
-</tr>
-<tr>
-<td>pytest-devpi-server</td>
-<td style="text-align:center">DevPI server runnning fixture for testing package management code</td>
-</tr>
-<tr>
-<td>pytest-pyramid-server</td>
-<td style="text-align:center">Pyramid server fixture for running up servers in integration tests</td>
-</tr>
-<tr>
-<td>pytest-webdriver</td>
-<td style="text-align:center">Selenium webdriver fixture for testing web applications</td>
-</tr>
-<tr>
-<td>pytest-virtualenv</td>
-<td style="text-align:center">Create and teardown virtual environments, run tests and commands in the scope of the virtualenv</td>
-</tr>
-<tr>
-<td>pytest-qt-app</td>
-<td style="text-align:center">PyQT application fixture</td>
-</tr>
-<tr>
-<td>pytest-listener</td>
-<td style="text-align:center">TCP Listener/Reciever for testing remote systems</td>
-</tr>
-<tr>
-<td>pytest-git</td>
-<td style="text-align:center">Git repository fixture</td>
-</tr>
-<tr>
-<td>pytest-svn</td>
-<td style="text-align:center">SVN repository fixture</td>
-</tr>
-<tr>
-<td>pytest-fixture-config</td>
-<td style="text-align:center">Configuration tools for Py.test fixtures</td>
-</tr>
-<tr>
-<td>pytest-verbose-parametrize</td>
-<td style="text-align:center">Makes py.test’s parametrize output a little more verbose</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>PLUGIN</th>
+          <th style="text-align: center">DESCRIPTION</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>pytest-server-fixtures</td>
+          <td style="text-align: center">Extensible server-running framework with a suite of well-known databases and webservices included: mongodb, redis, rethinkd, Jenkins, Apache httpd, Xvfb</td>
+      </tr>
+      <tr>
+          <td>pytest-shutil</td>
+          <td style="text-align: center">Unix shell and environment management tools</td>
+      </tr>
+      <tr>
+          <td>pytest-profiling</td>
+          <td style="text-align: center">Profiling plugin with tabular heat graph output and gprof support for C-Extensions</td>
+      </tr>
+      <tr>
+          <td>pytest-devpi-server</td>
+          <td style="text-align: center">DevPI server runnning fixture for testing package management code</td>
+      </tr>
+      <tr>
+          <td>pytest-pyramid-server</td>
+          <td style="text-align: center">Pyramid server fixture for running up servers in integration tests</td>
+      </tr>
+      <tr>
+          <td>pytest-webdriver</td>
+          <td style="text-align: center">Selenium webdriver fixture for testing web applications</td>
+      </tr>
+      <tr>
+          <td>pytest-virtualenv</td>
+          <td style="text-align: center">Create and teardown virtual environments, run tests and commands in the scope of the virtualenv</td>
+      </tr>
+      <tr>
+          <td>pytest-qt-app</td>
+          <td style="text-align: center">PyQT application fixture</td>
+      </tr>
+      <tr>
+          <td>pytest-listener</td>
+          <td style="text-align: center">TCP Listener/Reciever for testing remote systems</td>
+      </tr>
+      <tr>
+          <td>pytest-git</td>
+          <td style="text-align: center">Git repository fixture</td>
+      </tr>
+      <tr>
+          <td>pytest-svn</td>
+          <td style="text-align: center">SVN repository fixture</td>
+      </tr>
+      <tr>
+          <td>pytest-fixture-config</td>
+          <td style="text-align: center">Configuration tools for Py.test fixtures</td>
+      </tr>
+      <tr>
+          <td>pytest-verbose-parametrize</td>
+          <td style="text-align: center">Makes py.test’s parametrize output a little more verbose</td>
+      </tr>
+  </tbody>
 </table>
 <br/>
 <h2 id="tricks">Tricks</h2>
@@ -672,7 +675,7 @@ def foo():
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

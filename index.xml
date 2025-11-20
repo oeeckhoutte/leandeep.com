@@ -4,124 +4,80 @@
     <title>Lean Deep Tech blog</title>
     <link>https://leandeep.com/</link>
     <description>Recent content on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 19 Jul 2025 11:36:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Sep 2025 13:34:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Commandes pour redimensionner le disque d&#39;une VM sous Linux</title>
+      <link>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</link>
+      <pubDate>Thu, 04 Sep 2025 13:34:00 +0000</pubDate>
+      <guid>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</guid>
+      <description>&lt;p&gt;Voici quelques commandes très utiles pour redimensionner le disque d&amp;rsquo;une VM sous Debian 13.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ajouter-luser-actuel-au-fichier-sudoers&#34;&gt;Ajouter l&amp;rsquo;user actuel au fichier sudoers&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;su -&#xA;EDITOR=vim visudo&#xA;# Ajouter votre user au fichier sudoers si vous avez l&amp;#39;erreur: &#xA;# &amp;#34;monuser is not in the sudoers file.&amp;#34;&#xA;# monuser    ALL=(ALL:ALL) ALL&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;visualiser&#34;&gt;Visualiser&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt install util-linux&#xA;echo &amp;#39;export PATH=$PATH:/sbin:/usr/sbin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&#xA;source ~/.bashrc&#xA;sudo cfdisk&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;resize&#34;&gt;Resize&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Etends la partition&#xA;parted /dev/sda&#xA;print&#xA;print free&#xA;resizepart 2 100%&#xA;# resizepart 2 1611GB&#xA;quit &#xA;# Etends le filesystem &#xA;resize2fs /dev/sda2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-une-partition-si-nécessaire&#34;&gt;Effacer une partition si nécessaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda&#xA;rm 3&#xA;# Agrandis une partition comme la 2 avec toute la place libre&#xA;resizepart 2 100%&#xA;# ou mieux avec la taille en GB. Par exemple:&#xA;resizepart 2 1611GB (sur un total de 1617 pour créer un swap de 6GB par exemple)&#xA;quit&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;recréer-partition-swap-si-nécesssaire&#34;&gt;Recréer partition swap si nécesssaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda mkpart primary linux-swap 1605GB 1611GB&#xA;# Format la partition en SWAP&#xA;mkswap /dev/sda3&#xA;&#xA;# active le swap&#xA;swapon /dev/sda3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;fstab&#34;&gt;fstab&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;blkid /dev/sda3 (pour récupérer le UUID du nouveau SWAP)&#xA;vim /etc/fstab&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Installer Docker comme service sur Ubuntu 22.04</title>
+      <link>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</link>
+      <pubDate>Mon, 01 Sep 2025 13:34:00 +0000</pubDate>
+      <guid>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</guid>
+      <description>&lt;p&gt;Voici une procédure simple pour installer et activer le service Docker sur Ubuntu 22.04.&lt;/p&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;On met à jour l&amp;rsquo;OS&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On désinstalle les anciennes versions de Docker installées:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt remove docker docker-engine docker.io containerd runc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On ajoute le repo apt:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get update&#xA;sudo apt-get install ca-certificates curl gnupg&#xA;sudo install -m 0755 -d /etc/apt/keyrings&#xA;curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg&#xA;sudo chmod a+r /etc/apt/keyrings/docker.gpg&#xA;echo \&#xA;  &amp;#34;deb [arch=&amp;#34;$(dpkg --print-architecture)&amp;#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \&#xA;  &amp;#34;$(. /etc/os-release &amp;amp;&amp;amp; echo &amp;#34;$VERSION_CODENAME&amp;#34;)&amp;#34; stable&amp;#34; | \&#xA;  sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de Docker:&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Fine-tune Yolo pour détecter un feu</title>
       <link>https://leandeep.com/fine-tune-yolo-pour-d%C3%A9tecter-un-feu/</link>
       <pubDate>Sat, 19 Jul 2025 11:36:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/fine-tune-yolo-pour-d%C3%A9tecter-un-feu/</guid>
-      <description>On crée un jupyter notebook:
-mkdir yolo-finetune-fire &amp;amp;&amp;amp; cd $_ touch yolo-finetune.ipynb Contenu du Notebook
-MY_SECRET_KEY=&amp;#34;...&amp;#34; !pip install ultralytics !pip install roboflow import os import yaml import ultralytics import pandas as pd from roboflow import Roboflow from ultralytics import YOLO from IPython.display import Image, display Contenu Markdown
-yolov11s.pt vs yolov11n.pt
-Le &amp;ldquo;s&amp;rdquo; signifie &amp;ldquo;small&amp;rdquo; (petit). Modèle plus grand que &amp;ldquo;n&amp;rdquo;, avec plus de couches et de paramètres. Meilleure précision, mais plus lent et plus gourmand en ressources que &amp;ldquo;n&amp;rdquo;.</description>
+      <description>&lt;p&gt;On crée un jupyter notebook:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir yolo-finetune-fire &amp;amp;&amp;amp; cd $_&#xA;touch yolo-finetune.ipynb&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Contenu du Notebook&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;MY_SECRET_KEY=&amp;#34;...&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;!pip install ultralytics&#xA;!pip install roboflow&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import os&#xA;import yaml&#xA;import ultralytics&#xA;import pandas as pd&#xA;from roboflow import Roboflow&#xA;from ultralytics import YOLO&#xA;from IPython.display import Image, display&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Contenu Markdown&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;yolov11s.pt vs yolov11n.pt&lt;/p&gt;&#xA;&lt;p&gt;Le &amp;ldquo;s&amp;rdquo; signifie &amp;ldquo;small&amp;rdquo; (petit). Modèle plus grand que &amp;ldquo;n&amp;rdquo;, avec plus de couches et de paramètres. Meilleure précision, mais plus lent et plus gourmand en ressources que &amp;ldquo;n&amp;rdquo;. yolov11n.pt&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Jupyter lab sur Ubuntu 22</title>
       <link>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</link>
       <pubDate>Sat, 19 Jul 2025 10:59:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</guid>
-      <description>Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.
-Attention cette installation n&#39;est pas sécurisée. C&#39;est de l&#39;ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.
-Pré-requis miniconda3-3.11-23.5.0-3 nvidia-smi pour vérifier que vous avez accès à un GPU Installation pip install notebook jupyterlab jupyter Configuration jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root Et voilà, rendez-vous sur http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE pour accéder à Jupyter lab.</description>
+      <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;Attention cette installation n&#39;est pas sécurisée. C&#39;est de l&#39;ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;miniconda3-3.11-23.5.0-3&lt;/li&gt;&#xA;&lt;li&gt;nvidia-smi pour vérifier que vous avez accès à un GPU&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install notebook jupyterlab jupyter&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Et voilà, rendez-vous sur &lt;code&gt;http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE&lt;/code&gt; pour accéder à Jupyter lab.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer direnv sur Ubuntu 22</title>
       <link>https://leandeep.com/installer-direnv-sur-ubuntu-22/</link>
       <pubDate>Sat, 19 Jul 2025 10:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-direnv-sur-ubuntu-22/</guid>
-      <description>Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.
-Installation sudo apt install direnv curl https://pyenv.run | bash Configuration Ajouter les lignes suivantes dans votre .zshrc
-export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34; export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34; eval &amp;#34;$(pyenv init --path)&amp;#34; eval &amp;#34;$(pyenv init -)&amp;#34; eval &amp;#34;$(direnv hook zsh)&amp;#34; Exécuter soure ~/.zshrc puis installer un package python de votre choix.
-pyenv install 3.11.8 pyenv global 3.11.8 # Ou pyenv install miniconda3-3.11-23.5.0-3 pyenv global miniconda3-3.</description>
+      <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install direnv&#xA;curl https://pyenv.run | bash&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;p&gt;Ajouter les lignes suivantes dans votre &lt;code&gt;.zshrc&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&#xA;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&#xA;eval &amp;#34;$(pyenv init --path)&amp;#34;&#xA;eval &amp;#34;$(pyenv init -)&amp;#34;&#xA;eval &amp;#34;$(direnv hook zsh)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exécuter &lt;code&gt;soure ~/.zshrc&lt;/code&gt; puis installer un package python de votre choix.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv install 3.11.8&#xA;pyenv global 3.11.8&#xA;&#xA;# Ou &#xA;pyenv install miniconda3-3.11-23.5.0-3&#xA;pyenv global miniconda3-3.11-23.5.0-3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;That&amp;rsquo;s all!&#xA;Vous pouvez maintenant exécuter &lt;code&gt;echo &amp;quot;layout pyenv 3.11.8&amp;quot; &amp;gt;&amp;gt; .envrc&lt;/code&gt; où vous voulez&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Première utilisation de Nix et setup Postgres</title>
       <link>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</link>
       <pubDate>Wed, 02 Jul 2025 22:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</guid>
-      <description>Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM. La version de Nix est 2.29.1.
-Setup Nix sur OSX sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install) source ~/.zshrc mkdir ~/.config/nix echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf Remarque: sur Ubuntu, l&amp;rsquo;installer avec sh &amp;lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon.
-Setup PG Créer un fichier nix/flake.nix dans votre repo git et ajouter le contenu suivant:
-Option 1
-{ description = &amp;#34;Environnement de développement PostgreSQL&amp;#34;; inputs = { nixpkgs.</description>
+      <description>&lt;p&gt;Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM. La version de Nix est &lt;code&gt;2.29.1&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;setup-nix-sur-osx&#34;&gt;Setup Nix sur OSX&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install)&#xA;source ~/.zshrc&#xA;mkdir ~/.config/nix&#xA;echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Remarque: sur Ubuntu, l&amp;rsquo;installer avec &lt;code&gt;sh &amp;lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon&lt;/code&gt;.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup-pg&#34;&gt;Setup PG&lt;/h2&gt;&#xA;&lt;p&gt;Créer un fichier &lt;code&gt;nix/flake.nix&lt;/code&gt; dans votre repo git et ajouter le contenu suivant:&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Option 1&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Using AI and IoT to Safely Automate Fireplace Fire Starting</title>
       <link>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</link>
       <pubDate>Mon, 09 Jun 2025 22:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</guid>
-      <description>I&amp;rsquo;m currently building an IoT device that will automatically start fires in my traditional chimney at scheduled times during cold winter days. The idea is to start a fire one hour before I wake up, while I&amp;rsquo;m still asleep, to warm up the house. Unlike a smart stove, a traditional fireplace can&amp;rsquo;t be controlled remotely. It’s old-school with a twist of AI, code, and electronics. Everything is getting automated! Here are the first two videos showing the progress of my side project.</description>
+      <description>&lt;p&gt;I&amp;rsquo;m currently building an IoT device that will automatically start fires in my traditional chimney at scheduled times during cold winter days.&#xA;The idea is to start a fire one hour before I wake up, while I&amp;rsquo;m still asleep, to warm up the house.&#xA;Unlike a smart stove, a traditional fireplace can&amp;rsquo;t be controlled remotely. It’s old-school with a twist of AI, code, and electronics.&#xA;Everything is getting automated! Here are the first two videos showing the progress of my side project.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Install Nostr Rust relay without Docker</title>
       <link>https://leandeep.com/install-nostr-rust-relay-without-docker/</link>
       <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/install-nostr-rust-relay-without-docker/</guid>
-      <description>In this article we are going to see how to setup a Nostr relay without Docker.
-Prerequisites
-rust installed (else curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh) Run Nostr relay without Docker
-sudo apt-get install build-essential cmake protobuf-compiler pkg-config libssl-dev git clone -q https://git.sr.ht/\~gheartsfield/nostr-rs-relay cd nostr-rs-relay cargo build -q -r RUST_LOG=warn,nostr_rs_relay=info ./target/release/nostr-rs-relay And voila the relay will listen on port 8080.</description>
+      <description>&lt;p&gt;In this article we are going to see how to setup a Nostr relay without Docker.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;rust installed (else &lt;code&gt;curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Run Nostr relay without Docker&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get install build-essential cmake protobuf-compiler pkg-config libssl-dev&#xA;git clone -q https://git.sr.ht/\~gheartsfield/nostr-rs-relay&#xA;cd nostr-rs-relay&#xA;cargo build -q -r&#xA;&#xA;RUST_LOG=warn,nostr_rs_relay=info ./target/release/nostr-rs-relay&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And voila the relay will listen on port 8080.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Utiliser Ollama sur Ubuntu 22 via Docker et faire du LLM scraping</title>
       <link>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</link>
       <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</guid>
-      <description>Dans cet article, nous allons voir comment utiliser Ollama sur Ubuntu 22 via Docker tout en tirant parti du GPU connecté au serveur dans le but de faire du scraping en posant des questions à son LLM auto-hébergé.
-Pré-requis
-nvidia-smi déjà installé Cuda installé Docker installé Installation du NVIDIA Container Toolkit
-sudo apt install -y nvidia-container-toolkit sudo nvidia-ctk runtime configure --runtime=docker sudo systemctl restart docker # Vérification docker run --rm --gpus all nvidia/cuda:12.</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment utiliser Ollama sur Ubuntu 22 via Docker tout en tirant parti du GPU connecté au serveur dans le but de faire du scraping en posant des questions à son LLM auto-hébergé.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pré-requis&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;nvidia-smi&lt;/code&gt; déjà installé&lt;/li&gt;&#xA;&lt;li&gt;Cuda installé&lt;/li&gt;&#xA;&lt;li&gt;Docker installé&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation du NVIDIA Container Toolkit&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install -y nvidia-container-toolkit&#xA;sudo nvidia-ctk runtime configure --runtime=docker&#xA;sudo systemctl restart docker&#xA;# Vérification&#xA;docker run --rm --gpus all nvidia/cuda:12.2.0-base-ubuntu20.04 nvidia-smi&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Docker compose Ollama avec accès GPU&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Identify path to stop docker compose</title>
       <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
       <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
-      <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
-# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+      <description>&lt;p&gt;Very quick tip on how to identify the directory from which a &lt;code&gt;docker compose&lt;/code&gt; command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Retrieve container ID&#xA;docker ps &#xA;&#xA;docker inspect \&#xA;  --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \&#xA;  0e6194178cf0&#xA;/Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
-    <item>
-      <title>Access Raspberry Pi Camera using Python and OpenCV</title>
-      <link>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</link>
-      <pubDate>Mon, 28 Apr 2025 21:55:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/access-raspberry-pi-camera-using-python-and-opencv/</guid>
-      <description>In this article we are going to see how to install OpenCV on a Raspberry PI using Bookworm.
-Prerequisites Install dependencies on Raspberry Pi
-sudo apt update sudo apt install python3-picamera2 sudo apt install libcamera-apps sudo apt install python3-opencv Install dependencies on Macbook
-pip install opencv-python numpy Code import cv2 import numpy as np import time from datetime import datetime import os # ========================== # CONSTANTS (Configuration) # ========================== BLUR_SIZE = (7, 7) # Larger → less sensitive (e.</description>
-    </item>
-    
-    <item>
-      <title>H-Bridge L298N with Raspberry Pi and Python</title>
-      <link>https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/</link>
-      <pubDate>Mon, 28 Apr 2025 21:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/h-bridge-l298n-with-raspberry-pi-and-python/</guid>
-      <description>In the article we are going to see how to control a H-bridge L298N connected to a Raspberry Pi using Python.
-Prerequisites Connect the bridge L298N to the raspberry pi
-Connect the pin IN1 of the L298N to GPIO7 (pin 26) of the Raspberry Pi (so GPIO4). Connect the pin IN2 of the L298N to GPIO8 (pin 24) of the Raspberry Pi. Connect the pin ENA of the L298N to GPIO25 (pin 22) of the Raspberry Pi.</description>
-    </item>
-    
   </channel>
 </rss>

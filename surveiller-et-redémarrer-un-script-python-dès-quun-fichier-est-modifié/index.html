@@ -11,7 +11,8 @@
 Pré-requis pip install watchdog
 Créer un script de surveillance Tracker un fichier.py
 Créer par exemple un fichier appelé run_and_reload.py
-import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os." />
+import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[MODIFIED] {event.src_path}&#34;) def on_deleted(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[DELETED] {event.src_path}&#34;) def on_created(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[CREATED] {event.src_path}&#34;) def main(): parser = argparse.ArgumentParser(description=&#34;Monitor a .py file for changes.&#34;) parser.add_argument(&#34;file&#34;, help=&#34;Path to the .py file to monitor&#34;) parser.add_argument(&#34;-d&#34;, &#34;--directory&#34;, help=&#34;Directory to monitor (default: file&#39;s directory)&#34;) args = parser.parse_args() file_path = os.path.abspath(args.file) if not os.path.isfile(file_path): print(f&#34;Error: File &#39;{file_path}&#39; does not exist.&#34;) sys.exit(1) # Use the provided directory or fallback to the file&#39;s directory directory_to_watch = os.path.abspath(args.directory) if args.directory else os.path.dirname(file_path) if not os.path.isdir(directory_to_watch): print(f&#34;Error: Directory &#39;{directory_to_watch}&#39; does not exist.&#34;) sys.exit(1) event_handler = TargetFileHandler(file_path) observer = Observer() observer.schedule(event_handler, path=directory_to_watch, recursive=False) observer.start() print(f&#34;⏳ Monitoring: {file_path}&#34;) print(f&#34;📁 Watched directory: {directory_to_watch}&#34;) print(&#34;🔔 Press Ctrl&#43;C to stop&#34;) try: while True: time.sleep(1) except KeyboardInterrupt: observer.stop() print(&#34;\nStopping monitor...&#34;) observer.join() if __name__ == &#34;__main__&#34;: main() Usage:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -102,23 +103,26 @@ import time import os import sys import argparse from watchdog.observers import 
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié">
-<meta itemprop="description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis pip install watchdog
-Créer un script de surveillance Tracker un fichier.py
-Créer par exemple un fichier appelé run_and_reload.py
-import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os."><meta itemprop="datePublished" content="2025-01-11T23:32:00+02:00" />
-<meta itemprop="dateModified" content="2025-01-11T23:32:00+02:00" />
-<meta itemprop="wordCount" content="450"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="tips,Python," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié"/>
-<meta name="twitter:description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+  <meta itemprop="name" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié">
+  <meta itemprop="description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
 Pré-requis pip install watchdog
 Créer un script de surveillance Tracker un fichier.py
 Créer par exemple un fichier appelé run_and_reload.py
-import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os."/>
+import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[MODIFIED] {event.src_path}&#34;) def on_deleted(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[DELETED] {event.src_path}&#34;) def on_created(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[CREATED] {event.src_path}&#34;) def main(): parser = argparse.ArgumentParser(description=&#34;Monitor a .py file for changes.&#34;) parser.add_argument(&#34;file&#34;, help=&#34;Path to the .py file to monitor&#34;) parser.add_argument(&#34;-d&#34;, &#34;--directory&#34;, help=&#34;Directory to monitor (default: file&#39;s directory)&#34;) args = parser.parse_args() file_path = os.path.abspath(args.file) if not os.path.isfile(file_path): print(f&#34;Error: File &#39;{file_path}&#39; does not exist.&#34;) sys.exit(1) # Use the provided directory or fallback to the file&#39;s directory directory_to_watch = os.path.abspath(args.directory) if args.directory else os.path.dirname(file_path) if not os.path.isdir(directory_to_watch): print(f&#34;Error: Directory &#39;{directory_to_watch}&#39; does not exist.&#34;) sys.exit(1) event_handler = TargetFileHandler(file_path) observer = Observer() observer.schedule(event_handler, path=directory_to_watch, recursive=False) observer.start() print(f&#34;⏳ Monitoring: {file_path}&#34;) print(f&#34;📁 Watched directory: {directory_to_watch}&#34;) print(&#34;🔔 Press Ctrl&#43;C to stop&#34;) try: while True: time.sleep(1) except KeyboardInterrupt: observer.stop() print(&#34;\nStopping monitor...&#34;) observer.join() if __name__ == &#34;__main__&#34;: main() Usage:">
+  <meta itemprop="datePublished" content="2025-01-11T23:32:00+02:00">
+  <meta itemprop="dateModified" content="2025-01-11T23:32:00+02:00">
+  <meta itemprop="wordCount" content="450">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Tips,Python">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié">
+  <meta name="twitter:description" content="On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
+Pré-requis pip install watchdog
+Créer un script de surveillance Tracker un fichier.py
+Créer par exemple un fichier appelé run_and_reload.py
+import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[MODIFIED] {event.src_path}&#34;) def on_deleted(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[DELETED] {event.src_path}&#34;) def on_created(self, event): if os.path.abspath(event.src_path) == self.target_file: print(f&#34;[CREATED] {event.src_path}&#34;) def main(): parser = argparse.ArgumentParser(description=&#34;Monitor a .py file for changes.&#34;) parser.add_argument(&#34;file&#34;, help=&#34;Path to the .py file to monitor&#34;) parser.add_argument(&#34;-d&#34;, &#34;--directory&#34;, help=&#34;Directory to monitor (default: file&#39;s directory)&#34;) args = parser.parse_args() file_path = os.path.abspath(args.file) if not os.path.isfile(file_path): print(f&#34;Error: File &#39;{file_path}&#39; does not exist.&#34;) sys.exit(1) # Use the provided directory or fallback to the file&#39;s directory directory_to_watch = os.path.abspath(args.directory) if args.directory else os.path.dirname(file_path) if not os.path.isdir(directory_to_watch): print(f&#34;Error: Directory &#39;{directory_to_watch}&#39; does not exist.&#34;) sys.exit(1) event_handler = TargetFileHandler(file_path) observer = Observer() observer.schedule(event_handler, path=directory_to_watch, recursive=False) observer.start() print(f&#34;⏳ Monitoring: {file_path}&#34;) print(f&#34;📁 Watched directory: {directory_to_watch}&#34;) print(&#34;🔔 Press Ctrl&#43;C to stop&#34;) try: while True: time.sleep(1) except KeyboardInterrupt: observer.stop() print(&#34;\nStopping monitor...&#34;) observer.join() if __name__ == &#34;__main__&#34;: main() Usage:">
 
 
 
@@ -452,7 +456,7 @@ Et voilà, aussi simple que cela.</p>
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

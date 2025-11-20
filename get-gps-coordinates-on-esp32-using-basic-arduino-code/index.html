@@ -10,7 +10,8 @@
   content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
 Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
 arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial." />
+#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.begin(115200); // Start Serial 2 with the defined RX and TX pins and a baud rate of 9600 gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2); Serial.println(&#34;Serial 2 started at 9600 baud rate&#34;); } void loop(){ while (gpsSerial.available() &gt; 0){ // get the byte data from the GPS char gpsData = gpsSerial.read(); Serial.print(gpsData); } delay(1000); Serial.println(&#34;-------------------------------&#34;); } Compile and deploy:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Get GPS coordinates on ESP32 using basic Arduino code">
-<meta itemprop="description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
-arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial."><meta itemprop="datePublished" content="2025-04-02T20:49:00+02:00" />
-<meta itemprop="dateModified" content="2025-04-02T20:49:00+02:00" />
-<meta itemprop="wordCount" content="207"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="GPS,ESP32,tips," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Get GPS coordinates on ESP32 using basic Arduino code"/>
-<meta name="twitter:description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+  <meta itemprop="name" content="Get GPS coordinates on ESP32 using basic Arduino code">
+  <meta itemprop="description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
 Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
 arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial."/>
+#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.begin(115200); // Start Serial 2 with the defined RX and TX pins and a baud rate of 9600 gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2); Serial.println(&#34;Serial 2 started at 9600 baud rate&#34;); } void loop(){ while (gpsSerial.available() &gt; 0){ // get the byte data from the GPS char gpsData = gpsSerial.read(); Serial.print(gpsData); } delay(1000); Serial.println(&#34;-------------------------------&#34;); } Compile and deploy:">
+  <meta itemprop="datePublished" content="2025-04-02T20:49:00+02:00">
+  <meta itemprop="dateModified" content="2025-04-02T20:49:00+02:00">
+  <meta itemprop="wordCount" content="207">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="GPS,ESP32,Tips">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Get GPS coordinates on ESP32 using basic Arduino code">
+  <meta name="twitter:description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
+arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
+#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.begin(115200); // Start Serial 2 with the defined RX and TX pins and a baud rate of 9600 gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2); Serial.println(&#34;Serial 2 started at 9600 baud rate&#34;); } void loop(){ while (gpsSerial.available() &gt; 0){ // get the byte data from the GPS char gpsData = gpsSerial.read(); Serial.print(gpsData); } delay(1000); Serial.println(&#34;-------------------------------&#34;); } Compile and deploy:">
 
 
 
@@ -234,8 +238,7 @@ arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
 </code></pre><br/>
 <p>Put the GPS module outside your house and once it starts to blink it means he starts to get a precise position.</p>
 <blockquote>
-<p>The important line is the one that starts with <code>$GPGGA</code>. Ask chatgpt to explain you how it&rsquo;s structure. It&rsquo;s very simple and you have all kinds of information.</p>
-</blockquote>
+<p>The important line is the one that starts with <code>$GPGGA</code>. Ask chatgpt to explain you how it&rsquo;s structure. It&rsquo;s very simple and you have all kinds of information.</p></blockquote>
 
             </div>
         </article>
@@ -309,7 +312,7 @@ arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

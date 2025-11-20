@@ -7,8 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &amp;ldquo;physiques&amp;rdquo;. On est sur de l&amp;rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &amp;ldquo;clouders&amp;rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
-Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes." />
+  content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &ldquo;physiques&rdquo;. On est sur de l&rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &ldquo;clouders&rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
+Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases etcd, controle-plane, worker. Cela va générer une commande Docker qu&rsquo;il suffira d&rsquo;exécuter sur le noeud que vous avez à disposition pour installer votre cluster.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged -
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2">
-<meta itemprop="description" content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &ldquo;physiques&rdquo;. On est sur de l&rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &ldquo;clouders&rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
-Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes."><meta itemprop="datePublished" content="2020-11-19T23:12:00+02:00" />
-<meta itemprop="dateModified" content="2020-11-19T23:12:00+02:00" />
-<meta itemprop="wordCount" content="834"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="metalLB,kubernetes,rancher,baremetal," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2"/>
-<meta name="twitter:description" content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds &ldquo;physiques&rdquo;. On est sur de l&rsquo;auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des &ldquo;clouders&rdquo;. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
-Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes."/>
+  <meta itemprop="name" content="Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2">
+  <meta itemprop="description" content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds “physiques”. On est sur de l’auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des “clouders”. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
+Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases etcd, controle-plane, worker. Cela va générer une commande Docker qu’il suffira d’exécuter sur le noeud que vous avez à disposition pour installer votre cluster.">
+  <meta itemprop="datePublished" content="2020-11-19T23:12:00+02:00">
+  <meta itemprop="dateModified" content="2020-11-19T23:12:00+02:00">
+  <meta itemprop="wordCount" content="834">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="MetalLB,Kubernetes,Rancher,Baremetal">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Installer un cluster Kubernetes sur baremetal avec metalLB et Rancher 2">
+  <meta name="twitter:description" content="Dans cet article, nous allons voir comment installer un cluster Kubernetes sur un ou plusieurs noeuds “physiques”. On est sur de l’auto-hébergement. MetalLB sera utilisé pour remplacer les load balancers des “clouders”. MetalLB est une implémentation de Load Balancer pour les clusters Kubernetes Bare Metal, utilisant des protocoles de routage standard. Rancher 2 sera également utilisé. On aurait pu utiliser kubeadm mais cette solution nous simplifie clairement la vie.
+Pré-requis Docker Lancer Rancher 2 via Docker sudo docker run -d --privileged --restart=unless-stopped -p 8443:443 rancher/rancher Provisionner un cluster k8s Une fois le serveur Rancher démarré, connectez-vous en créant un compte admin puis créez un cluster Kubernetes. Pour faire simple dans cet article, cochez les cases etcd, controle-plane, worker. Cela va générer une commande Docker qu’il suffira d’exécuter sur le noeud que vous avez à disposition pour installer votre cluster.">
 
 
 
@@ -260,8 +264,7 @@ data:
 cd metallb-nginx-demo
 helm install --name nginx-demo ./
 </code></pre><blockquote>
-<p>Facultatif: éditer <code>values.yaml</code>, changer le type de service à <code>LoadBalancer</code>. Je n&rsquo;ai pas eu besoin de faire cela mais c&rsquo;est recommandé. J&rsquo;ai suivi la procédure qui suit.</p>
-</blockquote>
+<p>Facultatif: éditer <code>values.yaml</code>, changer le type de service à <code>LoadBalancer</code>. Je n&rsquo;ai pas eu besoin de faire cela mais c&rsquo;est recommandé. J&rsquo;ai suivi la procédure qui suit.</p></blockquote>
 <br/>
 <p><strong>Deployer Nginx comme Ingress Controller</strong></p>
 <pre tabindex="0"><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.34.1/deploy/static/provider/baremetal/deploy.yaml
@@ -388,8 +391,7 @@ spec:
         path: /
 </code></pre><br/>
 <blockquote>
-<p>Attention, l&rsquo;obtention du certificat peut prendre entre 2 et 5 minutes.</p>
-</blockquote>
+<p>Attention, l&rsquo;obtention du certificat peut prendre entre 2 et 5 minutes.</p></blockquote>
 <br/>
 <p>Checker le certificat:</p>
 <pre tabindex="0"><code>kubectl describe certificate
@@ -469,7 +471,7 @@ spec:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

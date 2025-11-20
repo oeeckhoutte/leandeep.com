@@ -7,7 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript. Voici un grand nombre d&amp;rsquo;options possibles pour configurer convenablement votre projet Typescript. J&amp;rsquo;ai essayé de décrire chacune d&amp;rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&amp;rsquo;outils et un projet vous permettant d&amp;rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&amp;rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&amp;hellip;" />
+  content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript. Voici un grand nombre d&rsquo;options possibles pour configurer convenablement votre projet Typescript. J&rsquo;ai essayé de décrire chacune d&rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -98,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Anatomie d&#39;un fichier tsconfig.json">
-<meta itemprop="description" content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript. Voici un grand nombre d&rsquo;options possibles pour configurer convenablement votre projet Typescript. J&rsquo;ai essayé de décrire chacune d&rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;"><meta itemprop="datePublished" content="2021-04-10T14:49:00+02:00" />
-<meta itemprop="dateModified" content="2021-04-10T14:49:00+02:00" />
-<meta itemprop="wordCount" content="822"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Typescript," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Anatomie d&#39;un fichier tsconfig.json"/>
-<meta name="twitter:description" content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript. Voici un grand nombre d&rsquo;options possibles pour configurer convenablement votre projet Typescript. J&rsquo;ai essayé de décrire chacune d&rsquo;entre elle. Bien configuré, vous pouvez avoir un set d&rsquo;outils et un projet vous permettant d&rsquo;être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j&rsquo;ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production&hellip;"/>
+  <meta itemprop="name" content="Anatomie d&#39;un fichier tsconfig.json">
+  <meta itemprop="description" content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript. Voici un grand nombre d’options possibles pour configurer convenablement votre projet Typescript. J’ai essayé de décrire chacune d’entre elle. Bien configuré, vous pouvez avoir un set d’outils et un projet vous permettant d’être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j’ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production…">
+  <meta itemprop="datePublished" content="2021-04-10T14:49:00+02:00">
+  <meta itemprop="dateModified" content="2021-04-10T14:49:00+02:00">
+  <meta itemprop="wordCount" content="822">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Typescript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Anatomie d&#39;un fichier tsconfig.json">
+  <meta name="twitter:description" content="Dans cet article nous allons voir comment configurer correctement le compilateur Typescript. Voici un grand nombre d’options possibles pour configurer convenablement votre projet Typescript. J’ai essayé de décrire chacune d’entre elle. Bien configuré, vous pouvez avoir un set d’outils et un projet vous permettant d’être performant et qualitatif. Combiné avec du TDD avec un framework comme Jasmine, Chai ou core Jest et un coverage à 100% (oui oui j’ai bien dit 100%), je ne vous raconte pas la satisfaction du travail bien fait et la sérénité que vous aurez lors de vos mises en production…">
 
 
 
@@ -242,13 +246,11 @@ Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet v
   }
 }
 </code></pre><blockquote>
-<p>Installation de typescript: <code>npm install typescript --save-dev</code> ou <code>yarn add -D typescript</code>.</p>
-</blockquote>
+<p>Installation de typescript: <code>npm install typescript --save-dev</code> ou <code>yarn add -D typescript</code>.</p></blockquote>
 <br/>
 <p>Ce fichier <code>tsconfig.json</code> est pris en compte lorsque la commande <code>npx tsc [-w]</code> est exécutée.</p>
 <blockquote>
-<p>Ajouter l&rsquo;annotation suivante au-dessus d&rsquo;une fonction <code>/** @internal */</code> permet de ne pas générer sa déclaration dans le fichier <code>*.d.ts</code>.</p>
-</blockquote>
+<p>Ajouter l&rsquo;annotation suivante au-dessus d&rsquo;une fonction <code>/** @internal */</code> permet de ne pas générer sa déclaration dans le fichier <code>*.d.ts</code>.</p></blockquote>
 
             </div>
         </article>
@@ -322,7 +324,7 @@ Bien configuré, vous pouvez avoir un <em>set</em> d&rsquo;outils et un projet v
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

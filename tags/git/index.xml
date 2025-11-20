@@ -4,59 +4,38 @@
     <title>Git on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/git/</link>
     <description>Recent content in Git on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 24 Apr 2022 22:45:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Apr 2022 22:45:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Créer des Pull Requests sur Github depuis son terminal</title>
       <link>https://leandeep.com/cr%C3%A9er-des-pull-requests-sur-github-depuis-son-terminal/</link>
       <pubDate>Sun, 24 Apr 2022 22:45:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/cr%C3%A9er-des-pull-requests-sur-github-depuis-son-terminal/</guid>
-      <description>Dans ce court article, nous allons voir comment créer des PRs automatiquement via le cli; toujours dans le but de booster sa productivité.
-Installation du client cli Github Adresse officielle du package
-brew install gh gh auth login Création de la PR gh pr create --base master --head your_branch --title &amp;#34;$(git log -1 --pretty=format:&amp;#39;%s&amp;#39;)&amp;#34; --body &amp;#34;$(cat pull_request_template.md)&amp;#34; Raccourcis pour récupérer les infos du dernier commit Editer le fichier ~/.zshrc et ajouter les fonctions suivantes:</description>
+      <description>&lt;p&gt;Dans ce court article, nous allons voir comment créer des PRs automatiquement via le cli; toujours dans le but de booster sa productivité.&lt;/p&gt;&#xA;&lt;h2 id=&#34;installation-du-client-cli-github&#34;&gt;Installation du client cli Github&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/cli/cli&#34;&gt;Adresse officielle&lt;/a&gt; du package&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew install gh&#xA;gh auth login&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;création-de-la-pr&#34;&gt;Création de la PR&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;gh pr create --base master --head your_branch --title &amp;#34;$(git log -1 --pretty=format:&amp;#39;%s&amp;#39;)&amp;#34; --body &amp;#34;$(cat pull_request_template.md)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;raccourcis-pour-récupérer-les-infos-du-dernier-commit&#34;&gt;Raccourcis pour récupérer les infos du dernier commit&lt;/h2&gt;&#xA;&lt;p&gt;Editer le fichier &lt;code&gt;~/.zshrc&lt;/code&gt; et ajouter les fonctions suivantes:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Ajouter un contributeur dans un repo git sécurisé avec git-crypt</title>
       <link>https://leandeep.com/ajouter-un-contributeur-dans-un-repo-git-s%C3%A9curis%C3%A9-avec-git-crypt/</link>
       <pubDate>Fri, 10 Jan 2020 19:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/ajouter-un-contributeur-dans-un-repo-git-s%C3%A9curis%C3%A9-avec-git-crypt/</guid>
-      <description>Pré-requis Installer GPG et git-crypt localement
-Sur OSX:
-brew install gpg brew install git-crypt Sur Linux Ubuntu/ Debian:
-apt-get install gnupg git-crypt gnupg-agent -y Verification de l&amp;rsquo;installation gpg --gen-key gpg --list-keys Generate a new GPG key On the new developer laptop execute:
-Generate a new GPG key gpg --gen-key Get the public key ID Send the key to an admin to trust it and add it to git-crypt repo DB</description>
+      <description>&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;p&gt;Installer &lt;code&gt;GPG&lt;/code&gt; et &lt;code&gt;git-crypt&lt;/code&gt; localement&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Sur OSX:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew install gpg&#xA;brew install git-crypt&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Sur Linux Ubuntu/ Debian:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt-get install gnupg git-crypt gnupg-agent -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;verification-de-linstallation&#34;&gt;Verification de l&amp;rsquo;installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;gpg --gen-key&#xA;gpg --list-keys&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Generate a new GPG key&#xA;On the new developer laptop execute:&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;generate-a-new-gpg-key&#34;&gt;Generate a new GPG key&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;gpg --gen-key&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;get-the-public-key-id&#34;&gt;Get the public key ID&lt;/h2&gt;&#xA;&lt;p&gt;Send the key to an admin to trust it and add it to git-crypt repo DB&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Get rid of .pem file to SSH on your AWS EC2 instance</title>
       <link>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</link>
       <pubDate>Fri, 06 Sep 2019 11:39:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</guid>
-      <description>Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a git clone using SSH protocol. You will be annoyed by the .pem file. To get rid of it (or more simply hide it) you can follow this procedure:
-The pem file contains a private key. Simply extract it and add it to your system.
-Copy the private key to the .ssh folder
-cp /path/to/your/cert.</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a &lt;code&gt;git clone&lt;/code&gt; using &lt;code&gt;SSH&lt;/code&gt; protocol. You will be annoyed by the &lt;code&gt;.pem&lt;/code&gt; file. To get rid of it (or more simply hide it) you can follow this procedure:&lt;/p&gt;&#xA;&lt;p&gt;The pem file contains a private key. Simply extract it and add it to your system.&lt;/p&gt;&#xA;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Copy the private key to the .ssh folder&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Config, Commandes et tips utiles Git</title>
       <link>https://leandeep.com/config-commandes-et-tips-utiles-git/</link>
       <pubDate>Sat, 19 Sep 2015 18:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/config-commandes-et-tips-utiles-git/</guid>
-      <description>Indispensable à savoir Index
-L’index est une zone qui permet de préparer un commit.
-HEAD
-HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
-Rebase vs Merge Préférer le rebase pour garder un historique propre
-Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.</description>
+      <description>&lt;h2 id=&#34;indispensable-à-savoir&#34;&gt;Indispensable à savoir&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Index&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;L’index est une zone qui permet de préparer un commit.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;HEAD&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;rebase-vs-merge&#34;&gt;Rebase vs Merge&lt;/h2&gt;&#xA;&lt;p&gt;Préférer le rebase pour garder un historique propre&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;rebase&#34;&gt;Rebase&lt;/h2&gt;&#xA;&lt;p&gt;Eviter &lt;code&gt;git pull&lt;/code&gt; pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

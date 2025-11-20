@@ -7,10 +7,11 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Dans cet article nous allons voir comment réaliser un échange d&amp;rsquo;USDC avec de l&amp;rsquo;USDT en codant un smart contract qui utiliser Uniswap.
-Pour cet example, j&amp;rsquo;ai utilisé Node version: nvm use v14.17.6. J&amp;rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
+  content="Dans cet article nous allons voir comment réaliser un échange d&rsquo;USDC avec de l&rsquo;USDT en codant un smart contract qui utiliser Uniswap.
+Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
 Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
-// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &amp;#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&amp;#34;; import &amp;#34;." />
+// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;; import &#34;./interfaces/Uniswap.sol&#34;; contract SimpleUniswapSwap { address private constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D; address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; function swap( address _tokenIn, address _tokenOut, uint256 _amountIn, uint256 _amountOutMin, address _to ) external { IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn); // Send money to this smart contract IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn); // Allow uniswap router to use/swap the money we just transfered address[] memory path; if (_tokenIn == WETH || _tokenOut == WETH) { path = new address[](2); path[0] = _tokenIn; path[1] = _tokenOut; } else { path = new address[](3); path[0] = _tokenIn; path[1] = WETH; path[2] = _tokenOut; } IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens( _amountIn, _amountOutMin, path, _to, block.timestamp ); } } L&rsquo;interface Uniswap.sol dans le répertoire ./contracts/interfaces ressemble à ceci:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le rép
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Smart contract development: coder un Swap sur Uniswap avec des data de prod">
-<meta itemprop="description" content="Dans cet article nous allons voir comment réaliser un échange d&rsquo;USDC avec de l&rsquo;USDT en codant un smart contract qui utiliser Uniswap.
-Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
-Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
-// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;; import &#34;."><meta itemprop="datePublished" content="2021-10-22T08:08:00+00:00" />
-<meta itemprop="dateModified" content="2021-10-22T08:08:00+00:00" />
-<meta itemprop="wordCount" content="527"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Dev,Ethereum,Blockchain,Solidity," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Smart contract development: coder un Swap sur Uniswap avec des data de prod"/>
-<meta name="twitter:description" content="Dans cet article nous allons voir comment réaliser un échange d&rsquo;USDC avec de l&rsquo;USDT en codant un smart contract qui utiliser Uniswap.
-Pour cet example, j&rsquo;ai utilisé Node version: nvm use v14.17.6. J&rsquo;ai aussi installé les modules NodeJS ganache-cli et truffle
+  <meta itemprop="name" content="Smart contract development: coder un Swap sur Uniswap avec des data de prod">
+  <meta itemprop="description" content="Dans cet article nous allons voir comment réaliser un échange d’USDC avec de l’USDT en codant un smart contract qui utiliser Uniswap.
+Pour cet example, j’ai utilisé Node version: nvm use v14.17.6. J’ai aussi installé les modules NodeJS ganache-cli et truffle
 Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
-// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;; import &#34;."/>
+// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;; import &#34;./interfaces/Uniswap.sol&#34;; contract SimpleUniswapSwap { address private constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D; address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; function swap( address _tokenIn, address _tokenOut, uint256 _amountIn, uint256 _amountOutMin, address _to ) external { IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn); // Send money to this smart contract IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn); // Allow uniswap router to use/swap the money we just transfered address[] memory path; if (_tokenIn == WETH || _tokenOut == WETH) { path = new address[](2); path[0] = _tokenIn; path[1] = _tokenOut; } else { path = new address[](3); path[0] = _tokenIn; path[1] = WETH; path[2] = _tokenOut; } IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens( _amountIn, _amountOutMin, path, _to, block.timestamp ); } } L’interface Uniswap.sol dans le répertoire ./contracts/interfaces ressemble à ceci:">
+  <meta itemprop="datePublished" content="2021-10-22T08:08:00+00:00">
+  <meta itemprop="dateModified" content="2021-10-22T08:08:00+00:00">
+  <meta itemprop="wordCount" content="527">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Dev,Ethereum,Blockchain,Solidity">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Smart contract development: coder un Swap sur Uniswap avec des data de prod">
+  <meta name="twitter:description" content="Dans cet article nous allons voir comment réaliser un échange d’USDC avec de l’USDT en codant un smart contract qui utiliser Uniswap.
+Pour cet example, j’ai utilisé Node version: nvm use v14.17.6. J’ai aussi installé les modules NodeJS ganache-cli et truffle
+Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le répertoire contracts de votre repo git et ajouter le contenu suivant:
+// SPDX-License-Identifier: MIT pragma solidity ^0.7; import &#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;; import &#34;./interfaces/Uniswap.sol&#34;; contract SimpleUniswapSwap { address private constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D; address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; function swap( address _tokenIn, address _tokenOut, uint256 _amountIn, uint256 _amountOutMin, address _to ) external { IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn); // Send money to this smart contract IERC20(_tokenIn).approve(UNISWAP_V2_ROUTER, _amountIn); // Allow uniswap router to use/swap the money we just transfered address[] memory path; if (_tokenIn == WETH || _tokenOut == WETH) { path = new address[](2); path[0] = _tokenIn; path[1] = _tokenOut; } else { path = new address[](3); path[0] = _tokenIn; path[1] = WETH; path[2] = _tokenOut; } IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForTokens( _amountIn, _amountOutMin, path, _to, block.timestamp ); } } L’interface Uniswap.sol dans le répertoire ./contracts/interfaces ressemble à ceci:">
 
 
 
@@ -193,8 +197,7 @@ Création du Smart contract Créer un fichier SimpleUniswapSwap.sol dans le rép
             <div class="post-content">
                 <p>Dans cet article nous allons voir comment réaliser un échange d&rsquo;USDC avec de l&rsquo;USDT en codant un smart contract qui utiliser Uniswap.</p>
 <blockquote>
-<p>Pour cet example, j&rsquo;ai utilisé Node version: <code>nvm use v14.17.6</code>. J&rsquo;ai aussi installé les modules NodeJS <code>ganache-cli</code> et <code>truffle</code></p>
-</blockquote>
+<p>Pour cet example, j&rsquo;ai utilisé Node version: <code>nvm use v14.17.6</code>. J&rsquo;ai aussi installé les modules NodeJS <code>ganache-cli</code> et <code>truffle</code></p></blockquote>
 <br/>
 <h2 id="création-du-smart-contract">Création du Smart contract</h2>
 <p>Créer un fichier <code>SimpleUniswapSwap.sol</code> dans le répertoire <code>contracts</code> de votre repo git et ajouter le contenu suivant:</p>
@@ -327,8 +330,7 @@ contract(&#34;SimpleUniswapSwap&#34;, (accounts) =&gt; {
 }
 </code></pre><br/>
 <blockquote>
-<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert">https://twitter.com/whale_alert</a>, récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p>
-</blockquote>
+<p>Repérer une whale possèdant de l&rsquo;USDC via <a href="https://twitter.com/whale_alert">https://twitter.com/whale_alert</a>, récupérer son wallet Ethereum via Etherscan et unlocker le  dans votre fork Ethereum.</p></blockquote>
 <pre tabindex="0"><code>source .env
 ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED -i --unlock $WHALE_ADDRESS --networkId 999
 </code></pre><br/>
@@ -414,7 +416,7 @@ ganache-cli --fork https://mainnet.infura.io/v3/$TOKEN_INFURA --seed $YOUR_SEED 
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

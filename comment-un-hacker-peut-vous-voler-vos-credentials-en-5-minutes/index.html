@@ -7,7 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="On croit toujours que ce sont les autres qui se hacker. &amp;ldquo;Cela n&amp;rsquo;arrive qu&amp;rsquo;aux autres&amp;rdquo;, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d&amp;rsquo;exécuter moins d&amp;rsquo;une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu&amp;rsquo;un qu&amp;rsquo;il navigue sur le site de son choix alors qu&amp;rsquo;il a attéri sur un site détenu par un hacker." />
+  content="On croit toujours que ce sont les autres qui se hacker. &ldquo;Cela n&rsquo;arrive qu&rsquo;aux autres&rdquo;, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d&rsquo;exécuter moins d&rsquo;une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu&rsquo;un qu&rsquo;il navigue sur le site de son choix alors qu&rsquo;il a attéri sur un site détenu par un hacker. Encore une fois, cet article a un but pédagogique. Il est strictement interdit d&rsquo;appliquer cette technique sur des ordinateurs et un réseau dont vous n&rsquo;êtes pas propriétaire. Vous encourez jusqu&rsquo;à deux ans d&rsquo;emprisonnement et 60 000 € d&rsquo;amende&hellip; Ceci étant dit et étant dédouané de toute responsabilité, nous allons voir comment réaliser un Man in the middle en spoofant un DNS et en redirigeant le traffic du navigateur vers un serveur Web. Il est selon moi important de comprendre à quel point ces techniques sont simples à mettre en place pour être sensibilisé, être (pourquoi pas) paranoïaque et surtpout pour mieux se protéger. Que diriez-vous si un hacker s&rsquo;était connecté à votre bancaire car vous lui aviez donné vos identifiants ? Et ne croyez pas qu&rsquo;un simple SMS de validation suffise&hellip; Un réseau 4G peut également se faire pirater. Je vous invite à faire des recherches sur les IMSI catchers&hellip; Pour 300€ un hacker peut s&rsquo;en fabriquer un en 2021 et intercepter vos SMS&hellip;
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -98,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Comment un hacker peut vous voler vos credentials en 5 minutes">
-<meta itemprop="description" content="On croit toujours que ce sont les autres qui se hacker. &ldquo;Cela n&rsquo;arrive qu&rsquo;aux autres&rdquo;, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d&rsquo;exécuter moins d&rsquo;une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu&rsquo;un qu&rsquo;il navigue sur le site de son choix alors qu&rsquo;il a attéri sur un site détenu par un hacker."><meta itemprop="datePublished" content="2021-04-17T19:00:00+02:00" />
-<meta itemprop="dateModified" content="2021-04-17T19:00:00+02:00" />
-<meta itemprop="wordCount" content="549"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Security," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Comment un hacker peut vous voler vos credentials en 5 minutes"/>
-<meta name="twitter:description" content="On croit toujours que ce sont les autres qui se hacker. &ldquo;Cela n&rsquo;arrive qu&rsquo;aux autres&rdquo;, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d&rsquo;exécuter moins d&rsquo;une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu&rsquo;un qu&rsquo;il navigue sur le site de son choix alors qu&rsquo;il a attéri sur un site détenu par un hacker."/>
+  <meta itemprop="name" content="Comment un hacker peut vous voler vos credentials en 5 minutes">
+  <meta itemprop="description" content="On croit toujours que ce sont les autres qui se hacker. “Cela n’arrive qu’aux autres”, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d’exécuter moins d’une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu’un qu’il navigue sur le site de son choix alors qu’il a attéri sur un site détenu par un hacker. Encore une fois, cet article a un but pédagogique. Il est strictement interdit d’appliquer cette technique sur des ordinateurs et un réseau dont vous n’êtes pas propriétaire. Vous encourez jusqu’à deux ans d’emprisonnement et 60 000 € d’amende… Ceci étant dit et étant dédouané de toute responsabilité, nous allons voir comment réaliser un Man in the middle en spoofant un DNS et en redirigeant le traffic du navigateur vers un serveur Web. Il est selon moi important de comprendre à quel point ces techniques sont simples à mettre en place pour être sensibilisé, être (pourquoi pas) paranoïaque et surtpout pour mieux se protéger. Que diriez-vous si un hacker s’était connecté à votre bancaire car vous lui aviez donné vos identifiants ? Et ne croyez pas qu’un simple SMS de validation suffise… Un réseau 4G peut également se faire pirater. Je vous invite à faire des recherches sur les IMSI catchers… Pour 300€ un hacker peut s’en fabriquer un en 2021 et intercepter vos SMS…">
+  <meta itemprop="datePublished" content="2021-04-17T19:00:00+02:00">
+  <meta itemprop="dateModified" content="2021-04-17T19:00:00+02:00">
+  <meta itemprop="wordCount" content="549">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Security">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Comment un hacker peut vous voler vos credentials en 5 minutes">
+  <meta name="twitter:description" content="On croit toujours que ce sont les autres qui se hacker. “Cela n’arrive qu’aux autres”, on se sent protégé derrière son petit écran. Pourtant nous sommes des cibles faciles pour les hackers car parfois il suffit d’exécuter moins d’une dizaine de commandes pour mettre en place des pièges redoutables. Dans cet article, qui a purement un but pédagogique, nous allons voir à quel point il est simple de faire croire à quelqu’un qu’il navigue sur le site de son choix alors qu’il a attéri sur un site détenu par un hacker. Encore une fois, cet article a un but pédagogique. Il est strictement interdit d’appliquer cette technique sur des ordinateurs et un réseau dont vous n’êtes pas propriétaire. Vous encourez jusqu’à deux ans d’emprisonnement et 60 000 € d’amende… Ceci étant dit et étant dédouané de toute responsabilité, nous allons voir comment réaliser un Man in the middle en spoofant un DNS et en redirigeant le traffic du navigateur vers un serveur Web. Il est selon moi important de comprendre à quel point ces techniques sont simples à mettre en place pour être sensibilisé, être (pourquoi pas) paranoïaque et surtpout pour mieux se protéger. Que diriez-vous si un hacker s’était connecté à votre bancaire car vous lui aviez donné vos identifiants ? Et ne croyez pas qu’un simple SMS de validation suffise… Un réseau 4G peut également se faire pirater. Je vous invite à faire des recherches sur les IMSI catchers… Pour 300€ un hacker peut s’en fabriquer un en 2021 et intercepter vos SMS…">
 
 
 
@@ -196,8 +200,7 @@ sudo echo 1 &gt; /proc/sys/net/ipv4/forward_ip
 <pre tabindex="0"><code>192.168.43.109 www*
 192.168.43.109 leandeep.com
 </code></pre><blockquote>
-<p><code>192.168.43.109</code> est l&rsquo;adresse IP de ma machine Kali</p>
-</blockquote>
+<p><code>192.168.43.109</code> est l&rsquo;adresse IP de ma machine Kali</p></blockquote>
 <br/>
 <h1 id="arp-spoofing-de-votre-cible">ARP Spoofing (de votre cible)</h1>
 <p>Récupérer l&rsquo;adresse IP de la machine cible. Dans notre exemple, elle a l&rsquo;IP <code>192.168.43.5</code>.
@@ -292,7 +295,7 @@ Example sans intérêt, dont un hacker ne se contentera pas:</p>
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

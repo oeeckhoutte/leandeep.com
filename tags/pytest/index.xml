@@ -4,29 +4,24 @@
     <title>Pytest on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/pytest/</link>
     <description>Recent content in Pytest on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 10 Dec 2024 23:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/pytest/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Dec 2024 23:49:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/pytest/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Simuler un mode offline pour certains tests Pytest</title>
       <link>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</link>
       <pubDate>Tue, 10 Dec 2024 23:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</guid>
-      <description>Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.
-Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet. Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests.</description>
+      <description>&lt;p&gt;Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet.&#xA;Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Pytest tricks</title>
       <link>https://leandeep.com/pytest-tricks/</link>
       <pubDate>Wed, 04 Apr 2018 21:53:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/pytest-tricks/</guid>
-      <description>Mocker l&amp;rsquo;ouverture d&amp;rsquo;un fichier et tester les exceptions Pour la fonction suivante, il est possible d&amp;rsquo;exécuter différents tests. Les 3 exemples de tests ci-dessous montrent:
-Comment vérifier qu&amp;rsquo;un appel de fonction raise une exception Comment vérifier qu&amp;rsquo;un fichier de config est valide Comment créer un fichier de config temporaire &amp;ldquo;bouchonné&amp;rdquo;. import os import json class InvalidConfig(Exception): pass def load_config(config_path): try: with open(config_path, &amp;#39;r&amp;#39;) as json_file: return json.load(json_file) except (OSError, IOError, json.</description>
+      <description>&lt;h2 id=&#34;mocker-louverture-dun-fichier-et-tester-les-exceptions&#34;&gt;Mocker l&amp;rsquo;ouverture d&amp;rsquo;un fichier et tester les exceptions&lt;/h2&gt;&#xA;&lt;p&gt;Pour la fonction suivante, il est possible d&amp;rsquo;exécuter différents tests.&#xA;Les 3 exemples de tests ci-dessous montrent:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Comment vérifier qu&amp;rsquo;un appel de fonction raise une exception&lt;/li&gt;&#xA;&lt;li&gt;Comment vérifier qu&amp;rsquo;un fichier de config est valide&lt;/li&gt;&#xA;&lt;li&gt;Comment créer un fichier de config temporaire &amp;ldquo;bouchonné&amp;rdquo;.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import os &#xA;import json&#xA;&#xA;class InvalidConfig(Exception):&#xA;    pass&#xA;&#xA;def load_config(config_path):&#xA;  try:&#xA;      with open(config_path, &amp;#39;r&amp;#39;) as json_file:&#xA;          return json.load(json_file)&#xA;  except (OSError, IOError, json.JSONDecodeError) as exception:&#xA;      raise InvalidConfig(exception)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def test_missing_conf_file():&#xA;&#x9;with pytest.raises(InvalidConfig):&#xA;&#x9;    load_config(&amp;#39;does-not-exist.json&amp;#39;)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def test_invalid_conf_file(tmpdir):&#xA;&#x9;json_content = (&#xA;    &#x9;&amp;#39;%%%%%%%%%%\n&amp;#39;&#xA;&#x9;)&#xA;    tmp_config = tmpdir.join(&amp;#39;temp-config_file.json&amp;#39;)&#xA;    tmp_config.write_text(json_content, encoding=&amp;#39;utf-8&amp;#39;)&#xA;    with pytest.raises(InvalidConfig):&#xA;    &#x9;load_config(tmp_config.strpath)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def test_valid_conf_file(tmpdir):&#xA;&#x9;json_content = (&#xA;    &#x9;&amp;#39;{\n&amp;#39;&#xA;        &amp;#39;&amp;#34;hello&amp;#34;: &amp;#34;olivier&amp;#34;, \n&amp;#39;&#xA;        &amp;#39;&amp;#34;titi&amp;#34;: &amp;#34;tata&amp;#34;\n&amp;#39;&#xA;        &amp;#39;}\n&amp;#39;&#xA;&#x9;)&#xA;    tmp_config = tmpdir.join(&amp;#39;temp-config_file.json&amp;#39;)&#xA;    tmp_config.write_text(json_content, encoding=&amp;#39;utf-8&amp;#39;)&#xA;    parsed_config = load_config(tmp_config.strpath)&#xA;    assert parsed_config[&amp;#39;hello&amp;#39;] == &amp;#39;olivier&amp;#39;&#xA;    assert parsed_config[&amp;#39;titi&amp;#39;] == &amp;#39;tata&amp;#39;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;parametrize-tests-with-fixtures&#34;&gt;Parametrize tests with fixtures&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Option 1&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

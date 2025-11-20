@@ -9,7 +9,7 @@
 <meta name="description"
   content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
 Connect the NEO-6M GPS module to the ESP32 Dependencies:
-esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } esp-idf-hal = &amp;#34;0.45.2&amp;#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&amp;gt; Result&amp;lt;(), Box&amp;lt;dyn std::error::Error&amp;gt;&amp;gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!" />
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!(&#34;Démarrage de l&#39;application GPS&#34;); // Initialisation des périphériques let peripherals = Peripherals::take().unwrap(); // Configuration de l&#39;UART let config = config::Config::default() .baudrate(Hertz(9600)) .data_bits(DataBits::DataBits8) .parity_none() .stop_bits(StopBits::STOP1); // Création du driver UART avec typage explicite let mut uart_driver = UartDriver::new( peripherals.uart2, peripherals.pins.gpio17, // TX peripherals.pins.gpio16, // RX Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // RTS (pas utilisé) Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // CTS (pas utilisé) &amp;config, )?; println!(&#34;UART initialisé avec un débit de 9600 bauds&#34;); // Buffer pour stocker les données GPS let mut buffer = [0u8; 128]; loop { // Lecture des données disponibles sur l&#39;UART avec timeout match uart_driver.read(&amp;mut buffer, 1000) { Ok(bytes_read) if bytes_read &gt; 0 =&gt; { let gps_data = &amp;buffer[..bytes_read]; println!( &#34;Données GPS reçues : {}&#34;, String::from_utf8_lossy(gps_data) ); }, Ok(_) =&gt; { println!(&#34;Aucune donnée GPS reçue (timeout)&#34;); }, Err(e) =&gt; { println!(&#34;Erreur de lecture UART: {:?}&#34;, e); } } println!(&#34;-------------------------------&#34;); std::thread::sleep(std::time::Duration::from_secs(1)); } } " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +100,22 @@ esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Get GPS coordinates on ESP32 using Rust">
-<meta itemprop="description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Dependencies:
-esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!"><meta itemprop="datePublished" content="2025-04-02T20:49:00+02:00" />
-<meta itemprop="dateModified" content="2025-04-02T20:49:00+02:00" />
-<meta itemprop="wordCount" content="211"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="GPS,ESP32,Rust," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Get GPS coordinates on ESP32 using Rust"/>
-<meta name="twitter:description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+  <meta itemprop="name" content="Get GPS coordinates on ESP32 using Rust">
+  <meta itemprop="description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
 Connect the NEO-6M GPS module to the ESP32 Dependencies:
-esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!"/>
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!(&#34;Démarrage de l&#39;application GPS&#34;); // Initialisation des périphériques let peripherals = Peripherals::take().unwrap(); // Configuration de l&#39;UART let config = config::Config::default() .baudrate(Hertz(9600)) .data_bits(DataBits::DataBits8) .parity_none() .stop_bits(StopBits::STOP1); // Création du driver UART avec typage explicite let mut uart_driver = UartDriver::new( peripherals.uart2, peripherals.pins.gpio17, // TX peripherals.pins.gpio16, // RX Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // RTS (pas utilisé) Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // CTS (pas utilisé) &amp;config, )?; println!(&#34;UART initialisé avec un débit de 9600 bauds&#34;); // Buffer pour stocker les données GPS let mut buffer = [0u8; 128]; loop { // Lecture des données disponibles sur l&#39;UART avec timeout match uart_driver.read(&amp;mut buffer, 1000) { Ok(bytes_read) if bytes_read &gt; 0 =&gt; { let gps_data = &amp;buffer[..bytes_read]; println!( &#34;Données GPS reçues : {}&#34;, String::from_utf8_lossy(gps_data) ); }, Ok(_) =&gt; { println!(&#34;Aucune donnée GPS reçue (timeout)&#34;); }, Err(e) =&gt; { println!(&#34;Erreur de lecture UART: {:?}&#34;, e); } } println!(&#34;-------------------------------&#34;); std::thread::sleep(std::time::Duration::from_secs(1)); } }">
+  <meta itemprop="datePublished" content="2025-04-02T20:49:00+02:00">
+  <meta itemprop="dateModified" content="2025-04-02T20:49:00+02:00">
+  <meta itemprop="wordCount" content="211">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="GPS,ESP32,Rust">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Get GPS coordinates on ESP32 using Rust">
+  <meta name="twitter:description" content="In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
+Connect the NEO-6M GPS module to the ESP32 Dependencies:
+esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } esp-idf-hal = &#34;0.45.2&#34; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use esp_idf_hal::uart::*; use esp_idf_svc::hal::uart::config::DataBits; use esp_idf_svc::hal::uart::config::StopBits; fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; { // Lien des patches ESP-IDF esp_idf_svc::sys::link_patches(); // Configuration du logger esp_idf_svc::log::EspLogger::initialize_default(); log::info!(&#34;Démarrage de l&#39;application GPS&#34;); // Initialisation des périphériques let peripherals = Peripherals::take().unwrap(); // Configuration de l&#39;UART let config = config::Config::default() .baudrate(Hertz(9600)) .data_bits(DataBits::DataBits8) .parity_none() .stop_bits(StopBits::STOP1); // Création du driver UART avec typage explicite let mut uart_driver = UartDriver::new( peripherals.uart2, peripherals.pins.gpio17, // TX peripherals.pins.gpio16, // RX Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // RTS (pas utilisé) Option::&lt;esp_idf_hal::gpio::Gpio0&gt;::None, // CTS (pas utilisé) &amp;config, )?; println!(&#34;UART initialisé avec un débit de 9600 bauds&#34;); // Buffer pour stocker les données GPS let mut buffer = [0u8; 128]; loop { // Lecture des données disponibles sur l&#39;UART avec timeout match uart_driver.read(&amp;mut buffer, 1000) { Ok(bytes_read) if bytes_read &gt; 0 =&gt; { let gps_data = &amp;buffer[..bytes_read]; println!( &#34;Données GPS reçues : {}&#34;, String::from_utf8_lossy(gps_data) ); }, Ok(_) =&gt; { println!(&#34;Aucune donnée GPS reçue (timeout)&#34;); }, Err(e) =&gt; { println!(&#34;Erreur de lecture UART: {:?}&#34;, e); } } println!(&#34;-------------------------------&#34;); std::thread::sleep(std::time::Duration::from_secs(1)); } }">
 
 
 
@@ -258,7 +261,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         }
 
         println!(&#34;-------------------------------&#34;);
-        std:🧵:sleep(std::time::Duration::from_secs(1));
+        std::thread::sleep(std::time::Duration::from_secs(1));
     }
 }
 </code></pre>
@@ -334,7 +337,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

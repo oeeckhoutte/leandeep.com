@@ -9,7 +9,8 @@
 <meta name="description"
   content="Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
 Créer un fichier get_abi.py et coller le contenu suivant:
-#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &amp;#34;https://api.etherscan.io/api?module=contract&amp;amp;action=getabi&amp;amp;address=&amp;#34; parser = argparse.ArgumentParser() parser.add_argument(&amp;#34;-a&amp;#34;, &amp;#34;--address&amp;#34;, type=str, help=&amp;#34;Smart contract address&amp;#34;) parser.add_argument(&amp;#34;-o&amp;#34;, &amp;#34;--output&amp;#34;, type=str, help=&amp;#34;Path to store the output ABI JSON file&amp;#34;, required=True) def __main__() -&amp;gt; None: &amp;#34;&amp;#34;&amp;#34;Exports contract ABI in JSON&amp;#34;&amp;#34;&amp;#34; args = parser." />
+#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &#34;https://api.etherscan.io/api?module=contract&amp;action=getabi&amp;address=&#34; parser = argparse.ArgumentParser() parser.add_argument(&#34;-a&#34;, &#34;--address&#34;, type=str, help=&#34;Smart contract address&#34;) parser.add_argument(&#34;-o&#34;, &#34;--output&#34;, type=str, help=&#34;Path to store the output ABI JSON file&#34;, required=True) def __main__() -&gt; None: &#34;&#34;&#34;Exports contract ABI in JSON&#34;&#34;&#34; args = parser.parse_args() resp_json_ = requests.get(f&#34;{ABI_ENDPOINT}{args.addr}&#34;).json() abi_json = json.loads(resp_json[&#34;result&#34;]) result = json.dumps({&#34;abi&#34;: abi_json}, indent=4, sort_keys=True) open(args.output, &#34;w&#34;).write(result) if __name__ == &#34;__main__&#34;: __main__() Et voici la commande pour utiliser ce script:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +101,22 @@ Créer un fichier get_abi.py et coller le contenu suivant:
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Télécharger les ABIs des smart contracts vérifiés sur bscscan">
-<meta itemprop="description" content="Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
-Créer un fichier get_abi.py et coller le contenu suivant:
-#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &#34;https://api.etherscan.io/api?module=contract&amp;action=getabi&amp;address=&#34; parser = argparse.ArgumentParser() parser.add_argument(&#34;-a&#34;, &#34;--address&#34;, type=str, help=&#34;Smart contract address&#34;) parser.add_argument(&#34;-o&#34;, &#34;--output&#34;, type=str, help=&#34;Path to store the output ABI JSON file&#34;, required=True) def __main__() -&gt; None: &#34;&#34;&#34;Exports contract ABI in JSON&#34;&#34;&#34; args = parser."><meta itemprop="datePublished" content="2022-07-03T21:25:00+00:00" />
-<meta itemprop="dateModified" content="2022-07-03T21:25:00+00:00" />
-<meta itemprop="wordCount" content="102"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="RPC,Blockchain,DeFi,Trading," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Télécharger les ABIs des smart contracts vérifiés sur bscscan"/>
-<meta name="twitter:description" content="Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
+  <meta itemprop="name" content="Télécharger les ABIs des smart contracts vérifiés sur bscscan">
+  <meta itemprop="description" content="Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
 Créer un fichier get_abi.py et coller le contenu suivant:
-#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &#34;https://api.etherscan.io/api?module=contract&amp;action=getabi&amp;address=&#34; parser = argparse.ArgumentParser() parser.add_argument(&#34;-a&#34;, &#34;--address&#34;, type=str, help=&#34;Smart contract address&#34;) parser.add_argument(&#34;-o&#34;, &#34;--output&#34;, type=str, help=&#34;Path to store the output ABI JSON file&#34;, required=True) def __main__() -&gt; None: &#34;&#34;&#34;Exports contract ABI in JSON&#34;&#34;&#34; args = parser."/>
+#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &#34;https://api.etherscan.io/api?module=contract&amp;action=getabi&amp;address=&#34; parser = argparse.ArgumentParser() parser.add_argument(&#34;-a&#34;, &#34;--address&#34;, type=str, help=&#34;Smart contract address&#34;) parser.add_argument(&#34;-o&#34;, &#34;--output&#34;, type=str, help=&#34;Path to store the output ABI JSON file&#34;, required=True) def __main__() -&gt; None: &#34;&#34;&#34;Exports contract ABI in JSON&#34;&#34;&#34; args = parser.parse_args() resp_json_ = requests.get(f&#34;{ABI_ENDPOINT}{args.addr}&#34;).json() abi_json = json.loads(resp_json[&#34;result&#34;]) result = json.dumps({&#34;abi&#34;: abi_json}, indent=4, sort_keys=True) open(args.output, &#34;w&#34;).write(result) if __name__ == &#34;__main__&#34;: __main__() Et voici la commande pour utiliser ce script:">
+  <meta itemprop="datePublished" content="2022-07-03T21:25:00+00:00">
+  <meta itemprop="dateModified" content="2022-07-03T21:25:00+00:00">
+  <meta itemprop="wordCount" content="102">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="RPC,Blockchain,DeFi,Trading">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Télécharger les ABIs des smart contracts vérifiés sur bscscan">
+  <meta name="twitter:description" content="Tout est dans le titre. Voici un script très simple permettant de télécharger les ABIs disponibles sur BSC Scan.
+Créer un fichier get_abi.py et coller le contenu suivant:
+#!/usr/bin/python import argparse import requests import json ABI_ENDPOINT = &#34;https://api.etherscan.io/api?module=contract&amp;action=getabi&amp;address=&#34; parser = argparse.ArgumentParser() parser.add_argument(&#34;-a&#34;, &#34;--address&#34;, type=str, help=&#34;Smart contract address&#34;) parser.add_argument(&#34;-o&#34;, &#34;--output&#34;, type=str, help=&#34;Path to store the output ABI JSON file&#34;, required=True) def __main__() -&gt; None: &#34;&#34;&#34;Exports contract ABI in JSON&#34;&#34;&#34; args = parser.parse_args() resp_json_ = requests.get(f&#34;{ABI_ENDPOINT}{args.addr}&#34;).json() abi_json = json.loads(resp_json[&#34;result&#34;]) result = json.dumps({&#34;abi&#34;: abi_json}, indent=4, sort_keys=True) open(args.output, &#34;w&#34;).write(result) if __name__ == &#34;__main__&#34;: __main__() Et voici la commande pour utiliser ce script:">
 
 
 
@@ -289,7 +293,7 @@ if __name__ == &#34;__main__&#34;:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

@@ -8,11 +8,12 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Commandes propres à Kubernetes Créer un namespace
-kubectl create ns &amp;lt;new-namespace&amp;gt; Lister tous les types de ressources disponibles sur le cluster
+kubectl create ns &lt;new-namespace&gt; Lister tous les types de ressources disponibles sur le cluster
 kubectl api-resources Savoir si une ressource appartient à un namespace
 kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace
 kubectl api-resources --namespaced=false Switcher de namespace
-# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github." />
+# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx # sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx # sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens kubens &lt;namespace&gt; # Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte kubectl config set-context --current --namespace=NOM_DU_NAMESPACE Connaître le cluster dans lequel on se situe
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -103,25 +104,28 @@ kubectl api-resources --namespaced=false Switcher de namespace
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Commandes utiles Kubernetes">
-<meta itemprop="description" content="Commandes propres à Kubernetes Créer un namespace
-kubectl create ns &lt;new-namespace&gt; Lister tous les types de ressources disponibles sur le cluster
-kubectl api-resources Savoir si une ressource appartient à un namespace
-kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace
-kubectl api-resources --namespaced=false Switcher de namespace
-# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github."><meta itemprop="datePublished" content="2019-03-08T17:08:00+00:00" />
-<meta itemprop="dateModified" content="2019-03-08T17:08:00+00:00" />
-<meta itemprop="wordCount" content="1199"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Kubernetes,AWS EKS," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Commandes utiles Kubernetes"/>
-<meta name="twitter:description" content="Commandes propres à Kubernetes Créer un namespace
+  <meta itemprop="name" content="Commandes utiles Kubernetes">
+  <meta itemprop="description" content="Commandes propres à Kubernetes Créer un namespace
 kubectl create ns &lt;new-namespace&gt; Lister tous les types de ressources disponibles sur le cluster
 kubectl api-resources Savoir si une ressource appartient à un namespace
 kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace
 kubectl api-resources --namespaced=false Switcher de namespace
-# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github."/>
+# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx # sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx # sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens kubens &lt;namespace&gt; # Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte kubectl config set-context --current --namespace=NOM_DU_NAMESPACE Connaître le cluster dans lequel on se situe">
+  <meta itemprop="datePublished" content="2019-03-08T17:08:00+00:00">
+  <meta itemprop="dateModified" content="2019-03-08T17:08:00+00:00">
+  <meta itemprop="wordCount" content="1199">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Kubernetes,AWS EKS">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Commandes utiles Kubernetes">
+  <meta name="twitter:description" content="Commandes propres à Kubernetes Créer un namespace
+kubectl create ns &lt;new-namespace&gt; Lister tous les types de ressources disponibles sur le cluster
+kubectl api-resources Savoir si une ressource appartient à un namespace
+kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace
+kubectl api-resources --namespaced=false Switcher de namespace
+# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx # sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx # sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens kubens &lt;namespace&gt; # Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte kubectl config set-context --current --namespace=NOM_DU_NAMESPACE Connaître le cluster dans lequel on se situe">
 
 
 
@@ -317,8 +321,7 @@ kubectl describe nodes
 <p><strong>Voir un &ldquo;disk pressure&rdquo;</strong></p>
 <pre tabindex="0"><code>kubectl describe nodes 2&gt;&amp;1 | grep -i Disk
 </code></pre><blockquote>
-<p>Configurer le trigger diskPressure (et autres) sur le <a href="https://fr.wikipedia.org/wiki/Kubernetes#Kubelet">kubelet</a> (et donc les events pour &ldquo;evicter&rdquo; les pods) lors de l&rsquo;installation d&rsquo;un cluster k8s avec le flag <code>--eviction-hard&quot;: &quot;memory.available&lt;100Mi,nodefs.available&lt;10%,nodefs.inodesFree&lt;5%</code>. <a href="https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/">More here</a></p>
-</blockquote>
+<p>Configurer le trigger diskPressure (et autres) sur le <a href="https://fr.wikipedia.org/wiki/Kubernetes#Kubelet">kubelet</a> (et donc les events pour &ldquo;evicter&rdquo; les pods) lors de l&rsquo;installation d&rsquo;un cluster k8s avec le flag <code>--eviction-hard&quot;: &quot;memory.available&lt;100Mi,nodefs.available&lt;10%,nodefs.inodesFree&lt;5%</code>. <a href="https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/">More here</a></p></blockquote>
 <br/>
 <p><strong>Voir la consommation cpu et memory des pods les plus gourmands</strong></p>
 <pre tabindex="0"><code>kubectl top pods
@@ -381,8 +384,7 @@ kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
 </code></pre><br/>
 <p><strong>Scaler UP or Down un deployment/statefulset</strong></p>
 <blockquote>
-<p>Pour restart un pod avec un PVC c&rsquo;est idéal. Fonctionne bcp mieux qu&rsquo;un <code>kubectl edit ...</code> avec modification du <code>replicas</code>.</p>
-</blockquote>
+<p>Pour restart un pod avec un PVC c&rsquo;est idéal. Fonctionne bcp mieux qu&rsquo;un <code>kubectl edit ...</code> avec modification du <code>replicas</code>.</p></blockquote>
 <pre tabindex="0"><code>kubectl scale statefulset statefulset_name --replicas=0
 kubectl scale statefulset statefulset_name --replicas=1
 kubectl scale deployment deployment_name --replicas=0
@@ -418,8 +420,7 @@ spec:
     containers:
     [...]
 </code></pre><blockquote>
-<p>Plus d&rsquo;infos <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">ici</a>:</p>
-</blockquote>
+<p>Plus d&rsquo;infos <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">ici</a>:</p></blockquote>
 <br/>
 <p><strong>Liveness Probe sur job always running (no endpoint)</strong></p>
 <pre tabindex="0"><code>apiVersion: apps/v1
@@ -457,8 +458,7 @@ export KUBECONFIG=~/.kube/config-&lt;of-your-cluster&gt;
 </code></pre><br/>
 <p><strong>Démarrer un pod Ubuntu pour debug</strong></p>
 <blockquote>
-<p>Pour tester le réseau, services&hellip;</p>
-</blockquote>
+<p>Pour tester le réseau, services&hellip;</p></blockquote>
 <pre tabindex="0"><code>kubectl run -it --rm debug-pod --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11
 # apt install iputils-ping
 </code></pre><br/>
@@ -586,7 +586,7 @@ az ad sp credential list --id $SP_ID --query &#34;[].endDate&#34; -o tsv
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

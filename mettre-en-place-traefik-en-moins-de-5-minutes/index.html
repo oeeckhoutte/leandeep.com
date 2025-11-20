@@ -8,9 +8,10 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
-Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&amp;rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
+Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
 Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &amp;#34;3." />
+version: &#34;3.5&#34; services: traefik:d restart: alwaysd image: traefik:1.7.10 command: --api --docker --docker.domain=app.test --logLevel=DEBUG # Enables the web UI and tells Traefik to listen to docker depends_on: # our setup relies on the 2 apps running. Trying to spin up traefik will bring up those too - &#34;app1&#34; - &#34;app2&#34; ports: - &#34;80:80&#34; # Management UI - &#34;8080:8080&#34; volumes: - /var/run/docker.sock:/var/run/docker.sock - ./traefik.toml:/etc/traefik/traefik.toml:ro networks: outside-world: internal-network: app1: image: nginx:alpine labels: - &#34;traefik.port=80&#34; - &#34;traefik.frontend.rule=Host:app1.test&#34; volumes: - ./app1/:/usr/share/nginx/html:ro networks: internal-network: # the aliases are not required, but are useful if the applications want to internally # reference each other by host name aliases: - &#34;app1.test&#34; app2: image: nginx:alpine labels: - &#34;traefik.port=80&#34; - &#34;traefik.frontend.rule=Host:app2.test&#34; volumes: - ./app2/:/usr/share/nginx/html:ro networks: internal-network: aliases: - &#34;app2.test&#34; networks: # everything that is *only* on &#34;internal network&#34; cannot talk to WAN internal-network: internal: true # add this network to a container to make it talk to the rest of the world outside-world: Contenus HTML des apps Créer 2 répertoires app1 et app2 contenant les fichiers index.html customisés.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ version: &amp;#34;3." />
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Mettre en place Traefik en moins de 5 minutes">
-<meta itemprop="description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
-Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
-Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &#34;3."><meta itemprop="datePublished" content="2019-03-29T21:44:00+00:00" />
-<meta itemprop="dateModified" content="2019-03-29T21:44:00+00:00" />
-<meta itemprop="wordCount" content="421"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Docker,Traefik," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Mettre en place Traefik en moins de 5 minutes"/>
-<meta name="twitter:description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
-Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d&rsquo;accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
+  <meta itemprop="name" content="Mettre en place Traefik en moins de 5 minutes">
+  <meta itemprop="description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
+Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d’accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
 Installtion Docker-compose Créer un fichier docker-compose.yml:
-version: &#34;3."/>
+version: &#34;3.5&#34; services: traefik:d restart: alwaysd image: traefik:1.7.10 command: --api --docker --docker.domain=app.test --logLevel=DEBUG # Enables the web UI and tells Traefik to listen to docker depends_on: # our setup relies on the 2 apps running. Trying to spin up traefik will bring up those too - &#34;app1&#34; - &#34;app2&#34; ports: - &#34;80:80&#34; # Management UI - &#34;8080:8080&#34; volumes: - /var/run/docker.sock:/var/run/docker.sock - ./traefik.toml:/etc/traefik/traefik.toml:ro networks: outside-world: internal-network: app1: image: nginx:alpine labels: - &#34;traefik.port=80&#34; - &#34;traefik.frontend.rule=Host:app1.test&#34; volumes: - ./app1/:/usr/share/nginx/html:ro networks: internal-network: # the aliases are not required, but are useful if the applications want to internally # reference each other by host name aliases: - &#34;app1.test&#34; app2: image: nginx:alpine labels: - &#34;traefik.port=80&#34; - &#34;traefik.frontend.rule=Host:app2.test&#34; volumes: - ./app2/:/usr/share/nginx/html:ro networks: internal-network: aliases: - &#34;app2.test&#34; networks: # everything that is *only* on &#34;internal network&#34; cannot talk to WAN internal-network: internal: true # add this network to a container to make it talk to the rest of the world outside-world: Contenus HTML des apps Créer 2 répertoires app1 et app2 contenant les fichiers index.html customisés.">
+  <meta itemprop="datePublished" content="2019-03-29T21:44:00+00:00">
+  <meta itemprop="dateModified" content="2019-03-29T21:44:00+00:00">
+  <meta itemprop="wordCount" content="421">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Docker,Traefik">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Mettre en place Traefik en moins de 5 minutes">
+  <meta name="twitter:description" content="Introduction Tout est dans le titre ! Dans cet article nous allons voir comment mettre en place le load balancer Traefik devant 2 applications.
+Nous allons déployer 2 nginx pour simuler 2 sites statiques et nous allons customiser la page d’accueil de chacun de nos Nginx avec les messages Hello world 1 et Hello world 2. On ne peut pas plus simple !
+Installtion Docker-compose Créer un fichier docker-compose.yml:
+version: &#34;3.5&#34; services: traefik:d restart: alwaysd image: traefik:1.7.10 command: --api --docker --docker.domain=app.test --logLevel=DEBUG # Enables the web UI and tells Traefik to listen to docker depends_on: # our setup relies on the 2 apps running. Trying to spin up traefik will bring up those too - &#34;app1&#34; - &#34;app2&#34; ports: - &#34;80:80&#34; # Management UI - &#34;8080:8080&#34; volumes: - /var/run/docker.sock:/var/run/docker.sock - ./traefik.toml:/etc/traefik/traefik.toml:ro networks: outside-world: internal-network: app1: image: nginx:alpine labels: - &#34;traefik.port=80&#34; - &#34;traefik.frontend.rule=Host:app1.test&#34; volumes: - ./app1/:/usr/share/nginx/html:ro networks: internal-network: # the aliases are not required, but are useful if the applications want to internally # reference each other by host name aliases: - &#34;app1.test&#34; app2: image: nginx:alpine labels: - &#34;traefik.port=80&#34; - &#34;traefik.frontend.rule=Host:app2.test&#34; volumes: - ./app2/:/usr/share/nginx/html:ro networks: internal-network: aliases: - &#34;app2.test&#34; networks: # everything that is *only* on &#34;internal network&#34; cannot talk to WAN internal-network: internal: true # add this network to a container to make it talk to the rest of the world outside-world: Contenus HTML des apps Créer 2 répertoires app1 et app2 contenant les fichiers index.html customisés.">
 
 
 
@@ -360,7 +364,7 @@ networks:
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

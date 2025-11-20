@@ -4,116 +4,80 @@
     <title>Unix Tip on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/unix-tip/</link>
     <description>Recent content in Unix Tip on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 28 Apr 2025 23:40:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/unix-tip/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Apr 2025 23:40:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/unix-tip/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Identify path to stop docker compose</title>
       <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
       <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
-      <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
-# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+      <description>&lt;p&gt;Very quick tip on how to identify the directory from which a &lt;code&gt;docker compose&lt;/code&gt; command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Retrieve container ID&#xA;docker ps &#xA;&#xA;docker inspect \&#xA;  --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \&#xA;  0e6194178cf0&#xA;/Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Compresser un PDF gratuitement et en ligne de commande sur OSX</title>
       <link>https://leandeep.com/compresser-un-pdf-gratuitement-et-en-ligne-de-commande-sur-osx/</link>
       <pubDate>Wed, 29 Dec 2021 19:43:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/compresser-un-pdf-gratuitement-et-en-ligne-de-commande-sur-osx/</guid>
-      <description>J&amp;rsquo;avais impérativement besoin de compresser un PDF et le faire passer 33Mo à 5 ou 6Mo max en gardant une qualité correcte.
-Il y a pleins d&amp;rsquo;outils et d&amp;rsquo;articles sur internet expliquant comment faire cela et franchement c&amp;rsquo;est une perte de temps.
-Le compression intégrée directement dans Preview ne me donnait pas satisfaction car le rendu était flou.
-Ghostscript brew install ghostscript gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/screen -dCompatibilityLevel=1.4 -sOutputFile=output.pdf sign.</description>
+      <description>&lt;p&gt;J&amp;rsquo;avais impérativement besoin de compresser un PDF et le faire passer 33Mo à 5 ou 6Mo max en gardant une qualité correcte.&lt;/p&gt;&#xA;&lt;p&gt;Il y a pleins d&amp;rsquo;outils et d&amp;rsquo;articles sur internet expliquant comment faire cela et franchement c&amp;rsquo;est une perte de temps.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Le compression intégrée directement dans &lt;code&gt;Preview&lt;/code&gt; ne me donnait pas satisfaction car le rendu était flou.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;h3 id=&#34;ghostscript&#34;&gt;Ghostscript&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew install ghostscript&#xA;gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/screen -dCompatibilityLevel=1.4 -sOutputFile=output.pdf sign.pdf&#xA;gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/ebook -sOutputFile=output2.pdf sign.pdf&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;-dQUIET: Retire les logs sur stdout&lt;br/&gt;&#xA;-dNOPAUSE: Pas de pause entre chaque page&lt;br/&gt;&#xA;-dBATCH: Permet de stopper le process quand toutes les pages ont été traitées&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Manipulation de CSV volumineux en Data Science </title>
       <link>https://leandeep.com/manipulation-de-csv-volumineux-en-data-science/</link>
       <pubDate>Fri, 08 Feb 2019 11:41:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/manipulation-de-csv-volumineux-en-data-science/</guid>
-      <description>Il existe de nombreuses librairies en Python pour manipuler des fichiers CSV. Je recommande l&amp;rsquo;usage des langages de haut niveau comme Python le plus possible car cela permet d&amp;rsquo;automatiser, &amp;ldquo;d&amp;rsquo;APIser&amp;rdquo; et d&amp;rsquo;industrialiser au maximum ses use cases. Mais parfois lorsqu&amp;rsquo;il faut tailler dans la masse sur des fichiers extrèmement volumineux, rien de tel que les bonnes vieilles méthodes de DevOps :) .
-AWK à la rescousse pour par exemple extraire toutes les entreprises situées dans le Nord sur un fichier de plusieurs GB.</description>
+      <description>&lt;p&gt;Il existe de nombreuses librairies en Python pour manipuler des fichiers CSV. Je recommande l&amp;rsquo;usage des langages de haut niveau comme Python le plus possible car cela permet d&amp;rsquo;automatiser, &lt;em&gt;&amp;ldquo;d&amp;rsquo;APIser&amp;rdquo;&lt;/em&gt; et d&amp;rsquo;industrialiser au maximum ses use cases. Mais parfois lorsqu&amp;rsquo;il faut tailler dans la masse sur des fichiers extrèmement volumineux, rien de tel que les bonnes vieilles méthodes de DevOps :) .&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;AWK&lt;/code&gt; à la rescousse pour par exemple extraire toutes les entreprises situées dans le Nord sur un fichier de plusieurs GB.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Créer une clé USB bootable depuis OSX</title>
       <link>https://leandeep.com/cr%C3%A9er-une-cl%C3%A9-usb-bootable-depuis-osx/</link>
       <pubDate>Thu, 03 Jan 2019 22:19:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/cr%C3%A9er-une-cl%C3%A9-usb-bootable-depuis-osx/</guid>
-      <description>Voici la procédure à suivre pour créer une clé USB bootable depuis un fichier iso.
-diskutil list diskutil unmountDisk disk2 sudo dd if=/Users/olivier/Downloads/proxmox-ve_5.3-1.iso of=/dev/disk2 bs=8m diskutil eject disk2 </description>
+      <description>&lt;p&gt;Voici la procédure à suivre pour créer une clé USB bootable depuis un fichier iso.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;diskutil list&#xA;&#xA;diskutil unmountDisk disk2&#xA;&#xA;sudo dd if=/Users/olivier/Downloads/proxmox-ve_5.3-1.iso of=/dev/disk2 bs=8m&#xA;&#xA;diskutil eject disk2&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Monter un dossier distant avec SSHFS</title>
       <link>https://leandeep.com/monter-un-dossier-distant-avec-sshfs/</link>
       <pubDate>Sat, 29 Dec 2018 21:24:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/monter-un-dossier-distant-avec-sshfs/</guid>
-      <description>(Classique) Monter un disque remote en local SSHFS sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.
-C&amp;rsquo;est plutôt pratique. Voici la commande:
-sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local Installer sshfs sur Ubuntu: sudo apt install -y sshfs
-Installer sshfs sur OSX: brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs
-(L&amp;rsquo;inverse, plus cool) Monter un disque local sur un serveur remote export REMOTE_USER=root export IP_REMOTE_SERVEUR=vps export LOCAL_USER=olivier export REMOTE_BASE_PATH=/root # pas très secure mais j&amp;#39;utilise une trash machine # Pré-requis: # Le répertoire $REMOTE_BASE_PATH/disk_remote doit exister sur le serveur distant # Lancé depuis un MAC vers serveur Linux mkdir -p /Users/$LOCAL_USER/shared_data ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &amp;#34;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect,allow_other,nonempty -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&amp;#34; # Lancé depuis un serveur linux vers un autre serveur linux (en mode background) # autossh -M 0 -f -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &amp;#34;sshfs -o NoHostAuthenticationForLocalhost=yes,allow_other,nonempty,reconnect -p 10000 $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote&amp;#34; # Example: # ssh -t -p 22 root@vps -R 10000:localhost:22 &amp;#34;sshfs -o allow_other,cache=no,no_readahead,no_remote_lock,compression=no,uid=1000,gid=1000,NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 olivier@localhost:/Users/olivier/shared_data /root/disk_remote;bash&amp;#34; # Checker si le disque local a bien été monté # Normalement vous devriez être connecté à votre serveur distant après l&amp;#39;exécution de la commande précédente mount touch toto # disconnect umount -f $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data ls </description>
+      <description>&lt;h2 id=&#34;classique-monter-un-disque-remote-en-local&#34;&gt;(Classique) Monter un disque remote en local&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;SSHFS&lt;/code&gt; sert à monter sur son système de fichier, un autre système de fichier distant, à travers une connexion SSH, le tout avec des droits utilisateur.&lt;/p&gt;&#xA;&lt;p&gt;C&amp;rsquo;est plutôt pratique. Voici la commande:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sshfs -p &amp;lt;votre_port_ssh&amp;gt; -o allow_other,defer_permissions olivier@ip_server:path_dossier_a_monter repertoire_en_local&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Installer sshfs sur Ubuntu: &lt;code&gt;sudo apt install -y sshfs&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Installer sshfs sur OSX: &lt;code&gt;brew cask install osxfuse &amp;amp;&amp;amp; brew install sshfs&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;linverse-plus-cool-monter-un-disque-local-sur-un-serveur-remote&#34;&gt;(L&amp;rsquo;inverse, plus cool) Monter un disque local sur un serveur remote&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export REMOTE_USER=root&#xA;export IP_REMOTE_SERVEUR=vps&#xA;export LOCAL_USER=olivier&#xA;export REMOTE_BASE_PATH=/root # pas très secure mais j&amp;#39;utilise une trash machine&#xA;&#xA;# Pré-requis:&#xA;# Le répertoire $REMOTE_BASE_PATH/disk_remote doit exister sur le serveur distant&#xA;&#xA;# Lancé depuis un MAC vers serveur Linux&#xA;mkdir -p /Users/$LOCAL_USER/shared_data&#xA;ssh -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &amp;#34;sshfs -o NoHostAuthenticationForLocalhost=yes,reconnect,allow_other,nonempty -p 10000 $LOCAL_USER@localhost:/Users/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote;bash&amp;#34;&#xA;&#xA;# Lancé depuis un serveur linux vers un autre serveur linux (en mode background)&#xA;# autossh -M 0 -f -t -p 22 $REMOTE_USER@$IP_REMOTE_SERVEUR -R 10000:localhost:22 &amp;#34;sshfs -o NoHostAuthenticationForLocalhost=yes,allow_other,nonempty,reconnect -p 10000 $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data $REMOTE_BASE_PATH/disk_remote&amp;#34;&#xA;&#xA;# Example:&#xA;# ssh -t -p 22 root@vps -R 10000:localhost:22 &amp;#34;sshfs -o allow_other,cache=no,no_readahead,no_remote_lock,compression=no,uid=1000,gid=1000,NoHostAuthenticationForLocalhost=yes,reconnect -p 10000 olivier@localhost:/Users/olivier/shared_data /root/disk_remote;bash&amp;#34;&#xA;&#xA;# Checker si le disque local a bien été monté&#xA;# Normalement vous devriez être connecté à votre serveur distant après l&amp;#39;exécution de la commande précédente&#xA;mount&#xA;touch toto&#xA;&#xA;# disconnect &#xA;umount -f $LOCAL_USER@localhost:/home/$LOCAL_USER/shared_data&#xA;ls&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Convertir une video .webm en .mp4</title>
       <link>https://leandeep.com/convertir-une-video-.webm-en-.mp4/</link>
       <pubDate>Sun, 02 Dec 2018 11:14:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/convertir-une-video-.webm-en-.mp4/</guid>
-      <description>Si comme moi vous aimez écouter en voiture des conférences enregistrées et que vous avez un iPhone, vous savez que le format mp4 est indispensable pour passer par iTunes.
-Pour convertir une vidéo .webm en .mp4, il suffit d&amp;rsquo;utiliser les commandes suivantes:
-# Si vous ne l&amp;#39;avez pas déjà # brew install ffmpeg ffmpeg -i &amp;lt;votre-video&amp;gt;.webm &amp;lt;votre-video&amp;gt;.mp4 Il ne faut surtout pas de logiciel payant !</description>
+      <description>&lt;p&gt;Si comme moi vous aimez écouter en voiture des conférences enregistrées et que vous avez un iPhone, vous savez que le format mp4 est indispensable pour passer par iTunes.&lt;/p&gt;&#xA;&lt;p&gt;Pour convertir une vidéo .webm en .mp4, il suffit d&amp;rsquo;utiliser les commandes suivantes:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Si vous ne l&amp;#39;avez pas déjà&#xA;# brew install ffmpeg&#xA;&#xA;ffmpeg -i &amp;lt;votre-video&amp;gt;.webm &amp;lt;votre-video&amp;gt;.mp4&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Il ne faut surtout pas de logiciel payant !&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Partager des clés privées entre les différents membres d&#39;une équipe</title>
       <link>https://leandeep.com/partager-des-cl%C3%A9s-priv%C3%A9es-entre-les-diff%C3%A9rents-membres-dune-%C3%A9quipe/</link>
       <pubDate>Thu, 01 Nov 2018 19:37:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/partager-des-cl%C3%A9s-priv%C3%A9es-entre-les-diff%C3%A9rents-membres-dune-%C3%A9quipe/</guid>
-      <description>Lorsqu&amp;rsquo;on travaille dans une équipe de Devops il n&amp;rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&amp;hellip;). Ce sont les fichiers que l&amp;rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&amp;rsquo;entreprise) et que l&amp;rsquo;on ne peut pas mettre sur Git.
-Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&amp;hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter.</description>
+      <description>&lt;p&gt;Lorsqu&amp;rsquo;on travaille dans une équipe de Devops il n&amp;rsquo;est pas rare de devoir partager des fichiers sécurisés (clés privées&amp;hellip;). Ce sont les fichiers que l&amp;rsquo;on doit impérativement sauvegarder (si le Devops est en congés ou quitte l&amp;rsquo;entreprise) et que l&amp;rsquo;on ne peut pas mettre sur Git.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Pour ce genre de fichiers heureuesement il y a des outils comme EncFS qui permettent de crypter des dossiers. On peut ainsi créer un dossier dans un espace partagé (Dropbox, Google Drive&amp;hellip;), le partager à toute une équipe et seules les personnes qui ont le mot de passe pourront le décrypter. L&amp;rsquo;intérêt d&amp;rsquo;EncFS est qu&amp;rsquo;il est cross-platforms. Il y a des clients pour Windows, Linux, OSX, Android et iOS&amp;hellip;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Être notifié lorsqu&#39;un long traitement est terminé</title>
       <link>https://leandeep.com/%C3%AAtre-notifi%C3%A9-lorsquun-long-traitement-est-termin%C3%A9/</link>
       <pubDate>Thu, 01 Nov 2018 19:02:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/%C3%AAtre-notifi%C3%A9-lorsquun-long-traitement-est-termin%C3%A9/</guid>
-      <description>Personnellement je trouve cela inutile de rester derrière mon écran à ne rien faire en attendant qu&amp;rsquo;un traitement long (entrainement Machine Learning, installation d&amp;rsquo;un Cluster&amp;hellip;) se termine. Du coup, je passe à autre chose en attendant. Pour éviter de devoir sans cesse basculer d&amp;rsquo;une fenêtre à une autre, j&amp;rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.
-Pour ce faire j&amp;rsquo;ai juste à executer la commande suivante derrière la commande qui exécutera un long process &amp;amp;&amp;amp; warnov.</description>
+      <description>&lt;p&gt;Personnellement je trouve cela inutile de rester derrière mon écran à ne rien faire en attendant qu&amp;rsquo;un traitement long (entrainement Machine Learning, installation d&amp;rsquo;un Cluster&amp;hellip;) se termine.&#xA;Du coup, je passe à autre chose en attendant. Pour éviter de devoir sans cesse basculer d&amp;rsquo;une fenêtre à une autre, j&amp;rsquo;utilise des notifications. Je suis notifié lorsque mes traitements sont terminés.&lt;/p&gt;&#xA;&lt;p&gt;Pour ce faire j&amp;rsquo;ai juste à executer la commande suivante derrière la commande qui exécutera un long process &lt;code&gt; &amp;amp;&amp;amp; warnov&lt;/code&gt;. (Je n&amp;rsquo;ai pas cherché longtemps pour le nom de ma commande: warnov pour &amp;ldquo;&lt;strong&gt;warn&lt;/strong&gt; when it is &lt;strong&gt;over&lt;/strong&gt;&amp;rdquo;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Obtenir les sous-titres d&#39;un film en 2 secondes</title>
       <link>https://leandeep.com/obtenir-les-sous-titres-dun-film-en-2-secondes/</link>
       <pubDate>Fri, 30 Dec 2016 21:26:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/obtenir-les-sous-titres-dun-film-en-2-secondes/</guid>
-      <description>Aujourd&amp;rsquo;hui nous allons voir une petite astuce plutôt utile si vous aimez regarder des films ou séries en VO et avoir à disposition les sous-titres (en français ou anglais). J&amp;rsquo;ai trouvé un projet opensource permettant de télécharger automatiquement les sous-titres. https://github.com/Diaoul/subliminal
-Si vous avez Docker, exécutez la commande suivante:
-docker run --rm --name subliminal -v /Users/olivier/Movies/Series/subliminal_cache:/usr/src/cache -v /Users/olivier/Movies/Series:/Users/olivier/Movies/Series -it diaoulael/subliminal download -l en /Users/olivier/Movies/Series/votre_serie_ou_film.mkv Si vous voulez automatiser davantage, ce repository vous donne un snippet permettant de scanner le contenu d&amp;rsquo;un dossier et télécharger des sous-titres.</description>
+      <description>&lt;p&gt;Aujourd&amp;rsquo;hui nous allons voir une petite astuce plutôt utile si vous aimez regarder des films ou séries en VO et avoir à disposition les sous-titres (en français ou anglais).&#xA;J&amp;rsquo;ai trouvé un projet opensource permettant de télécharger automatiquement les sous-titres. &lt;a href=&#34;https://github.com/Diaoul/subliminal&#34;&gt;https://github.com/Diaoul/subliminal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Si vous avez Docker, exécutez la commande suivante:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker run --rm --name subliminal -v /Users/olivier/Movies/Series/subliminal_cache:/usr/src/cache -v /Users/olivier/Movies/Series:/Users/olivier/Movies/Series -it diaoulael/subliminal download -l en /Users/olivier/Movies/Series/votre_serie_ou_film.mkv&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Si vous voulez automatiser davantage, ce repository vous donne un snippet permettant de scanner le contenu d&amp;rsquo;un dossier et télécharger des sous-titres.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Commandes utiles Google Dork</title>
       <link>https://leandeep.com/commandes-utiles-google-dork/</link>
       <pubDate>Thu, 29 Dec 2016 06:48:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/commandes-utiles-google-dork/</guid>
-      <description>Voici une liste de commandes utiles pour télécharger l&amp;rsquo;intégralité de directory listings trouvés grâce à des Google Dorks:
-Un google Dork est une signature typique d’une technologie Web parmi tout ce qui est indexé par Google. Ils sont lié à ce qu&amp;rsquo;on appelle plus généralement les Google Hacks. Vous savez les fameuses commandes comme par exemple intitle:index.of? mkv &amp;lt;Movie Name&amp;gt; ou &amp;lt;Movie Name&amp;gt; -inurl:(htm|html|php|pls|txt) intitle:index.of &amp;quot;last modified&amp;quot; (mp4|wma|aac|avi) ou parent directory index of french dvdrip</description>
+      <description>&lt;p&gt;Voici une liste de commandes utiles pour télécharger l&amp;rsquo;intégralité de &lt;em&gt;directory listings&lt;/em&gt; trouvés grâce à des Google Dorks:&lt;/p&gt;&#xA;&lt;p&gt;Un google Dork est une signature typique d’une technologie Web parmi tout ce qui est indexé par Google. Ils sont lié à ce qu&amp;rsquo;on appelle plus généralement les Google Hacks. Vous savez les fameuses commandes comme par exemple &lt;code&gt;intitle:index.of? mkv &amp;lt;Movie Name&amp;gt;&lt;/code&gt; ou &lt;code&gt;&amp;lt;Movie Name&amp;gt; -inurl:(htm|html|php|pls|txt) intitle:index.of &amp;quot;last modified&amp;quot; (mp4|wma|aac|avi)&lt;/code&gt; ou &lt;code&gt;parent directory index of french dvdrip&lt;/code&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

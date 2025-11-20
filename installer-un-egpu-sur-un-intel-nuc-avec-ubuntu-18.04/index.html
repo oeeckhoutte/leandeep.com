@@ -99,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2019-07-18T12:19:00+00:00" />
-<meta itemprop="dateModified" content="2019-07-18T12:19:00+00:00" />
-<meta itemprop="wordCount" content="1363"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Featured,Tensorflow,eGPU,Intel Nuc,Data Science,Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04"/>
-<meta name="twitter:description" content=""/>
+  <meta itemprop="name" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04">
+  <meta itemprop="description" content="">
+  <meta itemprop="datePublished" content="2019-07-18T12:19:00+00:00">
+  <meta itemprop="dateModified" content="2019-07-18T12:19:00+00:00">
+  <meta itemprop="wordCount" content="1363">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Featured,Tensorflow,EGPU,Intel Nuc,Data Science,Machine Learning">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Installer un eGPU sur un Intel Nuc avec Ubuntu 18.04">
+  <meta name="twitter:description" content="">
 
 
 
@@ -359,8 +362,7 @@ totalMemory: 1.95GiB freeMemory: 1.75GiB
 2019-07-19 11:08:55.467629: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1103] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1523 MB memory) -&gt; physical GPU (device: 0, name: GeForce GTX 660 Ti, pci bus id: 0000:06:00.0, compute capability: 3.0)
 </code></pre><blockquote>
 <p>Jupyter Lab fix:
-Après avoir installé Tensorflow j&rsquo;avais un message d&rsquo;erreur m&rsquo;indiquant que la librairie <code>libcublas</code> n&rsquo;existait pas (<code>No such file or directory</code>) alors que les variables d&rsquo;environnement <code>LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64</code> et <code>PATH=$PATH:/usr/local/cuda-9.0/bin</code> étaient bien configurées. Cette erreur n&rsquo;apparaissait que dans Jupyter Lab. Partout ailleurs Tensorflow fonctionnait. J&rsquo;ai donc modifié la configuration de Jupyter Lab et ajouté l&rsquo;import manuellement. En haut du fichier <code>~/.jupyter/jupyter_notebook_config.py</code> j&rsquo;ai ajouté le code suivant:</p>
-</blockquote>
+Après avoir installé Tensorflow j&rsquo;avais un message d&rsquo;erreur m&rsquo;indiquant que la librairie <code>libcublas</code> n&rsquo;existait pas (<code>No such file or directory</code>) alors que les variables d&rsquo;environnement <code>LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64</code> et <code>PATH=$PATH:/usr/local/cuda-9.0/bin</code> étaient bien configurées. Cette erreur n&rsquo;apparaissait que dans Jupyter Lab. Partout ailleurs Tensorflow fonctionnait. J&rsquo;ai donc modifié la configuration de Jupyter Lab et ajouté l&rsquo;import manuellement. En haut du fichier <code>~/.jupyter/jupyter_notebook_config.py</code> j&rsquo;ai ajouté le code suivant:</p></blockquote>
 <pre tabindex="0"><code>import os
 c = get_config()
 os.environ[&#39;LD_LIBRARY_PATH&#39;] = &#39;/usr/local/cuda-9.0/lib64:usr/local/cuda-9.0/lib64/libcudart.so.9.0&#39;
@@ -438,7 +440,7 @@ c.Spawner.env.update(&#39;LD_LIBRARY_PATH&#39;)
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

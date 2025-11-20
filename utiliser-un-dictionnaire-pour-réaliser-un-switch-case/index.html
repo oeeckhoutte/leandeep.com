@@ -5,10 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author"
-  content="Olivier Eeckhoutte ">
+  content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Contrairement à d&amp;rsquo;autres langages de programmation, Python ne permet pas de faire des switch case. L&amp;rsquo;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&amp;rsquo;utiliser les fonctions comme des objets et d&amp;rsquo;utiliser des dictionnaires.
-Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &amp;#39;&#43;&amp;#39;: return var_1 &#43; var_2 elif operator == &amp;#39;*&amp;#39;: return var_1 * var_2 elif operator == &amp;#39;/&amp;#39;: return var_1 / var_2 elif operator == &amp;#39;-&amp;#39;: return var_1 - var_2 Bonne pratique (Bien!" />
+  content="Contrairement à d&rsquo;autres langages de programmation, Python ne permet pas de faire des switch case. L&rsquo;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&rsquo;utiliser les fonctions comme des objets et d&rsquo;utiliser des dictionnaires.
+Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2 Bonne pratique (Bien!) import operator as op def apply_operator(var_1, var_2, operator): operator_map = { &#39;&#43;&#39;: op.add, &#39;*&#39;: op.mul, &#39;/&#39;: op.truediv, &#39;-&#39;: op.sub, } return operator_map[operator](var_1, var_2) " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +99,20 @@ Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Utiliser un dictionnaire pour réaliser un switch case">
-<meta itemprop="description" content="Contrairement à d&rsquo;autres langages de programmation, Python ne permet pas de faire des switch case. L&rsquo;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&rsquo;utiliser les fonctions comme des objets et d&rsquo;utiliser des dictionnaires.
-Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2 Bonne pratique (Bien!"><meta itemprop="datePublished" content="2018-06-07T23:43:06-07:00" />
-<meta itemprop="dateModified" content="2018-06-07T23:43:06-07:00" />
-<meta itemprop="wordCount" content="103"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="python,tips,python_tips," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Utiliser un dictionnaire pour réaliser un switch case"/>
-<meta name="twitter:description" content="Contrairement à d&rsquo;autres langages de programmation, Python ne permet pas de faire des switch case. L&rsquo;alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d&rsquo;utiliser les fonctions comme des objets et d&rsquo;utiliser des dictionnaires.
-Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2 Bonne pratique (Bien!"/>
+  <meta itemprop="name" content="Utiliser un dictionnaire pour réaliser un switch case">
+  <meta itemprop="description" content="Contrairement à d’autres langages de programmation, Python ne permet pas de faire des switch case. L’alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d’utiliser les fonctions comme des objets et d’utiliser des dictionnaires.
+Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2 Bonne pratique (Bien!) import operator as op def apply_operator(var_1, var_2, operator): operator_map = { &#39;&#43;&#39;: op.add, &#39;*&#39;: op.mul, &#39;/&#39;: op.truediv, &#39;-&#39;: op.sub, } return operator_map[operator](var_1, var_2)">
+  <meta itemprop="datePublished" content="2018-06-07T23:43:06-07:00">
+  <meta itemprop="dateModified" content="2018-06-07T23:43:06-07:00">
+  <meta itemprop="wordCount" content="103">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,Tips,Python_tips">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Utiliser un dictionnaire pour réaliser un switch case">
+  <meta name="twitter:description" content="Contrairement à d’autres langages de programmation, Python ne permet pas de faire des switch case. L’alternative naïve est de faire des if...elif...else. Une autre alternative plus idiomatique est d’utiliser les fonctions comme des objets et d’utiliser des dictionnaires.
+Anti-pattern (Pas bien!) def apply_operator(var_1, var_2, operator): if operator == &#39;&#43;&#39;: return var_1 &#43; var_2 elif operator == &#39;*&#39;: return var_1 * var_2 elif operator == &#39;/&#39;: return var_1 / var_2 elif operator == &#39;-&#39;: return var_1 - var_2 Bonne pratique (Bien!) import operator as op def apply_operator(var_1, var_2, operator): operator_map = { &#39;&#43;&#39;: op.add, &#39;*&#39;: op.mul, &#39;/&#39;: op.truediv, &#39;-&#39;: op.sub, } return operator_map[operator](var_1, var_2)">
 
 
 
@@ -244,7 +247,7 @@ def apply_operator(var_1, var_2, operator):
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

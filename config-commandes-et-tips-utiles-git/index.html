@@ -12,7 +12,8 @@ L’index est une zone qui permet de préparer un commit.
 HEAD
 HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
 Rebase vs Merge Préférer le rebase pour garder un historique propre
-Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes." />
+Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -103,25 +104,28 @@ Rebase Eviter git pull pour éviter que Git ne considère notre branche locale e
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Config, Commandes et tips utiles Git">
-<meta itemprop="description" content="Indispensable à savoir Index
-L’index est une zone qui permet de préparer un commit.
-HEAD
-HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
-Rebase vs Merge Préférer le rebase pour garder un historique propre
-Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes."><meta itemprop="datePublished" content="2015-09-19T18:25:00+00:00" />
-<meta itemprop="dateModified" content="2015-09-19T18:25:00+00:00" />
-<meta itemprop="wordCount" content="2599"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Development,Git," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Config, Commandes et tips utiles Git"/>
-<meta name="twitter:description" content="Indispensable à savoir Index
+  <meta itemprop="name" content="Config, Commandes et tips utiles Git">
+  <meta itemprop="description" content="Indispensable à savoir Index
 L’index est une zone qui permet de préparer un commit.
 HEAD
 HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
 Rebase vs Merge Préférer le rebase pour garder un historique propre
-Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes."/>
+Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.">
+  <meta itemprop="datePublished" content="2015-09-19T18:25:00+00:00">
+  <meta itemprop="dateModified" content="2015-09-19T18:25:00+00:00">
+  <meta itemprop="wordCount" content="2599">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Development,Git">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Config, Commandes et tips utiles Git">
+  <meta name="twitter:description" content="Indispensable à savoir Index
+L’index est une zone qui permet de préparer un commit.
+HEAD
+HEAD est la référence sur le commit sur lequel on se trouve actuellement. On le change avec git checkout.
+Rebase vs Merge Préférer le rebase pour garder un historique propre
+Rebase Eviter git pull pour éviter que Git ne considère notre branche locale et remote comme 2 branches différentes alors que ce sont les mêmes.">
 
 
 
@@ -247,8 +251,7 @@ git branch -d bug2
 <br/>
 <p><strong>Exemple 2</strong></p>
 <blockquote>
-<p>Autre manière de faire, peut être plus simple&hellip;</p>
-</blockquote>
+<p>Autre manière de faire, peut être plus simple&hellip;</p></blockquote>
 <p>En supposant que l&rsquo;on veuille garder la feature branche synchronisée avec la branche develop, voici les commandes à suivre:</p>
 <pre tabindex="0"><code>git fetch # depuis la feature branche (vérifier que la feature branche sur laquelle vous travaillez est à jour)
 
@@ -337,11 +340,9 @@ git cherry-pick e32c529d
 </code></pre><p>Puis on corrige le problème de merge grâce à la commande <code>git mergetool</code> qui ouvrira l&rsquo;outil de merge configuré sur votre poste.
 Autre possibilité, faire la correction manuellement, faire un <code>git add</code> ou <code>git stage</code> sur le fichier corrigé et enfin un <code>git commit</code>.</p>
 <blockquote>
-<p>En cas de problème, il est possible d&rsquo;exécuter un <code>git reset --hard HEAD</code> pour revenir en arrière sur le merge</p>
-</blockquote>
+<p>En cas de problème, il est possible d&rsquo;exécuter un <code>git reset --hard HEAD</code> pour revenir en arrière sur le merge</p></blockquote>
 <blockquote>
-<p>Pour configurer git mergetool, il est possible d&rsquo;utiliser la commande suivante: <code>git config --global merge.tool bc3</code> après avoir téléchargé et installé l&rsquo;extension <a href="https://marketplace.visualstudio.com/items?itemName=hung-vi.terminal-git-mergetool">vscode-ext-git-mergetool</a> pour OSX .</p>
-</blockquote>
+<p>Pour configurer git mergetool, il est possible d&rsquo;utiliser la commande suivante: <code>git config --global merge.tool bc3</code> après avoir téléchargé et installé l&rsquo;extension <a href="https://marketplace.visualstudio.com/items?itemName=hung-vi.terminal-git-mergetool">vscode-ext-git-mergetool</a> pour OSX .</p></blockquote>
 <br/>
 <p><strong>Pendant un rebase</strong></p>
 <pre tabindex="0"><code>git checkout master # ou git co master
@@ -360,8 +361,7 @@ git mergetool
 
 git rebase --continue
 </code></pre><blockquote>
-<p>Pour revenir en arrière (état du dépot) sur un rebase qui se passe mal: <code>git rebase --abort</code></p>
-</blockquote>
+<p>Pour revenir en arrière (état du dépot) sur un rebase qui se passe mal: <code>git rebase --abort</code></p></blockquote>
 <p>Un schéma vaut mieux qu&rsquo;un long discours. Voici ce que fait un rebase:</p>
 <p><img src="https://leandeep.com/images/rebase.png" alt="image"></p>
 <br/>
@@ -524,8 +524,7 @@ git push origin nouveau_nom
 <blockquote>
 <p>Note:
 <code>git push --set-upstream origin dev</code> ou <code>git push -u origin dev</code>
-Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. celui dont on a fait un clone au départ), et l&rsquo;option &ndash;set-upstream permet de dire à Git de se souvenir qu&rsquo;un « git push » de notre branche « dev » a été fait. Le prochain push pourra donc se faire simplement avec un simple <code>git push</code>.</p>
-</blockquote>
+Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. celui dont on a fait un clone au départ), et l&rsquo;option &ndash;set-upstream permet de dire à Git de se souvenir qu&rsquo;un « git push » de notre branche « dev » a été fait. Le prochain push pourra donc se faire simplement avec un simple <code>git push</code>.</p></blockquote>
 <br/>
 <p><strong>Annuler le dernier commit</strong></p>
 <p>Les commandes à appliquer dépendent du dernier commit:</p>
@@ -545,8 +544,7 @@ Cette commande envoie la branche « dev » vers le dépôt « origin » (i.e. ce
 <p><strong>Annuler le dernier git pull</strong></p>
 <pre tabindex="0"><code>git reset HEAD~1 --hard
 </code></pre><blockquote>
-<p><code>--hard</code> précise à git que l&rsquo;on souhaite avoir notre répertoire de travail avec le contenu du commit choisi</p>
-</blockquote>
+<p><code>--hard</code> précise à git que l&rsquo;on souhaite avoir notre répertoire de travail avec le contenu du commit choisi</p></blockquote>
 <br/>
 <p><strong>Pull remote branch sans merge</strong></p>
 <p>On suppose que l&rsquo;on est déjà sur la branch que l&rsquo;on souhaite resynchroniser</p>
@@ -590,14 +588,11 @@ git push origin :refs/tags/v1.0
 <p><strong>Lister les commits entre un tag et HEAD</strong></p>
 <pre tabindex="0"><code>git log --pretty=oneline HEAD...v1.0
 </code></pre><blockquote>
-<p>Alternative sans les commits de merge: <code>git log --pretty=oneline HEAD...v1.0 --no-merges</code></p>
-</blockquote>
+<p>Alternative sans les commits de merge: <code>git log --pretty=oneline HEAD...v1.0 --no-merges</code></p></blockquote>
 <blockquote>
-<p>Alternative avec tous les détails: <code>git log HEAD...v1.0</code></p>
-</blockquote>
+<p>Alternative avec tous les détails: <code>git log HEAD...v1.0</code></p></blockquote>
 <blockquote>
-<p>Autre alternative: <code>git log --pretty=format:&quot;%h; author: %cn; date: %ci; subject:%s&quot; HEAD...v1.0</code></p>
-</blockquote>
+<p>Autre alternative: <code>git log --pretty=format:&quot;%h; author: %cn; date: %ci; subject:%s&quot; HEAD...v1.0</code></p></blockquote>
 <br/>
 <p><strong>Lister les commits de merge depuis le dernier tag et afficher uniquement le commit message</strong></p>
 <pre tabindex="0"><code>git log $(git describe --abbrev=0 --tags)..HEAD --merges --pretty=format:&#34;%b&#34;
@@ -622,14 +617,12 @@ git push origin :refs/tags/v1.0
 # --follow permet de suivre un fichier s&#39;il a été renommé
 </code></pre><blockquote>
 <p>Alternative:
-<code>find . -name &quot;*mon_fichier&quot; | xargs git log</code></p>
-</blockquote>
+<code>find . -name &quot;*mon_fichier&quot; | xargs git log</code></p></blockquote>
 <blockquote>
 <p><strong>Super Alternative:</strong>  <br/>
 <code>tig full_path_mon_fichier</code> ou <code>tig '*mon_fichier'</code> <br/>
 Installation de tig via <code>brew install tig</code> ou <code>apt install tig</code> <br/>
-<a href="http://jonas.nitro.dk/tig/manual.html">Tig Full documentation</a></p>
-</blockquote>
+<a href="http://jonas.nitro.dk/tig/manual.html">Tig Full documentation</a></p></blockquote>
 <br/>
 <h2 id="naviguer-dans-tout-son-historique-git">Naviguer dans tout son historique Git</h2>
 <pre tabindex="0"><code>$ git init
@@ -679,8 +672,7 @@ size-garbage: 0 bytes
 </code></pre><br/>
 <h2 id="bisect">Bisect</h2>
 <blockquote>
-<p>Le bisect permet de réaliser une dichotimie sur un range de commit afin d&rsquo;identifier celui qui génère une régression.</p>
-</blockquote>
+<p>Le bisect permet de réaliser une dichotimie sur un range de commit afin d&rsquo;identifier celui qui génère une régression.</p></blockquote>
 <pre tabindex="0"><code>$ git bisect start          # Start the binary search process
 $ git bisect bad            # Identify the end of the range
 $ git bisect good v4.2.0    # Identify the start of the range
@@ -699,8 +691,7 @@ git rm -f mon_repo_as_submodule
 </code></pre><br/>
 <h2 id="pull-git-submodules-après-avoir-cloné-un-projet-sur-github">Pull git submodules après avoir cloné un projet sur GitHub</h2>
 <blockquote>
-<p>Normalement la commande suivante est automatiquement jouée par git sur les nouvelles versions</p>
-</blockquote>
+<p>Normalement la commande suivante est automatiquement jouée par git sur les nouvelles versions</p></blockquote>
 <pre tabindex="0"><code>git submodule update --init --recursive
 </code></pre><br/>
 <h2 id="importer-les-mises-à-jour-dun-submodule-dans-le-repo">Importer les mises à jour d&rsquo;un submodule dans le repo</h2>
@@ -716,7 +707,7 @@ git commit -m &#34;updating submodule to latest&#34;
 <h2 id="gitignore-global">.gitignore global</h2>
 <pre tabindex="0"><code>touch ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
-</code></pre><h2 id="différence-entre-git-pull-et-git-pull---rebase">Différence entre git pull et git pull &ndash;rebase</h2>
+</code></pre><h2 id="différence-entre-git-pull-et-git-pull-rebase">Différence entre git pull et git pull &ndash;rebase</h2>
 <p>Point de départ:</p>
 <pre tabindex="0"><code>      D---E master
      /
@@ -854,7 +845,7 @@ alias git-ssh=&#34;git remote set-url origin git@github.com:$(git remote get-url
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

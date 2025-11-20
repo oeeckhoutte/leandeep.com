@@ -7,8 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Prerequisites [dependencies] log = &amp;#34;0.4&amp;#34; anyhow = &amp;#34;1&amp;#34; embedded-svc = { version = &amp;#34;0.28&amp;#34;, default-features = false } esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] } Code Now update main.rs and add this code:
-use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;amp;str = &amp;#34;SSID&amp;#34;; const PASSWORD: &amp;amp;str = &amp;#34;password&amp;#34;; fn main() -&amp;gt; anyhow::Result&amp;lt;()&amp;gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?" />
+  content=" Prerequisites [dependencies] log = &#34;0.4&#34; anyhow = &#34;1&#34; embedded-svc = { version = &#34;0.28&#34;, default-features = false } esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;str = &#34;SSID&#34;; const PASSWORD: &amp;str = &#34;password&#34;; fn main() -&gt; anyhow::Result&lt;()&gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?; let sys_loop = EspSystemEventLoop::take()?; let nvs = EspDefaultNvsPartition::take()?; let mut wifi = BlockingWifi::wrap( EspWifi::new(peripherals.modem, sys_loop.clone(), Some(nvs))?, sys_loop, )?; connect_wifi(&amp;mut wifi)?; let ip_info = wifi.wifi().sta_netif().get_ip_info()?; info!(&#34;Wifi DHCP info: {:?}&#34;, ip_info); info!(&#34;Shutting down in 5s...&#34;); std::thread::sleep(core::time::Duration::from_secs(5)); Ok(()) } fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -&gt; anyhow::Result&lt;()&gt; { let wifi_configuration: Configuration = Configuration::Client(ClientConfiguration { ssid: SSID.try_into().unwrap(), bssid: None, auth_method: AuthMethod::WPA2Personal, password: PASSWORD.try_into().unwrap(), channel: None, ..Default::default() }); wifi.set_configuration(&amp;wifi_configuration)?; wifi.start()?; info!(&#34;Wifi started&#34;); wifi.connect()?; info!(&#34;Wifi connected&#34;); wifi.wait_netif_up()?; info!(&#34;Wifi netif up&#34;); Ok(()) } Build and Run cargo build espflash flash target/xtensa-esp32-espidf/debug/blink --monitor " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +99,20 @@ use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfigura
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Connect ESP32 to wifi network using Rust">
-<meta itemprop="description" content="Prerequisites [dependencies] log = &#34;0.4&#34; anyhow = &#34;1&#34; embedded-svc = { version = &#34;0.28&#34;, default-features = false } esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } Code Now update main.rs and add this code:
-use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;str = &#34;SSID&#34;; const PASSWORD: &amp;str = &#34;password&#34;; fn main() -&gt; anyhow::Result&lt;()&gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?"><meta itemprop="datePublished" content="2025-03-28T15:49:00+02:00" />
-<meta itemprop="dateModified" content="2025-03-28T15:49:00+02:00" />
-<meta itemprop="wordCount" content="160"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Rust,ESP32," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Connect ESP32 to wifi network using Rust"/>
-<meta name="twitter:description" content="Prerequisites [dependencies] log = &#34;0.4&#34; anyhow = &#34;1&#34; embedded-svc = { version = &#34;0.28&#34;, default-features = false } esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } Code Now update main.rs and add this code:
-use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;str = &#34;SSID&#34;; const PASSWORD: &amp;str = &#34;password&#34;; fn main() -&gt; anyhow::Result&lt;()&gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?"/>
+  <meta itemprop="name" content="Connect ESP32 to wifi network using Rust">
+  <meta itemprop="description" content="Prerequisites [dependencies] log = &#34;0.4&#34; anyhow = &#34;1&#34; embedded-svc = { version = &#34;0.28&#34;, default-features = false } esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;str = &#34;SSID&#34;; const PASSWORD: &amp;str = &#34;password&#34;; fn main() -&gt; anyhow::Result&lt;()&gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?; let sys_loop = EspSystemEventLoop::take()?; let nvs = EspDefaultNvsPartition::take()?; let mut wifi = BlockingWifi::wrap( EspWifi::new(peripherals.modem, sys_loop.clone(), Some(nvs))?, sys_loop, )?; connect_wifi(&amp;mut wifi)?; let ip_info = wifi.wifi().sta_netif().get_ip_info()?; info!(&#34;Wifi DHCP info: {:?}&#34;, ip_info); info!(&#34;Shutting down in 5s...&#34;); std::thread::sleep(core::time::Duration::from_secs(5)); Ok(()) } fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -&gt; anyhow::Result&lt;()&gt; { let wifi_configuration: Configuration = Configuration::Client(ClientConfiguration { ssid: SSID.try_into().unwrap(), bssid: None, auth_method: AuthMethod::WPA2Personal, password: PASSWORD.try_into().unwrap(), channel: None, ..Default::default() }); wifi.set_configuration(&amp;wifi_configuration)?; wifi.start()?; info!(&#34;Wifi started&#34;); wifi.connect()?; info!(&#34;Wifi connected&#34;); wifi.wait_netif_up()?; info!(&#34;Wifi netif up&#34;); Ok(()) } Build and Run cargo build espflash flash target/xtensa-esp32-espidf/debug/blink --monitor">
+  <meta itemprop="datePublished" content="2025-03-28T15:49:00+02:00">
+  <meta itemprop="dateModified" content="2025-03-28T15:49:00+02:00">
+  <meta itemprop="wordCount" content="160">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Rust,ESP32">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Connect ESP32 to wifi network using Rust">
+  <meta name="twitter:description" content="Prerequisites [dependencies] log = &#34;0.4&#34; anyhow = &#34;1&#34; embedded-svc = { version = &#34;0.28&#34;, default-features = false } esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } Code Now update main.rs and add this code:
+use core::convert::TryInto; use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration}; use esp_idf_svc::hal::prelude::Peripherals; use esp_idf_svc::log::EspLogger; use esp_idf_svc::wifi::{BlockingWifi, EspWifi}; use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition}; use log::info; const SSID: &amp;str = &#34;SSID&#34;; const PASSWORD: &amp;str = &#34;password&#34;; fn main() -&gt; anyhow::Result&lt;()&gt; { esp_idf_svc::sys::link_patches(); EspLogger::initialize_default(); let peripherals = Peripherals::take()?; let sys_loop = EspSystemEventLoop::take()?; let nvs = EspDefaultNvsPartition::take()?; let mut wifi = BlockingWifi::wrap( EspWifi::new(peripherals.modem, sys_loop.clone(), Some(nvs))?, sys_loop, )?; connect_wifi(&amp;mut wifi)?; let ip_info = wifi.wifi().sta_netif().get_ip_info()?; info!(&#34;Wifi DHCP info: {:?}&#34;, ip_info); info!(&#34;Shutting down in 5s...&#34;); std::thread::sleep(core::time::Duration::from_secs(5)); Ok(()) } fn connect_wifi(wifi: &amp;mut BlockingWifi&lt;EspWifi&lt;&#39;static&gt;&gt;) -&gt; anyhow::Result&lt;()&gt; { let wifi_configuration: Configuration = Configuration::Client(ClientConfiguration { ssid: SSID.try_into().unwrap(), bssid: None, auth_method: AuthMethod::WPA2Personal, password: PASSWORD.try_into().unwrap(), channel: None, ..Default::default() }); wifi.set_configuration(&amp;wifi_configuration)?; wifi.start()?; info!(&#34;Wifi started&#34;); wifi.connect()?; info!(&#34;Wifi connected&#34;); wifi.wait_netif_up()?; info!(&#34;Wifi netif up&#34;); Ok(()) } Build and Run cargo build espflash flash target/xtensa-esp32-espidf/debug/blink --monitor">
 
 
 
@@ -229,7 +232,7 @@ fn main() -&gt; anyhow::Result&lt;()&gt; {
 
     info!(&#34;Shutting down in 5s...&#34;);
 
-    std:🧵:sleep(core::time::Duration::from_secs(5));
+    std::thread::sleep(core::time::Duration::from_secs(5));
 
     Ok(())
 }
@@ -334,7 +337,7 @@ espflash flash target/xtensa-esp32-espidf/debug/blink --monitor
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

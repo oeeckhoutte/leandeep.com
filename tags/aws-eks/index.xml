@@ -4,33 +4,24 @@
     <title>AWS EKS on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/aws-eks/</link>
     <description>Recent content in AWS EKS on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 08 Mar 2019 17:08:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/aws-eks/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Mar 2019 17:08:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/aws-eks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Commandes utiles Kubernetes</title>
       <link>https://leandeep.com/commandes-utiles-kubernetes/</link>
       <pubDate>Fri, 08 Mar 2019 17:08:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/commandes-utiles-kubernetes/</guid>
-      <description>Commandes propres à Kubernetes Créer un namespace
-kubectl create ns &amp;lt;new-namespace&amp;gt; Lister tous les types de ressources disponibles sur le cluster
-kubectl api-resources Savoir si une ressource appartient à un namespace
-kubectl api-resources --namespaced=true Savoir si une ressource appartient PAS à un namespace
-kubectl api-resources --namespaced=false Switcher de namespace
-# Install kubens with the following command: # Sur Mac: brew install kubectx # Sur Linux (les 3 commandes qui suivent): # sudo git clone https://github.</description>
+      <description>&lt;h2 id=&#34;commandes-propres-à-kubernetes&#34;&gt;Commandes propres à Kubernetes&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Créer un namespace&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl create ns &amp;lt;new-namespace&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Lister tous les types de ressources disponibles sur le cluster&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl api-resources&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Savoir si une ressource appartient à un namespace&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl api-resources --namespaced=true&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Savoir si une ressource appartient PAS à un namespace&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl api-resources --namespaced=false&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Switcher de namespace&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Install kubens with the following command: &#xA;# Sur Mac: brew install kubectx&#xA;# Sur Linux (les 3 commandes qui suivent): &#xA;# sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx&#xA;# sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx&#xA;# sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens&#xA;&#xA;kubens &amp;lt;namespace&amp;gt;&#xA;&#xA;# Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte&#xA;kubectl config set-context --current --namespace=NOM_DU_NAMESPACE&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Connaître le cluster dans lequel on se situe&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Provisionner un cluster Kubernetes avec AWS EKS</title>
       <link>https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/</link>
       <pubDate>Thu, 07 Mar 2019 21:28:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/provisionner-un-cluster-kubernetes-avec-aws-eks/</guid>
-      <description>Introduction Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS. Nous verrons dans un prochain article comment mettre en place l&amp;rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.
-Pré-requis Compte AWS Utilisateur Admin (Policy AdministratorAccess dans IAM) Installation via Cloud9 Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt; Depuis Cloud9, via le terminal générer une clé SSH ssh-keygen Uploader sa clé dans la région EC2 aws ec2 import-key-pair --key-name &amp;#34;&amp;lt;nom_de_votre_clé&amp;gt;&amp;#34; --public-key-material file://~/.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article nous allons voir comment provisionner un cluster simple Kubernetes via AWS EKS.&#xA;Nous verrons dans un prochain article comment mettre en place l&amp;rsquo;autoscaling et comment faire pour que les nouvelles instances automatiquement crées soient des instances Spot.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Compte AWS&lt;/li&gt;&#xA;&lt;li&gt;Utilisateur Admin (Policy AdministratorAccess dans IAM)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-via-cloud9&#34;&gt;Installation via Cloud9&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Créer un nouveau workspace dans Cloud9 &amp;lt;nom_de_votre_projet&amp;gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;br/&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;Depuis Cloud9, via le terminal générer une clé SSH&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh-keygen&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;Uploader sa clé dans la région EC2&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;aws ec2 import-key-pair --key-name &amp;#34;&amp;lt;nom_de_votre_clé&amp;gt;&amp;#34; --public-key-material file://~/.ssh/id_rsa.pub&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;ol start=&#34;4&#34;&gt;&#xA;&lt;li&gt;Installer les outils Kubernetes&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Créer le répertoire ~/.kube par défaut pour stocker la configuration kubectl&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

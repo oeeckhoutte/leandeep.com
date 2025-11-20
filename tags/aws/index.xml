@@ -4,108 +4,73 @@
     <title>AWS on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/aws/</link>
     <description>Recent content in AWS on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 06 Sep 2019 11:39:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Sep 2019 11:39:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get rid of .pem file to SSH on your AWS EC2 instance</title>
       <link>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</link>
       <pubDate>Fri, 06 Sep 2019 11:39:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</guid>
-      <description>Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a git clone using SSH protocol. You will be annoyed by the .pem file. To get rid of it (or more simply hide it) you can follow this procedure:
-The pem file contains a private key. Simply extract it and add it to your system.
-Copy the private key to the .ssh folder
-cp /path/to/your/cert.</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a &lt;code&gt;git clone&lt;/code&gt; using &lt;code&gt;SSH&lt;/code&gt; protocol. You will be annoyed by the &lt;code&gt;.pem&lt;/code&gt; file. To get rid of it (or more simply hide it) you can follow this procedure:&lt;/p&gt;&#xA;&lt;p&gt;The pem file contains a private key. Simply extract it and add it to your system.&lt;/p&gt;&#xA;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Copy the private key to the .ssh folder&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Gitlab CE avec un runner sur Centos 7 sur AWS</title>
       <link>https://leandeep.com/installer-gitlab-ce-avec-un-runner-sur-centos-7-sur-aws/</link>
       <pubDate>Mon, 02 Sep 2019 21:21:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-gitlab-ce-avec-un-runner-sur-centos-7-sur-aws/</guid>
-      <description>Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&amp;#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&amp;#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.</description>
+      <description>&lt;p&gt;Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-de-gitlab-ce&#34;&gt;Installation de Gitlab CE&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;yum update&#xA;&#xA;yum -y install curl vim policycoreutils openssh-server openssh-clients postfix&#xA;&#xA;# Vérifiez que Firewalld n&amp;#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&amp;#39;AWS par exemple&#xA;systemctl status firewalld&#xA;&#xA;# Vérifiez que les services sont bien démarrés&#xA;systemctl status sshd&#xA;systemctl status postfix&#xA;&#xA;# Installer le repository pour Gitlab&#xA;curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash&#xA;&#xA;# Installer Gitlab&#xA;yum -y install gitlab-ce&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration-du-dns-en-https&#34;&gt;Configuration du DNS en HTTPS&lt;/h2&gt;&#xA;&lt;p&gt;Gitlab est maintenant installé. Pour configurer un DNS et du HTTPS, voici ce qu&amp;rsquo;il faut modifier dans le fichier &lt;code&gt;/etc/gitlab/gitlab.rb&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Serverless sur AWS avec SAM</title>
       <link>https://leandeep.com/serverless-sur-aws-avec-sam/</link>
       <pubDate>Sat, 17 Aug 2019 16:51:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/serverless-sur-aws-avec-sam/</guid>
-      <description>Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:
-Prérequis AWS Cli AWS Cli configuré Docker (dois-je le préciser ?) Python 3 Installation Créer un bucket S3:
-aws s3 mb s3://votre-sam-bucket --region eu-west-1 Installer AWS SAM Cli:
-AWS recommande l&amp;rsquo;utilisation de Homebrew pour l&amp;rsquo;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3.</description>
+      <description>&lt;p&gt;Si comme moi vous voulez installer AWS SAM pour développer et tester en local vos applications serverless voici la procédure à suivre:&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;prérequis&#34;&gt;Prérequis&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;AWS Cli&lt;/li&gt;&#xA;&lt;li&gt;AWS Cli configuré&lt;/li&gt;&#xA;&lt;li&gt;Docker (dois-je le préciser ?)&lt;/li&gt;&#xA;&lt;li&gt;Python 3&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;Créer un bucket S3:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;aws s3 mb s3://votre-sam-bucket --region eu-west-1&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Installer AWS SAM Cli:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;AWS recommande l&amp;rsquo;utilisation de Homebrew pour l&amp;rsquo;installation de SAM mais je préfère utiliser pip pour ne pas être contraint à passer de Python 3.6 à 3.7.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Custom Python Packages with AWS lambda and CDK</title>
       <link>https://leandeep.com/custom-python-packages-with-aws-lambda-and-cdk/</link>
       <pubDate>Tue, 18 Jun 2019 21:27:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/custom-python-packages-with-aws-lambda-and-cdk/</guid>
-      <description>Introduction The purpose of this article is to describe how to execute Python code with custom packages on AWS Lambda. Since there is no way to execute a pip install on lambda when you use the inline code feature you cannot use external packages. So you are very limited. Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The purpose of this article is to describe how to execute Python code with custom packages on &lt;strong&gt;AWS Lambda&lt;/strong&gt;. Since there is no way to execute a &lt;code&gt;pip install&lt;/code&gt; on lambda when you use the inline code feature you cannot use external packages. So you are very limited.&#xA;Fortunately there is a work around (as usual with AWS). You can package your app with its dependences in a zip file and upload it directly on Lambda. If you use a deployment script (.sh or Makefile) and &lt;strong&gt;AWS CDK&lt;/strong&gt; like I do it becomes very easy to make Lambda execute any Python code.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Deployer une image Docker sur AWS Fargate</title>
       <link>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</link>
       <pubDate>Tue, 07 May 2019 21:17:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/deployer-une-image-docker-sur-aws-fargate/</guid>
-      <description>Voici la procédure pour déployer des containers Docker sur Fargate.
-Rôle ecsTaskExecutionRole Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM. S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:
-Créer un fichier appelé task-execution-assume-role.json avec ce contenu:
-{ &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, &amp;#34;Statement&amp;#34;: [ { &amp;#34;Sid&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, &amp;#34;Principal&amp;#34;: { &amp;#34;Service&amp;#34;: &amp;#34;ecs-tasks.amazonaws.com&amp;#34; }, &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34; } ] } Créer une tâche d&amp;rsquo;exécution de rôle:
-aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json Attacher la tâche d&amp;rsquo;exécution de rôle:</description>
+      <description>&lt;p&gt;Voici la procédure pour déployer des containers Docker sur Fargate.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;rôle-ecstaskexecutionrole&#34;&gt;Rôle ecsTaskExecutionRole&lt;/h2&gt;&#xA;&lt;p&gt;Vérifier l&amp;rsquo;existance de ce rôle dans l&amp;rsquo;IAM.&#xA;S&amp;rsquo;il n&amp;rsquo;existe pas, il faut le créer:&lt;/p&gt;&#xA;&lt;p&gt;Créer un fichier appelé &lt;code&gt;task-execution-assume-role.json&lt;/code&gt; avec ce contenu:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{&#xA;  &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;,&#xA;  &amp;#34;Statement&amp;#34;: [&#xA;    {&#xA;      &amp;#34;Sid&amp;#34;: &amp;#34;&amp;#34;,&#xA;      &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;,&#xA;      &amp;#34;Principal&amp;#34;: {&#xA;        &amp;#34;Service&amp;#34;: &amp;#34;ecs-tasks.amazonaws.com&amp;#34;&#xA;      },&#xA;      &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;&#xA;    }&#xA;  ]&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Créer une tâche d&amp;rsquo;exécution de rôle:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;aws iam --region eu-west-1 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Attacher la tâche d&amp;rsquo;exécution de rôle:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Comparaison des services de conteneurisation AWS (ECS, Fargate et EKS) </title>
       <link>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</link>
       <pubDate>Wed, 16 Jan 2019 19:33:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/comparaison-des-services-de-conteneurisation-aws-ecs-fargate-et-eks/</guid>
-      <description>Il n&amp;rsquo;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.
-Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.
-Avantages
-ECS EKS Fargate Service gratuit (on ne paye que pour le compute sous jacent) Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes Possible d’utiliser l’API de Fargate comme celle d’ECS Service historique d’AWS d’orchestration de containers Docker Offre tous les avantages de Kubernetes (cloud agnostic) Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate.</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://leandeep.com/images/ecs-fargate-eks.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Il n&amp;rsquo;est pas évident de comprendre les différentes entre AWS ECS, Fargate et EKS. Au premier abord ces outils peuvent sembler similaire. Je me suis personnellement vraiment questionné sur la différence entre AWS Fargate et AWS EKS.&lt;/p&gt;&#xA;&lt;p&gt;Dans cet article je vais essayer de résumer les différences qu&amp;rsquo;il peut y avoir entre ces 3 services.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Avantages&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;ECS&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: center&#34;&gt;EKS&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: right&#34;&gt;Fargate&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Service gratuit (on ne paye que pour le compute sous jacent)&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Offre toutes les features d’ECS + VPC pour le réseau entre pods et isolation au niveau du cluster Kubernetes&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: right&#34;&gt;Possible d’utiliser l’API de Fargate comme celle d’ECS&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Service historique d’AWS d’orchestration de containers Docker&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Offre tous les avantages de Kubernetes (cloud agnostic)&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: right&#34;&gt;Permet de faire tourner des clusters hétérogènes constitués d’instance EC2 ou Fargate. Idéal pour scaler rapidement horizontalement&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Possibilité de dupliquer ses environnements via API&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Réplication des masters Kubernetes dans 3 zones de disponibilités différentes&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: right&#34;&gt;Permet de ne pas avoir à manager l’infrastructure&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Intégration sans couture avec la registry Docker AWS ECR (pas besoin de gérer sa propre registry + workflow simple pour gérer ses images)&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Possibilité de répliquer l’environnement dans un autre déjà existant avec assez peu de modifications&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: right&#34;&gt;Support AWS VPC network mode; ce qui signifie que les tâches qui tournent sur une même instance partage l’interface réseau (Elastic Network Interface)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Auto-healing des containers Docker&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Coût assez faible par cluster: $0.20 par heure&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: right&#34;&gt;Coût à l&amp;rsquo;usage du compute et non pas à l’instance EC2 sous-jacente. Cela peut permettre de faire des économies&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Toutes les communications entre pods se font via IP dans le VPC&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: right&#34;&gt;Scalabilité horizontale très rapide (machines provisionées à l’avance)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Inconvénients&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Lancer un Datalab en quelques minutes</title>
       <link>https://leandeep.com/lancer-un-datalab-en-quelques-minutes/</link>
       <pubDate>Fri, 19 Jan 2018 23:39:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/lancer-un-datalab-en-quelques-minutes/</guid>
-      <description>Il m’arrive assez régulièrement de devoir switcher de machine de développement lorsque je travaille sur du Machine ou Deep Learning. C’est d’autant plus vrai lorsque je travaille avec Tensorflow avec support GPU et que je manipule des datasets de plusieurs Go. Pour accélérer la phase d’apprentissage de mes algorithmes, il m’arrive de louer, durant plusieurs heures, des VM survitaminées chez Amazon Web Services.
-Pour éviter de devoir reconfigurer à chaque fois mon environnement de datascience, j’utilise 2 images Docker.</description>
+      <description>&lt;p&gt;Il m’arrive assez régulièrement de devoir switcher de machine de développement lorsque je travaille sur du Machine ou Deep Learning. C’est d’autant plus vrai lorsque je travaille avec Tensorflow avec support GPU et que je manipule des datasets de plusieurs Go. Pour accélérer la phase d’apprentissage de mes algorithmes, il m’arrive de louer, durant plusieurs heures, des VM survitaminées chez Amazon Web Services.&lt;/p&gt;&#xA;&lt;p&gt;Pour éviter de devoir reconfigurer à chaque fois mon environnement de datascience, j’utilise 2 images Docker.&#xA;Grâce à Docker et à l’image que j’ai à disposition, je peux lancer un nouvel environnement de datascience from Scratch en moins de 5 minutes. De plus, je peux faire une sauvegarde parfaite de toutes les configurations et librairies que j’utilise. It’s definitely worth it ! Avez-vous déjà perdu votre temps à installer xgboost ou Cuda sur OSX 😀 ?&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Diviser par 5 la durée d’apprentissage de son réseau de neurones profonds</title>
       <link>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</link>
       <pubDate>Mon, 06 Feb 2017 23:42:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/diviser-par-5-la-dur%C3%A9e-dapprentissage-de-son-r%C3%A9seau-de-neurones-profonds/</guid>
-      <description>Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…
-J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS.</description>
+      <description>&lt;p&gt;Avec l’engouement des Chatbots et l’émergence de nouveaux services SAAS, je me suis dit qu’il fallait que je regarde de plus près comment cela fonctionne…&lt;/p&gt;&#xA;&lt;p&gt;J’ai d’abord testé des solutions Cloud et notamment le nouveau service d’AWS Amazon Lex et il faut avouer que la mise en place est vraiment simple. Ils proposent une intégration sur mobile natif via un SDK et une intégration sur Web avec un simple script JS. En 1 heure vous pouvez avoir à disposition un Chatbot et exécuter des actions en fonction des intents que vous avez configuré. Le Chatbot peut communiquer avec AWS Lambda.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Failover strategies avec Amazon EC2</title>
       <link>https://leandeep.com/failover-strategies-avec-amazon-ec2/</link>
       <pubDate>Sat, 26 Jan 2013 19:02:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/failover-strategies-avec-amazon-ec2/</guid>
-      <description>downtime &amp;lt; 10 minutes Pour avoir un downtime &amp;lt; 10 minutes il y a cette première stratégie:
-On crée un clone de l&amp;rsquo;environnement de production prêt à être lancé à n&amp;rsquo;importe quel moment sur une autre zone de disponibilité si l&amp;rsquo;environnement de production venait à crasher. L&amp;rsquo;outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.
-Un peu de redondance Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit.</description>
+      <description>&lt;h2 id=&#34;downtime--10-minutes&#34;&gt;downtime &amp;lt; 10 minutes&lt;/h2&gt;&#xA;&lt;p&gt;Pour avoir un downtime &amp;lt; 10 minutes il y a cette première stratégie:&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://leandeep.com/images/downtime-10-min.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;On crée un clone de l&amp;rsquo;environnement de production prêt à être lancé à n&amp;rsquo;importe quel moment sur une autre zone de disponibilité si l&amp;rsquo;environnement de production venait à crasher. L&amp;rsquo;outil Cloudformation fournit gratuitement par AWS peut peut aider à configurer plusieurs environnements.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;un-peu-de-redondance&#34;&gt;Un peu de redondance&lt;/h2&gt;&#xA;&lt;p&gt;Remarque: Transférer des données entre instances dans la même zone de disponibilité est gratuit. Par contre, entre 2 zones différentes le coût est de $0.01 par gigabyte.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

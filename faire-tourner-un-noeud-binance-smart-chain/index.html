@@ -8,7 +8,8 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
-Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f ." />
+Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f ./bsc.log August 2021 Update BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the &ndash;rpc.allow-unprotected-txs command-line flag. ./geth_linux --config ./config.toml --datadir ./node --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0 Ou dans mon cas: ./geth_linux --config ./config.toml --datadir ./node --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6 --txlookuplimit 0 I use geth-linux version 1.1.1
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-cha
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Faire tourner un noeud Binance Smart Chain">
-<meta itemprop="description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
-Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f ."><meta itemprop="datePublished" content="2021-04-24T21:25:00+00:00" />
-<meta itemprop="dateModified" content="2021-04-24T21:25:00+00:00" />
-<meta itemprop="wordCount" content="264"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="BSC,Binance Smart Chain,Node Hosting,Blockchain," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Faire tourner un noeud Binance Smart Chain"/>
-<meta name="twitter:description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
-Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f ."/>
+  <meta itemprop="name" content="Faire tourner un noeud Binance Smart Chain">
+  <meta itemprop="description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
+Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f ./bsc.log August 2021 Update BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the –rpc.allow-unprotected-txs command-line flag. ./geth_linux --config ./config.toml --datadir ./node --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0 Ou dans mon cas: ./geth_linux --config ./config.toml --datadir ./node --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6 --txlookuplimit 0 I use geth-linux version 1.1.1">
+  <meta itemprop="datePublished" content="2021-04-24T21:25:00+00:00">
+  <meta itemprop="dateModified" content="2021-04-24T21:25:00+00:00">
+  <meta itemprop="wordCount" content="264">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="BSC,Binance Smart Chain,Node Hosting,Blockchain">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Faire tourner un noeud Binance Smart Chain">
+  <meta name="twitter:description" content="Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
+Mainnet mkdir ~/bsc &amp;&amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod &#43;x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f ./bsc.log August 2021 Update BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the –rpc.allow-unprotected-txs command-line flag. ./geth_linux --config ./config.toml --datadir ./node --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0 Ou dans mon cas: ./geth_linux --config ./config.toml --datadir ./node --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6 --txlookuplimit 0 I use geth-linux version 1.1.1">
 
 
 
@@ -213,8 +217,7 @@ BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay
 Ou dans mon cas:<br/>
 <code>./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6  --txlookuplimit 0</code>
 <br/><br/>
-<em>I use geth-linux version 1.1.1</em></p>
-</blockquote>
+<em>I use geth-linux version 1.1.1</em></p></blockquote>
 <blockquote>
 <p><strong>May 2022 Update</strong><br/><br/>
 Mise à jour de la procédure d&rsquo;installation:</p>
@@ -316,7 +319,7 @@ w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

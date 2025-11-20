@@ -4,30 +4,24 @@
     <title>POO on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/poo/</link>
     <description>Recent content in POO on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 09 Nov 2012 21:02:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/poo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Nov 2012 21:02:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/poo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Héritage vs Composition en programmation orientée objet </title>
       <link>https://leandeep.com/h%C3%A9ritage-vs-composition-en-programmation-orient%C3%A9e-objet/</link>
       <pubDate>Fri, 09 Nov 2012 21:02:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/h%C3%A9ritage-vs-composition-en-programmation-orient%C3%A9e-objet/</guid>
-      <description>Introduction Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.
-Rappel héritage (&amp;ldquo;est un&amp;rdquo;) L&amp;rsquo;héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère. En d&amp;rsquo;autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Petit article rapide pour rappeler la différence entre héritage et composition en POO et la représentation UML.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;rappel-héritage-est-un&#34;&gt;Rappel héritage (&amp;ldquo;est un&amp;rdquo;)&lt;/h2&gt;&#xA;&lt;p&gt;L&amp;rsquo;héritage est une relation de spécialisation/généralisation entre deux classes. Elle indique qu’une classe dite classe fille spécialise une autre classe dite classe mère.&#xA;En d&amp;rsquo;autres termes, une classe fille possède les attributs et les méthodes de la classe mère plus d’autres qui lui sont propres. On parle aussi de super classe et de sous classe.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Obliger les classes dérivées à implémenter certaines méthodes en Python</title>
       <link>https://leandeep.com/obliger-les-classes-d%C3%A9riv%C3%A9es-%C3%A0-impl%C3%A9menter-certaines-m%C3%A9thodes-en-python/</link>
       <pubDate>Mon, 29 Oct 2012 21:12:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/obliger-les-classes-d%C3%A9riv%C3%A9es-%C3%A0-impl%C3%A9menter-certaines-m%C3%A9thodes-en-python/</guid>
-      <description>Pour être notifié dès l&amp;rsquo;instanciation d&amp;rsquo;une classe que des méthodes n&amp;rsquo;ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
-Exemple:
-from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &amp;#34;Can&amp;#39;t instantiate abstract class Concrete with abstract methods bar&amp;#34; Sans le module ABC n&amp;rsquo;avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée.</description>
+      <description>&lt;p&gt;Pour être notifié dès l&amp;rsquo;instanciation d&amp;rsquo;une classe que des méthodes n&amp;rsquo;ont pas été implémentées on peut utiliser le module &lt;code&gt;ABC&lt;/code&gt; (Abstract Base Classes).&#xA;On crée alors avec le module &lt;code&gt;ABC&lt;/code&gt; une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from abc import ABCMeta, abstractmethod&#xA;&#xA;class Base(metaclass=ABCMeta):&#xA;&#x9;@abstractmethod&#xA;    def foo(self):&#xA;    &#x9;pass&#xA;        &#xA;    @abstractmethod&#xA;    def bar(self):&#xA;&#x9;    pass&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;class Concrete(Base):&#xA;&#x9;def foo(self):&#xA;    &#x9;pass&#xA;        &#xA;        # on ne déclare pas bar() volontairement &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;assert issubclass(Concrete, Base)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;c = Concrete()&#xA;TypeError:&#xA;&amp;#34;Can&amp;#39;t instantiate abstract class Concrete with abstract methods bar&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Sans le module &lt;code&gt;ABC&lt;/code&gt; n&amp;rsquo;avait pas été présent, on aurait obtenu &lt;code&gt;NotImplementedError&lt;/code&gt; si une méthode non implémentée avait été appelée.&#xA;Avec &lt;code&gt;ABC&lt;/code&gt; on est alerté dès l&amp;rsquo;instanciation de la classe que la méthode n&amp;rsquo;existe pas.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

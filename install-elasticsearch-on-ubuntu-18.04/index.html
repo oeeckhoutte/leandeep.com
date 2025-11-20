@@ -9,8 +9,9 @@
 <meta name="description"
   content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
 Pré-requis Verify Java is installed:
-$ java -version openjdk version &amp;#34;11.0.3&amp;#34; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
-echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/." />
+$ java -version openjdk version &#34;11.0.3&#34; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
+echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/.zshrc. Add this line: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ echo $JAVA_HOME If the previous command return an empty string you need to set t
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Install Elasticsearch on Ubuntu 18.04 ">
-<meta itemprop="description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
-Pré-requis Verify Java is installed:
-$ java -version openjdk version &#34;11.0.3&#34; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
-echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/."><meta itemprop="datePublished" content="2019-07-06T11:01:00+00:00" />
-<meta itemprop="dateModified" content="2019-07-06T11:01:00+00:00" />
-<meta itemprop="wordCount" content="182"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="ElasticSearch,Ubuntu," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Install Elasticsearch on Ubuntu 18.04 "/>
-<meta name="twitter:description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
+  <meta itemprop="name" content="Install Elasticsearch on Ubuntu 18.04 ">
+  <meta itemprop="description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
 Pré-requis Verify Java is installed:
 $ java -version openjdk version &#34;11.0.3&#34; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
-echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/."/>
+echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/.zshrc. Add this line: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64.">
+  <meta itemprop="datePublished" content="2019-07-06T11:01:00+00:00">
+  <meta itemprop="dateModified" content="2019-07-06T11:01:00+00:00">
+  <meta itemprop="wordCount" content="182">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="ElasticSearch,Ubuntu">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Install Elasticsearch on Ubuntu 18.04 ">
+  <meta name="twitter:description" content="In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
+Pré-requis Verify Java is installed:
+$ java -version openjdk version &#34;11.0.3&#34; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3&#43;7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
+echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/.zshrc. Add this line: export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64.">
 
 
 
@@ -203,8 +207,7 @@ OpenJDK 64-Bit Server VM (build 11.0.3+7-Ubuntu-1ubuntu218.04.1, mixed mode, sha
 <pre tabindex="0"><code>echo $JAVA_HOME
 </code></pre><p>If the previous command return an empty string you need to set the environment variable in your <code>~/.zshrc</code>. Add this line: <code>export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64</code>.</p>
 <blockquote>
-<p>Please note that it might not be this path <code>/usr/lib/jvm/java-11-openjdk-amd64</code> in your case. Just check what java path you have under <code>/usr/lib/jvm</code>.</p>
-</blockquote>
+<p>Please note that it might not be this path <code>/usr/lib/jvm/java-11-openjdk-amd64</code> in your case. Just check what java path you have under <code>/usr/lib/jvm</code>.</p></blockquote>
 <br/>
 <h2 id="install-elasticsearch">Install Elasticsearch</h2>
 <pre tabindex="0"><code>sudo apt-get install apt-transport-https
@@ -227,8 +230,7 @@ journalctl -xe
 <h2 id="verify-it-is-working">Verify it is working</h2>
 <pre tabindex="0"><code>curl -X GET http://localhost:9200
 </code></pre><blockquote>
-<p>To customize ES settings you can edit the well documented configuration file located in this path <code>/etc/elasticsearch/elasticsearch.yml</code>.</p>
-</blockquote>
+<p>To customize ES settings you can edit the well documented configuration file located in this path <code>/etc/elasticsearch/elasticsearch.yml</code>.</p></blockquote>
 
             </div>
         </article>
@@ -302,7 +304,7 @@ journalctl -xe
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

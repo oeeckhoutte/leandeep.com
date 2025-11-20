@@ -7,8 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l&amp;rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&amp;rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
-Installation de l&amp;rsquo;outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d&amp;rsquo;habitude vous démarriez votre programme via la commande python votre_programme." />
+  content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+Installation de l&rsquo;outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d&rsquo;habitude vous démarriez votre programme via la commande python votre_programme.py alors il vous suffit de suffixer cette commande avec mprof run --include-children comme ci-dessous:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ Installation de l&amp;rsquo;outil pip install memory_profiler pip install matplo
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Détecter des memory leaks en Python">
-<meta itemprop="description" content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
-Installation de l&rsquo;outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d&rsquo;habitude vous démarriez votre programme via la commande python votre_programme."><meta itemprop="datePublished" content="2018-06-21T18:19:00+00:00" />
-<meta itemprop="dateModified" content="2018-06-21T18:19:00+00:00" />
-<meta itemprop="wordCount" content="231"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Détecter des memory leaks en Python"/>
-<meta name="twitter:description" content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l&rsquo;évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s&rsquo;agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
-Installation de l&rsquo;outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d&rsquo;habitude vous démarriez votre programme via la commande python votre_programme."/>
+  <meta itemprop="name" content="Détecter des memory leaks en Python">
+  <meta itemprop="description" content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l’évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s’agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+Installation de l’outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d’habitude vous démarriez votre programme via la commande python votre_programme.py alors il vous suffit de suffixer cette commande avec mprof run --include-children comme ci-dessous:">
+  <meta itemprop="datePublished" content="2018-06-21T18:19:00+00:00">
+  <meta itemprop="dateModified" content="2018-06-21T18:19:00+00:00">
+  <meta itemprop="wordCount" content="231">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Détecter des memory leaks en Python">
+  <meta name="twitter:description" content="Introduction Dans ce rapide article, nous allons voir comment détecter si notre programme Python contient des memory leaks. Pour ce faire, nous allons mesurer l’évolution de la consommation de la RAM en fonction du temps grâce au package memory_profiler. Il s’agit ici de détecter des memory leaks; pas de les corriger ou analyser dans le détail.
+Installation de l’outil pip install memory_profiler pip install matplotlib Profiling et affichage des résultats Si d’habitude vous démarriez votre programme via la commande python votre_programme.py alors il vous suffit de suffixer cette commande avec mprof run --include-children comme ci-dessous:">
 
 
 
@@ -196,8 +200,7 @@ pip install matplotlib
 <h2 id="profiling-et-affichage-des-résultats">Profiling et affichage des résultats</h2>
 <p>Si d&rsquo;habitude vous démarriez votre programme via la commande <code>python votre_programme.py</code> alors il vous suffit de suffixer cette commande avec <code>mprof run --include-children</code> comme ci-dessous:</p>
 <blockquote>
-<p><code>--include-children</code> permet, comme son nom l&rsquo;indique, de profiler également les sous processus</p>
-</blockquote>
+<p><code>--include-children</code> permet, comme son nom l&rsquo;indique, de profiler également les sous processus</p></blockquote>
 <pre tabindex="0"><code>mprof run --include-children python votre_programme.py
 </code></pre><br/>
 <p>Dans un nouvel onglet, exécuter la commande suivante pour générer un chart de la consommation de RAM.</p>
@@ -209,8 +212,7 @@ open ram-profile.png
 
 mprof plot -s
 </code></pre><blockquote>
-<p><code>-s</code> permet d&rsquo;avoir la trend line de la consommation mémoire.</p>
-</blockquote>
+<p><code>-s</code> permet d&rsquo;avoir la trend line de la consommation mémoire.</p></blockquote>
 <br/>
 <p><strong>Live reload &ldquo;workaround&rdquo;</strong></p>
 <p>Ouvrir l&rsquo;image ram-profile.png avec VSCode.</p>
@@ -291,7 +293,7 @@ mprof plot -s
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

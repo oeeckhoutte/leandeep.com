@@ -7,8 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Sans utiliser la librairie CCTX dont j&amp;rsquo;ai parlé dans l&amp;rsquo;article, voici comment récupérer directement les données OHLCV depuis l&amp;rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &amp;#34;2022-01-01&amp;#34; end_date = &amp;#34;2022-01-31&amp;#34; interval = &amp;#34;1m&amp;#34; symbol = &amp;#34;BTCUSDT&amp;#34; def get_binance_data( ticker: str, interval: str = &amp;#34;4h&amp;#34;, limit: int = 500, start: str = &amp;#34;2018-01-01 00:00:00&amp;#34;, ) -&amp;gt; pd.DataFrame: &amp;#34;&amp;#34;&amp;#34;Get X (limit) OHLCV entries from Binance&amp;#34;&amp;#34;&amp;#34; columns = [ &amp;#34;open_time&amp;#34;, &amp;#34;open&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;close&amp;#34;, &amp;#34;volume&amp;#34;, &amp;#34;close_time&amp;#34;, &amp;#34;qav&amp;#34;, &amp;#34;num_trades&amp;#34;, &amp;#34;taker_base_vol&amp;#34;, &amp;#34;taker_quote_vol&amp;#34;, &amp;#34;ignore&amp;#34;, ] start = int(datetime." />
+  content="Sans utiliser la librairie CCTX dont j&rsquo;ai parlé dans l&rsquo;article, voici comment récupérer directement les données OHLCV depuis l&rsquo;API de Binance:
+import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime.datetime.timestamp(pd.to_datetime(start)) * 1000) base_url = &#34;https://www.binance.com/api/v3/klines&#34; query_params = ( f&#34;?symbol={ticker}&amp;interval={interval}&amp;limit={limit}&amp;startTime={start}&#34; ) url = base_url &#43; query_params data = pd.DataFrame( requests.get(url).json(), columns=columns, dtype=np.float ) data.index = [ pd.to_datetime(x, unit=&#34;ms&#34;).strftime(&#34;%Y-%m-%d %H:%M:%S&#34;) for x in data.open_time ] use_cols = [ &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, ] data = data[use_cols] return data if __name__ == &#34;__main__&#34;: df = get_binance_data(&#34;BTCUSDT&#34;, &#34;1m&#34;) print(df.head()) Résultat:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ import requests import datetime import pandas as pd import numpy as np start_dat
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Créer un dataset avec les données Binance OHLCV pour réaliser des backtests">
-<meta itemprop="description" content="Sans utiliser la librairie CCTX dont j&rsquo;ai parlé dans l&rsquo;article, voici comment récupérer directement les données OHLCV depuis l&rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime."><meta itemprop="datePublished" content="2023-01-27T10:49:00+02:00" />
-<meta itemprop="dateModified" content="2023-01-27T10:49:00+02:00" />
-<meta itemprop="wordCount" content="204"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Backtesting,Backtest,Binance,OHLCV,Pandas,Dataset,tips,AlgoTrading," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Créer un dataset avec les données Binance OHLCV pour réaliser des backtests"/>
-<meta name="twitter:description" content="Sans utiliser la librairie CCTX dont j&rsquo;ai parlé dans l&rsquo;article, voici comment récupérer directement les données OHLCV depuis l&rsquo;API de Binance:
-import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime."/>
+  <meta itemprop="name" content="Créer un dataset avec les données Binance OHLCV pour réaliser des backtests">
+  <meta itemprop="description" content="Sans utiliser la librairie CCTX dont j’ai parlé dans l’article, voici comment récupérer directement les données OHLCV depuis l’API de Binance:
+import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime.datetime.timestamp(pd.to_datetime(start)) * 1000) base_url = &#34;https://www.binance.com/api/v3/klines&#34; query_params = ( f&#34;?symbol={ticker}&amp;interval={interval}&amp;limit={limit}&amp;startTime={start}&#34; ) url = base_url &#43; query_params data = pd.DataFrame( requests.get(url).json(), columns=columns, dtype=np.float ) data.index = [ pd.to_datetime(x, unit=&#34;ms&#34;).strftime(&#34;%Y-%m-%d %H:%M:%S&#34;) for x in data.open_time ] use_cols = [ &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, ] data = data[use_cols] return data if __name__ == &#34;__main__&#34;: df = get_binance_data(&#34;BTCUSDT&#34;, &#34;1m&#34;) print(df.head()) Résultat:">
+  <meta itemprop="datePublished" content="2023-01-27T10:49:00+02:00">
+  <meta itemprop="dateModified" content="2023-01-27T10:49:00+02:00">
+  <meta itemprop="wordCount" content="204">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Backtesting,Backtest,Binance,OHLCV,Pandas,Dataset,Tips,AlgoTrading">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Créer un dataset avec les données Binance OHLCV pour réaliser des backtests">
+  <meta name="twitter:description" content="Sans utiliser la librairie CCTX dont j’ai parlé dans l’article, voici comment récupérer directement les données OHLCV depuis l’API de Binance:
+import requests import datetime import pandas as pd import numpy as np start_date = &#34;2022-01-01&#34; end_date = &#34;2022-01-31&#34; interval = &#34;1m&#34; symbol = &#34;BTCUSDT&#34; def get_binance_data( ticker: str, interval: str = &#34;4h&#34;, limit: int = 500, start: str = &#34;2018-01-01 00:00:00&#34;, ) -&gt; pd.DataFrame: &#34;&#34;&#34;Get X (limit) OHLCV entries from Binance&#34;&#34;&#34; columns = [ &#34;open_time&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;close_time&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, &#34;ignore&#34;, ] start = int(datetime.datetime.timestamp(pd.to_datetime(start)) * 1000) base_url = &#34;https://www.binance.com/api/v3/klines&#34; query_params = ( f&#34;?symbol={ticker}&amp;interval={interval}&amp;limit={limit}&amp;startTime={start}&#34; ) url = base_url &#43; query_params data = pd.DataFrame( requests.get(url).json(), columns=columns, dtype=np.float ) data.index = [ pd.to_datetime(x, unit=&#34;ms&#34;).strftime(&#34;%Y-%m-%d %H:%M:%S&#34;) for x in data.open_time ] use_cols = [ &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;, &#34;qav&#34;, &#34;num_trades&#34;, &#34;taker_base_vol&#34;, &#34;taker_quote_vol&#34;, ] data = data[use_cols] return data if __name__ == &#34;__main__&#34;: df = get_binance_data(&#34;BTCUSDT&#34;, &#34;1m&#34;) print(df.head()) Résultat:">
 
 
 
@@ -330,7 +334,7 @@ Résultat:</p>
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

@@ -4,32 +4,24 @@
     <title>Github on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/github/</link>
     <description>Recent content in Github on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 24 Apr 2022 22:45:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Apr 2022 22:45:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Créer des Pull Requests sur Github depuis son terminal</title>
       <link>https://leandeep.com/cr%C3%A9er-des-pull-requests-sur-github-depuis-son-terminal/</link>
       <pubDate>Sun, 24 Apr 2022 22:45:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/cr%C3%A9er-des-pull-requests-sur-github-depuis-son-terminal/</guid>
-      <description>Dans ce court article, nous allons voir comment créer des PRs automatiquement via le cli; toujours dans le but de booster sa productivité.
-Installation du client cli Github Adresse officielle du package
-brew install gh gh auth login Création de la PR gh pr create --base master --head your_branch --title &amp;#34;$(git log -1 --pretty=format:&amp;#39;%s&amp;#39;)&amp;#34; --body &amp;#34;$(cat pull_request_template.md)&amp;#34; Raccourcis pour récupérer les infos du dernier commit Editer le fichier ~/.zshrc et ajouter les fonctions suivantes:</description>
+      <description>&lt;p&gt;Dans ce court article, nous allons voir comment créer des PRs automatiquement via le cli; toujours dans le but de booster sa productivité.&lt;/p&gt;&#xA;&lt;h2 id=&#34;installation-du-client-cli-github&#34;&gt;Installation du client cli Github&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/cli/cli&#34;&gt;Adresse officielle&lt;/a&gt; du package&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew install gh&#xA;gh auth login&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;création-de-la-pr&#34;&gt;Création de la PR&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;gh pr create --base master --head your_branch --title &amp;#34;$(git log -1 --pretty=format:&amp;#39;%s&amp;#39;)&amp;#34; --body &amp;#34;$(cat pull_request_template.md)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;raccourcis-pour-récupérer-les-infos-du-dernier-commit&#34;&gt;Raccourcis pour récupérer les infos du dernier commit&lt;/h2&gt;&#xA;&lt;p&gt;Editer le fichier &lt;code&gt;~/.zshrc&lt;/code&gt; et ajouter les fonctions suivantes:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Deployer un package sur github via curl</title>
       <link>https://leandeep.com/deployer-un-package-sur-github-via-curl/</link>
       <pubDate>Mon, 20 Apr 2020 19:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/deployer-un-package-sur-github-via-curl/</guid>
-      <description>Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s&amp;rsquo;agit d&amp;rsquo;un jar mais cela s&amp;rsquo;applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&amp;ndash;&amp;gt; Settings &amp;ndash;&amp;gt; Developer settings &amp;ndash;&amp;gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Cet bref article montre comment déployer un package sur Github via une simple commande &lt;code&gt;curl&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Dans notre cas, il s&amp;rsquo;agit d&amp;rsquo;un jar mais cela s&amp;rsquo;applique à tous les types de packages supportés par Github:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Docker&lt;/li&gt;&#xA;&lt;li&gt;Maven&lt;/li&gt;&#xA;&lt;li&gt;Nuget&lt;/li&gt;&#xA;&lt;li&gt;Ruby gem&lt;/li&gt;&#xA;&lt;li&gt;npm&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;commande&#34;&gt;Commande&lt;/h2&gt;&#xA;&lt;p&gt;En pré-requis, il sera nécessaire de générer un Github personal access tocken (&amp;ndash;&amp;gt; Settings &amp;ndash;&amp;gt; Developer settings &amp;ndash;&amp;gt; Personal access tokens)&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export MON_REPO_GIT=oeeckhoutte/mon-package&#xA;export PACKAGE_NAME=mon-package&#xA;export PACKAGE_VERSION=0.0.1&#xA;export JAR_FILENAME=mon-package-0.0.1.jar&#xA;export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar&#xA;&#xA;curl -X PUT \&#xA;&amp;#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&amp;#34; \&#xA;-H &amp;#34;Authorization: token YOUR_TOKEN&amp;#34; \&#xA;--upload-file $LOCAL_JAR_PACKAGE_PATH -vvv&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
   </channel>
 </rss>

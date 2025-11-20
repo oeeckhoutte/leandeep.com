@@ -4,107 +4,73 @@
     <title>Ubuntu on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/ubuntu/</link>
     <description>Recent content in Ubuntu on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 01 Aug 2022 20:59:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Aug 2022 20:59:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installer Docker et mitmproxy sur Ubuntu 22.04</title>
       <link>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</link>
       <pubDate>Mon, 01 Aug 2022 20:59:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-docker-et-mitmproxy-sur-ubuntu-22.04/</guid>
-      <description>Tips très très rapide montrant comment installer Docker et Mitmproxy sur Ubuntu 22.04.
-Installation de Docker sur Ubuntu 22.04 sudo apt update sudo apt install -y ca-certificates curl gnupg lsb-release curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt install docker-ce docker-ce-cli containerd.io -y sudo usermod -aG docker $USER newgrp docker Vérification de l&amp;rsquo;installation de Docker docker version Démarrage du proxy mitm sur VM distante tmux docker run --rm -it -v ~/.</description>
+      <description>&lt;p&gt;Tips très très rapide montrant comment installer Docker et Mitmproxy sur Ubuntu 22.04.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-de-docker-sur-ubuntu-2204&#34;&gt;Installation de Docker sur Ubuntu 22.04&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt install -y ca-certificates curl gnupg lsb-release&#xA;&#xA;curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg&#xA;&#xA;echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&#xA;&#xA;sudo apt-get update&#xA;sudo apt install docker-ce docker-ce-cli containerd.io -y&#xA;sudo usermod -aG docker $USER&#xA;newgrp docker&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;vérification-de-linstallation-de-docker&#34;&gt;Vérification de l&amp;rsquo;installation de Docker&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker version&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;démarrage-du-proxy-mitm-sur-vm-distante&#34;&gt;Démarrage du proxy mitm sur VM distante&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;tmux&#xA;docker run --rm -it -v ~/.mitmproxy:/home/mitmproxy/.mitmproxy -p 8080:8080 mitmproxy/mitmproxy&#xA;# ou mieux, binding sur machine locale:&#xA;docker run --rm -it -v ~/.mitmproxy:/home/mitmproxy/.mitmproxy -p 127.0.0.1:8080:8080 mitmproxy/mitmproxy&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;vérification-du-bon-fonctionnement-de-votre-proxy-sur-vm-distante&#34;&gt;Vérification du bon fonctionnement de votre proxy sur VM distante&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https_proxy=http://localhost:8080/ curl http://example.com/&#xA;https_proxy=http://localhost:8080/ curl -k https://example.com/&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;vérification-depuis-un-autre-host-du-bon-fonctionnement-du-proxy&#34;&gt;Vérification depuis un autre host du bon fonctionnement du proxy&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https_proxy=http://PUBLIC_IP:8080/ curl -k https://example.com/&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Réaliser un speed test depuis le terminal</title>
       <link>https://leandeep.com/r%C3%A9aliser-un-speed-test-depuis-le-terminal/</link>
       <pubDate>Sun, 10 Oct 2021 15:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/r%C3%A9aliser-un-speed-test-depuis-le-terminal/</guid>
-      <description>J&amp;rsquo;ai eu besoin de mettre en place un traffic shaper sur mon Firewall pour ne pas qu&amp;rsquo;un de mes noeuds Ethereum consomme toute la bande passante de mon réseau. Je voulais limiter la bande passante en semaine de 8h30 à 19h. Une fois tout cela mis en place, il m&amp;rsquo;a fallu tester si tout était bien configuré. Si vous avez besoin de réaliser un speed test depuis un serveur headless, vous pouvez suivre ce tip.</description>
+      <description>&lt;p&gt;J&amp;rsquo;ai eu besoin de mettre en place un traffic shaper sur mon Firewall pour ne pas qu&amp;rsquo;un de mes noeuds Ethereum consomme toute la bande passante de mon réseau. Je voulais limiter la bande passante en semaine de 8h30 à 19h. Une fois tout cela mis en place, il m&amp;rsquo;a fallu tester si tout était bien configuré. Si vous avez besoin de réaliser un speed test depuis un serveur headless, vous pouvez suivre ce tip.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Virtualbox headless sur Ubuntu 20.04</title>
       <link>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</link>
       <pubDate>Sat, 20 Mar 2021 09:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/virtualbox-headless-sur-ubuntu-20.04/</guid>
-      <description>Bien sûr il y a Docker mais parfois on ne peut pas faire autrement que d&amp;rsquo;utiliser une VM&amp;hellip;
-Installation sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - echo &amp;#34;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;#34; | sudo tee /etc/apt/sources.list.d/virtualbox.list sudo apt update sudo apt-get install --yes virtualbox-6.1 sudo systemctl status vboxdrv sudo usermod -aG vboxusers $USER Comme notre serveur est headless, il nous faut un accès remote. Pour ce faire, nous devons installer l&amp;rsquo;extension Oracle.</description>
+      <description>&lt;p&gt;Bien sûr il y a Docker mais parfois on ne peut pas faire autrement que d&amp;rsquo;utiliser une VM&amp;hellip;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -&#xA;echo &amp;#34;deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian focal contrib&amp;#34; | sudo tee /etc/apt/sources.list.d/virtualbox.list&#xA;sudo apt update&#xA;sudo apt-get install --yes virtualbox-6.1&#xA;sudo systemctl status vboxdrv&#xA;&#xA;sudo usermod -aG vboxusers $USER&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Comme notre serveur est headless, il nous faut un accès remote. Pour ce faire, nous devons installer l&amp;rsquo;extension Oracle.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Monter un disque NFS sur Ubuntu</title>
       <link>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</link>
       <pubDate>Sat, 15 Aug 2020 19:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/monter-un-disque-nfs-sur-ubuntu/</guid>
-      <description>Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.
-Installation sudo apt install nfs-common Configuration Créer le répertoire pour le point de montage:
-mkdir -p /mnt/smalldiskspool/Musique Editer le fichier /etc/fstab et ajouter une ligne comme celle ci par exemple:
-192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0 0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)
-Rebooter.</description>
+      <description>&lt;p&gt;Voici la procédure très simple pour monter automatiquement un disque NFS sur Ubuntu.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install nfs-common&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;p&gt;Créer le répertoire pour le point de montage:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir -p /mnt/smalldiskspool/Musique&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Editer le fichier &lt;code&gt;/etc/fstab&lt;/code&gt; et ajouter une ligne comme celle ci par exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;192.168.0.42:/mnt/smalldiskspool/Musique/ /mnt/smalldiskspool/Musique nfs rw,sync,hard 0 0&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;0 0 signifie que Linux ne va pas checker les erreurs disque (ce sera géré par le serveur)&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Rebooter.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Mettre en place du monitoring simple sur Ubuntu et recevoir des alertes Slack</title>
       <link>https://leandeep.com/mettre-en-place-du-monitoring-simple-sur-ubuntu-et-recevoir-des-alertes-slack/</link>
       <pubDate>Sun, 19 Jan 2020 22:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/mettre-en-place-du-monitoring-simple-sur-ubuntu-et-recevoir-des-alertes-slack/</guid>
-      <description>Introduction L&amp;rsquo;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.
-Installation de monit sudo apt install monit -y Commandes utiles Vérifier qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;erreur dans la configuration.
-sudo monit -t Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:
-sudo monit reload Envoi d&amp;rsquo;alertes sur Slack Configuration de l&amp;rsquo;URL du webhook sur le site de Slack</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;L&amp;rsquo;objectif de cet article est de voir comment mettre en place du monitoring simple sur son serveur Ubuntu avec des alertes Slack et des rapports hebdomadaires.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h3 id=&#34;installation-de-monit&#34;&gt;Installation de monit&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install monit -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h3 id=&#34;commandes-utiles&#34;&gt;Commandes utiles&lt;/h3&gt;&#xA;&lt;p&gt;Vérifier qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;erreur dans la configuration.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo monit -t&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Si tout est bon, on peut reloader la monit et prendre en compte les changements de configuration avec la commande:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo monit reload&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h3 id=&#34;envoi-dalertes-sur-slack&#34;&gt;Envoi d&amp;rsquo;alertes sur Slack&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configuration de l&amp;rsquo;URL du webhook sur le site de Slack&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Créer un raid pour stocker ses précieux datasets</title>
       <link>https://leandeep.com/cr%C3%A9er-un-raid-pour-stocker-ses-pr%C3%A9cieux-datasets/</link>
       <pubDate>Sat, 28 Sep 2019 09:51:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/cr%C3%A9er-un-raid-pour-stocker-ses-pr%C3%A9cieux-datasets/</guid>
-      <description>Introduction Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second est présent pour éviter de perdre nos précieuses données. J&amp;rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&amp;rsquo;un système raid.
-Voici donc la procédure d&amp;rsquo;installation.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article nous allons voir comment créer un raid de type 1 pour répliquer nos données sur 2 disques. Si un disque venait à crasher, un second  est présent pour éviter de perdre nos précieuses données. J&amp;rsquo;ai plusieurs fois perdu mes datasets de Machine Learning et cela ma coûté cher en temps pour les retrouver et les recréer. Je me suis armé d&amp;rsquo;un système raid.&lt;/p&gt;&#xA;&lt;p&gt;Voici donc la procédure d&amp;rsquo;installation. Dans un prochain article que j&amp;rsquo;intitulerai &amp;ldquo;Gérer ses datasets comme un pro&amp;rdquo; je parlerai de la manière dont j&amp;rsquo;organise mes données au sein de mon serveur. J&amp;rsquo;en ferais peut-être un autre sur le CICD du Data Scientist (différent de celui des développeurs).&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Tensorflow 2 sur Ubuntu 18.04 et un GPU Nvidia GTX 1080</title>
       <link>https://leandeep.com/installer-tensorflow-2-sur-ubuntu-18.04-et-un-gpu-nvidia-gtx-1080/</link>
       <pubDate>Wed, 25 Sep 2019 22:39:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-tensorflow-2-sur-ubuntu-18.04-et-un-gpu-nvidia-gtx-1080/</guid>
-      <description>Introduction Voici la procédure permettant d&amp;rsquo;installer Tensorflow 2 (RC2) sur Ubuntu 18.04 avec une carte graphique Nvidia GTX 1080 dans un eGPU Razer.
-Installation Avant de démarrer je conseille de faire un backup de votre machine. On n&amp;rsquo;est jamais trop prudent avec l&amp;rsquo;installation des Drivers. Cela prend 1 minutes et en cas de problème, vous pourrez faire un rollback en 2 minutes.
-Créer un snapshot:
-# Installation de Timeshift sudo apt-add-repository -y ppa:teejee2008/ppa &amp;amp;&amp;amp; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install timeshift # Créer un snapshot # sudo timeshift --create --comments &amp;#34;before cuda installation&amp;#34; --tags D # Voir les snapshots sudo timeshift --list # Restaurer un snapshot # sudo timeshift --restore Pour démarrer Timeshift en mode graphique, il suffit d&amp;rsquo;exécuter la commande sudo timeshift-gtk.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Voici la procédure permettant d&amp;rsquo;installer Tensorflow 2 (RC2) sur Ubuntu 18.04 avec une carte graphique Nvidia GTX 1080 dans un eGPU Razer.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Avant de démarrer je conseille de faire un backup de votre machine. On n&amp;rsquo;est jamais trop prudent avec l&amp;rsquo;installation des Drivers. Cela prend 1 minutes et en cas de problème, vous pourrez faire un rollback en 2 minutes.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Créer un snapshot:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Installation de Timeshift&#xA;sudo apt-add-repository -y ppa:teejee2008/ppa &amp;amp;&amp;amp; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install timeshift&#xA;# Créer un snapshot &#xA;# sudo timeshift --create --comments &amp;#34;before cuda installation&amp;#34; --tags D&#xA;# Voir les snapshots&#xA;sudo timeshift --list&#xA;# Restaurer un snapshot &#xA;# sudo timeshift --restore&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Pour démarrer Timeshift en mode graphique, il suffit d&amp;rsquo;exécuter la commande &lt;code&gt;sudo timeshift-gtk&lt;/code&gt;. Timeshift est un bon outil mais ne permet pas les raids en backup destination. Je vais donc personnellement en recherche d&amp;rsquo;une alternative&amp;hellip;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Install Elasticsearch on Ubuntu 18.04 </title>
       <link>https://leandeep.com/install-elasticsearch-on-ubuntu-18.04/</link>
       <pubDate>Sat, 06 Jul 2019 11:01:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/install-elasticsearch-on-ubuntu-18.04/</guid>
-      <description>In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.
-Pré-requis Verify Java is installed:
-$ java -version openjdk version &amp;#34;11.0.3&amp;#34; 2019-04-16 OpenJDK Runtime Environment (build 11.0.3+7-Ubuntu-1ubuntu218.04.1) OpenJDK 64-Bit Server VM (build 11.0.3+7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing) Also verify the environment variable JAVA_HOME is set.
-echo $JAVA_HOME If the previous command return an empty string you need to set the environment variable in your ~/.</description>
+      <description>&lt;p&gt;In this article we are going to see how to install ElasticSearch as service on Ubuntu 18.04.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;p&gt;Verify Java is installed:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ java -version&#xA;openjdk version &amp;#34;11.0.3&amp;#34; 2019-04-16&#xA;OpenJDK Runtime Environment (build 11.0.3+7-Ubuntu-1ubuntu218.04.1)&#xA;OpenJDK 64-Bit Server VM (build 11.0.3+7-Ubuntu-1ubuntu218.04.1, mixed mode, sharing)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Also verify the environment variable &lt;code&gt;JAVA_HOME&lt;/code&gt; is set.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo $JAVA_HOME&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If the previous command return an empty string you need to set the environment variable in your &lt;code&gt;~/.zshrc&lt;/code&gt;. Add this line: &lt;code&gt;export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Install ohmyzsh on Ubuntu 18.04</title>
       <link>https://leandeep.com/install-ohmyzsh-on-ubuntu-18.04/</link>
       <pubDate>Fri, 05 Jul 2019 12:14:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/install-ohmyzsh-on-ubuntu-18.04/</guid>
-      <description>We are going to assume that nothing is installed on your Ubuntu. When I created this tutorial I installed ohmyzsh on a brand new Intel Nuc.
-Install Zsh sudo apt-get update sudo apt-get install -y zsh Install the custom fonts sudo apt-get install -y powerline fonts-powerline Install Git sudo apt-get install -y git Install ohmyzsh git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc Install custom theme Inside the ~/.zshrc file comment the line ZSH_THEME=&amp;quot;robbyrussell&amp;quot; and add this new line just below ZSH_THEME=&amp;quot;agnoster&amp;quot;.</description>
+      <description>&lt;p&gt;We are going to assume that nothing is installed on your Ubuntu. When I created this tutorial I installed ohmyzsh on a brand new Intel Nuc.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;install-zsh&#34;&gt;Install Zsh&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get update&#xA;sudo apt-get install -y zsh&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;install-the-custom-fonts&#34;&gt;Install the custom fonts&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get install -y powerline fonts-powerline&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;install-git&#34;&gt;Install Git&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get install -y git&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;install-ohmyzsh&#34;&gt;Install ohmyzsh&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh&#xA;cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;install-custom-theme&#34;&gt;Install custom theme&lt;/h2&gt;&#xA;&lt;p&gt;Inside the ~/.zshrc file comment the line &lt;code&gt;ZSH_THEME=&amp;quot;robbyrussell&amp;quot;&lt;/code&gt; and add this new line just below &lt;code&gt;ZSH_THEME=&amp;quot;agnoster&amp;quot;&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

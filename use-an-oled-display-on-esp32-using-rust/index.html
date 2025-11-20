@@ -11,7 +11,7 @@
 Prerequisites Connect the Oled display to the ESP32 board:
 Voici le branchement I2C entre ton ESP32 et l’écran :
 It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &amp;#34;0." />
+Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &#34;0.4&#34; anyhow = &#34;1.0&#34; esp-idf-hal = &#34;0.45.2&#34; esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } embedded-hal = &#34;1.0.0&#34; embedded-graphics = &#34;0.8.1&#34; ssd1306 = &#34;0.10.0&#34; Code use anyhow::anyhow; use esp_idf_hal::i2c::{I2cConfig, I2cDriver}; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use std::{thread, time::Duration}; // for .kHz() use embedded_graphics::{ mono_font::{ascii::FONT_6X10, MonoTextStyle}, pixelcolor::BinaryColor, prelude::*, text::Text, }; use ssd1306::{prelude::*, I2CDisplayInterface, Ssd1306}; fn main() -&gt; anyhow::Result&lt;()&gt; { let peripherals = Peripherals::take().unwrap(); let i2c = peripherals.i2c0; let sda = peripherals.pins.gpio21; let scl = peripherals.pins.gpio22; let config = I2cConfig::new().baudrate(400u32.kHz().into()); let i2c_driver = I2cDriver::new(i2c, sda, scl, &amp;config).map_err(|e| anyhow!(&#34;I2C init error: {:?}&#34;, e))?; let interface = I2CDisplayInterface::new(i2c_driver); let mut display = Ssd1306::new(interface, DisplaySize128x64, DisplayRotation::Rotate0) .into_buffered_graphics_mode(); display .init() .map_err(|e| anyhow!(&#34;Display init error: {:?}&#34;, e))?; display .flush() .map_err(|e| anyhow!(&#34;Flush error: {:?}&#34;, e))?; let style = MonoTextStyle::new(&amp;FONT_6X10, BinaryColor::On); Text::new(&#34;Hello Olivier !!!&#34;, Point::new(10, 32), style) .draw(&amp;mut display) .map_err(|e| anyhow!(&#34;Draw error: {:?}&#34;, e))?; display .flush() .map_err(|e| anyhow!(&#34;Final flush error: {:?}&#34;, e))?; loop { thread::sleep(Duration::from_millis(1000)); } } Build # cargo generate --git https://github.com/esp-rs/esp-idf-template cargo source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/oled --monitor " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -102,23 +102,26 @@ Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect S
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Use an Oled display on ESP32 using Rust">
-<meta itemprop="description" content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Rust.
-Prerequisites Connect the Oled display to the ESP32 board:
-Voici le branchement I2C entre ton ESP32 et l’écran :
-It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &#34;0."><meta itemprop="datePublished" content="2025-04-17T22:49:00+02:00" />
-<meta itemprop="dateModified" content="2025-04-17T22:49:00+02:00" />
-<meta itemprop="wordCount" content="243"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Rust,ESP32," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Use an Oled display on ESP32 using Rust"/>
-<meta name="twitter:description" content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Rust.
+  <meta itemprop="name" content="Use an Oled display on ESP32 using Rust">
+  <meta itemprop="description" content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Rust.
 Prerequisites Connect the Oled display to the ESP32 board:
 Voici le branchement I2C entre ton ESP32 et l’écran :
 It is an OLED (NFP1315-61AY)
-Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &#34;0."/>
+Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &#34;0.4&#34; anyhow = &#34;1.0&#34; esp-idf-hal = &#34;0.45.2&#34; esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } embedded-hal = &#34;1.0.0&#34; embedded-graphics = &#34;0.8.1&#34; ssd1306 = &#34;0.10.0&#34; Code use anyhow::anyhow; use esp_idf_hal::i2c::{I2cConfig, I2cDriver}; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use std::{thread, time::Duration}; // for .kHz() use embedded_graphics::{ mono_font::{ascii::FONT_6X10, MonoTextStyle}, pixelcolor::BinaryColor, prelude::*, text::Text, }; use ssd1306::{prelude::*, I2CDisplayInterface, Ssd1306}; fn main() -&gt; anyhow::Result&lt;()&gt; { let peripherals = Peripherals::take().unwrap(); let i2c = peripherals.i2c0; let sda = peripherals.pins.gpio21; let scl = peripherals.pins.gpio22; let config = I2cConfig::new().baudrate(400u32.kHz().into()); let i2c_driver = I2cDriver::new(i2c, sda, scl, &amp;config).map_err(|e| anyhow!(&#34;I2C init error: {:?}&#34;, e))?; let interface = I2CDisplayInterface::new(i2c_driver); let mut display = Ssd1306::new(interface, DisplaySize128x64, DisplayRotation::Rotate0) .into_buffered_graphics_mode(); display .init() .map_err(|e| anyhow!(&#34;Display init error: {:?}&#34;, e))?; display .flush() .map_err(|e| anyhow!(&#34;Flush error: {:?}&#34;, e))?; let style = MonoTextStyle::new(&amp;FONT_6X10, BinaryColor::On); Text::new(&#34;Hello Olivier !!!&#34;, Point::new(10, 32), style) .draw(&amp;mut display) .map_err(|e| anyhow!(&#34;Draw error: {:?}&#34;, e))?; display .flush() .map_err(|e| anyhow!(&#34;Final flush error: {:?}&#34;, e))?; loop { thread::sleep(Duration::from_millis(1000)); } } Build # cargo generate --git https://github.com/esp-rs/esp-idf-template cargo source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/oled --monitor">
+  <meta itemprop="datePublished" content="2025-04-17T22:49:00+02:00">
+  <meta itemprop="dateModified" content="2025-04-17T22:49:00+02:00">
+  <meta itemprop="wordCount" content="243">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Rust,ESP32">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Use an Oled display on ESP32 using Rust">
+  <meta name="twitter:description" content="In this article we are going to see how to connect and display some content on an Oled display connected via I2C on an ESP-Wroom-32. The code is written in Rust.
+Prerequisites Connect the Oled display to the ESP32 board:
+Voici le branchement I2C entre ton ESP32 et l’écran :
+It is an OLED (NFP1315-61AY)
+Connect VCC to 3.3V Of course connect GND to GND Connect SCL to GPIO22 Connect SDA to GPIO21 Dependencies [dependencies] log = &#34;0.4&#34; anyhow = &#34;1.0&#34; esp-idf-hal = &#34;0.45.2&#34; esp-idf-svc = { version = &#34;0.51&#34;, features = [&#34;critical-section&#34;, &#34;embassy-time-driver&#34;, &#34;embassy-sync&#34;] } embedded-hal = &#34;1.0.0&#34; embedded-graphics = &#34;0.8.1&#34; ssd1306 = &#34;0.10.0&#34; Code use anyhow::anyhow; use esp_idf_hal::i2c::{I2cConfig, I2cDriver}; use esp_idf_hal::peripherals::Peripherals; use esp_idf_hal::prelude::*; use std::{thread, time::Duration}; // for .kHz() use embedded_graphics::{ mono_font::{ascii::FONT_6X10, MonoTextStyle}, pixelcolor::BinaryColor, prelude::*, text::Text, }; use ssd1306::{prelude::*, I2CDisplayInterface, Ssd1306}; fn main() -&gt; anyhow::Result&lt;()&gt; { let peripherals = Peripherals::take().unwrap(); let i2c = peripherals.i2c0; let sda = peripherals.pins.gpio21; let scl = peripherals.pins.gpio22; let config = I2cConfig::new().baudrate(400u32.kHz().into()); let i2c_driver = I2cDriver::new(i2c, sda, scl, &amp;config).map_err(|e| anyhow!(&#34;I2C init error: {:?}&#34;, e))?; let interface = I2CDisplayInterface::new(i2c_driver); let mut display = Ssd1306::new(interface, DisplaySize128x64, DisplayRotation::Rotate0) .into_buffered_graphics_mode(); display .init() .map_err(|e| anyhow!(&#34;Display init error: {:?}&#34;, e))?; display .flush() .map_err(|e| anyhow!(&#34;Flush error: {:?}&#34;, e))?; let style = MonoTextStyle::new(&amp;FONT_6X10, BinaryColor::On); Text::new(&#34;Hello Olivier !!!&#34;, Point::new(10, 32), style) .draw(&amp;mut display) .map_err(|e| anyhow!(&#34;Draw error: {:?}&#34;, e))?; display .flush() .map_err(|e| anyhow!(&#34;Final flush error: {:?}&#34;, e))?; loop { thread::sleep(Duration::from_millis(1000)); } } Build # cargo generate --git https://github.com/esp-rs/esp-idf-template cargo source ~/export-esp.sh cargo build espflash flash target/xtensa-esp32-espidf/debug/oled --monitor">
 
 
 
@@ -347,7 +350,7 @@ espflash flash target/xtensa-esp32-espidf/debug/oled --monitor
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

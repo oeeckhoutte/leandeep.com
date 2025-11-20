@@ -4,19 +4,17 @@
     <title>Binance Smart Chain on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/binance-smart-chain/</link>
     <description>Recent content in Binance Smart Chain on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 24 Apr 2021 21:25:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/binance-smart-chain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Apr 2021 21:25:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/binance-smart-chain/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Faire tourner un noeud Binance Smart Chain</title>
       <link>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</link>
       <pubDate>Sat, 24 Apr 2021 21:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/faire-tourner-un-noeud-binance-smart-chain/</guid>
-      <description>Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux
-Mainnet mkdir ~/bsc &amp;amp;&amp;amp; cd $_ wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;#34; -f4) mv ./geth_linux ./geth_bsc # Note: you can eventually move the binary to /usr/bin/ sudo chmod +x ./geth_bsc ./geth_bsc --datadir node init genesis.json # Start the full Node ./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192 # Dans un autre terminal cd ~/bsc/node tail -f .</description>
+      <description>&lt;p&gt;Ce court article décrit comment faire tourner un noeud BSC (Binance Smart Chain) sur une machine Linux&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;mainnet&#34;&gt;Mainnet&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir ~/bsc &amp;amp;&amp;amp; cd $_&#xA;wget https://github.com/binance-chain/bsc/releases/download/v1.0.7/geth_linux&#xA;wget $(curl -s https://api.github.com/repos/binance-chain/bsc/releases/latest |grep browser_ |grep mainnet |cut -d\&amp;#34; -f4)&#xA;mv ./geth_linux ./geth_bsc&#xA;&#xA;# Note: you can eventually move the binary to /usr/bin/ &#xA;&#xA;sudo chmod +x ./geth_bsc&#xA;./geth_bsc --datadir node init genesis.json&#xA;&#xA;# Start the full Node&#xA;./geth_bsc --config ./config.toml --datadir ./node --pprofaddr 0.0.0.0 --metrics --pprof --verbosity 6 --nousb --cache=8192&#xA;&#xA;# Dans un autre terminal&#xA;cd ~/bsc/node&#xA;tail -f ./bsc.log&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;August 2021 Update&lt;/strong&gt;&lt;br/&gt;&lt;br/&gt;&#xA;BREAKING CHANGE: Non-EIP155 transactions (i.e. transactions which are not replay-protected) are now rejected by the RPC API. You can disable this restriction using the &amp;ndash;rpc.allow-unprotected-txs command-line flag.&lt;br/&gt;&lt;br/&gt;&#xA;&lt;code&gt;./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --txlookuplimit 0&lt;/code&gt;&#xA;&lt;br/&gt;&lt;br/&gt;&#xA;Ou dans mon cas:&lt;br/&gt;&#xA;&lt;code&gt;./geth_linux --config ./config.toml --datadir ./node  --cache 18000 --rpc.allow-unprotected-txs --http.api 8545 --http.addr 0.0.0.0 --http --ws --metrics --ws.addr 0.0.0.0 --verbosity 6  --txlookuplimit 0&lt;/code&gt;&#xA;&lt;br/&gt;&lt;br/&gt;&#xA;&lt;em&gt;I use geth-linux version 1.1.1&lt;/em&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

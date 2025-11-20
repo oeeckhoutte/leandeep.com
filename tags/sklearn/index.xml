@@ -1,44 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sklearn on Lean Deep Tech blog</title>
+    <title>Sklearn on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/sklearn/</link>
-    <description>Recent content in sklearn on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Sklearn on Lean Deep Tech blog</description>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 04 Feb 2019 21:23:04 -0700</lastBuildDate><atom:link href="https://leandeep.com/tags/sklearn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Feb 2019 21:23:04 -0700</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/sklearn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Détecter les données aberrantes (outliers)</title>
       <link>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes-outliers/</link>
       <pubDate>Mon, 04 Feb 2019 21:23:04 -0700</pubDate>
-      
       <guid>https://leandeep.com/d%C3%A9tecter-les-donn%C3%A9es-aberrantes-outliers/</guid>
-      <description>Pré-requis pip install numpy sklearn # va installer numpy 1.19.1 et sklearn 0.0 Charger les librairies import numpy as np from sklearn.covariance import EllipticEnvelope from sklearn.datasets import make_blobs Créer un faux dataset # Create simulated data X, _ = make_blobs(n_samples = 10, n_features = 2, centers = 1, random_state = 1) # Remplace les valeurs de la première observation avec des données extrèmes X[0,0] = 10000 X[0,1] = 10000 Voici à quoi ressemble notre dataset composé de 10 observations:</description>
+      <description>&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install numpy sklearn&#xA;# va installer numpy 1.19.1 et sklearn 0.0&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;charger-les-librairies&#34;&gt;Charger les librairies&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import numpy as np&#xA;from sklearn.covariance import EllipticEnvelope&#xA;from sklearn.datasets import make_blobs&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;créer-un-faux-dataset&#34;&gt;Créer un faux dataset&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Create simulated data&#xA;X, _ = make_blobs(n_samples = 10,&#xA;                  n_features = 2,&#xA;                  centers = 1,&#xA;                  random_state = 1)&#xA;&#xA;# Remplace les valeurs de la première observation avec des données extrèmes&#xA;X[0,0] = 10000&#xA;X[0,1] = 10000&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Voici à quoi ressemble notre dataset composé de 10 observations:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Convertir les données catégorielles en integer pour sklearn</title>
       <link>https://leandeep.com/convertir-les-donn%C3%A9es-cat%C3%A9gorielles-en-integer-pour-sklearn/</link>
       <pubDate>Sat, 02 Feb 2019 22:13:18 -0700</pubDate>
-      
       <guid>https://leandeep.com/convertir-les-donn%C3%A9es-cat%C3%A9gorielles-en-integer-pour-sklearn/</guid>
-      <description>Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&amp;rsquo;un faux dataset raw_data = { &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2], &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2], &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0], &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;] } df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.</description>
+      <description>&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install pandas sklearn&#xA;# va installer pandas 1.1.0 et sklearn 0.0&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;charger-les-librairies&#34;&gt;Charger les librairies&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from sklearn import preprocessing&#xA;import pandas as pd&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;création-dun-faux-dataset&#34;&gt;Création d&amp;rsquo;un faux dataset&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;raw_data = {&#xA;   &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2],&#xA;   &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2],&#xA;   &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0],&#xA;   &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;]&#xA;}&#xA;&#xA;df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;])&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;fit-the-label-encoder&#34;&gt;Fit the Label Encoder&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Créer un objet label (catégorie) encoder&#xA;le = preprocessing.LabelEncoder()&#xA;&#xA;# Remplir l&amp;#39;encoder avec la colonne pandas&#xA;le.fit(df[&amp;#39;state&amp;#39;])&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;voir-les-labels-debug&#34;&gt;Voir les labels (debug)&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;list(le.classes_)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;transformer-les-catégories-en-integers&#34;&gt;Transformer les catégories en integers&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Appliquer l&amp;#39;objet encoder rempli à la colonne Pandas&#xA;le.transform(df[&amp;#39;state&amp;#39;])&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Inverse: Transformer les integers en catégories: &lt;br/&gt;&#xA;&lt;code&gt;list(le.inverse_transform([2, 2, 1]))&lt;/code&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Commandes Python de base pour Sklearn (Régression, Classification, Régularisation)</title>
       <link>https://leandeep.com/commandes-python-de-base-pour-sklearn-r%C3%A9gression-classification-r%C3%A9gularisation/</link>
       <pubDate>Thu, 15 Oct 2015 22:34:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/commandes-python-de-base-pour-sklearn-r%C3%A9gression-classification-r%C3%A9gularisation/</guid>
-      <description>1. L&amp;rsquo;objet estimator Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &amp;ldquo;estimator&amp;rdquo;.
-Exemple pour une régression linéaire:
-from sklearn.linear_model import LinearRegression # Tous les paramètres pour configurer l&amp;#39;estimator peuvent être passé à l&amp;#39;objet lors de son instanciation model = LinearRegression(normalize=True) print(model) Résultat:
-LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True) L&amp;rsquo;interface des méthodes de scikit-learn sont uniformes.
-Pour tous les estimators:
-model.fit() : remplit le modèle avec des données d&amp;rsquo;entrainement.</description>
+      <description>&lt;h1 id=&#34;1-lobjet-estimator&#34;&gt;1. L&amp;rsquo;objet &lt;em&gt;estimator&lt;/em&gt;&lt;/h1&gt;&#xA;&lt;p&gt;Dans Scikit les algorithmes de Machine Learning sont exposés via des objets appelés &lt;em&gt;&amp;ldquo;estimator&amp;rdquo;&lt;/em&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Exemple pour une régression linéaire:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from sklearn.linear_model import LinearRegression&#xA;&#xA;# Tous les paramètres pour configurer l&amp;#39;estimator peuvent être passé à l&amp;#39;objet lors de son instanciation&#xA;model = LinearRegression(normalize=True)&#xA;&#xA;print(model)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Résultat:&lt;/em&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=True)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;L&amp;rsquo;interface des méthodes de scikit-learn sont uniformes.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pour tous les &lt;em&gt;estimators&lt;/em&gt;:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;model.fit() : remplit le modèle avec des données d&amp;rsquo;entrainement. Pour un apprentissage supervisé, la méthode accepte 2 arguments: les données X et les labels y (i.e. model.fit(X, y)). Pour une apprentissage non supervisé, la méthode ne prend qu&amp;rsquo;un seul arguement, les données X (i.e. model.fit(X)).&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pour les &lt;em&gt;estimators&lt;/em&gt; en apprentissage supervisé:&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

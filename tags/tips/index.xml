@@ -1,129 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tips on Lean Deep Tech blog</title>
+    <title>Tips on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/tips/</link>
-    <description>Recent content in tips on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Tips on Lean Deep Tech blog</description>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 19 Jul 2025 10:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jul 2025 10:49:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installer direnv sur Ubuntu 22</title>
       <link>https://leandeep.com/installer-direnv-sur-ubuntu-22/</link>
       <pubDate>Sat, 19 Jul 2025 10:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-direnv-sur-ubuntu-22/</guid>
-      <description>Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.
-Installation sudo apt install direnv curl https://pyenv.run | bash Configuration Ajouter les lignes suivantes dans votre .zshrc
-export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34; export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34; eval &amp;#34;$(pyenv init --path)&amp;#34; eval &amp;#34;$(pyenv init -)&amp;#34; eval &amp;#34;$(direnv hook zsh)&amp;#34; Exécuter soure ~/.zshrc puis installer un package python de votre choix.
-pyenv install 3.11.8 pyenv global 3.11.8 # Ou pyenv install miniconda3-3.11-23.5.0-3 pyenv global miniconda3-3.</description>
+      <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install direnv&#xA;curl https://pyenv.run | bash&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;p&gt;Ajouter les lignes suivantes dans votre &lt;code&gt;.zshrc&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&#xA;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&#xA;eval &amp;#34;$(pyenv init --path)&amp;#34;&#xA;eval &amp;#34;$(pyenv init -)&amp;#34;&#xA;eval &amp;#34;$(direnv hook zsh)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exécuter &lt;code&gt;soure ~/.zshrc&lt;/code&gt; puis installer un package python de votre choix.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv install 3.11.8&#xA;pyenv global 3.11.8&#xA;&#xA;# Ou &#xA;pyenv install miniconda3-3.11-23.5.0-3&#xA;pyenv global miniconda3-3.11-23.5.0-3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;That&amp;rsquo;s all!&#xA;Vous pouvez maintenant exécuter &lt;code&gt;echo &amp;quot;layout pyenv 3.11.8&amp;quot; &amp;gt;&amp;gt; .envrc&lt;/code&gt; où vous voulez&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Identify path to stop docker compose</title>
       <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
       <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
-      <description>Very quick tip on how to identify the directory from which a docker compose command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).
-# Retrieve container ID docker ps docker inspect \ --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \ 0e6194178cf0 /Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg </description>
+      <description>&lt;p&gt;Very quick tip on how to identify the directory from which a &lt;code&gt;docker compose&lt;/code&gt; command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Retrieve container ID&#xA;docker ps &#xA;&#xA;docker inspect \&#xA;  --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \&#xA;  0e6194178cf0&#xA;/Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Get GPS coordinates on ESP32 using basic Arduino code</title>
       <link>https://leandeep.com/get-gps-coordinates-on-esp32-using-basic-arduino-code/</link>
       <pubDate>Wed, 02 Apr 2025 20:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/get-gps-coordinates-on-esp32-using-basic-arduino-code/</guid>
-      <description>In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.
-Connect the NEO-6M GPS module to the ESP32 Then create an Arduino program and deploy it to the ESP-wroom-32.
-arduino-cli sketch new arduino-gps cd arduino-gps/ Edit the arduino-gps.ino file and add the following content:
-#define RXD2 16 #define TXD2 17 #define GPS_BAUD 9600 // Create an instance of the HardwareSerial class for Serial 2 HardwareSerial gpsSerial(2); void setup(){ // Serial Monitor Serial.</description>
+      <description>&lt;p&gt;In this article we are going to see how to retrieve NMEA sentences from a GPS module NEO-6M connected to an ESP32.&lt;/p&gt;&#xA;&lt;p&gt;&lt;br/&gt;&#xA;Connect the NEO-6M GPS module to the ESP32&#xA;&lt;br/&gt;&#xA;Then create an Arduino program and deploy it to the ESP-wroom-32.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;arduino-cli sketch new arduino-gps&#xA;cd arduino-gps/&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;Edit the arduino-gps.ino file and add the following content:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define RXD2 16&#xA;#define TXD2 17&#xA;&#xA;#define GPS_BAUD 9600&#xA;&#xA;// Create an instance of the HardwareSerial class for Serial 2&#xA;HardwareSerial gpsSerial(2);&#xA;&#xA;void setup(){&#xA;  // Serial Monitor&#xA;  Serial.begin(115200);&#xA;&#xA;  // Start Serial 2 with the defined RX and TX pins and a baud rate of 9600&#xA;  gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2);&#xA;  Serial.println(&amp;#34;Serial 2 started at 9600 baud rate&amp;#34;);&#xA;}&#xA;&#xA;void loop(){&#xA;  while (gpsSerial.available() &amp;gt; 0){&#xA;    // get the byte data from the GPS&#xA;    char gpsData = gpsSerial.read();&#xA;    Serial.print(gpsData);&#xA;  }&#xA;  delay(1000);&#xA;  Serial.println(&amp;#34;-------------------------------&amp;#34;);&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;Compile and deploy:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer code server sur Ubuntu 22</title>
       <link>https://leandeep.com/installer-code-server-sur-ubuntu-22/</link>
       <pubDate>Fri, 28 Mar 2025 10:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-code-server-sur-ubuntu-22/</guid>
-      <description>Dans cet article très court, nous allons voir comment installer code-server sur Linux. Code-server est un vscode en remote.
-Installation Rendez-vous sur https://github.com/coder/code-server/releases pour sélectionner la version que vous souhaitez installer.
-export VERSION=4.102.1 # Sur Fedora curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm sudo rpm -i code-server-$VERSION-amd64.rpm # Sur Ubuntu 22 wget https://github.com/coder/code-server/releases/download/v4.102.1/code-server_4.102.1_amd64.deb sudo dpkg -i code-server_4.102.1_amd64.deb sudo systemctl enable --now code-server@$USER Configuration Editer le fichier de config ~/.config/code-server/config.yaml pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server.</description>
+      <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer code-server sur Linux. Code-server est un vscode en remote.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;Rendez-vous sur &lt;a href=&#34;https://github.com/coder/code-server/releases&#34;&gt;https://github.com/coder/code-server/releases&lt;/a&gt; pour sélectionner la version que vous souhaitez installer.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export VERSION=4.102.1&#xA;# Sur Fedora&#xA;curl -fOL https://github.com/coder/code-server/releases/download/v$VERSION/code-server-$VERSION-amd64.rpm&#xA;sudo rpm -i code-server-$VERSION-amd64.rpm&#xA;# Sur Ubuntu 22&#xA;wget https://github.com/coder/code-server/releases/download/v4.102.1/code-server_4.102.1_amd64.deb&#xA;sudo dpkg -i code-server_4.102.1_amd64.deb&#xA;sudo systemctl enable --now code-server@$USER&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;p&gt;Editer le fichier de config &lt;code&gt;~/.config/code-server/config.yaml&lt;/code&gt; pour activer l&amp;rsquo;utilisation d&amp;rsquo;un certificat HTTPS (même en local) et récupérez le mot de passe d&amp;rsquo;accès à votre instance code-server.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Arduino cli Ubuntu 22</title>
       <link>https://leandeep.com/installer-arduino-cli-ubuntu-22/</link>
       <pubDate>Fri, 28 Mar 2025 09:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-arduino-cli-ubuntu-22/</guid>
-      <description>Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.
-Installation mkdir -p ~/local/bin curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh echo &amp;#39;export PATH=&amp;#34;$HOME/local/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc source ~/.bashrc arduino-cli version arduino-cli core update-index arduino-cli core install esp32:esp32 arduino-cli sketch new mon_projet_esp32_arduino arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino Test Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .</description>
+      <description>&lt;p&gt;Dans ce nouvel article très court, nous allons voir comment créer un projet Arduino, le compiler et le déployer sur un ESP en ligne de commande.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir -p ~/local/bin&#xA;curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh&#xA;echo &amp;#39;export PATH=&amp;#34;$HOME/local/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&#xA;source ~/.bashrc&#xA;arduino-cli version&#xA;&#xA;&#xA;arduino-cli core update-index&#xA;arduino-cli core install esp32:esp32&#xA;arduino-cli sketch new mon_projet_esp32_arduino&#xA;arduino-cli compile --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino&#xA;arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 mon_projet_esp32_arduino&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;&#xA;&lt;p&gt;Ouvrir le projet Arduino mon_projet_esp32_arduino et modifier le fichier .ino.&#xA;Insérer le code suivant:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer quickemu sur Ubuntu 22.04</title>
       <link>https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/</link>
       <pubDate>Fri, 07 Feb 2025 07:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/</guid>
-      <description>Dans cet article, nous allons voir comment installer Quickemu sur Ubuntu 22.04 pour créer des VM sur Ubuntu.
-Installation de quickemu
-# check if python3 is installed # python3 --version # sudo apt install python3 # si nécessaire sudo apt install qemu bash coreutils ovmf grep jq lsb procps genisoimage usbutils util-linux sed spice-client-gtk swtpm wget xdg-user-dirs zsync unzip sudo apt-add-repository ppa:flexiondotorg/quickemu sudo apt update sudo apt install quickemu Installation du GUI</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment installer Quickemu sur Ubuntu 22.04 pour créer des VM sur Ubuntu.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de quickemu&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# check if python3 is installed &#xA;# python3 --version&#xA;# sudo apt install python3 # si nécessaire&#xA;sudo apt install qemu bash coreutils ovmf grep jq lsb procps genisoimage usbutils util-linux sed spice-client-gtk swtpm wget xdg-user-dirs zsync unzip&#xA;&#xA;sudo apt-add-repository ppa:flexiondotorg/quickemu&#xA;sudo apt update&#xA;sudo apt install quickemu&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation du GUI&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Hashcat sur Fedora 41</title>
       <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
       <pubDate>Sat, 25 Jan 2025 22:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-hashcat-sur-fedora-41/</guid>
-      <description>Installation
-sudo dnf install hashcat hashcat-devel hashcat-doc Vérifier si votre GPU est détecté
-hashcat -I Réaliser un benchmark
-hashcat -b Faire un test avec un hash MD5
-wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \ &amp;amp;&amp;amp; unzip SecList.zip \ &amp;amp;&amp;amp; rm -f SecList.zip echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt </description>
+      <description>&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dnf install hashcat hashcat-devel hashcat-doc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vérifier si votre GPU est détecté&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hashcat -I&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Réaliser un benchmark&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hashcat -b&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Faire un test avec un hash MD5&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \&#xA;  &amp;amp;&amp;amp; unzip SecList.zip \&#xA;  &amp;amp;&amp;amp; rm -f SecList.zip&#xA;&#xA;echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash&#xA;hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Fixer une IP avec Pfsense</title>
       <link>https://leandeep.com/fixer-une-ip-avec-pfsense/</link>
       <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/fixer-une-ip-avec-pfsense/</guid>
-      <description>Configurer une IP fixe dans pfSense
-Allez dans Services &amp;gt; DHCP Server. Sélectionnez l&amp;rsquo;interface correspondante (par exemple, LAN). Ajouter une réservation DHCP : Descendez jusqu&amp;rsquo;à la section DHCP Static Mappings for this Interface. Cliquez sur Add (+). Configurer les détails de la réservation : MAC Address : Entrez l&amp;rsquo;adresse MAC de l&amp;rsquo;appareil. IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Configurer une IP fixe dans pfSense&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Allez dans &lt;code&gt;Services &amp;gt; DHCP Server&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Sélectionnez l&amp;rsquo;interface correspondante (par exemple, LAN).&lt;/li&gt;&#xA;&lt;li&gt;Ajouter une réservation DHCP :&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Descendez jusqu&amp;rsquo;à la section &lt;code&gt;DHCP Static Mappings for this Interface&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Cliquez sur Add (+).&lt;/li&gt;&#xA;&lt;li&gt;Configurer les détails de la réservation :&#xA;&lt;ul&gt;&#xA;&lt;li&gt;MAC Address : Entrez l&amp;rsquo;adresse MAC de l&amp;rsquo;appareil.&lt;/li&gt;&#xA;&lt;li&gt;IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Save&lt;/li&gt;&#xA;&lt;li&gt;Appliquer&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Surveiller et redémarrer un script Python dès qu&#39;un fichier est modifié</title>
       <link>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</link>
       <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
-      <description>On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:
-Pré-requis pip install watchdog
-Créer un script de surveillance Tracker un fichier.py
-Créer par exemple un fichier appelé run_and_reload.py
-import time import os import sys import argparse from watchdog.observers import Observer from watchdog.events import FileSystemEventHandler class TargetFileHandler(FileSystemEventHandler): def __init__(self, target_file): self.target_file = os.path.abspath(target_file) def on_modified(self, event): if os.</description>
+      <description>&lt;p&gt;On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:&lt;/p&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;pip install watchdog&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;créer-un-script-de-surveillance&#34;&gt;Créer un script de surveillance&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tracker un fichier.py&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Créer par exemple un fichier appelé &lt;code&gt;run_and_reload.py&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import time&#xA;import os&#xA;import sys&#xA;import argparse&#xA;from watchdog.observers import Observer&#xA;from watchdog.events import FileSystemEventHandler&#xA;&#xA;class TargetFileHandler(FileSystemEventHandler):&#xA;    def __init__(self, target_file):&#xA;        self.target_file = os.path.abspath(target_file)&#xA;&#xA;    def on_modified(self, event):&#xA;        if os.path.abspath(event.src_path) == self.target_file:&#xA;            print(f&amp;#34;[MODIFIED] {event.src_path}&amp;#34;)&#xA;&#xA;    def on_deleted(self, event):&#xA;        if os.path.abspath(event.src_path) == self.target_file:&#xA;            print(f&amp;#34;[DELETED] {event.src_path}&amp;#34;)&#xA;&#xA;    def on_created(self, event):&#xA;        if os.path.abspath(event.src_path) == self.target_file:&#xA;            print(f&amp;#34;[CREATED] {event.src_path}&amp;#34;)&#xA;&#xA;def main():&#xA;    parser = argparse.ArgumentParser(description=&amp;#34;Monitor a .py file for changes.&amp;#34;)&#xA;    parser.add_argument(&amp;#34;file&amp;#34;, help=&amp;#34;Path to the .py file to monitor&amp;#34;)&#xA;    parser.add_argument(&amp;#34;-d&amp;#34;, &amp;#34;--directory&amp;#34;, help=&amp;#34;Directory to monitor (default: file&amp;#39;s directory)&amp;#34;)&#xA;&#xA;    args = parser.parse_args()&#xA;&#xA;    file_path = os.path.abspath(args.file)&#xA;&#xA;    if not os.path.isfile(file_path):&#xA;        print(f&amp;#34;Error: File &amp;#39;{file_path}&amp;#39; does not exist.&amp;#34;)&#xA;        sys.exit(1)&#xA;&#xA;    # Use the provided directory or fallback to the file&amp;#39;s directory&#xA;    directory_to_watch = os.path.abspath(args.directory) if args.directory else os.path.dirname(file_path)&#xA;&#xA;    if not os.path.isdir(directory_to_watch):&#xA;        print(f&amp;#34;Error: Directory &amp;#39;{directory_to_watch}&amp;#39; does not exist.&amp;#34;)&#xA;        sys.exit(1)&#xA;&#xA;    event_handler = TargetFileHandler(file_path)&#xA;    observer = Observer()&#xA;    observer.schedule(event_handler, path=directory_to_watch, recursive=False)&#xA;    observer.start()&#xA;&#xA;    print(f&amp;#34;⏳ Monitoring: {file_path}&amp;#34;)&#xA;    print(f&amp;#34;📁 Watched directory: {directory_to_watch}&amp;#34;)&#xA;    print(&amp;#34;🔔 Press Ctrl+C to stop&amp;#34;)&#xA;&#xA;    try:&#xA;        while True:&#xA;            time.sleep(1)&#xA;    except KeyboardInterrupt:&#xA;        observer.stop()&#xA;        print(&amp;#34;\nStopping monitor...&amp;#34;)&#xA;&#xA;    observer.join()&#xA;&#xA;if __name__ == &amp;#34;__main__&amp;#34;:&#xA;    main()&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Usage:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Tailscale sur Fedora</title>
       <link>https://leandeep.com/installer-tailscale-sur-fedora/</link>
       <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-tailscale-sur-fedora/</guid>
-      <description>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.
-Installer Tailscale
-sudo dnf install tailscale Démarrer et activer Tailscale
-sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
-Editer le fichier sudo vim /etc/sysctl.conf:
-net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
-sudo sysctl -p Lancer l&amp;rsquo;authentification</description>
+      <description>&lt;p&gt;Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installer Tailscale&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dnf install tailscale&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Démarrer et activer Tailscale&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl start tailscaled&#xA;sudo systemctl enable tailscaled&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Connecter votre desktop à Tailscale&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Editer le fichier &lt;code&gt;sudo vim /etc/sysctl.conf&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;net.ipv4.ip_forward = 1&#xA;net.ipv6.conf.all.forwarding = 1&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Et appliquer les changements:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo sysctl -p&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Lancer l&amp;rsquo;authentification&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo tailscale up --advertise-exit-node&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Troubleshooting&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

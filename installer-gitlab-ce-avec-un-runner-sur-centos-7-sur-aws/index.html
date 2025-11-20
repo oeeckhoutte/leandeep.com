@@ -8,7 +8,8 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&amp;#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&amp;#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages." />
+Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash # Installer Gitlab yum -y install gitlab-ce Configuration du DNS en HTTPS Gitlab est maintenant installé. Pour configurer un DNS et du HTTPS, voici ce qu&rsquo;il faut modifier dans le fichier /etc/gitlab/gitlab.rb.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ Installation de Gitlab CE yum update yum -y install curl vim policycoreutils ope
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer Gitlab CE avec un runner sur Centos 7 sur AWS">
-<meta itemprop="description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages."><meta itemprop="datePublished" content="2019-09-02T21:21:00+00:00" />
-<meta itemprop="dateModified" content="2019-09-02T21:21:00+00:00" />
-<meta itemprop="wordCount" content="287"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Centos7,Gitlab,AWS," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer Gitlab CE avec un runner sur Centos 7 sur AWS"/>
-<meta name="twitter:description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages."/>
+  <meta itemprop="name" content="Installer Gitlab CE avec un runner sur Centos 7 sur AWS">
+  <meta itemprop="description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
+Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash # Installer Gitlab yum -y install gitlab-ce Configuration du DNS en HTTPS Gitlab est maintenant installé. Pour configurer un DNS et du HTTPS, voici ce qu’il faut modifier dans le fichier /etc/gitlab/gitlab.rb.">
+  <meta itemprop="datePublished" content="2019-09-02T21:21:00+00:00">
+  <meta itemprop="dateModified" content="2019-09-02T21:21:00+00:00">
+  <meta itemprop="wordCount" content="287">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Centos7,Gitlab,AWS">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Installer Gitlab CE avec un runner sur Centos 7 sur AWS">
+  <meta name="twitter:description" content="Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
+Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash # Installer Gitlab yum -y install gitlab-ce Configuration du DNS en HTTPS Gitlab est maintenant installé. Pour configurer un DNS et du HTTPS, voici ce qu’il faut modifier dans le fichier /etc/gitlab/gitlab.rb.">
 
 
 
@@ -304,7 +308,7 @@ gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runn
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

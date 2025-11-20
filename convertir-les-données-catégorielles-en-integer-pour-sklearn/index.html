@@ -5,9 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author"
-  content="Olivier Eeckhoutte ">
+  content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&amp;rsquo;un faux dataset raw_data = { &amp;#39;patient&amp;#39;: [1, 1, 1, 2, 2], &amp;#39;observation&amp;#39;: [1, 2, 3, 1, 2], &amp;#39;traitement&amp;#39;: [0, 1, 0, 1, 0], &amp;#39;etat&amp;#39;: [&amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;, &amp;#39;zombie&amp;#39;, &amp;#39;vivant&amp;#39;, &amp;#39;mort&amp;#39;] } df = pd.DataFrame(raw_data, columns = [&amp;#39;patient&amp;#39;, &amp;#39;observation&amp;#39;, &amp;#39;traitement&amp;#39;, &amp;#39;etat&amp;#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing." />
+  content="Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&rsquo;un faux dataset raw_data = { &#39;patient&#39;: [1, 1, 1, 2, 2], &#39;observation&#39;: [1, 2, 3, 1, 2], &#39;traitement&#39;: [0, 1, 0, 1, 0], &#39;etat&#39;: [&#39;vivant&#39;, &#39;mort&#39;, &#39;zombie&#39;, &#39;vivant&#39;, &#39;mort&#39;] } df = pd.DataFrame(raw_data, columns = [&#39;patient&#39;, &#39;observation&#39;, &#39;traitement&#39;, &#39;etat&#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.LabelEncoder() # Remplir l&#39;encoder avec la colonne pandas le.fit(df[&#39;state&#39;]) Voir les labels (debug) list(le.classes_) Transformer les catégories en integers # Appliquer l&#39;objet encoder rempli à la colonne Pandas le.transform(df[&#39;state&#39;]) Inverse: Transformer les integers en catégories: list(le.inverse_transform([2, 2, 1]))
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -98,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Convertir les données catégorielles en integer pour sklearn">
-<meta itemprop="description" content="Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&rsquo;un faux dataset raw_data = { &#39;patient&#39;: [1, 1, 1, 2, 2], &#39;observation&#39;: [1, 2, 3, 1, 2], &#39;traitement&#39;: [0, 1, 0, 1, 0], &#39;etat&#39;: [&#39;vivant&#39;, &#39;mort&#39;, &#39;zombie&#39;, &#39;vivant&#39;, &#39;mort&#39;] } df = pd.DataFrame(raw_data, columns = [&#39;patient&#39;, &#39;observation&#39;, &#39;traitement&#39;, &#39;etat&#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing."><meta itemprop="datePublished" content="2019-02-02T22:13:18-07:00" />
-<meta itemprop="dateModified" content="2019-02-02T22:13:18-07:00" />
-<meta itemprop="wordCount" content="116"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="pandas,tips,ml_tips,sklearn," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Convertir les données catégorielles en integer pour sklearn"/>
-<meta name="twitter:description" content="Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d&rsquo;un faux dataset raw_data = { &#39;patient&#39;: [1, 1, 1, 2, 2], &#39;observation&#39;: [1, 2, 3, 1, 2], &#39;traitement&#39;: [0, 1, 0, 1, 0], &#39;etat&#39;: [&#39;vivant&#39;, &#39;mort&#39;, &#39;zombie&#39;, &#39;vivant&#39;, &#39;mort&#39;] } df = pd.DataFrame(raw_data, columns = [&#39;patient&#39;, &#39;observation&#39;, &#39;traitement&#39;, &#39;etat&#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing."/>
+  <meta itemprop="name" content="Convertir les données catégorielles en integer pour sklearn">
+  <meta itemprop="description" content="Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d’un faux dataset raw_data = { &#39;patient&#39;: [1, 1, 1, 2, 2], &#39;observation&#39;: [1, 2, 3, 1, 2], &#39;traitement&#39;: [0, 1, 0, 1, 0], &#39;etat&#39;: [&#39;vivant&#39;, &#39;mort&#39;, &#39;zombie&#39;, &#39;vivant&#39;, &#39;mort&#39;] } df = pd.DataFrame(raw_data, columns = [&#39;patient&#39;, &#39;observation&#39;, &#39;traitement&#39;, &#39;etat&#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.LabelEncoder() # Remplir l&#39;encoder avec la colonne pandas le.fit(df[&#39;state&#39;]) Voir les labels (debug) list(le.classes_) Transformer les catégories en integers # Appliquer l&#39;objet encoder rempli à la colonne Pandas le.transform(df[&#39;state&#39;]) Inverse: Transformer les integers en catégories: list(le.inverse_transform([2, 2, 1]))">
+  <meta itemprop="datePublished" content="2019-02-02T22:13:18-07:00">
+  <meta itemprop="dateModified" content="2019-02-02T22:13:18-07:00">
+  <meta itemprop="wordCount" content="116">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Pandas,Tips,Ml_tips,Sklearn">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Convertir les données catégorielles en integer pour sklearn">
+  <meta name="twitter:description" content="Pré-requis pip install pandas sklearn # va installer pandas 1.1.0 et sklearn 0.0 Charger les librairies from sklearn import preprocessing import pandas as pd Création d’un faux dataset raw_data = { &#39;patient&#39;: [1, 1, 1, 2, 2], &#39;observation&#39;: [1, 2, 3, 1, 2], &#39;traitement&#39;: [0, 1, 0, 1, 0], &#39;etat&#39;: [&#39;vivant&#39;, &#39;mort&#39;, &#39;zombie&#39;, &#39;vivant&#39;, &#39;mort&#39;] } df = pd.DataFrame(raw_data, columns = [&#39;patient&#39;, &#39;observation&#39;, &#39;traitement&#39;, &#39;etat&#39;]) Fit the Label Encoder # Créer un objet label (catégorie) encoder le = preprocessing.LabelEncoder() # Remplir l&#39;encoder avec la colonne pandas le.fit(df[&#39;state&#39;]) Voir les labels (debug) list(le.classes_) Transformer les catégories en integers # Appliquer l&#39;objet encoder rempli à la colonne Pandas le.transform(df[&#39;state&#39;]) Inverse: Transformer les integers en catégories: list(le.inverse_transform([2, 2, 1]))">
 
 
 
@@ -216,8 +220,7 @@ le.transform(df[&#39;state&#39;])
 </code></pre><br/>
 <blockquote>
 <p>Inverse: Transformer les integers en catégories: <br/>
-<code>list(le.inverse_transform([2, 2, 1]))</code></p>
-</blockquote>
+<code>list(le.inverse_transform([2, 2, 1]))</code></p></blockquote>
 
             </div>
         </article>
@@ -291,7 +294,7 @@ le.transform(df[&#39;state&#39;])
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

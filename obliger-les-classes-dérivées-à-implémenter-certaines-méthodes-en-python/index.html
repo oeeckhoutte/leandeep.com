@@ -7,9 +7,10 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Pour être notifié dès l&amp;rsquo;instanciation d&amp;rsquo;une classe que des méthodes n&amp;rsquo;ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
+  content="Pour être notifié dès l&rsquo;instanciation d&rsquo;une classe que des méthodes n&rsquo;ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
 Exemple:
-from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &amp;#34;Can&amp;#39;t instantiate abstract class Concrete with abstract methods bar&amp;#34; Sans le module ABC n&amp;rsquo;avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée." />
+from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &#34;Can&#39;t instantiate abstract class Concrete with abstract methods bar&#34; Sans le module ABC n&rsquo;avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée. Avec ABC on est alerté dès l&rsquo;instanciation de la classe que la méthode n&rsquo;existe pas.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +101,22 @@ from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstract
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Obliger les classes dérivées à implémenter certaines méthodes en Python">
-<meta itemprop="description" content="Pour être notifié dès l&rsquo;instanciation d&rsquo;une classe que des méthodes n&rsquo;ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
-Exemple:
-from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &#34;Can&#39;t instantiate abstract class Concrete with abstract methods bar&#34; Sans le module ABC n&rsquo;avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée."><meta itemprop="datePublished" content="2012-10-29T21:12:00+00:00" />
-<meta itemprop="dateModified" content="2012-10-29T21:12:00+00:00" />
-<meta itemprop="wordCount" content="137"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python,POO," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Obliger les classes dérivées à implémenter certaines méthodes en Python"/>
-<meta name="twitter:description" content="Pour être notifié dès l&rsquo;instanciation d&rsquo;une classe que des méthodes n&rsquo;ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
+  <meta itemprop="name" content="Obliger les classes dérivées à implémenter certaines méthodes en Python">
+  <meta itemprop="description" content="Pour être notifié dès l’instanciation d’une classe que des méthodes n’ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
 Exemple:
-from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &#34;Can&#39;t instantiate abstract class Concrete with abstract methods bar&#34; Sans le module ABC n&rsquo;avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée."/>
+from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &#34;Can&#39;t instantiate abstract class Concrete with abstract methods bar&#34; Sans le module ABC n’avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée. Avec ABC on est alerté dès l’instanciation de la classe que la méthode n’existe pas.">
+  <meta itemprop="datePublished" content="2012-10-29T21:12:00+00:00">
+  <meta itemprop="dateModified" content="2012-10-29T21:12:00+00:00">
+  <meta itemprop="wordCount" content="137">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,POO">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Obliger les classes dérivées à implémenter certaines méthodes en Python">
+  <meta name="twitter:description" content="Pour être notifié dès l’instanciation d’une classe que des méthodes n’ont pas été implémentées on peut utiliser le module ABC (Abstract Base Classes). On crée alors avec le module ABC une classe de base dont on va se servir pour dériver notre sous-classe. Dans la classe de base on créera des méthodes abstraites à implémenter dans la sous-classe.
+Exemple:
+from abc import ABCMeta, abstractmethod class Base(metaclass=ABCMeta): @abstractmethod def foo(self): pass @abstractmethod def bar(self): pass class Concrete(Base): def foo(self): pass # on ne déclare pas bar() volontairement assert issubclass(Concrete, Base) c = Concrete() TypeError: &#34;Can&#39;t instantiate abstract class Concrete with abstract methods bar&#34; Sans le module ABC n’avait pas été présent, on aurait obtenu NotImplementedError si une méthode non implémentée avait été appelée. Avec ABC on est alerté dès l’instanciation de la classe que la méthode n’existe pas.">
 
 
 
@@ -213,8 +217,7 @@ TypeError:
 &#34;Can&#39;t instantiate abstract class Concrete with abstract methods bar&#34;
 </code></pre><blockquote>
 <p>Sans le module <code>ABC</code> n&rsquo;avait pas été présent, on aurait obtenu <code>NotImplementedError</code> si une méthode non implémentée avait été appelée.
-Avec <code>ABC</code> on est alerté dès l&rsquo;instanciation de la classe que la méthode n&rsquo;existe pas.</p>
-</blockquote>
+Avec <code>ABC</code> on est alerté dès l&rsquo;instanciation de la classe que la méthode n&rsquo;existe pas.</p></blockquote>
 
             </div>
         </article>
@@ -288,7 +291,7 @@ Avec <code>ABC</code> on est alerté dès l&rsquo;instanciation de la classe que
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

@@ -7,7 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Sauvegarde d&amp;rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&amp;rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&amp;rsquo;ayant pas de disque sous la main, j&amp;rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac." />
+  content="Sauvegarde d&rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac. Oubliez les transfers via SMB ou AFT trop long. L&rsquo;indexation des fichiers peut en effet prendre plusieurs jours. J&rsquo;ai fait le backup via rsync avec des commandes comme celle ci: rsync --partial -r --progress admin@NAS_oliviere.local:/volume1/photo /Volumes/USB/Synology. Je m&rsquo;étais d&rsquo;abord connecté en SSH pour lister les répertoires à backuper via la commande: ssh -p 28 admin@nas_oliviere.local. Cela m&rsquo;a quand même pris 2 jours pour tout copier malgré une connexion en direct du Mac vers le Synology&hellip;
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -98,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology">
-<meta itemprop="description" content="Sauvegarde d&rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac."><meta itemprop="datePublished" content="2021-12-18T20:49:00+02:00" />
-<meta itemprop="dateModified" content="2021-12-18T20:49:00+02:00" />
-<meta itemprop="wordCount" content="437"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="OSX," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology"/>
-<meta name="twitter:description" content="Sauvegarde d&rsquo;un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s&rsquo;est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N&rsquo;ayant pas de disque sous la main, j&rsquo;ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac."/>
+  <meta itemprop="name" content="Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology">
+  <meta itemprop="description" content="Sauvegarde d’un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s’est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N’ayant pas de disque sous la main, j’ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac. Oubliez les transfers via SMB ou AFT trop long. L’indexation des fichiers peut en effet prendre plusieurs jours. J’ai fait le backup via rsync avec des commandes comme celle ci: rsync --partial -r --progress admin@NAS_oliviere.local:/volume1/photo /Volumes/USB/Synology. Je m’étais d’abord connecté en SSH pour lister les répertoires à backuper via la commande: ssh -p 28 admin@nas_oliviere.local. Cela m’a quand même pris 2 jours pour tout copier malgré une connexion en direct du Mac vers le Synology…">
+  <meta itemprop="datePublished" content="2021-12-18T20:49:00+02:00">
+  <meta itemprop="dateModified" content="2021-12-18T20:49:00+02:00">
+  <meta itemprop="wordCount" content="437">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="OSX">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Forcer le mountage d&#39;un disque dur externe mal éjecté et plus détecté sur Mac OSX et backup Synology">
+  <meta name="twitter:description" content="Sauvegarde d’un Synlogy en PLS La semaine dernière mon Synology de 2 disques DS213 s’est mis à biper sans arrêt car un des disques du RAID était HS. Quand cela arrive, il faut remplacer le disque défectueux afin que les données perdues soient reconstruites et ne pas tout perdre si le second disque venait à lâcher en même temps. N’ayant pas de disque sous la main, j’ai tout de suite fait un backup sur un disque externe USB de 14 To grâce via mon Mac. Oubliez les transfers via SMB ou AFT trop long. L’indexation des fichiers peut en effet prendre plusieurs jours. J’ai fait le backup via rsync avec des commandes comme celle ci: rsync --partial -r --progress admin@NAS_oliviere.local:/volume1/photo /Volumes/USB/Synology. Je m’étais d’abord connecté en SSH pour lister les répertoires à backuper via la commande: ssh -p 28 admin@nas_oliviere.local. Cela m’a quand même pris 2 jours pour tout copier malgré une connexion en direct du Mac vers le Synology…">
 
 
 
@@ -283,7 +287,7 @@ hdiutil eject disk2
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

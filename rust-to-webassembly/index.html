@@ -7,11 +7,12 @@
 <meta name="author"
   content="Lean Deep">
 <meta name="description"
-  content="Introduction L&amp;rsquo;objectif de cet article est de voir comment compiler un tout petit programme en Rust et de l&amp;rsquo;appeler soit dans un navigateur, soit dans un programme NodeJS ou soit dans un programme Python.
+  content="Introduction L&rsquo;objectif de cet article est de voir comment compiler un tout petit programme en Rust et de l&rsquo;appeler soit dans un navigateur, soit dans un programme NodeJS ou soit dans un programme Python.
 Installation Installer rustup
 Rustup is an installer for the systems programming language Rust
-curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh source $HOME/.cargo/env Installer wasm-pack
-curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création d&amp;rsquo;une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib." />
+curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh source $HOME/.cargo/env Installer wasm-pack
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création d&rsquo;une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib.rs par celui-ci:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -102,23 +103,26 @@ curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création 
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Rust to Webassembly">
-<meta itemprop="description" content="Introduction L&rsquo;objectif de cet article est de voir comment compiler un tout petit programme en Rust et de l&rsquo;appeler soit dans un navigateur, soit dans un programme NodeJS ou soit dans un programme Python.
-Installation Installer rustup
-Rustup is an installer for the systems programming language Rust
-curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh source $HOME/.cargo/env Installer wasm-pack
-curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création d&rsquo;une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib."><meta itemprop="datePublished" content="2019-12-22T18:28:03+00:00" />
-<meta itemprop="dateModified" content="2019-12-22T18:28:03+00:00" />
-<meta itemprop="wordCount" content="621"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Rust,Webassembly," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Rust to Webassembly"/>
-<meta name="twitter:description" content="Introduction L&rsquo;objectif de cet article est de voir comment compiler un tout petit programme en Rust et de l&rsquo;appeler soit dans un navigateur, soit dans un programme NodeJS ou soit dans un programme Python.
+  <meta itemprop="name" content="Rust to Webassembly">
+  <meta itemprop="description" content="Introduction L’objectif de cet article est de voir comment compiler un tout petit programme en Rust et de l’appeler soit dans un navigateur, soit dans un programme NodeJS ou soit dans un programme Python.
 Installation Installer rustup
 Rustup is an installer for the systems programming language Rust
 curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh source $HOME/.cargo/env Installer wasm-pack
-curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création d&rsquo;une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib."/>
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création d’une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib.rs par celui-ci:">
+  <meta itemprop="datePublished" content="2019-12-22T18:28:03+00:00">
+  <meta itemprop="dateModified" content="2019-12-22T18:28:03+00:00">
+  <meta itemprop="wordCount" content="621">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Rust,Webassembly">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Rust to Webassembly">
+  <meta name="twitter:description" content="Introduction L’objectif de cet article est de voir comment compiler un tout petit programme en Rust et de l’appeler soit dans un navigateur, soit dans un programme NodeJS ou soit dans un programme Python.
+Installation Installer rustup
+Rustup is an installer for the systems programming language Rust
+curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh source $HOME/.cargo/env Installer wasm-pack
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création d’une librairie Rust cargo new --lib days-count Remplacer le contenu du fichier days-count/src/lib.rs par celui-ci:">
 
 
 
@@ -200,8 +204,7 @@ curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh Création 
 <h2 id="installation">Installation</h2>
 <p><strong>Installer rustup</strong></p>
 <blockquote>
-<p>Rustup is an installer for the systems programming language Rust</p>
-</blockquote>
+<p>Rustup is an installer for the systems programming language Rust</p></blockquote>
 <pre tabindex="0"><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 </code></pre><br/>
@@ -344,8 +347,7 @@ call simple_add(12, 12):
 24
 </code></pre><br/>
 <blockquote>
-<p>Notes: pour installer un package cargo, il faut ajouter la dépendance dans le fichier <code>Cargo.toml</code> et exécuter la commande <code>cargo build</code>.</p>
-</blockquote>
+<p>Notes: pour installer un package cargo, il faut ajouter la dépendance dans le fichier <code>Cargo.toml</code> et exécuter la commande <code>cargo build</code>.</p></blockquote>
 
             </div>
         </article>
@@ -419,7 +421,7 @@ call simple_add(12, 12):
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

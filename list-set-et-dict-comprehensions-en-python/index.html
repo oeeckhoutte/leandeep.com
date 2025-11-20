@@ -8,9 +8,10 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Voici quelques exemples de list et dict comprehensions en Python.
-Le pattern des &amp;ldquo;X comprehensions&amp;rdquo; est le suivant: values = [expression for item in collection]
-Il est possible d&amp;rsquo;ajouter un filtre sur les éléments de l&amp;rsquo;itération avant qu&amp;rsquo;ils soient utilisés dans l&amp;rsquo;évaluation de l&amp;rsquo;expression: values = [expression for item in collection if condition]
-Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions." />
+Le pattern des &ldquo;X comprehensions&rdquo; est le suivant: values = [expression for item in collection]
+Il est possible d&rsquo;ajouter un filtre sur les éléments de l&rsquo;itération avant qu&rsquo;ils soient utilisés dans l&rsquo;évaluation de l&rsquo;expression: values = [expression for item in collection if condition]
+Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions. For example, say you want to # compute the square of each number in a list. You can do this by providing # the expression for your computation and the input sequence to loop over. a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] squares = [x*x for x in a] print(squares) # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Unless you&#39;re applying a single-argument functions, list comprehensions are # clearer than map built-in function cases, map requires creating a lambda # function for the computation, which is visually noisy. squares = map(lambda x: x*x, a) print(squares) # Python 2 # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Python 3 print(list(squares)) # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Unlike may, list comprehensions let you easily filter items from the input # list, removing corresponding outputs from the result. For example, say you # only want to compute the squares of the numbers that are divisible by 2. # Here, I do this by adding a conditional expression to the list # comprehension after the loop: even_squares = [x*x for x in a if x % 2 == 0] print(even_squares) # [4, 16, 36, 64, 100] # The filter built-in function can be used along with map to achieve the same # outcome, but it is much harder to read. alt = map(lambda x: x*x, filter(lambda x: x % 2 == 0, a)) assert even_squares == list(alt) Sets Attention, l&rsquo;ordre des éléments n&rsquo;est pas gardé.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ Listes # Python provides compact syntax for deriving one list from another. Thes
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="List, set et dict comprehensions en Python">
-<meta itemprop="description" content="Voici quelques exemples de list et dict comprehensions en Python.
-Le pattern des &ldquo;X comprehensions&rdquo; est le suivant: values = [expression for item in collection]
-Il est possible d&rsquo;ajouter un filtre sur les éléments de l&rsquo;itération avant qu&rsquo;ils soient utilisés dans l&rsquo;évaluation de l&rsquo;expression: values = [expression for item in collection if condition]
-Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions."><meta itemprop="datePublished" content="2017-02-05T21:12:00+00:00" />
-<meta itemprop="dateModified" content="2017-02-05T21:12:00+00:00" />
-<meta itemprop="wordCount" content="837"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="python,tips,python_tips," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="List, set et dict comprehensions en Python"/>
-<meta name="twitter:description" content="Voici quelques exemples de list et dict comprehensions en Python.
-Le pattern des &ldquo;X comprehensions&rdquo; est le suivant: values = [expression for item in collection]
-Il est possible d&rsquo;ajouter un filtre sur les éléments de l&rsquo;itération avant qu&rsquo;ils soient utilisés dans l&rsquo;évaluation de l&rsquo;expression: values = [expression for item in collection if condition]
-Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions."/>
+  <meta itemprop="name" content="List, set et dict comprehensions en Python">
+  <meta itemprop="description" content="Voici quelques exemples de list et dict comprehensions en Python.
+Le pattern des “X comprehensions” est le suivant: values = [expression for item in collection]
+Il est possible d’ajouter un filtre sur les éléments de l’itération avant qu’ils soient utilisés dans l’évaluation de l’expression: values = [expression for item in collection if condition]
+Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions. For example, say you want to # compute the square of each number in a list. You can do this by providing # the expression for your computation and the input sequence to loop over. a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] squares = [x*x for x in a] print(squares) # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Unless you&#39;re applying a single-argument functions, list comprehensions are # clearer than map built-in function cases, map requires creating a lambda # function for the computation, which is visually noisy. squares = map(lambda x: x*x, a) print(squares) # Python 2 # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Python 3 print(list(squares)) # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Unlike may, list comprehensions let you easily filter items from the input # list, removing corresponding outputs from the result. For example, say you # only want to compute the squares of the numbers that are divisible by 2. # Here, I do this by adding a conditional expression to the list # comprehension after the loop: even_squares = [x*x for x in a if x % 2 == 0] print(even_squares) # [4, 16, 36, 64, 100] # The filter built-in function can be used along with map to achieve the same # outcome, but it is much harder to read. alt = map(lambda x: x*x, filter(lambda x: x % 2 == 0, a)) assert even_squares == list(alt) Sets Attention, l’ordre des éléments n’est pas gardé.">
+  <meta itemprop="datePublished" content="2017-02-05T21:12:00+00:00">
+  <meta itemprop="dateModified" content="2017-02-05T21:12:00+00:00">
+  <meta itemprop="wordCount" content="837">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,Tips,Python_tips">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="List, set et dict comprehensions en Python">
+  <meta name="twitter:description" content="Voici quelques exemples de list et dict comprehensions en Python.
+Le pattern des “X comprehensions” est le suivant: values = [expression for item in collection]
+Il est possible d’ajouter un filtre sur les éléments de l’itération avant qu’ils soient utilisés dans l’évaluation de l’expression: values = [expression for item in collection if condition]
+Listes # Python provides compact syntax for deriving one list from another. These # expressions are called list comprehensions. For example, say you want to # compute the square of each number in a list. You can do this by providing # the expression for your computation and the input sequence to loop over. a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] squares = [x*x for x in a] print(squares) # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Unless you&#39;re applying a single-argument functions, list comprehensions are # clearer than map built-in function cases, map requires creating a lambda # function for the computation, which is visually noisy. squares = map(lambda x: x*x, a) print(squares) # Python 2 # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Python 3 print(list(squares)) # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100] # Unlike may, list comprehensions let you easily filter items from the input # list, removing corresponding outputs from the result. For example, say you # only want to compute the squares of the numbers that are divisible by 2. # Here, I do this by adding a conditional expression to the list # comprehension after the loop: even_squares = [x*x for x in a if x % 2 == 0] print(even_squares) # [4, 16, 36, 64, 100] # The filter built-in function can be used along with map to achieve the same # outcome, but it is much harder to read. alt = map(lambda x: x*x, filter(lambda x: x % 2 == 0, a)) assert even_squares == list(alt) Sets Attention, l’ordre des éléments n’est pas gardé.">
 
 
 
@@ -236,8 +240,7 @@ assert even_squares == list(alt)
 </code></pre><br/>
 <h2 id="sets">Sets</h2>
 <blockquote>
-<p>Attention, l&rsquo;ordre des éléments n&rsquo;est pas gardé.</p>
-</blockquote>
+<p>Attention, l&rsquo;ordre des éléments n&rsquo;est pas gardé.</p></blockquote>
 <br/>
 <p><strong>Exemple simple:</strong></p>
 <pre tabindex="0"><code>&gt;&gt;&gt; {x * x for x in range(-9, 10) }
@@ -391,7 +394,7 @@ print(c)
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

@@ -8,7 +8,8 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
-J&amp;rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud)." />
+J&rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud). D&rsquo;un point de vue économique, c&rsquo;est beaucoup plus rentable d&rsquo;avoir sa propre station. Il vous faut juste un boitier EGPU 300€ (pour un haut de gamme type Razer), un PC (gratuit, quel dev ou data engineer n&rsquo;en a pas? Idéalement il vous faudrait un PC secondaire) et un GPU (entre 150€ et 700€ pour une bête voire 1500€ pour un monstre). La location d&rsquo;une machine avec GPU sur AWS vous revient à minimum $300 par mois (min $0.5/heure * 24h * 7 jours * 4 semaines). Il n&rsquo;y a pas photo&hellip; Après AWS vous permet d&rsquo;avoir des instances avec plusieurs GPUs, cela peut être utile dans certains cas. Peut-être qu&rsquo;un build avec plusieurs eGPU pourrait faire l&rsquo;affaire pour ce use case&hellip; Je ne ferai pas l&rsquo;essai, je n&rsquo;ai pas ce besoin&hellip;
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ J&amp;rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer Tensorflow 2 avec GPU backend avec un eGPU, Kubuntu 20.04 et Docker">
-<meta itemprop="description" content="Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
-J&rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud)."><meta itemprop="datePublished" content="2020-11-15T12:19:00+00:00" />
-<meta itemprop="dateModified" content="2020-11-15T12:19:00+00:00" />
-<meta itemprop="wordCount" content="865"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Featured,Tensorflow,eGPU,Intel Nuc,Data Science,Machine Learning," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer Tensorflow 2 avec GPU backend avec un eGPU, Kubuntu 20.04 et Docker"/>
-<meta name="twitter:description" content="Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
-J&rsquo;ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud)."/>
+  <meta itemprop="name" content="Installer Tensorflow 2 avec GPU backend avec un eGPU, Kubuntu 20.04 et Docker">
+  <meta itemprop="description" content="Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
+J’ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud). D’un point de vue économique, c’est beaucoup plus rentable d’avoir sa propre station. Il vous faut juste un boitier EGPU 300€ (pour un haut de gamme type Razer), un PC (gratuit, quel dev ou data engineer n’en a pas? Idéalement il vous faudrait un PC secondaire) et un GPU (entre 150€ et 700€ pour une bête voire 1500€ pour un monstre). La location d’une machine avec GPU sur AWS vous revient à minimum $300 par mois (min $0.5/heure * 24h * 7 jours * 4 semaines). Il n’y a pas photo… Après AWS vous permet d’avoir des instances avec plusieurs GPUs, cela peut être utile dans certains cas. Peut-être qu’un build avec plusieurs eGPU pourrait faire l’affaire pour ce use case… Je ne ferai pas l’essai, je n’ai pas ce besoin…">
+  <meta itemprop="datePublished" content="2020-11-15T12:19:00+00:00">
+  <meta itemprop="dateModified" content="2020-11-15T12:19:00+00:00">
+  <meta itemprop="wordCount" content="865">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Featured,Tensorflow,EGPU,Intel Nuc,Data Science,Machine Learning">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Installer Tensorflow 2 avec GPU backend avec un eGPU, Kubuntu 20.04 et Docker">
+  <meta name="twitter:description" content="Dans deux articles précédents, nous avions vu comment installer Tensorflow 1 et 2 avec GPU support sur Ubuntu 18.04 avec une carte graphique Gefore GTX 1080 ou une plus ancienne carte plus supportée, la Geforce GTX 660 Ti.
+J’ai récemment fait un système upgrade et suis passé sur Kubuntu 20.04. Il est excellant et très stable, je le recommande grandement. Je suis toujours partisan des stations de Deep Learning personnelles (non dans le Cloud). D’un point de vue économique, c’est beaucoup plus rentable d’avoir sa propre station. Il vous faut juste un boitier EGPU 300€ (pour un haut de gamme type Razer), un PC (gratuit, quel dev ou data engineer n’en a pas? Idéalement il vous faudrait un PC secondaire) et un GPU (entre 150€ et 700€ pour une bête voire 1500€ pour un monstre). La location d’une machine avec GPU sur AWS vous revient à minimum $300 par mois (min $0.5/heure * 24h * 7 jours * 4 semaines). Il n’y a pas photo… Après AWS vous permet d’avoir des instances avec plusieurs GPUs, cela peut être utile dans certains cas. Peut-être qu’un build avec plusieurs eGPU pourrait faire l’affaire pour ce use case… Je ne ferai pas l’essai, je n’ai pas ce besoin…">
 
 
 
@@ -207,8 +211,7 @@ sudo sh -c &#39;echo 1 &gt; /sys/bus/thunderbolt/devices/0-1/authorized&#39;
 <p><strong>Installation de Cuda toolkit (ce n&rsquo;est pas Cuda)</strong></p>
 <pre tabindex="0"><code>sudo apt-get install nvidia-cuda-toolkit
 </code></pre><blockquote>
-<p>Si vous utilisez Ubuntu 20.04 et pas Kubuntu 20.04 vous devrez désactiver l&rsquo;utilisation de Wayland en commmentant la ligne suivante <code>#WaylandEnable=false</code> dans le fichier <code>/etc/gdm3/custom.conf</code>.</p>
-</blockquote>
+<p>Si vous utilisez Ubuntu 20.04 et pas Kubuntu 20.04 vous devrez désactiver l&rsquo;utilisation de Wayland en commmentant la ligne suivante <code>#WaylandEnable=false</code> dans le fichier <code>/etc/gdm3/custom.conf</code>.</p></blockquote>
 <br/>
 <p><strong>Installation le driver Nvidia</strong></p>
 <pre tabindex="0"><code># Désinstaller les drivers déjà installés
@@ -392,7 +395,7 @@ python3
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

@@ -4,19 +4,17 @@
     <title>Argo on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/argo/</link>
     <description>Recent content in Argo on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 26 Jul 2022 22:13:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/argo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Jul 2022 22:13:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/argo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installer Argo workflow sur OSX</title>
       <link>https://leandeep.com/installer-argo-workflow-sur-osx/</link>
       <pubDate>Tue, 26 Jul 2022 22:13:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-argo-workflow-sur-osx/</guid>
-      <description>Introduction Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&amp;rsquo;agit d&amp;rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&amp;rsquo;est pas recommandée pour de la production. Elle permet de tester et d&amp;rsquo;évaluer l&amp;rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.
-Installer Argo Cli curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz gunzip argo-darwin-amd64.gz chmod +x argo-darwin-amd64 mv ./argo-darwin-amd64 /usr/local/bin/argo argo version Déploiement d&amp;rsquo;Argo sur k8s kubectl create ns argo kubectl apply -n argo -f https://raw.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article, nous allons voir comment installer Argo workflow localement sur OSX. Il s&amp;rsquo;agit d&amp;rsquo;une installation très simple utilisant Docker-desktop et Kubernetes. Cette installation n&amp;rsquo;est pas recommandée pour de la production. Elle permet de tester et d&amp;rsquo;évaluer l&amp;rsquo;outil ou de simplement créer/développer des workflows depuis votre poste local.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installer-argo-cli&#34;&gt;Installer Argo Cli&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.2.6/argo-darwin-amd64.gz&#xA;gunzip argo-darwin-amd64.gz&#xA;chmod +x argo-darwin-amd64&#xA;mv ./argo-darwin-amd64 /usr/local/bin/argo&#xA;argo version&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;déploiement-dargo-sur-k8s&#34;&gt;Déploiement d&amp;rsquo;Argo sur k8s&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl create ns argo&#xA;kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/stable/manifests/quick-start-postgres.yaml&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-linterface&#34;&gt;Accès l&amp;rsquo;interface&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kubectl -n argo port-forward deployment/argo-server 2746:2746&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;déploiement-dun-worklow-de-test&#34;&gt;Déploiement d&amp;rsquo;un worklow de test&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;argo submit -n argo --watch https://raw.githubusercontent.com/argoproj/argo/master/examples/hello-world.yaml&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;debugging&#34;&gt;Debugging&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;argo list -n argo&#xA;argo get -n argo @latest&#xA;argo logs -n argo @latest&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
   </channel>
 </rss>

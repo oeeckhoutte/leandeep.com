@@ -5,11 +5,12 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author"
-  content="Olivier Eeckhoutte ">
+  content="Olivier Eeckhoutte">
 <meta name="description"
   content="Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
-prenoms = {&amp;#39;titi&amp;#39;: 1, &amp;#39;tata&amp;#39;: 2, &amp;#39;toto&amp;#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &amp;#39;titi&amp;#39;, 2: &amp;#39;tata&amp;#39;, 3: &amp;#39;toto&amp;#39;} Pour sélectionner une valeur à partir d&amp;rsquo;une clé, on peut
-soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&amp;rsquo;avoir du code plus propre, et plus facilement testable." />
+prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&rsquo;une clé, on peut
+soit tester si une clé existe dans le dict ou catcher l&rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&rsquo;avoir du code plus propre, et plus facilement testable. Anti-pattern (Pas bien!) &gt;&gt;&gt; prenom_occurrences = {&#39;titi&#39;: [], &#39;tata&#39;: []} &gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;] KeyError: &#39;toto&#39; # Option 1 &gt;&gt;&gt; if &#39;toto&#39; not in prenom_occurrences: prenom_occurrences[&#39;c&#39;] = [] &gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;] [] # Option 2 &gt;&gt;&gt; try: print(prenom_occurrences[&#39;tutu&#39;]) except: print(&#34;There is no character &#39;tutu&#39; in the string&#34;) Bonne pratique (Bien!) Utiliser defaultdict du module collections.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +101,22 @@ soit tester si une clé existe dans le dict ou catcher l&amp;rsquo;exception Key
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Eviter les if ou try/except avec les dictionnaires">
-<meta itemprop="description" content="Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
-prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&rsquo;une clé, on peut
-soit tester si une clé existe dans le dict ou catcher l&rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&rsquo;avoir du code plus propre, et plus facilement testable."><meta itemprop="datePublished" content="2020-01-16T01:20:04-07:00" />
-<meta itemprop="dateModified" content="2020-01-16T01:20:04-07:00" />
-<meta itemprop="wordCount" content="178"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="python,tips,python_tips," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Eviter les if ou try/except avec les dictionnaires"/>
-<meta name="twitter:description" content="Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
-prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d&rsquo;une clé, on peut
-soit tester si une clé existe dans le dict ou catcher l&rsquo;exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d&rsquo;avoir du code plus propre, et plus facilement testable."/>
+  <meta itemprop="name" content="Eviter les if ou try/except avec les dictionnaires">
+  <meta itemprop="description" content="Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
+prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d’une clé, on peut
+soit tester si une clé existe dans le dict ou catcher l’exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d’avoir du code plus propre, et plus facilement testable. Anti-pattern (Pas bien!) &gt;&gt;&gt; prenom_occurrences = {&#39;titi&#39;: [], &#39;tata&#39;: []} &gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;] KeyError: &#39;toto&#39; # Option 1 &gt;&gt;&gt; if &#39;toto&#39; not in prenom_occurrences: prenom_occurrences[&#39;c&#39;] = [] &gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;] [] # Option 2 &gt;&gt;&gt; try: print(prenom_occurrences[&#39;tutu&#39;]) except: print(&#34;There is no character &#39;tutu&#39; in the string&#34;) Bonne pratique (Bien!) Utiliser defaultdict du module collections.">
+  <meta itemprop="datePublished" content="2020-01-16T01:20:04-07:00">
+  <meta itemprop="dateModified" content="2020-01-16T01:20:04-07:00">
+  <meta itemprop="wordCount" content="178">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,Tips,Python_tips">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Eviter les if ou try/except avec les dictionnaires">
+  <meta name="twitter:description" content="Manipuler des dictionnaires Python est facile. Pour les transformer on peut utiliser des dict comprehension. Par exemple, pour inverser un dictionnaire on peut le faire en une ligne de code.
+prenoms = {&#39;titi&#39;: 1, &#39;tata&#39;: 2, &#39;toto&#39;: 3} invert_prenoms = {v: k for k, v in prenoms.iteritems()} print(invert_prenoms) {1: &#39;titi&#39;, 2: &#39;tata&#39;, 3: &#39;toto&#39;} Pour sélectionner une valeur à partir d’une clé, on peut
+soit tester si une clé existe dans le dict ou catcher l’exception KeyError avec try/except ou on peut utiliser un defaultdict, ce qui permet d’avoir du code plus propre, et plus facilement testable. Anti-pattern (Pas bien!) &gt;&gt;&gt; prenom_occurrences = {&#39;titi&#39;: [], &#39;tata&#39;: []} &gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;] KeyError: &#39;toto&#39; # Option 1 &gt;&gt;&gt; if &#39;toto&#39; not in prenom_occurrences: prenom_occurrences[&#39;c&#39;] = [] &gt;&gt;&gt; prenom_occurrences[&#39;toto&#39;] [] # Option 2 &gt;&gt;&gt; try: print(prenom_occurrences[&#39;tutu&#39;]) except: print(&#34;There is no character &#39;tutu&#39; in the string&#34;) Bonne pratique (Bien!) Utiliser defaultdict du module collections.">
 
 
 
@@ -302,7 +306,7 @@ KeyError: &#39;toto&#39;
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

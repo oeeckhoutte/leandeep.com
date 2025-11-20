@@ -8,10 +8,11 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
-Installation de Docker apt install docker.io curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose chmod &#43;x /usr/local/bin/docker-compose On active ensuite le service:
-systemctl enable docker systemctl start docker Installation d&amp;rsquo;InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
+Installation de Docker apt install docker.io curl -L &#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose chmod &#43;x /usr/local/bin/docker-compose On active ensuite le service:
+systemctl enable docker systemctl start docker Installation d&rsquo;InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
 Contenu du fichier docker-compose.yml:
-version: &amp;#39;3&amp;#39; services: influxdb: image: influxdb:2." />
+version: &#39;3&#39; services: influxdb: image: influxdb:2.6-alpine restart: always env_file: - influxv2.env volumes: # Mount for influxdb data directory and configuration - influxdbv2:/var/lib/influxdb2:rw ports: - &#34;8086:8086&#34; telegraf: image: telegraf:1.25-alpine restart: always depends_on: - influxdb volumes: # Mount for telegraf config - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro env_file: - influxv2.env volumes: influxdbv2: Contenu du fichier telegraf.conf:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -102,23 +103,26 @@ version: &amp;#39;3&amp;#39; services: influxdb: image: influxdb:2." />
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Installer InfluxDB 2 sur Debian 11">
-<meta itemprop="description" content="Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
-Installation de Docker apt install docker.io curl -L &#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose chmod &#43;x /usr/local/bin/docker-compose On active ensuite le service:
-systemctl enable docker systemctl start docker Installation d&rsquo;InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
-Contenu du fichier docker-compose.yml:
-version: &#39;3&#39; services: influxdb: image: influxdb:2."><meta itemprop="datePublished" content="2023-01-27T09:49:00+02:00" />
-<meta itemprop="dateModified" content="2023-01-27T09:49:00+02:00" />
-<meta itemprop="wordCount" content="746"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="InfluxDB,Timeseries," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Installer InfluxDB 2 sur Debian 11"/>
-<meta name="twitter:description" content="Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
+  <meta itemprop="name" content="Installer InfluxDB 2 sur Debian 11">
+  <meta itemprop="description" content="Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
 Installation de Docker apt install docker.io curl -L &#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose chmod &#43;x /usr/local/bin/docker-compose On active ensuite le service:
-systemctl enable docker systemctl start docker Installation d&rsquo;InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
+systemctl enable docker systemctl start docker Installation d’InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
 Contenu du fichier docker-compose.yml:
-version: &#39;3&#39; services: influxdb: image: influxdb:2."/>
+version: &#39;3&#39; services: influxdb: image: influxdb:2.6-alpine restart: always env_file: - influxv2.env volumes: # Mount for influxdb data directory and configuration - influxdbv2:/var/lib/influxdb2:rw ports: - &#34;8086:8086&#34; telegraf: image: telegraf:1.25-alpine restart: always depends_on: - influxdb volumes: # Mount for telegraf config - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro env_file: - influxv2.env volumes: influxdbv2: Contenu du fichier telegraf.conf:">
+  <meta itemprop="datePublished" content="2023-01-27T09:49:00+02:00">
+  <meta itemprop="dateModified" content="2023-01-27T09:49:00+02:00">
+  <meta itemprop="wordCount" content="746">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Influxdb,Timeseries">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Installer InfluxDB 2 sur Debian 11">
+  <meta name="twitter:description" content="Dans cet article très court, nous allons voir comment installer InfluxDB 2 via Docker sur Debian 11.
+Installation de Docker apt install docker.io curl -L &#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose chmod &#43;x /usr/local/bin/docker-compose On active ensuite le service:
+systemctl enable docker systemctl start docker Installation d’InfluxDB Une fois Docker et docker-compose installés, on peut créer nos fichiers docker-compose.yml, influx.env et telegraf.conf.
+Contenu du fichier docker-compose.yml:
+version: &#39;3&#39; services: influxdb: image: influxdb:2.6-alpine restart: always env_file: - influxv2.env volumes: # Mount for influxdb data directory and configuration - influxdbv2:/var/lib/influxdb2:rw ports: - &#34;8086:8086&#34; telegraf: image: telegraf:1.25-alpine restart: always depends_on: - influxdb volumes: # Mount for telegraf config - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro env_file: - influxv2.env volumes: influxdbv2: Contenu du fichier telegraf.conf:">
 
 
 
@@ -344,8 +348,7 @@ DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mon_token_de_fou
 <p>Et voilà, il ne reste plus qu&rsquo;à exécuter cette commande:</p>
 <pre tabindex="0"><code>docker-compose up -d
 </code></pre><blockquote>
-<p>Bien sûr, même si le docker-compose contient la propriété <code>restart: always</code> permettant de démarrer les containers Docker même après un restart de Docker ou reboot de votre machine, je ne recommande pas cette config pour de la prod.</p>
-</blockquote>
+<p>Bien sûr, même si le docker-compose contient la propriété <code>restart: always</code> permettant de démarrer les containers Docker même après un restart de Docker ou reboot de votre machine, je ne recommande pas cette config pour de la prod.</p></blockquote>
 
             </div>
         </article>
@@ -419,7 +422,7 @@ DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mon_token_de_fou
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

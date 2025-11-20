@@ -8,9 +8,9 @@
   content="Olivier Eeckhoutte">
 <meta name="description"
   content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s&amp;rsquo;agit d&amp;rsquo;un jar mais cela s&amp;rsquo;applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&amp;ndash;&amp;gt; Settings &amp;ndash;&amp;gt; Developer settings &amp;ndash;&amp;gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0." />
+Dans notre cas, il s&rsquo;agit d&rsquo;un jar mais cela s&rsquo;applique à tous les types de packages supportés par Github:
+Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&ndash;&gt; Settings &ndash;&gt; Developer settings &ndash;&gt; Personal access tokens)
+export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.0.1.jar export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar curl -X PUT \ &#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \ -H &#34;Authorization: token YOUR_TOKEN&#34; \ --upload-file $LOCAL_JAR_PACKAGE_PATH -vvv " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +101,24 @@ export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package expo
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Deployer un package sur github via curl">
-<meta itemprop="description" content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s&rsquo;agit d&rsquo;un jar mais cela s&rsquo;applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&ndash;&gt; Settings &ndash;&gt; Developer settings &ndash;&gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0."><meta itemprop="datePublished" content="2020-04-20T19:49:00+02:00" />
-<meta itemprop="dateModified" content="2020-04-20T19:49:00+02:00" />
-<meta itemprop="wordCount" content="87"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Github,tips," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Deployer un package sur github via curl"/>
-<meta name="twitter:description" content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s&rsquo;agit d&rsquo;un jar mais cela s&rsquo;applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&ndash;&gt; Settings &ndash;&gt; Developer settings &ndash;&gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0."/>
+  <meta itemprop="name" content="Deployer un package sur github via curl">
+  <meta itemprop="description" content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
+Dans notre cas, il s’agit d’un jar mais cela s’applique à tous les types de packages supportés par Github:
+Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (–&gt; Settings –&gt; Developer settings –&gt; Personal access tokens)
+export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.0.1.jar export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar curl -X PUT \ &#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \ -H &#34;Authorization: token YOUR_TOKEN&#34; \ --upload-file $LOCAL_JAR_PACKAGE_PATH -vvv">
+  <meta itemprop="datePublished" content="2020-04-20T19:49:00+02:00">
+  <meta itemprop="dateModified" content="2020-04-20T19:49:00+02:00">
+  <meta itemprop="wordCount" content="87">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Github,Tips">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Deployer un package sur github via curl">
+  <meta name="twitter:description" content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
+Dans notre cas, il s’agit d’un jar mais cela s’applique à tous les types de packages supportés par Github:
+Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (–&gt; Settings –&gt; Developer settings –&gt; Personal access tokens)
+export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.0.1.jar export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar curl -X PUT \ &#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \ -H &#34;Authorization: token YOUR_TOKEN&#34; \ --upload-file $LOCAL_JAR_PACKAGE_PATH -vvv">
 
 
 
@@ -288,7 +291,7 @@ curl -X PUT \
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

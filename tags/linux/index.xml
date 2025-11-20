@@ -4,133 +4,80 @@
     <title>Linux on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/linux/</link>
     <description>Recent content in Linux on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 04 May 2025 23:32:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Sep 2025 13:34:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Commandes pour redimensionner le disque d&#39;une VM sous Linux</title>
+      <link>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</link>
+      <pubDate>Thu, 04 Sep 2025 13:34:00 +0000</pubDate>
+      <guid>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</guid>
+      <description>&lt;p&gt;Voici quelques commandes très utiles pour redimensionner le disque d&amp;rsquo;une VM sous Debian 13.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ajouter-luser-actuel-au-fichier-sudoers&#34;&gt;Ajouter l&amp;rsquo;user actuel au fichier sudoers&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;su -&#xA;EDITOR=vim visudo&#xA;# Ajouter votre user au fichier sudoers si vous avez l&amp;#39;erreur: &#xA;# &amp;#34;monuser is not in the sudoers file.&amp;#34;&#xA;# monuser    ALL=(ALL:ALL) ALL&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;visualiser&#34;&gt;Visualiser&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt install util-linux&#xA;echo &amp;#39;export PATH=$PATH:/sbin:/usr/sbin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&#xA;source ~/.bashrc&#xA;sudo cfdisk&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;resize&#34;&gt;Resize&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Etends la partition&#xA;parted /dev/sda&#xA;print&#xA;print free&#xA;resizepart 2 100%&#xA;# resizepart 2 1611GB&#xA;quit &#xA;# Etends le filesystem &#xA;resize2fs /dev/sda2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-une-partition-si-nécessaire&#34;&gt;Effacer une partition si nécessaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda&#xA;rm 3&#xA;# Agrandis une partition comme la 2 avec toute la place libre&#xA;resizepart 2 100%&#xA;# ou mieux avec la taille en GB. Par exemple:&#xA;resizepart 2 1611GB (sur un total de 1617 pour créer un swap de 6GB par exemple)&#xA;quit&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;recréer-partition-swap-si-nécesssaire&#34;&gt;Recréer partition swap si nécesssaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda mkpart primary linux-swap 1605GB 1611GB&#xA;# Format la partition en SWAP&#xA;mkswap /dev/sda3&#xA;&#xA;# active le swap&#xA;swapon /dev/sda3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;fstab&#34;&gt;fstab&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;blkid /dev/sda3 (pour récupérer le UUID du nouveau SWAP)&#xA;vim /etc/fstab&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Installer Docker comme service sur Ubuntu 22.04</title>
+      <link>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</link>
+      <pubDate>Mon, 01 Sep 2025 13:34:00 +0000</pubDate>
+      <guid>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</guid>
+      <description>&lt;p&gt;Voici une procédure simple pour installer et activer le service Docker sur Ubuntu 22.04.&lt;/p&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;On met à jour l&amp;rsquo;OS&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On désinstalle les anciennes versions de Docker installées:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt remove docker docker-engine docker.io containerd runc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On ajoute le repo apt:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get update&#xA;sudo apt-get install ca-certificates curl gnupg&#xA;sudo install -m 0755 -d /etc/apt/keyrings&#xA;curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg&#xA;sudo chmod a+r /etc/apt/keyrings/docker.gpg&#xA;echo \&#xA;  &amp;#34;deb [arch=&amp;#34;$(dpkg --print-architecture)&amp;#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \&#xA;  &amp;#34;$(. /etc/os-release &amp;amp;&amp;amp; echo &amp;#34;$VERSION_CODENAME&amp;#34;)&amp;#34; stable&amp;#34; | \&#xA;  sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de Docker:&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Install Nostr Rust relay without Docker</title>
       <link>https://leandeep.com/install-nostr-rust-relay-without-docker/</link>
       <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/install-nostr-rust-relay-without-docker/</guid>
-      <description>In this article we are going to see how to setup a Nostr relay without Docker.
-Prerequisites
-rust installed (else curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh) Run Nostr relay without Docker
-sudo apt-get install build-essential cmake protobuf-compiler pkg-config libssl-dev git clone -q https://git.sr.ht/\~gheartsfield/nostr-rs-relay cd nostr-rs-relay cargo build -q -r RUST_LOG=warn,nostr_rs_relay=info ./target/release/nostr-rs-relay And voila the relay will listen on port 8080.</description>
+      <description>&lt;p&gt;In this article we are going to see how to setup a Nostr relay without Docker.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;rust installed (else &lt;code&gt;curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Run Nostr relay without Docker&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get install build-essential cmake protobuf-compiler pkg-config libssl-dev&#xA;git clone -q https://git.sr.ht/\~gheartsfield/nostr-rs-relay&#xA;cd nostr-rs-relay&#xA;cargo build -q -r&#xA;&#xA;RUST_LOG=warn,nostr_rs_relay=info ./target/release/nostr-rs-relay&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And voila the relay will listen on port 8080.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Utiliser Ollama sur Ubuntu 22 via Docker et faire du LLM scraping</title>
       <link>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</link>
       <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</guid>
-      <description>Dans cet article, nous allons voir comment utiliser Ollama sur Ubuntu 22 via Docker tout en tirant parti du GPU connecté au serveur dans le but de faire du scraping en posant des questions à son LLM auto-hébergé.
-Pré-requis
-nvidia-smi déjà installé Cuda installé Docker installé Installation du NVIDIA Container Toolkit
-sudo apt install -y nvidia-container-toolkit sudo nvidia-ctk runtime configure --runtime=docker sudo systemctl restart docker # Vérification docker run --rm --gpus all nvidia/cuda:12.</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment utiliser Ollama sur Ubuntu 22 via Docker tout en tirant parti du GPU connecté au serveur dans le but de faire du scraping en posant des questions à son LLM auto-hébergé.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pré-requis&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;nvidia-smi&lt;/code&gt; déjà installé&lt;/li&gt;&#xA;&lt;li&gt;Cuda installé&lt;/li&gt;&#xA;&lt;li&gt;Docker installé&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation du NVIDIA Container Toolkit&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install -y nvidia-container-toolkit&#xA;sudo nvidia-ctk runtime configure --runtime=docker&#xA;sudo systemctl restart docker&#xA;# Vérification&#xA;docker run --rm --gpus all nvidia/cuda:12.2.0-base-ubuntu20.04 nvidia-smi&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Docker compose Ollama avec accès GPU&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer quickemu sur Ubuntu 22.04</title>
       <link>https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/</link>
       <pubDate>Fri, 07 Feb 2025 07:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/</guid>
-      <description>Dans cet article, nous allons voir comment installer Quickemu sur Ubuntu 22.04 pour créer des VM sur Ubuntu.
-Installation de quickemu
-# check if python3 is installed # python3 --version # sudo apt install python3 # si nécessaire sudo apt install qemu bash coreutils ovmf grep jq lsb procps genisoimage usbutils util-linux sed spice-client-gtk swtpm wget xdg-user-dirs zsync unzip sudo apt-add-repository ppa:flexiondotorg/quickemu sudo apt update sudo apt install quickemu Installation du GUI</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment installer Quickemu sur Ubuntu 22.04 pour créer des VM sur Ubuntu.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de quickemu&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# check if python3 is installed &#xA;# python3 --version&#xA;# sudo apt install python3 # si nécessaire&#xA;sudo apt install qemu bash coreutils ovmf grep jq lsb procps genisoimage usbutils util-linux sed spice-client-gtk swtpm wget xdg-user-dirs zsync unzip&#xA;&#xA;sudo apt-add-repository ppa:flexiondotorg/quickemu&#xA;sudo apt update&#xA;sudo apt install quickemu&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation du GUI&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Hashcat sur Ubuntu 22.04</title>
       <link>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</link>
       <pubDate>Thu, 06 Feb 2025 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-hashcat-sur-ubuntu-22.04/</guid>
-      <description>Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).
-Pré-requis
-nvidia-smi déjà installé.
-Installation de hashcat
-sudo apt update sudo apt upgrade apt install hashcat Installation de Cuda Toolkit 11.7
-wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run sudo sh cuda_11.7.0_515.43.04_linux.run # Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia # Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc Vérification
-nvcc --version hashcat -I Test de crack du MD5 suivant: 82a4b202be22fbbcd236d2f65988acde pour vérifier que les GPUs sont ok.</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment installer Hashcat v6.2.5 sur Ubuntu 22 (PopOS).&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pré-requis&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;nvidia-smi&lt;/code&gt; déjà installé.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de hashcat&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt upgrade&#xA;apt install hashcat&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de Cuda Toolkit 11.7&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget https://developer.download.nvidia.com/compute/cuda/11.7.0/local_installers/cuda_11.7.0_515.43.04_linux.run&#xA;sudo sh cuda_11.7.0_515.43.04_linux.run&#xA;# Installer Cuda et refuser l&amp;#39;installation du Driver Nvidia&#xA;# Une fois l&amp;#39;installation terminée, ajouter cuda au bashrc&#xA;&#xA;echo &amp;#34;export PATH=/usr/local/cuda-11.7/bin:$PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc&#xA;echo &amp;#34;export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64:$LD_LIBRARY_PATH&amp;#34; &amp;gt;&amp;gt; ~/.bashrc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vérification&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Tailscale sur Fedora</title>
       <link>https://leandeep.com/installer-tailscale-sur-fedora/</link>
       <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/installer-tailscale-sur-fedora/</guid>
-      <description>Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.
-Installer Tailscale
-sudo dnf install tailscale Démarrer et activer Tailscale
-sudo systemctl start tailscaled sudo systemctl enable tailscaled Connecter votre desktop à Tailscale
-Editer le fichier sudo vim /etc/sysctl.conf:
-net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 Et appliquer les changements:
-sudo sysctl -p Lancer l&amp;rsquo;authentification</description>
+      <description>&lt;p&gt;Pour installer Tailscale sur Fedora Desktop, suivez les étapes ci-dessous. Tailscale permet de configurer un réseau privé virtuel (VPN) de manière simple, en s&amp;rsquo;appuyant sur WireGuard.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installer Tailscale&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dnf install tailscale&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Démarrer et activer Tailscale&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl start tailscaled&#xA;sudo systemctl enable tailscaled&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Connecter votre desktop à Tailscale&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Editer le fichier &lt;code&gt;sudo vim /etc/sysctl.conf&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;net.ipv4.ip_forward = 1&#xA;net.ipv6.conf.all.forwarding = 1&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Et appliquer les changements:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo sysctl -p&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Lancer l&amp;rsquo;authentification&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo tailscale up --advertise-exit-node&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Troubleshooting&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>RDP sécurisé avec SSH sur Fedora</title>
       <link>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh-sur-fedora/</link>
       <pubDate>Wed, 11 Dec 2024 23:32:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/rdp-s%C3%A9curis%C3%A9-avec-ssh-sur-fedora/</guid>
-      <description>Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
-Installation
-sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
-sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
-On finalise la configuration. On désactive Wayland:
-Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dnf install -y xrdp&#xA;sudo systemctl enable xrdp --now&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configuration&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo firewall-cmd --add-port=3389/tcp --permanent&#xA;sudo firewall-cmd --reload&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Connexion&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;On finalise la configuration. On désactive Wayland:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>How to verify if I am using LVM ?</title>
       <link>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</link>
       <pubDate>Wed, 05 Jun 2024 20:28:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/how-to-verify-if-i-am-using-lvm/</guid>
-      <description>Simply use the following command:
-cat /etc/fstab And have a look at the line with your root filesystem.
-From there we have 3 possibilities:
-If the line starts with UUID=xyz, then it means it is a physical partition. If the line starts with /dev/sdaX, it is a physical partition. The indicator for LVM would be something with /dev/mapper/xyz. You can also check in the mounts and fstab using this command:</description>
+      <description>&lt;p&gt;Simply use the following command:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cat /etc/fstab&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And have a look at the line with your root filesystem.&lt;/p&gt;&#xA;&lt;p&gt;From there we have 3 possibilities:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;If the line starts with UUID=xyz, then it means it is a physical partition.&lt;/li&gt;&#xA;&lt;li&gt;If the line starts with /dev/sdaX, it is a physical partition.&lt;/li&gt;&#xA;&lt;li&gt;The indicator for LVM would be something with /dev/mapper/xyz.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;You can also check in the mounts and fstab using this command:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Install tailscale and Pi Hole on Debian 11 Bullseye</title>
       <link>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</link>
       <pubDate>Sat, 24 Feb 2024 18:10:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/install-tailscale-and-pi-hole-on-debian-11-bullseye/</guid>
-      <description>In this short article we are going to see the commands to install Tailscale (and PiHole) on a Raspberry Pi version 2 and Debian 11 Bullseye (or Raspios equivalent of Debian 11).
-Pré-requis
-A Raspberry Pi 2 connected to internet A fresh Debian 11 installation OS preparation
-sudo apt update sudo apt upgrade -y # Grab a large coffee. It takes forever... sudo reboot sudo apt install curl -y Pi Hole installation</description>
+      <description>&lt;p&gt;In this short article we are going to see the commands to install Tailscale (and PiHole) on a Raspberry Pi version 2 and Debian 11 Bullseye (or Raspios equivalent of Debian 11).&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pré-requis&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A Raspberry Pi 2 connected to internet&lt;/li&gt;&#xA;&lt;li&gt;A fresh Debian 11 installation&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;OS preparation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt upgrade -y&#xA;# Grab a large coffee. It takes forever...&#xA;sudo reboot&#xA;sudo apt install curl -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pi Hole installation&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
-    <item>
-      <title>Fixer l&#39;écran noir de Kali avec UTM</title>
-      <link>https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/</link>
-      <pubDate>Fri, 12 Jan 2024 07:00:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/fixer-l%C3%A9cran-noir-de-kali-avec-utm/</guid>
-      <description>UTM sur OSX est un hyperviseur gratuit permettant d&amp;rsquo;installer différentes VMs. Je l&amp;rsquo;utilise par exemple pour utiliser Windows ARM et Kali ARM.
-Lorsqu&amp;rsquo;on installe Kali depuis la librairie de VMs disponibles et qu&amp;rsquo;on le démarre pour la première fois on a un écran noir.
-Pour le fixer, il suffit d&amp;rsquo;aller dans les settings de la VM et de changer l&amp;rsquo;emulated display card. Sélectionner virtio-ramfb.
-Pensez à configurer la carte réseau en bridge.</description>
-    </item>
-    
-    <item>
-      <title>Backuper la DB d&#39;Erigon sur Debian 11</title>
-      <link>https://leandeep.com/backuper-la-db-derigon-sur-debian-11/</link>
-      <pubDate>Fri, 03 Feb 2023 07:49:00 +0200</pubDate>
-      
-      <guid>https://leandeep.com/backuper-la-db-derigon-sur-debian-11/</guid>
-      <description>Pour backuper les data de votre Node Erigon, rien de tel qu&amp;rsquo;un disque externe. Après minimum une semaine de synchronisation rien de tel qu&amp;rsquo;un petit backup si vous devez restaurer votre système. Dans mon cas, je dois passer d&amp;rsquo;Erigon 2.36 à une version 2.37 forkée avec un dev perso permettant d&amp;rsquo;ajouter un endpoint RPC non disponible dans l&amp;rsquo;API de base. Comme je ne suis pas certain que mon dev est 100% safe car c&amp;rsquo;est mon premier développement sur un client Ethereum, je préfère faire un backup de ma DB.</description>
-    </item>
-    
   </channel>
 </rss>

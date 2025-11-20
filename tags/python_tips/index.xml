@@ -4,124 +4,80 @@
     <title>Python_tips on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/python_tips/</link>
     <description>Recent content in Python_tips on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 14 Jan 2023 07:00:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/python_tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 07:00:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/python_tips/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Retourner un dataframe OHLCV des tickers Binance à partir de CCTX</title>
       <link>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</link>
       <pubDate>Sat, 14 Jan 2023 07:00:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/retourner-un-dataframe-ohlcv-des-tickers-binance-%C3%A0-partir-de-cctx/</guid>
-      <description>Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.
-import ccxt import calendar from datetime import datetime import pandas as pd import numpy as np from typing import List binance = ccxt.binance() def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list: # UTC native object since = calendar.timegm(dt.utctimetuple()) * 1000 ohlcv1 = binance.fetch_ohlcv( symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit ) ohlcv2 = binance.</description>
+      <description>&lt;p&gt;Petit tip du jour de minutes. Voici comment convertir les données OHLCV de Binance obtenues grâce à CCTX en dataframe.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import ccxt&#xA;import calendar&#xA;from datetime import datetime&#xA;import pandas as pd&#xA;import numpy as np&#xA;from typing import List&#xA;&#xA;binance = ccxt.binance()&#xA;&#xA;&#xA;def min_ohlcv(dt: datetime, pair: str, limit: int) -&amp;gt; list:&#xA;    # UTC native object&#xA;    since = calendar.timegm(dt.utctimetuple()) * 1000&#xA;    ohlcv1 = binance.fetch_ohlcv(&#xA;        symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit&#xA;    )&#xA;    ohlcv2 = binance.fetch_ohlcv(&#xA;        symbol=pair, timeframe=&amp;#34;1m&amp;#34;, since=since, limit=limit&#xA;    )&#xA;    ohlcv = ohlcv1 + ohlcv2&#xA;    return ohlcv&#xA;&#xA;&#xA;def ohlcv(dt: List[str], pair: str, period: str = &amp;#34;1d&amp;#34;) -&amp;gt; pd.DataFrame:&#xA;    ohlcv = []&#xA;    limit = 1000&#xA;    if period == &amp;#34;1m&amp;#34;:&#xA;        limit = 720&#xA;    elif period == &amp;#34;1d&amp;#34;:&#xA;        limit = 365&#xA;    elif period == &amp;#34;1h&amp;#34;:&#xA;        limit = 24&#xA;    elif period == &amp;#34;5m&amp;#34;:&#xA;        limit = 288&#xA;    for i in dt:&#xA;        start_dt = datetime.strptime(i, &amp;#34;%Y%m%d&amp;#34;)&#xA;        since = calendar.timegm(start_dt.utctimetuple()) * 1000&#xA;        if period == &amp;#34;1m&amp;#34;:&#xA;            ohlcv.extend(min_ohlcv(start_dt, pair, limit))&#xA;        else:&#xA;            ohlcv.extend(&#xA;                binance.fetch_ohlcv(&#xA;                    symbol=pair, timeframe=period, since=since, limit=limit&#xA;                )&#xA;            )&#xA;    df = pd.DataFrame(&#xA;        ohlcv,&#xA;        columns=[&amp;#34;Date&amp;#34;, &amp;#34;Open&amp;#34;, &amp;#34;High&amp;#34;, &amp;#34;Low&amp;#34;, &amp;#34;Close&amp;#34;, &amp;#34;Volume&amp;#34;],&#xA;    )&#xA;    df[&amp;#34;Date&amp;#34;] = [&#xA;        datetime.fromtimestamp(float(time) / 1000) for time in df[&amp;#34;Date&amp;#34;]&#xA;    ]&#xA;    df[&amp;#34;Open&amp;#34;] = df[&amp;#34;Open&amp;#34;].astype(np.float64)&#xA;    df[&amp;#34;High&amp;#34;] = df[&amp;#34;High&amp;#34;].astype(np.float64)&#xA;    df[&amp;#34;Low&amp;#34;] = df[&amp;#34;Low&amp;#34;].astype(np.float64)&#xA;    df[&amp;#34;Close&amp;#34;] = df[&amp;#34;Close&amp;#34;].astype(np.float64)&#xA;    df[&amp;#34;Volume&amp;#34;] = df[&amp;#34;Volume&amp;#34;].astype(np.float64)&#xA;    df.set_index(&amp;#34;Date&amp;#34;, inplace=True)&#xA;    return df&#xA;&#xA;&#xA;dt = [&amp;#34;20190101&amp;#34;, &amp;#34;20200101&amp;#34;]&#xA;df = ohlcv(dt, &amp;#34;BTC/USDT&amp;#34;, &amp;#34;1m&amp;#34;)&#xA;print(df.head())&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Résultat:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Enregistrer vos playlists Youtube en mp3 ou mp4 via le CLI</title>
       <link>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4-via-le-cli/</link>
       <pubDate>Sat, 07 Jan 2023 07:00:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/enregistrer-vos-playlists-youtube-en-mp3-ou-mp4-via-le-cli/</guid>
-      <description>Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&amp;rsquo;utiliser le package Python yt-dlp.
-pip install yt-dlp Enregistrement mp3
-yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist Enregistrement mp4
-# Best video quality yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; # Worst video quality mais high quality audio yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34; Enregistrement en qualité 720p
--S &amp;#34;res:720,fps&amp;#34; Enregistrement avec sous-titres anglais
---write-sub --write-auto-sub --sub-lang &amp;#34;en.</description>
+      <description>&lt;p&gt;Petit tip du jour de 25 secondes: pour enregistrer automatiquement via cli vos playlists Youtube en MP3, il vous suffit d&amp;rsquo;utiliser le package Python &lt;code&gt;yt-dlp&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install yt-dlp&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Enregistrement mp3&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;yt-dlp -f &amp;#39;ba&amp;#39; -x --audio-format mp3 lien_vers_votre_playlist&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Enregistrement mp4&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Best video quality&#xA;yt-dlp lien_vers_votre_playlist -f &amp;#34;bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34;&#xA;&#xA;# Worst video quality mais high quality audio&#xA;yt-dlp lien_vers_votre_playlist -f &amp;#34;worstvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Enregistrement en qualité 720p&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;-S &amp;#34;res:720,fps&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Enregistrement avec sous-titres anglais&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;--write-sub --write-auto-sub --sub-lang &amp;#34;en.*&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Afficher les 500 dernières bougies d&#39;une paire crypto de Binance</title>
       <link>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</link>
       <pubDate>Thu, 05 Jan 2023 07:00:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/afficher-les-500-derni%C3%A8res-bougies-dune-paire-crypto-de-binance/</guid>
-      <description>Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&amp;rsquo;évolution du cours d&amp;rsquo;une paire crypto présente sur Binance.
-Installer les packages cctx et plotly puis créer un fichier contenant le code suivant:
-import ccxt from datetime import datetime import plotly.graph_objects as go def run(): binance = ccxt.binance() trading_pair = &amp;#34;BTC/USDT&amp;#34; candles = binance.fetch_ohlcv(trading_pair, &amp;#34;1d&amp;#34;) dates = [] open_data = [] high_data = [] low_data = [] close_data = [] for candle in candles: dates.</description>
+      <description>&lt;p&gt;Petit tip du jour. Voici comment afficher, en moins 2 minutes, l&amp;rsquo;évolution du cours d&amp;rsquo;une paire crypto présente sur Binance.&lt;/p&gt;&#xA;&lt;p&gt;Installer les packages &lt;code&gt;cctx&lt;/code&gt; et &lt;code&gt;plotly&lt;/code&gt; puis créer un fichier contenant le code suivant:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import ccxt&#xA;from datetime import datetime&#xA;import plotly.graph_objects as go&#xA;&#xA;&#xA;def run():&#xA;    binance = ccxt.binance()&#xA;    trading_pair = &amp;#34;BTC/USDT&amp;#34;&#xA;    candles = binance.fetch_ohlcv(trading_pair, &amp;#34;1d&amp;#34;)&#xA;&#xA;    dates = []&#xA;    open_data = []&#xA;    high_data = []&#xA;    low_data = []&#xA;    close_data = []&#xA;&#xA;    for candle in candles:&#xA;        dates.append(&#xA;            datetime.fromtimestamp(candle[0] / 1000.0).strftime(&#xA;                &amp;#34;%Y-%m-%d %H:%M:%S.%f&amp;#34;&#xA;            )&#xA;        )&#xA;        open_data.append(candle[1])&#xA;        high_data.append(candle[2])&#xA;        low_data.append(candle[3])&#xA;        close_data.append(candle[4])&#xA;&#xA;    fig = go.Figure(&#xA;        data=[&#xA;            go.Candlestick(&#xA;                x=dates,&#xA;                open=open_data,&#xA;                high=high_data,&#xA;                low=low_data,&#xA;                close=close_data,&#xA;            )&#xA;        ]&#xA;    )&#xA;    fig.show()&#xA;&#xA;&#xA;if __name__ == &amp;#34;__main__&amp;#34;:&#xA;    run()&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Résultat:&#xA;&lt;img src=&#34;https://leandeep.com/images/plotly-btc-usdt.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Convertir un fichier pipfile.lock en requirements.txt</title>
       <link>https://leandeep.com/convertir-un-fichier-pipfile.lock-en-requirements.txt/</link>
       <pubDate>Thu, 26 May 2022 21:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/convertir-un-fichier-pipfile.lock-en-requirements.txt/</guid>
-      <description>Petit tip du jour pour convertir un fichier Pipfile en requirements.txt
-En pré-requis, il faut avoir jq
-brew install jq
-Ensuite, il suffit d&amp;rsquo;exécuter la commande suivante:
-jq -r &amp;#39;.default | to_entries[] | .key + .value.version&amp;#39; \ Pipfile.lock &amp;gt; requirements.txt </description>
+      <description>&lt;p&gt;Petit tip du jour pour convertir un fichier &lt;code&gt;Pipfile&lt;/code&gt; en &lt;code&gt;requirements.txt&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;En pré-requis, il faut avoir jq&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;code&gt;brew install jq&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Ensuite, il suffit d&amp;rsquo;exécuter la commande suivante:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;jq -r &amp;#39;.default&#xA;        | to_entries[]&#xA;        | .key + .value.version&amp;#39; \&#xA;    Pipfile.lock &amp;gt; requirements.txt&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Charger automatiquement les variables d&#39;environnement et virtualenv des projets Python</title>
       <link>https://leandeep.com/charger-automatiquement-les-variables-denvironnement-et-virtualenv-des-projets-python/</link>
       <pubDate>Tue, 20 Jul 2021 21:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/charger-automatiquement-les-variables-denvironnement-et-virtualenv-des-projets-python/</guid>
-      <description>Dans cet article, nous allons voir comment charger (et décharger) automatiquement les variables d&amp;rsquo;environnements de vous projets lors d&amp;rsquo;un cd (et accessoirement comment sourcer et désactiver les virtualenv Python).
-D&amp;rsquo;autres solutions alternatives que je ne recommande pas existent: pipenv, autoenv
-direnv Pour ce faire, nous allons utilise un utilitaire appelé direnv qui est disponible pour pas mal de distributions.
-Le projet est accessible à l&amp;rsquo;adresse suivante: https://github.com/direnv/direnv
-Installation sur OSX:</description>
+      <description>&lt;p&gt;Dans cet article, nous allons voir comment charger (et décharger) automatiquement les variables d&amp;rsquo;environnements de vous projets lors d&amp;rsquo;un &lt;code&gt;cd&lt;/code&gt; (et accessoirement comment sourcer et désactiver les virtualenv Python).&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;D&amp;rsquo;autres solutions alternatives que je ne recommande pas existent: pipenv, autoenv&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;direnv&#34;&gt;direnv&lt;/h2&gt;&#xA;&lt;p&gt;Pour ce faire, nous allons utilise un utilitaire appelé &lt;strong&gt;direnv&lt;/strong&gt; qui est disponible pour pas mal de distributions.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Le projet est accessible à l&amp;rsquo;adresse suivante: &lt;a href=&#34;https://github.com/direnv/direnv&#34;&gt;https://github.com/direnv/direnv&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Installation sur OSX:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Mocker un datetime .now() dans un test unitaire Python</title>
       <link>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</link>
       <pubDate>Tue, 23 Feb 2021 21:01:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/mocker-un-datetime-.now-dans-un-test-unitaire-python/</guid>
-      <description>La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires. En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini expected, cela peut poser problème&amp;hellip;
-Si on essaye de patcher la fonction today() ou now() comme ceci
-@mock.patch(&amp;#39;datetime.date.today&amp;#39;) def test(): datetime.date.today.return_value = date(2010, 1, 1) print datetime.date.today() cela ne fonctionnera pas car les types built-in sont immutables.
-On aura alors une erreur du genre: TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.</description>
+      <description>&lt;p&gt;La fonction datetime.now() peut parfois &amp;ldquo;poser problème&amp;rdquo; dans les tests unitaires.&#xA;En effet, lorsqu&amp;rsquo;on veut comparer le résultat d&amp;rsquo;une fonction comportant une date (now) à un objet pré-défini &lt;em&gt;expected&lt;/em&gt;, cela peut poser problème&amp;hellip;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Si on essaye de patcher la fonction today() ou now() comme ceci&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;@mock.patch(&amp;#39;datetime.date.today&amp;#39;)&#xA;def test():&#xA;    datetime.date.today.return_value = date(2010, 1, 1)&#xA;    print datetime.date.today()&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;cela ne fonctionnera pas car les types &lt;em&gt;built-in&lt;/em&gt; sont immutables.&lt;/p&gt;&#xA;&lt;p&gt;On aura alors une erreur du genre: &lt;code&gt;TypeError: can&#39;t set attributes of built-in/extension type &#39;datetime.date&#39;&lt;/code&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Fonctions avec plusieurs types en Python 3.10</title>
       <link>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</link>
       <pubDate>Tue, 08 Dec 2020 21:01:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/fonctions-avec-plusieurs-types-en-python-3.10/</guid>
-      <description>Python 3.10, sorti officiellement le 04 octobre 2021, permet d&amp;rsquo;écrire de manière plus lisible les différentes types que peuvent prendre les arguments et données retournées par les fonctions.
-Example pour une fonction qui prend un argument de type int ou str et qui retourne un objet de type int ou str:
-def ma_fonction(argument: int | str) -&amp;gt; int | str: pass On utilise le caractère: |.
-Avant, de Python 3.5 à 3.</description>
+      <description>&lt;p&gt;Python 3.10, sorti officiellement le 04 octobre 2021, permet d&amp;rsquo;écrire de manière plus lisible les différentes types que peuvent prendre les arguments et données retournées par les fonctions.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Example pour une fonction qui prend un argument de type &lt;code&gt;int&lt;/code&gt; ou &lt;code&gt;str&lt;/code&gt; et qui retourne un objet de type &lt;code&gt;int&lt;/code&gt; ou &lt;code&gt;str&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def ma_fonction(argument: int | str) -&amp;gt; int | str:&#xA;&#x9;pass&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;On utilise le caractère: &lt;code&gt;|&lt;/code&gt;.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Avant, de Python 3.5 à 3.9, il fallait utiliser &lt;code&gt;Union&lt;/code&gt; du package &lt;code&gt;typing&lt;/code&gt;:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Rendre du code plus propre avec des namedtuples</title>
       <link>https://leandeep.com/rendre-du-code-plus-propre-avec-des-namedtuples/</link>
       <pubDate>Tue, 18 Aug 2020 23:02:09 -0700</pubDate>
-      
       <guid>https://leandeep.com/rendre-du-code-plus-propre-avec-des-namedtuples/</guid>
-      <description>Imaginons que nous souhaitions afficher le contenu d&amp;rsquo;une table de base de données contenant des informations sur les salariés d&amp;rsquo;une entreprise. On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&amp;rsquo;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &amp;ldquo;name&amp;rdquo;, &amp;ldquo;birthdate&amp;rdquo;, &amp;ldquo;salary&amp;rdquo; et &amp;ldquo;employment_date&amp;rdquo;, l&#39;index 2 correspond donc au salaire d&amp;rsquo;un employé. C&amp;rsquo;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir.</description>
+      <description>&lt;p&gt;Imaginons que nous souhaitions afficher le contenu d&amp;rsquo;une table de base de données contenant des informations sur les salariés d&amp;rsquo;une entreprise.&#xA;On peut utiliser une liste de tuples pour stocker en mémoire les lignes de la table. Chaque index d&amp;rsquo;un tuple correspond alors à une colonne de la table. Si la table contient les colonnes suivantes: &amp;ldquo;name&amp;rdquo;, &amp;ldquo;birthdate&amp;rdquo;, &amp;ldquo;salary&amp;rdquo; et &amp;ldquo;employment_date&amp;rdquo;, &lt;code&gt;l&#39;index 2&lt;/code&gt; correspond donc au salaire d&amp;rsquo;un employé. C&amp;rsquo;est plutôt simple à retenir avec seulement 4 indexes mais si la table possède 20 colonnes, ce sera plus difficile à retenir. Et même si la table ne possède que 4 colonnes, &lt;code&gt;row[2]&lt;/code&gt; n&amp;rsquo;est pas très parlant pour le développeur qui relira le code.&#xA;En utilisant les collections namedtuple, on peut apporter plus de clarté au code.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Mocker en 1 minute les appels vers des services externes</title>
       <link>https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/</link>
       <pubDate>Sat, 04 Jul 2020 21:20:04 -0700</pubDate>
-      
       <guid>https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/</guid>
-      <description>Que ce soit pour du dévelopement ou pour exécuter des tests ou autres, il est très fréquent de vouloir mocker les appels vers des services externes. Si vous utilisez le module requests dans votre projet vous pouvez tout simplement ajouter le module requests_cache pour créer des bouchons. En effet, ce dernier va mettre en cache (dans une base de données sqlite) toutes les réponses aux requêtes faites par requests.
-Mise en place Bien sûr, on install le module: pip install requests_cache.</description>
+      <description>&lt;p&gt;Que ce soit pour du dévelopement ou pour exécuter des tests ou autres, il est très fréquent de vouloir mocker les appels vers des services externes.&#xA;Si vous utilisez le module &lt;code&gt;requests&lt;/code&gt; dans votre projet vous pouvez tout simplement ajouter le module &lt;code&gt;requests_cache&lt;/code&gt; pour créer des bouchons. En effet, ce dernier va mettre en cache (dans une base de données sqlite) toutes les réponses aux requêtes faites par &lt;code&gt;requests&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;mise-en-place&#34;&gt;Mise en place&lt;/h2&gt;&#xA;&lt;p&gt;Bien sûr, on install le module: &lt;code&gt;pip install requests_cache&lt;/code&gt;. Puis on ajoute le code suivant dans son projet:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Comparaison de strings et logique floue</title>
       <link>https://leandeep.com/comparaison-de-strings-et-logique-floue/</link>
       <pubDate>Thu, 16 Jan 2020 16:20:04 -0700</pubDate>
-      
       <guid>https://leandeep.com/comparaison-de-strings-et-logique-floue/</guid>
-      <description>Pour implémenter dans la logique floue pour comparer deux strings, on peut utiliser la distance de Levenshtein.
-Voici le code permettant de calculer cette distance. Rien de particulier, on retrouve partout ce code sur internet.
-import numpy as np def levenshtein_ratio_and_distance(s, t, ratio_calc = False): &amp;#34;&amp;#34;&amp;#34; levenshtein_ratio_and_distance: Calculates levenshtein distance between two strings. If ratio_calc = True, the function computes the levenshtein distance ratio of similarity between two strings For all i and j, distance[i,j] will contain the Levenshtein distance between the first i characters of s and the first j characters of t &amp;#34;&amp;#34;&amp;#34; # Initialize matrix of zeros rows = len(s)+1 cols = len(t)+1 distance = np.</description>
+      <description>&lt;p&gt;Pour implémenter dans la logique floue pour comparer deux strings, on peut utiliser la distance de Levenshtein.&lt;/p&gt;&#xA;&lt;p&gt;Voici le code permettant de calculer cette distance. Rien de particulier, on retrouve partout ce code sur internet.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import numpy as np&#xA;def levenshtein_ratio_and_distance(s, t, ratio_calc = False):&#xA;    &amp;#34;&amp;#34;&amp;#34; levenshtein_ratio_and_distance:&#xA;        Calculates levenshtein distance between two strings.&#xA;        If ratio_calc = True, the function computes the&#xA;        levenshtein distance ratio of similarity between two strings&#xA;        For all i and j, distance[i,j] will contain the Levenshtein&#xA;        distance between the first i characters of s and the&#xA;        first j characters of t&#xA;    &amp;#34;&amp;#34;&amp;#34;&#xA;    # Initialize matrix of zeros&#xA;    rows = len(s)+1&#xA;    cols = len(t)+1&#xA;    distance = np.zeros((rows,cols),dtype = int)&#xA;&#xA;    # Populate matrix of zeros with the indeces of each character of both strings&#xA;    for i in range(1, rows):&#xA;        for k in range(1,cols):&#xA;            distance[i][0] = i&#xA;            distance[0][k] = k&#xA;&#xA;    # Iterate over the matrix to compute the cost of deletions,insertions and/or substitutions    &#xA;    for col in range(1, cols):&#xA;        for row in range(1, rows):&#xA;            if s[row-1] == t[col-1]:&#xA;                cost = 0 # If the characters are the same in the two strings in a given position [i,j] then the cost is 0&#xA;            else:&#xA;                # In order to align the results with those of the Python Levenshtein package, if we choose to calculate the ratio&#xA;                # the cost of a substitution is 2. If we calculate just distance, then the cost of a substitution is 1.&#xA;                if ratio_calc == True:&#xA;                    cost = 2&#xA;                else:&#xA;                    cost = 1&#xA;            distance[row][col] = min(distance[row-1][col] + 1,      # Cost of deletions&#xA;                                 distance[row][col-1] + 1,          # Cost of insertions&#xA;                                 distance[row-1][col-1] + cost)     # Cost of substitutions&#xA;    if ratio_calc == True:&#xA;        # Computation of the Levenshtein Distance Ratio&#xA;        Ratio = ((len(s)+len(t)) - distance[row][col]) / (len(s)+len(t))&#xA;        return Ratio&#xA;    else:&#xA;        # print(distance) # Uncomment if you want to see the matrix showing how the algorithm computes the cost of deletions,&#xA;        # insertions and/or substitutions&#xA;        # This is the minimum number of edits needed to convert string a to string b&#xA;        return &amp;#34;The strings are {} edits away&amp;#34;.format(distance[row][col])&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Il existe aussi un package appelé &lt;code&gt;Levenshtein&lt;/code&gt; qui nous simplifie la vie.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

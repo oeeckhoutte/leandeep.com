@@ -7,7 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&amp;rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git." />
+  content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git. C&rsquo;est simple mais excessivement efficace.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -98,15 +99,18 @@
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Data Version Control pour vos projets data ou algo-trading">
-<meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git."><meta itemprop="datePublished" content="2023-01-02T12:00:00+02:00" />
-<meta itemprop="dateModified" content="2023-01-02T12:00:00+02:00" />
-<meta itemprop="wordCount" content="370"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="AlgoTrading,dvc,data science,data," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Data Version Control pour vos projets data ou algo-trading"/>
-<meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git."/>
+  <meta itemprop="name" content="Data Version Control pour vos projets data ou algo-trading">
+  <meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n’est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git. C’est simple mais excessivement efficace.">
+  <meta itemprop="datePublished" content="2023-01-02T12:00:00+02:00">
+  <meta itemprop="dateModified" content="2023-01-02T12:00:00+02:00">
+  <meta itemprop="wordCount" content="370">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="AlgoTrading,Dvc,Data Science,Data">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Data Version Control pour vos projets data ou algo-trading">
+  <meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n’est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git. C’est simple mais excessivement efficace.">
 
 
 
@@ -186,8 +190,7 @@
 <p>Dans cet article, nous allons voir comment versionner nos datasets et notre code. Les datasets ne seront pas stockés sur git car cet outil n&rsquo;est pas fait pour stocker des fichiers volumineux. Il faut donc stocker les données ailleurs. Ici je vais les stocker sur Google Drive. DVC (Data Version Control) va permettre de versionner les data en créant une référence (un hash) qui sera stocké dans le commit git. C&rsquo;est simple mais excessivement efficace.</p>
 <blockquote>
 <p>Pourquoi Google Drive ?<br/>
-Il est possible de connecter DVC à plusieurs data storages. Minio est une alternative très intéressante. J&rsquo;ai déjà utilisé cet outil plusieurs fois par le passé en remplacement d&rsquo;un bucket s3 classique sur AWS. C&rsquo;est qualitatif et donc je le recommande. Néanmoins il faut le maintenir. Un abonnement Google Drive à 2 To par an coûte 100€ par an. C&rsquo;est largement <em>worth it</em> et on a largement de quoi voir venir avecc autant de stockage.</p>
-</blockquote>
+Il est possible de connecter DVC à plusieurs data storages. Minio est une alternative très intéressante. J&rsquo;ai déjà utilisé cet outil plusieurs fois par le passé en remplacement d&rsquo;un bucket s3 classique sur AWS. C&rsquo;est qualitatif et donc je le recommande. Néanmoins il faut le maintenir. Un abonnement Google Drive à 2 To par an coûte 100€ par an. C&rsquo;est largement <em>worth it</em> et on a largement de quoi voir venir avecc autant de stockage.</p></blockquote>
 <p>Voici l&rsquo;arborescence des projets data/algo-trading que j&rsquo;utilise:</p>
 <pre tabindex="0"><code>├── README.md
 ├── data
@@ -331,7 +334,7 @@ dvc checkout
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

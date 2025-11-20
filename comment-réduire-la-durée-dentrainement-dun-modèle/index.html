@@ -7,9 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Supposons que nous ayons un dataset composé de 1000 colonnes et comportant 1 million de lignes pour un sujet de classification, comment réduire sa dimension pour réduire les temps d&amp;rsquo;entrainement ? On suppose également que la machine qui va faire l&amp;rsquo;entrainement n&amp;rsquo;a pas énormément de RAM&amp;hellip;
+  content="Supposons que nous ayons un dataset composé de 1000 colonnes et comportant 1 million de lignes pour un sujet de classification, comment réduire sa dimension pour réduire les temps d&rsquo;entrainement ? On suppose également que la machine qui va faire l&rsquo;entrainement n&rsquo;a pas énormément de RAM&hellip;
 Voici les différentes options:
-Commencer par fermer toutes les applications qui ne servent à rien Echantillonner aléatoirement le dataset. C&amp;rsquo;est-à-dire créer plusieurs petits datasets de dimension M(300 000, 1 000) et faire plusieurs entrainements On peut séparer les variables numériques et catégorielles et supprimer les variables corrélées." />
+Commencer par fermer toutes les applications qui ne servent à rien Echantillonner aléatoirement le dataset. C&rsquo;est-à-dire créer plusieurs petits datasets de dimension M(300 000, 1 000) et faire plusieurs entrainements On peut séparer les variables numériques et catégorielles et supprimer les variables corrélées. Plus précisément, pour les variables numériques on utilise la corrélation et pour les variables catégorielles on utilise le test du chi 2. On peut utiliser le PCA et sélectionner les composants qui expliquent le maximum de variance dans le dataset On peut utiliser l&rsquo;algorithme de Vowpal Wabbit (online learning) On peut construire un modèle linéaire en utilisant une descente de gradient stochastique On peut aussi utiliser ses compétences métier pour sélectionner les features qui vont impacter le plus modèle. C&rsquo;est une approche qui fait appel à l&rsquo;intuition. " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +100,22 @@ Commencer par fermer toutes les applications qui ne servent à rien Echantillonn
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Comment réduire la durée d&#39;entrainement d&#39;un modèle ?">
-<meta itemprop="description" content="Supposons que nous ayons un dataset composé de 1000 colonnes et comportant 1 million de lignes pour un sujet de classification, comment réduire sa dimension pour réduire les temps d&rsquo;entrainement ? On suppose également que la machine qui va faire l&rsquo;entrainement n&rsquo;a pas énormément de RAM&hellip;
-Voici les différentes options:
-Commencer par fermer toutes les applications qui ne servent à rien Echantillonner aléatoirement le dataset. C&rsquo;est-à-dire créer plusieurs petits datasets de dimension M(300 000, 1 000) et faire plusieurs entrainements On peut séparer les variables numériques et catégorielles et supprimer les variables corrélées."><meta itemprop="datePublished" content="2019-02-13T20:11:00+00:00" />
-<meta itemprop="dateModified" content="2019-02-13T20:11:00+00:00" />
-<meta itemprop="wordCount" content="180"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Machine Learning,Machine Learning Theory," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Comment réduire la durée d&#39;entrainement d&#39;un modèle ?"/>
-<meta name="twitter:description" content="Supposons que nous ayons un dataset composé de 1000 colonnes et comportant 1 million de lignes pour un sujet de classification, comment réduire sa dimension pour réduire les temps d&rsquo;entrainement ? On suppose également que la machine qui va faire l&rsquo;entrainement n&rsquo;a pas énormément de RAM&hellip;
+  <meta itemprop="name" content="Comment réduire la durée d&#39;entrainement d&#39;un modèle ?">
+  <meta itemprop="description" content="Supposons que nous ayons un dataset composé de 1000 colonnes et comportant 1 million de lignes pour un sujet de classification, comment réduire sa dimension pour réduire les temps d’entrainement ? On suppose également que la machine qui va faire l’entrainement n’a pas énormément de RAM…
 Voici les différentes options:
-Commencer par fermer toutes les applications qui ne servent à rien Echantillonner aléatoirement le dataset. C&rsquo;est-à-dire créer plusieurs petits datasets de dimension M(300 000, 1 000) et faire plusieurs entrainements On peut séparer les variables numériques et catégorielles et supprimer les variables corrélées."/>
+Commencer par fermer toutes les applications qui ne servent à rien Echantillonner aléatoirement le dataset. C’est-à-dire créer plusieurs petits datasets de dimension M(300 000, 1 000) et faire plusieurs entrainements On peut séparer les variables numériques et catégorielles et supprimer les variables corrélées. Plus précisément, pour les variables numériques on utilise la corrélation et pour les variables catégorielles on utilise le test du chi 2. On peut utiliser le PCA et sélectionner les composants qui expliquent le maximum de variance dans le dataset On peut utiliser l’algorithme de Vowpal Wabbit (online learning) On peut construire un modèle linéaire en utilisant une descente de gradient stochastique On peut aussi utiliser ses compétences métier pour sélectionner les features qui vont impacter le plus modèle. C’est une approche qui fait appel à l’intuition.">
+  <meta itemprop="datePublished" content="2019-02-13T20:11:00+00:00">
+  <meta itemprop="dateModified" content="2019-02-13T20:11:00+00:00">
+  <meta itemprop="wordCount" content="180">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Machine Learning,Machine Learning Theory">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Comment réduire la durée d&#39;entrainement d&#39;un modèle ?">
+  <meta name="twitter:description" content="Supposons que nous ayons un dataset composé de 1000 colonnes et comportant 1 million de lignes pour un sujet de classification, comment réduire sa dimension pour réduire les temps d’entrainement ? On suppose également que la machine qui va faire l’entrainement n’a pas énormément de RAM…
+Voici les différentes options:
+Commencer par fermer toutes les applications qui ne servent à rien Echantillonner aléatoirement le dataset. C’est-à-dire créer plusieurs petits datasets de dimension M(300 000, 1 000) et faire plusieurs entrainements On peut séparer les variables numériques et catégorielles et supprimer les variables corrélées. Plus précisément, pour les variables numériques on utilise la corrélation et pour les variables catégorielles on utilise le test du chi 2. On peut utiliser le PCA et sélectionner les composants qui expliquent le maximum de variance dans le dataset On peut utiliser l’algorithme de Vowpal Wabbit (online learning) On peut construire un modèle linéaire en utilisant une descente de gradient stochastique On peut aussi utiliser ses compétences métier pour sélectionner les features qui vont impacter le plus modèle. C’est une approche qui fait appel à l’intuition.">
 
 
 
@@ -272,7 +275,7 @@ Commencer par fermer toutes les applications qui ne servent à rien Echantillonn
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

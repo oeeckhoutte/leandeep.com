@@ -4,40 +4,31 @@
     <title>Gitlab on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/gitlab/</link>
     <description>Recent content in Gitlab on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 06 Sep 2019 11:39:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Sep 2019 11:39:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get rid of .pem file to SSH on your AWS EC2 instance</title>
       <link>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</link>
       <pubDate>Fri, 06 Sep 2019 11:39:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/get-rid-of-.pem-file-to-ssh-on-your-aws-ec2-instance/</guid>
-      <description>Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a git clone using SSH protocol. You will be annoyed by the .pem file. To get rid of it (or more simply hide it) you can follow this procedure:
-The pem file contains a private key. Simply extract it and add it to your system.
-Copy the private key to the .ssh folder
-cp /path/to/your/cert.</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s say you want to setup a Gitlab server on AWS and you need to do a &lt;code&gt;git clone&lt;/code&gt; using &lt;code&gt;SSH&lt;/code&gt; protocol. You will be annoyed by the &lt;code&gt;.pem&lt;/code&gt; file. To get rid of it (or more simply hide it) you can follow this procedure:&lt;/p&gt;&#xA;&lt;p&gt;The pem file contains a private key. Simply extract it and add it to your system.&lt;/p&gt;&#xA;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Copy the private key to the .ssh folder&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Installer Gitlab CE avec un runner sur Centos 7 sur AWS</title>
       <link>https://leandeep.com/installer-gitlab-ce-avec-un-runner-sur-centos-7-sur-aws/</link>
       <pubDate>Mon, 02 Sep 2019 21:21:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-gitlab-ce-avec-un-runner-sur-centos-7-sur-aws/</guid>
-      <description>Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.
-Installation de Gitlab CE yum update yum -y install curl vim policycoreutils openssh-server openssh-clients postfix # Vérifiez que Firewalld n&amp;#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&amp;#39;AWS par exemple systemctl status firewalld # Vérifiez que les services sont bien démarrés systemctl status sshd systemctl status postfix # Installer le repository pour Gitlab curl -sS https://packages.</description>
+      <description>&lt;p&gt;Dans cet article nous allons voir comment installer et configurer Gitlab CE pour construire des pipelines automatiques CICD.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation-de-gitlab-ce&#34;&gt;Installation de Gitlab CE&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;yum update&#xA;&#xA;yum -y install curl vim policycoreutils openssh-server openssh-clients postfix&#xA;&#xA;# Vérifiez que Firewalld n&amp;#39;est pas démarré sans quoi il faudra le configurer ou le désactiver si vous utilisez les *security groups* d&amp;#39;AWS par exemple&#xA;systemctl status firewalld&#xA;&#xA;# Vérifiez que les services sont bien démarrés&#xA;systemctl status sshd&#xA;systemctl status postfix&#xA;&#xA;# Installer le repository pour Gitlab&#xA;curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash&#xA;&#xA;# Installer Gitlab&#xA;yum -y install gitlab-ce&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration-du-dns-en-https&#34;&gt;Configuration du DNS en HTTPS&lt;/h2&gt;&#xA;&lt;p&gt;Gitlab est maintenant installé. Pour configurer un DNS et du HTTPS, voici ce qu&amp;rsquo;il faut modifier dans le fichier &lt;code&gt;/etc/gitlab/gitlab.rb&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Tester une tâche Gitlab CI localement sans Gitlab</title>
       <link>https://leandeep.com/tester-une-t%C3%A2che-gitlab-ci-localement-sans-gitlab/</link>
       <pubDate>Sun, 18 Nov 2018 21:18:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/tester-une-t%C3%A2che-gitlab-ci-localement-sans-gitlab/</guid>
-      <description>Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&amp;rsquo;est pas nécessaire d&amp;rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier .gitlab-ci.yml en local est très utile pour 2 raisons. D&amp;rsquo;un côté c&amp;rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&amp;rsquo;un runner soit disponible. D&amp;rsquo;un autre côté on ne pollue pas le repository Git distant avec d&amp;rsquo;innombrables commits de tests (on peut réécrire l&amp;rsquo;historique je sais bien) ou avec des notifications aux collègues.</description>
+      <description>&lt;p&gt;Dans cet article nous allons voir comment tester une pipeline Gitlab CI en local. Il n&amp;rsquo;est pas nécessaire d&amp;rsquo;installer un Gitlab en local; ce qui peut être ennuyeux avec la gestion des certificats SSL. Pouvoir tester son fichier &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; en local est très utile pour 2 raisons. D&amp;rsquo;un côté c&amp;rsquo;est plus rapide car il ne faut pas pousser son code sur un Gitlab distant et attendre qu&amp;rsquo;un runner soit disponible. D&amp;rsquo;un autre côté on ne pollue pas le repository Git distant avec d&amp;rsquo;innombrables commits de tests (on peut réécrire l&amp;rsquo;historique je sais bien) ou avec des notifications aux collègues.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

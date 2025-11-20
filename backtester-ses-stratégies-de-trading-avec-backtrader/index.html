@@ -7,9 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&amp;rsquo;en ai créé une complètement inutile mais cela permet d&amp;rsquo;illustrer mon propose).
+  content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).
 Pré-requis
-pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &amp;#34;apiKey&amp;#34;: &amp;#34;&amp;#34;, &amp;#34;secret&amp;#34;: &amp;#34;&amp;#34;, } ) symbol = &amp;#34;ETH/USDT&amp;#34; timeframe = &amp;#34;1h&amp;#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd." />
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd.DataFrame( ohlcv, columns=[&#34;timestamp&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;] ) df[&#34;timestamp&#34;] = pd.to_datetime(df[&#34;timestamp&#34;], unit=&#34;ms&#34;) df.set_index(&#34;timestamp&#34;, inplace=True) # Définir la stratégie class MovingAverageCrossStrategy(bt.Strategy): params = ( (&#34;short_period&#34;, 20), (&#34;long_period&#34;, 50), ) def __init__(self): self.short_ma = bt.indicators.SimpleMovingAverage( self.data.close, period=self.params.short_period ) self.long_ma = bt.indicators.SimpleMovingAverage( self.data.close, period=self.params.long_period ) self.crossover = bt.indicators.CrossOver(self.short_ma, self.long_ma) def next(self): if self.crossover &gt; 0: # Signal d&#39;achat self.buy() elif self.crossover &lt; 0: # Signal de vente self.sell() # Convertir les données pandas en format compréhensible par backtrader data = bt.feeds.PandasData(dataname=df) # Configurer le cerveau du backtest cerebro = bt.Cerebro() cerebro.adddata(data) cerebro.addstrategy(MovingAverageCrossStrategy) # Ajouter un observer pour afficher les gains/pertes cerebro.addobserver(bt.observers.Value) # Paramètres du backtest start_date = pd.to_datetime(&#34;2022-01-01&#34;) end_date = pd.to_datetime(&#34;2022-12-31&#34;) cerebro.run(stdstats=False, tradehistory=True, fromdate=start_date, todate=end_date) # Afficher les gains/pertes final_portfolio_value = cerebro.broker.getvalue() print(f&#34;Capital final: {final_portfolio_value} USDT&#34;) cerebro.plot() " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -100,19 +100,22 @@ pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Backtester ses stratégies de trading avec Backtrader">
-<meta itemprop="description" content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).
-Pré-requis
-pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd."><meta itemprop="datePublished" content="2024-02-02T18:10:00+00:00" />
-<meta itemprop="dateModified" content="2024-02-02T18:10:00+00:00" />
-<meta itemprop="wordCount" content="1614"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Python,Backtesting,Backtrader,Trading,AlgoTrading," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Backtester ses stratégies de trading avec Backtrader"/>
-<meta name="twitter:description" content="Voici un exemple de code Python permettant de backtester une stratégie (ici j&rsquo;en ai créé une complètement inutile mais cela permet d&rsquo;illustrer mon propose).
+  <meta itemprop="name" content="Backtester ses stratégies de trading avec Backtrader">
+  <meta itemprop="description" content="Voici un exemple de code Python permettant de backtester une stratégie (ici j’en ai créé une complètement inutile mais cela permet d’illustrer mon propose).
 Pré-requis
-pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd."/>
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd.DataFrame( ohlcv, columns=[&#34;timestamp&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;] ) df[&#34;timestamp&#34;] = pd.to_datetime(df[&#34;timestamp&#34;], unit=&#34;ms&#34;) df.set_index(&#34;timestamp&#34;, inplace=True) # Définir la stratégie class MovingAverageCrossStrategy(bt.Strategy): params = ( (&#34;short_period&#34;, 20), (&#34;long_period&#34;, 50), ) def __init__(self): self.short_ma = bt.indicators.SimpleMovingAverage( self.data.close, period=self.params.short_period ) self.long_ma = bt.indicators.SimpleMovingAverage( self.data.close, period=self.params.long_period ) self.crossover = bt.indicators.CrossOver(self.short_ma, self.long_ma) def next(self): if self.crossover &gt; 0: # Signal d&#39;achat self.buy() elif self.crossover &lt; 0: # Signal de vente self.sell() # Convertir les données pandas en format compréhensible par backtrader data = bt.feeds.PandasData(dataname=df) # Configurer le cerveau du backtest cerebro = bt.Cerebro() cerebro.adddata(data) cerebro.addstrategy(MovingAverageCrossStrategy) # Ajouter un observer pour afficher les gains/pertes cerebro.addobserver(bt.observers.Value) # Paramètres du backtest start_date = pd.to_datetime(&#34;2022-01-01&#34;) end_date = pd.to_datetime(&#34;2022-12-31&#34;) cerebro.run(stdstats=False, tradehistory=True, fromdate=start_date, todate=end_date) # Afficher les gains/pertes final_portfolio_value = cerebro.broker.getvalue() print(f&#34;Capital final: {final_portfolio_value} USDT&#34;) cerebro.plot()">
+  <meta itemprop="datePublished" content="2024-02-02T18:10:00+00:00">
+  <meta itemprop="dateModified" content="2024-02-02T18:10:00+00:00">
+  <meta itemprop="wordCount" content="1614">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Python,Backtesting,Backtrader,Trading,AlgoTrading">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Backtester ses stratégies de trading avec Backtrader">
+  <meta name="twitter:description" content="Voici un exemple de code Python permettant de backtester une stratégie (ici j’en ai créé une complètement inutile mais cela permet d’illustrer mon propose).
+Pré-requis
+pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2 import math import pandas as pd import backtrader as bt import ccxt # Charger les données historiques depuis Binance exchange = ccxt.binance( { &#34;apiKey&#34;: &#34;&#34;, &#34;secret&#34;: &#34;&#34;, } ) symbol = &#34;ETH/USDT&#34; timeframe = &#34;1h&#34; ohlcv = exchange.fetch_ohlcv(symbol, timeframe) df = pd.DataFrame( ohlcv, columns=[&#34;timestamp&#34;, &#34;open&#34;, &#34;high&#34;, &#34;low&#34;, &#34;close&#34;, &#34;volume&#34;] ) df[&#34;timestamp&#34;] = pd.to_datetime(df[&#34;timestamp&#34;], unit=&#34;ms&#34;) df.set_index(&#34;timestamp&#34;, inplace=True) # Définir la stratégie class MovingAverageCrossStrategy(bt.Strategy): params = ( (&#34;short_period&#34;, 20), (&#34;long_period&#34;, 50), ) def __init__(self): self.short_ma = bt.indicators.SimpleMovingAverage( self.data.close, period=self.params.short_period ) self.long_ma = bt.indicators.SimpleMovingAverage( self.data.close, period=self.params.long_period ) self.crossover = bt.indicators.CrossOver(self.short_ma, self.long_ma) def next(self): if self.crossover &gt; 0: # Signal d&#39;achat self.buy() elif self.crossover &lt; 0: # Signal de vente self.sell() # Convertir les données pandas en format compréhensible par backtrader data = bt.feeds.PandasData(dataname=df) # Configurer le cerveau du backtest cerebro = bt.Cerebro() cerebro.adddata(data) cerebro.addstrategy(MovingAverageCrossStrategy) # Ajouter un observer pour afficher les gains/pertes cerebro.addobserver(bt.observers.Value) # Paramètres du backtest start_date = pd.to_datetime(&#34;2022-01-01&#34;) end_date = pd.to_datetime(&#34;2022-12-31&#34;) cerebro.run(stdstats=False, tradehistory=True, fromdate=start_date, todate=end_date) # Afficher les gains/pertes final_portfolio_value = cerebro.broker.getvalue() print(f&#34;Capital final: {final_portfolio_value} USDT&#34;) cerebro.plot()">
 
 
 
@@ -604,7 +607,7 @@ La stratégie Golden Cross est souvent utilisée comme indicateur de confirmatio
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

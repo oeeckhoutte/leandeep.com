@@ -7,10 +7,11 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &amp;ldquo;jetable&amp;rdquo; vous pouvez utiliser Vagrant.
-Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&amp;rsquo;exécuter la commande vagrant up.
+  content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &ldquo;jetable&rdquo; vous pouvez utiliser Vagrant.
+Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&rsquo;exécuter la commande vagrant up.
 Sur votre machine il faudra que Virtualbox soit installé en amont.
-Voici à quoi ressmeble mon Vagrantfile:" />
+Voici à quoi ressmeble mon Vagrantfile:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -101,21 +102,24 @@ Voici à quoi ressmeble mon Vagrantfile:" />
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Créer une VM de dev sec avec Vagrant">
-<meta itemprop="description" content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &ldquo;jetable&rdquo; vous pouvez utiliser Vagrant.
-Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&rsquo;exécuter la commande vagrant up.
-Sur votre machine il faudra que Virtualbox soit installé en amont.
-Voici à quoi ressmeble mon Vagrantfile:"><meta itemprop="datePublished" content="2017-12-01T13:49:00+00:00" />
-<meta itemprop="dateModified" content="2017-12-01T13:49:00+00:00" />
-<meta itemprop="wordCount" content="863"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="Security,Vagrant," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Créer une VM de dev sec avec Vagrant"/>
-<meta name="twitter:description" content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM &ldquo;jetable&rdquo; vous pouvez utiliser Vagrant.
-Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d&rsquo;exécuter la commande vagrant up.
+  <meta itemprop="name" content="Créer une VM de dev sec avec Vagrant">
+  <meta itemprop="description" content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM “jetable” vous pouvez utiliser Vagrant.
+Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d’exécuter la commande vagrant up.
 Sur votre machine il faudra que Virtualbox soit installé en amont.
-Voici à quoi ressmeble mon Vagrantfile:"/>
+Voici à quoi ressmeble mon Vagrantfile:">
+  <meta itemprop="datePublished" content="2017-12-01T13:49:00+00:00">
+  <meta itemprop="dateModified" content="2017-12-01T13:49:00+00:00">
+  <meta itemprop="wordCount" content="863">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Security,Vagrant">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Créer une VM de dev sec avec Vagrant">
+  <meta name="twitter:description" content="Si vous faites du développement Ansible et que vous avez besoin de tester rapidement votre playbook sur une VM “jetable” vous pouvez utiliser Vagrant.
+Pour ce faire, rien de plus simple. Il vous suffit de créer un ficher Vagrantfile dans le répertoire de votre projet. Cela permettra de le backuper au passage et d’exécuter la commande vagrant up.
+Sur votre machine il faudra que Virtualbox soit installé en amont.
+Voici à quoi ressmeble mon Vagrantfile:">
 
 
 
@@ -269,8 +273,7 @@ end
 </code></pre><p>Une fois la VM provisionnée, il suffit de faire un <code>vagrant ssh</code> pour s&rsquo;y connecter.</p>
 <p>Copiez la clé publique de votre MAC sur votre VM pour pourrez faire un SSH (utilisateur vagrant par défaut) dessus et exécuter vos playbooks via Ansible.</p>
 <blockquote>
-<p>Pour vous connecter en tant que <code>root</code>, il faudra modifier le fichier de configuration <code>/etc/ssh/sshd_config</code> et fixer le paramètre <code>PermitRootLogin</code> à <code>yes</code>.</p>
-</blockquote>
+<p>Pour vous connecter en tant que <code>root</code>, il faudra modifier le fichier de configuration <code>/etc/ssh/sshd_config</code> et fixer le paramètre <code>PermitRootLogin</code> à <code>yes</code>.</p></blockquote>
 <p>Pour stopper et effacer une VM vous pouvez utiliser la commande suivante <code>vagrant halt &amp;&amp; vagrant destroy -f</code>.</p>
 <br/>
 <p>Voici un autre Vagrantfile pour la distro Kali pour tester la sécurité de vos applications&hellip;</p>
@@ -303,8 +306,7 @@ Vagrant.configure(&#34;2&#34;) do |config|
   SHELL
 end
 </code></pre><blockquote>
-<p><code>vagrant reload</code> permet de prendre en compte le changement de configuration du Vagrantfile sans devoir détruire et recréer le VM.</p>
-</blockquote>
+<p><code>vagrant reload</code> permet de prendre en compte le changement de configuration du Vagrantfile sans devoir détruire et recréer le VM.</p></blockquote>
 <blockquote>
 <p>Les options suivantes peuvent également servir:</p>
 <pre tabindex="0"><code>vagrant provision  # provision the powered on VM
@@ -312,25 +314,19 @@ vagrant up --provision  # when VM is powered off, power it on then provision
 vagrant reload --provision  # reboot the VM then provision
 </code></pre></blockquote>
 <blockquote>
-<p>Pour utiliser <code>ansible-console</code> sur cette nouvelle VM et spécifier un utilisateur on peut utiliser la commande suivante <code> ansible-console -i ./ansible/inventory/local --become -u root</code></p>
-</blockquote>
+<p>Pour utiliser <code>ansible-console</code> sur cette nouvelle VM et spécifier un utilisateur on peut utiliser la commande suivante <code> ansible-console -i ./ansible/inventory/local --become -u root</code></p></blockquote>
 <blockquote>
-<p>Default credentials: root/toor</p>
-</blockquote>
+<p>Default credentials: root/toor</p></blockquote>
 <blockquote>
 <p>Allow SSH to Remote Kali: <br/>
 On local PC: <code>ssh-keygen -R ip_remote_kali</code> <br/>
-Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>PermitRootLogin yes</code> et restart SSH <code>/etc/init.d/ssh restart</code></p>
-</blockquote>
+Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>PermitRootLogin yes</code> et restart SSH <code>/etc/init.d/ssh restart</code></p></blockquote>
 <blockquote>
-<p>Ouvrir File Manager en mode admin: <code>sudo thunar</code></p>
-</blockquote>
+<p>Ouvrir File Manager en mode admin: <code>sudo thunar</code></p></blockquote>
 <blockquote>
-<p>Pour installer vagrant sur OSX: <code>brew cask install vagrant</code></p>
-</blockquote>
+<p>Pour installer vagrant sur OSX: <code>brew cask install vagrant</code></p></blockquote>
 <blockquote>
-<p>Box Ubuntu utiliser &ldquo;ubuntu/bionic64&rdquo;</p>
-</blockquote>
+<p>Box Ubuntu utiliser &ldquo;ubuntu/bionic64&rdquo;</p></blockquote>
 
             </div>
         </article>
@@ -404,7 +400,7 @@ Editer <code>/etc/ssh/sshd_config</code>, ajouter la ligne suivante <code>Permit
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

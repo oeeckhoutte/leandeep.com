@@ -1,117 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>unix_tips on Lean Deep Tech blog</title>
+    <title>Unix_tips on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/unix_tips/</link>
-    <description>Recent content in unix_tips on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Unix_tips on Lean Deep Tech blog</description>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 08 Feb 2022 06:59:00 +0000</lastBuildDate><atom:link href="https://leandeep.com/tags/unix_tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Sep 2025 13:34:00 +0000</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/unix_tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Commandes pour redimensionner le disque d&#39;une VM sous Linux</title>
+      <link>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</link>
+      <pubDate>Thu, 04 Sep 2025 13:34:00 +0000</pubDate>
+      <guid>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</guid>
+      <description>&lt;p&gt;Voici quelques commandes très utiles pour redimensionner le disque d&amp;rsquo;une VM sous Debian 13.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ajouter-luser-actuel-au-fichier-sudoers&#34;&gt;Ajouter l&amp;rsquo;user actuel au fichier sudoers&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;su -&#xA;EDITOR=vim visudo&#xA;# Ajouter votre user au fichier sudoers si vous avez l&amp;#39;erreur: &#xA;# &amp;#34;monuser is not in the sudoers file.&amp;#34;&#xA;# monuser    ALL=(ALL:ALL) ALL&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;visualiser&#34;&gt;Visualiser&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt install util-linux&#xA;echo &amp;#39;export PATH=$PATH:/sbin:/usr/sbin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&#xA;source ~/.bashrc&#xA;sudo cfdisk&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;resize&#34;&gt;Resize&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Etends la partition&#xA;parted /dev/sda&#xA;print&#xA;print free&#xA;resizepart 2 100%&#xA;# resizepart 2 1611GB&#xA;quit &#xA;# Etends le filesystem &#xA;resize2fs /dev/sda2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-une-partition-si-nécessaire&#34;&gt;Effacer une partition si nécessaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda&#xA;rm 3&#xA;# Agrandis une partition comme la 2 avec toute la place libre&#xA;resizepart 2 100%&#xA;# ou mieux avec la taille en GB. Par exemple:&#xA;resizepart 2 1611GB (sur un total de 1617 pour créer un swap de 6GB par exemple)&#xA;quit&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;recréer-partition-swap-si-nécesssaire&#34;&gt;Recréer partition swap si nécesssaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda mkpart primary linux-swap 1605GB 1611GB&#xA;# Format la partition en SWAP&#xA;mkswap /dev/sda3&#xA;&#xA;# active le swap&#xA;swapon /dev/sda3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;fstab&#34;&gt;fstab&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;blkid /dev/sda3 (pour récupérer le UUID du nouveau SWAP)&#xA;vim /etc/fstab&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     <item>
       <title>Vérifier les ouvertures réseau depuis un pod Kubernetes</title>
       <link>https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/</link>
       <pubDate>Tue, 08 Feb 2022 06:59:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/v%C3%A9rifier-les-ouvertures-r%C3%A9seau-depuis-un-pod-kubernetes/</guid>
-      <description>Introduction Dans cet article rapide, nous allons voir comment vérifier qu&amp;rsquo;un pod peut accéder à un serveur distant. Dans l&amp;rsquo;image Docker utiliséz dans le pod, aucun outil n&amp;rsquo;est installé (ping command not found&amp;hellip;).
-ICMP Ping, c&amp;rsquo;est ICMP, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.
-Connexion tcp/udp via device Depuis le pod, kubectl exec..., exécuter les commandes suivantes:
-export host=le_host_de_votre_serveur_distant export port=le_port_de_votre_serveur_distant (echo &amp;gt;/dev/tcp/${host}/${port}) &amp;amp;&amp;gt;/dev/null &amp;amp;&amp;amp; echo &amp;#34;open&amp;#34; || echo &amp;#34;closed&amp;#34; Rappel autres outils telnet:</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article rapide, nous allons voir comment vérifier qu&amp;rsquo;un pod peut accéder à un serveur distant. Dans l&amp;rsquo;image Docker utiliséz dans le pod, aucun outil n&amp;rsquo;est installé (&lt;code&gt;ping command not found&lt;/code&gt;&amp;hellip;).&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;icmp&#34;&gt;ICMP&lt;/h2&gt;&#xA;&lt;p&gt;Ping, c&amp;rsquo;est &lt;a href=&#34;https://fr.wikipedia.org/wiki/Internet_Control_Message_Protocol&#34;&gt;ICMP&lt;/a&gt;, donc si ICMP est bloqué vous ne pourrez pas pinger votre serveur.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;connexion-tcpudp-via-device&#34;&gt;Connexion tcp/udp via device&lt;/h2&gt;&#xA;&lt;p&gt;Depuis le pod, &lt;code&gt;kubectl exec...&lt;/code&gt;, exécuter les commandes suivantes:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export host=le_host_de_votre_serveur_distant&#xA;export port=le_port_de_votre_serveur_distant&#xA;(echo &amp;gt;/dev/tcp/${host}/${port}) &amp;amp;&amp;gt;/dev/null &amp;amp;&amp;amp; echo &amp;#34;open&amp;#34; || echo &amp;#34;closed&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;rappel-autres-outils&#34;&gt;Rappel autres outils&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;telnet:&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Réaliser un speed test depuis le terminal</title>
       <link>https://leandeep.com/r%C3%A9aliser-un-speed-test-depuis-le-terminal/</link>
       <pubDate>Sun, 10 Oct 2021 15:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/r%C3%A9aliser-un-speed-test-depuis-le-terminal/</guid>
-      <description>J&amp;rsquo;ai eu besoin de mettre en place un traffic shaper sur mon Firewall pour ne pas qu&amp;rsquo;un de mes noeuds Ethereum consomme toute la bande passante de mon réseau. Je voulais limiter la bande passante en semaine de 8h30 à 19h. Une fois tout cela mis en place, il m&amp;rsquo;a fallu tester si tout était bien configuré. Si vous avez besoin de réaliser un speed test depuis un serveur headless, vous pouvez suivre ce tip.</description>
+      <description>&lt;p&gt;J&amp;rsquo;ai eu besoin de mettre en place un traffic shaper sur mon Firewall pour ne pas qu&amp;rsquo;un de mes noeuds Ethereum consomme toute la bande passante de mon réseau. Je voulais limiter la bande passante en semaine de 8h30 à 19h. Une fois tout cela mis en place, il m&amp;rsquo;a fallu tester si tout était bien configuré. Si vous avez besoin de réaliser un speed test depuis un serveur headless, vous pouvez suivre ce tip.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Regarder un film sur vlc over SSH</title>
       <link>https://leandeep.com/regarder-un-film-sur-vlc-over-ssh/</link>
       <pubDate>Thu, 08 Oct 2020 18:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/regarder-un-film-sur-vlc-over-ssh/</guid>
-      <description>Tout est dans le titre. Avec la commande ci-dessous, vous pouvez visionner sur VLC un film présent sur une machine distante via SFTP (Secure File Transfer Protocol). C&amp;rsquo;est très pratique si vous avez du contenu vidéo sur une autre machine et vous ne voulez pas attendre de le télécharger pour le regarder.
-vlc sftp://user@host:/path/to/file Bon visionnage.</description>
+      <description>&lt;p&gt;Tout est dans le titre. Avec la commande ci-dessous, vous pouvez visionner sur VLC un film présent sur une machine distante via SFTP (Secure File Transfer Protocol).&#xA;C&amp;rsquo;est très pratique si vous avez du contenu vidéo sur une autre machine et vous ne voulez pas attendre de le télécharger pour le regarder.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;vlc sftp://user@host:/path/to/file&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Bon visionnage.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Port accessible sur une machine distante et quels ports utilisés ?</title>
       <link>https://leandeep.com/port-accessible-sur-une-machine-distante-et-quels-ports-utilis%C3%A9s/</link>
       <pubDate>Tue, 30 Jun 2015 07:04:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/port-accessible-sur-une-machine-distante-et-quels-ports-utilis%C3%A9s/</guid>
-      <description>Ports accessibles ? Via Telnet Sur les anciens systèmes telnet est installé. Il suffit de faire:
-telnet hostname port Alternatives à telnet Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.
-NC nc -zv hostname port nc -zv 127.0.0.1 22 80 8080 # multiple ports nc -zv 127.0.0.1 20-30 # range of ports Note: pour tester une port sur le protocole UDP, utiliser nc -u</description>
+      <description>&lt;h1 id=&#34;ports-accessibles-&#34;&gt;Ports accessibles ?&lt;/h1&gt;&#xA;&lt;h2 id=&#34;via-telnet&#34;&gt;Via Telnet&lt;/h2&gt;&#xA;&lt;p&gt;Sur les anciens systèmes telnet est installé.&#xA;Il suffit de faire:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;telnet hostname port&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;alternatives-à-telnet&#34;&gt;Alternatives à telnet&lt;/h2&gt;&#xA;&lt;p&gt;Sur les machines plus récentes, telnet n&amp;rsquo;est plus installé pour une question de sécurité. Il est alors possible d&amp;rsquo;utiliser d&amp;rsquo;autres outils.&lt;/p&gt;&#xA;&lt;h3 id=&#34;nc&#34;&gt;NC&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nc -zv hostname port&#xA;nc -zv 127.0.0.1 22 80 8080 # multiple ports&#xA;nc -zv 127.0.0.1 20-30 # range of ports&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Note: pour tester une port sur le protocole UDP, utiliser &lt;code&gt;nc -u&lt;/code&gt;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Réutiliser le N-ième mot de la dernière commande</title>
       <link>https://leandeep.com/r%C3%A9utiliser-le-n-i%C3%A8me-mot-de-la-derni%C3%A8re-commande/</link>
       <pubDate>Wed, 05 Nov 2014 20:33:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/r%C3%A9utiliser-le-n-i%C3%A8me-mot-de-la-derni%C3%A8re-commande/</guid>
-      <description>Dans la catégorie Historique Shell:
-Si vous voulez réutiliser un mot particulier de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:
-!!:N Exemple:
-$ du -h ~/Dev ... $ cd !!:2 $ cd ~/Dev Il est également possible de désigner la dernière commande commencée par un string. (Comme abordé en dernière partie de ce tip.)
-$ cd !d:2 $ cd ~/Dev </description>
+      <description>&lt;p&gt;&lt;strong&gt;Dans la catégorie Historique Shell:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Si vous voulez réutiliser un mot particulier de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;!!:N&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ du -h ~/Dev&#xA;...&#xA;&#xA;$ cd !!:2&#xA;$ cd ~/Dev&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Il est également possible de désigner la dernière commande commencée par un string. (Comme abordé en dernière partie de &lt;a href=&#34;http://leandeep.com/executer-la-derniere-commande-en-tant-que-root/&#34;&gt;ce tip&lt;/a&gt;.)&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cd !d:2 &#xA;$ cd ~/Dev&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Retirer les commentaires et lignes vides</title>
       <link>https://leandeep.com/retirer-les-commentaires-et-lignes-vides/</link>
       <pubDate>Mon, 16 Jun 2014 21:25:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/retirer-les-commentaires-et-lignes-vides/</guid>
-      <description>Dans la catégorie Manipulation de textes
-Voici une commande permettant de nettoyer un fichier de configuration et retirer les commentaires et lignes vides inutiles.
-grep -E -v &amp;#34;^#|^$&amp;#34; file Ces commandes utilisent une regex grâce à l&amp;rsquo;option -E de grep.
-&amp;ldquo;^#&amp;rdquo; permet de trouver toutes lignes qui commencent par un &amp;ldquo;#&amp;rdquo;. &amp;ldquo;^$&amp;rdquo; permet de trouver toutes les lignes vides. Pour info l&amp;rsquo;option -v permet d&amp;rsquo;inverser la sélection.
-Exemple:
-grep -E -v &amp;#39;^#|^$&amp;#39; nginx.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Dans la catégorie Manipulation de textes&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Voici une commande permettant de nettoyer un fichier de configuration et retirer les commentaires et lignes vides inutiles.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;grep -E -v &amp;#34;^#|^$&amp;#34; file&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Ces commandes utilisent une regex grâce à l&amp;rsquo;option -E de grep.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&amp;ldquo;^#&amp;rdquo; permet de trouver toutes lignes qui commencent par un &amp;ldquo;#&amp;rdquo;.&lt;/li&gt;&#xA;&lt;li&gt;&amp;ldquo;^$&amp;rdquo; permet de trouver toutes les lignes vides.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;em&gt;Pour info l&amp;rsquo;option -v permet d&amp;rsquo;inverser la sélection.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;grep -E -v &amp;#39;^#|^$&amp;#39; nginx.conf | head&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Réutiliser le dernier argument de la dernière commande</title>
       <link>https://leandeep.com/r%C3%A9utiliser-le-dernier-argument-de-la-derni%C3%A8re-commande/</link>
       <pubDate>Sat, 10 May 2014 21:38:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/r%C3%A9utiliser-le-dernier-argument-de-la-derni%C3%A8re-commande/</guid>
-      <description>Dans la catégorie Historique Shell:
-Si vous voulez réutiliser le dernier argument de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:
-!$ Exemple:
-$ mv server.js backend/ $ du -sh !$ $ du -sh backend/ 1.2G backend/ </description>
+      <description>&lt;p&gt;&lt;strong&gt;Dans la catégorie Historique Shell:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Si vous voulez réutiliser le dernier argument de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;!$&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ mv server.js backend/ &#xA;$ du -sh !$ &#xA;$ du -sh backend/ &#xA;1.2G  backend/&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Réutiliser le 1er argument de la dernière commande</title>
       <link>https://leandeep.com/r%C3%A9utiliser-le-1er-argument-de-la-derni%C3%A8re-commande/</link>
       <pubDate>Thu, 08 May 2014 15:23:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/r%C3%A9utiliser-le-1er-argument-de-la-derni%C3%A8re-commande/</guid>
-      <description>Dans la catégorie Historique Shell
-Si vous voulez réutiliser le premier argument de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:
-!^ Exemple:
-$ host www.google.com 8.8.8.8 Using domain server: Name: 8.8.8.8 Address: 8.8.8.8#53 Aliases: www.google.com has address ... www.google.com has IPv6 address ... # Envoyer 1 seul ping $ ping -c1 !^ $ ping -c1 www.google.com PING www.google.com ... </description>
+      <description>&lt;p&gt;&lt;strong&gt;Dans la catégorie Historique Shell&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Si vous voulez réutiliser le premier argument de votre dernière commande pour votre nouvelle commande vous pouvez utiliser cette commande:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;!^&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ host www.google.com 8.8.8.8&#xA;Using domain server:&#xA;Name: 8.8.8.8&#xA;Address: 8.8.8.8#53&#xA;Aliases: &#xA;&#xA;www.google.com has address ...&#xA;www.google.com has IPv6 address ...&#xA;&#xA;# Envoyer 1 seul ping&#xA;$ ping -c1 !^ &#xA;$ ping -c1 www.google.com&#xA;PING www.google.com ...&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Utiliser une boucle dans le terminal</title>
       <link>https://leandeep.com/utiliser-une-boucle-dans-le-terminal/</link>
       <pubDate>Thu, 01 May 2014 22:51:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/utiliser-une-boucle-dans-le-terminal/</guid>
-      <description>Dans la catégorie Scripts Shell:
-Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&amp;rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.
-for VAR in LIST &amp;gt; do &amp;gt; # utilisez $VAR &amp;gt; done Exemple:
-$ for USER in olivier bob bill &amp;gt; do &amp;gt; sudo passwd -l $USER &amp;gt; logger -t bad-boy $USER &amp;gt; done Locking password for user olivier.</description>
+      <description>&lt;p&gt;&lt;strong&gt;Dans la catégorie Scripts Shell:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Si vous voulez exécuter plusieurs fois les mêmes actions sur une liste d&amp;rsquo;éléments, vous pouvez utiliser une boucle directement dans le terminal sans avoir besoin de script.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for VAR in LIST&#xA;&amp;gt; do&#xA;&amp;gt; # utilisez $VAR&#xA;&amp;gt; done&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Exemple:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ for USER in olivier bob bill&#xA;&amp;gt; do&#xA;&amp;gt;  sudo passwd -l $USER&#xA;&amp;gt;  logger -t bad-boy $USER&#xA;&amp;gt;  done&#xA;Locking password for user olivier.&#xA;passwd: Success &#xA;Locking password for user bob.&#xA;passwd: Success&#xA;Locking password for user bill.&#xA;passwd: Success&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Les commandes ci-dessus peuvent être écrites sur une ligne:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

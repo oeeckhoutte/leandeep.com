@@ -4,43 +4,31 @@
     <title>Openshift on Lean Deep Tech blog</title>
     <link>https://leandeep.com/tags/openshift/</link>
     <description>Recent content in Openshift on Lean Deep Tech blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 10 Jan 2020 19:49:00 +0200</lastBuildDate><atom:link href="https://leandeep.com/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Jan 2020 19:49:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lister les process Linux dans une image redhat ubi-minimal</title>
       <link>https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/</link>
       <pubDate>Fri, 10 Jan 2020 19:49:00 +0200</pubDate>
-      
       <guid>https://leandeep.com/lister-les-process-linux-dans-une-image-redhat-ubi-minimal/</guid>
-      <description>ps n&amp;rsquo;est pas disponible dans les nouvelles images minimales Redhat ubi8-minimal. Voici un article de RedHat expliquant ce que sont ces images https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image
-Pour réaliser un ps aux, cela va être compliqué&amp;hellip;
-2 options s&amp;rsquo;offrent à nous:
-Option 1: Soit On veut ajouter at vitam eternam le binaire ps dans son container/ ou pod.
-Option 2: Ou soit on veut ajouter ps une fois que le container ou pod a démarré (juste une fois).</description>
+      <description>&lt;p&gt;&lt;code&gt;ps&lt;/code&gt; n&amp;rsquo;est pas disponible dans les nouvelles images minimales Redhat &lt;code&gt;ubi8-minimal&lt;/code&gt;. Voici un article de RedHat expliquant ce que sont ces images &lt;a href=&#34;https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image&#34;&gt;https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour réaliser un &lt;code&gt;ps aux&lt;/code&gt;, cela va être compliqué&amp;hellip;&lt;/p&gt;&#xA;&lt;p&gt;2 options s&amp;rsquo;offrent à nous:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Option 1: Soit On veut ajouter &lt;em&gt;at vitam eternam&lt;/em&gt; le binaire &lt;code&gt;ps&lt;/code&gt; dans son container/ ou pod.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Option 2: Ou soit on veut ajouter &lt;code&gt;ps&lt;/code&gt; une fois que le container ou pod a démarré (juste une fois).&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Commandes custom utiles Openshift</title>
       <link>https://leandeep.com/commandes-custom-utiles-openshift/</link>
       <pubDate>Tue, 25 Jun 2019 09:43:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/commandes-custom-utiles-openshift/</guid>
-      <description>Lister les utilisateurs ayant le rôle cluster-admin A partir de 3.9:
-oc get clusterrolebinding -o json | jq &amp;#39;.items[] | select(.metadata.name | startswith(&amp;#34;cluster-admin&amp;#34;)) | .userNames&amp;#39; Ajouter un rôle cluster à un utilisateur oc adm policy add-cluster-role-to-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt; Retirer un rôle cluster à un utilisateur oc adm policy remove-cluster-role-from-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt; Lister les pods en erreur (ou n&amp;rsquo;ayant pas le status Running) oc get pods --all-namespaces | awk &amp;#39;!/Running/ {print}&amp;#39; Lister les pods en erreur par namespace oc get pods --all-namespaces | awk &amp;#39;!</description>
+      <description>&lt;h2 id=&#34;lister-les-utilisateurs-ayant-le-rôle-cluster-admin&#34;&gt;Lister les utilisateurs ayant le rôle cluster-admin&lt;/h2&gt;&#xA;&lt;p&gt;&lt;em&gt;A partir de 3.9&lt;/em&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc get clusterrolebinding -o json | jq &amp;#39;.items[] | select(.metadata.name |  startswith(&amp;#34;cluster-admin&amp;#34;)) | .userNames&amp;#39;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;ajouter-un-rôle-cluster-à-un-utilisateur&#34;&gt;Ajouter un rôle cluster à un utilisateur&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc adm policy add-cluster-role-to-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;retirer-un-rôle-cluster-à-un-utilisateur&#34;&gt;Retirer un rôle cluster à un utilisateur&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc adm policy remove-cluster-role-from-user &amp;lt;cluster-role&amp;gt; &amp;lt;user&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;lister-les-pods-en-erreur-ou-nayant-pas-le-status-running&#34;&gt;Lister les pods en erreur (ou n&amp;rsquo;ayant pas le status Running)&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc get pods --all-namespaces | awk &amp;#39;!/Running/ {print}&amp;#39;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;lister-les-pods-en-erreur-par-namespace&#34;&gt;Lister les pods en erreur par namespace&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc get pods --all-namespaces | awk &amp;#39;!/Running/ {print}&amp;#39; | awk &amp;#39;NR&amp;gt;1{arr[$1]++}END{for (a in arr) print a, arr[a]}&amp;#39; | sort -nrk2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;ne-garder-que-2-déploiements&#34;&gt;Ne garder que 2 déploiements&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc adm prune deployments --orphans --keep-failed=2 --keep-complete=2  --confirm&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;ne-garder-que-2-builds&#34;&gt;Ne garder que 2 builds&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;oc adm prune builds --orphans --keep-failed=2 --keep-complete=2  --confirm&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>Installer OpenShift sur OSX</title>
       <link>https://leandeep.com/installer-openshift-sur-osx/</link>
       <pubDate>Wed, 28 Feb 2018 22:13:00 +0000</pubDate>
-      
       <guid>https://leandeep.com/installer-openshift-sur-osx/</guid>
-      <description>Qu&amp;rsquo;est-ce qu&amp;rsquo;OpenShift ? OpenShift est une plateforme de PAAS développée par RedHat qui repose sur Kubernetes. En gros, c&amp;rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&amp;rsquo;est opensource&amp;hellip;
-MiniShift Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.
-Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.</description>
+      <description>&lt;h2 id=&#34;quest-ce-quopenshift-&#34;&gt;Qu&amp;rsquo;est-ce qu&amp;rsquo;OpenShift ?&lt;/h2&gt;&#xA;&lt;p&gt;OpenShift est une plateforme de PAAS développée par RedHat qui repose sur &lt;a href=&#34;https://kubernetes.io/&#34;&gt;Kubernetes&lt;/a&gt;. En gros, c&amp;rsquo;est Kubernetes avec des outils en plus faits pour simplifier la vie des développeurs. Et en plus c&amp;rsquo;est opensource&amp;hellip;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;minishift&#34;&gt;MiniShift&lt;/h2&gt;&#xA;&lt;p&gt;Si vous voulez tester l&amp;rsquo;outil ou avoir un environnement local qui ressemble un peu à votre cluster de production, il existe un outil appelé MiniShift.&lt;/p&gt;&#xA;&lt;p&gt;Ce dernier permet de faire tourner un cluster Openshift sur un seul noeud dans une VM en local.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

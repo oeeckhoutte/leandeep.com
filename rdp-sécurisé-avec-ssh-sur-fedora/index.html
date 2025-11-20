@@ -12,7 +12,8 @@ Installation
 sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
 sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
 On finalise la configuration. On désactive Wayland:
-Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage pour les systèmes d&amp;rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&amp;rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies." />
+Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -103,25 +104,28 @@ Wayland est un protocole et une architecture de serveur d&amp;rsquo;affichage po
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="RDP sécurisé avec SSH sur Fedora">
-<meta itemprop="description" content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
-Installation
-sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
-sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
-On finalise la configuration. On désactive Wayland:
-Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies."><meta itemprop="datePublished" content="2024-12-11T23:32:00+02:00" />
-<meta itemprop="dateModified" content="2024-12-11T23:32:00+02:00" />
-<meta itemprop="wordCount" content="151"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="tips,Linux," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="RDP sécurisé avec SSH sur Fedora"/>
-<meta name="twitter:description" content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+  <meta itemprop="name" content="RDP sécurisé avec SSH sur Fedora">
+  <meta itemprop="description" content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
 Installation
 sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
 sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
 On finalise la configuration. On désactive Wayland:
-Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies."/>
+Wayland est un protocole et une architecture de serveur d’affichage pour les systèmes d’exploitation basés sur Linux. Il remplace ou complète le serveur d’affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.">
+  <meta itemprop="datePublished" content="2024-12-11T23:32:00+02:00">
+  <meta itemprop="dateModified" content="2024-12-11T23:32:00+02:00">
+  <meta itemprop="wordCount" content="151">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Tips,Linux">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="RDP sécurisé avec SSH sur Fedora">
+  <meta name="twitter:description" content="Dans cet article, nous allons voir comment mettre en place un Remote Desktop Protocol (RDP) avec du SSH sur une distribution Fedora.
+Installation
+sudo dnf install -y xrdp sudo systemctl enable xrdp --now Configuration
+sudo firewall-cmd --add-port=3389/tcp --permanent sudo firewall-cmd --reload Connexion
+On finalise la configuration. On désactive Wayland:
+Wayland est un protocole et une architecture de serveur d’affichage pour les systèmes d’exploitation basés sur Linux. Il remplace ou complète le serveur d’affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.">
 
 
 
@@ -210,15 +214,13 @@ sudo firewall-cmd --reload
 <p><strong>Connexion</strong></p>
 <p>On finalise la configuration. On désactive Wayland:</p>
 <blockquote>
-<p>Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</p>
-</blockquote>
+<p>Wayland est un protocole et une architecture de serveur d&rsquo;affichage pour les systèmes d&rsquo;exploitation basés sur Linux. Il remplace ou complète le serveur d&rsquo;affichage X11 (ou X Window System) utilisé traditionnellement sur Linux depuis des décennies.</p></blockquote>
 <pre tabindex="0"><code>ssh -L 3389:localhost:3389 user@adresse_ip_fedora
 </code></pre><p>Editer le fichier <code>sudo nano /etc/gdm/custom.conf</code> et ajouter la ligne suivante:</p>
 <pre tabindex="0"><code>WaylandEnable=false
 </code></pre><pre tabindex="0"><code>sudo systemctl restart gdm
 </code></pre><blockquote>
-<p>GDM (pour GNOME Display Manager) est un gestionnaire de session et d&rsquo;affichage utilisé principalement avec l&rsquo;environnement de bureau GNOME</p>
-</blockquote>
+<p>GDM (pour GNOME Display Manager) est un gestionnaire de session et d&rsquo;affichage utilisé principalement avec l&rsquo;environnement de bureau GNOME</p></blockquote>
 <br/>
 <p><strong>Utilisation</strong></p>
 <p>Pour prendre le contrôle de votre Fedora depuis OSX par exemple, installez <code>Windows Apps</code> depuis l&rsquo;AppStore et configurez votre connexion avec vos credentials SSH + <code>localhost:3389</code></p>
@@ -295,7 +297,7 @@ sudo firewall-cmd --reload
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 

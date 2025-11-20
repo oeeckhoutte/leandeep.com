@@ -7,8 +7,9 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Voici la procédure pour corriger l&amp;rsquo;erreur qui fait crasher le terminal zsh avec le message d&amp;rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
-J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&amp;rsquo;est une erreur Openssl." />
+  content="Voici la procédure pour corriger l&rsquo;erreur qui fait crasher le terminal zsh avec le message d&rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
+J&rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&rsquo;est une erreur Openssl. Il manque une lib dans /usr/local/lib/. Le pourquoi du comment il manque cette lib, je n&rsquo;ai pas eu le temps de creuser. Par contre, exécuter les commandes suivantes a résolu mon problème.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -99,17 +100,20 @@ J&amp;rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi
     <meta name="msapplication-TileColor" content="#252627">
     <meta name="theme-color" content="#252627">
 
-<meta itemprop="name" content="Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX">
-<meta itemprop="description" content="Voici la procédure pour corriger l&rsquo;erreur qui fait crasher le terminal zsh avec le message d&rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
-J&rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&rsquo;est une erreur Openssl."><meta itemprop="datePublished" content="2022-05-18T22:59:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-18T22:59:00+00:00" />
-<meta itemprop="wordCount" content="117"><meta itemprop="image" content="https://leandeep.com"/>
-<meta itemprop="keywords" content="tips," /><meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://leandeep.com"/>
 
-<meta name="twitter:title" content="Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX"/>
-<meta name="twitter:description" content="Voici la procédure pour corriger l&rsquo;erreur qui fait crasher le terminal zsh avec le message d&rsquo;erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
-J&rsquo;ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c&rsquo;est une erreur Openssl."/>
+  <meta itemprop="name" content="Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX">
+  <meta itemprop="description" content="Voici la procédure pour corriger l’erreur qui fait crasher le terminal zsh avec le message d’erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
+J’ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c’est une erreur Openssl. Il manque une lib dans /usr/local/lib/. Le pourquoi du comment il manque cette lib, je n’ai pas eu le temps de creuser. Par contre, exécuter les commandes suivantes a résolu mon problème.">
+  <meta itemprop="datePublished" content="2022-05-18T22:59:00+00:00">
+  <meta itemprop="dateModified" content="2022-05-18T22:59:00+00:00">
+  <meta itemprop="wordCount" content="117">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Tips">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Corriger l&#39;erreur &#34;is loading libcrypto in an unsafe way&#34; zsh crash sur OSX">
+  <meta name="twitter:description" content="Voici la procédure pour corriger l’erreur qui fait crasher le terminal zsh avec le message d’erreur suivant: is loading libcrypto in an unsafe way lors du démarrage de Python (3.9.12 dans mon cas) sur OSX Monterey
+J’ai parfois eu cette erreur après avoir bidouillé: SystemError: ffi_prep_closure(): bad user_data (it seems that the version of the libffi library seen at runtime is different from the &#39;ffi.h&#39; file seen at compile-time). Bref c’est une erreur Openssl. Il manque une lib dans /usr/local/lib/. Le pourquoi du comment il manque cette lib, je n’ai pas eu le temps de creuser. Par contre, exécuter les commandes suivantes a résolu mon problème.">
 
 
 
@@ -265,7 +269,7 @@ ln -s /usr/local/opt/openssl\@3/lib/libssl.dylib /usr/local/lib/libssl.dylib
 
 
 
-<script type="text/javascript" src="https://leandeep.com/bundle.min.c184f8481b5847ad1a7d8aa775944fa063f118cb4df68f4eaa3826a2a2e16b26a1ad798f5160210f265c6fbb9a5f19b953fed066ae1ed1092d1858bcff13ae92.js" integrity="sha512-wYT4SBtYR60afYqndZRPoGPxGMtN9o9OqjgmoqLhayahrXmPUWAhDyZcb7uaXxm5U/7QZq4e0QktGFi8/xOukg=="></script>
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
 
 
 
