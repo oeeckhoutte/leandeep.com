@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="version: &#34;3.9&#34; services: postgres: image: postgres:14 container_name: sentry_postgres restart: always environment: POSTGRES_USER: ${SENTRY_DB_USER} POSTGRES_PASSWORD: ${SENTRY_DB_PASSWORD} POSTGRES_DB: ${SENTRY_DB_NAME} POSTGRES_HOST_AUTH_METHOD: trust volumes: - sentry-postgres:/var/lib/postgresql/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;pg_isready -U ${SENTRY_DB_USER:-postgres}&#34;] redis: image: redis:7 container_name: sentry_redis restart: always volumes: - sentry-redis:/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;redis-cli ping | grep PONG&#34;] zookeeper: image: confluentinc/cp-zookeeper:7.6.6 container_name: sentry_zookeeper restart: always environment: ZOOKEEPER_CLIENT_PORT: 2181 ZOOKEEPER_TICK_TIME: 2000 healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 2181 || exit 1&#34;] kafka: image: confluentinc/cp-kafka:7.6.6 container_name: sentry_kafka restart: always depends_on: - zookeeper environment: KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 volumes: - sentry-kafka:/var/lib/kafka/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 9092 || exit 1&#34;] clickhouse: image: clickhouse/clickhouse-server:23.8.6.39 container_name: sentry_clickhouse restart: always ulimits: nofile: soft: 262144 hard: 262144 volumes: - sentry-clickhouse:/var/lib/clickhouse healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;curl -sS http://localhost:8123/ || exit 1&#34;] snuba-api: image: getsentry/snuba:latest container_name: sentry_snuba_api restart: always depends_on: - clickhouse - kafka - redis environment: SNUBA_SETTINGS: snuba.settings CLICKHOUSE_HOST: clickhouse KAFKA_HOST: kafka REDIS_HOST: redis command: [&#34;snuba&#34;, &#34;api&#34;] ports: - &#34;1218:1218&#34; snuba-consumer: image: getsentry/snuba:latest container_name: sentry_snuba_consumer restart: always depends_on: - snuba-api - kafka - clickhouse - redis environment: SNUBA_SETTINGS: snuba.settings CLICKHOUSE_HOST: clickhouse KAFKA_HOST: kafka REDIS_HOST: redis command: [&#34;snuba&#34;, &#34;consumer&#34;] symbolicator: image: getsentry/symbolicator:latest container_name: sentry_symbolicator restart: always ports: - &#34;3021:3021&#34; volumes: - sentry-symbolicator:/var/lib/symbolicator relay: image: getsentry/relay:latest container_name: sentry_relay restart: always env_file: - .env ports: - &#34;3000:3000&#34; sentry: image: getsentry/sentry:latest container_name: sentry_app depends_on: - postgres - redis - kafka - clickhouse - snuba-api env_file: - .env ports: - &#34;9000:9000&#34; volumes: - sentry-data:/var/lib/sentry/files command: &gt; sh -c &#34;sentry upgrade --noinput &amp;&amp; \ sentry createuser --no-input --superuser --email $SENTRY_ADMIN_EMAIL --password $SENTRY_ADMIN_PASSWORD || true &amp;&amp; \ sentry run web&#34; worker: image: getsentry/sentry:latest container_name: sentry_worker depends_on: - sentry - kafka - clickhouse env_file: - .env command: &#34;sentry run worker&#34; cron: image: getsentry/sentry:latest container_name: sentry_cron depends_on: - sentry env_file: - .env command: &#34;sentry run cron&#34; volumes: sentry-postgres: sentry-redis: sentry-kafka: sentry-clickhouse: sentry-data: sentry-symbolicator: networks: default: name: sentry_network " />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="http://localhost:1313/sentry-local-setup/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Sentry local setup :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/main.min.44eaa49e743eabd51724579f1d2ece0dac6f56215301d6961ca74092199d4a05.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+    <link rel="manifest" href="http://localhost:1313/site.webmanifest">
+    <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Sentry local setup">
+  <meta itemprop="description" content="version: &#34;3.9&#34; services: postgres: image: postgres:14 container_name: sentry_postgres restart: always environment: POSTGRES_USER: ${SENTRY_DB_USER} POSTGRES_PASSWORD: ${SENTRY_DB_PASSWORD} POSTGRES_DB: ${SENTRY_DB_NAME} POSTGRES_HOST_AUTH_METHOD: trust volumes: - sentry-postgres:/var/lib/postgresql/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;pg_isready -U ${SENTRY_DB_USER:-postgres}&#34;] redis: image: redis:7 container_name: sentry_redis restart: always volumes: - sentry-redis:/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;redis-cli ping | grep PONG&#34;] zookeeper: image: confluentinc/cp-zookeeper:7.6.6 container_name: sentry_zookeeper restart: always environment: ZOOKEEPER_CLIENT_PORT: 2181 ZOOKEEPER_TICK_TIME: 2000 healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 2181 || exit 1&#34;] kafka: image: confluentinc/cp-kafka:7.6.6 container_name: sentry_kafka restart: always depends_on: - zookeeper environment: KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 volumes: - sentry-kafka:/var/lib/kafka/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 9092 || exit 1&#34;] clickhouse: image: clickhouse/clickhouse-server:23.8.6.39 container_name: sentry_clickhouse restart: always ulimits: nofile: soft: 262144 hard: 262144 volumes: - sentry-clickhouse:/var/lib/clickhouse healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;curl -sS http://localhost:8123/ || exit 1&#34;] snuba-api: image: getsentry/snuba:latest container_name: sentry_snuba_api restart: always depends_on: - clickhouse - kafka - redis environment: SNUBA_SETTINGS: snuba.settings CLICKHOUSE_HOST: clickhouse KAFKA_HOST: kafka REDIS_HOST: redis command: [&#34;snuba&#34;, &#34;api&#34;] ports: - &#34;1218:1218&#34; snuba-consumer: image: getsentry/snuba:latest container_name: sentry_snuba_consumer restart: always depends_on: - snuba-api - kafka - clickhouse - redis environment: SNUBA_SETTINGS: snuba.settings CLICKHOUSE_HOST: clickhouse KAFKA_HOST: kafka REDIS_HOST: redis command: [&#34;snuba&#34;, &#34;consumer&#34;] symbolicator: image: getsentry/symbolicator:latest container_name: sentry_symbolicator restart: always ports: - &#34;3021:3021&#34; volumes: - sentry-symbolicator:/var/lib/symbolicator relay: image: getsentry/relay:latest container_name: sentry_relay restart: always env_file: - .env ports: - &#34;3000:3000&#34; sentry: image: getsentry/sentry:latest container_name: sentry_app depends_on: - postgres - redis - kafka - clickhouse - snuba-api env_file: - .env ports: - &#34;9000:9000&#34; volumes: - sentry-data:/var/lib/sentry/files command: &gt; sh -c &#34;sentry upgrade --noinput &amp;&amp; \ sentry createuser --no-input --superuser --email $SENTRY_ADMIN_EMAIL --password $SENTRY_ADMIN_PASSWORD || true &amp;&amp; \ sentry run web&#34; worker: image: getsentry/sentry:latest container_name: sentry_worker depends_on: - sentry - kafka - clickhouse env_file: - .env command: &#34;sentry run worker&#34; cron: image: getsentry/sentry:latest container_name: sentry_cron depends_on: - sentry env_file: - .env command: &#34;sentry run cron&#34; volumes: sentry-postgres: sentry-redis: sentry-kafka: sentry-clickhouse: sentry-data: sentry-symbolicator: networks: default: name: sentry_network">
+  <meta itemprop="datePublished" content="2025-11-25T19:49:00+02:00">
+  <meta itemprop="dateModified" content="2025-11-25T19:49:00+02:00">
+  <meta itemprop="wordCount" content="304">
+  <meta itemprop="image" content="http://localhost:1313/">
+  <meta itemprop="keywords" content="Sentry">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="Sentry local setup">
+  <meta name="twitter:description" content="version: &#34;3.9&#34; services: postgres: image: postgres:14 container_name: sentry_postgres restart: always environment: POSTGRES_USER: ${SENTRY_DB_USER} POSTGRES_PASSWORD: ${SENTRY_DB_PASSWORD} POSTGRES_DB: ${SENTRY_DB_NAME} POSTGRES_HOST_AUTH_METHOD: trust volumes: - sentry-postgres:/var/lib/postgresql/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;pg_isready -U ${SENTRY_DB_USER:-postgres}&#34;] redis: image: redis:7 container_name: sentry_redis restart: always volumes: - sentry-redis:/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;redis-cli ping | grep PONG&#34;] zookeeper: image: confluentinc/cp-zookeeper:7.6.6 container_name: sentry_zookeeper restart: always environment: ZOOKEEPER_CLIENT_PORT: 2181 ZOOKEEPER_TICK_TIME: 2000 healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 2181 || exit 1&#34;] kafka: image: confluentinc/cp-kafka:7.6.6 container_name: sentry_kafka restart: always depends_on: - zookeeper environment: KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 volumes: - sentry-kafka:/var/lib/kafka/data healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 9092 || exit 1&#34;] clickhouse: image: clickhouse/clickhouse-server:23.8.6.39 container_name: sentry_clickhouse restart: always ulimits: nofile: soft: 262144 hard: 262144 volumes: - sentry-clickhouse:/var/lib/clickhouse healthcheck: test: [&#34;CMD-SHELL&#34;, &#34;curl -sS http://localhost:8123/ || exit 1&#34;] snuba-api: image: getsentry/snuba:latest container_name: sentry_snuba_api restart: always depends_on: - clickhouse - kafka - redis environment: SNUBA_SETTINGS: snuba.settings CLICKHOUSE_HOST: clickhouse KAFKA_HOST: kafka REDIS_HOST: redis command: [&#34;snuba&#34;, &#34;api&#34;] ports: - &#34;1218:1218&#34; snuba-consumer: image: getsentry/snuba:latest container_name: sentry_snuba_consumer restart: always depends_on: - snuba-api - kafka - clickhouse - redis environment: SNUBA_SETTINGS: snuba.settings CLICKHOUSE_HOST: clickhouse KAFKA_HOST: kafka REDIS_HOST: redis command: [&#34;snuba&#34;, &#34;consumer&#34;] symbolicator: image: getsentry/symbolicator:latest container_name: sentry_symbolicator restart: always ports: - &#34;3021:3021&#34; volumes: - sentry-symbolicator:/var/lib/symbolicator relay: image: getsentry/relay:latest container_name: sentry_relay restart: always env_file: - .env ports: - &#34;3000:3000&#34; sentry: image: getsentry/sentry:latest container_name: sentry_app depends_on: - postgres - redis - kafka - clickhouse - snuba-api env_file: - .env ports: - &#34;9000:9000&#34; volumes: - sentry-data:/var/lib/sentry/files command: &gt; sh -c &#34;sentry upgrade --noinput &amp;&amp; \ sentry createuser --no-input --superuser --email $SENTRY_ADMIN_EMAIL --password $SENTRY_ADMIN_PASSWORD || true &amp;&amp; \ sentry run web&#34; worker: image: getsentry/sentry:latest container_name: sentry_worker depends_on: - sentry - kafka - clickhouse env_file: - .env command: &#34;sentry run worker&#34; cron: image: getsentry/sentry:latest container_name: sentry_cron depends_on: - sentry env_file: - .env command: &#34;sentry run cron&#34; volumes: sentry-postgres: sentry-redis: sentry-kafka: sentry-clickhouse: sentry-data: sentry-symbolicator: networks: default: name: sentry_network">
+
+
+
+
+
+<meta property="article:published_time" content="2025-11-25 19:49:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://localhost:1313/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://localhost:1313/events/">Featured Articles</a></li><li><a href="http://localhost:1313/posts/">All Articles</a></li><li><a href="http://localhost:1313/about/">About Me</a></li><li><a href="http://localhost:1313/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>2 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="http://localhost:1313/sentry-local-setup/">Sentry local setup</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <pre tabindex="0"><code>version: &#34;3.9&#34;
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: sentry_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${SENTRY_DB_USER}
+      POSTGRES_PASSWORD: ${SENTRY_DB_PASSWORD}
+      POSTGRES_DB: ${SENTRY_DB_NAME}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - sentry-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: [&#34;CMD-SHELL&#34;, &#34;pg_isready -U ${SENTRY_DB_USER:-postgres}&#34;]
+
+  redis:
+    image: redis:7
+    container_name: sentry_redis
+    restart: always
+    volumes:
+      - sentry-redis:/data
+    healthcheck:
+      test: [&#34;CMD-SHELL&#34;, &#34;redis-cli ping | grep PONG&#34;]
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.6
+    container_name: sentry_zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    healthcheck:
+      test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 2181 || exit 1&#34;]
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.6
+    container_name: sentry_kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    volumes:
+      - sentry-kafka:/var/lib/kafka/data
+    healthcheck:
+      test: [&#34;CMD-SHELL&#34;, &#34;nc -z localhost 9092 || exit 1&#34;]
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8.6.39
+    container_name: sentry_clickhouse
+    restart: always
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - sentry-clickhouse:/var/lib/clickhouse
+    healthcheck:
+      test: [&#34;CMD-SHELL&#34;, &#34;curl -sS http://localhost:8123/ || exit 1&#34;]
+
+  snuba-api:
+    image: getsentry/snuba:latest
+    container_name: sentry_snuba_api
+    restart: always
+    depends_on:
+      - clickhouse
+      - kafka
+      - redis
+    environment:
+      SNUBA_SETTINGS: snuba.settings
+      CLICKHOUSE_HOST: clickhouse
+      KAFKA_HOST: kafka
+      REDIS_HOST: redis
+    command: [&#34;snuba&#34;, &#34;api&#34;]
+    ports:
+      - &#34;1218:1218&#34;
+
+  snuba-consumer:
+    image: getsentry/snuba:latest
+    container_name: sentry_snuba_consumer
+    restart: always
+    depends_on:
+      - snuba-api
+      - kafka
+      - clickhouse
+      - redis
+    environment:
+      SNUBA_SETTINGS: snuba.settings
+      CLICKHOUSE_HOST: clickhouse
+      KAFKA_HOST: kafka
+      REDIS_HOST: redis
+    command: [&#34;snuba&#34;, &#34;consumer&#34;]
+
+  symbolicator:
+    image: getsentry/symbolicator:latest
+    container_name: sentry_symbolicator
+    restart: always
+    ports:
+      - &#34;3021:3021&#34;
+    volumes:
+      - sentry-symbolicator:/var/lib/symbolicator
+
+  relay:
+    image: getsentry/relay:latest
+    container_name: sentry_relay
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - &#34;3000:3000&#34;
+
+  sentry:
+    image: getsentry/sentry:latest
+    container_name: sentry_app
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+      - clickhouse
+      - snuba-api
+    env_file:
+      - .env
+    ports:
+      - &#34;9000:9000&#34;
+    volumes:
+      - sentry-data:/var/lib/sentry/files
+    command: &gt;
+      sh -c &#34;sentry upgrade --noinput &amp;&amp; \
+             sentry createuser --no-input --superuser --email $SENTRY_ADMIN_EMAIL --password $SENTRY_ADMIN_PASSWORD || true &amp;&amp; \
+             sentry run web&#34;
+
+  worker:
+    image: getsentry/sentry:latest
+    container_name: sentry_worker
+    depends_on:
+      - sentry
+      - kafka
+      - clickhouse
+    env_file:
+      - .env
+    command: &#34;sentry run worker&#34;
+
+  cron:
+    image: getsentry/sentry:latest
+    container_name: sentry_cron
+    depends_on:
+      - sentry
+    env_file:
+      - .env
+    command: &#34;sentry run cron&#34;
+
+volumes:
+  sentry-postgres:
+  sentry-redis:
+  sentry-kafka:
+  sentry-clickhouse:
+  sentry-data:
+  sentry-symbolicator:
+
+networks:
+  default:
+    name: sentry_network
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="http://localhost:1313/tags/sentry">Sentry</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>304 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>25 nov.. 2025</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="http://localhost:1313/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/">
+                                <span class="button__text">Commandes pour redimensionner le disque d&#39;une VM sous Linux</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="http://localhost:1313/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="http://localhost:1313/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://localhost:1313/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
