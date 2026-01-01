@@ -7,8 +7,22 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 04 Sep 2025 13:34:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jan 2026 21:00:00 +0200</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install Near full RPC node on Ubuntu</title>
+      <link>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</link>
+      <pubDate>Thu, 01 Jan 2026 21:00:00 +0200</pubDate>
+      <guid>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</guid>
+      <description>&lt;p&gt;In the article we are going to see how to setup a full RPC node for Near blockchain&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;sudo apt install -y curl git unzip clang cmake make pkg-config libssl-dev llvm jq&#xA;sudo reboot&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configure system limits&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo &amp;#34;fs.file-max=1000000&amp;#34; | sudo tee -a /etc/sysctl.conf&#xA;sudo sysctl -p&#xA;ulimit -n 1000000&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Install Rust&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&#xA;source ~/.cargo/env&#xA;rustup update stable&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Download NEAR Core&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Et vous quels sont vos projets pour 2026 ?</title>
+      <link>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2026/</link>
+      <pubDate>Thu, 01 Jan 2026 20:00:00 +0200</pubDate>
+      <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2026/</guid>
+      <description>&lt;p&gt;Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&amp;rsquo;année et surtout de me challenger chaque année.&lt;/p&gt;&#xA;&lt;p&gt;Voici donc mon programme pour cette année 2026:&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;1. Trading lecture d&amp;rsquo;un livre sur Ichimoku&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;2. Investissement bourse en suivant une stratégie de value investing&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;3. Pour &lt;a href=&#34;https://ps-iloveyou.fr&#34;&gt;https://ps-iloveyou.fr&lt;/a&gt;, développer tranquillement de nouvelles fonctionnalités pour mon usage personnel&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;4. Build local AI server (hardware) for comfyui and LLM&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Commandes pour redimensionner le disque d&#39;une VM sous Linux</title>
       <link>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</link>
@@ -64,20 +78,6 @@
       <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
       <guid>https://leandeep.com/install-nostr-rust-relay-without-docker/</guid>
       <description>&lt;p&gt;In this article we are going to see how to setup a Nostr relay without Docker.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;rust installed (else &lt;code&gt;curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Run Nostr relay without Docker&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get install build-essential cmake protobuf-compiler pkg-config libssl-dev&#xA;git clone -q https://git.sr.ht/\~gheartsfield/nostr-rs-relay&#xA;cd nostr-rs-relay&#xA;cargo build -q -r&#xA;&#xA;RUST_LOG=warn,nostr_rs_relay=info ./target/release/nostr-rs-relay&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And voila the relay will listen on port 8080.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Utiliser Ollama sur Ubuntu 22 via Docker et faire du LLM scraping</title>
-      <link>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</link>
-      <pubDate>Sun, 04 May 2025 23:32:00 +0200</pubDate>
-      <guid>https://leandeep.com/utiliser-ollama-sur-ubuntu-22-via-docker-et-faire-du-llm-scraping/</guid>
-      <description>&lt;p&gt;Dans cet article, nous allons voir comment utiliser Ollama sur Ubuntu 22 via Docker tout en tirant parti du GPU connecté au serveur dans le but de faire du scraping en posant des questions à son LLM auto-hébergé.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Pré-requis&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;nvidia-smi&lt;/code&gt; déjà installé&lt;/li&gt;&#xA;&lt;li&gt;Cuda installé&lt;/li&gt;&#xA;&lt;li&gt;Docker installé&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation du NVIDIA Container Toolkit&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install -y nvidia-container-toolkit&#xA;sudo nvidia-ctk runtime configure --runtime=docker&#xA;sudo systemctl restart docker&#xA;# Vérification&#xA;docker run --rm --gpus all nvidia/cuda:12.2.0-base-ubuntu20.04 nvidia-smi&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Docker compose Ollama avec accès GPU&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Identify path to stop docker compose</title>
-      <link>https://leandeep.com/identify-path-to-stop-docker-compose/</link>
-      <pubDate>Mon, 28 Apr 2025 23:40:00 +0000</pubDate>
-      <guid>https://leandeep.com/identify-path-to-stop-docker-compose/</guid>
-      <description>&lt;p&gt;Very quick tip on how to identify the directory from which a &lt;code&gt;docker compose&lt;/code&gt; command was launched (as the standard docker ps output doesn&amp;rsquo;t show it).&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Retrieve container ID&#xA;docker ps &#xA;&#xA;docker inspect \&#xA;  --format=&amp;#39;{{ index .Config.Labels &amp;#34;com.docker.compose.project.working_dir&amp;#34; }}&amp;#39; \&#xA;  0e6194178cf0&#xA;/Users/olivier/Dev/Leandeep/Rust/test_app/leptos_pg&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>

@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 04 May 2025 23:32:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jan 2026 21:00:00 +0200</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install Near full RPC node on Ubuntu</title>
+      <link>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</link>
+      <pubDate>Thu, 01 Jan 2026 21:00:00 +0200</pubDate>
+      <guid>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</guid>
+      <description>&lt;p&gt;In the article we are going to see how to setup a full RPC node for Near blockchain&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;sudo apt install -y curl git unzip clang cmake make pkg-config libssl-dev llvm jq&#xA;sudo reboot&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configure system limits&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo &amp;#34;fs.file-max=1000000&amp;#34; | sudo tee -a /etc/sysctl.conf&#xA;sudo sysctl -p&#xA;ulimit -n 1000000&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Install Rust&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&#xA;source ~/.cargo/env&#xA;rustup update stable&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Download NEAR Core&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Install Nostr Rust relay without Docker</title>
       <link>https://leandeep.com/install-nostr-rust-relay-without-docker/</link>
@@ -71,13 +78,6 @@
       <pubDate>Fri, 28 Mar 2025 14:49:00 +0200</pubDate>
       <guid>https://leandeep.com/switch-on-a-led-using-rust-when-a-button-is-pushed-on-esp32/</guid>
       <description>&lt;p&gt;The idea of this article is to explore how to switch on a LED when a push button is pressed. Once it is release the LED is switched off.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://leandeep.com/images/push-button-rust-esp32.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[dependencies]&#xA;log = &amp;#34;0.4&amp;#34;&#xA;esp-idf-svc = { version = &amp;#34;0.51&amp;#34;, features = [&amp;#34;critical-section&amp;#34;, &amp;#34;embassy-time-driver&amp;#34;, &amp;#34;embassy-sync&amp;#34;] }&#xA;esp-idf-hal = &amp;#34;0.45.2&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;&#xA;&lt;p&gt;Now update &lt;code&gt;main.rs&lt;/code&gt; and add this code:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;use esp_idf_hal::delay::FreeRtos;&#xA;use esp_idf_hal::gpio::PinDriver;&#xA;use esp_idf_hal::peripherals::Peripherals;&#xA;&#xA;&#xA;fn main() -&amp;gt; ! {&#xA;    esp_idf_svc::sys::link_patches();&#xA;&#xA;    // Bind the log crate to the ESP Logging facilities&#xA;    esp_idf_svc::log::EspLogger::initialize_default();&#xA;&#xA;    log::info!(&amp;#34;Starting program...&amp;#34;);&#xA;&#xA;    // Get ESP-IDF peripherals&#xA;    let peripherals = Peripherals::take().unwrap();&#xA;    let pins = peripherals.pins;&#xA;&#xA;    let mut led = PinDriver::output(pins.gpio2).unwrap();&#xA;    let button = PinDriver::input(pins.gpio35).unwrap();&#xA;&#xA;    loop {&#xA;        if button.is_high() {&#xA;            log::info!(&amp;#34;Switch ON&amp;#34;);&#xA;            led.set_high().unwrap(); // Switch ON LED&#xA;        } else {&#xA;            log::info!(&amp;#34;Switch OFF&amp;#34;);&#xA;            led.set_low().unwrap();  // Switch OFF LED&#xA;        }&#xA;        FreeRtos::delay_ms(100u32);&#xA;    }&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;build-and-run&#34;&gt;Build and Run&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cargo build&#xA;espflash flash target/xtensa-esp32-espidf/debug/blink --monitor&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    <item>
-      <title>Make onboard LED blink using Rust on ESP32</title>
-      <link>https://leandeep.com/make-onboard-led-blink-using-rust-on-esp32/</link>
-      <pubDate>Fri, 28 Mar 2025 11:49:00 +0200</pubDate>
-      <guid>https://leandeep.com/make-onboard-led-blink-using-rust-on-esp32/</guid>
-      <description>&lt;p&gt;AI tools are awesome. Lately, I&amp;rsquo;ve been wondering if they could replace us developers, but actually no it&amp;rsquo;s impossible because you always have issues. However, it&amp;rsquo;s crazy how much they boost my productivity. I now do my research directly on LLMs and get answers much faster than if I had searched on Google myself. It&amp;rsquo;s fantastic!&lt;/p&gt;&#xA;&lt;p&gt;In this new article, we will explore how to make an onboard LED blink on an ESP32 using Rust.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

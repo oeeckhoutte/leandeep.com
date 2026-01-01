@@ -6,8 +6,179 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 04 Sep 2025 13:34:00 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 01 Jan 2026 21:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Install Near full RPC node on Ubuntu</title>
+            <link>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</link>
+            <pubDate>Thu, 01 Jan 2026 21:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</guid>
+            <description>&lt;p&gt;In the article we are going to see how to setup a full RPC node for Near blockchain&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y
+sudo apt install -y curl git unzip clang cmake make pkg-config libssl-dev llvm jq
+sudo reboot
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Configure system limits&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo &amp;#34;fs.file-max=1000000&amp;#34; | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+ulimit -n 1000000
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Install Rust&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+rustup update stable
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Download NEAR Core&lt;/strong&gt;&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>In the article we are going to see how to setup a full RPC node for Near blockchain</p>
+<br/>
+<h2 id="setup">Setup</h2>
+<pre tabindex="0"><code>sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo apt install -y curl git unzip clang cmake make pkg-config libssl-dev llvm jq
+sudo reboot
+</code></pre><br/>
+<p><strong>Configure system limits</strong></p>
+<pre tabindex="0"><code>echo &#34;fs.file-max=1000000&#34; | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+ulimit -n 1000000
+</code></pre><br/>
+<p><strong>Install Rust</strong></p>
+<pre tabindex="0"><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+rustup update stable
+</code></pre><br/>
+<p><strong>Download NEAR Core</strong></p>
+<pre tabindex="0"><code>git clone https://github.com/near/nearcore.git
+cd nearcore
+git checkout 2.10.3
+</code></pre><br/>
+<p><strong>Compile</strong></p>
+<pre tabindex="0"><code># Option 1
+cargo build -p neard --release
+sudo cp target/release/neard /usr/local/bin/
+
+# Option 2
+cd ~
+rm -rf nearcore
+wget https://github.com/near/nearcore/releases/latest/download/neard-linux-x86_64.tar.gz
+tar -xvf neard-linux-x86_64.tar.gz
+sudo mv neard /usr/local/bin/
+neard --version
+</code></pre><br/>
+<p><strong>Init node</strong></p>
+<pre tabindex="0"><code>mkdir -p ~/.near
+# Mainnet init
+neard init --chain-id mainnet --download-genesis --download-config
+
+# It will create both files:
+# ~/.near/config.json
+# ~/.near/genesis.json
+</code></pre><br/>
+<p><strong>Configure the Node in full RPC node</strong></p>
+<pre tabindex="0"><code>vim ~/.near/config.json
+
+-&gt; Activate public RPC
+&#34;rpc&#34;: {
+  &#34;addr&#34;: &#34;0.0.0.0:3030&#34;,
+  &#34;cors_allowed_origins&#34;: [&#34;*&#34;]
+}
+</code></pre><br/>
+<p><strong>Start the node</strong></p>
+<pre tabindex="0"><code>neard run
+</code></pre><br/>
+<p><strong>Check logs</strong></p>
+<pre tabindex="0"><code>tail -f ~/.near/logs/neard.log
+</code></pre><br/>
+<p><strong>Check node</strong></p>
+<pre tabindex="0"><code>curl http://127.0.0.1:3030/status
+
+# expected response:
+{
+  &#34;chain_id&#34;: &#34;mainnet&#34;,
+  &#34;sync_info&#34;: {
+    &#34;syncing&#34;: false
+  }
+}
+</code></pre><br/>
+<h2 id="create-a-service">Create a service</h2>
+<p>sudo vim /etc/systemd/system/neard.service</p>
+<pre tabindex="0"><code>[Unit]
+Description=NEAR RPC Node
+After=network.target
+
+[Service]
+User=ubuntu
+ExecStart=/usr/local/bin/neard run
+Restart=always
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><br/>
+<pre tabindex="0"><code>sudo systemctl daemon-reload
+sudo systemctl enable neard
+sudo systemctl start neard
+</code></pre><br/>
+<p><strong>Useful RPC Endpoints</strong></p>
+<p>-&gt; Health: http://localhost:3030/status</p>
+<p>-&gt; JSON-RPC: http://localhost:3030</p>
+<br/>
+<p>Exemple:</p>
+<pre tabindex="0"><code>curl -X POST http://localhost:3030 \
+  -H &#34;Content-Type: application/json&#34; \
+  -d &#39;{&#34;jsonrpc&#34;:&#34;2.0&#34;,&#34;id&#34;:&#34;1&#34;,&#34;method&#34;:&#34;block&#34;,&#34;params&#34;:{&#34;finality&#34;:&#34;final&#34;}}&#39;
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Et vous quels sont vos projets pour 2026 ?</title>
+            <link>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2026/</link>
+            <pubDate>Thu, 01 Jan 2026 20:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2026/</guid>
+            <description>&lt;p&gt;Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&amp;rsquo;année et surtout de me challenger chaque année.&lt;/p&gt;
+&lt;p&gt;Voici donc mon programme pour cette année 2026:&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;1. Trading lecture d&amp;rsquo;un livre sur Ichimoku&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Investissement bourse en suivant une stratégie de value investing&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Pour &lt;a href=&#34;https://ps-iloveyou.fr&#34;&gt;https://ps-iloveyou.fr&lt;/a&gt;, développer tranquillement de nouvelles fonctionnalités pour mon usage personnel&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Build local AI server (hardware) for comfyui and LLM&lt;/strong&gt;&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&rsquo;année et surtout de me challenger chaque année.</p>
+<p>Voici donc mon programme pour cette année 2026:</p>
+<br/>
+<p><strong>1. Trading lecture d&rsquo;un livre sur Ichimoku</strong></p>
+<p><strong>2. Investissement bourse en suivant une stratégie de value investing</strong></p>
+<p><strong>3. Pour <a href="https://ps-iloveyou.fr">https://ps-iloveyou.fr</a>, développer tranquillement de nouvelles fonctionnalités pour mon usage personnel</strong></p>
+<p><strong>4. Build local AI server (hardware) for comfyui and LLM</strong></p>
+<p><strong>5. Placer le robot arm que j&rsquo;ai construit sur rail linéaire pour arrosage jardin hydroponique</strong> #top prio #rust #esp32</p>
+<p><strong>6. Construire un second robot arm avec une camera sur la pince</strong> #top prio</p>
+<p><strong>7. Tester la gravure laser sur métal</strong></p>
+<p><strong>8. Construire un boitier en bois design pour alarme lacrymogène</strong></p>
+<p><strong>9. Alarme lacrymo v2 avec 6 degrés de liberté. -&gt; Alarme lacrymo robotique</strong></p>
+<p><strong>10. Build LLM from scratch (follow Andrej course)</strong></p>
+<p><strong>11. Suivre ecosystème Crypto</strong></p>
+<p><strong>12. Suivre ecosystème Nostr</strong></p>
+<p><strong>13. Reprise de l&rsquo;activité d&rsquo;arbitrage sur différentes blockchains: Near, Sui, Solana, Arbitrum</strong> #Top prio #Rust #Solidity #Move</p>
+<p><strong>14. Build a new crypto RPC node server</strong></p>
+<p><strong>15. Evil LLM analysis</strong></p>
+<p><strong>16. Lire un livre de développement personnel</strong></p>
+<p><strong>17. Entrainer un robot arm à allumer un feu à un endroit précis sur une matière précise</strong> #IA #Robotique #Top prio</p>
+<p><strong>18. Suivre formation sur optimisation du gaz Solidity</strong></p>
+<p><strong>19. Voir s&rsquo;il existe une formation sécurité des Smart contracts Ethereum</strong></p>
+<br/>
+<p>Pour la 1e année je parle de mes projets perso. Les années passées, je n&rsquo;avais jamais communiqué dessus alors que je me fixe aussi beaucoup d&rsquo;objectifs personnels.</p>
+<p><strong>1. Lire les 3 livres de maraîchage de Jean-Martin Fortier qu&rsquo;on m&rsquo;a offert</strong></p>
+<p><strong>2. Créer un jardin potager pour former mes enfants aux petites choses simples de la vie. (Et donc réaliser les travaux associés, couler un peu de béton pour les bordures, installer un préau pour stockage du matériel, amener l&rsquo;eau près du potager sur 100m. Idem électricité) + Réflexion installation panneaux solaire sur nouveau préau</strong></p>
+<p><strong>3. Sport intensif 3 fois par semaine (boxe/ callisthénie) + 1 sortie sur l&rsquo;eau par semaine (Wing foil ou similaire/ Kayak)</strong></p>
+<p><strong>4. Amélioration de mon alimentation pour la diminution des sucres lents</strong></p>
+<p><strong>5. Aménager mon espace de bricolage pour installer une scie cirulaire</strong></p>
+<p><strong>6. Creuser une tranchée pour tirer l&rsquo;électricité et installer une caméra de sécurité dans un endroit stratégique</strong></p>
+<p><strong>7. Trouver club pour bateau Optimiste</strong> #For kids</p>
+]]></content>
+        </item>
         
         <item>
             <title>Commandes pour redimensionner le disque d&#39;une VM sous Linux</title>
