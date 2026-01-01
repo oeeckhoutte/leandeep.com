@@ -6,8 +6,68 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 01 Jan 2026 21:00:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 01 Jan 2026 23:19:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Near Protocol full RPC Node behind CGNAT</title>
+            <link>https://leandeep.com/near-protocol-full-rpc-node-behind-cgnat/</link>
+            <pubDate>Thu, 01 Jan 2026 23:19:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/near-protocol-full-rpc-node-behind-cgnat/</guid>
+            <description>&lt;p&gt;In the previous article we saw how to setup a Near protocol full RPC node. The node will sync only if you are not behind a firewall or behind a network like a CGNAT (the TCP P2P port has to be exposed). In this article we are going to see how to have Near protocol node synchronized behind Starlink (I.E. behind a CGNAT).&lt;/p&gt;
+&lt;p&gt;We are going to use a tiny VPS that will act as proxy TCP proxy (or P2P tunnel).&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>In the previous article we saw how to setup a Near protocol full RPC node. The node will sync only if you are not behind a firewall or behind a network like a CGNAT (the TCP P2P port has to be exposed). In this article we are going to see how to have Near protocol node synchronized behind Starlink (I.E. behind a CGNAT).</p>
+<p>We are going to use a tiny VPS that will act as proxy TCP proxy (or P2P tunnel).</p>
+<pre tabindex="0"><code>Local Node (Starlink)
+        |
+        |  TCP P2P to VPS
+        v
+VPS Relay (1 Go RAM, Public IP)
+        |
+        |  TCP P2P to Mainnet NEAR nodes
+        v
+     NEAR Mainnet
+</code></pre><br/>
+<h2 id="vps-setup">VPS setup</h2>
+<p>The VPS listen to 24567 and redirect to the local node via a SSH reverse tunnel</p>
+<pre tabindex="0"><code>sudo apt update &amp;&amp; sudo apt install socat -y
+
+socat TCP-LISTEN:24567,fork TCP:localhost:24567
+</code></pre><br/>
+<h2 id="local-node">Local Node</h2>
+<pre tabindex="0"><code>ssh -R 24567:localhost:24567 user@X.X.X.X
+</code></pre><br/>
+<p><strong>Near node config</strong></p>
+<p>Edit <code>vim ~/.near/config.json</code> and change:</p>
+<pre tabindex="0"><code>&#34;boot_nodes&#34;: [
+  &#34;v2.near.org:24567&#34;   // your public VPS IP + TCP port
+]
+</code></pre><br/>
+<h2 id="autossh">autossh</h2>
+<p>To keep the ssh connection always open you can use <code>autossh</code>.</p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install autossh -y
+autossh -M 0 -f -N -o &#34;ServerAliveInterval=30&#34; -o &#34;ServerAliveCountMax=3&#34; -R 24567:localhost:24567 user@VPS_IP
+</code></pre><p>or use a service via <code>sudo vim /etc/systemd/system/near-tunnel.service</code></p>
+<pre tabindex="0"><code>[Unit]
+Description=NEAR reverse SSH tunnel
+After=network.target
+
+[Service]
+User=olivier
+ExecStart=/usr/bin/autossh -M 0 -N -o &#34;ServerAliveInterval=30&#34; -o &#34;ServerAliveCountMax=3&#34; -R 24567:localhost:24567 user@VPS_IP
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><pre tabindex="0"><code>sudo systemctl daemon-reload
+sudo systemctl enable near-tunnel.service
+sudo systemctl start near-tunnel.service
+sudo systemctl status near-tunnel.service
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Install Near full RPC node on Ubuntu</title>
@@ -85,6 +145,11 @@ neard init --chain-id mainnet --download-genesis --download-config
   &#34;addr&#34;: &#34;0.0.0.0:3030&#34;,
   &#34;cors_allowed_origins&#34;: [&#34;*&#34;]
 }
+</code></pre><br/>
+<p><strong>Configure kernel network parameters</strong></p>
+<pre tabindex="0"><code>cd nearcore
+chmod +x scripts/set_kernel_params.sh
+sudo scripts/set_kernel_params.sh
 </code></pre><br/>
 <p><strong>Start the node</strong></p>
 <pre tabindex="0"><code>neard run
