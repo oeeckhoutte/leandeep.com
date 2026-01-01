@@ -6,8 +6,88 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 01 Jan 2026 23:19:00 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 01 Jan 2026 23:59:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Setup a Base full RPC Node</title>
+            <link>https://leandeep.com/setup-a-base-full-rpc-node/</link>
+            <pubDate>Thu, 01 Jan 2026 23:59:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/setup-a-base-full-rpc-node/</guid>
+            <description>&lt;p&gt;In the article we are going to see how to setup a Base full RPC node.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;setup-base&#34;&gt;Setup Base&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Clone project&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/base-org/node.git base-node
+cd base-node
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Configure node&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cp .env.mainnet .env
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Edit the config &lt;code&gt;vim .env&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;OP_NODE_L1_ETH_RPC=http://eth-l1:8545
+OP_NODE_L1_BEACON=http://eth-l1-beacon:5052
+OP_NODE_SEQUENCER_ENABLED=false
+OP_NODE_P2P_STATIC=http://...
+# Optionnel: RPC host/port
+OP_GETH_HTTP_ADDR=0.0.0.0
+OP_GETH_HTTP_PORT=8545
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Run node&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose pull
+docker-compose up -d
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Verify&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose ps
+
+curl -X POST http://localhost:8545 \
+  -H &amp;#34;Content-Type: application/json&amp;#34; \
+  -d &amp;#39;{
+    &amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,
+    &amp;#34;id&amp;#34;:1,
+    &amp;#34;method&amp;#34;:&amp;#34;eth_blockNumber&amp;#34;,
+    &amp;#34;params&amp;#34;:[]
+  }&amp;#39;
+
+docker-compose logs -f
+&lt;/code&gt;&lt;/pre&gt;</description>
+            <content type="html"><![CDATA[<p>In the article we are going to see how to setup a Base full RPC node.</p>
+<br/>
+<h2 id="setup-base">Setup Base</h2>
+<p><strong>Clone project</strong></p>
+<pre tabindex="0"><code>git clone https://github.com/base-org/node.git base-node
+cd base-node
+</code></pre><br/>
+<p><strong>Configure node</strong></p>
+<pre tabindex="0"><code>cp .env.mainnet .env
+</code></pre><p>Edit the config <code>vim .env</code>:</p>
+<pre tabindex="0"><code>OP_NODE_L1_ETH_RPC=http://eth-l1:8545
+OP_NODE_L1_BEACON=http://eth-l1-beacon:5052
+OP_NODE_SEQUENCER_ENABLED=false
+OP_NODE_P2P_STATIC=http://...
+# Optionnel: RPC host/port
+OP_GETH_HTTP_ADDR=0.0.0.0
+OP_GETH_HTTP_PORT=8545
+</code></pre><br/>
+<p><strong>Run node</strong></p>
+<pre tabindex="0"><code>docker-compose pull
+docker-compose up -d
+</code></pre><br/>
+<p><strong>Verify</strong></p>
+<pre tabindex="0"><code>docker-compose ps
+
+curl -X POST http://localhost:8545 \
+  -H &#34;Content-Type: application/json&#34; \
+  -d &#39;{
+    &#34;jsonrpc&#34;:&#34;2.0&#34;,
+    &#34;id&#34;:1,
+    &#34;method&#34;:&#34;eth_blockNumber&#34;,
+    &#34;params&#34;:[]
+  }&#39;
+
+docker-compose logs -f
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Near Protocol full RPC Node behind CGNAT</title>
@@ -226,7 +306,7 @@ sudo systemctl start neard
 <p><strong>10. Build LLM from scratch (follow Andrej course)</strong></p>
 <p><strong>11. Suivre ecosystème Crypto</strong></p>
 <p><strong>12. Suivre ecosystème Nostr</strong></p>
-<p><strong>13. Reprise de l&rsquo;activité d&rsquo;arbitrage sur différentes blockchains: Near, Sui, Solana, Arbitrum</strong> #Top prio #Rust #Solidity #Move</p>
+<p><strong>13. Reprise de l&rsquo;activité d&rsquo;arbitrage sur différentes blockchains: Near, Sui, Solana, Optimism, base</strong> #Top prio #Rust #Solidity #Move</p>
 <p><strong>14. Build a new crypto RPC node server</strong></p>
 <p><strong>15. Evil LLM analysis</strong></p>
 <p><strong>16. Lire un livre de développement personnel</strong></p>

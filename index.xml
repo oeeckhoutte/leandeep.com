@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 01 Jan 2026 23:19:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jan 2026 23:59:00 +0200</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup a Base full RPC Node</title>
+      <link>https://leandeep.com/setup-a-base-full-rpc-node/</link>
+      <pubDate>Thu, 01 Jan 2026 23:59:00 +0200</pubDate>
+      <guid>https://leandeep.com/setup-a-base-full-rpc-node/</guid>
+      <description>&lt;p&gt;In the article we are going to see how to setup a Base full RPC node.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup-base&#34;&gt;Setup Base&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Clone project&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/base-org/node.git base-node&#xA;cd base-node&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configure node&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cp .env.mainnet .env&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Edit the config &lt;code&gt;vim .env&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;OP_NODE_L1_ETH_RPC=http://eth-l1:8545&#xA;OP_NODE_L1_BEACON=http://eth-l1-beacon:5052&#xA;OP_NODE_SEQUENCER_ENABLED=false&#xA;OP_NODE_P2P_STATIC=http://...&#xA;# Optionnel: RPC host/port&#xA;OP_GETH_HTTP_ADDR=0.0.0.0&#xA;OP_GETH_HTTP_PORT=8545&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Run node&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose pull&#xA;docker-compose up -d&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Verify&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose ps&#xA;&#xA;curl -X POST http://localhost:8545 \&#xA;  -H &amp;#34;Content-Type: application/json&amp;#34; \&#xA;  -d &amp;#39;{&#xA;    &amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&#xA;    &amp;#34;id&amp;#34;:1,&#xA;    &amp;#34;method&amp;#34;:&amp;#34;eth_blockNumber&amp;#34;,&#xA;    &amp;#34;params&amp;#34;:[]&#xA;  }&amp;#39;&#xA;&#xA;docker-compose logs -f&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     <item>
       <title>Near Protocol full RPC Node behind CGNAT</title>
       <link>https://leandeep.com/near-protocol-full-rpc-node-behind-cgnat/</link>
@@ -71,13 +78,6 @@
       <pubDate>Wed, 02 Jul 2025 22:32:00 +0200</pubDate>
       <guid>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</guid>
       <description>&lt;p&gt;Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM. La version de Nix est &lt;code&gt;2.29.1&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;setup-nix-sur-osx&#34;&gt;Setup Nix sur OSX&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install)&#xA;source ~/.zshrc&#xA;mkdir ~/.config/nix&#xA;echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Remarque: sur Ubuntu, l&amp;rsquo;installer avec &lt;code&gt;sh &amp;lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon&lt;/code&gt;.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup-pg&#34;&gt;Setup PG&lt;/h2&gt;&#xA;&lt;p&gt;Créer un fichier &lt;code&gt;nix/flake.nix&lt;/code&gt; dans votre repo git et ajouter le contenu suivant:&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Option 1&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Using AI and IoT to Safely Automate Fireplace Fire Starting</title>
-      <link>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</link>
-      <pubDate>Mon, 09 Jun 2025 22:32:00 +0200</pubDate>
-      <guid>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m currently building an IoT device that will automatically start fires in my traditional chimney at scheduled times during cold winter days.&#xA;The idea is to start a fire one hour before I wake up, while I&amp;rsquo;m still asleep, to warm up the house.&#xA;Unlike a smart stove, a traditional fireplace can&amp;rsquo;t be controlled remotely. It’s old-school with a twist of AI, code, and electronics.&#xA;Everything is getting automated! Here are the first two videos showing the progress of my side project.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

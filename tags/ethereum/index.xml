@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 15 Sep 2022 04:49:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 01 Jan 2026 23:59:00 +0200</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/ethereum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup a Base full RPC Node</title>
+      <link>https://leandeep.com/setup-a-base-full-rpc-node/</link>
+      <pubDate>Thu, 01 Jan 2026 23:59:00 +0200</pubDate>
+      <guid>https://leandeep.com/setup-a-base-full-rpc-node/</guid>
+      <description>&lt;p&gt;In the article we are going to see how to setup a Base full RPC node.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup-base&#34;&gt;Setup Base&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Clone project&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/base-org/node.git base-node&#xA;cd base-node&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configure node&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cp .env.mainnet .env&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Edit the config &lt;code&gt;vim .env&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;OP_NODE_L1_ETH_RPC=http://eth-l1:8545&#xA;OP_NODE_L1_BEACON=http://eth-l1-beacon:5052&#xA;OP_NODE_SEQUENCER_ENABLED=false&#xA;OP_NODE_P2P_STATIC=http://...&#xA;# Optionnel: RPC host/port&#xA;OP_GETH_HTTP_ADDR=0.0.0.0&#xA;OP_GETH_HTTP_PORT=8545&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Run node&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose pull&#xA;docker-compose up -d&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Verify&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose ps&#xA;&#xA;curl -X POST http://localhost:8545 \&#xA;  -H &amp;#34;Content-Type: application/json&amp;#34; \&#xA;  -d &amp;#39;{&#xA;    &amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&#xA;    &amp;#34;id&amp;#34;:1,&#xA;    &amp;#34;method&amp;#34;:&amp;#34;eth_blockNumber&amp;#34;,&#xA;    &amp;#34;params&amp;#34;:[]&#xA;  }&amp;#39;&#xA;&#xA;docker-compose logs -f&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     <item>
       <title>Noeud RPC Ethereum après The Merge sur Ubuntu 22.04</title>
       <link>https://leandeep.com/noeud-rpc-ethereum-apr%C3%A8s-the-merge-sur-ubuntu-22.04/</link>
@@ -71,13 +78,6 @@
       <pubDate>Tue, 07 Sep 2021 08:08:00 +0000</pubDate>
       <guid>https://leandeep.com/switcher-de-truffle-ganache-%C3%A0-hardhat/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article nous allons voir comment utiliser Hardhat pour démarrer une blockchain locale (fork du réseau mainnet) et pour compiler et déployer son code Solidity. Nous verrons aussi comment avoir une explorer type etherscan local.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;nvm&lt;/li&gt;&#xA;&lt;li&gt;Créer un compte ethernal sur &lt;a href=&#34;https://app.tryethernal.com/&#34;&gt;https://app.tryethernal.com/&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Compte alchemyapi (concurrent infura ou autre full node)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvm install v14.17.6&#xA;nvm use v14.17.6&#xA;nvm use default v14.17.6&#xA;npm install ethernal -g&#xA;ethernal login&#xA;&#xA;npm install --save-dev hardhat&#xA;npm i --save-dev hardhat-ethernal&#xA;npm i --save-dev @nomiclabs/hardhat-waffle&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;démarrer-votre-blockchain-en-local&#34;&gt;Démarrer votre blockchain en local&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;npx hardhat node --fork https://eth-mainnet.alchemyapi.io/v2/...&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;synchronisation-avec-lexplorer&#34;&gt;Synchronisation avec l&amp;rsquo;explorer&lt;/h2&gt;&#xA;&lt;p&gt;Dans un second terminal:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Pas assez de gaz pour développer sur Ethereum</title>
-      <link>https://leandeep.com/pas-assez-de-gaz-pour-d%C3%A9velopper-sur-ethereum/</link>
-      <pubDate>Mon, 06 Sep 2021 08:08:00 +0000</pubDate>
-      <guid>https://leandeep.com/pas-assez-de-gaz-pour-d%C3%A9velopper-sur-ethereum/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Voici un tip pour éviter de devoir attendre 24h avant de pouvoir réclamer des Keth via les Faucets de Kovan. Sans cela, et lorsque vous avez brulé tout votre capital à force de tester sans cesse votre code, c&amp;rsquo;est très compliqué d&amp;rsquo;avancer et d&amp;rsquo;achever le développement de son smart contract Solidity (ou dApps web3). On perd du temps alors qu&amp;rsquo;on n&amp;rsquo;est même pas en prod&amp;hellip;&lt;/p&gt;&#xA;&lt;p&gt;Ce tip permet de s&amp;rsquo;affranchir temporairement de l&amp;rsquo;erreur suivante:&#xA;&lt;code&gt;{&#39;code&#39;: -32010, &#39;message&#39;: &#39;Insufficient funds. The account you tried to send transaction from does not have enough funds. Required 26000000000000000 and got: 18781271414646593.&#39;}&lt;/code&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

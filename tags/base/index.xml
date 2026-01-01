@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Base on Lean Deep Tech blog</title>
+    <link>https://leandeep.com/tags/base/</link>
+    <description>Recent content in Base on Lean Deep Tech blog</description>
+    <generator>Hugo</generator>
+    <language>fr</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 01 Jan 2026 23:59:00 +0200</lastBuildDate>
+    <atom:link href="https://leandeep.com/tags/base/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup a Base full RPC Node</title>
+      <link>https://leandeep.com/setup-a-base-full-rpc-node/</link>
+      <pubDate>Thu, 01 Jan 2026 23:59:00 +0200</pubDate>
+      <guid>https://leandeep.com/setup-a-base-full-rpc-node/</guid>
+      <description>&lt;p&gt;In the article we are going to see how to setup a Base full RPC node.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup-base&#34;&gt;Setup Base&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Clone project&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/base-org/node.git base-node&#xA;cd base-node&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configure node&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cp .env.mainnet .env&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Edit the config &lt;code&gt;vim .env&lt;/code&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;OP_NODE_L1_ETH_RPC=http://eth-l1:8545&#xA;OP_NODE_L1_BEACON=http://eth-l1-beacon:5052&#xA;OP_NODE_SEQUENCER_ENABLED=false&#xA;OP_NODE_P2P_STATIC=http://...&#xA;# Optionnel: RPC host/port&#xA;OP_GETH_HTTP_ADDR=0.0.0.0&#xA;OP_GETH_HTTP_PORT=8545&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Run node&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose pull&#xA;docker-compose up -d&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Verify&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker-compose ps&#xA;&#xA;curl -X POST http://localhost:8545 \&#xA;  -H &amp;#34;Content-Type: application/json&amp;#34; \&#xA;  -d &amp;#39;{&#xA;    &amp;#34;jsonrpc&amp;#34;:&amp;#34;2.0&amp;#34;,&#xA;    &amp;#34;id&amp;#34;:1,&#xA;    &amp;#34;method&amp;#34;:&amp;#34;eth_blockNumber&amp;#34;,&#xA;    &amp;#34;params&amp;#34;:[]&#xA;  }&amp;#39;&#xA;&#xA;docker-compose logs -f&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>
