@@ -95,57 +95,60 @@ docker-compose logs -f
             <pubDate>Thu, 01 Jan 2026 23:19:00 +0200</pubDate>
             
             <guid>https://leandeep.com/near-protocol-full-rpc-node-behind-cgnat/</guid>
-            <description>&lt;p&gt;In the previous article we saw how to setup a Near protocol full RPC node. The node will sync only if you are not behind a firewall or behind a network like a CGNAT (the TCP P2P port has to be exposed). In this article we are going to see how to have Near protocol node synchronized behind Starlink (I.E. behind a CGNAT).&lt;/p&gt;
-&lt;p&gt;We are going to use a tiny VPS that will act as proxy TCP proxy (or P2P tunnel).&lt;/p&gt;</description>
-            <content type="html"><![CDATA[<p>In the previous article we saw how to setup a Near protocol full RPC node. The node will sync only if you are not behind a firewall or behind a network like a CGNAT (the TCP P2P port has to be exposed). In this article we are going to see how to have Near protocol node synchronized behind Starlink (I.E. behind a CGNAT).</p>
-<p>We are going to use a tiny VPS that will act as proxy TCP proxy (or P2P tunnel).</p>
+            <description>&lt;p&gt;In the previous article we saw how to setup a Near protocol full RPC node. The node will sync only if you are not behind a firewall or behind a network like a CGNAT (the UDP P2P port has to be exposed). In this article we are going to see how to have Near protocol node synchronized behind Starlink (I.E. behind a CGNAT).&lt;/p&gt;
+&lt;p&gt;We are going to use a tiny VPS that will act as proxy UDP proxy (or P2P tunnel).&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>In the previous article we saw how to setup a Near protocol full RPC node. The node will sync only if you are not behind a firewall or behind a network like a CGNAT (the UDP P2P port has to be exposed). In this article we are going to see how to have Near protocol node synchronized behind Starlink (I.E. behind a CGNAT).</p>
+<p>We are going to use a tiny VPS that will act as proxy UDP proxy (or P2P tunnel).</p>
 <pre tabindex="0"><code>Local Node (Starlink)
+        ^
+        |  UDP P2P to VPS
         |
-        |  TCP P2P to VPS
-        v
 VPS Relay (1 Go RAM, Public IP)
+        ^
+        |  UDP P2P to Mainnet NEAR nodes
         |
-        |  TCP P2P to Mainnet NEAR nodes
-        v
      NEAR Mainnet
 </code></pre><br/>
 <h2 id="vps-setup">VPS setup</h2>
-<p>The VPS listen to 24567 and redirect to the local node via a SSH reverse tunnel</p>
-<pre tabindex="0"><code>sudo apt update &amp;&amp; sudo apt install socat -y
+<p>The VPS listen to 24567 and redirect to the local node via a SSH reverse tunnel and tailscale</p>
+<pre tabindex="0"><code>curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up --auth-key=tskey-auth-...-... --advertise-exit-node
+tailscale status
+echo &#34;net.ipv4.ip_forward=1&#34; | sudo tee /etc/sysctl.d/99-tailscale.conf
+curl -4 icanhazip.com # Get vps public IP to verify later the local server has the same one.
 
-socat TCP-LISTEN:24567,fork TCP:localhost:24567
+sudo apt update &amp;&amp; sudo apt install socat -y
+sudo socat UDP4-LISTEN:24567,fork UDP4:PRIVATE_TAILSCALE_IP_OF_LOCAL_NEAR_NODE:24567
 </code></pre><br/>
 <h2 id="local-node">Local Node</h2>
-<pre tabindex="0"><code>ssh -R 24567:localhost:24567 user@X.X.X.X
+<p><strong>Setup tailscale</strong></p>
+<pre tabindex="0"><code>curl -fsSL https://tailscale.com/install.sh | sh &amp;&amp; sudo tailscale up --auth-key=tskey-auth-...-...
+curl -4 icanhazip.com
+tailscale status
+sudo tailscale up \ --exit-node=TAILSCALE_PRIVATE_IP_OF_VPS --exit-node-allow-lan-access=true
+curl -4 icanhazip.com
 </code></pre><br/>
-<p><strong>Near node config</strong></p>
+<p><strong>Retrieve peer address to setup boot nodes</strong></p>
+<pre tabindex="0"><code>curl -s -X POST https://rpc.mainnet.near.org -H &#34;Content-Type: application/json&#34; -d &#39;{ &#34;jsonrpc&#34;: &#34;2.0&#34;, &#34;method&#34;: &#34;network_info&#34;, &#34;params&#34;: [], &#34;id&#34;: &#34;dontcare&#34;}&#39; | jq -r &#39;.result.active_peers[] | &#34;\(.id)@\(.addr)&#34;&#39;
+</code></pre><br/>
+<p><strong>Boot node config</strong></p>
 <p>Edit <code>vim ~/.near/config.json</code> and change:</p>
 <pre tabindex="0"><code>&#34;boot_nodes&#34;: [
-  &#34;v2.near.org:24567&#34;   // your public VPS IP + TCP port
+  &#34;v2.near.org:24567&#34;   // Previously retrieved peer id
 ]
 </code></pre><br/>
-<h2 id="autossh">autossh</h2>
-<p>To keep the ssh connection always open you can use <code>autossh</code>.</p>
-<pre tabindex="0"><code>sudo apt update
-sudo apt install autossh -y
-autossh -M 0 -f -N -o &#34;ServerAliveInterval=30&#34; -o &#34;ServerAliveCountMax=3&#34; -R 24567:localhost:24567 user@VPS_IP
-</code></pre><p>or use a service via <code>sudo vim /etc/systemd/system/near-tunnel.service</code></p>
-<pre tabindex="0"><code>[Unit]
-Description=NEAR reverse SSH tunnel
-After=network.target
+<p><strong>Run Near</strong></p>
+<pre tabindex="0"><code>neard run
+</code></pre><br/>
+<p><strong>Verify sync</strong></p>
+<pre tabindex="0"><code>curl -s http://127.0.0.1:3030/status | jq
 
-[Service]
-User=olivier
-ExecStart=/usr/bin/autossh -M 0 -N -o &#34;ServerAliveInterval=30&#34; -o &#34;ServerAliveCountMax=3&#34; -R 24567:localhost:24567 user@VPS_IP
-Restart=always
-RestartSec=10
+#&#34;sync_info&#34;: {
+#  &#34;syncing&#34;: false
+#}
+# -&gt; Sync is over
 
-[Install]
-WantedBy=multi-user.target
-</code></pre><pre tabindex="0"><code>sudo systemctl daemon-reload
-sudo systemctl enable near-tunnel.service
-sudo systemctl start near-tunnel.service
-sudo systemctl status near-tunnel.service
+# Compare with public node
+curl -s https://rpc.mainnet.near.org/status | jq &#39;.sync_info.latest_block_height&#39; &amp;&amp; curl -s http://127.0.0.1:3030/status | jq &#39;.sync_info.latest_block_height&#39;
 </code></pre>]]></content>
         </item>
         
@@ -197,7 +200,20 @@ git checkout 2.10.3
 </code></pre><br/>
 <p><strong>Compile</strong></p>
 <pre tabindex="0"><code># Option 1
-cargo build -p neard --release
+# cargo build -p neard --release
+make release
+
+# check 
+$ ./target/release/neard run
+$ (In another tab) sudo ss -lun | grep 24567
+&gt; Expected:
+&gt; udp   UNCONN  0  0  0.0.0.0:24567   0.0.0.0:*
+&gt; Or expected:
+&gt; udp   UNCONN  0  0  [::]:24567      [::]:*
+
+If it&#39;s empty it is an issue with Near itself not a network misconfiguration
+$ ctrl-c
+
 sudo cp target/release/neard /usr/local/bin/
 
 # Option 2
