@@ -6,8 +6,107 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 01 Jan 2026 23:59:00 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 25 Jan 2026 12:08:20 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer et tester Ollama sur Ubuntu avec GPU support</title>
+            <link>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</link>
+            <pubDate>Sun, 25 Jan 2026 12:08:20 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</guid>
+            <description>&lt;p&gt;&lt;strong&gt;Verifier que le GPU est accessible&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvidia-smi
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Installer Ollama&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://ollama.com/install.sh | sh
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;Cela va installer:&lt;br/&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/usr/bin/ollama&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;le service systemd&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;le support CUDA si driver NVIDIA détecté&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Vérifier l&amp;rsquo;installation&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ollama --version
+ollama --info # Pour vérifier GPU visible
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Forcer Ollama à utiliser uniquement un eGPU&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Identifier l&amp;rsquo;ID du eGPU**&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvidia-smi -L
+GPU 0: RTX 5090 (internal)
+GPU 1: RTX 5090 (internal 2)
+GPU 2: RTX 4080 (eGPU)
+# choisir 2
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;CUDA_VISIBLE_DEVICES=2 ollama run llama3
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl edit ollama
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Ajoute:&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p><strong>Verifier que le GPU est accessible</strong></p>
+<pre tabindex="0"><code>nvidia-smi
+</code></pre><br/>
+<p><strong>Installer Ollama</strong></p>
+<pre tabindex="0"><code>curl -fsSL https://ollama.com/install.sh | sh
+</code></pre><blockquote>
+<p>Cela va installer:<br/></p>
+<ul>
+<li>/usr/bin/ollama<br/></li>
+<li>le service systemd<br/></li>
+<li>le support CUDA si driver NVIDIA détecté</li>
+</ul></blockquote>
+<br/>
+<p><strong>Vérifier l&rsquo;installation</strong></p>
+<pre tabindex="0"><code>ollama --version
+ollama --info # Pour vérifier GPU visible
+</code></pre><br/>
+<p><strong>Forcer Ollama à utiliser uniquement un eGPU</strong></p>
+<p>Identifier l&rsquo;ID du eGPU**</p>
+<pre tabindex="0"><code>nvidia-smi -L
+GPU 0: RTX 5090 (internal)
+GPU 1: RTX 5090 (internal 2)
+GPU 2: RTX 4080 (eGPU)
+# choisir 2
+</code></pre><br/>
+<pre tabindex="0"><code>CUDA_VISIBLE_DEVICES=2 ollama run llama3
+</code></pre><br/>
+<pre tabindex="0"><code>sudo systemctl edit ollama
+</code></pre><p>Ajoute:</p>
+<pre tabindex="0"><code>[Service]
+Environment=&#34;CUDA_VISIBLE_DEVICES=2&#34;
+</code></pre><br/>
+<pre tabindex="0"><code>sudo systemctl daemon-reexec
+sudo systemctl restart ollama
+</code></pre><br/>
+<p><strong>Tester un modèle</strong></p>
+<pre tabindex="0"><code>ollama pull llama3
+ollama run llama3
+&gt; Explique en détail comment fonctionne un eGPU sous Linux
+&gt; Explique en détail le fonctionnement interne d’un LLM, en couvrant l’architecture transformer, l’attention, l’entraînement, l’inférence et les optimisations GPU.
+
+# Vérifier les perfs
+# watch -n 0.5 nvidia-smi
+
+# Autre modèles 
+#   léger:
+# ollama pull mixtral:8x7b
+
+#   plus lourd 
+# ollama pull llama3:70b &amp;&amp; ollama pull gpt-oss:20b &amp;&amp; ollama pull qwen:14b &amp;&amp; ollama pull wizardlm-uncensored &amp;&amp; ollama pull wizard-vicuna-uncensored:7b &amp;&amp; ollama pull wizard-vicuna-uncensored:13b &amp;&amp; ollama pull wizard-vicuna-uncensored:30b
+
+
+# Vérifier que le modèle tient en vRAM
+nvidia-smi --query-gpu=memory.used,memory.total --format=csv
+# Règle simple:
+# 7B → ~6–8 Go
+# 13B → ~12–16 Go
+# 70B → 40+ Go
+</code></pre><br/>
+<p><strong>Voir les logs</strong></p>
+<pre tabindex="0"><code>journalctl -u ollama -f
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Setup a Base full RPC Node</title>

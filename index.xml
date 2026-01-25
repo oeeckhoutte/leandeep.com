@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 01 Jan 2026 23:59:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 25 Jan 2026 12:08:20 +0200</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installer et tester Ollama sur Ubuntu avec GPU support</title>
+      <link>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</link>
+      <pubDate>Sun, 25 Jan 2026 12:08:20 +0200</pubDate>
+      <guid>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Verifier que le GPU est accessible&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvidia-smi&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installer Ollama&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://ollama.com/install.sh | sh&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Cela va installer:&lt;br/&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;/usr/bin/ollama&lt;br/&gt;&lt;/li&gt;&#xA;&lt;li&gt;le service systemd&lt;br/&gt;&lt;/li&gt;&#xA;&lt;li&gt;le support CUDA si driver NVIDIA détecté&lt;/li&gt;&#xA;&lt;/ul&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vérifier l&amp;rsquo;installation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ollama --version&#xA;ollama --info # Pour vérifier GPU visible&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Forcer Ollama à utiliser uniquement un eGPU&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Identifier l&amp;rsquo;ID du eGPU**&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvidia-smi -L&#xA;GPU 0: RTX 5090 (internal)&#xA;GPU 1: RTX 5090 (internal 2)&#xA;GPU 2: RTX 4080 (eGPU)&#xA;# choisir 2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;CUDA_VISIBLE_DEVICES=2 ollama run llama3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl edit ollama&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Ajoute:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Setup a Base full RPC Node</title>
       <link>https://leandeep.com/setup-a-base-full-rpc-node/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sat, 19 Jul 2025 10:49:00 +0200</pubDate>
       <guid>https://leandeep.com/installer-direnv-sur-ubuntu-22/</guid>
       <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install direnv&#xA;curl https://pyenv.run | bash&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;p&gt;Ajouter les lignes suivantes dans votre &lt;code&gt;.zshrc&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&#xA;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&#xA;eval &amp;#34;$(pyenv init --path)&amp;#34;&#xA;eval &amp;#34;$(pyenv init -)&amp;#34;&#xA;eval &amp;#34;$(direnv hook zsh)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exécuter &lt;code&gt;soure ~/.zshrc&lt;/code&gt; puis installer un package python de votre choix.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv install 3.11.8&#xA;pyenv global 3.11.8&#xA;&#xA;# Ou &#xA;pyenv install miniconda3-3.11-23.5.0-3&#xA;pyenv global miniconda3-3.11-23.5.0-3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;That&amp;rsquo;s all!&#xA;Vous pouvez maintenant exécuter &lt;code&gt;echo &amp;quot;layout pyenv 3.11.8&amp;quot; &amp;gt;&amp;gt; .envrc&lt;/code&gt; où vous voulez&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Première utilisation de Nix et setup Postgres</title>
-      <link>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</link>
-      <pubDate>Wed, 02 Jul 2025 22:32:00 +0200</pubDate>
-      <guid>https://leandeep.com/premi%C3%A8re-utilisation-de-nix-et-setup-postgres/</guid>
-      <description>&lt;p&gt;Petite précision, c&amp;rsquo;est un setup sur Mac avec processeur ARM. La version de Nix est &lt;code&gt;2.29.1&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;setup-nix-sur-osx&#34;&gt;Setup Nix sur OSX&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sh &amp;lt;(curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -L https://nixos.org/nix/install)&#xA;source ~/.zshrc&#xA;mkdir ~/.config/nix&#xA;echo &amp;#34;experimental-features = nix-command flakes&amp;#34; &amp;gt;&amp;gt; ~/.config/nix/nix.conf&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Remarque: sur Ubuntu, l&amp;rsquo;installer avec &lt;code&gt;sh &amp;lt;(curl --proto &#39;=https&#39; --tlsv1.2 -L https://nixos.org/nix/install) --daemon&lt;/code&gt;.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup-pg&#34;&gt;Setup PG&lt;/h2&gt;&#xA;&lt;p&gt;Créer un fichier &lt;code&gt;nix/flake.nix&lt;/code&gt; dans votre repo git et ajouter le contenu suivant:&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Option 1&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
