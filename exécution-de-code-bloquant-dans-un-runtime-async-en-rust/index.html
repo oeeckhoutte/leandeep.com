@@ -104,8 +104,8 @@ Schéma visuel Thread principal (async) Thread bloquant | | | spawn_blocking() -
   <meta itemprop="name" content="Exécution de code bloquant dans un runtime async en Rust">
   <meta itemprop="description" content="Introduction Dans cet article nous allons voir comment exécuter du code bloquant dans un runtime async en Rust.
 Schéma visuel Thread principal (async) Thread bloquant | | | spawn_blocking() -----------------------&gt; | | (retourne immédiatement) | | | get_btc_stablecoin_pairs_sync() | .await | (appel synchrone à Binance) | (attend sans bloquer) | | | (traitement...) | &lt;--------------------------------------- | | (résultat reçu) | | | | .map_err() - gère JoinError | | .map_err() - gère erreur métier | | | v v Example de code let btc_pairs = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync) .await .map_err(|e| format!(&#34;Task join error: {}&#34;, e))? .map_err(|e| format!(&#34;Error getting pairs: {}&#34;, e))?; Equivalent avec annotations:">
-  <meta itemprop="datePublished" content="2026-02-03T21:19:00+00:00">
-  <meta itemprop="dateModified" content="2026-02-03T21:19:00+00:00">
+  <meta itemprop="datePublished" content="2023-02-03T21:19:00+00:00">
+  <meta itemprop="dateModified" content="2023-02-03T21:19:00+00:00">
   <meta itemprop="wordCount" content="350">
   <meta itemprop="image" content="https://leandeep.com/">
   <meta itemprop="keywords" content="Rust">
@@ -119,7 +119,7 @@ Schéma visuel Thread principal (async) Thread bloquant | | | spawn_blocking() -
 
 
 
-<meta property="article:published_time" content="2026-02-03 21:19:00 &#43;0000 UTC" />
+<meta property="article:published_time" content="2023-02-03 21:19:00 &#43;0000 UTC" />
 
 
 
@@ -297,7 +297,7 @@ Schéma visuel Thread principal (async) Thread bloquant | | | spawn_blocking() -
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>350 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 févr.. 2026</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 févr.. 2023</p>
         </div>
 
         
@@ -309,11 +309,18 @@ Schéma visuel Thread principal (async) Thread bloquant | | | spawn_blocking() -
 
                 <div class="pagination__buttons">
                     
+                        <span class="button previous">
+                            <a href="https://leandeep.com/phases-de-synchronisation-sur-erigon-et-liens-vers-larchitecture/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Phases de synchronisation sur Erigon et liens vers l&#39;architecture</span>
+                            </a>
+                        </span>
+                    
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/">
-                                <span class="button__text">Installer et tester Ollama sur Ubuntu avec GPU support</span>
+                            <a href="https://leandeep.com/backuper-la-db-derigon-sur-debian-11/">
+                                <span class="button__text">Backuper la DB d&#39;Erigon sur Debian 11</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

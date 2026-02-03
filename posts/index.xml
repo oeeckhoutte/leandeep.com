@@ -6,139 +6,8 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 03 Feb 2026 21:19:00 +0000</lastBuildDate>
+        <lastBuildDate>Sun, 25 Jan 2026 12:08:20 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
-        
-        <item>
-            <title>Exécution de code bloquant dans un runtime async en Rust</title>
-            <link>https://leandeep.com/ex%C3%A9cution-de-code-bloquant-dans-un-runtime-async-en-rust/</link>
-            <pubDate>Tue, 03 Feb 2026 21:19:00 +0000</pubDate>
-            
-            <guid>https://leandeep.com/ex%C3%A9cution-de-code-bloquant-dans-un-runtime-async-en-rust/</guid>
-            <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Dans cet article nous allons voir comment exécuter du code bloquant dans un runtime async en Rust.&lt;/p&gt;
-&lt;br/&gt;
-&lt;h2 id=&#34;schéma-visuel&#34;&gt;Schéma visuel&lt;/h2&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Thread principal (async)                    Thread bloquant
-     |                                           |
-     | spawn_blocking() -----------------------&amp;gt; |
-     |   (retourne immédiatement)                |
-     |                                           | get_btc_stablecoin_pairs_sync()
-     | .await                                    | (appel synchrone à Binance)
-     |   (attend sans bloquer)                   |
-     |                                           | (traitement...)
-     | &amp;lt;--------------------------------------- |
-     |   (résultat reçu)                        |
-     |                                           |
-     | .map_err() - gère JoinError              |
-     | .map_err() - gère erreur métier          |
-     |                                           |
-     v                                           v
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-&lt;h2 id=&#34;example-de-code&#34;&gt;Example de code&lt;/h2&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;let btc_pairs = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)
-    .await
-    .map_err(|e| format!(&amp;#34;Task join error: {}&amp;#34;, e))?
-    .map_err(|e| format!(&amp;#34;Error getting pairs: {}&amp;#34;, e))?;
-&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-&lt;p&gt;&lt;strong&gt;Equivalent avec annotations:&lt;/strong&gt;&lt;/p&gt;</description>
-            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>Dans cet article nous allons voir comment exécuter du code bloquant dans un runtime async en Rust.</p>
-<br/>
-<h2 id="schéma-visuel">Schéma visuel</h2>
-<pre tabindex="0"><code>Thread principal (async)                    Thread bloquant
-     |                                           |
-     | spawn_blocking() -----------------------&gt; |
-     |   (retourne immédiatement)                |
-     |                                           | get_btc_stablecoin_pairs_sync()
-     | .await                                    | (appel synchrone à Binance)
-     |   (attend sans bloquer)                   |
-     |                                           | (traitement...)
-     | &lt;--------------------------------------- |
-     |   (résultat reçu)                        |
-     |                                           |
-     | .map_err() - gère JoinError              |
-     | .map_err() - gère erreur métier          |
-     |                                           |
-     v                                           v
-</code></pre><br/>
-<h2 id="example-de-code">Example de code</h2>
-<pre tabindex="0"><code>let btc_pairs = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)
-    .await
-    .map_err(|e| format!(&#34;Task join error: {}&#34;, e))?
-    .map_err(|e| format!(&#34;Error getting pairs: {}&#34;, e))?;
-</code></pre><br/>
-<p><strong>Equivalent avec annotations:</strong></p>
-<blockquote>
-<p>Décomposition étape par étape</p></blockquote>
-<pre tabindex="0"><code>pub async fn stream_btc_stablecoin_pairs() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
-    log::info!(&#34;Fetching BTC/stablecoin pairs...&#34;);
-    
-    // 1. Spawner un thread bloquant (retourne JoinHandle immédiatement)
-    let join_handle = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync);
-    
-    // 2. Attendre le résultat du thread (async, ne bloque pas le runtime)
-    let join_result: Result&lt;Result&lt;Vec&lt;String&gt;, String&gt;, JoinError&gt; = join_handle.await;
-    
-    // 3. Gérer l&#39;erreur de join (si le thread a paniqué)
-    let inner_result: Result&lt;Vec&lt;String&gt;, String&gt; = join_result
-        .map_err(|e| format!(&#34;Task join error: {}&#34;, e))?;
-    
-    // 4. Gérer l&#39;erreur métier (si l&#39;API a échoué)
-    let btc_pairs: Vec&lt;String&gt; = inner_result
-        .map_err(|e| format!(&#34;Error getting pairs: {}&#34;, e))?;
-    
-
-    
-    // Reste du code...
-    log::info!(&#34;Found {} BTC/stablecoin pairs&#34;, btc_pairs.len());
-    // ...
-}
-</code></pre><br/>
-<p><strong>Ce qu&rsquo;il s&rsquo;est passé étape par étape:</strong></p>
-<ol>
-<li>
-<p><strong><code>tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)</code></strong></p>
-<ul>
-<li>Lance la fonction <code>get_btc_stablecoin_pairs_sync</code> dans un <strong>thread dédié aux opérations bloquantes</strong></li>
-<li>Retourne immédiatement un <code>JoinHandle&lt;Result&lt;Vec&lt;String&gt;, String&gt;&gt;</code></li>
-<li>Cette fonction ne bloque pas le runtime async</li>
-</ul>
-</li>
-<li>
-<p><strong><code>.await</code></strong></p>
-<ul>
-<li>On attend (de manière async) que le thread bloquant termine</li>
-<li>Pendant ce temps, le runtime tokio peut exécuter d&rsquo;autres tâches</li>
-<li>Retourne <code>Result&lt;Result&lt;Vec&lt;String&gt;, String&gt;, JoinError&gt;</code></li>
-<li>Le premier <code>Result</code> vient du <code>.await</code> (erreur de join)</li>
-<li>Le second <code>Result</code> vient de notre fonction (erreur métier)</li>
-</ul>
-</li>
-<li>
-<p><strong>Premier <code>.map_err(...)?</code></strong></p>
-<ul>
-<li>Gère l&rsquo;erreur de <code>JoinError</code> (si le thread a paniqué)</li>
-<li>Transforme <code>Result&lt;Result&lt;Vec&lt;String&gt;, String&gt;, JoinError&gt;</code> en <code>Result&lt;Vec&lt;String&gt;, String&gt;</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Deuxième <code>.map_err(...)?</code></strong></p>
-<ul>
-<li>Gère l&rsquo;erreur de notre fonction (si l&rsquo;API Binance a échoué)</li>
-<li>Transforme le <code>Result&lt;Vec&lt;String&gt;, String&gt;</code> en <code>Vec&lt;String&gt;</code> ou propage l&rsquo;erreur</li>
-</ul>
-</li>
-</ol>
-<br/>
-<h2 id="résumé">Résumé</h2>
-<ul>
-<li>spawn_blocking : &ldquo;Lance ce code bloquant dans un thread dédié&rdquo;</li>
-<li>.await : &ldquo;Attends (sans bloquer) que ce thread termine&rdquo;</li>
-<li>Les deux .map_err()? : &ldquo;Gère les deux niveaux d&rsquo;erreurs possibles&rdquo;</li>
-</ul>
-]]></content>
-        </item>
         
         <item>
             <title>Installer et tester Ollama sur Ubuntu avec GPU support</title>
@@ -6740,6 +6609,137 @@ tail -f /var/log/prysm.log
 <br/>
 <h2 id="architecture-derigon">Architecture d&rsquo;Erigon</h2>
 <p><a href="https://erigon.substack.com/p/architecture-of-erigon-separable?s=w">https://erigon.substack.com/p/architecture-of-erigon-separable?s=w</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Exécution de code bloquant dans un runtime async en Rust</title>
+            <link>https://leandeep.com/ex%C3%A9cution-de-code-bloquant-dans-un-runtime-async-en-rust/</link>
+            <pubDate>Fri, 03 Feb 2023 21:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/ex%C3%A9cution-de-code-bloquant-dans-un-runtime-async-en-rust/</guid>
+            <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Dans cet article nous allons voir comment exécuter du code bloquant dans un runtime async en Rust.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;schéma-visuel&#34;&gt;Schéma visuel&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Thread principal (async)                    Thread bloquant
+     |                                           |
+     | spawn_blocking() -----------------------&amp;gt; |
+     |   (retourne immédiatement)                |
+     |                                           | get_btc_stablecoin_pairs_sync()
+     | .await                                    | (appel synchrone à Binance)
+     |   (attend sans bloquer)                   |
+     |                                           | (traitement...)
+     | &amp;lt;--------------------------------------- |
+     |   (résultat reçu)                        |
+     |                                           |
+     | .map_err() - gère JoinError              |
+     | .map_err() - gère erreur métier          |
+     |                                           |
+     v                                           v
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;example-de-code&#34;&gt;Example de code&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;let btc_pairs = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)
+    .await
+    .map_err(|e| format!(&amp;#34;Task join error: {}&amp;#34;, e))?
+    .map_err(|e| format!(&amp;#34;Error getting pairs: {}&amp;#34;, e))?;
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Equivalent avec annotations:&lt;/strong&gt;&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article nous allons voir comment exécuter du code bloquant dans un runtime async en Rust.</p>
+<br/>
+<h2 id="schéma-visuel">Schéma visuel</h2>
+<pre tabindex="0"><code>Thread principal (async)                    Thread bloquant
+     |                                           |
+     | spawn_blocking() -----------------------&gt; |
+     |   (retourne immédiatement)                |
+     |                                           | get_btc_stablecoin_pairs_sync()
+     | .await                                    | (appel synchrone à Binance)
+     |   (attend sans bloquer)                   |
+     |                                           | (traitement...)
+     | &lt;--------------------------------------- |
+     |   (résultat reçu)                        |
+     |                                           |
+     | .map_err() - gère JoinError              |
+     | .map_err() - gère erreur métier          |
+     |                                           |
+     v                                           v
+</code></pre><br/>
+<h2 id="example-de-code">Example de code</h2>
+<pre tabindex="0"><code>let btc_pairs = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)
+    .await
+    .map_err(|e| format!(&#34;Task join error: {}&#34;, e))?
+    .map_err(|e| format!(&#34;Error getting pairs: {}&#34;, e))?;
+</code></pre><br/>
+<p><strong>Equivalent avec annotations:</strong></p>
+<blockquote>
+<p>Décomposition étape par étape</p></blockquote>
+<pre tabindex="0"><code>pub async fn stream_btc_stablecoin_pairs() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    log::info!(&#34;Fetching BTC/stablecoin pairs...&#34;);
+    
+    // 1. Spawner un thread bloquant (retourne JoinHandle immédiatement)
+    let join_handle = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync);
+    
+    // 2. Attendre le résultat du thread (async, ne bloque pas le runtime)
+    let join_result: Result&lt;Result&lt;Vec&lt;String&gt;, String&gt;, JoinError&gt; = join_handle.await;
+    
+    // 3. Gérer l&#39;erreur de join (si le thread a paniqué)
+    let inner_result: Result&lt;Vec&lt;String&gt;, String&gt; = join_result
+        .map_err(|e| format!(&#34;Task join error: {}&#34;, e))?;
+    
+    // 4. Gérer l&#39;erreur métier (si l&#39;API a échoué)
+    let btc_pairs: Vec&lt;String&gt; = inner_result
+        .map_err(|e| format!(&#34;Error getting pairs: {}&#34;, e))?;
+    
+
+    
+    // Reste du code...
+    log::info!(&#34;Found {} BTC/stablecoin pairs&#34;, btc_pairs.len());
+    // ...
+}
+</code></pre><br/>
+<p><strong>Ce qu&rsquo;il s&rsquo;est passé étape par étape:</strong></p>
+<ol>
+<li>
+<p><strong><code>tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)</code></strong></p>
+<ul>
+<li>Lance la fonction <code>get_btc_stablecoin_pairs_sync</code> dans un <strong>thread dédié aux opérations bloquantes</strong></li>
+<li>Retourne immédiatement un <code>JoinHandle&lt;Result&lt;Vec&lt;String&gt;, String&gt;&gt;</code></li>
+<li>Cette fonction ne bloque pas le runtime async</li>
+</ul>
+</li>
+<li>
+<p><strong><code>.await</code></strong></p>
+<ul>
+<li>On attend (de manière async) que le thread bloquant termine</li>
+<li>Pendant ce temps, le runtime tokio peut exécuter d&rsquo;autres tâches</li>
+<li>Retourne <code>Result&lt;Result&lt;Vec&lt;String&gt;, String&gt;, JoinError&gt;</code></li>
+<li>Le premier <code>Result</code> vient du <code>.await</code> (erreur de join)</li>
+<li>Le second <code>Result</code> vient de notre fonction (erreur métier)</li>
+</ul>
+</li>
+<li>
+<p><strong>Premier <code>.map_err(...)?</code></strong></p>
+<ul>
+<li>Gère l&rsquo;erreur de <code>JoinError</code> (si le thread a paniqué)</li>
+<li>Transforme <code>Result&lt;Result&lt;Vec&lt;String&gt;, String&gt;, JoinError&gt;</code> en <code>Result&lt;Vec&lt;String&gt;, String&gt;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Deuxième <code>.map_err(...)?</code></strong></p>
+<ul>
+<li>Gère l&rsquo;erreur de notre fonction (si l&rsquo;API Binance a échoué)</li>
+<li>Transforme le <code>Result&lt;Vec&lt;String&gt;, String&gt;</code> en <code>Vec&lt;String&gt;</code> ou propage l&rsquo;erreur</li>
+</ul>
+</li>
+</ol>
+<br/>
+<h2 id="résumé">Résumé</h2>
+<ul>
+<li>spawn_blocking : &ldquo;Lance ce code bloquant dans un thread dédié&rdquo;</li>
+<li>.await : &ldquo;Attends (sans bloquer) que ce thread termine&rdquo;</li>
+<li>Les deux .map_err()? : &ldquo;Gère les deux niveaux d&rsquo;erreurs possibles&rdquo;</li>
+</ul>
 ]]></content>
         </item>
         
