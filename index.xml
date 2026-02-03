@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 25 Jan 2026 12:08:20 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 03 Feb 2026 21:19:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exécution de code bloquant dans un runtime async en Rust</title>
+      <link>https://leandeep.com/ex%C3%A9cution-de-code-bloquant-dans-un-runtime-async-en-rust/</link>
+      <pubDate>Tue, 03 Feb 2026 21:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/ex%C3%A9cution-de-code-bloquant-dans-un-runtime-async-en-rust/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Dans cet article nous allons voir comment exécuter du code bloquant dans un runtime async en Rust.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;schéma-visuel&#34;&gt;Schéma visuel&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Thread principal (async)                    Thread bloquant&#xA;     |                                           |&#xA;     | spawn_blocking() -----------------------&amp;gt; |&#xA;     |   (retourne immédiatement)                |&#xA;     |                                           | get_btc_stablecoin_pairs_sync()&#xA;     | .await                                    | (appel synchrone à Binance)&#xA;     |   (attend sans bloquer)                   |&#xA;     |                                           | (traitement...)&#xA;     | &amp;lt;--------------------------------------- |&#xA;     |   (résultat reçu)                        |&#xA;     |                                           |&#xA;     | .map_err() - gère JoinError              |&#xA;     | .map_err() - gère erreur métier          |&#xA;     |                                           |&#xA;     v                                           v&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;example-de-code&#34;&gt;Example de code&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;let btc_pairs = tokio::task::spawn_blocking(get_btc_stablecoin_pairs_sync)&#xA;    .await&#xA;    .map_err(|e| format!(&amp;#34;Task join error: {}&amp;#34;, e))?&#xA;    .map_err(|e| format!(&amp;#34;Error getting pairs: {}&amp;#34;, e))?;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Equivalent avec annotations:&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Installer et tester Ollama sur Ubuntu avec GPU support</title>
       <link>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sat, 19 Jul 2025 10:59:00 +0200</pubDate>
       <guid>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</guid>
       <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;Attention cette installation n&#39;est pas sécurisée. C&#39;est de l&#39;ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;miniconda3-3.11-23.5.0-3&lt;/li&gt;&#xA;&lt;li&gt;nvidia-smi pour vérifier que vous avez accès à un GPU&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install notebook jupyterlab jupyter&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Et voilà, rendez-vous sur &lt;code&gt;http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE&lt;/code&gt; pour accéder à Jupyter lab.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Installer direnv sur Ubuntu 22</title>
-      <link>https://leandeep.com/installer-direnv-sur-ubuntu-22/</link>
-      <pubDate>Sat, 19 Jul 2025 10:49:00 +0200</pubDate>
-      <guid>https://leandeep.com/installer-direnv-sur-ubuntu-22/</guid>
-      <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer direnv sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt install direnv&#xA;curl https://pyenv.run | bash&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;p&gt;Ajouter les lignes suivantes dans votre &lt;code&gt;.zshrc&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&#xA;export PATH=&amp;#34;$PYENV_ROOT/bin:$PATH&amp;#34;&#xA;eval &amp;#34;$(pyenv init --path)&amp;#34;&#xA;eval &amp;#34;$(pyenv init -)&amp;#34;&#xA;eval &amp;#34;$(direnv hook zsh)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Exécuter &lt;code&gt;soure ~/.zshrc&lt;/code&gt; puis installer un package python de votre choix.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv install 3.11.8&#xA;pyenv global 3.11.8&#xA;&#xA;# Ou &#xA;pyenv install miniconda3-3.11-23.5.0-3&#xA;pyenv global miniconda3-3.11-23.5.0-3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;That&amp;rsquo;s all!&#xA;Vous pouvez maintenant exécuter &lt;code&gt;echo &amp;quot;layout pyenv 3.11.8&amp;quot; &amp;gt;&amp;gt; .envrc&lt;/code&gt; où vous voulez&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
