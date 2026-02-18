@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Dans cet article, nous allons voir ce qu&rsquo;est Nautilus Trader et comment l&rsquo;utiliser. Je me suis penché sur cet outil car je m&rsquo;étais fixé l&rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&rsquo;apercevoir qu&rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits. Plutôt que de réinventer la roue, l&rsquo;idée est de voir si je peux m&rsquo;approprier cet outil bot pour en faire un bot d&rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/analyse-du-projet-nautilus-trader/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Analyse du projet nautilus trader :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.44eaa49e743eabd51724579f1d2ece0dac6f56215301d6961ca74092199d4a05.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Analyse du projet nautilus trader">
+  <meta itemprop="description" content="Dans cet article, nous allons voir ce qu’est Nautilus Trader et comment l’utiliser. Je me suis penché sur cet outil car je m’étais fixé l’objectif de ré-écrire un bot de trading en Rust avant de m’apercevoir qu’il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits. Plutôt que de réinventer la roue, l’idée est de voir si je peux m’approprier cet outil bot pour en faire un bot d’arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s’il manque des features, ce sera avec grand plaisir que je pourrai les coder.">
+  <meta itemprop="datePublished" content="2026-02-18T21:19:00+00:00">
+  <meta itemprop="dateModified" content="2026-02-18T21:19:00+00:00">
+  <meta itemprop="wordCount" content="1856">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Rust,Python,Trading,AlgoTrading">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Analyse du projet nautilus trader">
+  <meta name="twitter:description" content="Dans cet article, nous allons voir ce qu’est Nautilus Trader et comment l’utiliser. Je me suis penché sur cet outil car je m’étais fixé l’objectif de ré-écrire un bot de trading en Rust avant de m’apercevoir qu’il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits. Plutôt que de réinventer la roue, l’idée est de voir si je peux m’approprier cet outil bot pour en faire un bot d’arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s’il manque des features, ce sera avec grand plaisir que je pourrai les coder.">
+
+
+
+
+
+<meta property="article:published_time" content="2026-02-18 21:19:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>9 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/analyse-du-projet-nautilus-trader/">Analyse du projet nautilus trader</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article, nous allons voir ce qu&rsquo;est Nautilus Trader et comment l&rsquo;utiliser.
+Je me suis penché sur cet outil car je m&rsquo;étais fixé l&rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&rsquo;apercevoir qu&rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.
+Plutôt que de réinventer la roue, l&rsquo;idée est de voir si je peux m&rsquo;approprier cet outil bot pour en faire un bot d&rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.</p>
+<br/>
+<h2 id="présentation">Présentation</h2>
+<p>Nautilus Trader n&rsquo;est pas juste une lib Python écrite en Rust; c&rsquo;est un peu plus complexe.</p>
+<p>C&rsquo;est une plateforme de trading algorithmique haute performance qui utilise une architecture hybride à <strong>trois couches de langages</strong>:</p>
+<br/>
+<p><strong>1. Rust: Le moteur natif (crates/)</strong></p>
+<p>Le workspace Rust contient ~35 crates qui implémentent le cœur du système:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Catégorie</th>
+          <th style="text-align: left">Crates</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Noyau</td>
+          <td style="text-align: left">core, model, common, data, serialization</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Trading</td>
+          <td style="text-align: left">trading, execution, risk, portfolio, backtest</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Infra</td>
+          <td style="text-align: left">network, persistence, infrastructure, cryptography</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Adapters</td>
+          <td style="text-align: left">exchanges	binance, bybit, kraken, deribit, okx, dydx, coinbase_intx, tardis, etc.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Binding Python</td>
+          <td style="text-align: left">pyo3: le pont vers Python via PyO3</td>
+      </tr>
+  </tbody>
+</table>
+<p>Le crate <code>crates/pyo3/</code> est la passerelle: il compile une bibliothèque partagée nautilus_pyo3 qui expose les types et fonctions Rust directement en Python.</p>
+<br/>
+<p><strong>2. Cython: La couche intermédiaire (fichiers .pyx)</strong></p>
+<p>Il y a ~106 fichiers .pyx (Cython) et ~129 fichiers .pxd (déclarations). C&rsquo;est une couche historique importante qui:</p>
+<ul>
+<li>Fournit une grande partie de l&rsquo;API Python publique (stratégies, ordres, instruments, indicateurs, etc.)</li>
+<li>Appelle le code Rust via FFI/C (headers générés dans <code>nautilus_trader/core/includes/</code>)</li>
+<li>Implémente certains composants directement en Cython pour la performance</li>
+<li>Se compile en extensions C (fichiers .so/.pyd) qui se linkent aux bibliothèques statiques Rust</li>
+</ul>
+<p>On le voit dans <code>nautilus_trader/core/rust/</code> qui contient des fichiers .pyx comme model.pyx et common.pyx servant de pont entre Cython et les bibliothèques Rust.</p>
+<br/>
+<p><strong>3. Python pur: L&rsquo;orchestration (fichiers .py)</strong></p>
+<p>Du Python classique pour:</p>
+<ul>
+<li>La configuration et l&rsquo;orchestration du système</li>
+<li>Certains adapters de plus haut niveau</li>
+<li>Les tests</li>
+</ul>
+<br/>
+<p>En gros l&rsquo;architectue du projet se décompose comme ceci:</p>
+<pre tabindex="0"><code>┌─────────────────────────────────────────────────┐
+│              Utilisateur Python                 │
+│         (import nautilus_trader)                │
+├────────────────────┬────────────────────────────┤
+│   Cython (.pyx)    │     Python pur (.py)       │
+│  Extensions C/C++  │  Config, orchestration     │
+├────────────────────┴────────────────────────────┤
+│          FFI (C headers)  &amp;  PyO3               │
+├─────────────────────────────────────────────────┤
+│              Rust (crates/)                     │
+│  Core engine, model, adapters, networking, etc. │
+└─────────────────────────────────────────────────┘
+</code></pre><p>L&rsquo;API utilisateur est en Python, mais que la performance critique est en Rust, et que le Cython sert de ciment (historique) entre les deux.</p>
+<blockquote>
+<p>Le projet migre progressivement de Cython vers Rust/PyO3. Le Cython est la couche historique, et le Rust prend de plus en plus de place. On voit d&rsquo;ailleurs que les tests ont souvent des versions _pyo3</p></blockquote>
+<br/>
+<p><strong>Il y a 3 catégories d&rsquo;adapters</strong></p>
+<p><strong>1. Adapters Rust + couche Python fine (la majorité)</strong></p>
+<p>Ces adapters ont une double implémentation: le gros de la logique est en Rust, avec une couche Python par-dessus.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Adapter</th>
+          <th style="text-align: left">Rust (crates/adapters/)</th>
+          <th style="text-align: left">Python (nautilus_trader/adapters/)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Binance</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Bybit</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Kraken</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">OKX</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Deribit</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dYdX</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Coinbase</td>
+          <td style="text-align: left">IntX</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Databento</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Tardis</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Hyperliquid</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">BitMEX</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Architect</td>
+          <td style="text-align: left">AX</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Sandbox</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Blockchain</td>
+          <td style="text-align: left">oui</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+  </tbody>
+</table>
+<p>Par exemple pour Binance, le code Rust dans <code>crates/adapters/binance/src/futures/data.rs</code> (~1500 lignes) implémente le vrai client de données live (connexions WebSocket, parsing des messages, gestion de l&rsquo;order book,&hellip;). Le code contient même un sous-dossier <code>python/</code> avec des bindings PyO3 pour exposer certains types (enums, clients HTTP/WebSocket) à Python.</p>
+<p>Côté Python, <code>nautilus_trader/adapters/binance/data.py</code> est la couche qui orchestre le tout comme la configuration, les factories, et certains traitements de haut niveau mais qui délègue le travail lourd au Rust.</p>
+<br/>
+<p><strong>2. Adapters Python pur (quelques-uns)</strong></p>
+<p>Certains adapters n&rsquo;existent qu&rsquo;en Python, sans contrepartie Rust:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Adapter</th>
+          <th style="text-align: left">Rust</th>
+          <th style="text-align: left">Python</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Interactive Brokers</td>
+          <td style="text-align: left">non</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Betfair</td>
+          <td style="text-align: left">non</td>
+          <td style="text-align: left">oui (+ un peu de Cython pour l&rsquo;orderbook)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Polymarket</td>
+          <td style="text-align: left">non</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dYdX v4 (legacy)</td>
+          <td style="text-align: left">non</td>
+          <td style="text-align: left">oui</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>3. Le template</strong>
+Le dossier <code>nautilus_trader/adapters/_template/</code> contient un squelette Python pour créer de nouveaux adapters. Il est en Python pur:</p>
+<pre tabindex="0"><code>_template/
+├── __init__.py
+├── core.py
+├── data.py
+├── execution.py
+└── providers.py
+</code></pre><br/>
+<h2 id="installation-sur-osx">Installation sur OSX</h2>
+<p>Les bases de données ne sont pas requises pour commencer. Elles sont optionnelles et servent à des cas d&rsquo;usage spécifiques:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Service</th>
+          <th style="text-align: left">Rôle</th>
+          <th style="text-align: left">Obligatoire ?</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Redis</td>
+          <td style="text-align: left">Cache persistant et/ou message bus partagé entre instances</td>
+          <td style="text-align: left">Non</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">PostgreSQL</td>
+          <td style="text-align: left">Stockage durable des ordres, positions, instruments</td>
+          <td style="text-align: left">Non</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Pré-requis</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Outil</th>
+          <th style="text-align: left">Version</th>
+          <th style="text-align: left">Pourquoi</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Python</td>
+          <td style="text-align: left">3.12 - 3.14</td>
+          <td style="text-align: left">Runtime principal</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Rust (via rustup)</td>
+          <td style="text-align: left">1.93.1 stable</td>
+          <td style="text-align: left">Compilation des crates</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">clang	(fourni par Xcode)</td>
+          <td style="text-align: left">Compilateur C pour les extensions Cython</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">uv</td>
+          <td style="text-align: left">0.10.3+</td>
+          <td style="text-align: left">Gestionnaire de packages Python recommandé</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Cap&rsquo;n Proto</td>
+          <td style="text-align: left">1.3.0</td>
+          <td style="text-align: left">Compilation des schémas de sérialisation</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<pre tabindex="0"><code># Installation de Rust
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+# Ou update 
+# rustup update stable
+
+# uv (gestionnaire de packages Python)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Cap&#39;n Proto
+brew install capnp
+</code></pre><br/>
+<pre tabindex="0"><code>git clone https://github.com/nautechsystems/nautilus_trader
+git checkout master
+cd nautilus_trader
+export PYO3_PYTHON=$(pwd)/.venv/bin/python
+make install
+# Plus tard pour itérer rapidement: 
+# make install-debug
+uv run python -c &#34;import nautilus_trader; print(nautilus_trader.__version__)&#34;
+# 1.222.0
+</code></pre><br/>
+<h2 id="utilisation-basique">Utilisation basique</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Commande</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">make install</td>
+          <td style="text-align: left">Build release + install toutes les dépendances</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">make install-debug</td>
+          <td style="text-align: left">Build debug (plus rapide, pour le dev)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">make build-debug</td>
+          <td style="text-align: left">Recompiler après modification de .rs, .pyx, .pxd</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">make clean</td>
+          <td style="text-align: left">Nettoyer tous les artefacts de build</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">make format</td>
+          <td style="text-align: left">Formater le code Rust et Python</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">make pre-commit</td>
+          <td style="text-align: left">Lancer tous les hooks pre-commit</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<h2 id="organisation-des-exemples">Organisation des exemples</h2>
+<p>Le dossier <code>examples/</code> est organisé autour de 3 environnements d&rsquo;exécution + un dossier utilitaire:</p>
+<br/>
+<p><strong>1. <code>backtest/</code>: Données historiques, exchange simulé</strong></p>
+<p>Si on fournit des données historiques, le moteur simule un exchange et exécute une stratégie dessus. Aucune connexion réseau, aucune clé API est nécessaire.</p>
+<p>Le pattern est toujours le même: <code>Engine -&gt; Venue -&gt; Instrument -&gt; Data -&gt; Strategy -&gt; Run</code>.</p>
+<p>Il y a aussi 11 exemples tutoriels numérotés (example_01 à example_11) qui enseignent chacun un concept:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Exemple</th>
+          <th style="text-align: left">Concept enseigné</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">01</td>
+          <td style="text-align: left">Charger des bars depuis un CSV custom</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">02</td>
+          <td style="text-align: left">Utiliser les timers de l&rsquo;horloge</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">03</td>
+          <td style="text-align: left">Agrégation de bars</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">04</td>
+          <td style="text-align: left">Utiliser le data catalog</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">05</td>
+          <td style="text-align: left">Utiliser le portfolio</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">06</td>
+          <td style="text-align: left">Utiliser le cache</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">07</td>
+          <td style="text-align: left">Utiliser les indicateurs</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">08</td>
+          <td style="text-align: left">Indicateurs en cascade</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">09</td>
+          <td style="text-align: left">Messaging via le message bus</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">10</td>
+          <td style="text-align: left">Messaging via un Actor (data)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">11</td>
+          <td style="text-align: left">Messaging via un Actor (signals)</td>
+      </tr>
+  </tbody>
+</table>
+<p>Chaque tutoriel a un run_example.py (le lanceur) et un strategy.py (la logique de trading).</p>
+<br/>
+<p><strong>2. <code>sandbox/</code>: Données live, exécution simulée</strong></p>
+<p>C&rsquo;est un mode hybride. On se connectes à un vrai exchange pour recevoir des données de marché en temps réel, mais les ordres sont exécutés dans un simulateur local. C&rsquo;est vraiment parfait pour tester une stratégie dans des conditions réelles sans risquer d&rsquo;argent.</p>
+<pre tabindex="0"><code># source binance_spot_futures_sandbox.py
+
+data_clients={
+    &#34;BINANCE_FUTURES&#34;: BinanceDataClientConfig(  # &lt;-- Données RÉELLES de Binance
+        // ...
+    ),
+    &#34;BINANCE_SPOT&#34;: BinanceDataClientConfig(     # &lt;-- Données RÉELLES de Binance
+        // ...
+    ),
+},
+exec_clients={
+    &#34;BINANCE_FUTURES&#34;: SandboxExecutionClientConfig(  # &lt;-- Exécution SIMULÉE
+        venue=&#34;BINANCE_FUTURES&#34;,
+        starting_balances=[&#34;10_000 USDC&#34;, &#34;0.005 BTC&#34;],
+    ),
+    &#34;BINANCE_SPOT&#34;: SandboxExecutionClientConfig(     # &lt;-- Exécution SIMULÉE
+        venue=&#34;BINANCE_SPOT&#34;,
+        starting_balances=[&#34;1_000 USDC&#34;, &#34;0.001 BTC&#34;],
+    ),
+},
+</code></pre><br/>
+<p><strong>3. <code>live/</code>: Données live, exécution live</strong></p>
+<p>Dans cette section, c&rsquo;est du vrai trading. C&rsquo;est Organisé par exchange, chaque sous-dossier contient typiquement:</p>
+<ul>
+<li>Un data tester (<code>*_data_tester.py</code>) qui se connecte et affiche les données reçues, sans trader</li>
+<li>Un exec tester (<code>*_exec_tester.py</code>) qui teste le passage d&rsquo;ordres réels</li>
+<li>Des stratégies (<code>*_ema_cross.py</code>, <code>*_market_maker.py</code>, etc.) qui sont des exemples complets.</li>
+</ul>
+<br/>
+<h2 id="indicateur-disponibles">Indicateur disponibles</h2>
+<p><strong>Moyennes mobiles</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Indicateur</th>
+          <th style="text-align: center">Abréviation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>SimpleMovingAverage</td>
+          <td style="text-align: center">SMA</td>
+          <td>Moyenne arithmétique sur une fenêtre glissante</td>
+      </tr>
+      <tr>
+          <td>ExponentialMovingAverage</td>
+          <td style="text-align: center">EMA</td>
+          <td>Moyenne exponentielle: pondère davantage les données récentes</td>
+      </tr>
+      <tr>
+          <td>DoubleExponentialMovingAverage</td>
+          <td style="text-align: center">DEMA</td>
+          <td>Double exponentielle: réduit encore le retard</td>
+      </tr>
+      <tr>
+          <td>WeightedMovingAverage</td>
+          <td style="text-align: center">WMA</td>
+          <td>Moyenne pondérée linéairement</td>
+      </tr>
+      <tr>
+          <td>HullMovingAverage</td>
+          <td style="text-align: center">HMA</td>
+          <td>Hull: très réactive avec peu de lag</td>
+      </tr>
+      <tr>
+          <td>AdaptiveMovingAverage</td>
+          <td style="text-align: center">AMA</td>
+          <td>Kaufman: s&rsquo;adapte au bruit du marché</td>
+      </tr>
+      <tr>
+          <td>WilderMovingAverage</td>
+          <td style="text-align: center">RMA</td>
+          <td>Wilder: utilisée dans le calcul du RSI</td>
+      </tr>
+      <tr>
+          <td>VariableIndexDynamicAverage</td>
+          <td style="text-align: center">VIDYA</td>
+          <td>Variable: s&rsquo;ajuste dynamiquement à la volatilité</td>
+      </tr>
+      <tr>
+          <td>LinearRegression</td>
+          <td style="text-align: center">LR</td>
+          <td>Régression linéaire glissante</td>
+      </tr>
+      <tr>
+          <td>VolumeWeightedAveragePrice</td>
+          <td style="text-align: center">VWAP</td>
+          <td>Prix moyen pondéré par le volume</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Momentum</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Indicateur</th>
+          <th style="text-align: center">Abréviation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>RelativeStrengthIndex</td>
+          <td style="text-align: center">RSI</td>
+          <td>Force relative: détection des zones de surachat/survente</td>
+      </tr>
+      <tr>
+          <td>MovingAverageConvergenceDivergence</td>
+          <td style="text-align: center">MACD</td>
+          <td>Convergence/divergence de moyennes mobiles</td>
+      </tr>
+      <tr>
+          <td>BollingerBands</td>
+          <td style="text-align: center">BB</td>
+          <td>Bandes de volatilité autour d&rsquo;une moyenne mobile</td>
+      </tr>
+      <tr>
+          <td>Stochastics</td>
+          <td style="text-align: center">STOCH</td>
+          <td>Oscillateur stochastique (%K, %D)</td>
+      </tr>
+      <tr>
+          <td>CommodityChannelIndex</td>
+          <td style="text-align: center">CCI</td>
+          <td>Mesure l&rsquo;écart du prix par rapport à sa moyenne statistique</td>
+      </tr>
+      <tr>
+          <td>ChandeMomentumOscillator</td>
+          <td style="text-align: center">CMO</td>
+          <td>Oscillateur de momentum de Chande</td>
+      </tr>
+      <tr>
+          <td>RateOfChange</td>
+          <td style="text-align: center">ROC</td>
+          <td>Taux de variation en pourcentage</td>
+      </tr>
+      <tr>
+          <td>AroonOscillator</td>
+          <td style="text-align: center">AROON</td>
+          <td>Détection de tendance et de sa force</td>
+      </tr>
+      <tr>
+          <td>ArcherMovingAveragesTrends</td>
+          <td style="text-align: center">AMAT</td>
+          <td>Identification de tendance par croisement de moyennes</td>
+      </tr>
+      <tr>
+          <td>DirectionalMovement</td>
+          <td style="text-align: center">DM</td>
+          <td>Mouvement directionnel (ADX, +DI, -DI)</td>
+      </tr>
+      <tr>
+          <td>PsychologicalLine</td>
+          <td style="text-align: center">PSL</td>
+          <td>Pourcentage de bougies haussières sur une fenêtre</td>
+      </tr>
+      <tr>
+          <td>Swings</td>
+          <td style="text-align: center">—</td>
+          <td>Détection de points hauts et bas (swing points)</td>
+      </tr>
+      <tr>
+          <td>Bias</td>
+          <td style="text-align: center">—</td>
+          <td>Écart relatif du prix par rapport à une moyenne mobile</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Volatilité</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Indicateur</th>
+          <th style="text-align: center">Abréviation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>AverageTrueRange</td>
+          <td style="text-align: center">ATR</td>
+          <td>Mesure de la volatilité moyenne</td>
+      </tr>
+      <tr>
+          <td>DonchianChannel</td>
+          <td style="text-align: center">DC</td>
+          <td>Canal basé sur le plus haut/bas des N dernières périodes</td>
+      </tr>
+      <tr>
+          <td>KeltnerChannel</td>
+          <td style="text-align: center">KC</td>
+          <td>Canal basé sur l&rsquo;EMA ± un multiple de l&rsquo;ATR</td>
+      </tr>
+      <tr>
+          <td>KeltnerPosition</td>
+          <td style="text-align: center">KP</td>
+          <td>Position relative du prix dans le canal de Keltner</td>
+      </tr>
+      <tr>
+          <td>VolatilityRatio</td>
+          <td style="text-align: center">VR</td>
+          <td>Ratio entre la volatilité récente et historique</td>
+      </tr>
+      <tr>
+          <td>VerticalHorizontalFilter</td>
+          <td style="text-align: center">VHF</td>
+          <td>Filtre qui distingue tendance et range</td>
+      </tr>
+      <tr>
+          <td>RelativeVolatilityIndex</td>
+          <td style="text-align: center">RVI</td>
+          <td>Index de volatilité relative</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Volume</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Indicateur</th>
+          <th style="text-align: center">Abréviation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>OnBalanceVolume</td>
+          <td style="text-align: center">OBV</td>
+          <td>Volume cumulé pondéré par la direction du prix</td>
+      </tr>
+      <tr>
+          <td>KlingerVolumeOscillator</td>
+          <td style="text-align: center">KVO</td>
+          <td>Oscillateur de flux monétaire de Klinger</td>
+      </tr>
+      <tr>
+          <td>Pressure</td>
+          <td style="text-align: center">—</td>
+          <td>Mesure de la pression acheteuse vs vendeuse</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Ratio et analyse</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Indicateur</th>
+          <th style="text-align: center">Abréviation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>EfficiencyRatio</td>
+          <td style="text-align: center">ER</td>
+          <td>Ratio d&rsquo;efficience de Kaufman (signal/bruit)</td>
+      </tr>
+      <tr>
+          <td>SpreadAnalyzer</td>
+          <td style="text-align: center">—</td>
+          <td>Analyse du spread bid-ask</td>
+      </tr>
+      <tr>
+          <td>BookImbalanceRatio</td>
+          <td style="text-align: center">—</td>
+          <td>Ratio de déséquilibre du carnet d&rsquo;ordres</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Divers</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Indicateur</th>
+          <th style="text-align: center">Abréviation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>FuzzyCandlesticks</td>
+          <td style="text-align: center">—</td>
+          <td>Classification des bougies par logique floue (fuzzy logic)</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<blockquote>
+<p>Ichimoku est absent 😢</p></blockquote>
+<br/>
+<h2 id="analyse-dexemples">Analyse d&rsquo;exemples</h2>
+<p>Voici la description des exemples de 4 exchanges dans <code>examples/live/</code>:</p>
+<p><strong>Binance (7 fichiers)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Fichier</th>
+          <th style="text-align: left">Stratégie</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>binance_data_tester.py</code></td>
+          <td style="text-align: left">DataTester</td>
+          <td style="text-align: left">Connexion data-only, affiche quotes/trades/bars/book. Pas de trading.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_spot_ema_cross.py</code></td>
+          <td style="text-align: left">EMACross</td>
+          <td style="text-align: left">Croisement EMA 10/20 sur ETHUSDT Spot, ordres de 0.010 ETH</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_futures_testnet_ema_cross.py</code></td>
+          <td style="text-align: left">EMACross</td>
+          <td style="text-align: left">Même stratégie mais sur Futures testnet (ETHUSDT-PERP), mode hedging</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_spot_ema_cross_bracket_algo.py</code></td>
+          <td style="text-align: left">EMACrossBracketAlgo + TWAP</td>
+          <td style="text-align: left">EMA cross avec ordres bracket (TP/SL basés sur ATR) et exécution TWAP</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_spot_exec_tester.py</code></td>
+          <td style="text-align: left">ExecTester</td>
+          <td style="text-align: left">Test de passage d&rsquo;ordres (limit post-only, market IOC). Pas de stratégie.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_spot_testnet_exec_tester.py</code></td>
+          <td style="text-align: left">ExecTester</td>
+          <td style="text-align: left">Idem sur testnet</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_futures_testnet_exec_tester.py</code></td>
+          <td style="text-align: left">ExecTester</td>
+          <td style="text-align: left">Idem sur Futures testnet</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>binance_spot_and_futures_market_maker.py</code></td>
+          <td style="text-align: left">VolatilityMarketMaker x2</td>
+          <td style="text-align: left">Market making sur Spot ET Futures simultanément (2 exchanges, 2 stratégies)</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Bybit (8 fichiers)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Fichier</th>
+          <th style="text-align: left">Stratégie</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>bybit_data_tester.py</code></td>
+          <td style="text-align: left">DataTester</td>
+          <td style="text-align: left">Data-only (LINEAR ou INVERSE)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_ema_cross.py</code></td>
+          <td style="text-align: left">EMACross</td>
+          <td style="text-align: left">EMA 10/20 sur ETHUSDT-LINEAR</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_ema_cross_bracket_algo.py</code></td>
+          <td style="text-align: left">EMACrossBracketAlgo + TWAP</td>
+          <td style="text-align: left">EMA cross avec bracket orders et TWAP</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_ema_cross_stop_entry.py</code></td>
+          <td style="text-align: left">EMACrossStopEntry</td>
+          <td style="text-align: left">EMA cross avec entrée par stop order et trailing stop ATR</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_ema_cross_with_trailing_stop.py</code></td>
+          <td style="text-align: left">EMACrossTrailingStop</td>
+          <td style="text-align: left">EMA cross avec trailing stop en basis points</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_exec_tester.py</code></td>
+          <td style="text-align: left">ExecTester</td>
+          <td style="text-align: left">Test d&rsquo;exécution (SPOT/LINEAR/INVERSE/OPTION)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_options_data_collector.py</code></td>
+          <td style="text-align: left">BybitOptionsDataCollector</td>
+          <td style="text-align: left">Collecte les données d&rsquo;options BTC en parquet</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>bybit_request_custom_endpoint.py</code></td>
+          <td style="text-align: left">RequestDemoStrategy</td>
+          <td style="text-align: left">Démo de requête custom (ticker) toutes les 10s</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>OKX (3 fichiers)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Fichier</th>
+          <th style="text-align: left">Stratégie</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>okx_data_tester.py</code></td>
+          <td style="text-align: left">DataTester</td>
+          <td style="text-align: left">Spot + Swap, quotes/trades/mark/funding</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>okx_exec_tester.py</code></td>
+          <td style="text-align: left">ExecTester</td>
+          <td style="text-align: left">SPOT/MARGIN/SWAP/FUTURES/OPTION</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>okx_spot_swap_quoter.py</code></td>
+          <td style="text-align: left">SpotSwapQuoter</td>
+          <td style="text-align: left">Quote ETH-USDT Spot et ETH-USDT-SWAP simultanément (2 instruments, 1 exchange)</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p><strong>Interactive Brokers (8 fichiers)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Fichier</th>
+          <th style="text-align: left">Stratégie</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>connect_with_dockerized_gateway.py</code></td>
+          <td style="text-align: left">SubscribeStrategy</td>
+          <td style="text-align: left">Connexion via IB Gateway Docker, SPY/ES/CL/EUR.USD</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>connect_with_tws.py</code></td>
+          <td style="text-align: left">SubscribeStrategy</td>
+          <td style="text-align: left">Connexion via TWS local</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>contract_download.py</code></td>
+          <td style="text-align: left">Script utilitaire</td>
+          <td style="text-align: left">Télécharge les définitions d&rsquo;instruments (NSE NIFTY50)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>historical_download.py</code></td>
+          <td style="text-align: left">Script utilitaire</td>
+          <td style="text-align: left">Télécharge des données historiques AAPL en parquet</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>with_databento_client.py</code></td>
+          <td style="text-align: left">SubscribeStrategy</td>
+          <td style="text-align: left">Données via Databento + exécution via IB (2 sources)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>notebooks/bracket_order_example.py</code></td>
+          <td style="text-align: left">Bracket order</td>
+          <td style="text-align: left">Ordre bracket sur ES futures avec OCO TP/SL</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>notebooks/oca_group_example.py</code></td>
+          <td style="text-align: left">OCA group</td>
+          <td style="text-align: left">Groupe OCA (One-Cancels-All) sur ES</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>notebooks/spread_example.py</code></td>
+          <td style="text-align: left">SpreadTestStrategy</td>
+          <td style="text-align: left">Calendar spread ES ou options spread, multi-leg</td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<p>Voilà c&rsquo;est tout pour cette première analyse. Je vais mantenant creuser du côté de coeur en Rust et écrirais sans doute un autre article.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/rust">Rust</a></span><span class="tag"><a href="https://leandeep.com/tags/python">Python</a></span><span class="tag"><a href="https://leandeep.com/tags/trading">Trading</a></span><span class="tag"><a href="https://leandeep.com/tags/algotrading">AlgoTrading</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1856 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 févr.. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/video-streaming-app-for-vr-headset-using-rust-and-webxr/">
+                                <span class="button__text">Video streaming app for VR headset using rust and webxr</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>
