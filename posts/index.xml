@@ -6,7 +6,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 18 Feb 2026 21:19:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 20 Feb 2026 21:19:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
@@ -308,6 +308,7 @@ make install
 # make install-debug
 uv run python -c &#34;import nautilus_trader; print(nautilus_trader.__version__)&#34;
 # 1.222.0
+# uv run python -m pip list
 </code></pre><br/>
 <h2 id="utilisation-basique">Utilisation basique</h2>
 <table>
@@ -897,6 +898,93 @@ exec_clients={
 <br/>
 <p>Voilà c&rsquo;est tout pour cette première analyse. Je vais maintenant creuser du côté du coeur en Rust, du côté de l&rsquo;arbitrage (en Python et surtout en Rust pour maximiser la latence), des screeners basiques pour trouver des cadeaux à trader et je vais peut être voir si je ne peux pas contribuer sur la création d&rsquo;un indicateur ou stratégie avec Ichimoku. J&rsquo;écrirais sans doute un autre article sur cet outil prochainement car je passe énormément de temps sur le sujet du trading chaque semaine et je ne documente jamais.
 Je ne suis pas trader pro mais je regarde presque quotidiennement depuis 4 ou 5 ans des vidéos d&rsquo;analyse technique et je passe très régulièrement des trades sur des CEX. Bref pouvoir combiner 2 passions (Dev avec Rust + Python &amp; trading) c&rsquo;est top.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Premiers pas avec Nautilus trader</title>
+            <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
+            <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
+            <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&rsquo;aider à avancer plus vite que si je démarrais from scratch.</p>
+<br/>
+<h2 id="accès-aux-données-dexchanges">Accès aux données d&rsquo;exchanges</h2>
+<p><strong>Binance</strong></p>
+<p>Pour utilise l&rsquo;adapter Binance, il faut générer une API key <code>Ed25519</code>. On fournit à Binance un API secret et Binance fournit un API key.</p>
+<p>Voici la procédure:</p>
+<pre tabindex="0"><code>openssl genpkey -algorithm ed25519 -out binance_ed25519_private.pem
+# Extract public key for Binance registration
+openssl pkey -in binance_ed25519_private.pem -pubout -out binance_ed25519_public.pem
+</code></pre><p>Exécution:</p>
+<pre tabindex="0"><code>export BINANCE_API_KEY=&#34;API_KEY_FOURNIE_PAR_BINANCE&#34;
+export BINANCE_API_SECRET=&#34;$(cat /path/to/binance_ed25519_private.pem)&#34;
+cargo run --example binance-spot-data-tester --package nautilus-coinbase
+</code></pre><p>Résultat:</p>
+<p><img src="/images/binance-spot-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Coinbase</strong></p>
+<p>Coinbase dans sa version classique non institutionnel n&rsquo;est pas disponible dans Nautilus Trader.
+Néanmoins, il est aisé, en s&rsquo;inspirer des autres adapters et de l&rsquo;adapter coinbase international existant, de créer son propre adapter coinbase pour récupérer des données en temps réel.
+C&rsquo;est même plus simple que Coinbase International car pour coinbase non institutionnel, il ne faut pas s&rsquo;authentifier à l&rsquo;API WS.</p>
+<p>Voici l&rsquo;arborescence à suivre:</p>
+<pre tabindex="0"><code>coinbase/
+├── Cargo.toml
+├── README.md
+├── examples/
+│   └── node_data_tester.rs       # Exemple : BTC-USD + ETH-USD en temps réel
+└── src/
+    ├── lib.rs
+    ├── config.rs                  # CoinbaseDataClientConfig (pas d&#39;auth requise)
+    ├── data.rs                    # CoinbaseDataClient (DataClient trait)
+    ├── factories.rs               # CoinbaseDataClientFactory
+    ├── common/
+    │   ├── consts.rs              # COINBASE exchange/venue, URLs REST + WS
+    │   └── enums.rs               # CoinbaseProductType, CoinbaseSide
+    ├── http/
+    │   ├── client.rs              # CoinbaseHttpClient (requêtes REST publiques)
+    │   ├── models.rs              # Structs de désérialisation JSON
+    │   └── parse.rs               # Parsing → CurrencyPair instruments
+    └── websocket/
+        ├── client.rs              # (réservé pour client standalone futur)
+        ├── messages.rs            # Types WS : ticker, trades, L2, candles
+        └── parse.rs               # Parsing → QuoteTick, TradeTick
+</code></pre><p>Exécution:</p>
+<pre tabindex="0"><code>cargo run --release \
+  --example coinbase-data-tester \
+  --package nautilus-binance
+</code></pre><p>Résultat:</p>
+<p><img src="/images/coinbase-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Hyperliquid</strong></p>
+<p>Pour Hyperliquid, il n&rsquo;y a rien à faire; c&rsquo;est cadeau.</p>
+<p>Exécution:</p>
+<pre tabindex="0"><code>cargo run --example hyperliquid-data-tester --package nautilus-hyperliquid
+</code></pre><p>Résultat:</p>
+<p><img src="/images/hyperliquid-perp-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Deribit</strong></p>
+<p>Deribit, idem rien à faire.</p>
+<p>Exécution:</p>
+<pre tabindex="0"><code>cargo run --example deribit-data-tester --package nautilus-deribit
+</code></pre><p>Résultat:</p>
+<p><img src="/images/deribit-perp-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Dydx</strong></p>
+<p>Et pour le dernier exemple de cet article, dydx il y a également rien à faire.
+Exécution:</p>
+<pre tabindex="0"><code>cargo run --example dydx-data-tester --package nautilus-dydx
+</code></pre><p>Résultat:</p>
+<p><img src="/images/dydx-perp-btc-usd.png" alt="image"></p>
+<br/>
+<p>Voilà de bonnes bases pour commencer à s&rsquo;amuser sérieusement; c&rsquo;est un bon début pour ce projet. Il contient d&rsquo;autres <em>adapters</em> comme bitmex, Kraken&hellip; Je vais maintenant voir s&rsquo;il est possible de modifier l&rsquo;adapter Binance pour soit me connecter à son mainnet ou son testnet. Et je vais créer une première stratégie très simple qui me permettra de créer des limit orders en Rust sur Binance. On verra ensuite pour soit une stratégie <em>multi-exchanges</em> ou soit une stratégie plus poussée juste sur Binance.</p>
+<blockquote>
+<p>A noter que Bybit, Okx et Databento n&rsquo;ont pas fonctionné out of the box.</p></blockquote>
 ]]></content>
         </item>
         

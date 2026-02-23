@@ -17,6 +17,13 @@
       <description>&lt;p&gt;Dans cet article, nous allons voir ce qu&amp;rsquo;est Nautilus Trader et comment l&amp;rsquo;utiliser.&#xA;Je me suis penché sur cet outil car je m&amp;rsquo;étais fixé l&amp;rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&amp;rsquo;apercevoir qu&amp;rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.&#xA;Plutôt que de réinventer la roue, l&amp;rsquo;idée est de voir si je peux m&amp;rsquo;approprier cet outil bot pour en faire un bot d&amp;rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&amp;rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Premiers pas avec Nautilus trader</title>
+      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
+      <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
+      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Video streaming app for VR headset using rust and webxr</title>
       <link>https://leandeep.com/video-streaming-app-for-vr-headset-using-rust-and-webxr/</link>
       <pubDate>Sun, 15 Feb 2026 21:19:00 +0000</pubDate>
@@ -71,13 +78,6 @@
       <pubDate>Mon, 01 Sep 2025 13:34:00 +0000</pubDate>
       <guid>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</guid>
       <description>&lt;p&gt;Voici une procédure simple pour installer et activer le service Docker sur Ubuntu 22.04.&lt;/p&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;On met à jour l&amp;rsquo;OS&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On désinstalle les anciennes versions de Docker installées:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt remove docker docker-engine docker.io containerd runc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On ajoute le repo apt:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get update&#xA;sudo apt-get install ca-certificates curl gnupg&#xA;sudo install -m 0755 -d /etc/apt/keyrings&#xA;curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg&#xA;sudo chmod a+r /etc/apt/keyrings/docker.gpg&#xA;echo \&#xA;  &amp;#34;deb [arch=&amp;#34;$(dpkg --print-architecture)&amp;#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \&#xA;  &amp;#34;$(. /etc/os-release &amp;amp;&amp;amp; echo &amp;#34;$VERSION_CODENAME&amp;#34;)&amp;#34; stable&amp;#34; | \&#xA;  sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de Docker:&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Fine-tune Yolo pour détecter un feu</title>
-      <link>https://leandeep.com/fine-tune-yolo-pour-d%C3%A9tecter-un-feu/</link>
-      <pubDate>Sat, 19 Jul 2025 11:36:00 +0200</pubDate>
-      <guid>https://leandeep.com/fine-tune-yolo-pour-d%C3%A9tecter-un-feu/</guid>
-      <description>&lt;p&gt;On crée un jupyter notebook:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkdir yolo-finetune-fire &amp;amp;&amp;amp; cd $_&#xA;touch yolo-finetune.ipynb&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Contenu du Notebook&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;MY_SECRET_KEY=&amp;#34;...&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;!pip install ultralytics&#xA;!pip install roboflow&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import os&#xA;import yaml&#xA;import ultralytics&#xA;import pandas as pd&#xA;from roboflow import Roboflow&#xA;from ultralytics import YOLO&#xA;from IPython.display import Image, display&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Contenu Markdown&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;yolov11s.pt vs yolov11n.pt&lt;/p&gt;&#xA;&lt;p&gt;Le &amp;ldquo;s&amp;rdquo; signifie &amp;ldquo;small&amp;rdquo; (petit). Modèle plus grand que &amp;ldquo;n&amp;rdquo;, avec plus de couches et de paramètres. Meilleure précision, mais plus lent et plus gourmand en ressources que &amp;ldquo;n&amp;rdquo;. yolov11n.pt&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
