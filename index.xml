@@ -7,21 +7,28 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 18 Feb 2026 21:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Premier limit order avec Nautilus trader sur Binance</title>
+      <link>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</link>
+      <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</guid>
+      <description>&lt;p&gt;Dans cet article, j&amp;rsquo;approfondis l&amp;rsquo;adapter Binance écrit en Rust de Nautilus trader pour pouvoir me connecter au testnet de Binance pour réaliser un limit order.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-au-testnet-de-binance&#34;&gt;Accès au testnet de Binance&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Data tester&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;L&amp;rsquo;adapter existant ne supporte pas le testnet.&lt;/p&gt;&#xA;&lt;p&gt;Créer une API key sur &lt;a href=&#34;https://testnet.binance.vision/key/register&#34;&gt;https://testnet.binance.vision/key/register&lt;/a&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;openssl genrsa -out test-prv-key.pem 2048&#xA;openssl rsa -in test-prv-key.pem -pubout -outform PEM -out test-pub-key.pem&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Je préconise de créer une autre example dans l&amp;rsquo;adapter binance: &lt;code&gt;node_data_tester_testnet.rs&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export BINANCE_API_KEY=&amp;#34;API_KEY_FROM_BINANCE_TESTNET_WEBSITE&amp;#34;&#xA;export BINANCE_API_SECRET=&amp;#34;$(cat /path/to/test-prv-key.pem)&amp;#34;&#xA;cargo run --release --example binance-spot-data-tester-testnet --package nautilus-binance&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Résultat:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Premiers pas avec Nautilus trader</title>
+      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
+      <pubDate>Mon, 23 Feb 2026 21:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
+      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Analyse du projet nautilus trader</title>
       <link>https://leandeep.com/analyse-du-projet-nautilus-trader/</link>
       <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
       <guid>https://leandeep.com/analyse-du-projet-nautilus-trader/</guid>
       <description>&lt;p&gt;Dans cet article, nous allons voir ce qu&amp;rsquo;est Nautilus Trader et comment l&amp;rsquo;utiliser.&#xA;Je me suis penché sur cet outil car je m&amp;rsquo;étais fixé l&amp;rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&amp;rsquo;apercevoir qu&amp;rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.&#xA;Plutôt que de réinventer la roue, l&amp;rsquo;idée est de voir si je peux m&amp;rsquo;approprier cet outil bot pour en faire un bot d&amp;rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&amp;rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Premiers pas avec Nautilus trader</title>
-      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
-      <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
-      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
-      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Video streaming app for VR headset using rust and webxr</title>
@@ -71,13 +78,6 @@
       <pubDate>Thu, 04 Sep 2025 13:34:00 +0000</pubDate>
       <guid>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</guid>
       <description>&lt;p&gt;Voici quelques commandes très utiles pour redimensionner le disque d&amp;rsquo;une VM sous Debian 13.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ajouter-luser-actuel-au-fichier-sudoers&#34;&gt;Ajouter l&amp;rsquo;user actuel au fichier sudoers&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;su -&#xA;EDITOR=vim visudo&#xA;# Ajouter votre user au fichier sudoers si vous avez l&amp;#39;erreur: &#xA;# &amp;#34;monuser is not in the sudoers file.&amp;#34;&#xA;# monuser    ALL=(ALL:ALL) ALL&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;visualiser&#34;&gt;Visualiser&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt install util-linux&#xA;echo &amp;#39;export PATH=$PATH:/sbin:/usr/sbin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&#xA;source ~/.bashrc&#xA;sudo cfdisk&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;resize&#34;&gt;Resize&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Etends la partition&#xA;parted /dev/sda&#xA;print&#xA;print free&#xA;resizepart 2 100%&#xA;# resizepart 2 1611GB&#xA;quit &#xA;# Etends le filesystem &#xA;resize2fs /dev/sda2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-une-partition-si-nécessaire&#34;&gt;Effacer une partition si nécessaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda&#xA;rm 3&#xA;# Agrandis une partition comme la 2 avec toute la place libre&#xA;resizepart 2 100%&#xA;# ou mieux avec la taille en GB. Par exemple:&#xA;resizepart 2 1611GB (sur un total de 1617 pour créer un swap de 6GB par exemple)&#xA;quit&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;recréer-partition-swap-si-nécesssaire&#34;&gt;Recréer partition swap si nécesssaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda mkpart primary linux-swap 1605GB 1611GB&#xA;# Format la partition en SWAP&#xA;mkswap /dev/sda3&#xA;&#xA;# active le swap&#xA;swapon /dev/sda3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;fstab&#34;&gt;fstab&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;blkid /dev/sda3 (pour récupérer le UUID du nouveau SWAP)&#xA;vim /etc/fstab&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    <item>
-      <title>Installer Docker comme service sur Ubuntu 22.04</title>
-      <link>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</link>
-      <pubDate>Mon, 01 Sep 2025 13:34:00 +0000</pubDate>
-      <guid>https://leandeep.com/installer-docker-comme-service-sur-ubuntu-22.04/</guid>
-      <description>&lt;p&gt;Voici une procédure simple pour installer et activer le service Docker sur Ubuntu 22.04.&lt;/p&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;On met à jour l&amp;rsquo;OS&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update -y &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On désinstalle les anciennes versions de Docker installées:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt remove docker docker-engine docker.io containerd runc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;On ajoute le repo apt:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt-get update&#xA;sudo apt-get install ca-certificates curl gnupg&#xA;sudo install -m 0755 -d /etc/apt/keyrings&#xA;curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg&#xA;sudo chmod a+r /etc/apt/keyrings/docker.gpg&#xA;echo \&#xA;  &amp;#34;deb [arch=&amp;#34;$(dpkg --print-architecture)&amp;#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \&#xA;  &amp;#34;$(. /etc/os-release &amp;amp;&amp;amp; echo &amp;#34;$VERSION_CODENAME&amp;#34;)&amp;#34; stable&amp;#34; | \&#xA;  sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de Docker:&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -7,21 +7,28 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 18 Feb 2026 21:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/trading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Premier limit order avec Nautilus trader sur Binance</title>
+      <link>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</link>
+      <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</guid>
+      <description>&lt;p&gt;Dans cet article, j&amp;rsquo;approfondis l&amp;rsquo;adapter Binance écrit en Rust de Nautilus trader pour pouvoir me connecter au testnet de Binance pour réaliser un limit order.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-au-testnet-de-binance&#34;&gt;Accès au testnet de Binance&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Data tester&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;L&amp;rsquo;adapter existant ne supporte pas le testnet.&lt;/p&gt;&#xA;&lt;p&gt;Créer une API key sur &lt;a href=&#34;https://testnet.binance.vision/key/register&#34;&gt;https://testnet.binance.vision/key/register&lt;/a&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;openssl genrsa -out test-prv-key.pem 2048&#xA;openssl rsa -in test-prv-key.pem -pubout -outform PEM -out test-pub-key.pem&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Je préconise de créer une autre example dans l&amp;rsquo;adapter binance: &lt;code&gt;node_data_tester_testnet.rs&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export BINANCE_API_KEY=&amp;#34;API_KEY_FROM_BINANCE_TESTNET_WEBSITE&amp;#34;&#xA;export BINANCE_API_SECRET=&amp;#34;$(cat /path/to/test-prv-key.pem)&amp;#34;&#xA;cargo run --release --example binance-spot-data-tester-testnet --package nautilus-binance&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Résultat:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Premiers pas avec Nautilus trader</title>
+      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
+      <pubDate>Mon, 23 Feb 2026 21:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
+      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Analyse du projet nautilus trader</title>
       <link>https://leandeep.com/analyse-du-projet-nautilus-trader/</link>
       <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
       <guid>https://leandeep.com/analyse-du-projet-nautilus-trader/</guid>
       <description>&lt;p&gt;Dans cet article, nous allons voir ce qu&amp;rsquo;est Nautilus Trader et comment l&amp;rsquo;utiliser.&#xA;Je me suis penché sur cet outil car je m&amp;rsquo;étais fixé l&amp;rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&amp;rsquo;apercevoir qu&amp;rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.&#xA;Plutôt que de réinventer la roue, l&amp;rsquo;idée est de voir si je peux m&amp;rsquo;approprier cet outil bot pour en faire un bot d&amp;rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&amp;rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Premiers pas avec Nautilus trader</title>
-      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
-      <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
-      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
-      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Backtester ses stratégies de trading avec Backtrader</title>

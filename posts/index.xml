@@ -6,8 +6,205 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Fri, 20 Feb 2026 21:19:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Premier limit order avec Nautilus trader sur Binance</title>
+            <link>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</link>
+            <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</guid>
+            <description>&lt;p&gt;Dans cet article, j&amp;rsquo;approfondis l&amp;rsquo;adapter Binance écrit en Rust de Nautilus trader pour pouvoir me connecter au testnet de Binance pour réaliser un limit order.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;accès-au-testnet-de-binance&#34;&gt;Accès au testnet de Binance&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Data tester&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;L&amp;rsquo;adapter existant ne supporte pas le testnet.&lt;/p&gt;
+&lt;p&gt;Créer une API key sur &lt;a href=&#34;https://testnet.binance.vision/key/register&#34;&gt;https://testnet.binance.vision/key/register&lt;/a&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;openssl genrsa -out test-prv-key.pem 2048
+openssl rsa -in test-prv-key.pem -pubout -outform PEM -out test-pub-key.pem
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Je préconise de créer une autre example dans l&amp;rsquo;adapter binance: &lt;code&gt;node_data_tester_testnet.rs&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export BINANCE_API_KEY=&amp;#34;API_KEY_FROM_BINANCE_TESTNET_WEBSITE&amp;#34;
+export BINANCE_API_SECRET=&amp;#34;$(cat /path/to/test-prv-key.pem)&amp;#34;
+cargo run --release --example binance-spot-data-tester-testnet --package nautilus-binance
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Résultat:&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>Dans cet article, j&rsquo;approfondis l&rsquo;adapter Binance écrit en Rust de Nautilus trader pour pouvoir me connecter au testnet de Binance pour réaliser un limit order.</p>
+<br/>
+<h2 id="accès-au-testnet-de-binance">Accès au testnet de Binance</h2>
+<p><strong>Data tester</strong></p>
+<p>L&rsquo;adapter existant ne supporte pas le testnet.</p>
+<p>Créer une API key sur <a href="https://testnet.binance.vision/key/register">https://testnet.binance.vision/key/register</a>:</p>
+<pre tabindex="0"><code>openssl genrsa -out test-prv-key.pem 2048
+openssl rsa -in test-prv-key.pem -pubout -outform PEM -out test-pub-key.pem
+</code></pre><p>Je préconise de créer une autre example dans l&rsquo;adapter binance: <code>node_data_tester_testnet.rs</code></p>
+<pre tabindex="0"><code>export BINANCE_API_KEY=&#34;API_KEY_FROM_BINANCE_TESTNET_WEBSITE&#34;
+export BINANCE_API_SECRET=&#34;$(cat /path/to/test-prv-key.pem)&#34;
+cargo run --release --example binance-spot-data-tester-testnet --package nautilus-binance
+</code></pre><p>Résultat:</p>
+<p><code>2026-02-23T22:08:55.464317000Z [INFO] TRADER-001.nautilus_binance::spot::websocket::streams::client: Connecting to Binance SBE WebSocket: url=wss://stream.testnet.binance.vision/ws, auth=false</code></p>
+<p><img src="/images/binance-btc-usd-testnet.png" alt="image"></p>
+<br/>
+<p><strong>Exec tester</strong></p>
+<p>Comme pour le script précédent, je préconise de créer un nouveau fichier dans l&rsquo;adapter binance: <code>node_exec_tester_testnet.rs</code>.</p>
+<pre tabindex="0"><code>export BINANCE_API_KEY=&#34;API_KEY_FROM_BINANCE_TESTNET_WEBSITE&#34;
+export BINANCE_API_SECRET=&#34;$(cat /path/to/test-prv-key.pem)&#34;
+cargo run --release --example binance-spot-exec-tester-testnet --package nautilus-binance
+</code></pre><p>Résultat:</p>
+<p><img src="/images/binance-limit-order-btc-usd-testnet.png" alt="image"></p>
+<br/>
+<h2 id="lister-les-limit-orders-sur-binance-testnet-via-api-call">Lister les limit orders sur Binance testnet via API call</h2>
+<p>Créer un fichier <code>./check_orders.sh</code> avec le contenu suivant:</p>
+<pre tabindex="0"><code>#!/bin/bash
+
+API_KEY=&#34;...&#34;
+SECRET_KEY=&#34;...&#34;
+BASE_URL=&#34;https://testnet.binance.vision&#34;
+SYMBOL=&#34;${1:-BTCUSDT}&#34;
+
+# Verify keys
+if [[ &#34;$API_KEY&#34; == &#34;ta_cle_api_ici&#34; ]] || [[ &#34;$SECRET_KEY&#34; == &#34;ton_secret_ici&#34; ]]; then
+    echo &#34;❌ Erreur : Modifie API_KEY et SECRET_KEY avec tes vraies clés testnet !&#34; &gt;&amp;2
+    exit 1
+fi
+
+# Timestamp in milliseconds
+TIMESTAMP=$(date +%s000)
+QUERY_PARAMS=&#34;symbol=${SYMBOL}&amp;timestamp=${TIMESTAMP}&amp;recvWindow=5000&#34;
+SIGNATURE=$(echo -n &#34;$QUERY_PARAMS&#34; | openssl dgst -sha256 -hmac &#34;$SECRET_KEY&#34; -binary | xxd -p -c 0)
+FULL_URL=&#34;${BASE_URL}/api/v3/openOrders?${QUERY_PARAMS}&amp;signature=${SIGNATURE}&#34;
+
+echo &#34;📊 Récupération des open orders pour ${SYMBOL}...&#34;
+
+# Call Binance testnet API
+RESPONSE=$(curl -s -H &#34;X-MBX-APIKEY: ${API_KEY}&#34; \
+    --connect-timeout 10 \
+    --max-time 30 \
+    &#34;${FULL_URL}&#34;)
+
+# Check if there is an error
+if echo &#34;$RESPONSE&#34; | grep -q &#39;&#34;code&#34;&#39;; then
+    echo &#34;❌ Erreur API : $RESPONSE&#34; &gt;&amp;2
+    exit 1
+fi
+
+# Process and display the orders
+echo &#34;$RESPONSE&#34; | jq --arg symb &#34;$SYMBOL&#34; &#39;
+  # Filtrer seulement les LIMIT orders
+  [.[]? | select(.type? == &#34;LIMIT&#34;)] as $limits |
+  
+  if ($limits | length) == 0 then
+    &#34;✅ Aucune LIMIT order ouverte pour \($symb)&#34;
+  else
+    &#34;📋 \(($limits | length)) LIMIT order(s) ouverte(s) :&#34;, 
+    $limits[] | {
+      symbol: .symbol,
+      side: .side,
+      price: .price,
+      qty: .origQty,
+      filled: .executedQty,
+      status: .status,
+      time: (.time | tonumber / 1000 | strftime(&#34;%Y-%m-%d %H:%M:%S&#34;))
+    }
+  end
+&#39;
+</code></pre><p>Exécuter: <code>./check_orders.sh BTCUSDT</code></p>
+<br/>
+<p>Je peux maintenant lister les prix avec de bonnes perf et exécuter des trades sur le mainnet et le testnet de Binance. Je vais maintenant pouvoir créer des screeners et quelques stratégies simples en Rust avec des ordres d&rsquo;achat et vente par palier. Je vais mettre en place de l&rsquo;alerting (notif OSX et telegram) et du reporting (TUI).</p>
+<p>Je passerai ensuite aux étapes suivantes:</p>
+<ul>
+<li>des stratégies sur 2 exchanges.</li>
+<li>tester la partie Python pour tester des stratégies plus complexes.</li>
+<li>des stratégies sur plus de 2 exchanges.</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Premiers pas avec Nautilus trader</title>
+            <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
+            <pubDate>Mon, 23 Feb 2026 21:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
+            <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&rsquo;aider à avancer plus vite que si je démarrais from scratch.</p>
+<br/>
+<h2 id="accès-aux-données-dexchanges">Accès aux données d&rsquo;exchanges</h2>
+<p><strong>Binance</strong></p>
+<p>Pour utilise l&rsquo;adapter Binance, il faut générer une API key <code>Ed25519</code>. On fournit à Binance un API secret et Binance fournit un API key.</p>
+<p>Voici la procédure:</p>
+<pre tabindex="0"><code>openssl genpkey -algorithm ed25519 -out binance_ed25519_private.pem
+# Extract public key for Binance registration
+openssl pkey -in binance_ed25519_private.pem -pubout -out binance_ed25519_public.pem
+</code></pre><p>Exécution:</p>
+<pre tabindex="0"><code>export BINANCE_API_KEY=&#34;API_KEY_FOURNIE_PAR_BINANCE&#34;
+export BINANCE_API_SECRET=&#34;$(cat /path/to/binance_ed25519_private.pem)&#34;
+cargo run --example binance-spot-data-tester --package nautilus-coinbase
+</code></pre><p>Résultat:</p>
+<p><img src="/images/binance-spot-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Coinbase</strong></p>
+<p>Coinbase dans sa version classique non institutionnel n&rsquo;est pas disponible dans Nautilus Trader.
+Néanmoins, il est aisé, en s&rsquo;inspirer des autres adapters et de l&rsquo;adapter coinbase international existant, de créer son propre adapter coinbase pour récupérer des données en temps réel.
+C&rsquo;est même plus simple que Coinbase International car pour coinbase non institutionnel, il ne faut pas s&rsquo;authentifier à l&rsquo;API WS.</p>
+<p>Voici l&rsquo;arborescence à suivre:</p>
+<pre tabindex="0"><code>coinbase/
+├── Cargo.toml
+├── README.md
+├── examples/
+│   └── node_data_tester.rs       # Exemple : BTC-USD + ETH-USD en temps réel
+└── src/
+    ├── lib.rs
+    ├── config.rs                  # CoinbaseDataClientConfig (pas d&#39;auth requise)
+    ├── data.rs                    # CoinbaseDataClient (DataClient trait)
+    ├── factories.rs               # CoinbaseDataClientFactory
+    ├── common/
+    │   ├── consts.rs              # COINBASE exchange/venue, URLs REST + WS
+    │   └── enums.rs               # CoinbaseProductType, CoinbaseSide
+    ├── http/
+    │   ├── client.rs              # CoinbaseHttpClient (requêtes REST publiques)
+    │   ├── models.rs              # Structs de désérialisation JSON
+    │   └── parse.rs               # Parsing → CurrencyPair instruments
+    └── websocket/
+        ├── client.rs              # (réservé pour client standalone futur)
+        ├── messages.rs            # Types WS : ticker, trades, L2, candles
+        └── parse.rs               # Parsing → QuoteTick, TradeTick
+</code></pre><p>Exécution:</p>
+<pre tabindex="0"><code>cargo run --release \
+  --example coinbase-data-tester \
+  --package nautilus-binance
+</code></pre><p>Résultat:</p>
+<p><img src="/images/coinbase-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Hyperliquid</strong></p>
+<p>Pour Hyperliquid, il n&rsquo;y a rien à faire; c&rsquo;est cadeau.</p>
+<p>Exécution:</p>
+<pre tabindex="0"><code>cargo run --example hyperliquid-data-tester --package nautilus-hyperliquid
+</code></pre><p>Résultat:</p>
+<p><img src="/images/hyperliquid-perp-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Deribit</strong></p>
+<p>Deribit, idem rien à faire.</p>
+<p>Exécution:</p>
+<pre tabindex="0"><code>cargo run --example deribit-data-tester --package nautilus-deribit
+</code></pre><p>Résultat:</p>
+<p><img src="/images/deribit-perp-btc-usd.png" alt="image"></p>
+<br/>
+<p><strong>Dydx</strong></p>
+<p>Et pour le dernier exemple de cet article, dydx il y a également rien à faire.
+Exécution:</p>
+<pre tabindex="0"><code>cargo run --example dydx-data-tester --package nautilus-dydx
+</code></pre><p>Résultat:</p>
+<p><img src="/images/dydx-perp-btc-usd.png" alt="image"></p>
+<br/>
+<p>Voilà de bonnes bases pour commencer à s&rsquo;amuser sérieusement; c&rsquo;est un bon début pour ce projet. Il contient d&rsquo;autres <em>adapters</em> comme bitmex, Kraken&hellip; Je vais maintenant voir s&rsquo;il est possible de modifier l&rsquo;adapter Binance pour soit me connecter à son mainnet ou son testnet. Et je vais créer une première stratégie très simple qui me permettra de créer des limit orders en Rust sur Binance. On verra ensuite pour soit une stratégie <em>multi-exchanges</em> ou soit une stratégie plus poussée juste sur Binance.</p>
+<blockquote>
+<p>A noter que Bybit, Okx et Databento n&rsquo;ont pas fonctionné out of the box.</p></blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Analyse du projet nautilus trader</title>
@@ -898,93 +1095,6 @@ exec_clients={
 <br/>
 <p>Voilà c&rsquo;est tout pour cette première analyse. Je vais maintenant creuser du côté du coeur en Rust, du côté de l&rsquo;arbitrage (en Python et surtout en Rust pour maximiser la latence), des screeners basiques pour trouver des cadeaux à trader et je vais peut être voir si je ne peux pas contribuer sur la création d&rsquo;un indicateur ou stratégie avec Ichimoku. J&rsquo;écrirais sans doute un autre article sur cet outil prochainement car je passe énormément de temps sur le sujet du trading chaque semaine et je ne documente jamais.
 Je ne suis pas trader pro mais je regarde presque quotidiennement depuis 4 ou 5 ans des vidéos d&rsquo;analyse technique et je passe très régulièrement des trades sur des CEX. Bref pouvoir combiner 2 passions (Dev avec Rust + Python &amp; trading) c&rsquo;est top.</p>
-]]></content>
-        </item>
-        
-        <item>
-            <title>Premiers pas avec Nautilus trader</title>
-            <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
-            <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
-            
-            <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
-            <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;
-&lt;br/&gt;
-&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
-            <content type="html"><![CDATA[<p>Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&rsquo;aider à avancer plus vite que si je démarrais from scratch.</p>
-<br/>
-<h2 id="accès-aux-données-dexchanges">Accès aux données d&rsquo;exchanges</h2>
-<p><strong>Binance</strong></p>
-<p>Pour utilise l&rsquo;adapter Binance, il faut générer une API key <code>Ed25519</code>. On fournit à Binance un API secret et Binance fournit un API key.</p>
-<p>Voici la procédure:</p>
-<pre tabindex="0"><code>openssl genpkey -algorithm ed25519 -out binance_ed25519_private.pem
-# Extract public key for Binance registration
-openssl pkey -in binance_ed25519_private.pem -pubout -out binance_ed25519_public.pem
-</code></pre><p>Exécution:</p>
-<pre tabindex="0"><code>export BINANCE_API_KEY=&#34;API_KEY_FOURNIE_PAR_BINANCE&#34;
-export BINANCE_API_SECRET=&#34;$(cat /path/to/binance_ed25519_private.pem)&#34;
-cargo run --example binance-spot-data-tester --package nautilus-coinbase
-</code></pre><p>Résultat:</p>
-<p><img src="/images/binance-spot-btc-usd.png" alt="image"></p>
-<br/>
-<p><strong>Coinbase</strong></p>
-<p>Coinbase dans sa version classique non institutionnel n&rsquo;est pas disponible dans Nautilus Trader.
-Néanmoins, il est aisé, en s&rsquo;inspirer des autres adapters et de l&rsquo;adapter coinbase international existant, de créer son propre adapter coinbase pour récupérer des données en temps réel.
-C&rsquo;est même plus simple que Coinbase International car pour coinbase non institutionnel, il ne faut pas s&rsquo;authentifier à l&rsquo;API WS.</p>
-<p>Voici l&rsquo;arborescence à suivre:</p>
-<pre tabindex="0"><code>coinbase/
-├── Cargo.toml
-├── README.md
-├── examples/
-│   └── node_data_tester.rs       # Exemple : BTC-USD + ETH-USD en temps réel
-└── src/
-    ├── lib.rs
-    ├── config.rs                  # CoinbaseDataClientConfig (pas d&#39;auth requise)
-    ├── data.rs                    # CoinbaseDataClient (DataClient trait)
-    ├── factories.rs               # CoinbaseDataClientFactory
-    ├── common/
-    │   ├── consts.rs              # COINBASE exchange/venue, URLs REST + WS
-    │   └── enums.rs               # CoinbaseProductType, CoinbaseSide
-    ├── http/
-    │   ├── client.rs              # CoinbaseHttpClient (requêtes REST publiques)
-    │   ├── models.rs              # Structs de désérialisation JSON
-    │   └── parse.rs               # Parsing → CurrencyPair instruments
-    └── websocket/
-        ├── client.rs              # (réservé pour client standalone futur)
-        ├── messages.rs            # Types WS : ticker, trades, L2, candles
-        └── parse.rs               # Parsing → QuoteTick, TradeTick
-</code></pre><p>Exécution:</p>
-<pre tabindex="0"><code>cargo run --release \
-  --example coinbase-data-tester \
-  --package nautilus-binance
-</code></pre><p>Résultat:</p>
-<p><img src="/images/coinbase-btc-usd.png" alt="image"></p>
-<br/>
-<p><strong>Hyperliquid</strong></p>
-<p>Pour Hyperliquid, il n&rsquo;y a rien à faire; c&rsquo;est cadeau.</p>
-<p>Exécution:</p>
-<pre tabindex="0"><code>cargo run --example hyperliquid-data-tester --package nautilus-hyperliquid
-</code></pre><p>Résultat:</p>
-<p><img src="/images/hyperliquid-perp-btc-usd.png" alt="image"></p>
-<br/>
-<p><strong>Deribit</strong></p>
-<p>Deribit, idem rien à faire.</p>
-<p>Exécution:</p>
-<pre tabindex="0"><code>cargo run --example deribit-data-tester --package nautilus-deribit
-</code></pre><p>Résultat:</p>
-<p><img src="/images/deribit-perp-btc-usd.png" alt="image"></p>
-<br/>
-<p><strong>Dydx</strong></p>
-<p>Et pour le dernier exemple de cet article, dydx il y a également rien à faire.
-Exécution:</p>
-<pre tabindex="0"><code>cargo run --example dydx-data-tester --package nautilus-dydx
-</code></pre><p>Résultat:</p>
-<p><img src="/images/dydx-perp-btc-usd.png" alt="image"></p>
-<br/>
-<p>Voilà de bonnes bases pour commencer à s&rsquo;amuser sérieusement; c&rsquo;est un bon début pour ce projet. Il contient d&rsquo;autres <em>adapters</em> comme bitmex, Kraken&hellip; Je vais maintenant voir s&rsquo;il est possible de modifier l&rsquo;adapter Binance pour soit me connecter à son mainnet ou son testnet. Et je vais créer une première stratégie très simple qui me permettra de créer des limit orders en Rust sur Binance. On verra ensuite pour soit une stratégie <em>multi-exchanges</em> ou soit une stratégie plus poussée juste sur Binance.</p>
-<blockquote>
-<p>A noter que Bybit, Okx et Databento n&rsquo;ont pas fonctionné out of the box.</p></blockquote>
 ]]></content>
         </item>
         

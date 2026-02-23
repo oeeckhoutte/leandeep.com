@@ -7,21 +7,28 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 18 Feb 2026 21:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Premier limit order avec Nautilus trader sur Binance</title>
+      <link>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</link>
+      <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</guid>
+      <description>&lt;p&gt;Dans cet article, j&amp;rsquo;approfondis l&amp;rsquo;adapter Binance écrit en Rust de Nautilus trader pour pouvoir me connecter au testnet de Binance pour réaliser un limit order.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-au-testnet-de-binance&#34;&gt;Accès au testnet de Binance&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Data tester&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;L&amp;rsquo;adapter existant ne supporte pas le testnet.&lt;/p&gt;&#xA;&lt;p&gt;Créer une API key sur &lt;a href=&#34;https://testnet.binance.vision/key/register&#34;&gt;https://testnet.binance.vision/key/register&lt;/a&gt;:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;openssl genrsa -out test-prv-key.pem 2048&#xA;openssl rsa -in test-prv-key.pem -pubout -outform PEM -out test-pub-key.pem&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Je préconise de créer une autre example dans l&amp;rsquo;adapter binance: &lt;code&gt;node_data_tester_testnet.rs&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;export BINANCE_API_KEY=&amp;#34;API_KEY_FROM_BINANCE_TESTNET_WEBSITE&amp;#34;&#xA;export BINANCE_API_SECRET=&amp;#34;$(cat /path/to/test-prv-key.pem)&amp;#34;&#xA;cargo run --release --example binance-spot-data-tester-testnet --package nautilus-binance&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Résultat:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Premiers pas avec Nautilus trader</title>
+      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
+      <pubDate>Mon, 23 Feb 2026 21:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
+      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Analyse du projet nautilus trader</title>
       <link>https://leandeep.com/analyse-du-projet-nautilus-trader/</link>
       <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
       <guid>https://leandeep.com/analyse-du-projet-nautilus-trader/</guid>
       <description>&lt;p&gt;Dans cet article, nous allons voir ce qu&amp;rsquo;est Nautilus Trader et comment l&amp;rsquo;utiliser.&#xA;Je me suis penché sur cet outil car je m&amp;rsquo;étais fixé l&amp;rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&amp;rsquo;apercevoir qu&amp;rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.&#xA;Plutôt que de réinventer la roue, l&amp;rsquo;idée est de voir si je peux m&amp;rsquo;approprier cet outil bot pour en faire un bot d&amp;rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&amp;rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Premiers pas avec Nautilus trader</title>
-      <link>https://leandeep.com/premiers-pas-avec-nautilus-trader/</link>
-      <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
-      <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
-      <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Fine-tune Yolo pour détecter un feu</title>
@@ -71,13 +78,6 @@
       <pubDate>Tue, 10 Dec 2024 23:49:00 +0200</pubDate>
       <guid>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</guid>
       <description>&lt;p&gt;Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet.&#xA;Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Backtester ses stratégies de trading avec Backtrader</title>
-      <link>https://leandeep.com/backtester-ses-strat%C3%A9gies-de-trading-avec-backtrader/</link>
-      <pubDate>Fri, 02 Feb 2024 18:10:00 +0000</pubDate>
-      <guid>https://leandeep.com/backtester-ses-strat%C3%A9gies-de-trading-avec-backtrader/</guid>
-      <description>&lt;p&gt;Voici un exemple de code Python permettant de backtester une stratégie (ici j&amp;rsquo;en ai créé une complètement inutile mais cela permet d&amp;rsquo;illustrer mon propose).&lt;/p&gt;&#xA;&lt;p&gt;&lt;br/&gt;&#xA;&lt;strong&gt;Pré-requis&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install Pyarrow==15.0.0 pandas==2.2.0 backtrader==1.9.78.123 matplotlib==3.8.2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import math&#xA;import pandas as pd&#xA;import backtrader as bt&#xA;import ccxt&#xA;&#xA;# Charger les données historiques depuis Binance&#xA;exchange = ccxt.binance(&#xA;    {&#xA;        &amp;#34;apiKey&amp;#34;: &amp;#34;&amp;#34;,&#xA;        &amp;#34;secret&amp;#34;: &amp;#34;&amp;#34;,&#xA;    }&#xA;)&#xA;&#xA;symbol = &amp;#34;ETH/USDT&amp;#34;&#xA;timeframe = &amp;#34;1h&amp;#34;&#xA;&#xA;ohlcv = exchange.fetch_ohlcv(symbol, timeframe)&#xA;df = pd.DataFrame(&#xA;    ohlcv, columns=[&amp;#34;timestamp&amp;#34;, &amp;#34;open&amp;#34;, &amp;#34;high&amp;#34;, &amp;#34;low&amp;#34;, &amp;#34;close&amp;#34;, &amp;#34;volume&amp;#34;]&#xA;)&#xA;df[&amp;#34;timestamp&amp;#34;] = pd.to_datetime(df[&amp;#34;timestamp&amp;#34;], unit=&amp;#34;ms&amp;#34;)&#xA;df.set_index(&amp;#34;timestamp&amp;#34;, inplace=True)&#xA;&#xA;&#xA;# Définir la stratégie&#xA;class MovingAverageCrossStrategy(bt.Strategy):&#xA;    params = (&#xA;        (&amp;#34;short_period&amp;#34;, 20),&#xA;        (&amp;#34;long_period&amp;#34;, 50),&#xA;    )&#xA;&#xA;    def __init__(self):&#xA;        self.short_ma = bt.indicators.SimpleMovingAverage(&#xA;            self.data.close, period=self.params.short_period&#xA;        )&#xA;        self.long_ma = bt.indicators.SimpleMovingAverage(&#xA;            self.data.close, period=self.params.long_period&#xA;        )&#xA;        self.crossover = bt.indicators.CrossOver(self.short_ma, self.long_ma)&#xA;&#xA;    def next(self):&#xA;        if self.crossover &amp;gt; 0:&#xA;            # Signal d&amp;#39;achat&#xA;            self.buy()&#xA;        elif self.crossover &amp;lt; 0:&#xA;            # Signal de vente&#xA;            self.sell()&#xA;&#xA;&#xA;# Convertir les données pandas en format compréhensible par backtrader&#xA;data = bt.feeds.PandasData(dataname=df)&#xA;&#xA;# Configurer le cerveau du backtest&#xA;cerebro = bt.Cerebro()&#xA;cerebro.adddata(data)&#xA;cerebro.addstrategy(MovingAverageCrossStrategy)&#xA;&#xA;# Ajouter un observer pour afficher les gains/pertes&#xA;cerebro.addobserver(bt.observers.Value)&#xA;&#xA;# Paramètres du backtest&#xA;start_date = pd.to_datetime(&amp;#34;2022-01-01&amp;#34;)&#xA;end_date = pd.to_datetime(&amp;#34;2022-12-31&amp;#34;)&#xA;cerebro.run(stdstats=False, tradehistory=True, fromdate=start_date, todate=end_date)&#xA;&#xA;# Afficher les gains/pertes&#xA;final_portfolio_value = cerebro.broker.getvalue()&#xA;print(f&amp;#34;Capital final: {final_portfolio_value} USDT&amp;#34;)&#xA;cerebro.plot()&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://leandeep.com/images/backtrader.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
