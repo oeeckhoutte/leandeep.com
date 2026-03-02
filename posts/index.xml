@@ -6,8 +6,208 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 02 Mar 2026 18:15:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Terraform runpod openclaw</title>
+            <link>https://leandeep.com/terraform-runpod-openclaw/</link>
+            <pubDate>Mon, 02 Mar 2026 18:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/terraform-runpod-openclaw/</guid>
+            <description>&lt;h2 id=&#34;1-installer-terraform-sur-macos&#34;&gt;1. Installer Terraform sur macOS&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+terraform --version
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;2-obtenir-une-clé-api-runpod&#34;&gt;2. Obtenir une clé API RunPod&lt;/h2&gt;
+&lt;p&gt;Rendez-vous sur &lt;a href=&#34;https://www.runpod.io/console/user/settings&#34;&gt;https://www.runpod.io/console/user/settings&lt;/a&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Sectionnez &lt;code&gt;API Keys&lt;/code&gt; &lt;code&gt;→&lt;/code&gt; &lt;code&gt;Create API Key (permissions Read/Write)&lt;/code&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Copiez la clé et exportez-la: &lt;br/&gt;
+&lt;code&gt;export RUNPOD_API_KEY=&amp;quot;rp_xxxxxxxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;3-fichiers-terraform&#34;&gt;3. Fichiers Terraform&lt;/h2&gt;
+&lt;p&gt;Créez un dossier openclaw-runpod/ et place-y ces 3 fichiers:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vim openclaw-runpod/variables.tf&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;variable &amp;#34;runpod_api_key&amp;#34; {
+  description = &amp;#34;RunPod API key&amp;#34;
+  type        = string
+  sensitive   = true
+  default     = &amp;#34;&amp;#34;
+}
+
+variable &amp;#34;ssh_public_key&amp;#34; {
+  description = &amp;#34;SSH public key for secure access&amp;#34;
+  type        = string
+}
+
+variable &amp;#34;pod_name&amp;#34; {
+  description = &amp;#34;Name of the RunPod pod&amp;#34;
+  type        = string
+  default     = &amp;#34;openclaw&amp;#34;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;code&gt;vim openclaw-runpod/main.tf&lt;/code&gt;&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<h2 id="1-installer-terraform-sur-macos">1. Installer Terraform sur macOS</h2>
+<pre tabindex="0"><code>brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+terraform --version
+</code></pre><br/>
+<h2 id="2-obtenir-une-clé-api-runpod">2. Obtenir une clé API RunPod</h2>
+<p>Rendez-vous sur <a href="https://www.runpod.io/console/user/settings">https://www.runpod.io/console/user/settings</a>
+<br/></p>
+<p>Sectionnez <code>API Keys</code> <code>→</code> <code>Create API Key (permissions Read/Write)</code>
+<br/></p>
+<p>Copiez la clé et exportez-la: <br/>
+<code>export RUNPOD_API_KEY=&quot;rp_xxxxxxxxxxxxxxxxxxxxxxxx&quot;</code></p>
+<br/>
+<h2 id="3-fichiers-terraform">3. Fichiers Terraform</h2>
+<p>Créez un dossier openclaw-runpod/ et place-y ces 3 fichiers:</p>
+<p><code>vim openclaw-runpod/variables.tf</code></p>
+<pre tabindex="0"><code>variable &#34;runpod_api_key&#34; {
+  description = &#34;RunPod API key&#34;
+  type        = string
+  sensitive   = true
+  default     = &#34;&#34;
+}
+
+variable &#34;ssh_public_key&#34; {
+  description = &#34;SSH public key for secure access&#34;
+  type        = string
+}
+
+variable &#34;pod_name&#34; {
+  description = &#34;Name of the RunPod pod&#34;
+  type        = string
+  default     = &#34;openclaw&#34;
+}
+</code></pre><br/>
+<p><code>vim openclaw-runpod/main.tf</code></p>
+<pre tabindex="0"><code>terraform {
+  required_providers {
+    runpod = {
+      source  = &#34;decentralized-infrastructure/runpod&#34;
+      version = &#34;1.0.1&#34;
+    }
+  }
+}
+
+provider &#34;runpod&#34; {
+  # Uses RUNPOD_API_KEY environment variable
+}
+
+resource &#34;runpod_pod&#34; &#34;openclaw&#34; {
+  name       = var.pod_name
+  image_name = &#34;runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel&#34;
+
+  # RTX 4000 Ada — 20GB VRAM, bon rapport qualité/prix
+  # Suffisant pour OpenClaw + modèle local 8B-13B simple pour test
+  gpu_type_ids = [&#34;NVIDIA RTX 4000 Ada Generation&#34;]
+  gpu_count    = 1
+
+  cloud_type        = &#34;SECURE&#34;
+  support_public_ip = true
+
+  # OpenClaw recommande 4GB RAM min, 50GB disque min
+  container_disk_in_gb = 50
+  volume_in_gb         = 50
+  volume_mount_path    = &#34;/workspace&#34;
+
+  # SSH (sécurisé) + port OpenClaw (via tunnel SSH uniquement)
+  ports = [&#34;22/tcp&#34;]
+
+  env = {
+    PUBLIC_KEY       = var.ssh_public_key
+    JUPYTER_PASSWORD = &#34;disabled&#34;
+  }
+
+  docker_start_cmd = [
+    &#34;bash&#34;, &#34;-c&#34;,
+    join(&#34; &amp;&amp; &#34;, [
+      &#34;mkdir -p /root/.ssh&#34;,
+      &#34;echo $PUBLIC_KEY &gt; /root/.ssh/authorized_keys&#34;,
+      &#34;chmod 700 /root/.ssh&#34;,
+      &#34;chmod 600 /root/.ssh/authorized_keys&#34;,
+      &#34;service ssh start&#34;,
+      &#34;apt-get update -qq&#34;,
+      &#34;apt-get install -y -qq curl&#34;,
+      &#34;curl -fsSL https://deb.nodesource.com/setup_22.x | bash -&#34;,
+      &#34;apt-get install -y -qq nodejs&#34;,
+      &#34;npm install -g openclaw@latest&#34;,
+      &#34;sleep infinity&#34;,
+    ])
+  ]
+}
+</code></pre><br/>
+<p><code>vim openclaw-runpod/outputs.tf</code></p>
+<pre tabindex="0"><code>output &#34;pod_id&#34; {
+  description = &#34;RunPod Pod ID&#34;
+  value       = runpod_pod.openclaw.id
+}
+
+output &#34;pod_cost_per_hr&#34; {
+  description = &#34;Cost per hour&#34;
+  value       = runpod_pod.openclaw.cost_per_hr
+}
+
+output &#34;pod_public_ip&#34; {
+  description = &#34;Public IP (use for SSH)&#34;
+  value       = runpod_pod.openclaw.public_ip
+}
+</code></pre><br/>
+<h2 id="4-lancer-le-déploiement">4. Lancer le déploiement</h2>
+<pre tabindex="0"><code>cd openclaw-runpod
+
+# Initialiser Terraform
+terraform init
+
+# Prévisualiser ce qui va être créé
+terraform plan \
+  -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
+
+# Créer le pod
+terraform apply \
+  -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
+</code></pre><br/>
+<h2 id="5-se-connecter-et-utiliser-openclaw">5. Se connecter et utiliser OpenClaw</h2>
+<pre tabindex="0"><code># Récupérer l&#39;IP publique
+terraform output pod_public_ip
+
+# SSH avec tunnel pour accéder à OpenClaw en local de façon sécurisée
+ssh -L 3000:localhost:3000 root@&lt;IP_PUBLIQUE&gt;
+
+# Une fois connecté au pod :
+openclaw setup
+openclaw health
+</code></pre><p>OpenClaw sera accessible à <code>http://localhost:3000</code></p>
+<br/>
+<h2 id="6-détruire-le-pod">6. Détruire le pod</h2>
+<pre tabindex="0"><code>terraform destroy -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>Kali virtualbox</title>
+            <link>https://leandeep.com/kali-virtualbox/</link>
+            <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/kali-virtualbox/</guid>
+            <description>&lt;p&gt;xrandr &amp;ndash;output Virtual-1 &amp;ndash;mode 1920x1200&lt;/p&gt;
+&lt;p&gt;Step 2: Scale the Window from VirtualBox
+After setting the resolution:&lt;/p&gt;
+&lt;p&gt;In the VirtualBox menu bar, go to
+View → Virtual Screen 1 → Scale to 150%
+You can also try 125% or 200% depending on your screen.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>xrandr &ndash;output Virtual-1 &ndash;mode 1920x1200</p>
+<p>Step 2: Scale the Window from VirtualBox
+After setting the resolution:</p>
+<p>In the VirtualBox menu bar, go to
+View → Virtual Screen 1 → Scale to 150%
+You can also try 125% or 200% depending on your screen.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Premier limit order avec Nautilus trader sur Binance</title>

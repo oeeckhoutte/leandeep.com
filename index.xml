@@ -7,8 +7,22 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 18:15:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform runpod openclaw</title>
+      <link>https://leandeep.com/terraform-runpod-openclaw/</link>
+      <pubDate>Mon, 02 Mar 2026 18:15:00 +0000</pubDate>
+      <guid>https://leandeep.com/terraform-runpod-openclaw/</guid>
+      <description>&lt;h2 id=&#34;1-installer-terraform-sur-macos&#34;&gt;1. Installer Terraform sur macOS&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew tap hashicorp/tap&#xA;brew install hashicorp/tap/terraform&#xA;terraform --version&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;2-obtenir-une-clé-api-runpod&#34;&gt;2. Obtenir une clé API RunPod&lt;/h2&gt;&#xA;&lt;p&gt;Rendez-vous sur &lt;a href=&#34;https://www.runpod.io/console/user/settings&#34;&gt;https://www.runpod.io/console/user/settings&lt;/a&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Sectionnez &lt;code&gt;API Keys&lt;/code&gt; &lt;code&gt;→&lt;/code&gt; &lt;code&gt;Create API Key (permissions Read/Write)&lt;/code&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Copiez la clé et exportez-la: &lt;br/&gt;&#xA;&lt;code&gt;export RUNPOD_API_KEY=&amp;quot;rp_xxxxxxxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;3-fichiers-terraform&#34;&gt;3. Fichiers Terraform&lt;/h2&gt;&#xA;&lt;p&gt;Créez un dossier openclaw-runpod/ et place-y ces 3 fichiers:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/variables.tf&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;variable &amp;#34;runpod_api_key&amp;#34; {&#xA;  description = &amp;#34;RunPod API key&amp;#34;&#xA;  type        = string&#xA;  sensitive   = true&#xA;  default     = &amp;#34;&amp;#34;&#xA;}&#xA;&#xA;variable &amp;#34;ssh_public_key&amp;#34; {&#xA;  description = &amp;#34;SSH public key for secure access&amp;#34;&#xA;  type        = string&#xA;}&#xA;&#xA;variable &amp;#34;pod_name&amp;#34; {&#xA;  description = &amp;#34;Name of the RunPod pod&amp;#34;&#xA;  type        = string&#xA;  default     = &amp;#34;openclaw&amp;#34;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/main.tf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Kali virtualbox</title>
+      <link>https://leandeep.com/kali-virtualbox/</link>
+      <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
+      <guid>https://leandeep.com/kali-virtualbox/</guid>
+      <description>&lt;p&gt;xrandr &amp;ndash;output Virtual-1 &amp;ndash;mode 1920x1200&lt;/p&gt;&#xA;&lt;p&gt;Step 2: Scale the Window from VirtualBox&#xA;After setting the resolution:&lt;/p&gt;&#xA;&lt;p&gt;In the VirtualBox menu bar, go to&#xA;View → Virtual Screen 1 → Scale to 150%&#xA;You can also try 125% or 200% depending on your screen.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Premier limit order avec Nautilus trader sur Binance</title>
       <link>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</link>
@@ -64,20 +78,6 @@
       <pubDate>Thu, 01 Jan 2026 21:00:00 +0200</pubDate>
       <guid>https://leandeep.com/install-near-full-rpc-node-on-ubuntu/</guid>
       <description>&lt;p&gt;In the article we are going to see how to setup a full RPC node for Near blockchain&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y&#xA;sudo apt install -y curl git unzip clang cmake make pkg-config libssl-dev llvm jq&#xA;sudo reboot&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configure system limits&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo &amp;#34;fs.file-max=1000000&amp;#34; | sudo tee -a /etc/sysctl.conf&#xA;sudo sysctl -p&#xA;ulimit -n 1000000&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Install Rust&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh&#xA;source ~/.cargo/env&#xA;rustup update stable&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Download NEAR Core&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Et vous quels sont vos projets pour 2026 ?</title>
-      <link>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2026/</link>
-      <pubDate>Thu, 01 Jan 2026 20:00:00 +0200</pubDate>
-      <guid>https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2026/</guid>
-      <description>&lt;p&gt;Tous les ans je me fixe des objectifs professionnels que je partage sur ce blog. Cela me permet de me focaliser durant l&amp;rsquo;année et surtout de me challenger chaque année.&lt;/p&gt;&#xA;&lt;p&gt;Voici donc mon programme pour cette année 2026. La majeure partie de mes développements seront réalisés en Rust ou Python:&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;1. Lecture d&amp;rsquo;un livre sur Ichimoku (trading)&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;2. Investissement bourse en suivant une stratégie de value investing&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;3. Développer pour &lt;a href=&#34;https://ps-iloveyou.fr&#34;&gt;https://ps-iloveyou.fr&lt;/a&gt; de nouvelles fonctionnalités. Basculer le service en 100% gratuit et ajouter du prod alerting&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Commandes pour redimensionner le disque d&#39;une VM sous Linux</title>
-      <link>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</link>
-      <pubDate>Thu, 04 Sep 2025 13:34:00 +0000</pubDate>
-      <guid>https://leandeep.com/commandes-pour-redimensionner-le-disque-dune-vm-sous-linux/</guid>
-      <description>&lt;p&gt;Voici quelques commandes très utiles pour redimensionner le disque d&amp;rsquo;une VM sous Debian 13.&lt;/p&gt;&#xA;&lt;h2 id=&#34;ajouter-luser-actuel-au-fichier-sudoers&#34;&gt;Ajouter l&amp;rsquo;user actuel au fichier sudoers&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;su -&#xA;EDITOR=vim visudo&#xA;# Ajouter votre user au fichier sudoers si vous avez l&amp;#39;erreur: &#xA;# &amp;#34;monuser is not in the sudoers file.&amp;#34;&#xA;# monuser    ALL=(ALL:ALL) ALL&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;visualiser&#34;&gt;Visualiser&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update&#xA;sudo apt install util-linux&#xA;echo &amp;#39;export PATH=$PATH:/sbin:/usr/sbin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc&#xA;source ~/.bashrc&#xA;sudo cfdisk&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;resize&#34;&gt;Resize&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Etends la partition&#xA;parted /dev/sda&#xA;print&#xA;print free&#xA;resizepart 2 100%&#xA;# resizepart 2 1611GB&#xA;quit &#xA;# Etends le filesystem &#xA;resize2fs /dev/sda2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;effacer-une-partition-si-nécessaire&#34;&gt;Effacer une partition si nécessaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda&#xA;rm 3&#xA;# Agrandis une partition comme la 2 avec toute la place libre&#xA;resizepart 2 100%&#xA;# ou mieux avec la taille en GB. Par exemple:&#xA;resizepart 2 1611GB (sur un total de 1617 pour créer un swap de 6GB par exemple)&#xA;quit&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;recréer-partition-swap-si-nécesssaire&#34;&gt;Recréer partition swap si nécesssaire&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;parted /dev/sda mkpart primary linux-swap 1605GB 1611GB&#xA;# Format la partition en SWAP&#xA;mkswap /dev/sda3&#xA;&#xA;# active le swap&#xA;swapon /dev/sda3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;fstab&#34;&gt;fstab&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;blkid /dev/sda3 (pour récupérer le UUID du nouveau SWAP)&#xA;vim /etc/fstab&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>
