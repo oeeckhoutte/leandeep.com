@@ -10,11 +10,11 @@
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Terraform runpod openclaw</title>
-            <link>https://leandeep.com/terraform-runpod-openclaw/</link>
+            <title>Terraform runpod openclaw [dev setup]</title>
+            <link>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</link>
             <pubDate>Mon, 02 Mar 2026 18:15:00 +0000</pubDate>
             
-            <guid>https://leandeep.com/terraform-runpod-openclaw/</guid>
+            <guid>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</guid>
             <description>&lt;h2 id=&#34;1-installer-terraform-sur-macos&#34;&gt;1. Installer Terraform sur macOS&lt;/h2&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
@@ -94,33 +94,42 @@ variable &#34;pod_name&#34; {
   }
 }
 
-provider &#34;runpod&#34; {
-  # Uses RUNPOD_API_KEY environment variable
-}
+provider &#34;runpod&#34; {}
 
 resource &#34;runpod_pod&#34; &#34;openclaw&#34; {
   name       = var.pod_name
   image_name = &#34;runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel&#34;
 
-  # RTX 4000 Ada — 20GB VRAM, bon rapport qualité/prix
-  # Suffisant pour OpenClaw + modèle local 8B-13B simple pour test
-  gpu_type_ids = [&#34;NVIDIA RTX 4000 Ada Generation&#34;]
-  gpu_count    = 1
+  gpu_type_ids = [
+    &#34;NVIDIA RTX A4000&#34;,
+    &#34;NVIDIA RTX A4500&#34;,
+    &#34;NVIDIA GeForce RTX 3090&#34;,
+    &#34;NVIDIA GeForce RTX 4070 Ti&#34;,
+    &#34;NVIDIA GeForce RTX 4080&#34;,
+    &#34;NVIDIA RTX A5000&#34;,
+    &#34;NVIDIA L4&#34;,
+    &#34;NVIDIA GeForce RTX 4090&#34;,
+    &#34;NVIDIA A40&#34;,
+  ]
+  gpu_count     = 1
+  interruptible = false
 
-  cloud_type        = &#34;SECURE&#34;
+  cloud_type        = &#34;COMMUNITY&#34;
   support_public_ip = true
 
-  # OpenClaw recommande 4GB RAM min, 50GB disque min
-  container_disk_in_gb = 50
-  volume_in_gb         = 50
+  container_disk_in_gb = 30
+  volume_in_gb         = 30
   volume_mount_path    = &#34;/workspace&#34;
 
-  # SSH (sécurisé) + port OpenClaw (via tunnel SSH uniquement)
   ports = [&#34;22/tcp&#34;]
 
   env = {
-    PUBLIC_KEY       = var.ssh_public_key
-    JUPYTER_PASSWORD = &#34;disabled&#34;
+    PUBLIC_KEY             = var.ssh_public_key
+    JUPYTER_PASSWORD       = &#34;disabled&#34;
+    OPENCLAW_GATEWAY_TOKEN = var.gateway_token
+    OPENCLAW_GATEWAY_BIND  = &#34;loopback&#34;
+    OPENCLAW_GATEWAY_PORT  = tostring(var.gateway_port)
+    GOG_KEYRING_PASSWORD   = var.gog_keyring_password
   }
 
   docker_start_cmd = [
@@ -131,12 +140,15 @@ resource &#34;runpod_pod&#34; &#34;openclaw&#34; {
       &#34;chmod 700 /root/.ssh&#34;,
       &#34;chmod 600 /root/.ssh/authorized_keys&#34;,
       &#34;service ssh start&#34;,
-      &#34;apt-get update -qq&#34;,
-      &#34;apt-get install -y -qq curl&#34;,
+
+      &#34;mkdir -p /workspace/.openclaw/workspace&#34;,
+      &#34;ln -sfn /workspace/.openclaw /root/.openclaw&#34;,
+
       &#34;curl -fsSL https://deb.nodesource.com/setup_22.x | bash -&#34;,
-      &#34;apt-get install -y -qq nodejs&#34;,
-      &#34;npm install -g openclaw@latest&#34;,
-      &#34;sleep infinity&#34;,
+      &#34;apt-get install -y -qq nodejs socat&#34;,
+      &#34;npm install -g --ignore-scripts openclaw@latest&#34;,
+
+      &#34;openclaw gateway --bind $OPENCLAW_GATEWAY_BIND --port $OPENCLAW_GATEWAY_PORT --allow-unconfigured&#34;,
     ])
   ]
 }
@@ -164,12 +176,10 @@ output &#34;pod_public_ip&#34; {
 terraform init
 
 # Prévisualiser ce qui va être créé
-terraform plan \
-  -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
+terraform plan -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
 
 # Créer le pod
-terraform apply \
-  -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
+terraform apply -var=&#34;ssh_public_key=$(cat ~/.ssh/id_ed25519.pub)&#34;
 </code></pre><br/>
 <h2 id="5-se-connecter-et-utiliser-openclaw">5. Se connecter et utiliser OpenClaw</h2>
 <pre tabindex="0"><code># Récupérer l&#39;IP publique

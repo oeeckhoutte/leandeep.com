@@ -10,10 +10,10 @@
     <lastBuildDate>Mon, 02 Mar 2026 18:15:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Terraform runpod openclaw</title>
-      <link>https://leandeep.com/terraform-runpod-openclaw/</link>
+      <title>Terraform runpod openclaw [dev setup]</title>
+      <link>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</link>
       <pubDate>Mon, 02 Mar 2026 18:15:00 +0000</pubDate>
-      <guid>https://leandeep.com/terraform-runpod-openclaw/</guid>
+      <guid>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</guid>
       <description>&lt;h2 id=&#34;1-installer-terraform-sur-macos&#34;&gt;1. Installer Terraform sur macOS&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew tap hashicorp/tap&#xA;brew install hashicorp/tap/terraform&#xA;terraform --version&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;2-obtenir-une-clé-api-runpod&#34;&gt;2. Obtenir une clé API RunPod&lt;/h2&gt;&#xA;&lt;p&gt;Rendez-vous sur &lt;a href=&#34;https://www.runpod.io/console/user/settings&#34;&gt;https://www.runpod.io/console/user/settings&lt;/a&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Sectionnez &lt;code&gt;API Keys&lt;/code&gt; &lt;code&gt;→&lt;/code&gt; &lt;code&gt;Create API Key (permissions Read/Write)&lt;/code&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Copiez la clé et exportez-la: &lt;br/&gt;&#xA;&lt;code&gt;export RUNPOD_API_KEY=&amp;quot;rp_xxxxxxxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;3-fichiers-terraform&#34;&gt;3. Fichiers Terraform&lt;/h2&gt;&#xA;&lt;p&gt;Créez un dossier openclaw-runpod/ et place-y ces 3 fichiers:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/variables.tf&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;variable &amp;#34;runpod_api_key&amp;#34; {&#xA;  description = &amp;#34;RunPod API key&amp;#34;&#xA;  type        = string&#xA;  sensitive   = true&#xA;  default     = &amp;#34;&amp;#34;&#xA;}&#xA;&#xA;variable &amp;#34;ssh_public_key&amp;#34; {&#xA;  description = &amp;#34;SSH public key for secure access&amp;#34;&#xA;  type        = string&#xA;}&#xA;&#xA;variable &amp;#34;pod_name&amp;#34; {&#xA;  description = &amp;#34;Name of the RunPod pod&amp;#34;&#xA;  type        = string&#xA;  default     = &amp;#34;openclaw&amp;#34;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/main.tf&lt;/code&gt;&lt;/p&gt;</description>
     </item>
     <item>
