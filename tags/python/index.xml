@@ -10,13 +10,6 @@
     <lastBuildDate>Mon, 23 Feb 2026 22:19:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Kali virtualbox</title>
-      <link>https://leandeep.com/kali-virtualbox/</link>
-      <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
-      <guid>https://leandeep.com/kali-virtualbox/</guid>
-      <description>&lt;p&gt;xrandr &amp;ndash;output Virtual-1 &amp;ndash;mode 1920x1200&lt;/p&gt;&#xA;&lt;p&gt;Step 2: Scale the Window from VirtualBox&#xA;After setting the resolution:&lt;/p&gt;&#xA;&lt;p&gt;In the VirtualBox menu bar, go to&#xA;View → Virtual Screen 1 → Scale to 150%&#xA;You can also try 125% or 200% depending on your screen.&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>Premier limit order avec Nautilus trader sur Binance</title>
       <link>https://leandeep.com/premier-limit-order-avec-nautilus-trader-sur-binance/</link>
       <pubDate>Mon, 23 Feb 2026 22:19:00 +0000</pubDate>
@@ -78,6 +71,13 @@
       <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
       <guid>https://leandeep.com/surveiller-et-red%C3%A9marrer-un-script-python-d%C3%A8s-quun-fichier-est-modifi%C3%A9/</guid>
       <description>&lt;p&gt;On peut utiliser watchdog pour surveiller les modifications des fichiers et relancer automatiquement un module/script lorsque des modifications sont détectées. Voici un exemple complet:&lt;/p&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;pip install watchdog&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;créer-un-script-de-surveillance&#34;&gt;Créer un script de surveillance&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tracker un fichier.py&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Créer par exemple un fichier appelé &lt;code&gt;run_and_reload.py&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import time&#xA;import os&#xA;import sys&#xA;import argparse&#xA;from watchdog.observers import Observer&#xA;from watchdog.events import FileSystemEventHandler&#xA;&#xA;class TargetFileHandler(FileSystemEventHandler):&#xA;    def __init__(self, target_file):&#xA;        self.target_file = os.path.abspath(target_file)&#xA;&#xA;    def on_modified(self, event):&#xA;        if os.path.abspath(event.src_path) == self.target_file:&#xA;            print(f&amp;#34;[MODIFIED] {event.src_path}&amp;#34;)&#xA;&#xA;    def on_deleted(self, event):&#xA;        if os.path.abspath(event.src_path) == self.target_file:&#xA;            print(f&amp;#34;[DELETED] {event.src_path}&amp;#34;)&#xA;&#xA;    def on_created(self, event):&#xA;        if os.path.abspath(event.src_path) == self.target_file:&#xA;            print(f&amp;#34;[CREATED] {event.src_path}&amp;#34;)&#xA;&#xA;def main():&#xA;    parser = argparse.ArgumentParser(description=&amp;#34;Monitor a .py file for changes.&amp;#34;)&#xA;    parser.add_argument(&amp;#34;file&amp;#34;, help=&amp;#34;Path to the .py file to monitor&amp;#34;)&#xA;    parser.add_argument(&amp;#34;-d&amp;#34;, &amp;#34;--directory&amp;#34;, help=&amp;#34;Directory to monitor (default: file&amp;#39;s directory)&amp;#34;)&#xA;&#xA;    args = parser.parse_args()&#xA;&#xA;    file_path = os.path.abspath(args.file)&#xA;&#xA;    if not os.path.isfile(file_path):&#xA;        print(f&amp;#34;Error: File &amp;#39;{file_path}&amp;#39; does not exist.&amp;#34;)&#xA;        sys.exit(1)&#xA;&#xA;    # Use the provided directory or fallback to the file&amp;#39;s directory&#xA;    directory_to_watch = os.path.abspath(args.directory) if args.directory else os.path.dirname(file_path)&#xA;&#xA;    if not os.path.isdir(directory_to_watch):&#xA;        print(f&amp;#34;Error: Directory &amp;#39;{directory_to_watch}&amp;#39; does not exist.&amp;#34;)&#xA;        sys.exit(1)&#xA;&#xA;    event_handler = TargetFileHandler(file_path)&#xA;    observer = Observer()&#xA;    observer.schedule(event_handler, path=directory_to_watch, recursive=False)&#xA;    observer.start()&#xA;&#xA;    print(f&amp;#34;⏳ Monitoring: {file_path}&amp;#34;)&#xA;    print(f&amp;#34;📁 Watched directory: {directory_to_watch}&amp;#34;)&#xA;    print(&amp;#34;🔔 Press Ctrl+C to stop&amp;#34;)&#xA;&#xA;    try:&#xA;        while True:&#xA;            time.sleep(1)&#xA;    except KeyboardInterrupt:&#xA;        observer.stop()&#xA;        print(&amp;#34;\nStopping monitor...&amp;#34;)&#xA;&#xA;    observer.join()&#xA;&#xA;if __name__ == &amp;#34;__main__&amp;#34;:&#xA;    main()&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Usage:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Simuler un mode offline pour certains tests Pytest</title>
+      <link>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</link>
+      <pubDate>Tue, 10 Dec 2024 23:49:00 +0200</pubDate>
+      <guid>https://leandeep.com/simuler-un-mode-offline-pour-certains-tests-pytest/</guid>
+      <description>&lt;p&gt;Pour certains, cet article peut sembler inutile car ils vous diront qu&amp;rsquo;il suffit de couper le wifi sur son laptop pour ne plus avoir internet. Ce n&amp;rsquo;est pas faux, mais parfois et sans rentrer dans le détail, il n&amp;rsquo;est pas toujours possible de travailler offline pendant des heures.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;Voici donc un tip pour simuler dans des tests unitaires la déconnexion d&amp;rsquo;internet.&#xA;Il suffit de créer la fixture pytest suivante et de l&amp;rsquo;appeler dans vos tests.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
