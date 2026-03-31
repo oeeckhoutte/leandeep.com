@@ -7,7 +7,8 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb Configuration On configure le port et la bind_address sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0 Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier /var/init.d/couchdb et on ajoute cette variable d&rsquo;environnement pour ne plus être gêné par sudo: COUCHDB_USER=couchdb Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&rsquo;utilisateur couchdb: sudo chown -R couchdb /var/lib/couchdb/1.2.0 " />
+  content="Certified Ethical Hacker V7 Here in Boston, over the past few months, everyone around me has been talking about a cybersecurity certification called CEH. I&rsquo;ve always been fascinated by hacking since I was a kid. (As a side note, when I was 17, I actually thought I would become a cybersecurity officer in the gendarmerie.) After four days of training at Sysdream in Paris (Saint-Ouen) &#43; 1 day to take the exam, I&rsquo;m now certified.
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -23,7 +24,7 @@
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/installer-couchdb-sur-un-raspberry/" />
+<link rel="canonical" href="https://leandeep.com/certified-ethical-hacker/" />
 
 
 
@@ -73,7 +74,7 @@
 
 <title>
   
-  Installer CouchDB sur un Raspberry :: Lean Deep Tech blog 
+  Certified Ethical Hacker :: Lean Deep Tech blog 
   
 </title>
 
@@ -99,23 +100,23 @@
     <meta name="theme-color" content="#252627">
 
 
-  <meta itemprop="name" content="Installer CouchDB sur un Raspberry">
-  <meta itemprop="description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb Configuration On configure le port et la bind_address sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0 Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier /var/init.d/couchdb et on ajoute cette variable d’environnement pour ne plus être gêné par sudo: COUCHDB_USER=couchdb Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l’utilisateur couchdb: sudo chown -R couchdb /var/lib/couchdb/1.2.0">
-  <meta itemprop="datePublished" content="2012-12-22T19:47:00+00:00">
-  <meta itemprop="dateModified" content="2012-12-22T19:47:00+00:00">
-  <meta itemprop="wordCount" content="98">
+  <meta itemprop="name" content="Certified Ethical Hacker">
+  <meta itemprop="description" content="Certified Ethical Hacker V7 Here in Boston, over the past few months, everyone around me has been talking about a cybersecurity certification called CEH. I’ve always been fascinated by hacking since I was a kid. (As a side note, when I was 17, I actually thought I would become a cybersecurity officer in the gendarmerie.) After four days of training at Sysdream in Paris (Saint-Ouen) &#43; 1 day to take the exam, I’m now certified.">
+  <meta itemprop="datePublished" content="2012-12-15T18:25:00+00:00">
+  <meta itemprop="dateModified" content="2012-12-15T18:25:00+00:00">
+  <meta itemprop="wordCount" content="175">
   <meta itemprop="image" content="https://leandeep.com/">
-  <meta itemprop="keywords" content="Linux,NoSQL,Raspberry,Tips">
+  <meta itemprop="keywords" content="Career,Personal">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://leandeep.com/">
-  <meta name="twitter:title" content="Installer CouchDB sur un Raspberry">
-  <meta name="twitter:description" content="Installation de CouchDB sudo apt-get update sudo apt-get install couchdb Configuration On configure le port et la bind_address sudo vim /etc/couchdb/local.ini # Port par defaut: 5984 port = 5984 # Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout bind_address = 0.0.0.0 Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier /var/init.d/couchdb et on ajoute cette variable d’environnement pour ne plus être gêné par sudo: COUCHDB_USER=couchdb Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l’utilisateur couchdb: sudo chown -R couchdb /var/lib/couchdb/1.2.0">
+  <meta name="twitter:title" content="Certified Ethical Hacker">
+  <meta name="twitter:description" content="Certified Ethical Hacker V7 Here in Boston, over the past few months, everyone around me has been talking about a cybersecurity certification called CEH. I’ve always been fascinated by hacking since I was a kid. (As a side note, when I was 17, I actually thought I would become a cybersecurity officer in the gendarmerie.) After four days of training at Sysdream in Paris (Saint-Ouen) &#43; 1 day to take the exam, I’m now certified.">
 
 
 
 
 
-<meta property="article:published_time" content="2012-12-22 19:47:00 &#43;0000 UTC" />
+<meta property="article:published_time" content="2012-12-15 18:25:00 &#43;0000 UTC" />
 
 
 
@@ -179,37 +180,20 @@
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/installer-couchdb-sur-un-raspberry/">Installer CouchDB sur un Raspberry</a>
+                <a href="https://leandeep.com/certified-ethical-hacker/">Certified Ethical Hacker</a>
             </h1>
 
             
 
             <div class="post-content">
-                <h2 id="installation-de-couchdb">Installation de CouchDB</h2>
-<pre tabindex="0"><code>sudo apt-get update
-sudo apt-get install couchdb
-</code></pre><br/>
-<h2 id="configuration">Configuration</h2>
-<ol>
-<li>On configure le port et la bind_address</li>
-</ol>
-<pre tabindex="0"><code>sudo vim /etc/couchdb/local.ini
+                <h2 id="certified-ethical-hacker-v7">Certified Ethical Hacker V7</h2>
+<p><img src="https://leandeep.com/images/ceh.png" alt="image"></p>
+<br/>
+<p>Here in Boston, over the past few months, everyone around me has been talking about a cybersecurity certification called CEH. I&rsquo;ve always been fascinated by hacking since I was a kid. (As a side note, when I was 17, I actually thought I would become a cybersecurity officer in the gendarmerie.) After four days of training at Sysdream in Paris (Saint-Ouen) + 1 day to take the exam, I&rsquo;m now certified.</p>
+<p>In reality, the CEH exam isn&rsquo;t very difficult. It&rsquo;s a 4 hour multiple-choice test with 150 questions. The passing score is 70%, which means you can get up to 45 questions wrong and still pass. There are no hands-on exercises, no simulations, and no practical assessment. You don&rsquo;t actually need to hack anything.</p>
+<p>It&rsquo;s a good starting point for getting into cybersecurity, but it&rsquo;s quite light if you&rsquo;re looking to gain practical skills. That said, I still learned a lot on the theoretical side.</p>
+<p>If I get the opportunity next year, I&rsquo;ll aim for a more hands-on certification like OSCP.</p>
 
-# Port par defaut: 5984
-port = 5984
-# Changer le bind address to 0.0.0.0 pour que la base soit accessible de partout
-bind_address = 0.0.0.0
-</code></pre><br/>
-<ol start="2">
-<li>Pour que CouchDB puisse démarrer au boot du Pi, on modifie le fichier <code> /var/init.d/couchdb</code> et on ajoute cette variable d&rsquo;environnement pour ne plus être gêné par <code>sudo</code>:</li>
-</ol>
-<pre tabindex="0"><code>COUCHDB_USER=couchdb
-</code></pre><br/>
-<ol start="3">
-<li>Si vous aviez déjà créé votre DB, vous devrez changer les permissions du dossier database_dir pour l&rsquo;utilisateur couchdb:</li>
-</ol>
-<pre tabindex="0"><code>sudo chown -R couchdb /var/lib/couchdb/1.2.0
-</code></pre>
             </div>
         </article>
 
@@ -217,12 +201,12 @@ bind_address = 0.0.0.0
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/linux">Linux</a></span><span class="tag"><a href="https://leandeep.com/tags/nosql">NoSQL</a></span><span class="tag"><a href="https://leandeep.com/tags/raspberry">Raspberry</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/career">Career</a></span><span class="tag"><a href="https://leandeep.com/tags/personal">Personal</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>98 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>175 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>22 déc.. 2012</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 déc.. 2012</p>
         </div>
 
         
@@ -235,17 +219,17 @@ bind_address = 0.0.0.0
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/commandes-linux-%C3%A0-savoir/">
+                            <a href="https://leandeep.com/installer-couchdb-sur-un-raspberry/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Commandes linux à savoir</span>
+                                <span class="button__text">Installer CouchDB sur un Raspberry</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/certified-ethical-hacker/">
-                                <span class="button__text">Certified Ethical Hacker</span>
+                            <a href="https://leandeep.com/static-method-vs-class-method-en-programmation-orient%C3%A9e-objet/">
+                                <span class="button__text">static method vs class method en programmation orientée objet</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>
