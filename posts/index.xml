@@ -340,7 +340,7 @@ openssl pkey -in binance_ed25519_private.pem -pubout -out binance_ed25519_public
 </code></pre><p>Exécution:</p>
 <pre tabindex="0"><code>export BINANCE_API_KEY=&#34;API_KEY_FOURNIE_PAR_BINANCE&#34;
 export BINANCE_API_SECRET=&#34;$(cat /path/to/binance_ed25519_private.pem)&#34;
-cargo run --example binance-spot-data-tester --package nautilus-coinbase
+RUST_LOG=debug cargo run --example binance-spot-data-tester --package nautilus-binance
 </code></pre><p>Résultat:</p>
 <p><img src="/images/binance-spot-btc-usd.png" alt="image"></p>
 <br/>
