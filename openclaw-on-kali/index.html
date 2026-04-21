@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="0. Prepare Kali Setup SSH
+sudo apt update sudo apt install -y openssh-server vim # uncomment line with ListenAddress 0.0.0.0 sudo vim /etc/ssh/sshd_config sudo systemctl start ssh sudo systemctl enable ssh ip a 1. Install Openclaw on Kali Linux For this setup I isolated Kali in a VM. So it&rsquo;s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="http://localhost:1313/openclaw-on-kali/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Openclaw on Kali :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/main.min.e39a6c3bc44a6959dad5260db3c8d5659e378a90722580530dbf85b2eebd0587.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+    <link rel="manifest" href="http://localhost:1313/site.webmanifest">
+    <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Openclaw on Kali">
+  <meta itemprop="description" content="0. Prepare Kali Setup SSH
+sudo apt update sudo apt install -y openssh-server vim # uncomment line with ListenAddress 0.0.0.0 sudo vim /etc/ssh/sshd_config sudo systemctl start ssh sudo systemctl enable ssh ip a 1. Install Openclaw on Kali Linux For this setup I isolated Kali in a VM. So it’s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.">
+  <meta itemprop="datePublished" content="2026-04-20T19:15:00+00:00">
+  <meta itemprop="dateModified" content="2026-04-20T19:15:00+00:00">
+  <meta itemprop="wordCount" content="539">
+  <meta itemprop="image" content="http://localhost:1313/">
+  <meta itemprop="keywords" content="OpenClaw,AI,Kali">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="Openclaw on Kali">
+  <meta name="twitter:description" content="0. Prepare Kali Setup SSH
+sudo apt update sudo apt install -y openssh-server vim # uncomment line with ListenAddress 0.0.0.0 sudo vim /etc/ssh/sshd_config sudo systemctl start ssh sudo systemctl enable ssh ip a 1. Install Openclaw on Kali Linux For this setup I isolated Kali in a VM. So it’s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.">
+
+
+
+
+
+<meta property="article:published_time" content="2026-04-20 19:15:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://localhost:1313/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://localhost:1313/events/">Featured Articles</a></li><li><a href="http://localhost:1313/posts/">All Articles</a></li><li><a href="http://localhost:1313/about/">About Me</a></li><li><a href="http://localhost:1313/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="http://localhost:1313/openclaw-on-kali/">Openclaw on Kali</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="0-prepare-kali">0. Prepare Kali</h2>
+<p><strong>Setup SSH</strong></p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install -y openssh-server vim
+
+# uncomment line with ListenAddress 0.0.0.0
+sudo vim /etc/ssh/sshd_config
+
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+ip a
+</code></pre><br/>
+<h2 id="1-install-openclaw-on-kali-linux">1. Install Openclaw on Kali Linux</h2>
+<blockquote>
+<p>For this setup I isolated Kali in a VM. So it&rsquo;s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.</p></blockquote>
+<br/>
+<p><strong>Manage VM</strong></p>
+<pre tabindex="0"><code># List VMs
+VBoxManage list vms
+
+# Start VM
+VBoxManage startvm &#34;kali openclaw&#34;  --type headless
+
+# Stop VM
+VBoxManage controlvm &#34;kali openclaw&#34; acpipowerbutton
+
+# Force stop VM
+VBoxManage controlvm &#34;kali openclaw&#34; poweroff
+
+# Get IP
+VBoxManage guestproperty get &#34;kali openclaw&#34; &#34;/VirtualBox/GuestInfo/Net/0/V4/IP&#34;
+
+# Get the VM IP &#34;the hard way&#34;
+nmap -sn 192.168.1.0/24 # OR arp -a
+
+# Clone VM
+VBoxManage clonevm &#34;kali openclaw Backup setup OK&#34; --name &#34;kali openclaw&#34; --mode all --register
+
+# Delete a VM
+VBoxManage list runningvms
+VBoxManage controlvm &#34;kali openclaw&#34; poweroff
+VBoxManage unregistervm &#34;kali openclaw&#34; --delete
+</code></pre><br/>
+<p><strong>Setup Openclaw</strong></p>
+<pre tabindex="0"><code># node 24 needed
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+</code></pre><br/>
+<p>Add in the <code>~/.zshrc</code> and source it</p>
+<pre tabindex="0"><code>export NVM_DIR=&#34;$HOME/.nvm&#34;
+[ -s &#34;$NVM_DIR/nvm.sh&#34; ] &amp;&amp; \. &#34;$NVM_DIR/nvm.sh&#34;  # This loads nvm
+[ -s &#34;$NVM_DIR/bash_completion&#34; ] &amp;&amp; \. &#34;$NVM_DIR/bash_completion&#34;  # This loads nvm bash_completion
+</code></pre><br/>
+<pre tabindex="0"><code>nvm list-remote
+nvm install v24.14.1
+nvm use v24.14.1
+nvm use default v24.14.1
+npm install -g openclaw@v2026.4.15
+</code></pre><br/>
+<h2 id="2-openclaw-configuration">2. OpenClaw Configuration</h2>
+<pre tabindex="0"><code>openclaw onboard --install-daemon
+
+# I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?
+Yes
+
+# Setup mode
+Manual
+
+# What do you want to set up?
+Local gateway
+
+# Workspace directory
+Keep default
+
+# Model/auth provider
+OpenRouter -&gt; openrouter/openai/gpt-4o-mini
+
+# Gateway port
+Custom
+
+# Gateway bind
+Loopback
+
+# Gateway auth
+Token
+
+# Tailscale
+Off
+
+# How do you want to provide the gateway token?
+Generate/store plaintext token (Default)
+
+# Gateway token (blank to generate)
+blank
+
+# Configure chat channels now?
+Yes
+
+# Select a channel
+Telegram
+
+# Create a bot using @BotFather
+# Get the bot token
+
+# Configure DM access policies now? (default: pairing)
+Yes Pairing
+
+# Telegram DM policy
+Allowlist (specific users only)
+
+# Telegram allowFrom
+Enter your username ID -&gt; Get my user ID -&gt; Via @UserInfoBot
+
+# Search provider
+skip for now
+
+# Plugins
+skip for now
+
+# Skills
+skip for now
+
+# Enable hooks?
+Select all
+
+# Gateway service runtime
+Node
+
+# Enable zsh shell completion for openclaw?
+Yes
+</code></pre><br/>
+<h2 id="telegram-pairing">Telegram pairing</h2>
+<p>Send a message to your bot and follow the pairing procedure</p>
+<br/>
+<h2 id="3-test">3. Test</h2>
+<pre tabindex="0"><code>openclaw dashboard
+openclaw tui
+</code></pre><br/>
+<h2 id="quickly-change-api-key-and-model">Quickly change API key and model</h2>
+<p>Edit <code>vim ~/.openclaw/openclaw.json</code></p>
+<br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<pre tabindex="0"><code>systemctl --user status openclaw-gateway.service
+systemctl --user restart openclaw-gateway.service
+tail -f /tmp/openclaw/...log
+DEBUG=agent,llm,openrouter npx openclaw tui
+
+Issue I had and manual fix applied:
+https://github.com/openclaw/openclaw/issues/68076#issuecomment-4267446040
+</code></pre><br/>
+<h2 id="restart-setup">Restart setup</h2>
+<pre tabindex="0"><code>rm -rf ~/.npm/_npx
+rm -rf ~/.openclaw
+# Or trash your VM
+</code></pre><br/>
+<h2 id="output-once-running">Output once running</h2>
+<pre tabindex="0"><code>hi
+
+HEARTBEAT_OK
+
+comment vas-tu ?
+
+Je vais bien, merci ! Et toi ? Comment ça se passe ?
+ gateway connected | idle
+ agent main | session main (openclaw-tui) | openrouter/openai/gpt-4o-mini | tokens 12k/200k (6%)
+──────────────────────────────────────────────────────────────────────────────────────────────────
+</code></pre><br/>
+<h2 id="conclusion">Conclusion</h2>
+<p>Really not mature enough yet. This product is not ready for production.
+In a next article we are going to see how to leverage skills and leverage Kali tools to automate security audits.</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="http://localhost:1313/tags/openclaw">OpenClaw</a></span><span class="tag"><a href="http://localhost:1313/tags/ai">AI</a></span><span class="tag"><a href="http://localhost:1313/tags/kali">Kali</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>539 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20 avr.. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="http://localhost:1313/frais-de-trading-sur-exchanges-crypto/">
+                                <span class="button__text">Frais de trading sur exchanges crypto</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="http://localhost:1313/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="http://localhost:1313/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://localhost:1313/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+    </body>
+</html>

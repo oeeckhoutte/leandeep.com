@@ -6,8 +6,203 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 07 Apr 2026 21:19:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 20 Apr 2026 19:15:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Openclaw on Kali Linux</title>
+            <link>https://leandeep.com/openclaw-on-kali-linux/</link>
+            <pubDate>Mon, 20 Apr 2026 19:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/openclaw-on-kali-linux/</guid>
+            <description>&lt;h2 id=&#34;0-prepare-kali&#34;&gt;0. Prepare Kali&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Setup SSH&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update
+sudo apt install -y openssh-server vim
+
+# uncomment line with ListenAddress 0.0.0.0
+sudo vim /etc/ssh/sshd_config
+
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+ip a
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;1-install-openclaw-on-kali-linux&#34;&gt;1. Install Openclaw on Kali Linux&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For this setup I isolated Kali in a VM. So it&amp;rsquo;s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<h2 id="0-prepare-kali">0. Prepare Kali</h2>
+<p><strong>Setup SSH</strong></p>
+<pre tabindex="0"><code>sudo apt update
+sudo apt install -y openssh-server vim
+
+# uncomment line with ListenAddress 0.0.0.0
+sudo vim /etc/ssh/sshd_config
+
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+ip a
+</code></pre><br/>
+<h2 id="1-install-openclaw-on-kali-linux">1. Install Openclaw on Kali Linux</h2>
+<blockquote>
+<p>For this setup I isolated Kali in a VM. So it&rsquo;s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.</p></blockquote>
+<br/>
+<p><strong>Manage VM</strong></p>
+<pre tabindex="0"><code># List VMs
+VBoxManage list vms
+
+# Start VM
+VBoxManage startvm &#34;kali openclaw&#34;  --type headless
+
+# Stop VM
+VBoxManage controlvm &#34;kali openclaw&#34; acpipowerbutton
+
+# Force stop VM
+VBoxManage controlvm &#34;kali openclaw&#34; poweroff
+
+# Get IP
+VBoxManage guestproperty get &#34;kali openclaw&#34; &#34;/VirtualBox/GuestInfo/Net/0/V4/IP&#34;
+
+# Get the VM IP &#34;the hard way&#34;
+nmap -sn 192.168.1.0/24 # OR arp -a
+
+# Clone VM
+VBoxManage clonevm &#34;kali openclaw Backup setup OK&#34; --name &#34;kali openclaw&#34; --mode all --register
+
+# Delete a VM
+VBoxManage list runningvms
+VBoxManage controlvm &#34;kali openclaw&#34; poweroff
+VBoxManage unregistervm &#34;kali openclaw&#34; --delete
+</code></pre><br/>
+<p><strong>Setup Openclaw</strong></p>
+<pre tabindex="0"><code># node 24 needed
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+</code></pre><br/>
+<p>Add in the <code>~/.zshrc</code> and source it</p>
+<pre tabindex="0"><code>export NVM_DIR=&#34;$HOME/.nvm&#34;
+[ -s &#34;$NVM_DIR/nvm.sh&#34; ] &amp;&amp; \. &#34;$NVM_DIR/nvm.sh&#34;  # This loads nvm
+[ -s &#34;$NVM_DIR/bash_completion&#34; ] &amp;&amp; \. &#34;$NVM_DIR/bash_completion&#34;  # This loads nvm bash_completion
+</code></pre><br/>
+<pre tabindex="0"><code>nvm list-remote
+nvm install v24.14.1
+nvm use v24.14.1
+nvm use default v24.14.1
+npm install -g openclaw@v2026.4.15
+</code></pre><br/>
+<h2 id="2-openclaw-configuration">2. OpenClaw Configuration</h2>
+<pre tabindex="0"><code>openclaw onboard --install-daemon
+
+# I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?
+Yes
+
+# Setup mode
+Manual
+
+# What do you want to set up?
+Local gateway
+
+# Workspace directory
+Keep default
+
+# Model/auth provider
+OpenRouter -&gt; openrouter/openai/gpt-4o-mini
+
+# Gateway port
+Custom
+
+# Gateway bind
+Loopback
+
+# Gateway auth
+Token
+
+# Tailscale
+Off
+
+# How do you want to provide the gateway token?
+Generate/store plaintext token (Default)
+
+# Gateway token (blank to generate)
+blank
+
+# Configure chat channels now?
+Yes
+
+# Select a channel
+Telegram
+
+# Create a bot using @BotFather
+# Get the bot token
+
+# Configure DM access policies now? (default: pairing)
+Yes Pairing
+
+# Telegram DM policy
+Allowlist (specific users only)
+
+# Telegram allowFrom
+Enter your username ID -&gt; Get my user ID -&gt; Via @UserInfoBot
+
+# Search provider
+skip for now
+
+# Plugins
+skip for now
+
+# Skills
+skip for now
+
+# Enable hooks?
+Select all
+
+# Gateway service runtime
+Node
+
+# Enable zsh shell completion for openclaw?
+Yes
+</code></pre><br/>
+<h2 id="telegram-pairing">Telegram pairing</h2>
+<p>Send a message to your bot and follow the pairing procedure</p>
+<br/>
+<h2 id="3-test">3. Test</h2>
+<pre tabindex="0"><code>openclaw dashboard
+openclaw tui
+</code></pre><br/>
+<h2 id="quickly-change-api-key-and-model">Quickly change API key and model</h2>
+<p>Edit <code>vim ~/.openclaw/openclaw.json</code></p>
+<br/>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<pre tabindex="0"><code>systemctl --user status openclaw-gateway.service
+systemctl --user restart openclaw-gateway.service
+tail -f /tmp/openclaw/...log
+DEBUG=agent,llm,openrouter npx openclaw tui
+
+Issue I had and manual fix applied:
+https://github.com/openclaw/openclaw/issues/68076#issuecomment-4267446040
+</code></pre><br/>
+<h2 id="restart-setup">Restart setup</h2>
+<pre tabindex="0"><code>rm -rf ~/.npm/_npx
+rm -rf ~/.openclaw
+# Or trash your VM
+</code></pre><br/>
+<h2 id="output-once-running">Output once running</h2>
+<pre tabindex="0"><code>hi
+
+HEARTBEAT_OK
+
+comment vas-tu ?
+
+Je vais bien, merci ! Et toi ? Comment ça se passe ?
+ gateway connected | idle
+ agent main | session main (openclaw-tui) | openrouter/openai/gpt-4o-mini | tokens 12k/200k (6%)
+──────────────────────────────────────────────────────────────────────────────────────────────────
+</code></pre><br/>
+<h2 id="conclusion">Conclusion</h2>
+<p>Really not mature enough yet. This product is not ready for production.
+In a next article we are going to see how to leverage skills and leverage Kali tools to automate security audits.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Frais de trading sur exchanges crypto</title>
