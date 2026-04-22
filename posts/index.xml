@@ -171,8 +171,16 @@ openclaw tui
 </code></pre><br/>
 <h2 id="quickly-change-api-key-model-network-config">Quickly change API key, model, network config</h2>
 <p>Edit <code>vim ~/.openclaw/openclaw.json</code> and restart:</p>
-<pre tabindex="0"><code>systemctl --user restart openclaw-gateway.service
-</code></pre><br/>
+<pre tabindex="0"><code># Restrict access to 192.168.1.0/24 or only one host
+systemctl --user restart openclaw-gateway.service
+</code></pre><blockquote>
+<p>If needed for the firewall</p>
+<pre tabindex="0"><code>sudo ufw allow 18789 # or custom port
+# Or authorise the LAN: sudo ufw allow from 192.168.1.0/24 to any port 18789
+# refuse the rest: sudo ufw deny 18789
+sudo ufw disable # for quick test
+</code></pre></blockquote>
+<br/>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <pre tabindex="0"><code>systemctl --user status openclaw-gateway.service
 systemctl --user restart openclaw-gateway.service
