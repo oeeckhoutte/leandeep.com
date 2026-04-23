@@ -43741,10 +43741,6 @@ alias git-ssh=&#34;git remote set-url origin git@github.com:$(git remote get-url
 <h2 id="ajouter-une-clé-privé-dans-une-session-ssh-distante">Ajouter une clé privé dans une session SSH distante</h2>
 <pre tabindex="0"><code>eval `ssh-agent -s`
 </code></pre><br/>
-<h2 id="workflow-pour-travailler-en-équipe">Workflow pour travailler en équipe</h2>
-<p><strong>Gitflow:</strong>
-<a href="http://danielkummer.github.io/git-flow-cheatsheet/">http://danielkummer.github.io/git-flow-cheatsheet/</a></p>
-<br/>
 <h2 id="commit-convention">Commit convention</h2>
 <p><code>&lt;type&gt;(&lt;scope&gt;): &lt;short summary&gt;</code></p>
 <p>With Type equals:</p>
@@ -43764,6 +43760,29 @@ alias git-ssh=&#34;git remote set-url origin git@github.com:$(git remote get-url
 <li><strong>ops</strong> Commits that affect operational aspects like infrastructure (IaC), deployment scripts, CI/CD pipelines, backups, monitoring, or recovery procedures, &hellip;</li>
 <li><strong>chore</strong> Commits that represent tasks like initial commit, modifying .gitignore, &hellip;</li>
 </ul>
+<br/>
+<h2 id="versioning">Versioning</h2>
+<p>Most of the time a <code>semver</code> (sementic versioning) approach is adapted.<br/>
+-&gt; <code>MAJOR.MINOR.PATCH</code><br/></p>
+<p>(personaly I put a <code>v</code> in front: <code>vMAJOR.MINOR.PATCH</code> so that when we see <code>v4.2.3</code> somewhere there is no doubt we talk about a version)</p>
+<br/>
+<p>To determine if you need to increase the value of MAJOR or MINOR or PATCH just ask yourself this question:</p>
+<p><strong>&ldquo;Could an existing client need to modify its code or usage to continue functioning correctly?&rdquo;</strong></p>
+<p>NO -&gt; PATCH or MINOR<br/>
+YES / POSSIBLY -&gt; MAJOR</p>
+<br/>
+<p><strong>Difference between PATCH &amp; MINOR ?</strong></p>
+<p>MINOR = Backward-compatible addition<br/>
+PATCH = Fix without changing the expected behavior</p>
+<br/>
+<p><strong>Conclusion / Mental rule</strong></p>
+<p>PATCH -&gt; &ldquo;I fixed something&quot;<br/>
+MINOR -&gt; &ldquo;I added somthing&quot;<br/>
+MAJOR -&gt; &ldquo;I changed / broken&rdquo;</p>
+<br/>
+<h2 id="workflow-pour-travailler-en-équipe">Workflow pour travailler en équipe</h2>
+<p><strong>Gitflow:</strong>
+<a href="http://danielkummer.github.io/git-flow-cheatsheet/">http://danielkummer.github.io/git-flow-cheatsheet/</a></p>
 <br/>
 <p><em>Edited 13 november 2016:</em></p>
 <p><strong>Better method: Github flow:</strong></p>
