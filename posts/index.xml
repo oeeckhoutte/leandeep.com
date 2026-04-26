@@ -6,8 +6,336 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 20 Apr 2026 19:15:00 +0000</lastBuildDate>
+        <lastBuildDate>Sun, 26 Apr 2026 12:15:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Private AI with Gemma 4</title>
+            <link>https://leandeep.com/private-ai-with-gemma-4/</link>
+            <pubDate>Sun, 26 Apr 2026 12:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/private-ai-with-gemma-4/</guid>
+            <description>&lt;h2 id=&#34;option-1&#34;&gt;Option 1&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pyenv&lt;/li&gt;
+&lt;li&gt;Cuda 13&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv install 3.12.2
+pyenv global 3.12.2
+python --version
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python -m venv ./vllm-gemma
+source ./vllm-gemma/bin/activate
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install --upgrade pip
+
+pip install torch --index-url https://download.pytorch.org/whl/cu130
+python -c &amp;#34;import torch; print(torch.cuda.is_available())&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install vllm
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install huggingface_hub
+hf download google/gemma-4-26B-A4B-it --local-dir ~/hf_models/gemma-4-31B-it
+
+vllm serve google/gemma-4-26B-A4B-it --max-model-len 32768 --gpu-memory-utilization 0.90 --limit-mm-per-prompt &amp;#39;{&amp;#34;image&amp;#34;: 150, &amp;#34;video&amp;#34;: 1, &amp;#34;audio&amp;#34;: 0}--enable-prefix-cache --host 0.0.0.0 --port 8000 
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;option-2---docker&#34;&gt;Option 2 - Docker&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Base CUDA 13 (ARM sbsa)
+FROM nvidia/cuda:13.0.0-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# --------------------------------------------------
+# System deps
+# --------------------------------------------------
+RUN apt-get update &amp;amp;&amp;amp; apt-get install -y \
+    build-essential \
+    git \
+    cmake \
+    ninja-build \
+    curl \
+    wget \
+    vim \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    libopenblas-dev \
+    libssl-dev \
+    zlib1g-dev \
+    libffi-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    liblzma-dev \
+    gcc-12 \
+    g++-12 \
+    &amp;amp;&amp;amp; rm -rf /var/lib/apt/lists/*
+
+# Set python
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+
+RUN python -m pip install --upgrade pip setuptools wheel
+
+# --------------------------------------------------
+# CUDA env
+# --------------------------------------------------
+ENV CUDA_HOME=/usr/local/cuda
+ENV LD_LIBRARY_PATH=/usr/local/cuda/targets/sbsa-linux/lib:$LD_LIBRARY_PATH
+ENV PATH=/usr/local/cuda/bin:$PATH
+
+# --------------------------------------------------
+# Compilers
+# --------------------------------------------------
+ENV CC=gcc-12
+ENV CXX=g++-12
+
+# --------------------------------------------------
+# Build PyTorch from source
+# --------------------------------------------------
+WORKDIR /opt
+
+RUN git clone --recursive https://github.com/pytorch/pytorch
+
+WORKDIR /opt/pytorch
+
+# CUDA arch (à ajuster selon GPU réel)
+ENV TORCH_CUDA_ARCH_LIST=&amp;#34;9.0&amp;#34;
+
+# Install Python deps
+RUN python -m pip install -r requirements.txt
+
+# Build PyTorch
+RUN python setup.py develop
+
+# --------------------------------------------------
+# Install Triton
+# --------------------------------------------------
+RUN python -m pip install ninja cmake
+
+# Try wheel first
+RUN python -m pip install triton || true
+
+# Fallback build Triton from source
+RUN if ! python -c &amp;#34;import triton&amp;#34; ; then \
+      git clone https://github.com/openai/triton /opt/triton &amp;amp;&amp;amp; \
+      cd /opt/triton/python &amp;amp;&amp;amp; \
+      python -m pip install -e . ; \
+    fi
+
+# --------------------------------------------------
+# Build vLLM
+# --------------------------------------------------
+WORKDIR /opt
+
+RUN git clone https://github.com/vllm-project/vllm
+
+WORKDIR /opt/vllm
+
+ENV VLLM_BUILD_WITH_CUDA=1
+ENV MAX_JOBS=8
+
+RUN python -m pip install -e .
+
+# --------------------------------------------------
+# Runtime
+# --------------------------------------------------
+WORKDIR /workspace
+
+EXPOSE 8000
+
+CMD [&amp;#34;python&amp;#34;, &amp;#34;-m&amp;#34;, &amp;#34;vllm.entrypoints.openai.api_server&amp;#34;, \
+     &amp;#34;--model&amp;#34;, &amp;#34;google/gemma-4-26B-A4B-it&amp;#34;, \
+     &amp;#34;--trust-remote-code&amp;#34;, \
+     &amp;#34;--host&amp;#34;, &amp;#34;0.0.0.0&amp;#34;, \
+     &amp;#34;--port&amp;#34;, &amp;#34;8000&amp;#34;]
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker build -t vllm-cuda13 .
+docker run --gpus all -p 8000:8000 vllm-cuda13
+&lt;/code&gt;&lt;/pre&gt;</description>
+            <content type="html"><![CDATA[<h2 id="option-1">Option 1</h2>
+<p><strong>Prerequisites</strong></p>
+<ul>
+<li>Pyenv</li>
+<li>Cuda 13</li>
+</ul>
+<br/>
+<p><strong>Installation</strong></p>
+<pre tabindex="0"><code>pyenv install 3.12.2
+pyenv global 3.12.2
+python --version
+</code></pre><br/>
+<pre tabindex="0"><code>python -m venv ./vllm-gemma
+source ./vllm-gemma/bin/activate
+</code></pre><br/>
+<pre tabindex="0"><code>pip install --upgrade pip
+
+pip install torch --index-url https://download.pytorch.org/whl/cu130
+python -c &#34;import torch; print(torch.cuda.is_available())&#34;
+</code></pre><br/>
+<pre tabindex="0"><code>pip install vllm
+</code></pre><br/>
+<pre tabindex="0"><code>pip install huggingface_hub
+hf download google/gemma-4-26B-A4B-it --local-dir ~/hf_models/gemma-4-31B-it
+
+vllm serve google/gemma-4-26B-A4B-it --max-model-len 32768 --gpu-memory-utilization 0.90 --limit-mm-per-prompt &#39;{&#34;image&#34;: 150, &#34;video&#34;: 1, &#34;audio&#34;: 0}--enable-prefix-cache --host 0.0.0.0 --port 8000 
+</code></pre><br/>
+<h2 id="option-2---docker">Option 2 - Docker</h2>
+<pre tabindex="0"><code># Base CUDA 13 (ARM sbsa)
+FROM nvidia/cuda:13.0.0-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# --------------------------------------------------
+# System deps
+# --------------------------------------------------
+RUN apt-get update &amp;&amp; apt-get install -y \
+    build-essential \
+    git \
+    cmake \
+    ninja-build \
+    curl \
+    wget \
+    vim \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    libopenblas-dev \
+    libssl-dev \
+    zlib1g-dev \
+    libffi-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    liblzma-dev \
+    gcc-12 \
+    g++-12 \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+# Set python
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+
+RUN python -m pip install --upgrade pip setuptools wheel
+
+# --------------------------------------------------
+# CUDA env
+# --------------------------------------------------
+ENV CUDA_HOME=/usr/local/cuda
+ENV LD_LIBRARY_PATH=/usr/local/cuda/targets/sbsa-linux/lib:$LD_LIBRARY_PATH
+ENV PATH=/usr/local/cuda/bin:$PATH
+
+# --------------------------------------------------
+# Compilers
+# --------------------------------------------------
+ENV CC=gcc-12
+ENV CXX=g++-12
+
+# --------------------------------------------------
+# Build PyTorch from source
+# --------------------------------------------------
+WORKDIR /opt
+
+RUN git clone --recursive https://github.com/pytorch/pytorch
+
+WORKDIR /opt/pytorch
+
+# CUDA arch (à ajuster selon GPU réel)
+ENV TORCH_CUDA_ARCH_LIST=&#34;9.0&#34;
+
+# Install Python deps
+RUN python -m pip install -r requirements.txt
+
+# Build PyTorch
+RUN python setup.py develop
+
+# --------------------------------------------------
+# Install Triton
+# --------------------------------------------------
+RUN python -m pip install ninja cmake
+
+# Try wheel first
+RUN python -m pip install triton || true
+
+# Fallback build Triton from source
+RUN if ! python -c &#34;import triton&#34; ; then \
+      git clone https://github.com/openai/triton /opt/triton &amp;&amp; \
+      cd /opt/triton/python &amp;&amp; \
+      python -m pip install -e . ; \
+    fi
+
+# --------------------------------------------------
+# Build vLLM
+# --------------------------------------------------
+WORKDIR /opt
+
+RUN git clone https://github.com/vllm-project/vllm
+
+WORKDIR /opt/vllm
+
+ENV VLLM_BUILD_WITH_CUDA=1
+ENV MAX_JOBS=8
+
+RUN python -m pip install -e .
+
+# --------------------------------------------------
+# Runtime
+# --------------------------------------------------
+WORKDIR /workspace
+
+EXPOSE 8000
+
+CMD [&#34;python&#34;, &#34;-m&#34;, &#34;vllm.entrypoints.openai.api_server&#34;, \
+     &#34;--model&#34;, &#34;google/gemma-4-26B-A4B-it&#34;, \
+     &#34;--trust-remote-code&#34;, \
+     &#34;--host&#34;, &#34;0.0.0.0&#34;, \
+     &#34;--port&#34;, &#34;8000&#34;]
+</code></pre><br/>
+<pre tabindex="0"><code>docker build -t vllm-cuda13 .
+docker run --gpus all -p 8000:8000 vllm-cuda13
+</code></pre>]]></content>
+        </item>
+        
+        <item>
+            <title>LLM studio on Spark</title>
+            <link>https://leandeep.com/llm-studio-on-spark/</link>
+            <pubDate>Sun, 26 Apr 2026 07:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/llm-studio-on-spark/</guid>
+            <description>&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://lmstudio.ai/install.sh | bash
+curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/bash/run.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms server start --bind 0.0.0.0 --port 1234
+
+hostname -I
+curl http://&amp;lt;SPARK_IP&amp;gt;:1234/api/v1/models 
+&lt;/code&gt;&lt;/pre&gt;</description>
+            <content type="html"><![CDATA[<h2 id="installation">Installation</h2>
+<pre tabindex="0"><code>curl -fsSL https://lmstudio.ai/install.sh | bash
+curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/bash/run.sh
+</code></pre><br/>
+<h2 id="test">Test</h2>
+<pre tabindex="0"><code>lms server start --bind 0.0.0.0 --port 1234
+
+hostname -I
+curl http://&lt;SPARK_IP&gt;:1234/api/v1/models 
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Openclaw on Kali Linux</title>
@@ -15,7 +343,7 @@
             <pubDate>Mon, 20 Apr 2026 19:15:00 +0000</pubDate>
             
             <guid>https://leandeep.com/openclaw-on-kali-linux/</guid>
-            <description>&lt;h2 id=&#34;0-prepare-kali&#34;&gt;0. Prepare Kali&lt;/h2&gt;
+            <description>&lt;h2 id=&#34;prepare-kali&#34;&gt;Prepare Kali&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Setup SSH&lt;/strong&gt;&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update
 sudo apt install -y openssh-server vim
@@ -28,10 +356,10 @@ sudo systemctl enable ssh
 
 ip a
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
-&lt;h2 id=&#34;1-install-openclaw-on-kali-linux&#34;&gt;1. Install Openclaw on Kali Linux&lt;/h2&gt;
+&lt;h2 id=&#34;install-openclaw-on-kali-linux&#34;&gt;Install Openclaw on Kali Linux&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;For this setup I isolated Kali in a VM. So it&amp;rsquo;s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.&lt;/p&gt;</description>
-            <content type="html"><![CDATA[<h2 id="0-prepare-kali">0. Prepare Kali</h2>
+            <content type="html"><![CDATA[<h2 id="prepare-kali">Prepare Kali</h2>
 <p><strong>Setup SSH</strong></p>
 <pre tabindex="0"><code>sudo apt update
 sudo apt install -y openssh-server vim
@@ -44,7 +372,7 @@ sudo systemctl enable ssh
 
 ip a
 </code></pre><br/>
-<h2 id="1-install-openclaw-on-kali-linux">1. Install Openclaw on Kali Linux</h2>
+<h2 id="install-openclaw-on-kali-linux">Install Openclaw on Kali Linux</h2>
 <blockquote>
 <p>For this setup I isolated Kali in a VM. So it&rsquo;s a dedicated host with dedicated VM. Here are the commands to manage the hypervisor. I used Virtualbox but you can use faster ones ofc like firecracker. In my case I wanted super simplicity.</p></blockquote>
 <br/>
@@ -90,7 +418,7 @@ nvm use v24.14.1
 nvm use default v24.14.1
 npm install -g openclaw@v2026.4.15
 </code></pre><br/>
-<h2 id="2-openclaw-configuration">2. OpenClaw Configuration</h2>
+<h2 id="openclaw-configuration">OpenClaw Configuration</h2>
 <pre tabindex="0"><code>openclaw onboard --install-daemon
 
 # I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?
@@ -162,7 +490,7 @@ Node
 # Enable zsh shell completion for openclaw?
 Yes
 </code></pre><br/>
-<h2 id="3-test">3. Test</h2>
+<h2 id="test">Test</h2>
 <pre tabindex="0"><code>openclaw dashboard
 openclaw tui
 </code></pre><br/>
@@ -657,6 +985,60 @@ Je vais bien, merci ! Et toi ? Comment ça se passe ?
 </a>
 
 ]]></content>
+        </item>
+        
+        <item>
+            <title>Comfy UI installation on Ubuntu</title>
+            <link>https://leandeep.com/comfy-ui-installation-on-ubuntu/</link>
+            <pubDate>Mon, 23 Mar 2026 21:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/comfy-ui-installation-on-ubuntu/</guid>
+            <description>&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 3.12.3&lt;/li&gt;
+&lt;li&gt;pip 24.0&lt;/li&gt;
+&lt;li&gt;Cuda compiler driver V13.0.88 (nvcc)&lt;/li&gt;
+&lt;li&gt;Nvidia hardware&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Create a new venv&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python3 -m venv comfyui-venv
+source comfyui-venv/bin/activate
+
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+git clone https://github.com/comfyanonymous/ComfyUI.git
+cd ComfyUI
+pip install -r requirements.txt
+cd models/checkpoints/ &amp;amp;&amp;amp; wget https://huggingface.co/Comfy-Org/stable-diffusion-v1-5-archive/resolve/main/v1-5-pruned-emaonly-fp16.safetensors &amp;amp;&amp;amp; cd -
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python main.py --listen 0.0.0.0
+# curl -I http://localhost:8188
+&lt;/code&gt;&lt;/pre&gt;</description>
+            <content type="html"><![CDATA[<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Python 3.12.3</li>
+<li>pip 24.0</li>
+<li>Cuda compiler driver V13.0.88 (nvcc)</li>
+<li>Nvidia hardware</li>
+</ul>
+<br/>
+<h2 id="installation">Installation</h2>
+<p>Create a new venv</p>
+<pre tabindex="0"><code>python3 -m venv comfyui-venv
+source comfyui-venv/bin/activate
+
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+git clone https://github.com/comfyanonymous/ComfyUI.git
+cd ComfyUI
+pip install -r requirements.txt
+cd models/checkpoints/ &amp;&amp; wget https://huggingface.co/Comfy-Org/stable-diffusion-v1-5-archive/resolve/main/v1-5-pruned-emaonly-fp16.safetensors &amp;&amp; cd -
+</code></pre><br/>
+<h2 id="test">Test</h2>
+<pre tabindex="0"><code>python main.py --listen 0.0.0.0
+# curl -I http://localhost:8188
+</code></pre>]]></content>
         </item>
         
         <item>
