@@ -48,6 +48,10 @@ FROM nvidia/cuda:13.0.0-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV USE_CUDA=1
+ENV USE_NCCL=1
+ENV USE_DISTRIBUTED=1
+
 # --------------------------------------------------
 # System deps
 # --------------------------------------------------
@@ -109,6 +113,12 @@ WORKDIR /opt/pytorch
 
 # CUDA arch (à ajuster selon GPU réel)
 ENV TORCH_CUDA_ARCH_LIST=&amp;#34;9.0&amp;#34;
+
+# Fix ARM SVE issue
+ENV BUILD_IGNORE_SVE_UNAVAILABLE=1
+
+# Optionnel mais recommandé (évite d&amp;#39;autres warnings CPU)
+ENV USE_NATIVE_ARCH=0
 
 # Install Python deps
 RUN python -m pip install -r requirements.txt
@@ -194,6 +204,10 @@ FROM nvidia/cuda:13.0.0-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ENV USE_CUDA=1
+ENV USE_NCCL=1
+ENV USE_DISTRIBUTED=1
+
 # --------------------------------------------------
 # System deps
 # --------------------------------------------------
@@ -255,6 +269,12 @@ WORKDIR /opt/pytorch
 
 # CUDA arch (à ajuster selon GPU réel)
 ENV TORCH_CUDA_ARCH_LIST=&#34;9.0&#34;
+
+# Fix ARM SVE issue
+ENV BUILD_IGNORE_SVE_UNAVAILABLE=1
+
+# Optionnel mais recommandé (évite d&#39;autres warnings CPU)
+ENV USE_NATIVE_ARCH=0
 
 # Install Python deps
 RUN python -m pip install -r requirements.txt
