@@ -353,9 +353,9 @@ CMD [&#34;python&#34;, &#34;-m&#34;, &#34;vllm.entrypoints.openai.api_server&#34
      &#34;--port&#34;, &#34;8000&#34;]
 </code></pre><br/>
 <pre tabindex="0"><code>docker build -t vllm-cuda13 .
-docker run --gpus all -p 8000:8000 \
-  -v ~/hf_models/gemma-4-31B-it:/models/gemma \
-  vllm-cuda13
+  docker run --gpus all -p 8000:8000 \
+    -v ~/hf_models/gemma-4-31B-it:/models/gemma \
+    vllm-cuda13
 </code></pre><br/>
 <p>If you see something like this it means it is all good:</p>
 <pre tabindex="0"><code>(APIServer pid=1) INFO 04-26 20:41:31 [utils.py:299] 
