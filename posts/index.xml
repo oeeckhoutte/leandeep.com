@@ -425,6 +425,147 @@ lms link enable
         </item>
         
         <item>
+            <title>Voice to text using private AI</title>
+            <link>https://leandeep.com/voice-to-text-using-private-ai/</link>
+            <pubDate>Sun, 26 Apr 2026 07:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/voice-to-text-using-private-ai/</guid>
+            <description>&lt;p&gt;In this article we are going to use Whisper model to build a private speech recognition and private speech translation system.
+To do a quick test the easiest option is to use Jupyter lab.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Python version used &lt;code&gt;3.11.8&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;To run the model, first install the Transformers library&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv local 3.11.8
+python --version
+which python
+cd ~/Dev/speech-to-text/
+python -m venv ./whisper-venv
+source ./whisper-venv/bin/activate
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install ipykernel
+python -m ipykernel install --user --name=whisper-projet --display-name &amp;#34;Python (whisper-projet)&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;Create a &lt;code&gt;requirements.txt&lt;/code&gt; file containing&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>In this article we are going to use Whisper model to build a private speech recognition and private speech translation system.
+To do a quick test the easiest option is to use Jupyter lab.</p>
+<br/>
+<h2 id="installation">Installation</h2>
+<blockquote>
+<p>Python version used <code>3.11.8</code></p></blockquote>
+<p>To run the model, first install the Transformers library</p>
+<pre tabindex="0"><code>pyenv local 3.11.8
+python --version
+which python
+cd ~/Dev/speech-to-text/
+python -m venv ./whisper-venv
+source ./whisper-venv/bin/activate
+</code></pre><pre tabindex="0"><code>pip install ipykernel
+python -m ipykernel install --user --name=whisper-projet --display-name &#34;Python (whisper-projet)&#34;
+</code></pre><br/>
+<p>Create a <code>requirements.txt</code> file containing</p>
+<pre tabindex="0"><code># Core PyTorch stack (déjà compatible CUDA 13 chez toi)
+torch==2.11.0
+torchaudio==2.11.0
+torchvision==0.26.0
+
+# Transformers Whisper
+transformers==4.44.2
+accelerate&gt;=0.33.0
+
+# Audio / preprocessing (Whisper dépend fortement de ça)
+datasets[audio]==2.21.0
+soundfile&gt;=0.12.1
+librosa&gt;=0.10.2
+ffmpeg-python&gt;=0.2.0
+pydub==0.25.1
+
+
+# Utilities
+numpy&gt;=1.26.0
+tqdm&gt;=4.66.0
+sentencepiece&gt;=0.2.0
+
+# Optional (utile pour perf / stabilité audio)
+scipy&gt;=1.11.0
+</code></pre><p><code>pip install -r requirements.txt</code></p>
+<br/>
+<h2 id="test">Test</h2>
+<pre tabindex="0"><code>import torch
+from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
+
+
+device = &#34;cuda:0&#34; if torch.cuda.is_available() else &#34;cpu&#34;
+torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+
+model_id = &#34;openai/whisper-large-v3-turbo&#34;
+
+model = AutoModelForSpeechSeq2Seq.from_pretrained(
+    model_id, torch_dtype=torch_dtype, low_cpu_mem_usage=True, use_safetensors=True
+)
+model.to(device)
+
+processor = AutoProcessor.from_pretrained(model_id)
+
+audio = &#34;./recording.mp3&#34;
+
+pipe = pipeline(
+    &#34;automatic-speech-recognition&#34;,
+    model=model,
+    chunk_length_s=30,        # split in 30s segments
+    stride_length_s=5,        # overlap to ovoid cuts
+    return_timestamps=True,
+    tokenizer=processor.tokenizer,
+    feature_extractor=processor.feature_extractor,
+    torch_dtype=torch_dtype,
+    device=&#34;cuda&#34;
+)
+
+result = pipe(audio)
+print(result[&#34;text&#34;])
+</code></pre><br/>
+<p>Output:</p>
+<pre tabindex="0"><code> [...]
+ Thank you. Have a nice day. Bye-bye.
+</code></pre><br/>
+<p>To take it further, you can use a wake word using <code>pip install openwakeword</code></p>
+<p>Basic example:</p>
+<pre tabindex="0"><code>import openwakeword
+from openwakeword.model import Model
+import pyaudio, numpy as np
+
+openwakeword.utils.download_models()  # dl the models
+
+model = Model(wakeword_models=[&#34;hey_bob&#34;])
+
+pa = pyaudio.PyAudio()
+stream = pa.open(rate=16000, channels=1,
+                 format=pyaudio.paInt16, input=True,
+                 frames_per_buffer=1280)
+
+print(&#34;Waiting...&#34;)
+while True:
+    audio = np.frombuffer(stream.read(1280), dtype=np.int16)
+    prediction = model.predict(audio)
+    
+    for key, score in prediction.items():
+        if score &gt; 0.5:
+            print(f&#34;Wake word &#39;{key}&#39; detected ! (score: {score:.2f})&#34;)
+            # → Trigger Whisper now
+</code></pre><br/>
+<h2 id="other">Other</h2>
+<p><strong>Convert m4a file to mp3</strong></p>
+<pre tabindex="0"><code>from pydub import AudioSegment
+
+audio = AudioSegment.from_file(&#34;Locmaria.m4a&#34;, format=&#34;m4a&#34;)
+audio.export(&#34;locmaria.mp3&#34;, format=&#34;mp3&#34;)
+</code></pre><br/>
+<p><strong>Models location</strong></p>
+<p><code>ls -al ~/.cache/huggingface/hub/</code></p>
+]]></content>
+        </item>
+        
+        <item>
             <title>Openclaw on Kali Linux</title>
             <link>https://leandeep.com/openclaw-on-kali-linux/</link>
             <pubDate>Mon, 20 Apr 2026 19:15:00 +0000</pubDate>

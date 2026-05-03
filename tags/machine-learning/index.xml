@@ -24,6 +24,13 @@
       <description>&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://lmstudio.ai/install.sh | bash&#xA;&#xA;curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/bash/run.sh&#xA;# Or with Python&#xA;curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/py/run.py&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;download-model&#34;&gt;Download model&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms get openai/gpt-oss-120b&#xA;lms get qwen/qwen3.6-27b&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms server start --bind 0.0.0.0 --port 1234&#xA;&#xA;hostname -I&#xA;curl http://server_ip:1234/api/v1/models &#xA;&#xA;curl -LsSf https://astral.sh/uv/install.sh | sh&#xA;uv run --script run.py&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;connect-lms-headless-to-lm-link-network&#34;&gt;Connect lms headless to LM Link network&lt;/h2&gt;&#xA;&lt;p&gt;On the server run:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms login&#xA;lms link enable&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     <item>
+      <title>Voice to text using private AI</title>
+      <link>https://leandeep.com/voice-to-text-using-private-ai/</link>
+      <pubDate>Sun, 26 Apr 2026 07:15:00 +0000</pubDate>
+      <guid>https://leandeep.com/voice-to-text-using-private-ai/</guid>
+      <description>&lt;p&gt;In this article we are going to use Whisper model to build a private speech recognition and private speech translation system.&#xA;To do a quick test the easiest option is to use Jupyter lab.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Python version used &lt;code&gt;3.11.8&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;To run the model, first install the Transformers library&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv local 3.11.8&#xA;python --version&#xA;which python&#xA;cd ~/Dev/speech-to-text/&#xA;python -m venv ./whisper-venv&#xA;source ./whisper-venv/bin/activate&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install ipykernel&#xA;python -m ipykernel install --user --name=whisper-projet --display-name &amp;#34;Python (whisper-projet)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Create a &lt;code&gt;requirements.txt&lt;/code&gt; file containing&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Openclaw on Kali Linux</title>
       <link>https://leandeep.com/openclaw-on-kali-linux/</link>
       <pubDate>Mon, 20 Apr 2026 19:15:00 +0000</pubDate>
@@ -71,13 +78,6 @@
       <pubDate>Mon, 09 Jun 2025 22:32:00 +0200</pubDate>
       <guid>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m currently building an IoT device that will automatically start fires in my traditional chimney at scheduled times during cold winter days.&#xA;The idea is to start a fire one hour before I wake up, while I&amp;rsquo;m still asleep, to warm up the house.&#xA;Unlike a smart stove, a traditional fireplace can&amp;rsquo;t be controlled remotely. It’s old-school with a twist of AI, code, and electronics.&#xA;Everything is getting automated! Here are the first two videos showing the progress of my side project.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Architecture applicative d&#39;une application AR Copy Paste</title>
-      <link>https://leandeep.com/architecture-applicative-dune-application-ar-copy-paste/</link>
-      <pubDate>Wed, 29 Sep 2021 06:47:00 +0200</pubDate>
-      <guid>https://leandeep.com/architecture-applicative-dune-application-ar-copy-paste/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Peut-être êtes-vous tombé sur cette vidéo qui a fait le buzz sur Linkedin où l&amp;rsquo;on voyait une app mobile prendre une photo de n&amp;rsquo;importe quel objet, le détourait automatiquement et l&amp;rsquo;envoyait sur Photoshop. &lt;strong&gt;Le concept est appelé &amp;ldquo;AR Copy Paste&amp;rdquo;.&lt;/strong&gt;&#xA;Voici un &lt;a href=&#34;&#34; rel=&#34;noopener&#34; target=&#34;_blank&#34;&gt;article dédié au concept&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;J&amp;rsquo;ai été très impressionné par la démo et me suis demandé comment c&amp;rsquo;était fait. J&amp;rsquo;ai donc codé un MVP qui refait exactement la même chose (au delta près du plugin Photoshop qui n&amp;rsquo;est qu&amp;rsquo;un wrapper autour de mon app web qui affichait déjà mon image détourée).&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

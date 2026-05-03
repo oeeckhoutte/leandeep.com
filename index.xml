@@ -24,6 +24,13 @@
       <description>&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://lmstudio.ai/install.sh | bash&#xA;&#xA;curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/bash/run.sh&#xA;# Or with Python&#xA;curl -L -O https://raw.githubusercontent.com/lmstudio-ai/docs/main/_assets/nvidia-spark-playbook/py/run.py&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;download-model&#34;&gt;Download model&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms get openai/gpt-oss-120b&#xA;lms get qwen/qwen3.6-27b&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms server start --bind 0.0.0.0 --port 1234&#xA;&#xA;hostname -I&#xA;curl http://server_ip:1234/api/v1/models &#xA;&#xA;curl -LsSf https://astral.sh/uv/install.sh | sh&#xA;uv run --script run.py&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;connect-lms-headless-to-lm-link-network&#34;&gt;Connect lms headless to LM Link network&lt;/h2&gt;&#xA;&lt;p&gt;On the server run:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;lms login&#xA;lms link enable&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     <item>
+      <title>Voice to text using private AI</title>
+      <link>https://leandeep.com/voice-to-text-using-private-ai/</link>
+      <pubDate>Sun, 26 Apr 2026 07:15:00 +0000</pubDate>
+      <guid>https://leandeep.com/voice-to-text-using-private-ai/</guid>
+      <description>&lt;p&gt;In this article we are going to use Whisper model to build a private speech recognition and private speech translation system.&#xA;To do a quick test the easiest option is to use Jupyter lab.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Python version used &lt;code&gt;3.11.8&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;To run the model, first install the Transformers library&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pyenv local 3.11.8&#xA;python --version&#xA;which python&#xA;cd ~/Dev/speech-to-text/&#xA;python -m venv ./whisper-venv&#xA;source ./whisper-venv/bin/activate&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install ipykernel&#xA;python -m ipykernel install --user --name=whisper-projet --display-name &amp;#34;Python (whisper-projet)&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Create a &lt;code&gt;requirements.txt&lt;/code&gt; file containing&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Openclaw on Kali Linux</title>
       <link>https://leandeep.com/openclaw-on-kali-linux/</link>
       <pubDate>Mon, 20 Apr 2026 19:15:00 +0000</pubDate>
@@ -71,13 +78,6 @@
       <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
       <guid>https://leandeep.com/analyse-du-projet-nautilus-trader/</guid>
       <description>&lt;p&gt;Dans cet article, nous allons voir ce qu&amp;rsquo;est Nautilus Trader et comment l&amp;rsquo;utiliser.&#xA;Je me suis penché sur cet outil car je m&amp;rsquo;étais fixé l&amp;rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&amp;rsquo;apercevoir qu&amp;rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.&#xA;Plutôt que de réinventer la roue, l&amp;rsquo;idée est de voir si je peux m&amp;rsquo;approprier cet outil bot pour en faire un bot d&amp;rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&amp;rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Video streaming app for VR headset using rust and webxr</title>
-      <link>https://leandeep.com/video-streaming-app-for-vr-headset-using-rust-and-webxr/</link>
-      <pubDate>Sun, 15 Feb 2026 21:19:00 +0000</pubDate>
-      <guid>https://leandeep.com/video-streaming-app-for-vr-headset-using-rust-and-webxr/</guid>
-      <description>&lt;p&gt;I have a lot of 360° videos recorded with a 360 camera, and I wanted to be able to stream them from my laptop. I’ve been wanting to experiment with VR app development for a long time, so I built an app using Rust as the backend server and WebXR for the UI.&lt;/p&gt;&#xA;&lt;p&gt;The learning curve between WebXR and Unity is much lower for a former frontend developer. I developed PWA apps for about 10 years, from 2009 to 2019, so it was pretty easy for me to pick it up. Having recently built the UI of a social network in React, transitioning to WebXR was seamless. Compared to Unity, the difference is night and day. I gave Unity a shot with no prior experience, and honestly, getting started was tough. Moreover I&amp;rsquo;m not a big fan of C#.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
