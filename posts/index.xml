@@ -6,8 +6,77 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 26 Apr 2026 12:15:00 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 05 May 2026 07:15:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Claude code with Private AI</title>
+            <link>https://leandeep.com/claude-code-with-private-ai/</link>
+            <pubDate>Tue, 05 May 2026 07:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/claude-code-with-private-ai/</guid>
+            <description>&lt;p&gt;In this article we are going to see how to use Claude code with our own private models Gemma4, Qwen3, GPT OSS 120 or uncensored ones.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;LM Studio installed wherever you want&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Install Claude Code&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://claude.ai/install.sh | bash
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Configuration&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a new file under &lt;code&gt;~/.claude/lmstudio.private-ai-server.json&lt;/code&gt; and add the following content:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+  &amp;#34;env&amp;#34;: {
+    &amp;#34;ANTHROPIC_BASE_URL&amp;#34;: &amp;#34;http://127.0.0.1:1234/&amp;#34;,
+    &amp;#34;ANTHROPIC_AUTH_TOKEN&amp;#34;: &amp;#34;dummy&amp;#34;,
+    &amp;#34;API_TIMEOUT _MS&amp;#34;: &amp;#34;3000000&amp;#34;,
+    &amp;#34;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&amp;#34;: 1,
+    &amp;#34;ANTHROPIC_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,
+    &amp;#34;ANTHROPIC_SMALL_FAST_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,
+    &amp;#34;ANTHROPIC_DEFAULT_SONNET_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,
+    &amp;#34;ANTHROPIC_DEFAULT_OPUS_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,
+    &amp;#34;ANTHROPIC_DEFAULT_HAIKU_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
+&lt;p&gt;Load a huge thinking Open Source model in LM Studio and set the context to the maximum limit. Then run the following command in your app repository &lt;code&gt;claude --settings ~/.claude/lmstudio.private-ai-server.json&lt;/code&gt;. And finally select &lt;code&gt;default_model&lt;/code&gt; using /model command after claude has started.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>In this article we are going to see how to use Claude code with our own private models Gemma4, Qwen3, GPT OSS 120 or uncensored ones.</p>
+<br/>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>LM Studio installed wherever you want</li>
+</ul>
+<br/>
+<h2 id="installation">Installation</h2>
+<p><strong>Install Claude Code</strong></p>
+<pre tabindex="0"><code>curl -fsSL https://claude.ai/install.sh | bash
+</code></pre><br/>
+<p><strong>Configuration</strong></p>
+<p>Create a new file under <code>~/.claude/lmstudio.private-ai-server.json</code> and add the following content:</p>
+<pre tabindex="0"><code>{
+  &#34;env&#34;: {
+    &#34;ANTHROPIC_BASE_URL&#34;: &#34;http://127.0.0.1:1234/&#34;,
+    &#34;ANTHROPIC_AUTH_TOKEN&#34;: &#34;dummy&#34;,
+    &#34;API_TIMEOUT _MS&#34;: &#34;3000000&#34;,
+    &#34;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&#34;: 1,
+    &#34;ANTHROPIC_MODEL&#34;: &#34;default_model&#34;,
+    &#34;ANTHROPIC_SMALL_FAST_MODEL&#34;: &#34;default_model&#34;,
+    &#34;ANTHROPIC_DEFAULT_SONNET_MODEL&#34;: &#34;default_model&#34;,
+    &#34;ANTHROPIC_DEFAULT_OPUS_MODEL&#34;: &#34;default_model&#34;,
+    &#34;ANTHROPIC_DEFAULT_HAIKU_MODEL&#34;: &#34;default_model&#34;
+  }
+}
+</code></pre><br/>
+<h2 id="test">Test</h2>
+<p>Load a huge thinking Open Source model in LM Studio and set the context to the maximum limit. Then run the following command in your app repository <code>claude --settings ~/.claude/lmstudio.private-ai-server.json</code>. And finally select <code>default_model</code> using /model command after claude has started.</p>
+<br/>
+<p>Voila you can now burn millions of tokens without spending a dime. Of course it&rsquo;s not as fast as using Anthropic directly and not as good as using Opus 4.7 but for some non complex stuffs it&rsquo;s enough. Also with a good multi-agent setup you could let it work autonomously while you sleep. This idea makes me dream personally. More to come.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Private AI with Gemma 4</title>

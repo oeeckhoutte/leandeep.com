@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 26 Apr 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 07:15:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Claude code with Private AI</title>
+      <link>https://leandeep.com/claude-code-with-private-ai/</link>
+      <pubDate>Tue, 05 May 2026 07:15:00 +0000</pubDate>
+      <guid>https://leandeep.com/claude-code-with-private-ai/</guid>
+      <description>&lt;p&gt;In this article we are going to see how to use Claude code with our own private models Gemma4, Qwen3, GPT OSS 120 or uncensored ones.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;LM Studio installed wherever you want&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Install Claude Code&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://claude.ai/install.sh | bash&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configuration&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Create a new file under &lt;code&gt;~/.claude/lmstudio.private-ai-server.json&lt;/code&gt; and add the following content:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{&#xA;  &amp;#34;env&amp;#34;: {&#xA;    &amp;#34;ANTHROPIC_BASE_URL&amp;#34;: &amp;#34;http://127.0.0.1:1234/&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_AUTH_TOKEN&amp;#34;: &amp;#34;dummy&amp;#34;,&#xA;    &amp;#34;API_TIMEOUT _MS&amp;#34;: &amp;#34;3000000&amp;#34;,&#xA;    &amp;#34;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&amp;#34;: 1,&#xA;    &amp;#34;ANTHROPIC_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_SMALL_FAST_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_DEFAULT_SONNET_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_DEFAULT_OPUS_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_DEFAULT_HAIKU_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;&#xA;  }&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;&#xA;&lt;p&gt;Load a huge thinking Open Source model in LM Studio and set the context to the maximum limit. Then run the following command in your app repository &lt;code&gt;claude --settings ~/.claude/lmstudio.private-ai-server.json&lt;/code&gt;. And finally select &lt;code&gt;default_model&lt;/code&gt; using /model command after claude has started.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Private AI with Gemma 4</title>
       <link>https://leandeep.com/private-ai-with-gemma-4/</link>
@@ -71,13 +78,6 @@
       <pubDate>Mon, 23 Feb 2026 21:19:00 +0000</pubDate>
       <guid>https://leandeep.com/premiers-pas-avec-nautilus-trader/</guid>
       <description>&lt;p&gt;Dans cet article, je parcours quelques adapters de Nautilus trader écrits en Rust pour récupérer les données en temps réel sur différents exchanges. Mon objectif est de réécrire des bots de trading en Rust et de voir si Nautilus trader pourrait m&amp;rsquo;aider à avancer plus vite que si je démarrais from scratch.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;accès-aux-données-dexchanges&#34;&gt;Accès aux données d&amp;rsquo;exchanges&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Binance&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Pour utilise l&amp;rsquo;adapter Binance, il faut générer une API key &lt;code&gt;Ed25519&lt;/code&gt;. On fournit à Binance un API secret et Binance fournit un API key.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Analyse du projet nautilus trader</title>
-      <link>https://leandeep.com/analyse-du-projet-nautilus-trader/</link>
-      <pubDate>Wed, 18 Feb 2026 21:19:00 +0000</pubDate>
-      <guid>https://leandeep.com/analyse-du-projet-nautilus-trader/</guid>
-      <description>&lt;p&gt;Dans cet article, nous allons voir ce qu&amp;rsquo;est Nautilus Trader et comment l&amp;rsquo;utiliser.&#xA;Je me suis penché sur cet outil car je m&amp;rsquo;étais fixé l&amp;rsquo;objectif de ré-écrire un bot de trading en Rust avant de m&amp;rsquo;apercevoir qu&amp;rsquo;il y avait déjà cette plateforme open source qui existait et qui contient déjà plus de 17 000 commits.&#xA;Plutôt que de réinventer la roue, l&amp;rsquo;idée est de voir si je peux m&amp;rsquo;approprier cet outil bot pour en faire un bot d&amp;rsquo;arbitage. Cela me permet aussi de me plonger dans un large projet Rust avec bindings pour Python. Et du coup s&amp;rsquo;il manque des features, ce sera avec grand plaisir que je pourrai les coder.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

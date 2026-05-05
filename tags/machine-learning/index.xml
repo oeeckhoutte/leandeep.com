@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 26 Apr 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 07:15:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Claude code with Private AI</title>
+      <link>https://leandeep.com/claude-code-with-private-ai/</link>
+      <pubDate>Tue, 05 May 2026 07:15:00 +0000</pubDate>
+      <guid>https://leandeep.com/claude-code-with-private-ai/</guid>
+      <description>&lt;p&gt;In this article we are going to see how to use Claude code with our own private models Gemma4, Qwen3, GPT OSS 120 or uncensored ones.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;LM Studio installed wherever you want&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Install Claude Code&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://claude.ai/install.sh | bash&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Configuration&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Create a new file under &lt;code&gt;~/.claude/lmstudio.private-ai-server.json&lt;/code&gt; and add the following content:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{&#xA;  &amp;#34;env&amp;#34;: {&#xA;    &amp;#34;ANTHROPIC_BASE_URL&amp;#34;: &amp;#34;http://127.0.0.1:1234/&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_AUTH_TOKEN&amp;#34;: &amp;#34;dummy&amp;#34;,&#xA;    &amp;#34;API_TIMEOUT _MS&amp;#34;: &amp;#34;3000000&amp;#34;,&#xA;    &amp;#34;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&amp;#34;: 1,&#xA;    &amp;#34;ANTHROPIC_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_SMALL_FAST_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_DEFAULT_SONNET_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_DEFAULT_OPUS_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;,&#xA;    &amp;#34;ANTHROPIC_DEFAULT_HAIKU_MODEL&amp;#34;: &amp;#34;default_model&amp;#34;&#xA;  }&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;&#xA;&lt;p&gt;Load a huge thinking Open Source model in LM Studio and set the context to the maximum limit. Then run the following command in your app repository &lt;code&gt;claude --settings ~/.claude/lmstudio.private-ai-server.json&lt;/code&gt;. And finally select &lt;code&gt;default_model&lt;/code&gt; using /model command after claude has started.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Private AI with Gemma 4</title>
       <link>https://leandeep.com/private-ai-with-gemma-4/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sat, 19 Jul 2025 10:59:00 +0200</pubDate>
       <guid>https://leandeep.com/installer-jupyter-lab-sur-ubuntu-22/</guid>
       <description>&lt;p&gt;Dans cet article très court, nous allons voir comment installer Jupyter lab sur Ubuntu 22.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;Attention cette installation n&#39;est pas sécurisée. C&#39;est de l&#39;ultra temporaire à ne surtout pas utiliser en entreprise et encore moins avec des données de prod.&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;miniconda3-3.11-23.5.0-3&lt;/li&gt;&#xA;&lt;li&gt;nvidia-smi pour vérifier que vous avez accès à un GPU&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pip install notebook jupyterlab jupyter&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;Et voilà, rendez-vous sur &lt;code&gt;http://VOTRE_SERVER:8888/lab?token=MOT_DE_PASSE&lt;/code&gt; pour accéder à Jupyter lab.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Using AI and IoT to Safely Automate Fireplace Fire Starting</title>
-      <link>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</link>
-      <pubDate>Mon, 09 Jun 2025 22:32:00 +0200</pubDate>
-      <guid>https://leandeep.com/using-ai-and-iot-to-safely-automate-fireplace-fire-starting/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m currently building an IoT device that will automatically start fires in my traditional chimney at scheduled times during cold winter days.&#xA;The idea is to start a fire one hour before I wake up, while I&amp;rsquo;m still asleep, to warm up the house.&#xA;Unlike a smart stove, a traditional fireplace can&amp;rsquo;t be controlled remotely. It’s old-school with a twist of AI, code, and electronics.&#xA;Everything is getting automated! Here are the first two videos showing the progress of my side project.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
