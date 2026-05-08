@@ -7,10 +7,12 @@
 <meta name="author"
   content="Olivier Eeckhoutte">
 <meta name="description"
-  content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s&rsquo;agit d&rsquo;un jar mais cela s&rsquo;applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (&ndash;&gt; Settings &ndash;&gt; Developer settings &ndash;&gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.0.1.jar export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar curl -X PUT \ &#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \ -H &#34;Authorization: token YOUR_TOKEN&#34; \ --upload-file $LOCAL_JAR_PACKAGE_PATH -vvv " />
+  content="Introduction Dans cet article, nous allons voir comment créer une VM dans google cloud avec gcloud en cli.
+Setup Accès à Cloud Shell
+Ouvrir google cloud console et cliquer sur cloud shell et exécuter les commandes suivantes:
+# Verify your active account gcloud auth list # You can list your project ID gcloud config list project Renseigner un région et zone
+Voici les régions et zones disponibles pour les instances E2 (comme e2-medium) :
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="#252627" />
@@ -26,7 +28,7 @@ export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package expo
 </script>
 
 
-<link rel="canonical" href="https://leandeep.com/deployer-un-package-sur-github-via-curl/" />
+<link rel="canonical" href="https://leandeep.com/cr%C3%A9er-une-vm-sur-google-cloud-platform-en-cli/" />
 
 
 
@@ -76,7 +78,7 @@ export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package expo
 
 <title>
   
-  Deployer un package sur github via curl :: Lean Deep Tech blog 
+  Créer une VM sur Google Cloud Platform en cli :: Lean Deep Tech blog 
   
 </title>
 
@@ -102,29 +104,31 @@ export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package expo
     <meta name="theme-color" content="#252627">
 
 
-  <meta itemprop="name" content="Deployer un package sur github via curl">
-  <meta itemprop="description" content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s’agit d’un jar mais cela s’applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (–&gt; Settings –&gt; Developer settings –&gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.0.1.jar export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar curl -X PUT \ &#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \ -H &#34;Authorization: token YOUR_TOKEN&#34; \ --upload-file $LOCAL_JAR_PACKAGE_PATH -vvv">
-  <meta itemprop="datePublished" content="2020-04-20T19:49:00+02:00">
-  <meta itemprop="dateModified" content="2020-04-20T19:49:00+02:00">
-  <meta itemprop="wordCount" content="87">
+  <meta itemprop="name" content="Créer une VM sur Google Cloud Platform en cli">
+  <meta itemprop="description" content="Introduction Dans cet article, nous allons voir comment créer une VM dans google cloud avec gcloud en cli.
+Setup Accès à Cloud Shell
+Ouvrir google cloud console et cliquer sur cloud shell et exécuter les commandes suivantes:
+# Verify your active account gcloud auth list # You can list your project ID gcloud config list project Renseigner un région et zone
+Voici les régions et zones disponibles pour les instances E2 (comme e2-medium) :">
+  <meta itemprop="datePublished" content="2020-06-03T09:15:00+00:00">
+  <meta itemprop="dateModified" content="2020-06-03T09:15:00+00:00">
+  <meta itemprop="wordCount" content="129">
   <meta itemprop="image" content="https://leandeep.com/">
-  <meta itemprop="keywords" content="Github,Tips">
+  <meta itemprop="keywords" content="DevOps,GCP">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://leandeep.com/">
-  <meta name="twitter:title" content="Deployer un package sur github via curl">
-  <meta name="twitter:description" content="Introduction Cet bref article montre comment déployer un package sur Github via une simple commande curl.
-Dans notre cas, il s’agit d’un jar mais cela s’applique à tous les types de packages supportés par Github:
-Docker Maven Nuget Ruby gem npm Commande En pré-requis, il sera nécessaire de générer un Github personal access tocken (–&gt; Settings –&gt; Developer settings –&gt; Personal access tokens)
-export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package export PACKAGE_VERSION=0.0.1 export JAR_FILENAME=mon-package-0.0.1.jar export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar curl -X PUT \ &#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \ -H &#34;Authorization: token YOUR_TOKEN&#34; \ --upload-file $LOCAL_JAR_PACKAGE_PATH -vvv">
+  <meta name="twitter:title" content="Créer une VM sur Google Cloud Platform en cli">
+  <meta name="twitter:description" content="Introduction Dans cet article, nous allons voir comment créer une VM dans google cloud avec gcloud en cli.
+Setup Accès à Cloud Shell
+Ouvrir google cloud console et cliquer sur cloud shell et exécuter les commandes suivantes:
+# Verify your active account gcloud auth list # You can list your project ID gcloud config list project Renseigner un région et zone
+Voici les régions et zones disponibles pour les instances E2 (comme e2-medium) :">
 
 
 
 
 
-<meta property="article:published_time" content="2020-04-20 19:49:00 &#43;0200 CEST" />
+<meta property="article:published_time" content="2020-06-03 09:15:00 &#43;0000 UTC" />
 
 
 
@@ -188,37 +192,67 @@ export MON_REPO_GIT=oeeckhoutte/mon-package export PACKAGE_NAME=mon-package expo
 
         <article>
             <h1 class="post-title">
-                <a href="https://leandeep.com/deployer-un-package-sur-github-via-curl/">Deployer un package sur github via curl</a>
+                <a href="https://leandeep.com/cr%C3%A9er-une-vm-sur-google-cloud-platform-en-cli/">Créer une VM sur Google Cloud Platform en cli</a>
             </h1>
 
             
 
             <div class="post-content">
                 <h2 id="introduction">Introduction</h2>
-<p>Cet bref article montre comment déployer un package sur Github via une simple commande <code>curl</code>.</p>
+<p>Dans cet article, nous allons voir comment créer une VM dans google cloud avec gcloud en cli.</p>
 <br/>
-<p>Dans notre cas, il s&rsquo;agit d&rsquo;un jar mais cela s&rsquo;applique à tous les types de packages supportés par Github:</p>
-<ul>
-<li>Docker</li>
-<li>Maven</li>
-<li>Nuget</li>
-<li>Ruby gem</li>
-<li>npm</li>
-</ul>
-<br/>
-<h2 id="commande">Commande</h2>
-<p>En pré-requis, il sera nécessaire de générer un Github personal access tocken (&ndash;&gt; Settings &ndash;&gt; Developer settings &ndash;&gt; Personal access tokens)</p>
-<pre tabindex="0"><code>export MON_REPO_GIT=oeeckhoutte/mon-package
-export PACKAGE_NAME=mon-package
-export PACKAGE_VERSION=0.0.1
-export JAR_FILENAME=mon-package-0.0.1.jar
-export LOCAL_JAR_PACKAGE_PATH=/tmp/mon-package-0.0.1.jar
+<h2 id="setup">Setup</h2>
+<p><strong>Accès à Cloud Shell</strong></p>
+<p>Ouvrir <code>google cloud console</code> et cliquer sur <code>cloud shell</code> et exécuter les commandes suivantes:</p>
+<pre tabindex="0"><code># Verify your active account
+gcloud auth list
 
-curl -X PUT \
-&#34;https://maven.pkg.github.com/$MON_REPO_GIT/$PACKAGE_NAME/$PACKAGE_VERSION/$JAR_FILENAME&#34; \
--H &#34;Authorization: token YOUR_TOKEN&#34; \
---upload-file $LOCAL_JAR_PACKAGE_PATH -vvv
-</code></pre>
+# You can list your project ID
+gcloud config list project
+</code></pre><br/>
+<p><strong>Renseigner un région et zone</strong></p>
+<p>Voici les régions et zones disponibles pour les instances E2 (comme <code>e2-medium</code>) :</p>
+<table>
+  <thead>
+      <tr>
+          <th>Région</th>
+          <th>Zones disponibles</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Western US</strong></td>
+          <td><code>us-west1-a</code>, <code>us-west1-b</code></td>
+      </tr>
+      <tr>
+          <td><strong>Central US</strong></td>
+          <td><code>us-central1-a</code>, <code>us-central1-b</code>, <code>us-central1-d</code>, <code>us-central1-f</code></td>
+      </tr>
+      <tr>
+          <td><strong>Eastern US</strong></td>
+          <td><code>us-east1-b</code>, <code>us-east1-c</code>, <code>us-east1-d</code></td>
+      </tr>
+      <tr>
+          <td><strong>Western Europe</strong></td>
+          <td><code>europe-west1-b</code>, <code>europe-west1-c</code>, <code>europe-west1-d</code></td>
+      </tr>
+      <tr>
+          <td><strong>Eastern Asia</strong></td>
+          <td><code>asia-east1-a</code>, <code>asia-east1-b</code>, <code>asia-east1-c</code></td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<pre tabindex="0"><code>gcloud config set compute/region europe-west1
+export REGION=europe-west1
+export ZONE=europe-west1-b
+</code></pre><br/>
+<p><strong>Création de la VM</strong></p>
+<pre tabindex="0"><code>gcloud compute instances create my_vm_test --machine-type e2-medium --zone=$ZONE
+gcloud compute ssh my_vm_test --zone=europe-west1-b
+</code></pre><br/>
+<p>Voilà.</p>
+
             </div>
         </article>
 
@@ -226,12 +260,12 @@ curl -X PUT \
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/github">Github</a></span><span class="tag"><a href="https://leandeep.com/tags/tips">tips</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/devops">DevOps</a></span><span class="tag"><a href="https://leandeep.com/tags/gcp">GCP</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>87 Mots</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>129 Mots</p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>20 avr.. 2020</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>03 juin. 2020</p>
         </div>
 
         
@@ -244,17 +278,17 @@ curl -X PUT \
                 <div class="pagination__buttons">
                     
                         <span class="button previous">
-                            <a href="https://leandeep.com/cr%C3%A9er-une-vm-sur-google-cloud-platform-en-cli/">
+                            <a href="https://leandeep.com/mocker-en-1-minute-les-appels-vers-des-services-externes/">
                                 <span class="button__icon">←</span>
-                                <span class="button__text">Créer une VM sur Google Cloud Platform en cli</span>
+                                <span class="button__text">Mocker en 1 minute les appels vers des services externes</span>
                             </a>
                         </span>
                     
 
                     
                         <span class="button next">
-                            <a href="https://leandeep.com/manipuler-les-fr%C3%A9quences-radio/">
-                                <span class="button__text">Manipuler les fréquences radio</span>
+                            <a href="https://leandeep.com/deployer-un-package-sur-github-via-curl/">
+                                <span class="button__text">Deployer un package sur github via curl</span>
                                 <span class="button__icon">→</span>
                             </a>
                         </span>

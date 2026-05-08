@@ -6,7 +6,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 05 May 2026 07:15:00 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 07 May 2026 07:15:00 +0000</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
@@ -24397,6 +24397,83 @@ requests_cache.install_cache(&#34;non_fichier_bdd_sqlite&#34;)
 </code></pre><p>Comme vous le voyez c&rsquo;est excessivement simple.</p>
 <p><br/>
 Notez que ce système peut permettre de travailler efficacement en mode déconnecté ou de travailler sur des systèmes sécurisés non exposés sur internet.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Créer une VM sur Google Cloud Platform en cli</title>
+            <link>https://leandeep.com/cr%C3%A9er-une-vm-sur-google-cloud-platform-en-cli/</link>
+            <pubDate>Wed, 03 Jun 2020 09:15:00 +0000</pubDate>
+            
+            <guid>https://leandeep.com/cr%C3%A9er-une-vm-sur-google-cloud-platform-en-cli/</guid>
+            <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Dans cet article, nous allons voir comment créer une VM dans google cloud avec gcloud en cli.&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Accès à Cloud Shell&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ouvrir &lt;code&gt;google cloud console&lt;/code&gt; et cliquer sur &lt;code&gt;cloud shell&lt;/code&gt; et exécuter les commandes suivantes:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Verify your active account
+gcloud auth list
+
+# You can list your project ID
+gcloud config list project
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Renseigner un région et zone&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Voici les régions et zones disponibles pour les instances E2 (comme &lt;code&gt;e2-medium&lt;/code&gt;) :&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Dans cet article, nous allons voir comment créer une VM dans google cloud avec gcloud en cli.</p>
+<br/>
+<h2 id="setup">Setup</h2>
+<p><strong>Accès à Cloud Shell</strong></p>
+<p>Ouvrir <code>google cloud console</code> et cliquer sur <code>cloud shell</code> et exécuter les commandes suivantes:</p>
+<pre tabindex="0"><code># Verify your active account
+gcloud auth list
+
+# You can list your project ID
+gcloud config list project
+</code></pre><br/>
+<p><strong>Renseigner un région et zone</strong></p>
+<p>Voici les régions et zones disponibles pour les instances E2 (comme <code>e2-medium</code>) :</p>
+<table>
+  <thead>
+      <tr>
+          <th>Région</th>
+          <th>Zones disponibles</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Western US</strong></td>
+          <td><code>us-west1-a</code>, <code>us-west1-b</code></td>
+      </tr>
+      <tr>
+          <td><strong>Central US</strong></td>
+          <td><code>us-central1-a</code>, <code>us-central1-b</code>, <code>us-central1-d</code>, <code>us-central1-f</code></td>
+      </tr>
+      <tr>
+          <td><strong>Eastern US</strong></td>
+          <td><code>us-east1-b</code>, <code>us-east1-c</code>, <code>us-east1-d</code></td>
+      </tr>
+      <tr>
+          <td><strong>Western Europe</strong></td>
+          <td><code>europe-west1-b</code>, <code>europe-west1-c</code>, <code>europe-west1-d</code></td>
+      </tr>
+      <tr>
+          <td><strong>Eastern Asia</strong></td>
+          <td><code>asia-east1-a</code>, <code>asia-east1-b</code>, <code>asia-east1-c</code></td>
+      </tr>
+  </tbody>
+</table>
+<br/>
+<pre tabindex="0"><code>gcloud config set compute/region europe-west1
+export REGION=europe-west1
+export ZONE=europe-west1-b
+</code></pre><br/>
+<p><strong>Création de la VM</strong></p>
+<pre tabindex="0"><code>gcloud compute instances create my_vm_test --machine-type e2-medium --zone=$ZONE
+gcloud compute ssh my_vm_test --zone=europe-west1-b
+</code></pre><br/>
+<p>Voilà.</p>
 ]]></content>
         </item>
         
