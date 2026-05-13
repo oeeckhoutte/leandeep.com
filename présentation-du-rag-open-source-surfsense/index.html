@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="flowchart TD A[SurfSense : Assistant IA gratuit et open source] --&gt; B[1. SurfSense vs Google NotebookLM] A --&gt; C[2. Fonctionnalités clés et mises à jour de SurfSense] A --&gt; D[3. Accès et installation de SurfSense] B --&gt; B1[Contrôle et confidentialité] B --&gt; B2[Flexibilité des modèles] C --&gt; C1[Intégration des sources de connaissance] C --&gt; C2[Système d&#39;agents dynamiques] D --&gt; D1[Options d&#39;installation] D --&gt; D2[Prérequis essentiels] SurfSense vs Google NotebookLM Le besoin d&rsquo;une alternative open source Bien que Google NotebookLM soit populaire pour l&rsquo;interaction avec les documents, l&rsquo;outil open source SurfSense offre un plus grand contrôle, une personnalisation accrue et une confidentialité des données supérieure.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/pr%C3%A9sentation-du-rag-open-source-surfsense/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Présentation du RAG open source SurfSense :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.e39a6c3bc44a6959dad5260db3c8d5659e378a90722580530dbf85b2eebd0587.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Présentation du RAG open source SurfSense">
+  <meta itemprop="description" content="flowchart TD A[SurfSense : Assistant IA gratuit et open source] --&gt; B[1. SurfSense vs Google NotebookLM] A --&gt; C[2. Fonctionnalités clés et mises à jour de SurfSense] A --&gt; D[3. Accès et installation de SurfSense] B --&gt; B1[Contrôle et confidentialité] B --&gt; B2[Flexibilité des modèles] C --&gt; C1[Intégration des sources de connaissance] C --&gt; C2[Système d&#39;agents dynamiques] D --&gt; D1[Options d&#39;installation] D --&gt; D2[Prérequis essentiels] SurfSense vs Google NotebookLM Le besoin d’une alternative open source Bien que Google NotebookLM soit populaire pour l’interaction avec les documents, l’outil open source SurfSense offre un plus grand contrôle, une personnalisation accrue et une confidentialité des données supérieure.">
+  <meta itemprop="datePublished" content="2026-05-07T19:15:00+00:00">
+  <meta itemprop="dateModified" content="2026-05-07T19:15:00+00:00">
+  <meta itemprop="wordCount" content="506">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Machine Learning,AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Présentation du RAG open source SurfSense">
+  <meta name="twitter:description" content="flowchart TD A[SurfSense : Assistant IA gratuit et open source] --&gt; B[1. SurfSense vs Google NotebookLM] A --&gt; C[2. Fonctionnalités clés et mises à jour de SurfSense] A --&gt; D[3. Accès et installation de SurfSense] B --&gt; B1[Contrôle et confidentialité] B --&gt; B2[Flexibilité des modèles] C --&gt; C1[Intégration des sources de connaissance] C --&gt; C2[Système d&#39;agents dynamiques] D --&gt; D1[Options d&#39;installation] D --&gt; D2[Prérequis essentiels] SurfSense vs Google NotebookLM Le besoin d’une alternative open source Bien que Google NotebookLM soit populaire pour l’interaction avec les documents, l’outil open source SurfSense offre un plus grand contrôle, une personnalisation accrue et une confidentialité des données supérieure.">
+
+
+
+
+
+<meta property="article:published_time" content="2026-05-07 19:15:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/pr%C3%A9sentation-du-rag-open-source-surfsense/">Présentation du RAG open source SurfSense</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <div class="mermaid">flowchart TD
+  A[SurfSense : Assistant IA gratuit et open source] --> B[1. SurfSense vs Google NotebookLM]
+  A --> C[2. Fonctionnalités clés et mises à jour de SurfSense]
+  A --> D[3. Accès et installation de SurfSense]
+  B --> B1[Contrôle et confidentialité]
+  B --> B2[Flexibilité des modèles]
+  C --> C1[Intégration des sources de connaissance]
+  C --> C2[Système d'agents dynamiques]
+  D --> D1[Options d'installation]
+  D --> D2[Prérequis essentiels]</div>
+<h2 id="surfsense-vs-google-notebooklm">SurfSense vs Google NotebookLM</h2>
+<h3 id="le-besoin-dune-alternative-open-source">Le besoin d&rsquo;une alternative open source</h3>
+<p>Bien que Google NotebookLM soit populaire pour l&rsquo;interaction avec les documents, l&rsquo;outil open source <strong>SurfSense</strong> offre un plus grand contrôle, une personnalisation accrue et une confidentialité des données supérieure.</p>
+<p><strong>Limites de Google NotebookLM</strong></p>
+<ul>
+<li>NotebookLM est populaire pour chatter avec des documents, créer des podcasts et accélérer la recherche.</li>
+<li>Problème majeur: pas de personnalisation, car l&rsquo;utilisateur ne possède pas l&rsquo;outil.</li>
+<li>Lié exclusivement à l&rsquo;IA de Google, sans possibilité de changer de modèles ou d&rsquo;exécuter localement.</li>
+<li>Toutes les données passent par les serveurs Google.</li>
+</ul>
+<p><strong>Présentation de SurfSense</strong></p>
+<ul>
+<li>C&rsquo;est un assistant de recherche IA gratuit et open source pour chatter avec ses propres connaissances.</li>
+<li>Surpasse NotebookLM dans sa fonction principale et se connecte à tout ce que l&rsquo;utilisateur utilise déjà.</li>
+<li>Avantage clé: l&rsquo;utilisateur possède toutes ses données et peut l&rsquo;exécuter sur son ordinateur.</li>
+<li>Connexion à n&rsquo;importe quel modèle IA: OpenAI, Claude, ou locaux via Ollama.</li>
+</ul>
+<br/>
+<h3 id="avantages-principaux-de-surfsense-sur-notebooklm">Avantages principaux de SurfSense sur NotebookLM</h3>
+<p>SurfSense offre une confidentialité supérieure, un contrôle des coûts, une flexibilité des modèles et des intégrations par rapport à l&rsquo;écosystème fermé de Google NotebookLM.</p>
+<p><strong>Open source vs fermé</strong></p>
+<ul>
+<li>Code public: inspection, amélioration, ajout de fonctionnalités</li>
+<li>NotebookLM est une &ldquo;boîte noire&rdquo;</li>
+</ul>
+<p><strong>Accès personnalisable aux modèles IA</strong></p>
+<ul>
+<li>+100 modèles IA: GPT-4, Claude, locaux via Ollama</li>
+<li>Choix du bon outil pour chaque tâche (code, recherche, créativité)</li>
+</ul>
+<p><strong>Intégrations et confidentialité supérieures</strong></p>
+<ul>
+<li>Connexions à Slack, GitHub, Notion, YouTube</li>
+<li>Centralise les connaissances dispersées</li>
+<li>Self-hosted: documents internes ne quittent jamais le serveur</li>
+</ul>
+<br/>
+<h3 id="fonctionnalités-clés-et-mises-à-jour">Fonctionnalités clés et mises à jour</h3>
+<p><strong>Intégration complète des connaissances et recherche</strong></p>
+<p>SurfSense se connecte à de nombreuses sources et utilise une recherche hybride puissante pour trouver et citer rapidement les informations.</p>
+<p><strong>Connexion à toutes les sources</strong></p>
+<ul>
+<li>Slack, Notion, GitHub, Discord, Gmail, Google Drive, YouTube, Jira, etc.</li>
+<li>Questions en langage naturel, réponses de toutes les sources simultanément</li>
+</ul>
+<p><strong>Recherche hybride</strong></p>
+<ul>
+<li>Combinaison similarité sémantique + full text search</li>
+<li>Citations systématiques des sources</li>
+</ul>
+<br/>
+<h3 id="système-dagents-dynamiques-et-croissance-communautaire">Système d&rsquo;agents dynamiques et croissance communautaire</h3>
+<p>L&rsquo;architecture d&rsquo;agents dynamiques détermine la meilleure réponse, y compris podcasts, et l&rsquo;open source favorise un développement rapide.</p>
+<ol>
+<li>
+<p><strong>Architecture d&rsquo;agents dynamiques</strong></p>
+<ul>
+<li>Décide la meilleure réponse: résumé, citations, raffinage, podcasts TTS</li>
+<li>Contrôle voix/format, contrairement à Google</li>
+</ul>
+</li>
+<li>
+<p><strong>Communauté open source</strong></p>
+<ul>
+<li>Ajouts de connecteurs par la communauté</li>
+</ul>
+</li>
+</ol>
+<br/>
+<h3 id="quick-test">Quick test</h3>
+<pre tabindex="0"><code>curl -fsSL https://raw.githubusercontent.com/MODSetter/SurfSense/main/docker/scripts/install.sh | bash
+</code></pre><p>Add the following env vars in .env if you are running your instance on a remote machine in your LAN:</p>
+<pre tabindex="0"><code>NEXT_FRONTEND_URL=http://192.168.1.100:3929
+
+BACKEND_URL=http://192.168.1.100:8929
+NEXT_PUBLIC_FASTAPI_BACKEND_URL=http://192.168.1.100:8929
+
+NEXT_PUBLIC_ZERO_CACHE_URL=ws://192.168.1.100:5929
+
+OPENAI_API_BASE=http://192.168.1.234:1234/v1
+OPENAI_API_KEY=lm-studio
+
+# optional
+LLM_PROVIDER=openai
+</code></pre><pre tabindex="0"><code>cd surfsense
+docker compose down
+# stop the auto updater
+docker stop watchtower
+docker system prune -a # Attention impactant
+docker compose up -d
+
+# debug
+docker exec -it $(docker ps | grep frontend | awk &#39;{print $1}&#39;) sh
+grep -R &#34;localhost:5929&#34; .
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/ai">AI</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>506 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>07 mai. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/claude-code-with-private-ai/">
+                                <span class="button__text">Claude code with Private AI</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+        <style>
+  .mermaid {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    text-align: center;
+  }
+
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+<script src="https://leandeep.com/js/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    securityLevel: "strict",
+    theme: document.body.classList.contains("dark-theme") ? "dark" : "default"
+  });
+</script>
+    </body>
+</html>
