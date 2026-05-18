@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Installation on Ubuntu 26.04 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash # or update # hermes update For the Inference Provider I used lm studio.
+Enter your LM_API_KEY Enter your server IP (example: http://192.168.1.234:1234/v1) Select the LM server model you want to use Once fully installed execute:
+source ~/.bashrc hermes Ask the available skills installed by default.
+● Which skills are available ? Answer:
+I have access to a wide range of skills (abilities) designed to handle various tasks. Here&#39;s a list of the skill categories and some examples within each: 1. Autonomous AI Agents - claude-code: Delegate coding to Claude Code CLI. - codex: Delegate coding to OpenAI Codex CLI. - hermes-agent: Configure, extend, or contribute to Hermes Agent. - opencode: Delegate coding to OpenCode CLI. 2. Creative - architecture-diagram: Dark-themed SVG architecture/cloud/infra diagrams as HTML. - ascii-art: ASCII art: pyfiglet, cowsay, boxes, image-to-ascii. - ascii-video: ASCII video: convert video/audio to colored ASCII MP4/GIF. - baoyu-comic: Knowledge comics (educational, biography, tutorial). - baoyu-infographic: Infographics with 21 layouts x 21 styles. - claude-design: Design one-off HTML artifacts (landing, deck, prototype). - comfyui: Generate images, video, and audio with ComfyUI. - design-md: Author/validate/export Google&#39;s DESIGN.md token spec files. - excalidraw: Hand-drawn Excalidraw JSON diagrams (arch, flow, seq). - humanizer: Humanize text: strip AI-isms and add real voice. - ideation: Generate project ideas via creative constraints. - manim-video: Manim CE animations: 3Blue1Brown math/algo videos. - p5js: p5.js sketches: gen art, shaders, interactive, 3D. - pixel-art: Pixel art w/ era palettes (NES, Game Boy, PICO-8). - popular-web-designs: 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS. - pretext: Create browser demos with @chenglou/pretext — DOM-free text layout. - sketch: Throwaway HTML mockups: 2-3 design variants to compare. - songwriting-and-ai-music: Songwriting craft and Suno AI music prompts. - touchdesigner-mcp: Control a running TouchDesigner instance via twozero MCP. 3. Data Science - jupyter-live-kernel: Iterative Python via live Jupyter kernel (hamelnb). 4. DevOps - kanban-orchestrator: Decomposition playbook &#43; anti-temptation rules for orchestrating work through Kanban. - kanban-worker: Pitfalls, examples, and edge cases for Hermes Kanban workers. - webhook-subscriptions: Webhook subscriptions: event-driven agent runs. 5. Email - himalaya: Himalaya CLI: IMAP/SMTP email from terminal. 6. Gaming - minecraft-modpack-server: Host modded Minecraft servers (CurseForge, Modrinth). - pokemon-player: Play Pokemon via headless emulator &#43; RAM reads. 7. GitHub - codebase-inspection: Inspect codebases w/ pygount: LOC, languages, ratios. - github-auth: GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login. - github-code-review: Review PRs: diffs, inline comments via gh or REST. - github-issues: Create, triage, label, assign GitHub issues via gh or REST. - github-pr-workflow: GitHub PR lifecycle: branch, commit, open, CI, merge. - github-repo-management: Clone/create/fork repos; manage remotes, releases. 8. MCP - native-mcp: MCP client: connect servers, register tools (stdio/HTTP). 9. Media - gif-search: Search/download GIFs from Tenor via curl &#43; jq. - heartmula: HeartMuLa: Suno-like song generation from lyrics &#43; tags. - songsee: Audio spectrograms/features (mel, chroma, MFCC) via CLI. - spotify: Spotify: play, search, queue, manage playlists and devices. - youtube-content: YouTube transcripts to summaries, threads, blogs. 10. MLOps - audiocraft-audio-generation: AudioCraft: MusicGen text-to-music, AudioGen text-to-sound. - dspy: DSPy: declarative LM programs, auto-optimize prompts, RAG. - evaluating-llms-harness: lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.). - huggingface-hub: HuggingFace hf CLI: search/download/upload models, datasets. - llama-cpp: llama.cpp local GGUF inference &#43; HF Hub model discovery. - obliteratus: OBLITERATUS: abliterate LLM refusals (diff-in-means). - segment-anything-model: SAM: zero-shot image segmentation via points, boxes, masks. - serving-llms-vllm: vLLM: high-throughput LLM serving, OpenAI API, quantization. - weights-and-biases: W&amp;B: log ML experiments, sweeps, model registry, dashboards. 11. Note-taking - obsidian: Read, search, create, and edit notes in the Obsidian vault. 12. Productivity - airtable: Airtable REST API via curl. Records CRUD, filters, upserts. - google-workspace: Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python. - linear: Linear: manage issues, projects, teams via GraphQL &#43; curl. - maps: Geocode, POIs, routes, timezones via OpenStreetMap/OSRM. - nano-pdf: Edit PDF text/typos/titles via nano-pdf CLI (NL prompts). - notion: Notion API &#43; ntn CLI: pages, databases, markdown, Workers. - ocr-and-documents: Extract text from PDFs/scans (pymupdf, marker-pdf). - powerpoint: Create, read, edit .pptx decks, slides, notes, templates. - teams-meeting-pipeline: Operate the Teams meeting summary pipeline via Hermes CLI. 13. Red-teaming - godmode: Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN. 14. Research - arxiv: Search arXiv papers by keyword, author, category, or ID. - blogwatcher: Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool. - llm-wiki: Karpathy&#39;s LLM Wiki: build/query interlinked markdown KB. - polymarket: Query Polymarket: markets, prices, orderbooks, history. - research-paper-writing: Write ML papers for NeurIPS/ICML/ICLR: design→submit. 15. Smart Home - openhue: Control Philips Hue lights, scenes, rooms via OpenHue CLI. 16. Social Media - xurl: X/Twitter via xurl CLI: post, search, DM, media, v2 API. 17. Software Development - debugging-hermes-tui-commands: Debug Hermes TUI slash commands: Python, gateway, Ink UI. - hermes-agent-skill-authoring: Author in-repo SKILL.md: frontmatter, validator, structure. - node-inspect-debugger: Debug Node.js via --inspect &#43; Chrome DevTools Protocol CLI. - plan: Plan mode: write markdown plan to .hermes/plans/, no exec. - python-debugpy: Debug Python: pdb REPL &#43; debugpy remote (DAP). - requesting-code-review: Pre-commit review: security scan, quality gates, auto-fix. - spike: Throwaway experiments to validate an idea before build. - subagent-driven-development: Execute plans via delegate_task subagents (2-stage review). - systematic-debugging: 4-phase root cause debugging: understand bugs before fixing. - test-driven-development: TDD: enforce RED-GREEN-REFACTOR, tests before code. - writing-plans: Write implementation plans: bite-sized tasks, paths, code. Install Composio Open a chat hermes and just enter
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="https://leandeep.com/install-hermes-on-ubuntu-26.04/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Install Hermes on Ubuntu 26.04 :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.e39a6c3bc44a6959dad5260db3c8d5659e378a90722580530dbf85b2eebd0587.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Install Hermes on Ubuntu 26.04">
+  <meta itemprop="description" content="Installation on Ubuntu 26.04 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash # or update # hermes update For the Inference Provider I used lm studio.
+Enter your LM_API_KEY Enter your server IP (example: http://192.168.1.234:1234/v1) Select the LM server model you want to use Once fully installed execute:
+source ~/.bashrc hermes Ask the available skills installed by default.
+● Which skills are available ? Answer:
+I have access to a wide range of skills (abilities) designed to handle various tasks. Here&#39;s a list of the skill categories and some examples within each: 1. Autonomous AI Agents - claude-code: Delegate coding to Claude Code CLI. - codex: Delegate coding to OpenAI Codex CLI. - hermes-agent: Configure, extend, or contribute to Hermes Agent. - opencode: Delegate coding to OpenCode CLI. 2. Creative - architecture-diagram: Dark-themed SVG architecture/cloud/infra diagrams as HTML. - ascii-art: ASCII art: pyfiglet, cowsay, boxes, image-to-ascii. - ascii-video: ASCII video: convert video/audio to colored ASCII MP4/GIF. - baoyu-comic: Knowledge comics (educational, biography, tutorial). - baoyu-infographic: Infographics with 21 layouts x 21 styles. - claude-design: Design one-off HTML artifacts (landing, deck, prototype). - comfyui: Generate images, video, and audio with ComfyUI. - design-md: Author/validate/export Google&#39;s DESIGN.md token spec files. - excalidraw: Hand-drawn Excalidraw JSON diagrams (arch, flow, seq). - humanizer: Humanize text: strip AI-isms and add real voice. - ideation: Generate project ideas via creative constraints. - manim-video: Manim CE animations: 3Blue1Brown math/algo videos. - p5js: p5.js sketches: gen art, shaders, interactive, 3D. - pixel-art: Pixel art w/ era palettes (NES, Game Boy, PICO-8). - popular-web-designs: 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS. - pretext: Create browser demos with @chenglou/pretext — DOM-free text layout. - sketch: Throwaway HTML mockups: 2-3 design variants to compare. - songwriting-and-ai-music: Songwriting craft and Suno AI music prompts. - touchdesigner-mcp: Control a running TouchDesigner instance via twozero MCP. 3. Data Science - jupyter-live-kernel: Iterative Python via live Jupyter kernel (hamelnb). 4. DevOps - kanban-orchestrator: Decomposition playbook &#43; anti-temptation rules for orchestrating work through Kanban. - kanban-worker: Pitfalls, examples, and edge cases for Hermes Kanban workers. - webhook-subscriptions: Webhook subscriptions: event-driven agent runs. 5. Email - himalaya: Himalaya CLI: IMAP/SMTP email from terminal. 6. Gaming - minecraft-modpack-server: Host modded Minecraft servers (CurseForge, Modrinth). - pokemon-player: Play Pokemon via headless emulator &#43; RAM reads. 7. GitHub - codebase-inspection: Inspect codebases w/ pygount: LOC, languages, ratios. - github-auth: GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login. - github-code-review: Review PRs: diffs, inline comments via gh or REST. - github-issues: Create, triage, label, assign GitHub issues via gh or REST. - github-pr-workflow: GitHub PR lifecycle: branch, commit, open, CI, merge. - github-repo-management: Clone/create/fork repos; manage remotes, releases. 8. MCP - native-mcp: MCP client: connect servers, register tools (stdio/HTTP). 9. Media - gif-search: Search/download GIFs from Tenor via curl &#43; jq. - heartmula: HeartMuLa: Suno-like song generation from lyrics &#43; tags. - songsee: Audio spectrograms/features (mel, chroma, MFCC) via CLI. - spotify: Spotify: play, search, queue, manage playlists and devices. - youtube-content: YouTube transcripts to summaries, threads, blogs. 10. MLOps - audiocraft-audio-generation: AudioCraft: MusicGen text-to-music, AudioGen text-to-sound. - dspy: DSPy: declarative LM programs, auto-optimize prompts, RAG. - evaluating-llms-harness: lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.). - huggingface-hub: HuggingFace hf CLI: search/download/upload models, datasets. - llama-cpp: llama.cpp local GGUF inference &#43; HF Hub model discovery. - obliteratus: OBLITERATUS: abliterate LLM refusals (diff-in-means). - segment-anything-model: SAM: zero-shot image segmentation via points, boxes, masks. - serving-llms-vllm: vLLM: high-throughput LLM serving, OpenAI API, quantization. - weights-and-biases: W&amp;B: log ML experiments, sweeps, model registry, dashboards. 11. Note-taking - obsidian: Read, search, create, and edit notes in the Obsidian vault. 12. Productivity - airtable: Airtable REST API via curl. Records CRUD, filters, upserts. - google-workspace: Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python. - linear: Linear: manage issues, projects, teams via GraphQL &#43; curl. - maps: Geocode, POIs, routes, timezones via OpenStreetMap/OSRM. - nano-pdf: Edit PDF text/typos/titles via nano-pdf CLI (NL prompts). - notion: Notion API &#43; ntn CLI: pages, databases, markdown, Workers. - ocr-and-documents: Extract text from PDFs/scans (pymupdf, marker-pdf). - powerpoint: Create, read, edit .pptx decks, slides, notes, templates. - teams-meeting-pipeline: Operate the Teams meeting summary pipeline via Hermes CLI. 13. Red-teaming - godmode: Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN. 14. Research - arxiv: Search arXiv papers by keyword, author, category, or ID. - blogwatcher: Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool. - llm-wiki: Karpathy&#39;s LLM Wiki: build/query interlinked markdown KB. - polymarket: Query Polymarket: markets, prices, orderbooks, history. - research-paper-writing: Write ML papers for NeurIPS/ICML/ICLR: design→submit. 15. Smart Home - openhue: Control Philips Hue lights, scenes, rooms via OpenHue CLI. 16. Social Media - xurl: X/Twitter via xurl CLI: post, search, DM, media, v2 API. 17. Software Development - debugging-hermes-tui-commands: Debug Hermes TUI slash commands: Python, gateway, Ink UI. - hermes-agent-skill-authoring: Author in-repo SKILL.md: frontmatter, validator, structure. - node-inspect-debugger: Debug Node.js via --inspect &#43; Chrome DevTools Protocol CLI. - plan: Plan mode: write markdown plan to .hermes/plans/, no exec. - python-debugpy: Debug Python: pdb REPL &#43; debugpy remote (DAP). - requesting-code-review: Pre-commit review: security scan, quality gates, auto-fix. - spike: Throwaway experiments to validate an idea before build. - subagent-driven-development: Execute plans via delegate_task subagents (2-stage review). - systematic-debugging: 4-phase root cause debugging: understand bugs before fixing. - test-driven-development: TDD: enforce RED-GREEN-REFACTOR, tests before code. - writing-plans: Write implementation plans: bite-sized tasks, paths, code. Install Composio Open a chat hermes and just enter">
+  <meta itemprop="datePublished" content="2026-05-17T22:15:00+00:00">
+  <meta itemprop="dateModified" content="2026-05-17T22:15:00+00:00">
+  <meta itemprop="wordCount" content="908">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Machine Learning,AI,Agents">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="Install Hermes on Ubuntu 26.04">
+  <meta name="twitter:description" content="Installation on Ubuntu 26.04 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash # or update # hermes update For the Inference Provider I used lm studio.
+Enter your LM_API_KEY Enter your server IP (example: http://192.168.1.234:1234/v1) Select the LM server model you want to use Once fully installed execute:
+source ~/.bashrc hermes Ask the available skills installed by default.
+● Which skills are available ? Answer:
+I have access to a wide range of skills (abilities) designed to handle various tasks. Here&#39;s a list of the skill categories and some examples within each: 1. Autonomous AI Agents - claude-code: Delegate coding to Claude Code CLI. - codex: Delegate coding to OpenAI Codex CLI. - hermes-agent: Configure, extend, or contribute to Hermes Agent. - opencode: Delegate coding to OpenCode CLI. 2. Creative - architecture-diagram: Dark-themed SVG architecture/cloud/infra diagrams as HTML. - ascii-art: ASCII art: pyfiglet, cowsay, boxes, image-to-ascii. - ascii-video: ASCII video: convert video/audio to colored ASCII MP4/GIF. - baoyu-comic: Knowledge comics (educational, biography, tutorial). - baoyu-infographic: Infographics with 21 layouts x 21 styles. - claude-design: Design one-off HTML artifacts (landing, deck, prototype). - comfyui: Generate images, video, and audio with ComfyUI. - design-md: Author/validate/export Google&#39;s DESIGN.md token spec files. - excalidraw: Hand-drawn Excalidraw JSON diagrams (arch, flow, seq). - humanizer: Humanize text: strip AI-isms and add real voice. - ideation: Generate project ideas via creative constraints. - manim-video: Manim CE animations: 3Blue1Brown math/algo videos. - p5js: p5.js sketches: gen art, shaders, interactive, 3D. - pixel-art: Pixel art w/ era palettes (NES, Game Boy, PICO-8). - popular-web-designs: 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS. - pretext: Create browser demos with @chenglou/pretext — DOM-free text layout. - sketch: Throwaway HTML mockups: 2-3 design variants to compare. - songwriting-and-ai-music: Songwriting craft and Suno AI music prompts. - touchdesigner-mcp: Control a running TouchDesigner instance via twozero MCP. 3. Data Science - jupyter-live-kernel: Iterative Python via live Jupyter kernel (hamelnb). 4. DevOps - kanban-orchestrator: Decomposition playbook &#43; anti-temptation rules for orchestrating work through Kanban. - kanban-worker: Pitfalls, examples, and edge cases for Hermes Kanban workers. - webhook-subscriptions: Webhook subscriptions: event-driven agent runs. 5. Email - himalaya: Himalaya CLI: IMAP/SMTP email from terminal. 6. Gaming - minecraft-modpack-server: Host modded Minecraft servers (CurseForge, Modrinth). - pokemon-player: Play Pokemon via headless emulator &#43; RAM reads. 7. GitHub - codebase-inspection: Inspect codebases w/ pygount: LOC, languages, ratios. - github-auth: GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login. - github-code-review: Review PRs: diffs, inline comments via gh or REST. - github-issues: Create, triage, label, assign GitHub issues via gh or REST. - github-pr-workflow: GitHub PR lifecycle: branch, commit, open, CI, merge. - github-repo-management: Clone/create/fork repos; manage remotes, releases. 8. MCP - native-mcp: MCP client: connect servers, register tools (stdio/HTTP). 9. Media - gif-search: Search/download GIFs from Tenor via curl &#43; jq. - heartmula: HeartMuLa: Suno-like song generation from lyrics &#43; tags. - songsee: Audio spectrograms/features (mel, chroma, MFCC) via CLI. - spotify: Spotify: play, search, queue, manage playlists and devices. - youtube-content: YouTube transcripts to summaries, threads, blogs. 10. MLOps - audiocraft-audio-generation: AudioCraft: MusicGen text-to-music, AudioGen text-to-sound. - dspy: DSPy: declarative LM programs, auto-optimize prompts, RAG. - evaluating-llms-harness: lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.). - huggingface-hub: HuggingFace hf CLI: search/download/upload models, datasets. - llama-cpp: llama.cpp local GGUF inference &#43; HF Hub model discovery. - obliteratus: OBLITERATUS: abliterate LLM refusals (diff-in-means). - segment-anything-model: SAM: zero-shot image segmentation via points, boxes, masks. - serving-llms-vllm: vLLM: high-throughput LLM serving, OpenAI API, quantization. - weights-and-biases: W&amp;B: log ML experiments, sweeps, model registry, dashboards. 11. Note-taking - obsidian: Read, search, create, and edit notes in the Obsidian vault. 12. Productivity - airtable: Airtable REST API via curl. Records CRUD, filters, upserts. - google-workspace: Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python. - linear: Linear: manage issues, projects, teams via GraphQL &#43; curl. - maps: Geocode, POIs, routes, timezones via OpenStreetMap/OSRM. - nano-pdf: Edit PDF text/typos/titles via nano-pdf CLI (NL prompts). - notion: Notion API &#43; ntn CLI: pages, databases, markdown, Workers. - ocr-and-documents: Extract text from PDFs/scans (pymupdf, marker-pdf). - powerpoint: Create, read, edit .pptx decks, slides, notes, templates. - teams-meeting-pipeline: Operate the Teams meeting summary pipeline via Hermes CLI. 13. Red-teaming - godmode: Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN. 14. Research - arxiv: Search arXiv papers by keyword, author, category, or ID. - blogwatcher: Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool. - llm-wiki: Karpathy&#39;s LLM Wiki: build/query interlinked markdown KB. - polymarket: Query Polymarket: markets, prices, orderbooks, history. - research-paper-writing: Write ML papers for NeurIPS/ICML/ICLR: design→submit. 15. Smart Home - openhue: Control Philips Hue lights, scenes, rooms via OpenHue CLI. 16. Social Media - xurl: X/Twitter via xurl CLI: post, search, DM, media, v2 API. 17. Software Development - debugging-hermes-tui-commands: Debug Hermes TUI slash commands: Python, gateway, Ink UI. - hermes-agent-skill-authoring: Author in-repo SKILL.md: frontmatter, validator, structure. - node-inspect-debugger: Debug Node.js via --inspect &#43; Chrome DevTools Protocol CLI. - plan: Plan mode: write markdown plan to .hermes/plans/, no exec. - python-debugpy: Debug Python: pdb REPL &#43; debugpy remote (DAP). - requesting-code-review: Pre-commit review: security scan, quality gates, auto-fix. - spike: Throwaway experiments to validate an idea before build. - subagent-driven-development: Execute plans via delegate_task subagents (2-stage review). - systematic-debugging: 4-phase root cause debugging: understand bugs before fixing. - test-driven-development: TDD: enforce RED-GREEN-REFACTOR, tests before code. - writing-plans: Write implementation plans: bite-sized tasks, paths, code. Install Composio Open a chat hermes and just enter">
+
+
+
+
+
+<meta property="article:published_time" content="2026-05-17 22:15:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>5 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/install-hermes-on-ubuntu-26.04/">Install Hermes on Ubuntu 26.04</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h2 id="installation-on-ubuntu-2604">Installation on Ubuntu 26.04</h2>
+<pre tabindex="0"><code>curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+
+# or update
+# hermes update
+</code></pre><br/>
+<p>For the Inference Provider I used <code>lm studio</code>.</p>
+<ul>
+<li>Enter your LM_API_KEY</li>
+<li>Enter your server IP (example: http://192.168.1.234:1234/v1)</li>
+<li>Select the LM server model you want to use</li>
+</ul>
+<br/>
+<p>Once fully installed execute:</p>
+<pre tabindex="0"><code>source ~/.bashrc
+hermes
+</code></pre><br/>
+<p>Ask the available skills installed by default.</p>
+<pre tabindex="0"><code>● Which skills are available ?
+</code></pre><p>Answer:</p>
+<pre><code>I have access to a wide range of skills (abilities) designed to handle various tasks. Here's a list of the skill categories and some examples within each:
+
+1. Autonomous AI Agents
+    - claude-code: Delegate coding to Claude Code CLI.
+    - codex: Delegate coding to OpenAI Codex CLI.
+    - hermes-agent: Configure, extend, or contribute to Hermes Agent.
+    - opencode: Delegate coding to OpenCode CLI.
+
+2. Creative
+    - architecture-diagram: Dark-themed SVG architecture/cloud/infra diagrams as HTML.
+    - ascii-art: ASCII art: pyfiglet, cowsay, boxes, image-to-ascii.
+    - ascii-video: ASCII video: convert video/audio to colored ASCII MP4/GIF.
+    - baoyu-comic: Knowledge comics (educational, biography, tutorial).
+    - baoyu-infographic: Infographics with 21 layouts x 21 styles.
+    - claude-design: Design one-off HTML artifacts (landing, deck, prototype).
+    - comfyui: Generate images, video, and audio with ComfyUI.
+    - design-md: Author/validate/export Google's DESIGN.md token spec files.
+    - excalidraw: Hand-drawn Excalidraw JSON diagrams (arch, flow, seq).
+    - humanizer: Humanize text: strip AI-isms and add real voice.
+    - ideation: Generate project ideas via creative constraints.
+    - manim-video: Manim CE animations: 3Blue1Brown math/algo videos.
+    - p5js: p5.js sketches: gen art, shaders, interactive, 3D.
+    - pixel-art: Pixel art w/ era palettes (NES, Game Boy, PICO-8).
+    - popular-web-designs: 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS.
+    - pretext: Create browser demos with @chenglou/pretext — DOM-free text layout.
+    - sketch: Throwaway HTML mockups: 2-3 design variants to compare.
+    - songwriting-and-ai-music: Songwriting craft and Suno AI music prompts.
+    - touchdesigner-mcp: Control a running TouchDesigner instance via twozero MCP.
+
+3. Data Science
+    - jupyter-live-kernel: Iterative Python via live Jupyter kernel (hamelnb).
+
+4. DevOps
+    - kanban-orchestrator: Decomposition playbook + anti-temptation rules for orchestrating work through Kanban.
+    - kanban-worker: Pitfalls, examples, and edge cases for Hermes Kanban workers.
+    - webhook-subscriptions: Webhook subscriptions: event-driven agent runs.
+
+5. Email
+    - himalaya: Himalaya CLI: IMAP/SMTP email from terminal.
+
+6. Gaming
+    - minecraft-modpack-server: Host modded Minecraft servers (CurseForge, Modrinth).
+    - pokemon-player: Play Pokemon via headless emulator + RAM reads.
+
+7. GitHub
+    - codebase-inspection: Inspect codebases w/ pygount: LOC, languages, ratios.
+    - github-auth: GitHub auth setup: HTTPS tokens, SSH keys, gh CLI login.
+    - github-code-review: Review PRs: diffs, inline comments via gh or REST.
+    - github-issues: Create, triage, label, assign GitHub issues via gh or REST.
+    - github-pr-workflow: GitHub PR lifecycle: branch, commit, open, CI, merge.
+    - github-repo-management: Clone/create/fork repos; manage remotes, releases.
+
+8. MCP
+    - native-mcp: MCP client: connect servers, register tools (stdio/HTTP).
+
+9. Media
+    - gif-search: Search/download GIFs from Tenor via curl + jq.
+    - heartmula: HeartMuLa: Suno-like song generation from lyrics + tags.
+    - songsee: Audio spectrograms/features (mel, chroma, MFCC) via CLI.
+    - spotify: Spotify: play, search, queue, manage playlists and devices.
+    - youtube-content: YouTube transcripts to summaries, threads, blogs.
+
+10. MLOps
+    - audiocraft-audio-generation: AudioCraft: MusicGen text-to-music, AudioGen text-to-sound.
+    - dspy: DSPy: declarative LM programs, auto-optimize prompts, RAG.
+    - evaluating-llms-harness: lm-eval-harness: benchmark LLMs (MMLU, GSM8K, etc.).
+    - huggingface-hub: HuggingFace hf CLI: search/download/upload models, datasets.
+    - llama-cpp: llama.cpp local GGUF inference + HF Hub model discovery.
+    - obliteratus: OBLITERATUS: abliterate LLM refusals (diff-in-means).
+    - segment-anything-model: SAM: zero-shot image segmentation via points, boxes, masks.
+    - serving-llms-vllm: vLLM: high-throughput LLM serving, OpenAI API, quantization.
+    - weights-and-biases: W&amp;B: log ML experiments, sweeps, model registry, dashboards.
+
+11. Note-taking
+    - obsidian: Read, search, create, and edit notes in the Obsidian vault.
+
+12. Productivity
+    - airtable: Airtable REST API via curl. Records CRUD, filters, upserts.
+    - google-workspace: Gmail, Calendar, Drive, Docs, Sheets via gws CLI or Python.
+    - linear: Linear: manage issues, projects, teams via GraphQL + curl.
+    - maps: Geocode, POIs, routes, timezones via OpenStreetMap/OSRM.
+    - nano-pdf: Edit PDF text/typos/titles via nano-pdf CLI (NL prompts).
+    - notion: Notion API + ntn CLI: pages, databases, markdown, Workers.
+    - ocr-and-documents: Extract text from PDFs/scans (pymupdf, marker-pdf).
+    - powerpoint: Create, read, edit .pptx decks, slides, notes, templates.
+    - teams-meeting-pipeline: Operate the Teams meeting summary pipeline via Hermes CLI.
+
+13. Red-teaming
+    - godmode: Jailbreak LLMs: Parseltongue, GODMODE, ULTRAPLINIAN.
+
+14. Research
+    - arxiv: Search arXiv papers by keyword, author, category, or ID.
+    - blogwatcher: Monitor blogs and RSS/Atom feeds via blogwatcher-cli tool.
+    - llm-wiki: Karpathy's LLM Wiki: build/query interlinked markdown KB.
+    - polymarket: Query Polymarket: markets, prices, orderbooks, history.
+    - research-paper-writing: Write ML papers for NeurIPS/ICML/ICLR: design→submit.
+
+15. Smart Home
+    - openhue: Control Philips Hue lights, scenes, rooms via OpenHue CLI.
+
+16. Social Media
+    - xurl: X/Twitter via xurl CLI: post, search, DM, media, v2 API.
+
+17. Software Development
+    - debugging-hermes-tui-commands: Debug Hermes TUI slash commands: Python, gateway, Ink UI.
+    - hermes-agent-skill-authoring: Author in-repo SKILL.md: frontmatter, validator, structure.
+    - node-inspect-debugger: Debug Node.js via --inspect + Chrome DevTools Protocol CLI.
+    - plan: Plan mode: write markdown plan to .hermes/plans/, no exec.
+    - python-debugpy: Debug Python: pdb REPL + debugpy remote (DAP).
+    - requesting-code-review: Pre-commit review: security scan, quality gates, auto-fix.
+    - spike: Throwaway experiments to validate an idea before build.
+    - subagent-driven-development: Execute plans via delegate_task subagents (2-stage review).
+    - systematic-debugging: 4-phase root cause debugging: understand bugs before fixing.
+    - test-driven-development: TDD: enforce RED-GREEN-REFACTOR, tests before code.
+    - writing-plans: Write implementation plans: bite-sized tasks, paths, code.
+</code></pre>
+<br/>
+<h2 id="install-composio">Install Composio</h2>
+<p>Open a chat <code>hermes</code> and just enter</p>
+<pre tabindex="0"><code>Set up Composio from composio.dev/hermes
+Is composio installed ?
+
+# Or 
+# curl -fsSL https://composio.dev/install | bash
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span><span class="tag"><a href="https://leandeep.com/tags/ai">AI</a></span><span class="tag"><a href="https://leandeep.com/tags/agents">Agents</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>908 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>17 mai. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/pr%C3%A9sentation-du-rag-open-source-surfsense/">
+                                <span class="button__text">Présentation du RAG open source SurfSense</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+        
+    </body>
+</html>
