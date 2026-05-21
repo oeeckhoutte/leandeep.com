@@ -25,6 +25,7 @@ curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.noarmor.gpg | sud
 curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
 sudo apt update
+sudo apt install tailscale
 &lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
 &lt;p&gt;Editer le fichier &lt;code&gt;/etc/sysctl.d/99-tailscale.conf&lt;/code&gt; et ajouter le contenu:&lt;/p&gt;</description>
             <content type="html"><![CDATA[<p>Dans cet article, nous allons voir comment installer Tailscale sur un Raspberry pi qui tourne sous Raspbian Bullseye (version 32 bits armv7l) afin qu&rsquo;il serve d&rsquo;exit node et permette d&rsquo;accéder aux appareils de votre réseau local.</p>
@@ -37,15 +38,17 @@ curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.noarmor.gpg | sud
 curl -fsSL https://pkgs.tailscale.com/stable/raspbian/bullseye.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
 sudo apt update
+sudo apt install tailscale
 </code></pre><br/>
 <p>Editer le fichier <code>/etc/sysctl.d/99-tailscale.conf</code> et ajouter le contenu:</p>
 <pre tabindex="0"><code>net.ipv4.ip_forward = 1
 net.ipv6.conf.all.forwarding = 1
 </code></pre><br/>
 <h2 id="démarrer-tailscale">Démarrer Tailscale</h2>
-<pre tabindex="0"><code>sudo tailscale up --accept-dns=false --advertise-exit-node --advertise-routes=192.168.1.0/24
+<pre tabindex="0"><code>sudo sysctl --system
+sudo tailscale up --accept-dns=false --advertise-exit-node --advertise-routes=192.168.1.0/24
 tailscale ip -4
-reboot
+sudo reboot
 </code></pre><br/>
 <h2 id="configurer-le-service">Configurer le service</h2>
 <pre tabindex="0"><code>sudo systemctl status tailscaled
@@ -54,7 +57,7 @@ sudo systemctl edit tailscaled
 </code></pre><p>Ajouter:</p>
 <pre tabindex="0"><code>[Service]
 Environment=&#34;TS_EXPERIMENTAL_VERSIONED_CONFIG_DIR=/etc/tailscale&#34;
-</code></pre><p>Puis créer <code>/etc/tailscale/tailscaled.conf</code> avec:</p>
+</code></pre><p>Puis créer <code>sudo mkdir /etc/tailscale/ &amp;&amp;</code> et ajouter le contenu suivant dans le fichier <code>/etc/tailscale/tailscaled.conf</code>:</p>
 <pre tabindex="0"><code>address: 192.168.1.0/24
 exit-node: true
 dns: false
