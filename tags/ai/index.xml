@@ -10,13 +10,6 @@
     <lastBuildDate>Wed, 01 Jul 2026 05:23:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Deepseek v4 flash on DGX Spark</title>
-      <link>https://leandeep.com/deepseek-v4-flash-on-dgx-spark/</link>
-      <pubDate>Wed, 01 Jul 2026 05:23:00 +0000</pubDate>
-      <guid>https://leandeep.com/deepseek-v4-flash-on-dgx-spark/</guid>
-      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/antirez/ds4&#xA;cd ds4&#xA;./download_model.sh q2     # 128 GB RAM machines&#xA;make&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;./ds4 -p &amp;#34;Explain Redis streams in one paragraph.&amp;#34;&#xA;./ds4-server --ctx 100000 --kv-disk-dir /tmp/ds4-kv --kv-disk-space-mb 8192&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    <item>
       <title>Zed &#43; vLLM on DGX Spark</title>
       <link>https://leandeep.com/zed--vllm-on-dgx-spark/</link>
       <pubDate>Wed, 01 Jul 2026 05:23:00 +0000</pubDate>
@@ -78,6 +71,13 @@
       <pubDate>Mon, 23 Mar 2026 21:15:00 +0000</pubDate>
       <guid>https://leandeep.com/comfy-ui-installation-on-ubuntu/</guid>
       <description>&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Python 3.12.3&lt;/li&gt;&#xA;&lt;li&gt;pip 24.0&lt;/li&gt;&#xA;&lt;li&gt;Cuda compiler driver V13.0.88 (nvcc)&lt;/li&gt;&#xA;&lt;li&gt;Nvidia hardware&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;&#xA;&lt;p&gt;Create a new venv&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python3 -m venv comfyui-venv&#xA;source comfyui-venv/bin/activate&#xA;&#xA;pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130&#xA;git clone https://github.com/comfyanonymous/ComfyUI.git&#xA;cd ComfyUI&#xA;pip install -r requirements.txt&#xA;cd models/checkpoints/ &amp;amp;&amp;amp; wget https://huggingface.co/Comfy-Org/stable-diffusion-v1-5-archive/resolve/main/v1-5-pruned-emaonly-fp16.safetensors &amp;amp;&amp;amp; cd -&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python main.py --listen 0.0.0.0&#xA;# curl -I http://localhost:8188&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Terraform runpod openclaw [dev setup]</title>
+      <link>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</link>
+      <pubDate>Mon, 02 Mar 2026 18:15:00 +0000</pubDate>
+      <guid>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</guid>
+      <description>&lt;h2 id=&#34;1-installer-terraform-sur-macos&#34;&gt;1. Installer Terraform sur macOS&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew tap hashicorp/tap&#xA;brew install hashicorp/tap/terraform&#xA;terraform --version&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;2-obtenir-une-clé-api-runpod&#34;&gt;2. Obtenir une clé API RunPod&lt;/h2&gt;&#xA;&lt;p&gt;Rendez-vous sur &lt;a href=&#34;https://www.runpod.io/console/user/settings&#34;&gt;https://www.runpod.io/console/user/settings&lt;/a&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Sectionnez &lt;code&gt;API Keys&lt;/code&gt; &lt;code&gt;→&lt;/code&gt; &lt;code&gt;Create API Key (permissions Read/Write)&lt;/code&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Copiez la clé et exportez-la: &lt;br/&gt;&#xA;&lt;code&gt;export RUNPOD_API_KEY=&amp;quot;rp_xxxxxxxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;3-fichiers-terraform&#34;&gt;3. Fichiers Terraform&lt;/h2&gt;&#xA;&lt;p&gt;Créez un dossier openclaw-runpod/ et place-y ces 3 fichiers:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/variables.tf&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;variable &amp;#34;runpod_api_key&amp;#34; {&#xA;  description = &amp;#34;RunPod API key&amp;#34;&#xA;  type        = string&#xA;  sensitive   = true&#xA;  default     = &amp;#34;&amp;#34;&#xA;}&#xA;&#xA;variable &amp;#34;ssh_public_key&amp;#34; {&#xA;  description = &amp;#34;SSH public key for secure access&amp;#34;&#xA;  type        = string&#xA;}&#xA;&#xA;variable &amp;#34;pod_name&amp;#34; {&#xA;  description = &amp;#34;Name of the RunPod pod&amp;#34;&#xA;  type        = string&#xA;  default     = &amp;#34;openclaw&amp;#34;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/main.tf&lt;/code&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
