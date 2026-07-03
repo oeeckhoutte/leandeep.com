@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Dans cet article, je partage mes notes sur l&rsquo;utilisation de Zed sur OSX avec comme AI provider vLLM, Qwen 3.6 sur un Nvidia DGX spark distant privé. Mon objectif est d&rsquo;avoir l&rsquo;équivalent d&rsquo;un petit Cursor (remplacé par Zed) avec un LLM local. Je suis en train de mettre en place un Agent qui travaille pour moi tout le temps et qui répond à toutes mes questions (via texte ou voix). Je veux pouvoir cramer autant de tokens que je veux et ne rien avoir à payer car étant très très geek, j&rsquo;ai une consommation en tokens stratosphérique (malgré le fait que je code depuis depuis que j&rsquo;ai l&rsquo;âge de 13 ou 14 ans).
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="http://localhost:1313/vllm/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  vllm :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/main.min.e39a6c3bc44a6959dad5260db3c8d5659e378a90722580530dbf85b2eebd0587.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+    <link rel="manifest" href="http://localhost:1313/site.webmanifest">
+    <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="vllm">
+  <meta itemprop="description" content="Dans cet article, je partage mes notes sur l’utilisation de Zed sur OSX avec comme AI provider vLLM, Qwen 3.6 sur un Nvidia DGX spark distant privé. Mon objectif est d’avoir l’équivalent d’un petit Cursor (remplacé par Zed) avec un LLM local. Je suis en train de mettre en place un Agent qui travaille pour moi tout le temps et qui répond à toutes mes questions (via texte ou voix). Je veux pouvoir cramer autant de tokens que je veux et ne rien avoir à payer car étant très très geek, j’ai une consommation en tokens stratosphérique (malgré le fait que je code depuis depuis que j’ai l’âge de 13 ou 14 ans).">
+  <meta itemprop="datePublished" content="2026-07-01T05:23:00+00:00">
+  <meta itemprop="dateModified" content="2026-07-01T05:23:00+00:00">
+  <meta itemprop="wordCount" content="605">
+  <meta itemprop="image" content="http://localhost:1313/">
+  <meta itemprop="keywords" content="LLM,AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="vllm">
+  <meta name="twitter:description" content="Dans cet article, je partage mes notes sur l’utilisation de Zed sur OSX avec comme AI provider vLLM, Qwen 3.6 sur un Nvidia DGX spark distant privé. Mon objectif est d’avoir l’équivalent d’un petit Cursor (remplacé par Zed) avec un LLM local. Je suis en train de mettre en place un Agent qui travaille pour moi tout le temps et qui répond à toutes mes questions (via texte ou voix). Je veux pouvoir cramer autant de tokens que je veux et ne rien avoir à payer car étant très très geek, j’ai une consommation en tokens stratosphérique (malgré le fait que je code depuis depuis que j’ai l’âge de 13 ou 14 ans).">
+
+
+
+
+
+<meta property="article:published_time" content="2026-07-01 05:23:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://localhost:1313/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://localhost:1313/events/">Featured Articles</a></li><li><a href="http://localhost:1313/posts/">All Articles</a></li><li><a href="http://localhost:1313/about/">About Me</a></li><li><a href="http://localhost:1313/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="http://localhost:1313/vllm/">vllm</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Dans cet article, je partage mes notes sur l&rsquo;utilisation de <code>Zed</code> sur OSX avec comme AI provider <code>vLLM</code>, <code>Qwen 3.6</code> sur un <code>Nvidia DGX spark</code> distant privé. Mon objectif est d&rsquo;avoir l&rsquo;équivalent d&rsquo;un petit <code>Cursor</code> (remplacé par <code>Zed</code>) avec un LLM local.
+Je suis en train de mettre en place un Agent qui travaille pour moi tout le temps et qui répond à toutes mes questions (via texte ou voix). Je veux pouvoir cramer autant de tokens que je veux et ne rien avoir à payer car étant très très geek, j&rsquo;ai une consommation en tokens stratosphérique (malgré le fait que je code depuis depuis que j&rsquo;ai l&rsquo;âge de 13 ou 14 ans).</p>
+<blockquote>
+<p>Je dis &ldquo;petit&rdquo; Cursor car au niveau des performances, j&rsquo;ai l&rsquo;impression qu&rsquo;on est pas encore au niveau de Cursor. Je viens de démarrer l&rsquo;expérimentation, au moment où j&rsquo;écris cet article, j&rsquo;ai déjà passé pas mal de temps à tester des outils et tweaker. Actuellement les perfs sont <code>Engine 000: Avg prompt throughput: 4912.0 tokens/s, Avg generation throughput: 11.9 tokens/s,</code>; ce qui dans les faits donne une vraie impression de vitesse. Moi qui utilise <code>Cursor</code> intensivement, j&rsquo;ai l&rsquo;impression qu&rsquo;on est pas encore à son niveau. Il faudrait que j&rsquo;essaye avec une énorme codebase&hellip; (Après je suis peut-être très exigent).</p></blockquote>
+<br/>
+<h2 id="installation-de-vllm">Installation de vLLM</h2>
+<p>Simple via Docker:</p>
+<pre tabindex="0"><code>docker pull ghcr.io/aeon-7/aeon-vllm-ultimate:latest
+
+docker run --rm -it \
+ --entrypoint vllm \
+ --ipc host --gpus all \
+ -v ~/.cache/huggingface:/root/.cache/huggingface \
+ -p 8000:8000 \
+ -e FLASHINFER_DISABLE_VERSION_CHECK=1 \
+ -e CUTE_DSL_ARCH=sm_121a \
+ ghcr.io/aeon-7/aeon-vllm-ultimate:latest \
+ serve \
+ --model nvidia/Qwen3.6-35B-A3B-NVFP4 \
+ --host 0.0.0.0 --port 8000 \
+ --trust-remote-code \
+ --quantization modelopt \
+ --kv-cache-dtype fp8 \
+ --attention-config &#39;{&#34;backend&#34;: &#34;TRITON_ATTN&#34;}&#39; \
+ --gpu-memory-utilization 0.85 \
+ --max-model-len 262144 \
+ --default-chat-template-kwargs &#39;{&#34;enable_thinking&#34;: false}&#39; \
+ --enable-auto-tool-choice \
+ --tool-call-parser qwen3_coder
+</code></pre><br/>
+<p>Avec ces paramètres, on est tout juste à la limite du Spark</p>
+<p><img src="http://localhost:1313/images/spark-vllm-qwen3.6.png" alt="image"></p>
+<pre tabindex="0"><code>--max-model-len 131072 # 128K — bon compromis agent/coding
+--max-model-len 262144 # 262K — natif, plus gourmand en mémoire
+</code></pre><blockquote>
+<p>Si vous avez un OOM au démarrage ou à l’inférence, baisser &ndash;gpu-memory-utilization (ex. 0.80 au lieu de 0.85)</p></blockquote>
+<h2 id="configuration-de-zed">Configuration de Zed</h2>
+<p>Pour connecter <code>Zed</code> à son LLM local, il faut configurer l&rsquo;outil via son fichier de configuration <code>vim ~/.config/zed/settings.json</code>.</p>
+<p>Example dans notre cas:</p>
+<pre tabindex="0"><code>...
+  &#34;language_models&#34;: {
+    &#34;openai_compatible&#34;: {
+      &#34;vllm&#34;: {
+        &#34;api_url&#34;: &#34;http://IP:8000/v1&#34;,
+        &#34;available_models&#34;: [
+          {
+            &#34;name&#34;: &#34;nvidia/Qwen3.6-35B-A3B-NVFP4&#34;,
+            &#34;display_name&#34;: &#34;Qwen3.6 35B&#34;,
+            &#34;max_tokens&#34;: 262144,
+            &#34;max_output_tokens&#34;: 8192,
+            &#34;capabilities&#34;: {
+              &#34;tools&#34;: true,
+              &#34;images&#34;: false,
+              &#34;parallel_tool_calls&#34;: false,
+              &#34;prompt_cache_key&#34;: false,
+              &#34;interleaved_reasoning&#34;: false,
+              &#34;max_tokens_parameter&#34;: true,
+            },
+          },
+        ],
+      },
+    },
+  },
+  &#34;agent&#34;: {
+    &#34;default_model&#34;: {
+      &#34;provider&#34;: &#34;vllm&#34;,
+      &#34;model&#34;: &#34;nvidia/Qwen3.6-35B-A3B-NVFP4&#34;,
+    },
+    &#34;default_profile&#34;: &#34;write&#34;,
+  },
+...
+
+&gt; Attention à bien aligner `max_tokens` dans les `settings.json` sur la même valeur (ex. 65536 ou 131072, ou 262144) que celle définie dans `docker run`, sinon Zed peut croire que le contexte est plus petit que ce que vLLM accepte réellement.
+
+<br/>
+
+Le mode thinking n&#39;est pas activé par défaut sur le serveur.
+
+C’est ce flag qui le coupe: `--default-chat-template-kwargs &#39;{&#34;enable_thinking&#34;: false}&#39;`
+
+&gt; Pour réactiver le thinking (si tu veux tester), il suffit d&#39;ajouter le flag à la commande Docker `--default-chat-template-kwargs &#39;{&#34;enable_thinking&#34;: true}&#39;` et optionnellement ajouter `--reasoning-parser qwen3`
+
+
+Il est possible d&#39;override par requête. En effet, même avec thinking OFF au serveur, une requête peut le réactiver. Il suffit d&#39;utiliser le paramètre `&#34;chat_template_kwargs&#34;: {&#34;enable_thinking&#34;: true}`:
+</code></pre><p>curl http://IP:8000/v1/chat/completions <br>
+-H &ldquo;Content-Type: application/json&rdquo; <br>
+-d &lsquo;{
+&ldquo;model&rdquo;: &ldquo;nvidia/Qwen3.6-35B-A3B-NVFP4&rdquo;,
+&ldquo;messages&rdquo;: [{&ldquo;role&rdquo;: &ldquo;user&rdquo;, &ldquo;content&rdquo;: &ldquo;Bonjour, réponds en une phrase.&rdquo;}],
+&ldquo;max_tokens&rdquo;: 256,
+&ldquo;chat_template_kwargs&rdquo;: {&ldquo;enable_thinking&rdquo;: true}
+}&rsquo;</p>
+<pre tabindex="0"><code>
+&gt; Côté Zed
+&gt; Garde &#34;reasoning_effort&#34;: &#34;none&#34; dans la config du modèle; cela correspond au thinking désactivé.
+
+<br/>
+
+## Testing
+</code></pre><p>curl http://IP:8000/v1/completions <br>
+-H &ldquo;Content-Type: application/json&rdquo; <br>
+-d &lsquo;{
+&ldquo;model&rdquo;: &ldquo;nvidia/Qwen3.6-35B-A3B-NVFP4&rdquo;,
+&ldquo;prompt&rdquo;: &ldquo;The capital of France is&rdquo;,
+&ldquo;max_tokens&rdquo;: 20,
+&ldquo;temperature&rdquo;: 0
+}&rsquo;</p>
+<pre tabindex="0"><code>
+Output:
+</code></pre><p>{&ldquo;id&rdquo;:&ldquo;cmpl-883ad746dc33d898&rdquo;,&ldquo;object&rdquo;:&ldquo;text_completion&rdquo;,&ldquo;created&rdquo;:1782943374,&ldquo;model&rdquo;:&ldquo;nvidia/Qwen3.6-35B-A3B-NVFP4&rdquo;,&ldquo;choices&rdquo;:[{&ldquo;index&rdquo;:0,&ldquo;text&rdquo;:&quot; Paris, a city renowned for its iconic landmarks such as the Eiffel Tower, the Louvre Museum&quot;,&ldquo;logprobs&rdquo;:null,&ldquo;finish_reason&rdquo;:&ldquo;length&rdquo;,&ldquo;stop_reason&rdquo;:null,&ldquo;token_ids&rdquo;:null,&ldquo;prompt_logprobs&rdquo;:null,&ldquo;prompt_token_ids&rdquo;:null,&ldquo;routed_experts&rdquo;:null}],&ldquo;service_tier&rdquo;:null,&ldquo;system_fingerprint&rdquo;:&ldquo;vllm-0.23.0+aeon.sm121a.dflash-f563a164&rdquo;,&ldquo;usage&rdquo;:{&ldquo;prompt_tokens&rdquo;:5,&ldquo;total_tokens&rdquo;:25,&ldquo;completion_tokens&rdquo;:20,&ldquo;prompt_tokens_details&rdquo;:null},&ldquo;kv_transfer_params&rdquo;:null}%</p>
+<pre tabindex="0"><code></code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="http://localhost:1313/tags/llm">LLM</a></span><span class="tag"><a href="http://localhost:1313/tags/ai">AI</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>605 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>01 juil.. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="http://localhost:1313/audit-de-s%C3%A9curit%C3%A9-rapide-pour-repo/">
+                                <span class="button__text">Audit de sécurité rapide pour repo</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="http://localhost:1313/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="http://localhost:1313/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://localhost:1313/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+        
+    </body>
+</html>

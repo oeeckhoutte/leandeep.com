@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Vous voulez tester un repository Git rapidement mais vous vous demandez s&rsquo;il ne contient pas pleins de vulnérabilités. Dans un premier temps, on va utiliser une pipeline sast et ensuite on va isoler le RUN de l&rsquo;app.
+Pipeline sast # Dockerfile.sast FROM python:3.11-slim RUN apt-get update &amp;&amp; apt-get install -y \ git curl nodejs npm jq \ &amp;&amp; rm -rf /var/lib/apt/lists/* # Outils Python RUN pip install --no-cache-dir bandit semgrep pip-audit checkov # Trufflehog RUN curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh \ | sh -s -- -b /usr/local/bin # Gitleaks RUN curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.18.4_linux_x64.tar.gz \ | tar -xz -C /usr/local/bin gitleaks WORKDIR /repo COPY entrypoint.sh /entrypoint.sh RUN chmod &#43;x /entrypoint.sh ENTRYPOINT [&#34;/entrypoint.sh&#34;] On crée ensuite un entrypoint.sh avec le contenu suivant:
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="http://localhost:1313/audit-de-s%C3%A9curit%C3%A9-rapide-pour-repo/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Audit de sécurité rapide pour repo :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/main.min.e39a6c3bc44a6959dad5260db3c8d5659e378a90722580530dbf85b2eebd0587.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+    <link rel="manifest" href="http://localhost:1313/site.webmanifest">
+    <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Audit de sécurité rapide pour repo">
+  <meta itemprop="description" content="Vous voulez tester un repository Git rapidement mais vous vous demandez s’il ne contient pas pleins de vulnérabilités. Dans un premier temps, on va utiliser une pipeline sast et ensuite on va isoler le RUN de l’app.
+Pipeline sast # Dockerfile.sast FROM python:3.11-slim RUN apt-get update &amp;&amp; apt-get install -y \ git curl nodejs npm jq \ &amp;&amp; rm -rf /var/lib/apt/lists/* # Outils Python RUN pip install --no-cache-dir bandit semgrep pip-audit checkov # Trufflehog RUN curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh \ | sh -s -- -b /usr/local/bin # Gitleaks RUN curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.18.4_linux_x64.tar.gz \ | tar -xz -C /usr/local/bin gitleaks WORKDIR /repo COPY entrypoint.sh /entrypoint.sh RUN chmod &#43;x /entrypoint.sh ENTRYPOINT [&#34;/entrypoint.sh&#34;] On crée ensuite un entrypoint.sh avec le contenu suivant:">
+  <meta itemprop="datePublished" content="2026-06-12T22:15:00+00:00">
+  <meta itemprop="dateModified" content="2026-06-12T22:15:00+00:00">
+  <meta itemprop="wordCount" content="817">
+  <meta itemprop="image" content="http://localhost:1313/">
+  <meta itemprop="keywords" content="AI,Sécurité,Python">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="Audit de sécurité rapide pour repo">
+  <meta name="twitter:description" content="Vous voulez tester un repository Git rapidement mais vous vous demandez s’il ne contient pas pleins de vulnérabilités. Dans un premier temps, on va utiliser une pipeline sast et ensuite on va isoler le RUN de l’app.
+Pipeline sast # Dockerfile.sast FROM python:3.11-slim RUN apt-get update &amp;&amp; apt-get install -y \ git curl nodejs npm jq \ &amp;&amp; rm -rf /var/lib/apt/lists/* # Outils Python RUN pip install --no-cache-dir bandit semgrep pip-audit checkov # Trufflehog RUN curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh \ | sh -s -- -b /usr/local/bin # Gitleaks RUN curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.18.4_linux_x64.tar.gz \ | tar -xz -C /usr/local/bin gitleaks WORKDIR /repo COPY entrypoint.sh /entrypoint.sh RUN chmod &#43;x /entrypoint.sh ENTRYPOINT [&#34;/entrypoint.sh&#34;] On crée ensuite un entrypoint.sh avec le contenu suivant:">
+
+
+
+
+
+<meta property="article:published_time" content="2026-06-12 22:15:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://localhost:1313/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://localhost:1313/events/">Featured Articles</a></li><li><a href="http://localhost:1313/posts/">All Articles</a></li><li><a href="http://localhost:1313/about/">About Me</a></li><li><a href="http://localhost:1313/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>4 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="http://localhost:1313/audit-de-s%C3%A9curit%C3%A9-rapide-pour-repo/">Audit de sécurité rapide pour repo</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Vous voulez tester un repository Git rapidement mais vous vous demandez s&rsquo;il ne contient pas pleins de vulnérabilités.
+Dans un premier temps, on va utiliser une pipeline sast et ensuite on va isoler le RUN de l&rsquo;app.</p>
+<br/>
+<h1 id="pipeline-sast">Pipeline sast</h1>
+<p><img src="http://localhost:1313/images/pipeline-sast.png" alt="image"></p>
+<pre tabindex="0"><code># Dockerfile.sast
+FROM python:3.11-slim
+
+RUN apt-get update &amp;&amp; apt-get install -y \
+    git curl nodejs npm jq \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+# Outils Python
+RUN pip install --no-cache-dir bandit semgrep pip-audit checkov
+
+# Trufflehog
+RUN curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh \
+    | sh -s -- -b /usr/local/bin
+
+# Gitleaks
+RUN curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.18.4_linux_x64.tar.gz \
+    | tar -xz -C /usr/local/bin gitleaks
+
+WORKDIR /repo
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT [&#34;/entrypoint.sh&#34;]
+</code></pre><br/>
+<p>On crée ensuite un <code>entrypoint.sh</code> avec le contenu suivant:</p>
+<pre tabindex="0"><code>#!/bin/bash
+set -e
+
+OUT=&#34;/output&#34;
+mkdir -p &#34;$OUT&#34;
+REPO=&#34;/repo&#34;
+PASS=0
+FAIL=0
+
+log() { echo -e &#34;\n\033[1;34m[SAST] $1\033[0m&#34;; }
+
+# --- 1. Trufflehog ---
+log &#34;Trufflehog — secrets dans l&#39;historique git&#34;
+trufflehog filesystem &#34;$REPO&#34; --json &gt; &#34;$OUT/trufflehog.json&#34; 2&gt;/dev/null || true
+TH_COUNT=$(wc -l &lt; &#34;$OUT/trufflehog.json&#34;)
+
+# --- 2. Bandit ---
+log &#34;Bandit — analyse statique Python&#34;
+bandit -r &#34;$REPO&#34; -f json -o &#34;$OUT/bandit.json&#34; -q || true
+BAN_HIGH=$(jq &#39;.results | map(select(.issue_severity==&#34;HIGH&#34;)) | length&#39; &#34;$OUT/bandit.json&#34; 2&gt;/dev/null || echo 0)
+
+# --- 3. Semgrep ---
+log &#34;Semgrep — règles auto + AI&#34;
+semgrep --config=auto &#34;$REPO&#34; --json &gt; &#34;$OUT/semgrep.json&#34; 2&gt;/dev/null || true
+SEM_COUNT=$(jq &#39;.results | length&#39; &#34;$OUT/semgrep.json&#34; 2&gt;/dev/null || echo 0)
+
+# --- 4. pip-audit ---
+log &#34;pip-audit — CVE dans les dépendances&#34;
+pip-audit -r &#34;$REPO/requirements.txt&#34; -f json -o &#34;$OUT/pip_audit.json&#34; 2&gt;/dev/null \
+  || pip-audit --project &#34;$REPO&#34; -f json -o &#34;$OUT/pip_audit.json&#34; 2&gt;/dev/null || true
+CVE_COUNT=$(jq &#39;[.[] | select(.vulns | length &gt; 0)] | length&#39; &#34;$OUT/pip_audit.json&#34; 2&gt;/dev/null || echo 0)
+
+# --- 5. Checkov ---
+log &#34;Checkov — Dockerfile / CI configs&#34;
+checkov -d &#34;$REPO&#34; --output json &gt; &#34;$OUT/checkov.json&#34; 2&gt;/dev/null || true
+CHK_FAIL=$(jq &#39;.results.failed_checks | length&#39; &#34;$OUT/checkov.json&#34; 2&gt;/dev/null || echo 0)
+
+# --- 6. Gitleaks ---
+log &#34;Gitleaks — 2e passe secrets&#34;
+gitleaks detect --source=&#34;$REPO&#34; --report-format=json \
+    --report-path=&#34;$OUT/gitleaks.json&#34; --no-git 2&gt;/dev/null || true
+GL_COUNT=$(jq &#39;length&#39; &#34;$OUT/gitleaks.json&#34; 2&gt;/dev/null || echo 0)
+
+# --- Rapport HTML ---
+cat &gt; &#34;$OUT/report.html&#34; &lt;&lt;HTML
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&#34;utf-8&#34;&gt;
+&lt;title&gt;SAST Report&lt;/title&gt;
+&lt;style&gt;
+  body{font-family:sans-serif;max-width:900px;margin:40px auto;color:#222}
+  h1{border-bottom:2px solid #333;padding-bottom:8px}
+  .tool{background:#f5f5f5;border-left:4px solid #666;padding:12px 16px;margin:16px 0;border-radius:4px}
+  .ok{border-color:#22863a}.warn{border-color:#e36209}.bad{border-color:#cb2431}
+  .count{font-size:2em;font-weight:bold;float:right}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;🔍 Rapport SAST — $(date)&lt;/h1&gt;
+&lt;div class=&#34;tool $([ &#34;$TH_COUNT&#34; -eq 0 ] &amp;&amp; echo ok || echo bad)&#34;&gt;
+  &lt;span class=&#34;count&#34;&gt;$TH_COUNT&lt;/span&gt;
+  &lt;b&gt;Trufflehog&lt;/b&gt; — secrets dans l&#39;historique git
+&lt;/div&gt;
+&lt;div class=&#34;tool $([ &#34;$BAN_HIGH&#34; -eq 0 ] &amp;&amp; echo ok || echo bad)&#34;&gt;
+  &lt;span class=&#34;count&#34;&gt;$BAN_HIGH&lt;/span&gt;
+  &lt;b&gt;Bandit&lt;/b&gt; — vulnérabilités HIGH en Python
+&lt;/div&gt;
+&lt;div class=&#34;tool $([ &#34;$SEM_COUNT&#34; -eq 0 ] &amp;&amp; echo ok || echo warn)&#34;&gt;
+  &lt;span class=&#34;count&#34;&gt;$SEM_COUNT&lt;/span&gt;
+  &lt;b&gt;Semgrep&lt;/b&gt; — findings totaux
+&lt;/div&gt;
+&lt;div class=&#34;tool $([ &#34;$CVE_COUNT&#34; -eq 0 ] &amp;&amp; echo ok || echo bad)&#34;&gt;
+  &lt;span class=&#34;count&#34;&gt;$CVE_COUNT&lt;/span&gt;
+  &lt;b&gt;pip-audit&lt;/b&gt; — dépendances avec CVE
+&lt;/div&gt;
+&lt;div class=&#34;tool $([ &#34;$CHK_FAIL&#34; -eq 0 ] &amp;&amp; echo ok || echo warn)&#34;&gt;
+  &lt;span class=&#34;count&#34;&gt;$CHK_FAIL&lt;/span&gt;
+  &lt;b&gt;Checkov&lt;/b&gt; — checks IaC/Dockerfile échoués
+&lt;/div&gt;
+&lt;div class=&#34;tool $([ &#34;$GL_COUNT&#34; -eq 0 ] &amp;&amp; echo ok || echo bad)&#34;&gt;
+  &lt;span class=&#34;count&#34;&gt;$GL_COUNT&lt;/span&gt;
+  &lt;b&gt;Gitleaks&lt;/b&gt; — secrets détectés
+&lt;/div&gt;
+&lt;p&gt;Fichiers JSON détaillés disponibles dans &lt;code&gt;/output/&lt;/code&gt;&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+HTML
+
+log &#34;✅ Rapport généré → $OUT/report.html&#34;
+</code></pre><p>Utilisation:</p>
+<pre tabindex="0"><code># Builder l&#39;image une seule fois
+docker build -f Dockerfile.sast -t sast-scanner .
+
+# Analyser n&#39;importe quel repo cloné localement
+docker run --rm \
+  -v /chemin/vers/reachy_mini_conversation_app_local:/repo:ro \
+  -v $(pwd)/sast-output:/output \
+  sast-scanner
+
+# Ouvrir le rapport
+open sast-output/report.html
+</code></pre><blockquote>
+<p>Le flag :ro monte le repo en lecture seule — le container ne peut rien écrire dedans. Tous les résultats atterrissent dans ./sast-output/ sur ton Mac.</p></blockquote>
+<br/>
+<h1 id="isolation">Isolation</h1>
+<p>Voici une procédure sur Mac OSX. Je veux pouvoir éviter qu&rsquo;une app téléchargée depuis internet puisse écrire en dehors de son dossier, je veux contrôler les flux réseau et voir tout les fichiers écrits sur le disque en dehors de l&rsquo;isolation (on ne sait jamais).</p>
+<pre tabindex="0"><code>┌─────────────────────────────────────┐
+│  Docker (--read-only + --cap-drop)  │  ← isolation disque
+│  + tmpfs /tmp                       │
+├─────────────────────────────────────┤
+│  Lulu (firewall app-level)          │  ← contrôle réseau avec bouton
+├─────────────────────────────────────┤
+│  fswatch sur /                      │  ← rapport fichiers écrits
+└─────────────────────────────────────┘
+</code></pre><br/>
+<h2 id="pré-requis">Pré-requis</h2>
+<p><code>brew install fswatch</code></p>
+<br/>
+<h2 id="surveiller-tout-le-disque-sauf-le-repo-logger-les-écritures">Surveiller TOUT le disque sauf le repo, logger les écritures</h2>
+<p>fswatch -r <br>
+&ndash;exclude &ldquo;/chemin/vers/repo&rdquo; <br>
+&ndash;event Created &ndash;event Updated &ndash;event Renamed <br>
+/ 2&gt;/dev/null | tee ~/rapport-fichiers.log</p>
+<br/>
+<h2 id="isolation-1">Isolation</h2>
+<p>Example avec un repo aléatoire permettant de piloter le robot Reachy mini.</p>
+<p>On clone le repo, et on ajoute ce Dockerfile dans le repo.</p>
+<pre tabindex="0"><code># Dockerfile à créer dans le repo
+FROM python:3.11-slim
+
+# Outils de compilation + libs système nécessaires
+RUN apt-get update &amp;&amp; apt-get install -y \
+    gcc \
+    g++ \
+    pkg-config \
+    libcairo2-dev \
+    libgirepository1.0-dev \
+    gir1.2-glib-2.0 \
+    libglib2.0-dev \
+    python3-gi \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY . .
+RUN pip install -e &#34;.&#34;
+
+# Pas de volume monté sur ton disque Mac → isolation totale
+CMD [&#34;reachy-mini-conversation-app&#34;, &#34;--gradio&#34;]
+</code></pre><br/>
+<p>Ensuite, on build l&rsquo;image</p>
+<p><code>docker build -t reachy-mini-app .</code></p>
+<br/>
+<p>Et enfin, on run le container avec les bons flags:</p>
+<pre tabindex="0"><code># Lancer SANS accès au disque Mac
+docker run --rm \
+  --network bridge \
+  --read-only \
+  --tmpfs /tmp \
+  --cap-drop ALL \
+  -p 7860:7860 \
+  reachy-mini-app
+</code></pre>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="http://localhost:1313/tags/ai">AI</a></span><span class="tag"><a href="http://localhost:1313/tags/s%C3%A9curit%C3%A9">Sécurité</a></span><span class="tag"><a href="http://localhost:1313/tags/python">Python</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>817 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>12 juin. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="http://localhost:1313/installer-tailscale-sur-raspbian-armv7l/">
+                                <span class="button__text">Installer tailscale sur raspbian armv7l</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="http://localhost:1313/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="http://localhost:1313/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://localhost:1313/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+        
+    </body>
+</html>

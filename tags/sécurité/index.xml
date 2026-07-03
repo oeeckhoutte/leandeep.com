@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sécurité on Lean Deep Tech blog</title>
+    <link>http://localhost:1313/tags/s%C3%A9curit%C3%A9/</link>
+    <description>Recent content in Sécurité on Lean Deep Tech blog</description>
+    <generator>Hugo</generator>
+    <language>fr</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 12 Jun 2026 22:15:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/s%C3%A9curit%C3%A9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Audit de sécurité rapide pour repo</title>
+      <link>http://localhost:1313/audit-de-s%C3%A9curit%C3%A9-rapide-pour-repo/</link>
+      <pubDate>Fri, 12 Jun 2026 22:15:00 +0000</pubDate>
+      <guid>http://localhost:1313/audit-de-s%C3%A9curit%C3%A9-rapide-pour-repo/</guid>
+      <description>&lt;p&gt;Vous voulez tester un repository Git rapidement mais vous vous demandez s&amp;rsquo;il ne contient pas pleins de vulnérabilités.&#xA;Dans un premier temps, on va utiliser une pipeline sast et ensuite on va isoler le RUN de l&amp;rsquo;app.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h1 id=&#34;pipeline-sast&#34;&gt;Pipeline sast&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/pipeline-sast.png&#34; alt=&#34;image&#34;&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Dockerfile.sast&#xA;FROM python:3.11-slim&#xA;&#xA;RUN apt-get update &amp;amp;&amp;amp; apt-get install -y \&#xA;    git curl nodejs npm jq \&#xA;    &amp;amp;&amp;amp; rm -rf /var/lib/apt/lists/*&#xA;&#xA;# Outils Python&#xA;RUN pip install --no-cache-dir bandit semgrep pip-audit checkov&#xA;&#xA;# Trufflehog&#xA;RUN curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh \&#xA;    | sh -s -- -b /usr/local/bin&#xA;&#xA;# Gitleaks&#xA;RUN curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.18.4_linux_x64.tar.gz \&#xA;    | tar -xz -C /usr/local/bin gitleaks&#xA;&#xA;WORKDIR /repo&#xA;COPY entrypoint.sh /entrypoint.sh&#xA;RUN chmod +x /entrypoint.sh&#xA;&#xA;ENTRYPOINT [&amp;#34;/entrypoint.sh&amp;#34;]&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;On crée ensuite un &lt;code&gt;entrypoint.sh&lt;/code&gt; avec le contenu suivant:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

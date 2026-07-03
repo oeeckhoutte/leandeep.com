@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 17 May 2026 22:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2026 05:23:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zed &#43; vLLM on DGX Spark</title>
+      <link>https://leandeep.com/zed--vllm-on-dgx-spark/</link>
+      <pubDate>Wed, 01 Jul 2026 05:23:00 +0000</pubDate>
+      <guid>https://leandeep.com/zed--vllm-on-dgx-spark/</guid>
+      <description>&lt;p&gt;Dans cet article, je partage mes notes sur l&amp;rsquo;utilisation de &lt;code&gt;Zed&lt;/code&gt; sur OSX avec comme AI provider &lt;code&gt;vLLM&lt;/code&gt;, &lt;code&gt;Qwen 3.6&lt;/code&gt; sur un &lt;code&gt;Nvidia DGX spark&lt;/code&gt; distant privé. Mon objectif est d&amp;rsquo;avoir l&amp;rsquo;équivalent d&amp;rsquo;un petit &lt;code&gt;Cursor&lt;/code&gt; (remplacé par &lt;code&gt;Zed&lt;/code&gt;) avec un LLM local.&#xA;Je suis en train de mettre en place un Agent qui travaille pour moi tout le temps et qui répond à toutes mes questions (via texte ou voix). Je veux pouvoir cramer autant de tokens que je veux et ne rien avoir à payer car étant très très geek, j&amp;rsquo;ai une consommation en tokens stratosphérique (malgré le fait que je code depuis depuis que j&amp;rsquo;ai l&amp;rsquo;âge de 13 ou 14 ans).&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Install Hermes on Ubuntu 26.04</title>
       <link>https://leandeep.com/install-hermes-on-ubuntu-26.04/</link>
@@ -71,13 +78,6 @@
       <pubDate>Mon, 02 Mar 2026 18:15:00 +0000</pubDate>
       <guid>https://leandeep.com/terraform-runpod-openclaw-dev-setup/</guid>
       <description>&lt;h2 id=&#34;1-installer-terraform-sur-macos&#34;&gt;1. Installer Terraform sur macOS&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew tap hashicorp/tap&#xA;brew install hashicorp/tap/terraform&#xA;terraform --version&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;h2 id=&#34;2-obtenir-une-clé-api-runpod&#34;&gt;2. Obtenir une clé API RunPod&lt;/h2&gt;&#xA;&lt;p&gt;Rendez-vous sur &lt;a href=&#34;https://www.runpod.io/console/user/settings&#34;&gt;https://www.runpod.io/console/user/settings&lt;/a&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Sectionnez &lt;code&gt;API Keys&lt;/code&gt; &lt;code&gt;→&lt;/code&gt; &lt;code&gt;Create API Key (permissions Read/Write)&lt;/code&gt;&#xA;&lt;br/&gt;&lt;/p&gt;&#xA;&lt;p&gt;Copiez la clé et exportez-la: &lt;br/&gt;&#xA;&lt;code&gt;export RUNPOD_API_KEY=&amp;quot;rp_xxxxxxxxxxxxxxxxxxxxxxxx&amp;quot;&lt;/code&gt;&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;h2 id=&#34;3-fichiers-terraform&#34;&gt;3. Fichiers Terraform&lt;/h2&gt;&#xA;&lt;p&gt;Créez un dossier openclaw-runpod/ et place-y ces 3 fichiers:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/variables.tf&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;variable &amp;#34;runpod_api_key&amp;#34; {&#xA;  description = &amp;#34;RunPod API key&amp;#34;&#xA;  type        = string&#xA;  sensitive   = true&#xA;  default     = &amp;#34;&amp;#34;&#xA;}&#xA;&#xA;variable &amp;#34;ssh_public_key&amp;#34; {&#xA;  description = &amp;#34;SSH public key for secure access&amp;#34;&#xA;  type        = string&#xA;}&#xA;&#xA;variable &amp;#34;pod_name&amp;#34; {&#xA;  description = &amp;#34;Name of the RunPod pod&amp;#34;&#xA;  type        = string&#xA;  default     = &amp;#34;openclaw&amp;#34;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;code&gt;vim openclaw-runpod/main.tf&lt;/code&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Installer et tester Ollama sur Ubuntu avec GPU support</title>
-      <link>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</link>
-      <pubDate>Sun, 25 Jan 2026 12:08:20 +0200</pubDate>
-      <guid>https://leandeep.com/installer-et-tester-ollama-sur-ubuntu-avec-gpu-support/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Verifier que le GPU est accessible&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvidia-smi&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installer Ollama&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -fsSL https://ollama.com/install.sh | sh&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;Cela va installer:&lt;br/&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;/usr/bin/ollama&lt;br/&gt;&lt;/li&gt;&#xA;&lt;li&gt;le service systemd&lt;br/&gt;&lt;/li&gt;&#xA;&lt;li&gt;le support CUDA si driver NVIDIA détecté&lt;/li&gt;&#xA;&lt;/ul&gt;&lt;/blockquote&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vérifier l&amp;rsquo;installation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ollama --version&#xA;ollama --info # Pour vérifier GPU visible&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Forcer Ollama à utiliser uniquement un eGPU&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Identifier l&amp;rsquo;ID du eGPU**&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nvidia-smi -L&#xA;GPU 0: RTX 5090 (internal)&#xA;GPU 1: RTX 5090 (internal 2)&#xA;GPU 2: RTX 4080 (eGPU)&#xA;# choisir 2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;CUDA_VISIBLE_DEVICES=2 ollama run llama3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl edit ollama&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Ajoute:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
