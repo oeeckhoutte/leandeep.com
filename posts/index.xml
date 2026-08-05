@@ -6,8 +6,84 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>fr</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 01 Jul 2026 05:23:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 05 Aug 2026 07:00:00 +0200</lastBuildDate>
         <atom:link href="https://leandeep.com/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Installer Docker sur Ubuntu 26</title>
+            <link>https://leandeep.com/installer-docker-sur-ubuntu-26/</link>
+            <pubDate>Wed, 05 Aug 2026 07:00:00 +0200</pubDate>
+            
+            <guid>https://leandeep.com/installer-docker-sur-ubuntu-26/</guid>
+            <description>&lt;h2 id=&#34;effacer-linstallation-précédente&#34;&gt;Effacer l&amp;rsquo;installation précédente&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Désinstaller les packages précédemment installés&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc;
+  do sudo apt-get remove -y $pkg
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;rm -rf /var/lib/docker &amp;amp;&amp;amp; rm -rf /var/lib/containerd
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;ajouter-la-clé-docker-gpg&#34;&gt;Ajouter la clé Docker GPG&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt-get install -y ca-certificates curl gnupg lsb-release
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+chmod a+r /etc/apt/keyrings/docker.gpg
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;ajouter-le-dépot-officiel-docker&#34;&gt;Ajouter le dépot officiel Docker&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;echo &amp;#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release &amp;amp;&amp;amp; echo &amp;#34;$VERSION_CODENAME&amp;#34;) stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;installer-docker&#34;&gt;Installer Docker&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;activer-docker&#34;&gt;Activer Docker&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl enable docker
+systemctl start docker
+systemctl status docker
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;vérification&#34;&gt;Vérification&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;docker ps
+docker compose ps
+&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;
+&lt;h2 id=&#34;utiliser-docker-sans-sudo&#34;&gt;Utiliser Docker sans sudo&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo usermod -aG docker $USER
+newgrp docker
+&lt;/code&gt;&lt;/pre&gt;</description>
+            <content type="html"><![CDATA[<h2 id="effacer-linstallation-précédente">Effacer l&rsquo;installation précédente</h2>
+<p><strong>Désinstaller les packages précédemment installés</strong></p>
+<pre tabindex="0"><code>for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc;
+  do sudo apt-get remove -y $pkg
+done
+</code></pre><br/>
+<pre tabindex="0"><code>rm -rf /var/lib/docker &amp;&amp; rm -rf /var/lib/containerd
+</code></pre><br/>
+<h2 id="ajouter-la-clé-docker-gpg">Ajouter la clé Docker GPG</h2>
+<pre tabindex="0"><code>apt-get install -y ca-certificates curl gnupg lsb-release
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+chmod a+r /etc/apt/keyrings/docker.gpg
+</code></pre><br/>
+<h2 id="ajouter-le-dépot-officiel-docker">Ajouter le dépot officiel Docker</h2>
+<pre tabindex="0"><code>echo &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;) stable&#34; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</code></pre><br/>
+<h2 id="installer-docker">Installer Docker</h2>
+<pre tabindex="0"><code>apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre><br/>
+<h2 id="activer-docker">Activer Docker</h2>
+<pre tabindex="0"><code>systemctl enable docker
+systemctl start docker
+systemctl status docker
+</code></pre><br/>
+<h2 id="vérification">Vérification</h2>
+<pre tabindex="0"><code>docker ps
+docker compose ps
+</code></pre><br/>
+<h2 id="utiliser-docker-sans-sudo">Utiliser Docker sans sudo</h2>
+<pre tabindex="0"><code>sudo usermod -aG docker $USER
+newgrp docker
+</code></pre>]]></content>
+        </item>
         
         <item>
             <title>Zed &#43; vLLM on DGX Spark</title>
@@ -63,8 +139,7 @@ docker run --rm -it \
 <h2 id="configuration-de-zed">Configuration de Zed</h2>
 <p>Pour connecter <code>Zed</code> à son LLM local, il faut configurer l&rsquo;outil via son fichier de configuration <code>vim ~/.config/zed/settings.json</code>.</p>
 <p>Example dans notre cas:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">...</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">...</span>
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;language_models&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;openai_compatible&#34;</span>: {
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;vllm&#34;</span>: {

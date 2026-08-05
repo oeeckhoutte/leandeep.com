@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Fine-tuner un LLM localement sur NVIDIA DGX Spark avec PyTorch, LoRA et QLoRA Introduction Le fine-tuning de grands modèles de langage (LLM) est devenu une pratique essentielle pour les développeurs et chercheurs en intelligence artificielle. Cependant, cette tâche exige généralement des ressources de calcul considérables, souvent inaccessibles en local. La NVIDIA DGX Spark change la donne en offrant une supercalculateur IA compact pouvant être installé sur votre bureau . La DGX Spark, basée sur l&rsquo;architecture NVIDIA Grace Blackwell, délivre jusqu&rsquo;à 1 petaFLOP de performance IA et dispose de 128 Go de mémoire unifiée cohérente . Cette puissance permet aux développeurs d&rsquo;exécuter localement des modèles d&rsquo;IA pouvant atteindre 200 milliards de paramètres pour l&rsquo;inférence et d&rsquo;affiner des modèles jusqu&rsquo;à 70 milliards de paramètres .
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+<script>
+  
+  
+  if (!(window.location.host.startsWith("127.0.0.1")) && !(window.location.host.startsWith("localhost"))) {
+    if (window.location.protocol != "https:") {
+      console.log("Redirecting to https...")
+      window.location.protocol = "https";
+    }
+  }
+</script>
+
+
+<link rel="canonical" href="http://localhost:1313/fine-tuner-un-mod%C3%A8le-llm-sur-spark/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  Fine-tuner un modèle LLM sur Spark :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/main.min.e39a6c3bc44a6959dad5260db3c8d5659e378a90722580530dbf85b2eebd0587.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+    <link rel="manifest" href="http://localhost:1313/site.webmanifest">
+    <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="http://localhost:1313/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="Fine-tuner un modèle LLM sur Spark">
+  <meta itemprop="description" content="Fine-tuner un LLM localement sur NVIDIA DGX Spark avec PyTorch, LoRA et QLoRA Introduction Le fine-tuning de grands modèles de langage (LLM) est devenu une pratique essentielle pour les développeurs et chercheurs en intelligence artificielle. Cependant, cette tâche exige généralement des ressources de calcul considérables, souvent inaccessibles en local. La NVIDIA DGX Spark change la donne en offrant une supercalculateur IA compact pouvant être installé sur votre bureau . La DGX Spark, basée sur l’architecture NVIDIA Grace Blackwell, délivre jusqu’à 1 petaFLOP de performance IA et dispose de 128 Go de mémoire unifiée cohérente . Cette puissance permet aux développeurs d’exécuter localement des modèles d’IA pouvant atteindre 200 milliards de paramètres pour l’inférence et d’affiner des modèles jusqu’à 70 milliards de paramètres .">
+  <meta itemprop="datePublished" content="2026-03-15T19:44:00+02:00">
+  <meta itemprop="dateModified" content="2026-03-15T19:44:00+02:00">
+  <meta itemprop="wordCount" content="1946">
+  <meta itemprop="image" content="http://localhost:1313/">
+  <meta itemprop="keywords" content="AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="Fine-tuner un modèle LLM sur Spark">
+  <meta name="twitter:description" content="Fine-tuner un LLM localement sur NVIDIA DGX Spark avec PyTorch, LoRA et QLoRA Introduction Le fine-tuning de grands modèles de langage (LLM) est devenu une pratique essentielle pour les développeurs et chercheurs en intelligence artificielle. Cependant, cette tâche exige généralement des ressources de calcul considérables, souvent inaccessibles en local. La NVIDIA DGX Spark change la donne en offrant une supercalculateur IA compact pouvant être installé sur votre bureau . La DGX Spark, basée sur l’architecture NVIDIA Grace Blackwell, délivre jusqu’à 1 petaFLOP de performance IA et dispose de 128 Go de mémoire unifiée cohérente . Cette puissance permet aux développeurs d’exécuter localement des modèles d’IA pouvant atteindre 200 milliards de paramètres pour l’inférence et d’affiner des modèles jusqu’à 70 milliards de paramètres .">
+
+
+
+
+
+<meta property="article:published_time" content="2026-03-15 19:44:00 &#43;0200 &#43;0200" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="http://localhost:1313/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="http://localhost:1313/events/">Featured Articles</a></li><li><a href="http://localhost:1313/posts/">All Articles</a></li><li><a href="http://localhost:1313/about/">About Me</a></li><li><a href="http://localhost:1313/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>10 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="http://localhost:1313/fine-tuner-un-mod%C3%A8le-llm-sur-spark/">Fine-tuner un modèle LLM sur Spark</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <h1 id="fine-tuner-un-llm-localement-sur-nvidia-dgx-spark-avec-pytorch-lora-et-qlora">Fine-tuner un LLM localement sur NVIDIA DGX Spark avec PyTorch, LoRA et QLoRA</h1>
+<ol>
+<li>Introduction
+Le fine-tuning de grands modèles de langage (LLM) est devenu une pratique essentielle pour les développeurs et chercheurs en intelligence artificielle. Cependant, cette tâche exige généralement des ressources de calcul considérables, souvent inaccessibles en local. La NVIDIA DGX Spark change la donne en offrant une supercalculateur IA compact pouvant être installé sur votre bureau .</li>
+</ol>
+<p>La DGX Spark, basée sur l&rsquo;architecture NVIDIA Grace Blackwell, délivre jusqu&rsquo;à 1 petaFLOP de performance IA et dispose de 128 Go de mémoire unifiée cohérente . Cette puissance permet aux développeurs d&rsquo;exécuter localement des modèles d&rsquo;IA pouvant atteindre 200 milliards de paramètres pour l&rsquo;inférence et d&rsquo;affiner des modèles jusqu&rsquo;à 70 milliards de paramètres .</p>
+<p>Dans cet article, nous allons explorer un processus complet de fine-tuning d&rsquo;un LLM sur DGX Spark en utilisant PyTorch, la bibliothèque Hugging Face Transformers et les techniques d&rsquo;adaptation efficaces en paramètres (PEFT) que sont LoRA et QLoRA .</p>
+<ol start="2">
+<li>Comprendre le fine-tuning d&rsquo;un LLM
+Le fine-tuning est le processus qui consiste à adapter un modèle pré-entraîné sur un vaste corpus de données générales à une tâche spécifique ou à un domaine particulier. Plutôt que de partir de zéro, coûteux en temps et en données, le fine-tuning utilise les connaissances déjà acquises par le modèle et les affine avec un ensemble de données plus ciblé .</li>
+</ol>
+<p>Cette approche est particulièrement utile pour :</p>
+<p>Enseigner des connaissances spécifiques à un domaine (documents techniques, données propriétaires)</p>
+<p>Adapter le style et le ton du modèle à des cas d&rsquo;usage particuliers</p>
+<p>Améliorer les performances sur des tâches spécialisées</p>
+<ol start="3">
+<li>Architecture NVIDIA DGX Spark
+La DGX Spark est une véritable révolution pour le développement local d&rsquo;IA. Ses spécifications techniques en font une plateforme idéale pour le fine-tuning  :</li>
+</ol>
+<p>Composant	Spécification
+Architecture	NVIDIA Grace Blackwell
+GPU	Architecture Blackwell
+CPU	20 cœurs Arm (10 Cortex-X925 + 10 Cortex-A725)
+Performance IA	Jusqu&rsquo;à 1 PFLOP FP4
+Mémoire unifiée	128 Go LPDDR5x cohérente
+Bande passante mémoire	273 Go/s
+Stockage	4 To NVMe M.2
+Connectivité réseau	ConnectX-7 NIC @ 200 Gbps
+TDP	140 W (puissance totale 240 W)
+La DGX Spark exécute le système d&rsquo;exploitation DGX OS, basé sur Ubuntu 24.04, ce qui assure une compatibilité étendue avec l&rsquo;écosystème des logiciels d&rsquo;IA . La pile logicielle NVIDIA AI est préinstallée, incluant CUDA 13.0, des bibliothèques optimisées (cuDNN, NCCL) et des outils de développement .</p>
+<ol start="4">
+<li>Préparation de l&rsquo;environnement
+Avant de commencer le fine-tuning, il est essentiel de préparer correctement l&rsquo;environnement logiciel sur votre DGX Spark.</li>
+</ol>
+<p>OS
+La DGX Spark utilise DGX OS, une distribution basée sur Ubuntu 24.04 LTS optimisée par NVIDIA . Cette base Ubuntu offre un écosystème mature et stable pour le développement IA .</p>
+<p>Drivers NVIDIA
+Les drivers NVIDIA sont préinstallés sur DGX OS. La version recommandée est le driver R580.GA UDA . Pour vérifier l&rsquo;installation :</p>
+<p>bash
+nvidia-smi
+CUDA
+CUDA 13.0 est inclus dans la pile logicielle de la DGX Spark. Assurez-vous que les chemins sont correctement configurés :</p>
+<p>bash
+nvcc &ndash;version
+export CUDA_HOME=/usr/local/cuda
+Docker
+Docker est supporté nativement sur DGX OS. Vérifiez son installation :</p>
+<p>bash
+docker &ndash;version
+Container Toolkit
+Le NVIDIA Container Toolkit permet d&rsquo;exécuter des conteneurs Docker avec support GPU. Installez-le si nécessaire :</p>
+<p>bash
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit
+sudo systemctl restart docker
+5. Installation PyTorch + environnement IA
+Pour installer PyTorch avec le support CUDA 13.0 optimisé pour la DGX Spark  :</p>
+<p>bash</p>
+<h1 id="installation-avec-pip">Installation avec pip</h1>
+<p>pip3 install torch torchvision torchaudio &ndash;index-url <a href="https://download.pytorch.org/whl/cu130">https://download.pytorch.org/whl/cu130</a>
+Créez un environnement virtuel dédié (recommandé) :</p>
+<p>bash
+python3 -m venv dgx-ai-env
+source dgx-ai-env/bin/activate
+Installez également les bibliothèques utilitaires :</p>
+<p>bash
+pip install accelerate transformers datasets peft bitsandbytes scipy
+6. Installation Hugging Face
+La bibliothèque Hugging Face Transformers est essentielle pour le fine-tuning. Installez-la ainsi que les outils associés  :</p>
+<p>bash
+pip install transformers[torch] datasets evaluate tokenizers huggingface_hub
+Pour utiliser des modèles privés ou à accès restreint, connectez-vous à votre compte Hugging Face :</p>
+<p>bash
+huggingface-cli login</p>
+<h1 id="entrez-votre-token-daccès">Entrez votre token d&rsquo;accès</h1>
+<ol start="7">
+<li>Téléchargement et préparation du modèle
+Pour le téléchargement d&rsquo;un modèle depuis le Hub Hugging Face  :</li>
+</ol>
+<p>python
+from transformers import AutoTokenizer, AutoModelForCausalLM</p>
+<p>model_name = &ldquo;meta-llama/Llama-3.2-3B&rdquo;  # ou le modèle de votre choix
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(
+model_name,
+torch_dtype=torch.bfloat16,  # Optimisé pour la DGX Spark
+device_map=&ldquo;auto&rdquo;
+)
+Pour les modèles nécessitant une autorisation, assurez-vous d&rsquo;avoir accepté les conditions sur le site Hugging Face.</p>
+<ol start="8">
+<li>Dataset et format d&rsquo;entraînement
+Le format standard pour le fine-tuning supervisé est un fichier JSONL où chaque ligne contient une paire &ldquo;prompt-completion&rdquo; . Par exemple :</li>
+</ol>
+<p>json
+{&ldquo;prompt&rdquo;: &ldquo;Qu&rsquo;est-ce que la DGX Spark ?&rdquo;, &ldquo;completion&rdquo;: &ldquo;La DGX Spark est un supercalculateur IA compact basé sur l&rsquo;architecture Grace Blackwell&hellip;&rdquo;}
+Chargez le dataset :</p>
+<p>python
+from datasets import load_dataset</p>
+<p>dataset = load_dataset(&ldquo;json&rdquo;, data_files=&ldquo;votre_dataset.jsonl&rdquo;)
+Transformez les données au format attendu par le modèle :</p>
+<p>python
+def format_chat_template(examples):
+return tokenizer.apply_chat_template(
+[
+{&ldquo;role&rdquo;: &ldquo;user&rdquo;, &ldquo;content&rdquo;: examples[&ldquo;prompt&rdquo;]},
+{&ldquo;role&rdquo;: &ldquo;assistant&rdquo;, &ldquo;content&rdquo;: examples[&ldquo;completion&rdquo;]}
+],
+tokenize=False
+)
+9. Fine-tuning supervisé (SFT)
+Le Supervised Fine-Tuning (SFT) est l&rsquo;étape de base pour adapter un LLM à un dataset spécifique. Le modèle est entraîné à prédire la complétion pour chaque prompt donné.</p>
+<p>Pour un SFT standard avec le Trainer de Hugging Face  :</p>
+<p>python
+from transformers import TrainingArguments, Trainer</p>
+<p>training_args = TrainingArguments(
+output_dir=&quot;./sft-results&quot;,
+per_device_train_batch_size=2,
+gradient_accumulation_steps=4,
+num_train_epochs=3,
+learning_rate=2e-5,
+fp16=True,
+logging_steps=10,
+save_strategy=&ldquo;epoch&rdquo;,
+)</p>
+<p>trainer = Trainer(
+model=model,
+args=training_args,
+train_dataset=tokenized_dataset,
+)
+trainer.train()
+10. LoRA : principe et implémentation
+LoRA (Low-Rank Adaptation) est une technique d&rsquo;adaptation efficace en paramètres qui réduit considérablement les besoins en mémoire pour le fine-tuning .</p>
+<p>Principe
+LoRA fonctionne en geler les poids pré-entraînés du modèle et en introduisant de petites matrices de rang réduit entraînables dans chaque couche . L&rsquo;équation devient :</p>
+<p>text
+y = xW + x(AB) = x(W + AB)
+Où W est la matrice de poids gelée et A, B sont les matrices de faible rang entraînables.</p>
+<p>Implémentation avec PEFT
+python
+from peft import LoraConfig, get_peft_model</p>
+<p>lora_config = LoraConfig(
+r=8,  # Rang des matrices d&rsquo;adaptation
+lora_alpha=32,  # Facteur d&rsquo;échelle
+target_modules=[&ldquo;q_proj&rdquo;, &ldquo;v_proj&rdquo;, &ldquo;k_proj&rdquo;, &ldquo;o_proj&rdquo;],
+lora_dropout=0.1,
+bias=&ldquo;none&rdquo;,
+task_type=&ldquo;CAUSAL_LM&rdquo;
+)</p>
+<p>model_lora = get_peft_model(model, lora_config)
+model_lora.print_trainable_parameters()  # &lt;1% des paramètres
+11. QLoRA : entraînement quantifié
+QLoRA (Quantized LoRA) pousse l&rsquo;optimisation mémoire plus loin en quantifiant les poids gelés du modèle .</p>
+<p>Principales innovations QLoRA  :
+Quantification 4-bit NF4 : type de données optimisé pour la distribution normale des poids</p>
+<p>Double Quantification : quantification des constantes de quantification</p>
+<p>Optimiseurs Paged : déchargement des états de l&rsquo;optimiseur sur CPU</p>
+<p>Implémentation avec bitsandbytes
+python
+from transformers import BitsAndBytesConfig
+from peft import LoraConfig, get_peft_model</p>
+<p>bnb_config = BitsAndBytesConfig(
+load_in_4bit=True,
+bnb_4bit_use_double_quant=True,
+bnb_4bit_quant_type=&ldquo;nf4&rdquo;,
+bnb_4bit_compute_dtype=torch.bfloat16
+)</p>
+<p>model = AutoModelForCausalLM.from_pretrained(
+model_name,
+quantization_config=bnb_config,
+device_map=&ldquo;auto&rdquo;
+)</p>
+<p>qlora_config = LoraConfig(
+r=8,
+lora_alpha=16,
+target_modules=[&ldquo;q_proj&rdquo;, &ldquo;v_proj&rdquo;],
+lora_dropout=0.1,
+bias=&ldquo;none&rdquo;,
+)</p>
+<p>model_qlora = get_peft_model(model, qlora_config)
+12. Script complet d&rsquo;entraînement
+Voici un script complet intégrant toutes les étapes précédentes :</p>
+<p>python
+import torch
+from transformers import (
+AutoTokenizer,
+AutoModelForCausalLM,
+TrainingArguments,
+Trainer,
+BitsAndBytesConfig
+)
+from peft import LoraConfig, get_peft_model
+from datasets import load_dataset</p>
+<h1 id="1-configuration">1. Configuration</h1>
+<p>model_name = &ldquo;meta-llama/Llama-3.2-3B&rdquo;
+dataset_path = &ldquo;./data/training_data.jsonl&rdquo;
+output_dir = &ldquo;./qlora-finetuned&rdquo;</p>
+<h1 id="2-quantification">2. Quantification</h1>
+<p>bnb_config = BitsAndBytesConfig(
+load_in_4bit=True,
+bnb_4bit_use_double_quant=True,
+bnb_4bit_quant_type=&ldquo;nf4&rdquo;,
+bnb_4bit_compute_dtype=torch.bfloat16
+)</p>
+<h1 id="3-chargement-du-modèle">3. Chargement du modèle</h1>
+<p>model = AutoModelForCausalLM.from_pretrained(
+model_name,
+quantization_config=bnb_config,
+device_map=&ldquo;auto&rdquo;
+)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer.pad_token = tokenizer.eos_token</p>
+<h1 id="4-configuration-lora">4. Configuration LoRA</h1>
+<p>lora_config = LoraConfig(
+r=16,
+lora_alpha=32,
+target_modules=[&ldquo;q_proj&rdquo;, &ldquo;v_proj&rdquo;, &ldquo;k_proj&rdquo;, &ldquo;o_proj&rdquo;],
+lora_dropout=0.1,
+bias=&ldquo;none&rdquo;,
+task_type=&ldquo;CAUSAL_LM&rdquo;
+)
+model = get_peft_model(model, lora_config)</p>
+<h1 id="5-dataset">5. Dataset</h1>
+<p>dataset = load_dataset(&ldquo;json&rdquo;, data_files=dataset_path)</p>
+<p>def tokenize_function(examples):
+return tokenizer(
+examples[&ldquo;prompt&rdquo;] + &quot; &quot; + examples[&ldquo;completion&rdquo;],
+truncation=True,
+padding=&ldquo;max_length&rdquo;,
+max_length=512
+)</p>
+<p>tokenized_dataset = dataset.map(tokenize_function, batched=True)</p>
+<h1 id="6-entraînement">6. Entraînement</h1>
+<p>training_args = TrainingArguments(
+output_dir=output_dir,
+per_device_train_batch_size=2,
+gradient_accumulation_steps=4,
+num_train_epochs=3,
+learning_rate=2e-4,
+fp16=True,
+logging_steps=10,
+save_strategy=&ldquo;epoch&rdquo;,
+save_total_limit=2,
+)</p>
+<p>trainer = Trainer(
+model=model,
+args=training_args,
+train_dataset=tokenized_dataset[&ldquo;train&rdquo;],
+)</p>
+<h1 id="7-lancement">7. Lancement</h1>
+<p>trainer.train()
+13. Lancement du training
+Pour lancer l&rsquo;entraînement, exécutez simplement le script Python. La DGX Spark gérera automatiquement l&rsquo;allocation mémoire et les calculs sur le GPU Blackwell.</p>
+<p>bash
+python train.py
+Surveillez les premières itérations pour vérifier que tout fonctionne correctement.</p>
+<ol start="14">
+<li>Monitoring GPU et métriques
+nvidia-smi
+La commande nvidia-smi permet de surveiller l&rsquo;utilisation GPU en temps réel  :</li>
+</ol>
+<p>bash
+watch -n 1 nvidia-smi
+TensorBoard
+Pour visualiser les métriques d&rsquo;entraînement, activez TensorBoard :</p>
+<p>python
+training_args = TrainingArguments(
+# &hellip; autres arguments &hellip;
+report_to=&ldquo;tensorboard&rdquo;,
+logging_dir=&quot;./logs&quot;,
+)
+bash
+tensorboard &ndash;logdir ./logs
+Métriques clés à surveiller
+Perte (Loss) : doit diminuer régulièrement</p>
+<p>Utilisation mémoire GPU : reste dans les limites de la DGX Spark (128 Go)</p>
+<p>Vitesse d&rsquo;entraînement : tokens par seconde</p>
+<p>Apprentissage : stable sans divergence</p>
+<ol start="15">
+<li>Sauvegarde des checkpoints
+Sauvegarde automatique
+Le Trainer de Hugging Face sauvegarde automatiquement les checkpoints selon save_strategy  :</li>
+</ol>
+<p>python</p>
+<h1 id="sauvegarde-à-chaque-époque">Sauvegarde à chaque époque</h1>
+<p>save_strategy=&ldquo;epoch&rdquo;</p>
+<h1 id="sauvegarde-tous-les-n-steps">Sauvegarde tous les N steps</h1>
+<p>save_steps=100
+Sauvegarde manuelle
+python
+model.save_pretrained(&quot;./checkpoint-manuel&quot;)
+tokenizer.save_pretrained(&quot;./checkpoint-manuel&quot;)
+16. Fusion des adapters LoRA
+Après l&rsquo;entraînement, les poids LoRA sont stockés séparément. Pour l&rsquo;inférence, deux options s&rsquo;offrent à vous :</p>
+<p>Option 1 : Utiliser les adapters directement
+python
+from peft import PeftModel</p>
+<p>base_model = AutoModelForCausalLM.from_pretrained(
+model_name,
+torch_dtype=torch.bfloat16
+)
+model = PeftModel.from_pretrained(base_model, output_dir)
+Option 2 : Fusionner les adapters dans le modèle
+python</p>
+<h1 id="fusion-des-poids-lora-dans-le-modèle-de-base">Fusion des poids LoRA dans le modèle de base</h1>
+<p>model = model.merge_and_unload()
+model.save_pretrained(&quot;./merged-model&quot;)
+tokenizer.save_pretrained(&quot;./merged-model&quot;)
+17. Test du modèle
+Pour tester votre modèle fine-tuné :</p>
+<p>python
+from transformers import pipeline</p>
+<p>pipe = pipeline(
+&ldquo;text-generation&rdquo;,
+model=&quot;./merged-model&quot;,  # ou &ldquo;./qlora-finetuned&rdquo;
+device=0  # GPU 0
+)</p>
+<p>response = pipe(
+&ldquo;Quel est le rôle de la mémoire unifiée dans la DGX Spark ?&rdquo;,
+max_new_tokens=256,
+temperature=0.7
+)
+print(response[0][&lsquo;generated_text&rsquo;])
+18. Évaluation avant/après
+Il est crucial de comparer les performances du modèle avant et après fine-tuning.</p>
+<p>Tests qualitatifs
+python</p>
+<h1 id="modèle-original">Modèle original</h1>
+<p>original = pipeline(&ldquo;text-generation&rdquo;, model=model_name, device=0)
+original_response = original(prompt, max_new_tokens=100)</p>
+<h1 id="modèle-fine-tuné">Modèle fine-tuné</h1>
+<p>finetuned_response = pipe(prompt, max_new_tokens=100)</p>
+<h1 id="comparez-manuellement-les-résultats">Comparez manuellement les résultats</h1>
+<p>print(&ldquo;Original:&rdquo;, original_response[0][&lsquo;generated_text&rsquo;])
+print(&ldquo;Fine-tuné:&rdquo;, finetuned_response[0][&lsquo;generated_text&rsquo;])
+Métriques quantitatives
+Utilisez les bibliothèques d&rsquo;évaluation comme evaluate pour mesurer les performances sur un dataset de test :</p>
+<p>python
+import evaluate</p>
+<p>rouge = evaluate.load(&ldquo;rouge&rdquo;)
+bleu = evaluate.load(&ldquo;bleu&rdquo;)</p>
+<h1 id="calcul-des-scores-sur-des-réponses-générées">Calcul des scores sur des réponses générées</h1>
+<ol start="19">
+<li>Déploiement avec vLLM
+vLLM est un moteur d&rsquo;inférence haute-performance optimisé pour les LLM, utilisant des techniques comme PagedAttention et le batching continu .</li>
+</ol>
+<p>Installation sur DGX Spark
+bash</p>
+<h1 id="installation-recommandée-via-le-script-dédié-pour-dgx-spark">Installation recommandée via le script dédié pour DGX Spark</h1>
+<p>curl -fsSL <a href="https://raw.githubusercontent.com/eelbaz/dgx-spark-vllm-setup/main/install.sh">https://raw.githubusercontent.com/eelbaz/dgx-spark-vllm-setup/main/install.sh</a> | bash
+cd vllm-install
+source vllm_env.sh
+Démarrage du serveur vLLM
+bash
+./vllm-serve.sh &ldquo;./merged-model&rdquo; 8000
+20. Création d&rsquo;une API OpenAI compatible
+vLLM expose automatiquement une API compatible avec OpenAI . Testez votre endpoint :</p>
+<p>bash
+curl http://localhost:8000/v1/chat/completions <br>
+-H &ldquo;Content-Type: application/json&rdquo; <br>
+-d &lsquo;{
+&ldquo;model&rdquo;: &ldquo;./merged-model&rdquo;,
+&ldquo;messages&rdquo;: [
+{&ldquo;role&rdquo;: &ldquo;user&rdquo;, &ldquo;content&rdquo;: &ldquo;Expliquez l&rsquo;architecture Grace Blackwell&rdquo;}
+],
+&ldquo;max_tokens&rdquo;: 200
+}&rsquo;
+21. Optimisations performances DGX Spark
+Pour tirer le meilleur parti de la DGX Spark  :</p>
+<p>Optimisations mémoire
+Utilisez torch.bfloat16 pour les calculs</p>
+<p>Activez le gradient checkpointing : model.gradient_checkpointing_enable()</p>
+<p>Utilisez QLoRA pour réduire l&rsquo;empreinte mémoire de 85%</p>
+<p>Optimisations CUDA
+python</p>
+<h1 id="set-des-variables-denvironnement-pour-blackwell-sm_121">Set des variables d&rsquo;environnement pour Blackwell (sm_121)</h1>
+<p>export TORCH_CUDA_ARCH_LIST=12.1a
+export CUDA_LAUNCH_BLOCKING=1
+Configuration vLLM optimale
+bash
+vllm serve ./model <br>
+&ndash;max-model-len 32768 <br>
+&ndash;gpu-memory-utilization 0.9 <br>
+&ndash;enable-prefix-caching <br>
+&ndash;max-num-seqs 32
+22. Troubleshooting
+Erreur de mémoire CUDA
+bash</p>
+<h1 id="réduisez-la-taille-de-batch">Réduisez la taille de batch</h1>
+<p>per_device_train_batch_size=1
+gradient_accumulation_steps=8
+Erreur de symboles CUDA sur Blackwell
+bash</p>
+<h1 id="vérifiez-que-la-configuration-est-correcte-pour-sm_121">Vérifiez que la configuration est correcte pour sm_121</h1>
+<p>export TORCH_CUDA_ARCH_LIST=12.1a
+Problème de token HF
+bash</p>
+<h1 id="vérifiez-votre-token">Vérifiez votre token</h1>
+<p>huggingface-cli whoami</p>
+<h1 id="reconnectez-vous-si-nécessaire">Reconnectez-vous si nécessaire</h1>
+<p>huggingface-cli login
+Problème d&rsquo;import vLLM
+bash</p>
+<h1 id="assurez-vous-que-lenvironnement-est-activé">Assurez-vous que l&rsquo;environnement est activé</h1>
+<p>source vllm-install/vllm_env.sh
+python -c &ldquo;import vllm; print(vllm.<strong>version</strong>)&rdquo;
+23. Next Steps
+Le fine-tuning local sur DGX Spark ouvre de nombreuses possibilités :</p>
+<p>Entraînement multi-nœuds : connectez plusieurs DGX Spark pour travailler sur des modèles jusqu&rsquo;à 405B paramètres</p>
+<p>Agentic AI : utilisez le framework NeMoClaw intégré pour développer des agents IA sécurisés</p>
+<p>Quantification avancée : explorez les formats NVFP4 et MXFP4 optimisés pour Blackwell</p>
+<p>Intégration continue : automatisez votre pipeline d&rsquo;entraînement avec des scripts CI/CD</p>
+<p>Expérimentation systématique : testez différentes configurations LoRA (rang, modules cibles)</p>
+<p>La DGX Spark représente une avancée majeure pour la démocratisation du développement IA. Avec ses capacités de fine-tuning local, elle permet aux chercheurs et développeurs d&rsquo;itérer rapidement sur leurs modèles sans dépendre des infrastructures cloud, tout en maintenant un contrôle total sur leurs données.</p>
+<p>Ressources supplémentaires :</p>
+<p>Documentation NVIDIA DGX Spark</p>
+<p>Hugging Face Transformers</p>
+<p>Repository vLLM pour DGX Spark</p>
+<p>TorchTune pour QLoRA</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="http://localhost:1313/tags/ai">AI</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1946 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>15 mars. 2026</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="http://localhost:1313/comfy-ui-installation-on-ubuntu/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Comfy UI installation on Ubuntu</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="http://localhost:1313/terraform-runpod-openclaw-dev-setup/">
+                                <span class="button__text">Terraform runpod openclaw [dev setup]</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="http://localhost:1313/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500011</span>
+            <span><a href="http://localhost:1313/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="http://localhost:1313/bundle.min.1b40b3081e8e87bdad099bee55bd6a98514afc1e30a059c463b59602eec9735d70bd6e4d3186c853b9b790984744c67a34d6e5844a992166bcea0d2acca86547.js" integrity="sha512-G0CzCB6Oh72tCZvuVb1qmFFK/B4woFnEY7WWAu7Jc11wvW5NMYbIU7m3kJhHRMZ6NNblhEqZIWa86g0qzKhlRw=="></script>
+
+
+
+
+
+
+
+        
+    </body>
+</html>
