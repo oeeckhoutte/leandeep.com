@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>fr</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 05 Aug 2026 07:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 22:45:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proxy socks avec IPv6</title>
+      <link>https://leandeep.com/proxy-socks-avec-ipv6/</link>
+      <pubDate>Fri, 07 Aug 2026 22:45:00 +0000</pubDate>
+      <guid>https://leandeep.com/proxy-socks-avec-ipv6/</guid>
+      <description>&lt;p&gt;Voici la commande pour créer un proxy socks avec un serveur dédié qui n&amp;rsquo;a qu&amp;rsquo;une interface en ipv6&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh -N \&#xA;  -D 127.0.0.1:1080 \&#xA;  -o ExitOnForwardFailure=yes \&#xA;  -o ServerAliveInterval=30 \&#xA;  user@IP_V6::1&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Pour l&amp;rsquo;utiliser dans un navigateur il suffit de spécifier socks proxy &lt;code&gt;::1&lt;/code&gt; sur port &lt;code&gt;1080&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Installer Docker sur Ubuntu 26</title>
       <link>https://leandeep.com/installer-docker-sur-ubuntu-26/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sat, 25 Jan 2025 22:32:00 +0200</pubDate>
       <guid>https://leandeep.com/installer-hashcat-sur-fedora-41/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dnf install hashcat hashcat-devel hashcat-doc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vérifier si votre GPU est détecté&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hashcat -I&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Réaliser un benchmark&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hashcat -b&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Faire un test avec un hash MD5&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \&#xA;  &amp;amp;&amp;amp; unzip SecList.zip \&#xA;  &amp;amp;&amp;amp; rm -f SecList.zip&#xA;&#xA;echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash&#xA;hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    <item>
-      <title>Fixer une IP avec Pfsense</title>
-      <link>https://leandeep.com/fixer-une-ip-avec-pfsense/</link>
-      <pubDate>Sat, 11 Jan 2025 23:32:00 +0200</pubDate>
-      <guid>https://leandeep.com/fixer-une-ip-avec-pfsense/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Configurer une IP fixe dans pfSense&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Allez dans &lt;code&gt;Services &amp;gt; DHCP Server&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Sélectionnez l&amp;rsquo;interface correspondante (par exemple, LAN).&lt;/li&gt;&#xA;&lt;li&gt;Ajouter une réservation DHCP :&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Descendez jusqu&amp;rsquo;à la section &lt;code&gt;DHCP Static Mappings for this Interface&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Cliquez sur Add (+).&lt;/li&gt;&#xA;&lt;li&gt;Configurer les détails de la réservation :&#xA;&lt;ul&gt;&#xA;&lt;li&gt;MAC Address : Entrez l&amp;rsquo;adresse MAC de l&amp;rsquo;appareil.&lt;/li&gt;&#xA;&lt;li&gt;IP Address : Choisissez une adresse IP fixe dans la plage autorisée mais en dehors de la plage dynamique du DHCP.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Save&lt;/li&gt;&#xA;&lt;li&gt;Appliquer&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>
