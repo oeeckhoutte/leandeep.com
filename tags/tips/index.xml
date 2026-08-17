@@ -10,6 +10,13 @@
     <lastBuildDate>Fri, 07 Aug 2026 22:45:00 +0000</lastBuildDate>
     <atom:link href="https://leandeep.com/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Créer une VM qui démarre depuis un serveur PXE</title>
+      <link>https://leandeep.com/cr%C3%A9er-une-vm-qui-d%C3%A9marre-depuis-un-serveur-pxe/</link>
+      <pubDate>Fri, 07 Aug 2026 22:45:00 +0000</pubDate>
+      <guid>https://leandeep.com/cr%C3%A9er-une-vm-qui-d%C3%A9marre-depuis-un-serveur-pxe/</guid>
+      <description>&lt;p&gt;Voici un script de création de VM sur OSX pour booter sur un serveur PXE. J&amp;rsquo;avais besoin de tester le bon fonctionnement d&amp;rsquo;un serveur PXE que j&amp;rsquo;avais créé de tout pièce en Rust. Ce script m&amp;rsquo;a permis de créer la VM de test.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
       <title>Proxy socks avec IPv6</title>
       <link>https://leandeep.com/proxy-socks-avec-ipv6/</link>
       <pubDate>Fri, 07 Aug 2026 22:45:00 +0000</pubDate>
@@ -71,13 +78,6 @@
       <pubDate>Fri, 07 Feb 2025 07:32:00 +0200</pubDate>
       <guid>https://leandeep.com/installer-quickemu-sur-ubuntu-22.04/</guid>
       <description>&lt;p&gt;Dans cet article, nous allons voir comment installer Quickemu sur Ubuntu 22.04 pour créer des VM sur Ubuntu.&lt;/p&gt;&#xA;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation de quickemu&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# check if python3 is installed &#xA;# python3 --version&#xA;# sudo apt install python3 # si nécessaire&#xA;sudo apt install qemu bash coreutils ovmf grep jq lsb procps genisoimage usbutils util-linux sed spice-client-gtk swtpm wget xdg-user-dirs zsync unzip&#xA;&#xA;sudo apt-add-repository ppa:flexiondotorg/quickemu&#xA;sudo apt update&#xA;sudo apt install quickemu&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installation du GUI&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Installer Hashcat sur Fedora 41</title>
-      <link>https://leandeep.com/installer-hashcat-sur-fedora-41/</link>
-      <pubDate>Sat, 25 Jan 2025 22:32:00 +0200</pubDate>
-      <guid>https://leandeep.com/installer-hashcat-sur-fedora-41/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo dnf install hashcat hashcat-devel hashcat-doc&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vérifier si votre GPU est détecté&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hashcat -I&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Réaliser un benchmark&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hashcat -b&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;br/&gt;&#xA;&lt;p&gt;&lt;strong&gt;Faire un test avec un hash MD5&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \&#xA;  &amp;amp;&amp;amp; unzip SecList.zip \&#xA;  &amp;amp;&amp;amp; rm -f SecList.zip&#xA;&#xA;echo &amp;#34;5d41402abc4b2a76b9719d911017c592&amp;#34; &amp;gt; test.hash&#xA;hashcat -m 0 -a 0 test.hash ~/Dev/SecLists-master/Passwords/xato-net-10-million-passwords-1000000.txt&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
   </channel>
 </rss>
