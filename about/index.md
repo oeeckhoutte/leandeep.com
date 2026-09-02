@@ -8,12 +8,12 @@
 - License: CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/)
 
 
-Last updated: Nov 2025.
+Last updated: Sept 2026.
 
 <br/>
 
 ## My Resume
-Here is the link to download **[my resume](CV-Olivier-Eeckhoutte-2026-EN.pdf)**
+Here is the link to download **[my resume](CV-Olivier-Eeckhoutte-sept-2026-EN.pdf)**
 
 
 
