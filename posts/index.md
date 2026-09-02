@@ -1,4 +1,4 @@
-# Posts
+# All Articles
 
 > Index des contenus publics de Lean Deep Tech blog.
 

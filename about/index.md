@@ -8,7 +8,7 @@
 - License: CC BY-NC 4.0 (https://creativecommons.org/licenses/by-nc/4.0/)
 
 
-Last updated: Sept 2026.
+Last update: Sept 2026.
 
 <br/>
 
@@ -17,9 +17,16 @@ Here is the link to download **[my resume](CV-Olivier-Eeckhoutte-sept-2026-EN.pd
 
 
 
-  <div class="iframe-wrapper">
-    <iframe src="https://docs.google.com/gview?url=https://leandeep.com/about/CV-Olivier-Eeckhoutte-2026-EN.pdf&embedded=true"
-            frameborder="0" class="cv-iframe"></iframe>
+  <div class="pdf-reader">
+    <object data="CV-Olivier-Eeckhoutte-sept-2026-EN.pdf#toolbar=0&amp;navpanes=0&amp;view=FitH"
+            type="application/pdf"
+            class="pdf-reader__document"
+            aria-label="Olivier Eeckhoutte's resume">
+      <p class="pdf-reader__fallback">
+        Your browser cannot display this PDF.
+        <a href="CV-Olivier-Eeckhoutte-sept-2026-EN.pdf">Download my resume</a>.
+      </p>
+    </object>
   </div>
 
 
