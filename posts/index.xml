@@ -7951,27 +7951,29 @@ Et voilà, aussi simple que cela.</p>
         </item>
         
         <item>
-            <title>LoRA au-delà de la démo : retour d&#39;expérience sur la classification de 77 intentions</title>
-            <link>https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/</link>
+            <title>LoRA au-delà de la démo : retour d&#39;expérience sur la classification de 60 intentions d&#39;assurance</title>
+            <link>https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-60-intentions-dassurance/</link>
             <pubDate>Wed, 18 Dec 2024 08:30:00 +0100</pubDate>
             
-            <guid>https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/</guid>
-            <description>&lt;p&gt;Sur un cas de classification de demandes clients couvrant &lt;strong&gt;77 intentions bancaires&lt;/strong&gt;, le modèle de base routait correctement &lt;strong&gt;50,06 %&lt;/strong&gt; des 3 080 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d&amp;rsquo;origine du modèle, l&amp;rsquo;accuracy est montée à &lt;strong&gt;92,01 %&lt;/strong&gt; : &lt;strong&gt;+41,95 points&lt;/strong&gt;, soit environ &lt;strong&gt;84 % d&amp;rsquo;erreurs en moins&lt;/strong&gt;. Dans le même temps, le taux de réponses respectant strictement le contrat JSON est passé de 96,62 % à 99,97 %.&lt;/p&gt;</description>
-            <content type="html"><![CDATA[<p>Sur un cas de classification de demandes clients couvrant <strong>77 intentions bancaires</strong>, le modèle de base routait correctement <strong>50,06 %</strong> des 3 080 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d&rsquo;origine du modèle, l&rsquo;accuracy est montée à <strong>92,01 %</strong> : <strong>+41,95 points</strong>, soit environ <strong>84 % d&rsquo;erreurs en moins</strong>. Dans le même temps, le taux de réponses respectant strictement le contrat JSON est passé de 96,62 % à 99,97 %.</p>
-<p>Ce résultat est suffisamment fort pour justifier ce retour d&rsquo;expérience, mais pas pour conclure qu&rsquo;un LLM est toujours le meilleur classifieur. Une baseline TF-IDF avec régression logistique a atteint 90,19 %. Le principal enseignement est ailleurs : un petit modèle correctement adapté, évalué et industrialisé peut apprendre une frontière de décision métier très fine. Le fine-tuning n&rsquo;est cependant qu&rsquo;une étape d&rsquo;une chaîne qui commence par les données et se termine par l&rsquo;observabilité en production.</p>
-<h2 id="le-problème--router-une-demande-vers-la-bonne-intention">Le problème : router une demande vers la bonne intention</h2>
+            <guid>https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-60-intentions-dassurance/</guid>
+            <description>&lt;p&gt;Sur un cas de classification de demandes clients couvrant &lt;strong&gt;60 intentions d&amp;rsquo;assurance&lt;/strong&gt;, le modèle de base routait correctement &lt;strong&gt;50,07 %&lt;/strong&gt; des 3 000 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d&amp;rsquo;origine du modèle, l&amp;rsquo;accuracy est montée à &lt;strong&gt;92,00 %&lt;/strong&gt; : &lt;strong&gt;+41,93 points&lt;/strong&gt;, soit environ &lt;strong&gt;84 % d&amp;rsquo;erreurs en moins&lt;/strong&gt;. Dans le même temps, le taux de réponses respectant strictement le contrat JSON est passé de 96,63 % à 99,97 %.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<p>Sur un cas de classification de demandes clients couvrant <strong>60 intentions d&rsquo;assurance</strong>, le modèle de base routait correctement <strong>50,07 %</strong> des 3 000 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d&rsquo;origine du modèle, l&rsquo;accuracy est montée à <strong>92,00 %</strong> : <strong>+41,93 points</strong>, soit environ <strong>84 % d&rsquo;erreurs en moins</strong>. Dans le même temps, le taux de réponses respectant strictement le contrat JSON est passé de 96,63 % à 99,97 %.</p>
+<p>Ce scénario est suffisamment représentatif pour tirer des enseignements d&rsquo;architecture, mais il ne démontre pas qu&rsquo;un LLM est toujours le meilleur classifieur. Une baseline TF-IDF avec régression logistique atteint 90,20 %. Un petit modèle correctement adapté, évalué et industrialisé peut apprendre une frontière de décision métier très fine. Le fine-tuning reste une étape d&rsquo;une chaîne qui commence par les données et se termine par l&rsquo;observabilité en production.</p>
+<br/>
+<h2 id="le-problème--router-une-demande-dassuré-vers-la-bonne-intention">Le problème : router une demande d&rsquo;assuré vers la bonne intention</h2>
 <p>Le cas d&rsquo;usage ressemble à ce que l&rsquo;on rencontre dans de nombreux centres de contact. Une phrase libre doit être associée à une intention d&rsquo;une taxonomie fermée :</p>
 <ul>
-<li>carte non reçue ;</li>
-<li>paiement par carte refusé ;</li>
-<li>virement en attente ;</li>
-<li>retrait non reconnu ;</li>
-<li>taux de change incorrect ;</li>
-<li>carte virtuelle indisponible ;</li>
-<li>vérification d&rsquo;identité impossible.</li>
+<li>déclarer un sinistre automobile</li>
+<li>suivre l&rsquo;avancement d&rsquo;une indemnisation</li>
+<li>contester un remboursement de santé</li>
+<li>signaler un prélèvement de cotisation inconnu</li>
+<li>obtenir une attestation d&rsquo;assurance habitation</li>
+<li>modifier le bénéficiaire d&rsquo;un contrat d&rsquo;assurance-vie</li>
+<li>résilier un contrat à son échéance</li>
 </ul>
-<p>La difficulté ne vient pas seulement du nombre de classes. Plusieurs intentions sont sémantiquement très proches. « Mon virement n&rsquo;est toujours pas arrivé » peut décrire un virement encore en cours, un virement échoué ou un virement que le bénéficiaire n&rsquo;a pas reçu. La décision dépend souvent d&rsquo;un indice lexical minuscule et de la définition métier exacte de chaque label.</p>
-<p>J&rsquo;ai utilisé <strong>BANKING77</strong>, un dataset public publié en 2020 par PolyAI. Il contient 13 083 requêtes annotées et 77 intentions. Ce choix rend l&rsquo;expérience reproductible, mais il pose une limite importante : un dataset public a pu être vu pendant le pré-entraînement d&rsquo;un modèle. Je considère donc ce benchmark comme une validation de la chaîne technique, pas comme une preuve suffisante pour déployer le modèle sur du trafic bancaire réel.</p>
+<p>La difficulté ne vient pas seulement du nombre de classes. Plusieurs intentions sont sémantiquement très proches. &ldquo;Mon remboursement n&rsquo;est toujours pas arrivé&rdquo; peut concerner une indemnisation de sinistre, un remboursement de santé ou un dossier bloqué par une pièce manquante. La décision dépend souvent d&rsquo;un indice lexical minuscule, du produit concerné et de la définition métier exacte de chaque label.</p>
+<p><strong>ASSURANCE60</strong> est le nom du cas d&rsquo;étude utilisé dans cet article. Il modélise un corpus synthétique de 12 900 échanges de centre de contact répartis entre 60 intentions couvrant l&rsquo;automobile, l&rsquo;habitation, la santé, la prévoyance et l&rsquo;assurance-vie. Les formulations sont conçues pour reproduire les ambiguïtés d&rsquo;un trafic réel, mais elles ne proviennent pas de conversations clients. Les scores ci-dessous sont des valeurs éditoriales cohérentes destinées à expliquer le protocole ; ils ne doivent pas être cités comme des mesures obtenues sur les données de production d&rsquo;un assureur.</p>
+<br/>
 <h2 id="pourquoi-lora-et-pourquoi-le-fine-tuning-">Pourquoi LoRA, et pourquoi le fine-tuning ?</h2>
 <p>Avant d&rsquo;entraîner quoi que ce soit, j&rsquo;utilise une règle simple :</p>
 <table>
@@ -8003,27 +8005,29 @@ Et voilà, aussi simple que cela.</p>
 <p>Ici, la taxonomie est stable et la sortie attendue est courte. Le problème consiste à apprendre une décision, pas à retrouver un document. Ajouter un RAG aurait augmenté la latence et la complexité sans traiter directement cette frontière de décision.</p>
 <p>Un fine-tuning complet aurait été techniquement possible sur un petit modèle, mais peu intéressant pour ce cas :</p>
 <ul>
-<li>il faut optimiser et sauvegarder tous les poids ;</li>
-<li>chaque variante métier produit une copie complète du modèle ;</li>
-<li>le coût mémoire de l&rsquo;optimiseur augmente fortement ;</li>
-<li>le rollback et la gestion de plusieurs versions deviennent plus lourds.</li>
+<li>il faut optimiser et sauvegarder tous les poids</li>
+<li>chaque variante métier produit une copie complète du modèle</li>
+<li>le coût mémoire de l&rsquo;optimiseur augmente fortement</li>
+<li>le rollback et la gestion de plusieurs versions deviennent plus lourds</li>
 </ul>
 <p>LoRA, pour <strong>Low-Rank Adaptation</strong>, gèle la matrice de poids d&rsquo;origine <code>W</code> et apprend une mise à jour de faible rang :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W&#39; = W + (alpha / r) × B × A
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W&#39; = W + (alpha / r) x B x A
 </span></span></code></pre></div><p>Si <code>W</code> est une grande matrice, <code>A</code> et <code>B</code> sont beaucoup plus petites. Le rang <code>r</code> limite la capacité de cette mise à jour. Pendant l&rsquo;entraînement, seuls les paramètres LoRA reçoivent des gradients ; le modèle de base reste immuable.</p>
-<p>Dans mon run, l&rsquo;adaptateur représentait environ <strong>34,9 millions de paramètres entraînables</strong> sur 1,72 milliard de paramètres uniques, soit <strong>2,03 %</strong>. Ce ratio réduit fortement le coût d&rsquo;optimisation et permet de conserver un modèle de base commun à plusieurs adaptateurs.</p>
+<p>Dans la configuration retenue, l&rsquo;adaptateur représente environ <strong>34,9 millions de paramètres entraînables</strong> sur 1,72 milliard de paramètres uniques, soit <strong>2,03 %</strong>. Ce ratio réduit fortement le coût d&rsquo;optimisation et permet de conserver un modèle de base commun à plusieurs adaptateurs.</p>
 <p>Il faut toutefois éviter un raccourci fréquent : entraîner 2 % des paramètres ne signifie pas consommer 2 % de la mémoire d&rsquo;un fine-tuning complet. Les activations du forward pass restent nécessaires. LoRA réduit surtout les gradients, les états de l&rsquo;optimiseur et le volume des checkpoints.</p>
+<br/>
 <h2 id="lora-et-qlora-répondent-à-deux-contraintes-différentes">LoRA et QLoRA répondent à deux contraintes différentes</h2>
-<p>J&rsquo;ai choisi un entraînement LoRA en <strong>BF16</strong> parce que le modèle tenait confortablement en mémoire. Quand ce n&rsquo;est plus le cas, QLoRA ajoute une quantification du modèle de base gelé, généralement en 4 bits NF4, puis rétropropage les gradients vers les adaptateurs LoRA.</p>
+<p>Le scénario retient un entraînement LoRA en <strong>BF16</strong>, puisque le modèle tient confortablement en mémoire. Quand ce n&rsquo;est plus le cas, QLoRA ajoute une quantification du modèle de base gelé, généralement en 4 bits NF4, puis rétropropage les gradients vers les adaptateurs LoRA.</p>
 <p>La distinction est importante :</p>
 <ul>
-<li><strong>LoRA</strong> : le modèle de base reste typiquement en FP16 ou BF16 ;</li>
-<li><strong>QLoRA</strong> : le modèle de base gelé est quantifié afin de réduire davantage la mémoire ;</li>
-<li>dans les deux cas, les adaptateurs restent entraînables dans une précision adaptée au calcul.</li>
+<li><strong>LoRA</strong> : le modèle de base reste typiquement en FP16 ou BF16</li>
+<li><strong>QLoRA</strong> : le modèle de base gelé est quantifié afin de réduire davantage la mémoire</li>
+<li>dans les deux cas, les adaptateurs restent entraînables dans une précision adaptée au calcul</li>
 </ul>
 <p>QLoRA est un excellent outil pour rendre un entraînement possible sur un GPU plus petit. Je ne le choisis pas automatiquement : la quantification ajoute un chemin numérique et opérationnel à valider. Si le modèle tient en BF16 avec une marge correcte, je préfère commencer par le chemin le plus simple, puis mesurer QLoRA comme une expérience séparée.</p>
+<br/>
 <h2 id="la-qualité-du-dataset-a-davantage-compté-que-le-choix-du-rang">La qualité du dataset a davantage compté que le choix du rang</h2>
-<p>Le split officiel de BANKING77 contient 10 003 exemples de train et 3 080 exemples de test, soit 40 demandes par intention dans le test. J&rsquo;ai créé une validation à partir du train, puis audité les partitions avant de lancer le GPU.</p>
+<p>Le scénario ASSURANCE60 contient 8 400 exemples de train, 1 500 exemples de validation et 3 000 exemples de test, soit 50 demandes par intention dans le test. Les partitions sont figées avant le lancement de l&rsquo;entraînement.</p>
 <p>Après normalisation et contrôle :</p>
 <table>
   <thead>
@@ -8036,43 +8040,45 @@ Et voilà, aussi simple que cela.</p>
   <tbody>
       <tr>
           <td>Train</td>
-          <td style="text-align: right">8 454</td>
+          <td style="text-align: right">8 400</td>
           <td>Calcul des gradients</td>
       </tr>
       <tr>
           <td>Validation</td>
-          <td style="text-align: right">1 492</td>
+          <td style="text-align: right">1 500</td>
           <td>Choix du checkpoint et des hyperparamètres</td>
       </tr>
       <tr>
-          <td>Test officiel</td>
-          <td style="text-align: right">3 080</td>
+          <td>Test gelé</td>
+          <td style="text-align: right">3 000</td>
           <td>Mesure finale, une fois les choix figés</td>
       </tr>
   </tbody>
 </table>
-<p>Deux exemples du train portant le même texte avec des labels incompatibles ont été mis en quarantaine. J&rsquo;ai aussi retiré du train 25 chevauchements avec le test et 30 doublons internes. Le test officiel est resté intact, y compris ses propres doublons, afin de ne pas fabriquer un benchmark plus favorable.</p>
+<p>Pendant la préparation, les textes identiques associés à des labels incompatibles sont mis en quarantaine, les doublons internes sont retirés du train et tout chevauchement avec le test est bloqué. Le test gelé reste ensuite inchangé afin de ne pas fabriquer un benchmark plus favorable.</p>
 <p>J&rsquo;ai appliqué deux niveaux de détection :</p>
 <ol>
 <li>comparaison exacte après normalisation de la casse, des espaces et de la ponctuation ;</li>
 <li>recherche de quasi-doublons par similarité lexicale.</li>
 </ol>
-<p>Le second audit a signalé des formulations très proches entre train et test. Je ne les ai pas supprimées automatiquement : une forte similarité ne prouve pas une fuite, et modifier le test officiel aurait rendu la comparaison moins lisible. En revanche, j&rsquo;ai conservé ce résultat dans les artefacts du run.</p>
-<p>Cette étape est moins spectaculaire que le choix de <code>r</code> ou du learning rate, mais elle protège l&rsquo;expérience contre l&rsquo;erreur la plus coûteuse : attribuer au modèle un gain qui vient en réalité d&rsquo;une fuite de données.</p>
+<p>Le second audit sert à repérer les formulations presque identiques entre partitions. Je ne supprime jamais automatiquement un exemple sur la seule base d&rsquo;une forte similarité : un dossier d&rsquo;indemnisation et un remboursement de santé peuvent partager le même vocabulaire tout en exigeant deux routages différents. Chaque cas signalé est revu et la décision est conservée dans les artefacts du run.</p>
+<p>Cette étape est moins spectaculaire que le choix de <code>r</code> ou du learning rate, mais elle protège l&rsquo;expérience contre l&rsquo;erreur la plus coûteuse: attribuer au modèle un gain qui vient en réalité d&rsquo;une fuite de données.</p>
+<br/>
 <h2 id="le-contrat-de-sortie-fait-partie-du-modèle">Le contrat de sortie fait partie du modèle</h2>
 <p>Le modèle reçoit la demande, la liste contrôlée des intentions et l&rsquo;instruction de répondre avec un seul objet JSON :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;intent&#34;</span>: <span style="color:#e6db74">&#34;card_arrival&#34;</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;intent&#34;</span>: <span style="color:#e6db74">&#34;suivi_indemnisation&#34;</span>}
 </span></span></code></pre></div><p>La cible d&rsquo;entraînement contient uniquement la réponse de l&rsquo;assistant. Les tokens du prompt sont masqués dans la loss. Autrement dit, le modèle apprend à produire le label attendu ; il n&rsquo;est pas récompensé pour recopier l&rsquo;instruction ou la taxonomie.</p>
-<p>J&rsquo;ai conservé exactement le même prompt, le même tokenizer et le même décodage pour le modèle de base et le modèle adapté :</p>
+<p>Le protocole conserve exactement le même prompt, le même tokenizer et le même décodage pour le modèle de base et le modèle adapté :</p>
 <ul>
-<li>température à 0 ;</li>
-<li>64 nouveaux tokens au maximum ;</li>
-<li>aucune réparation automatique du JSON ;</li>
-<li>toute sortie invalide compte comme une erreur.</li>
+<li>température à 0</li>
+<li>64 nouveaux tokens au maximum</li>
+<li>aucune réparation automatique du JSON</li>
+<li>toute sortie invalide compte comme une erreur</li>
 </ul>
 <p>Réparer silencieusement une sortie rend une démonstration plus flatteuse, mais mélange la qualité du modèle avec celle d&rsquo;un post-traitement. En production, un parseur défensif reste utile. Dans une évaluation comparative, je veux savoir quel composant a produit le gain.</p>
+<br/>
 <h2 id="configuration-du-fine-tuning">Configuration du fine-tuning</h2>
-<p>Le modèle de base de cette expérience est un causal LM open-weight compact de 1,7 milliard de paramètres, chargé en BF16. Je le désigne ici par <code>base-1.7B</code> afin de garder ce retour centré sur le protocole plutôt que d&rsquo;en faire un classement de fournisseurs. Dans le registre interne, l&rsquo;identifiant du modèle, sa révision, les hashes du tokenizer et les poids sont bien sûr figés.</p>
+<p>Le modèle de base du scénario est un causal LM open-weight compact de 1,7 milliard de paramètres, chargé en BF16 et désigné par <code>base-1.7B</code>. Dans une implémentation réelle, son identifiant, sa révision, les hashes du tokenizer et les poids doivent être figés dans le registre d&rsquo;expérimentation.</p>
 <p>La configuration principale était la suivante :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">precision</span>: <span style="color:#ae81ff">bf16</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">max_sequence_length</span>: <span style="color:#ae81ff">1024</span>
@@ -8102,7 +8108,7 @@ Et voilà, aussi simple que cela.</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_updates</span>: <span style="color:#ae81ff">1200</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">evaluate_every</span>: <span style="color:#ae81ff">200</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">save_every</span>: <span style="color:#ae81ff">200</span>
-</span></span></code></pre></div><p>Avec PEFT, le cœur de la configuration ressemble à ceci :</p>
+</span></span></code></pre></div><p>Avec PEFT, le coeur de la configuration ressemble à ceci :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> peft <span style="color:#f92672">import</span> LoraConfig, TaskType, get_peft_model
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>lora_config <span style="color:#f92672">=</span> LoraConfig(
@@ -8124,13 +8130,14 @@ Et voilà, aussi simple que cela.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> get_peft_model(base_model, lora_config)
 </span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>print_trainable_parameters()
-</span></span></code></pre></div><p>Le choix du rang 32 n&rsquo;est pas une best practice universelle. Avec 77 classes proches et un modèle compact, je voulais donner suffisamment de capacité à l&rsquo;adaptateur. Sur une taxonomie de dix intentions bien séparées, un rang 8 ou 16 pourrait suffire. La bonne démarche consiste à tester quelques valeurs sous un budget fixe et à sélectionner sur la validation.</p>
+</span></span></code></pre></div><p>Le choix du rang 32 n&rsquo;est pas une best practice universelle. Avec 60 classes proches et un modèle compact, je voulais donner suffisamment de capacité à l&rsquo;adaptateur. Sur une taxonomie de dix intentions bien séparées, un rang 8 ou 16 pourrait suffire. La bonne démarche consiste à tester quelques valeurs sous un budget fixe et à sélectionner sur la validation.</p>
 <p>J&rsquo;ai ciblé les projections d&rsquo;attention et les couches linéaires du MLP. Cibler seulement <code>q_proj</code> et <code>v_proj</code> réduit encore le nombre de paramètres, mais peut limiter l&rsquo;adaptation sur une tâche qui demande une séparation sémantique fine. Ce choix doit lui aussi être évalué, pas adopté par habitude.</p>
 <p>Le <strong>batch effectif de 8</strong> vient de deux exemples traités simultanément et de quatre accumulations de gradients :</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>batch effectif = micro-batch 2 × accumulation 4 = 8 exemples
-</span></span></code></pre></div><p>Une mise à jour de l&rsquo;optimiseur intervient donc après huit exemples. À 1 200 mises à jour, le modèle a vu environ 9 600 exemples, soit 1,14 passage sur les 8 454 exemples de train. Compter les mises à jour sans les relier au batch effectif et à la taille du dataset ne permet pas de comparer deux entraînements.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>batch effectif = micro-batch 2 x accumulation 4 = 8 exemples
+</span></span></code></pre></div><p>Une mise à jour de l&rsquo;optimiseur intervient donc après huit exemples. À 1 200 mises à jour, le modèle a vu environ 9 600 exemples, soit 1,14 passage sur les 8 400 exemples de train. Compter les mises à jour sans les relier au batch effectif et à la taille du dataset ne permet pas de comparer deux entraînements.</p>
+<br/>
 <h2 id="la-validation-choisit-le-checkpoint-le-test-ne-choisit-rien">La validation choisit le checkpoint, le test ne choisit rien</h2>
-<p>Pour limiter le coût de génération pendant l&rsquo;entraînement, j&rsquo;ai utilisé un sous-ensemble de validation équilibré : quatre exemples par classe, soit 308 demandes identiques pour chaque checkpoint.</p>
+<p>Pour limiter le coût de génération pendant l&rsquo;entraînement, le protocole utilise un sous-ensemble de validation équilibré : quatre exemples par classe, soit 240 demandes identiques pour chaque checkpoint.</p>
 <table>
   <thead>
       <tr>
@@ -8142,48 +8149,49 @@ Et voilà, aussi simple que cela.</p>
   <tbody>
       <tr>
           <td style="text-align: right">200</td>
-          <td style="text-align: right">77,60 %</td>
-          <td style="text-align: right">76,62 %</td>
+          <td style="text-align: right">77,92 %</td>
+          <td style="text-align: right">76,88 %</td>
       </tr>
       <tr>
           <td style="text-align: right">400</td>
-          <td style="text-align: right">85,39 %</td>
-          <td style="text-align: right">84,95 %</td>
+          <td style="text-align: right">85,42 %</td>
+          <td style="text-align: right">84,97 %</td>
       </tr>
       <tr>
           <td style="text-align: right">600</td>
-          <td style="text-align: right">88,96 %</td>
-          <td style="text-align: right">88,49 %</td>
+          <td style="text-align: right">89,17 %</td>
+          <td style="text-align: right">88,65 %</td>
       </tr>
       <tr>
           <td style="text-align: right">800</td>
-          <td style="text-align: right">90,91 %</td>
-          <td style="text-align: right">90,68 %</td>
+          <td style="text-align: right">90,83 %</td>
+          <td style="text-align: right">90,55 %</td>
       </tr>
       <tr>
           <td style="text-align: right">1 000</td>
-          <td style="text-align: right">91,56 %</td>
-          <td style="text-align: right">91,56 %</td>
+          <td style="text-align: right">91,67 %</td>
+          <td style="text-align: right">91,51 %</td>
       </tr>
       <tr>
           <td style="text-align: right">1 200</td>
-          <td style="text-align: right"><strong>92,86 %</strong></td>
-          <td style="text-align: right"><strong>92,80 %</strong></td>
+          <td style="text-align: right"><strong>92,92 %</strong></td>
+          <td style="text-align: right"><strong>92,74 %</strong></td>
       </tr>
   </tbody>
 </table>
-<p>Le checkpoint 1 200 a été retenu avant d&rsquo;ouvrir les résultats du test. La courbe progressait encore ; 1 200 était donc une limite de budget expérimental, pas la preuve d&rsquo;un optimum mathématique. La suite logique aurait été de prolonger un run contrôlé, puis de sélectionner à nouveau sur validation.</p>
-<p>La <strong>train loss seule ne répond pas</strong> à la question « quel checkpoint dois-je déployer ? ». Elle mesure la capacité à prédire les tokens cibles sur les exemples d&rsquo;entraînement. Elle peut continuer à baisser alors que :</p>
+<p>Dans le scénario, le checkpoint 1 200 est retenu avant l&rsquo;ouverture des résultats du test. La courbe progresse encore ; 1 200 représente donc une limite de budget expérimental, pas la preuve d&rsquo;un optimum mathématique. La suite logique consiste à prolonger un run contrôlé, puis à sélectionner à nouveau sur validation.</p>
+<p>La <strong>train loss seule ne répond pas</strong> à la question &ldquo;quel checkpoint dois-je déployer ?&rdquo;. Elle mesure la capacité à prédire les tokens cibles sur les exemples d&rsquo;entraînement. Elle peut continuer à baisser alors que :</p>
 <ul>
-<li>la généralisation plafonne ;</li>
-<li>le modèle mémorise certaines formulations ;</li>
-<li>la conformité JSON se dégrade ;</li>
-<li>des classes rares régressent ;</li>
-<li>la calibration devient moins bonne.</li>
+<li>la généralisation plafonne</li>
+<li>le modèle mémorise certaines formulations</li>
+<li>la conformité JSON se dégrade</li>
+<li>des classes rares régressent</li>
+<li>la calibration devient moins bonne</li>
 </ul>
 <p>Je sélectionne donc sur une métrique métier calculée par génération complète. Une accuracy token en teacher forcing n&rsquo;est pas une accuracy d&rsquo;intention : prédire correctement les accolades et les guillemets ne signifie pas avoir choisi le bon label.</p>
+<br/>
 <h2 id="résultats-sur-le-test-gelé">Résultats sur le test gelé</h2>
-<p>Les trois méthodes ont été évaluées sur les mêmes 3 080 demandes du test officiel :</p>
+<p>Les trois méthodes du scénario ont été évaluées sur les mêmes 3 000 demandes du test gelé :</p>
 <table>
   <thead>
       <tr>
@@ -8196,62 +8204,65 @@ Et voilà, aussi simple que cela.</p>
   <tbody>
       <tr>
           <td><code>base-1.7B</code>, sans adaptation</td>
-          <td style="text-align: right">50,06 %</td>
-          <td style="text-align: right">49,06 %</td>
-          <td style="text-align: right">96,62 %</td>
+          <td style="text-align: right">50,07 %</td>
+          <td style="text-align: right">49,11 %</td>
+          <td style="text-align: right">96,63 %</td>
       </tr>
       <tr>
           <td><code>base-1.7B</code> + LoRA</td>
-          <td style="text-align: right"><strong>92,01 %</strong></td>
-          <td style="text-align: right"><strong>92,01 %</strong></td>
+          <td style="text-align: right"><strong>92,00 %</strong></td>
+          <td style="text-align: right"><strong>91,98 %</strong></td>
           <td style="text-align: right"><strong>99,97 %</strong></td>
       </tr>
       <tr>
           <td>TF-IDF + régression logistique</td>
-          <td style="text-align: right">90,19 %</td>
-          <td style="text-align: right">90,19 %</td>
+          <td style="text-align: right">90,20 %</td>
+          <td style="text-align: right">90,17 %</td>
           <td style="text-align: right">100 %</td>
       </tr>
   </tbody>
 </table>
-<p>Le gain apparié du LoRA est de <strong>41,95 points d&rsquo;accuracy</strong>. Sur les 3 080 demandes :</p>
+<p>Le gain apparié présenté dans le scénario est de <strong>41,93 points d&rsquo;accuracy</strong>. Sur les 3 000 demandes :</p>
 <ul>
-<li>1 320 erreurs du modèle de base ont été corrigées ;</li>
-<li>28 réponses auparavant correctes ont régressé ;</li>
-<li>1 732 réponses sont restées inchangées ;</li>
-<li>246 erreurs subsistent après fine-tuning.</li>
+<li>1 286 erreurs du modèle de base ont été corrigées</li>
+<li>28 réponses auparavant correctes ont régressé</li>
+<li>1 686 réponses sont restées inchangées</li>
+<li>240 erreurs subsistent après fine-tuning</li>
 </ul>
-<p>Un bootstrap apparié de 5 000 tirages donne un intervalle à 95 % de <strong>[+40,13 ; +43,80] points</strong> pour le gain d&rsquo;accuracy. Cet intervalle rééchantillonne des requêtes, pas des clients, et ne couvre ni l&rsquo;incertitude d&rsquo;annotation ni une éventuelle contamination du pré-entraînement.</p>
-<p>L&rsquo;accuracy et le macro-F1 sont presque identiques parce que le test contient exactement 40 exemples par classe. En production, la distribution sera rarement équilibrée. Je suivrais donc également le rappel par classe, le coût métier de chaque confusion et une matrice de confusion pondérée par les vrais volumes.</p>
-<h2 id="ce-que-le-modèle-a-réellement-appris">Ce que le modèle a réellement appris</h2>
+<p>Sur un véritable benchmark, je complète cette comparaison par un bootstrap apparié sur les prédictions individuelles. Je ne publie pas d&rsquo;intervalle de confiance pour ASSURANCE60 : sans observations issues d&rsquo;un run réel, une précision statistique supplémentaire serait artificielle.</p>
+<p>L&rsquo;accuracy et le macro-F1 sont presque identiques parce que le test synthétique contient exactement 50 exemples par classe. En production, la distribution sera rarement équilibrée. Je suivrais donc également le rappel par classe, le coût métier de chaque confusion et une matrice de confusion pondérée par les vrais volumes.</p>
+<br/>
+<h2 id="ce-que-ladaptation-cherche-à-apprendre">Ce que l&rsquo;adaptation cherche à apprendre</h2>
 <p>L&rsquo;amélioration la plus intéressante ne vient pas des intentions évidentes, mais des frontières fines de la taxonomie. Avant adaptation, le modèle avait tendance à choisir un label général :</p>
 <ul>
-<li>une erreur de conversion lors d&rsquo;un achat devenait simplement <code>exchange_rate</code> ;</li>
-<li>un retrait toujours en attente devenait <code>cash_withdrawal_not_recognised</code> ;</li>
-<li>une carte absente de l&rsquo;application devenait un problème de solde ;</li>
-<li>une demande sur les devises disponibles devenait une question sur le taux de change.</li>
+<li>une question sur une indemnisation automobile devenait simplement <code>suivi_sinistre</code></li>
+<li>un remboursement de santé en attente devenait <code>indemnisation_en_attente</code></li>
+<li>une demande d&rsquo;attestation habitation devenait une question sur les garanties du contrat</li>
+<li>une contestation de franchise devenait une demande d&rsquo;explication générale sur la couverture</li>
 </ul>
-<p>Après LoRA, le modèle distingue beaucoup mieux l&rsquo;objet, le canal et l&rsquo;état de l&rsquo;opération. Il apprend la convention de labellisation spécifique au métier, alors que le modèle de base se contente d&rsquo;une similarité sémantique générale.</p>
-<p>Les 28 régressions sont tout aussi instructives. Certaines formulations restent réellement ambiguës : « mon transfert prend beaucoup de temps » peut relever de <code>pending_transfer</code>, <code>transfer_timing</code> ou <code>transfer_not_received_by_recipient</code> selon le contexte absent. À ce stade, augmenter le rang ou le nombre de steps ne résout pas nécessairement le problème. Les options d&rsquo;architecture deviennent :</p>
+<p>L&rsquo;adaptation cherche à mieux distinguer l&rsquo;objet, le produit, le canal et l&rsquo;état du dossier. Elle doit apprendre la convention de labellisation spécifique au métier, alors que le modèle de base s&rsquo;appuie surtout sur une similarité sémantique générale.</p>
+<p>Les 28 régressions du scénario illustrent un autre point important. Certaines formulations restent réellement ambiguës : &ldquo;mon remboursement prend beaucoup de temps&rdquo; peut relever de <code>indemnisation_en_attente</code>, <code>remboursement_sante_en_attente</code> ou <code>pieces_sinistre_manquantes</code> selon le produit et le contexte absents. À ce stade, augmenter le rang ou le nombre de steps ne résout pas nécessairement le problème. Les options d&rsquo;architecture deviennent :</p>
 <ul>
-<li>demander une clarification ;</li>
-<li>retourner un top-k avec scores ;</li>
-<li>définir une classe de rejet ;</li>
-<li>appliquer une règle métier sur les cas à fort risque ;</li>
-<li>envoyer les cas incertains à un opérateur.</li>
+<li>demander une clarification</li>
+<li>retourner un top-k avec scores</li>
+<li>définir une classe de rejet</li>
+<li>appliquer une règle métier sur les cas à fort risque</li>
+<li>envoyer les cas incertains à un opérateur</li>
 </ul>
-<p>Un modèle qui répond toujours par l&rsquo;une des 77 classes peut afficher une bonne accuracy tout en étant dangereux sur les demandes hors taxonomie. Le test suivant doit donc porter sur l&rsquo;<strong>out-of-scope detection</strong>, absente de BANKING77.</p>
+<p>Un modèle qui répond toujours par l&rsquo;une des 60 classes peut afficher une bonne accuracy tout en étant dangereux sur les demandes hors taxonomie. Le test suivant doit donc porter sur l&rsquo;<strong>out-of-scope detection</strong>, explicitement absente du scénario ASSURANCE60.</p>
+<br/>
 <h2 id="pourquoi-la-baseline-classique-reste-essentielle">Pourquoi la baseline classique reste essentielle</h2>
-<p>La régression logistique sur des features TF-IDF de caractères atteint 90,19 %. Le LoRA la dépasse de 1,82 point dans ce run, sans que j&rsquo;aie calculé un intervalle apparié entre les deux méthodes. Je parle donc d&rsquo;un score observé, pas d&rsquo;une supériorité statistiquement démontrée.</p>
+<p>La régression logistique sur des features TF-IDF de caractères atteint 90,20 % dans le scénario. Le LoRA la dépasse de 1,80 point, mais cette différence ne constitue pas une supériorité statistiquement démontrée tant qu&rsquo;elle n&rsquo;est pas reproduite sur des prédictions réelles.</p>
 <p>Pour un routeur pur, à très fort volume et avec une taxonomie stable, la baseline classique possède de sérieux avantages :</p>
 <ul>
-<li>latence faible et prévisible ;</li>
-<li>coût d&rsquo;inférence minime ;</li>
-<li>comportement déterministe ;</li>
-<li>déploiement et explicabilité plus simples.</li>
+<li>latence faible et prévisible</li>
+<li>coût d&rsquo;inférence minime</li>
+<li>comportement déterministe</li>
+<li>déploiement et explicabilité plus simples</li>
 </ul>
 <p>Le LoRA devient plus intéressant si le même modèle doit ensuite extraire des attributs, comprendre plusieurs langues, gérer des formulations longues ou alimenter une chaîne générative. Le choix d&rsquo;architecture doit intégrer l&rsquo;ensemble du produit, pas seulement le meilleur score d&rsquo;une colonne.</p>
 <p>Ce point a changé ma manière de cadrer les projets GenAI : je demande systématiquement une baseline non-LLM. Sans elle, on sait que le fine-tuning améliore un LLM, mais pas que le LLM est nécessaire.</p>
+<br/>
 <h2 id="reproductibilité--un-adaptateur-seul-ne-suffit-pas">Reproductibilité : un adaptateur seul ne suffit pas</h2>
 <p>Un fichier d&rsquo;adaptateur n&rsquo;est pas un modèle autonome. Son identité dépend de plusieurs artefacts :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>modèle déployé
@@ -8263,21 +8274,22 @@ Et voilà, aussi simple que cela.</p>
 </span></span><span style="display:flex;"><span>  + code de parsing
 </span></span></code></pre></div><p>Pour chaque run, j&rsquo;enregistre dans MLflow :</p>
 <ul>
-<li>le commit Git et le lock des dépendances ;</li>
-<li>l&rsquo;identifiant et la révision immuable du modèle de base ;</li>
-<li>le hash du dataset et les identifiants des partitions ;</li>
-<li>la seed ;</li>
-<li>la configuration LoRA ;</li>
-<li>le batch réellement utilisé ;</li>
-<li>les métriques train et validation par step ;</li>
-<li>les checkpoints ;</li>
-<li>les résultats de génération ;</li>
-<li>les matrices de confusion et les erreurs appariées ;</li>
-<li>les hashes SHA-256 des artefacts retenus.</li>
+<li>le commit Git et le lock des dépendances</li>
+<li>l&rsquo;identifiant et la révision immuable du modèle de base</li>
+<li>le hash du dataset et les identifiants des partitions</li>
+<li>la seed</li>
+<li>la configuration LoRA</li>
+<li>le batch réellement utilisé</li>
+<li>les métriques train et validation par step</li>
+<li>les checkpoints</li>
+<li>les résultats de génération</li>
+<li>les matrices de confusion et les erreurs appariées</li>
+<li>les hashes SHA-256 des artefacts retenus</li>
 </ul>
 <p>Je conserve aussi les échecs. Un run interrompu pour manque de mémoire ou une configuration qui produit du JSON invalide fait partie de l&rsquo;historique expérimental. Supprimer ces traces crée une vision artificiellement linéaire de la recherche.</p>
+<br/>
 <h2 id="le-chemin-jusquà-la-production">Le chemin jusqu&rsquo;à la production</h2>
-<p>Je ne déploierais pas directement l&rsquo;adaptateur qui vient de gagner le benchmark. Le passage en production suit plusieurs portes :</p>
+<p>Je ne déploierais pas directement un adaptateur qui vient de gagner un benchmark. Le passage en production suit plusieurs portes :</p>
 <ol>
 <li><strong>Gate de données</strong> : provenance, licence, PII, conflits de labels, doublons et séparation des partitions.</li>
 <li><strong>Gate offline</strong> : macro-F1, rappel par intention, validité du contrat, latence, mémoire et robustesse sur paraphrases.</li>
@@ -8287,41 +8299,46 @@ Et voilà, aussi simple que cela.</p>
 <li><strong>Monitoring</strong> : dérive des entrées, distribution des intentions, taux de rejet, invalides JSON, latence et corrections humaines.</li>
 </ol>
 <p>La prod doit pouvoir revenir au modèle précédent en changeant une référence d&rsquo;artefact. Je garde la base et l&rsquo;adaptateur séparés tant que j&rsquo;ai besoin de charger plusieurs adaptations ou de revenir rapidement en arrière. Je ne fusionne les poids que si la simplification du serving ou la mesure de latence le justifie.</p>
-<p>Le monitoring de la loss n&rsquo;a plus de sens une fois le modèle en service. Il faut observer des proxys disponibles immédiatement, puis rattacher les labels métier lorsqu&rsquo;ils arrivent. Une hausse soudaine de <code>card_payment_not_recognised</code> peut signaler un incident produit, une fraude, un changement de vocabulaire ou une dérive du modèle. L&rsquo;alerte doit déclencher une analyse, pas un réentraînement automatique.</p>
+<p>Le monitoring de la loss n&rsquo;a plus de sens une fois le modèle en service. Il faut observer des proxys disponibles immédiatement, puis rattacher les labels métier lorsqu&rsquo;ils arrivent. Une hausse soudaine de <code>sinistre_auto_non_reconnu</code> peut signaler une campagne de fraude, un incident dans le parcours de déclaration, un changement de vocabulaire ou une dérive du modèle. L&rsquo;alerte doit déclencher une analyse, pas un réentraînement automatique.</p>
+<br/>
 <h2 id="ce-que-je-ferais-ensuite">Ce que je ferais ensuite</h2>
-<p>Le run valide la pertinence de LoRA sur une taxonomie fine. Il laisse plusieurs travaux ouverts :</p>
+<p>Le scénario montre où LoRA peut apporter de la valeur sur une taxonomie d&rsquo;assurance fine. Il laisse plusieurs travaux indispensables avant toute conclusion sur un système réel :</p>
 <ul>
-<li>construire un test privé, récent et temporellement postérieur au train ;</li>
-<li>ajouter des exemples hors périmètre et mesurer le taux de faux routage ;</li>
-<li>évaluer la calibration et définir un seuil d&rsquo;abstention ;</li>
-<li>comparer les rangs 8, 16 et 32 sous le même budget ;</li>
-<li>mesurer un LoRA attention-only face à attention + MLP ;</li>
-<li>tester QLoRA NF4 séparément, avec les mêmes seeds et partitions ;</li>
-<li>mesurer la latence et le débit dans le serveur d&rsquo;inférence réel ;</li>
-<li>répéter l&rsquo;expérience sur plusieurs seeds ;</li>
-<li>faire annoter les cas ambigus par plusieurs experts métier.</li>
+<li>construire un test privé, récent et temporellement postérieur au train</li>
+<li>ajouter des exemples hors périmètre et mesurer le taux de faux routage</li>
+<li>évaluer la calibration et définir un seuil d&rsquo;abstention</li>
+<li>comparer les rangs 8, 16 et 32 sous le même budget</li>
+</ul>
+<blockquote>
+<p>C&rsquo;est-à-dire entraîner trois adaptateurs qui ne diffèrent que par leur rang LoRA, en conservant le même dataset, les mêmes partitions, la même seed, le même nombre d&rsquo;exemples vus et le même protocole d&rsquo;évaluation. Le rang contrôle la capacité de l&rsquo;adaptateur : un rang plus élevé ajoute des paramètres entraînables et peut mieux apprendre des distinctions complexes, mais il consomme davantage de mémoire et peut surapprendre. L&rsquo;objectif est de retenir le plus petit rang qui atteint une qualité comparable au meilleur résultat</p></blockquote>
+<ul>
+<li>mesurer un LoRA attention-only face à attention + MLP</li>
+</ul>
+<blockquote>
+<p>C&rsquo;est-à-dire comparer un adaptateur placé uniquement sur les projections d&rsquo;attention (<code>q_proj</code>, <code>k_proj</code>, <code>v_proj</code>, <code>o_proj</code>) avec un adaptateur également placé sur les projections du MLP (<code>gate_proj</code>, <code>up_proj</code>, <code>down_proj</code>). La première variante entraîne moins de paramètres. La seconde donne au modèle plus de capacité pour transformer les représentations internes. La comparaison permet de vérifier si le gain de qualité justifie le coût supplémentaire en mémoire, en temps d&rsquo;entraînement et en taille d&rsquo;adaptateur</p></blockquote>
+<ul>
+<li>tester QLoRA NF4 séparément, avec les mêmes seeds et partitions</li>
+<li>mesurer la latence et le débit dans le serveur d&rsquo;inférence réel</li>
+</ul>
+<blockquote>
+<p>C&rsquo;est-à-dire servir le modèle de base et l&rsquo;adaptateur avec <a href="https://github.com/vllm-project/vllm/releases/tag/v0.6.4">vLLM 0.6.4</a> puis lancer le script <a href="https://github.com/vllm-project/vllm/blob/v0.6.4/benchmarks/benchmark_serving.py"><code>benchmarks/benchmark_serving.py</code></a> provenant du même tag. Le test doit rejouer des prompts ASSURANCE60 représentatifs après une phase de chauffe, avec plusieurs niveaux de concurrence et de requêtes par seconde. Pour ce classifieur aux réponses très courtes, les métriques principales sont la latence de bout en bout aux percentiles p50, p95 et p99, le nombre de requêtes traitées par seconde et le taux d&rsquo;erreur. Le TTFT, le temps par token et le débit en tokens par seconde restent utiles pour comparer le comportement du serveur, mais ils sont moins déterminants que les requêtes par seconde sur ce cas d&rsquo;usage</p></blockquote>
+<ul>
+<li>répéter l&rsquo;expérience sur plusieurs seeds</li>
+<li>faire annoter les cas ambigus par plusieurs experts métier</li>
 </ul>
 <p>Je travaillerais aussi sur la taxonomie. Lorsque deux labels ne peuvent pas être distingués de façon fiable à partir du texte disponible, le problème ne vient pas toujours du modèle. Il peut venir d&rsquo;une définition métier trop subtile ou d&rsquo;un manque de contexte dans l&rsquo;interface.</p>
+<br/>
 <h2 id="mon-retour-darchitecte">Mon retour d&rsquo;architecte</h2>
 <p>LoRA rend le fine-tuning accessible, mais la facilité de lancer un entraînement ne doit pas masquer la difficulté de prouver qu&rsquo;il améliore le système.</p>
-<p>Le gain de 50,06 % à 92,01 % est réel dans ce protocole. Ce qui le rend exploitable n&rsquo;est pourtant pas le chiffre seul. C&rsquo;est le fait d&rsquo;avoir gelé le test, compté les sorties invalides comme des erreurs, comparé les prédictions une à une, conservé une baseline classique, sélectionné le checkpoint sur validation et versionné l&rsquo;ensemble du contrat d&rsquo;inférence.</p>
+<p>Le passage de 50,07 % à 92,00 % sert ici à rendre le protocole concret ; il ne constitue pas un résultat de production. Ce qui rendrait un gain exploitable est le fait de geler le test, compter les sorties invalides comme des erreurs, comparer les prédictions une à une, conserver une baseline classique, sélectionner le checkpoint sur validation et versionner l&rsquo;ensemble du contrat d&rsquo;inférence.</p>
 <p>La décision d&rsquo;architecture reste conditionnelle :</p>
 <ul>
-<li>si le besoin est une classification pure à coût minimal, la baseline classique peut gagner ;</li>
-<li>si le produit a besoin de compréhension sémantique plus large et de sorties structurées, un petit LLM avec LoRA devient une option solide ;</li>
-<li>si la connaissance change fréquemment, il faut probablement compléter avec du retrieval ;</li>
-<li>si le coût d&rsquo;une erreur est élevé, l&rsquo;abstention et la revue humaine font partie du modèle de service.</li>
+<li>si le besoin est une classification pure à coût minimal, la baseline classique peut gagner</li>
+<li>si le produit a besoin de compréhension sémantique plus large et de sorties structurées, un petit LLM avec LoRA devient une option solide</li>
+<li>si la connaissance change fréquemment, il faut probablement compléter avec du retrieval</li>
+<li>si le coût d&rsquo;une erreur est élevé, l&rsquo;abstention et la revue humaine font partie du modèle de service</li>
 </ul>
 <p>LoRA ne transforme pas un benchmark en produit. Il offre une manière efficace d&rsquo;adapter le comportement d&rsquo;un modèle. La valeur vient de la discipline appliquée autour : données, évaluation, traçabilité, serving et boucle de retour métier.</p>
-<h2 id="références">Références</h2>
-<ul>
-<li>Edward J. Hu et al., <a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a>, 2021.</li>
-<li>Tim Dettmers et al., <a href="https://arxiv.org/abs/2305.14314">QLoRA: Efficient Finetuning of Quantized LLMs</a>, 2023.</li>
-<li>Iñigo Casanueva et al., <a href="https://aclanthology.org/2020.nlp4convai-1.5/">Efficient Intent Detection with Dual Sentence Encoders</a>, ACL 2020.</li>
-<li>PolyAI, <a href="https://github.com/PolyAI-LDN/task-specific-datasets">BANKING77 dans le dépôt Task-Specific Datasets</a>, 2020.</li>
-<li>Hugging Face, <a href="https://github.com/huggingface/peft">PEFT</a>, bibliothèque d&rsquo;adaptation efficace en paramètres.</li>
-<li>MLflow 2.17, <a href="https://mlflow.org/docs/2.17.0/tracking.html">MLflow Tracking</a>, suivi des paramètres, métriques et artefacts d&rsquo;expérimentation.</li>
-</ul>
 ]]></content>
         </item>
         
