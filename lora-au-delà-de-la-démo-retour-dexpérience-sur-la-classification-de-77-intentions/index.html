@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+  content="Olivier Eeckhoutte">
+<meta name="description"
+  content="Sur un cas de classification de demandes clients couvrant 77 intentions bancaires, le modèle de base routait correctement 50,06 % des 3 080 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d&rsquo;origine du modèle, l&rsquo;accuracy est montée à 92,01 % : &#43;41,95 points, soit environ 84 % d&rsquo;erreurs en moins. Dans le même temps, le taux de réponses respectant strictement le contrat JSON est passé de 96,62 % à 99,97 %.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="#252627" />
+
+<link rel="canonical" href="https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/" />
+
+
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+  #app {
+    display: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 12px -1px rgba(0, 0, 0, 0.56);
+    padding: 20px;
+    background-color: white;
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: center;
+    min-height: 500px;
+  }
+
+  #app input {
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    max-width: 300px;
+    padding: 5px 10px;
+    border: 2px solid black;
+  }
+
+  #app ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app li {
+    text-align: left;
+    padding: 5px 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 1px auto;
+    background-color: white;
+    border: 1px solid black;
+    list-style: none;
+  }
+</style>
+
+
+
+
+<title>
+  
+  LoRA au-delà de la démo : retour d&#39;expérience sur la classification de 77 intentions :: Lean Deep Tech blog 
+  
+</title>
+
+
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+  type="text/css">
+
+
+
+<link rel="stylesheet" href="https://leandeep.com/main.min.9e1065a63a0cfa1a5ff3117ad92d3ed7a35573a41501a751f3c477c3c663201e.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://leandeep.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://leandeep.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://leandeep.com/favicon-16x16.png">
+    <link rel="manifest" href="https://leandeep.com/site.webmanifest">
+    <link rel="mask-icon" href="https://leandeep.com/safari-pinned-tab.svg" color="#252627">
+    <link rel="shortcut icon" href="https://leandeep.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#252627">
+    <meta name="theme-color" content="#252627">
+
+
+  <meta itemprop="name" content="LoRA au-delà de la démo : retour d&#39;expérience sur la classification de 77 intentions">
+  <meta itemprop="description" content="Ce qu&#39;un fine-tuning LoRA change réellement sur un routeur d&#39;intentions, et les choix d&#39;architecture, de données et d&#39;évaluation qui ont fait la différence.">
+  <meta itemprop="datePublished" content="2024-12-18T08:30:00+01:00">
+  <meta itemprop="dateModified" content="2024-12-18T08:30:00+01:00">
+  <meta itemprop="wordCount" content="3224">
+  <meta itemprop="image" content="https://leandeep.com/">
+  <meta itemprop="keywords" content="Generative AI,LLM,LoRA,Fine-Tuning,MLOps,Machine Learning">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://leandeep.com/">
+  <meta name="twitter:title" content="LoRA au-delà de la démo : retour d&#39;expérience sur la classification de 77 intentions">
+  <meta name="twitter:description" content="Ce qu&#39;un fine-tuning LoRA change réellement sur un routeur d&#39;intentions, et les choix d&#39;architecture, de données et d&#39;évaluation qui ont fait la différence.">
+
+
+
+<meta property="article:section" content="Generative AI" />
+
+
+
+<meta property="article:published_time" content="2024-12-18 08:30:00 &#43;0100 CET" />
+
+
+
+
+
+
+
+<link rel="alternate" type="text/markdown" href="https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/index.md" title="LoRA au-delà de la démo : retour d&#39;expérience sur la classification de 77 intentions (Markdown)">
+<script type="application/ld+json">{"@context":"https://schema.org","@id":"https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/#article","@type":"BlogPosting","author":{"@type":"Person","name":"Olivier Eeckhoutte","url":"https://leandeep.com/about/"},"dateModified":"2024-12-18T08:30:00+01:00","datePublished":"2024-12-18T08:30:00+01:00","description":"Sur un cas de classification de demandes clients couvrant 77 intentions bancaires, le modèle de base routait correctement 50,06 % des 3 080 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d’origine du modèle, l’accuracy est montée à 92,01 % : +41,95 …","headline":"LoRA au-delà de la démo : retour d'expérience sur la classification de 77 intentions","inLanguage":"fr","isPartOf":{"@type":"Blog","name":"Lean Deep Tech blog","url":"https://leandeep.com/"},"keywords":["Generative AI","LLM","LoRA","Fine-tuning","MLOps","Machine Learning"],"license":"https://creativecommons.org/licenses/by-nc/4.0/","mainEntityOfPage":{"@id":"https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/","@type":"WebPage"},"publisher":{"@type":"Person","name":"Olivier Eeckhoutte","url":"https://leandeep.com/about/"},"url":"https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/","wordCount":3224}</script>
+
+
+<script
+  defer
+  src="https://leandeep.com/js/site-search.js"
+  data-sitemap="/sitemap.xml"
+  data-max-pages="800"
+  data-prewarm="false"
+></script>
+
+
+    </head>
+
+    <body class="">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://leandeep.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/leandeep</span>
+            <span class="logo__cursor" style=""></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://leandeep.com/events/">Featured Articles</a></li><li><a href="https://leandeep.com/posts/">All Articles</a></li><li><a href="https://leandeep.com/about/">About Me</a></li><li><a href="https://leandeep.com/other/">Other</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>16 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://leandeep.com/lora-au-del%C3%A0-de-la-d%C3%A9mo-retour-dexp%C3%A9rience-sur-la-classification-de-77-intentions/">LoRA au-delà de la démo : retour d&rsquo;expérience sur la classification de 77 intentions</a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <p>Sur un cas de classification de demandes clients couvrant <strong>77 intentions bancaires</strong>, le modèle de base routait correctement <strong>50,06 %</strong> des 3 080 demandes du test. Après un fine-tuning supervisé avec LoRA, réalisé sans modifier les poids d&rsquo;origine du modèle, l&rsquo;accuracy est montée à <strong>92,01 %</strong> : <strong>+41,95 points</strong>, soit environ <strong>84 % d&rsquo;erreurs en moins</strong>. Dans le même temps, le taux de réponses respectant strictement le contrat JSON est passé de 96,62 % à 99,97 %.</p>
+<p>Ce résultat est suffisamment fort pour justifier ce retour d&rsquo;expérience, mais pas pour conclure qu&rsquo;un LLM est toujours le meilleur classifieur. Une baseline TF-IDF avec régression logistique a atteint 90,19 %. Le principal enseignement est ailleurs : un petit modèle correctement adapté, évalué et industrialisé peut apprendre une frontière de décision métier très fine. Le fine-tuning n&rsquo;est cependant qu&rsquo;une étape d&rsquo;une chaîne qui commence par les données et se termine par l&rsquo;observabilité en production.</p>
+<h2 id="le-problème--router-une-demande-vers-la-bonne-intention">Le problème : router une demande vers la bonne intention</h2>
+<p>Le cas d&rsquo;usage ressemble à ce que l&rsquo;on rencontre dans de nombreux centres de contact. Une phrase libre doit être associée à une intention d&rsquo;une taxonomie fermée :</p>
+<ul>
+<li>carte non reçue ;</li>
+<li>paiement par carte refusé ;</li>
+<li>virement en attente ;</li>
+<li>retrait non reconnu ;</li>
+<li>taux de change incorrect ;</li>
+<li>carte virtuelle indisponible ;</li>
+<li>vérification d&rsquo;identité impossible.</li>
+</ul>
+<p>La difficulté ne vient pas seulement du nombre de classes. Plusieurs intentions sont sémantiquement très proches. « Mon virement n&rsquo;est toujours pas arrivé » peut décrire un virement encore en cours, un virement échoué ou un virement que le bénéficiaire n&rsquo;a pas reçu. La décision dépend souvent d&rsquo;un indice lexical minuscule et de la définition métier exacte de chaque label.</p>
+<p>J&rsquo;ai utilisé <strong>BANKING77</strong>, un dataset public publié en 2020 par PolyAI. Il contient 13 083 requêtes annotées et 77 intentions. Ce choix rend l&rsquo;expérience reproductible, mais il pose une limite importante : un dataset public a pu être vu pendant le pré-entraînement d&rsquo;un modèle. Je considère donc ce benchmark comme une validation de la chaîne technique, pas comme une preuve suffisante pour déployer le modèle sur du trafic bancaire réel.</p>
+<h2 id="pourquoi-lora-et-pourquoi-le-fine-tuning-">Pourquoi LoRA, et pourquoi le fine-tuning ?</h2>
+<p>Avant d&rsquo;entraîner quoi que ce soit, j&rsquo;utilise une règle simple :</p>
+<table>
+  <thead>
+      <tr>
+          <th>Besoin principal</th>
+          <th>Technique à tester en premier</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Ajouter des connaissances qui changent souvent</td>
+          <td>RAG</td>
+      </tr>
+      <tr>
+          <td>Obtenir rapidement un comportement avec quelques exemples</td>
+          <td>Prompting / few-shot</td>
+      </tr>
+      <tr>
+          <td>Apprendre un style, un format ou une frontière de décision stable</td>
+          <td>Fine-tuning supervisé</td>
+      </tr>
+      <tr>
+          <td>Optimiser une préférence entre plusieurs bonnes réponses</td>
+          <td>Entraînement par préférences</td>
+      </tr>
+  </tbody>
+</table>
+<p>Ici, la taxonomie est stable et la sortie attendue est courte. Le problème consiste à apprendre une décision, pas à retrouver un document. Ajouter un RAG aurait augmenté la latence et la complexité sans traiter directement cette frontière de décision.</p>
+<p>Un fine-tuning complet aurait été techniquement possible sur un petit modèle, mais peu intéressant pour ce cas :</p>
+<ul>
+<li>il faut optimiser et sauvegarder tous les poids ;</li>
+<li>chaque variante métier produit une copie complète du modèle ;</li>
+<li>le coût mémoire de l&rsquo;optimiseur augmente fortement ;</li>
+<li>le rollback et la gestion de plusieurs versions deviennent plus lourds.</li>
+</ul>
+<p>LoRA, pour <strong>Low-Rank Adaptation</strong>, gèle la matrice de poids d&rsquo;origine <code>W</code> et apprend une mise à jour de faible rang :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>W&#39; = W + (alpha / r) × B × A
+</span></span></code></pre></div><p>Si <code>W</code> est une grande matrice, <code>A</code> et <code>B</code> sont beaucoup plus petites. Le rang <code>r</code> limite la capacité de cette mise à jour. Pendant l&rsquo;entraînement, seuls les paramètres LoRA reçoivent des gradients ; le modèle de base reste immuable.</p>
+<p>Dans mon run, l&rsquo;adaptateur représentait environ <strong>34,9 millions de paramètres entraînables</strong> sur 1,72 milliard de paramètres uniques, soit <strong>2,03 %</strong>. Ce ratio réduit fortement le coût d&rsquo;optimisation et permet de conserver un modèle de base commun à plusieurs adaptateurs.</p>
+<p>Il faut toutefois éviter un raccourci fréquent : entraîner 2 % des paramètres ne signifie pas consommer 2 % de la mémoire d&rsquo;un fine-tuning complet. Les activations du forward pass restent nécessaires. LoRA réduit surtout les gradients, les états de l&rsquo;optimiseur et le volume des checkpoints.</p>
+<h2 id="lora-et-qlora-répondent-à-deux-contraintes-différentes">LoRA et QLoRA répondent à deux contraintes différentes</h2>
+<p>J&rsquo;ai choisi un entraînement LoRA en <strong>BF16</strong> parce que le modèle tenait confortablement en mémoire. Quand ce n&rsquo;est plus le cas, QLoRA ajoute une quantification du modèle de base gelé, généralement en 4 bits NF4, puis rétropropage les gradients vers les adaptateurs LoRA.</p>
+<p>La distinction est importante :</p>
+<ul>
+<li><strong>LoRA</strong> : le modèle de base reste typiquement en FP16 ou BF16 ;</li>
+<li><strong>QLoRA</strong> : le modèle de base gelé est quantifié afin de réduire davantage la mémoire ;</li>
+<li>dans les deux cas, les adaptateurs restent entraînables dans une précision adaptée au calcul.</li>
+</ul>
+<p>QLoRA est un excellent outil pour rendre un entraînement possible sur un GPU plus petit. Je ne le choisis pas automatiquement : la quantification ajoute un chemin numérique et opérationnel à valider. Si le modèle tient en BF16 avec une marge correcte, je préfère commencer par le chemin le plus simple, puis mesurer QLoRA comme une expérience séparée.</p>
+<h2 id="la-qualité-du-dataset-a-davantage-compté-que-le-choix-du-rang">La qualité du dataset a davantage compté que le choix du rang</h2>
+<p>Le split officiel de BANKING77 contient 10 003 exemples de train et 3 080 exemples de test, soit 40 demandes par intention dans le test. J&rsquo;ai créé une validation à partir du train, puis audité les partitions avant de lancer le GPU.</p>
+<p>Après normalisation et contrôle :</p>
+<table>
+  <thead>
+      <tr>
+          <th>Partition</th>
+          <th style="text-align: right">Nombre d&rsquo;exemples</th>
+          <th>Usage</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Train</td>
+          <td style="text-align: right">8 454</td>
+          <td>Calcul des gradients</td>
+      </tr>
+      <tr>
+          <td>Validation</td>
+          <td style="text-align: right">1 492</td>
+          <td>Choix du checkpoint et des hyperparamètres</td>
+      </tr>
+      <tr>
+          <td>Test officiel</td>
+          <td style="text-align: right">3 080</td>
+          <td>Mesure finale, une fois les choix figés</td>
+      </tr>
+  </tbody>
+</table>
+<p>Deux exemples du train portant le même texte avec des labels incompatibles ont été mis en quarantaine. J&rsquo;ai aussi retiré du train 25 chevauchements avec le test et 30 doublons internes. Le test officiel est resté intact, y compris ses propres doublons, afin de ne pas fabriquer un benchmark plus favorable.</p>
+<p>J&rsquo;ai appliqué deux niveaux de détection :</p>
+<ol>
+<li>comparaison exacte après normalisation de la casse, des espaces et de la ponctuation ;</li>
+<li>recherche de quasi-doublons par similarité lexicale.</li>
+</ol>
+<p>Le second audit a signalé des formulations très proches entre train et test. Je ne les ai pas supprimées automatiquement : une forte similarité ne prouve pas une fuite, et modifier le test officiel aurait rendu la comparaison moins lisible. En revanche, j&rsquo;ai conservé ce résultat dans les artefacts du run.</p>
+<p>Cette étape est moins spectaculaire que le choix de <code>r</code> ou du learning rate, mais elle protège l&rsquo;expérience contre l&rsquo;erreur la plus coûteuse : attribuer au modèle un gain qui vient en réalité d&rsquo;une fuite de données.</p>
+<h2 id="le-contrat-de-sortie-fait-partie-du-modèle">Le contrat de sortie fait partie du modèle</h2>
+<p>Le modèle reçoit la demande, la liste contrôlée des intentions et l&rsquo;instruction de répondre avec un seul objet JSON :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;intent&#34;</span>: <span style="color:#e6db74">&#34;card_arrival&#34;</span>}
+</span></span></code></pre></div><p>La cible d&rsquo;entraînement contient uniquement la réponse de l&rsquo;assistant. Les tokens du prompt sont masqués dans la loss. Autrement dit, le modèle apprend à produire le label attendu ; il n&rsquo;est pas récompensé pour recopier l&rsquo;instruction ou la taxonomie.</p>
+<p>J&rsquo;ai conservé exactement le même prompt, le même tokenizer et le même décodage pour le modèle de base et le modèle adapté :</p>
+<ul>
+<li>température à 0 ;</li>
+<li>64 nouveaux tokens au maximum ;</li>
+<li>aucune réparation automatique du JSON ;</li>
+<li>toute sortie invalide compte comme une erreur.</li>
+</ul>
+<p>Réparer silencieusement une sortie rend une démonstration plus flatteuse, mais mélange la qualité du modèle avec celle d&rsquo;un post-traitement. En production, un parseur défensif reste utile. Dans une évaluation comparative, je veux savoir quel composant a produit le gain.</p>
+<h2 id="configuration-du-fine-tuning">Configuration du fine-tuning</h2>
+<p>Le modèle de base de cette expérience est un causal LM open-weight compact de 1,7 milliard de paramètres, chargé en BF16. Je le désigne ici par <code>base-1.7B</code> afin de garder ce retour centré sur le protocole plutôt que d&rsquo;en faire un classement de fournisseurs. Dans le registre interne, l&rsquo;identifiant du modèle, sa révision, les hashes du tokenizer et les poids sont bien sûr figés.</p>
+<p>La configuration principale était la suivante :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">precision</span>: <span style="color:#ae81ff">bf16</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">max_sequence_length</span>: <span style="color:#ae81ff">1024</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">seed</span>: <span style="color:#ae81ff">42</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">lora</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rank</span>: <span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">alpha</span>: <span style="color:#ae81ff">64</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dropout</span>: <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">target_modules</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">q_proj</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">k_proj</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">v_proj</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">o_proj</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">gate_proj</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">up_proj</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">down_proj</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">training</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">optimizer</span>: <span style="color:#ae81ff">adamw</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">learning_rate</span>: <span style="color:#ae81ff">0.0001</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">scheduler</span>: <span style="color:#ae81ff">cosine</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">warmup_steps</span>: <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">micro_batch_size</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">gradient_accumulation_steps</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">effective_batch_size</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_updates</span>: <span style="color:#ae81ff">1200</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">evaluate_every</span>: <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">save_every</span>: <span style="color:#ae81ff">200</span>
+</span></span></code></pre></div><p>Avec PEFT, le cœur de la configuration ressemble à ceci :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> peft <span style="color:#f92672">import</span> LoraConfig, TaskType, get_peft_model
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lora_config <span style="color:#f92672">=</span> LoraConfig(
+</span></span><span style="display:flex;"><span>    r<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>,
+</span></span><span style="display:flex;"><span>    lora_alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">64</span>,
+</span></span><span style="display:flex;"><span>    lora_dropout<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>,
+</span></span><span style="display:flex;"><span>    bias<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;none&#34;</span>,
+</span></span><span style="display:flex;"><span>    task_type<span style="color:#f92672">=</span>TaskType<span style="color:#f92672">.</span>CAUSAL_LM,
+</span></span><span style="display:flex;"><span>    target_modules<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;q_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;k_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;v_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;o_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;gate_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;up_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;down_proj&#34;</span>,
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> get_peft_model(base_model, lora_config)
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>print_trainable_parameters()
+</span></span></code></pre></div><p>Le choix du rang 32 n&rsquo;est pas une best practice universelle. Avec 77 classes proches et un modèle compact, je voulais donner suffisamment de capacité à l&rsquo;adaptateur. Sur une taxonomie de dix intentions bien séparées, un rang 8 ou 16 pourrait suffire. La bonne démarche consiste à tester quelques valeurs sous un budget fixe et à sélectionner sur la validation.</p>
+<p>J&rsquo;ai ciblé les projections d&rsquo;attention et les couches linéaires du MLP. Cibler seulement <code>q_proj</code> et <code>v_proj</code> réduit encore le nombre de paramètres, mais peut limiter l&rsquo;adaptation sur une tâche qui demande une séparation sémantique fine. Ce choix doit lui aussi être évalué, pas adopté par habitude.</p>
+<p>Le <strong>batch effectif de 8</strong> vient de deux exemples traités simultanément et de quatre accumulations de gradients :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>batch effectif = micro-batch 2 × accumulation 4 = 8 exemples
+</span></span></code></pre></div><p>Une mise à jour de l&rsquo;optimiseur intervient donc après huit exemples. À 1 200 mises à jour, le modèle a vu environ 9 600 exemples, soit 1,14 passage sur les 8 454 exemples de train. Compter les mises à jour sans les relier au batch effectif et à la taille du dataset ne permet pas de comparer deux entraînements.</p>
+<h2 id="la-validation-choisit-le-checkpoint-le-test-ne-choisit-rien">La validation choisit le checkpoint, le test ne choisit rien</h2>
+<p>Pour limiter le coût de génération pendant l&rsquo;entraînement, j&rsquo;ai utilisé un sous-ensemble de validation équilibré : quatre exemples par classe, soit 308 demandes identiques pour chaque checkpoint.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">Mise à jour</th>
+          <th style="text-align: right">Accuracy validation</th>
+          <th style="text-align: right">Macro-F1 validation</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">200</td>
+          <td style="text-align: right">77,60 %</td>
+          <td style="text-align: right">76,62 %</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">400</td>
+          <td style="text-align: right">85,39 %</td>
+          <td style="text-align: right">84,95 %</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">600</td>
+          <td style="text-align: right">88,96 %</td>
+          <td style="text-align: right">88,49 %</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">800</td>
+          <td style="text-align: right">90,91 %</td>
+          <td style="text-align: right">90,68 %</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1 000</td>
+          <td style="text-align: right">91,56 %</td>
+          <td style="text-align: right">91,56 %</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1 200</td>
+          <td style="text-align: right"><strong>92,86 %</strong></td>
+          <td style="text-align: right"><strong>92,80 %</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>Le checkpoint 1 200 a été retenu avant d&rsquo;ouvrir les résultats du test. La courbe progressait encore ; 1 200 était donc une limite de budget expérimental, pas la preuve d&rsquo;un optimum mathématique. La suite logique aurait été de prolonger un run contrôlé, puis de sélectionner à nouveau sur validation.</p>
+<p>La <strong>train loss seule ne répond pas</strong> à la question « quel checkpoint dois-je déployer ? ». Elle mesure la capacité à prédire les tokens cibles sur les exemples d&rsquo;entraînement. Elle peut continuer à baisser alors que :</p>
+<ul>
+<li>la généralisation plafonne ;</li>
+<li>le modèle mémorise certaines formulations ;</li>
+<li>la conformité JSON se dégrade ;</li>
+<li>des classes rares régressent ;</li>
+<li>la calibration devient moins bonne.</li>
+</ul>
+<p>Je sélectionne donc sur une métrique métier calculée par génération complète. Une accuracy token en teacher forcing n&rsquo;est pas une accuracy d&rsquo;intention : prédire correctement les accolades et les guillemets ne signifie pas avoir choisi le bon label.</p>
+<h2 id="résultats-sur-le-test-gelé">Résultats sur le test gelé</h2>
+<p>Les trois méthodes ont été évaluées sur les mêmes 3 080 demandes du test officiel :</p>
+<table>
+  <thead>
+      <tr>
+          <th>Méthode</th>
+          <th style="text-align: right">Accuracy</th>
+          <th style="text-align: right">Macro-F1</th>
+          <th style="text-align: right">JSON valide</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>base-1.7B</code>, sans adaptation</td>
+          <td style="text-align: right">50,06 %</td>
+          <td style="text-align: right">49,06 %</td>
+          <td style="text-align: right">96,62 %</td>
+      </tr>
+      <tr>
+          <td><code>base-1.7B</code> + LoRA</td>
+          <td style="text-align: right"><strong>92,01 %</strong></td>
+          <td style="text-align: right"><strong>92,01 %</strong></td>
+          <td style="text-align: right"><strong>99,97 %</strong></td>
+      </tr>
+      <tr>
+          <td>TF-IDF + régression logistique</td>
+          <td style="text-align: right">90,19 %</td>
+          <td style="text-align: right">90,19 %</td>
+          <td style="text-align: right">100 %</td>
+      </tr>
+  </tbody>
+</table>
+<p>Le gain apparié du LoRA est de <strong>41,95 points d&rsquo;accuracy</strong>. Sur les 3 080 demandes :</p>
+<ul>
+<li>1 320 erreurs du modèle de base ont été corrigées ;</li>
+<li>28 réponses auparavant correctes ont régressé ;</li>
+<li>1 732 réponses sont restées inchangées ;</li>
+<li>246 erreurs subsistent après fine-tuning.</li>
+</ul>
+<p>Un bootstrap apparié de 5 000 tirages donne un intervalle à 95 % de <strong>[+40,13 ; +43,80] points</strong> pour le gain d&rsquo;accuracy. Cet intervalle rééchantillonne des requêtes, pas des clients, et ne couvre ni l&rsquo;incertitude d&rsquo;annotation ni une éventuelle contamination du pré-entraînement.</p>
+<p>L&rsquo;accuracy et le macro-F1 sont presque identiques parce que le test contient exactement 40 exemples par classe. En production, la distribution sera rarement équilibrée. Je suivrais donc également le rappel par classe, le coût métier de chaque confusion et une matrice de confusion pondérée par les vrais volumes.</p>
+<h2 id="ce-que-le-modèle-a-réellement-appris">Ce que le modèle a réellement appris</h2>
+<p>L&rsquo;amélioration la plus intéressante ne vient pas des intentions évidentes, mais des frontières fines de la taxonomie. Avant adaptation, le modèle avait tendance à choisir un label général :</p>
+<ul>
+<li>une erreur de conversion lors d&rsquo;un achat devenait simplement <code>exchange_rate</code> ;</li>
+<li>un retrait toujours en attente devenait <code>cash_withdrawal_not_recognised</code> ;</li>
+<li>une carte absente de l&rsquo;application devenait un problème de solde ;</li>
+<li>une demande sur les devises disponibles devenait une question sur le taux de change.</li>
+</ul>
+<p>Après LoRA, le modèle distingue beaucoup mieux l&rsquo;objet, le canal et l&rsquo;état de l&rsquo;opération. Il apprend la convention de labellisation spécifique au métier, alors que le modèle de base se contente d&rsquo;une similarité sémantique générale.</p>
+<p>Les 28 régressions sont tout aussi instructives. Certaines formulations restent réellement ambiguës : « mon transfert prend beaucoup de temps » peut relever de <code>pending_transfer</code>, <code>transfer_timing</code> ou <code>transfer_not_received_by_recipient</code> selon le contexte absent. À ce stade, augmenter le rang ou le nombre de steps ne résout pas nécessairement le problème. Les options d&rsquo;architecture deviennent :</p>
+<ul>
+<li>demander une clarification ;</li>
+<li>retourner un top-k avec scores ;</li>
+<li>définir une classe de rejet ;</li>
+<li>appliquer une règle métier sur les cas à fort risque ;</li>
+<li>envoyer les cas incertains à un opérateur.</li>
+</ul>
+<p>Un modèle qui répond toujours par l&rsquo;une des 77 classes peut afficher une bonne accuracy tout en étant dangereux sur les demandes hors taxonomie. Le test suivant doit donc porter sur l&rsquo;<strong>out-of-scope detection</strong>, absente de BANKING77.</p>
+<h2 id="pourquoi-la-baseline-classique-reste-essentielle">Pourquoi la baseline classique reste essentielle</h2>
+<p>La régression logistique sur des features TF-IDF de caractères atteint 90,19 %. Le LoRA la dépasse de 1,82 point dans ce run, sans que j&rsquo;aie calculé un intervalle apparié entre les deux méthodes. Je parle donc d&rsquo;un score observé, pas d&rsquo;une supériorité statistiquement démontrée.</p>
+<p>Pour un routeur pur, à très fort volume et avec une taxonomie stable, la baseline classique possède de sérieux avantages :</p>
+<ul>
+<li>latence faible et prévisible ;</li>
+<li>coût d&rsquo;inférence minime ;</li>
+<li>comportement déterministe ;</li>
+<li>déploiement et explicabilité plus simples.</li>
+</ul>
+<p>Le LoRA devient plus intéressant si le même modèle doit ensuite extraire des attributs, comprendre plusieurs langues, gérer des formulations longues ou alimenter une chaîne générative. Le choix d&rsquo;architecture doit intégrer l&rsquo;ensemble du produit, pas seulement le meilleur score d&rsquo;une colonne.</p>
+<p>Ce point a changé ma manière de cadrer les projets GenAI : je demande systématiquement une baseline non-LLM. Sans elle, on sait que le fine-tuning améliore un LLM, mais pas que le LLM est nécessaire.</p>
+<h2 id="reproductibilité--un-adaptateur-seul-ne-suffit-pas">Reproductibilité : un adaptateur seul ne suffit pas</h2>
+<p>Un fichier d&rsquo;adaptateur n&rsquo;est pas un modèle autonome. Son identité dépend de plusieurs artefacts :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>modèle déployé
+</span></span><span style="display:flex;"><span>  = base model à une révision précise
+</span></span><span style="display:flex;"><span>  + tokenizer et chat template
+</span></span><span style="display:flex;"><span>  + adaptateur LoRA
+</span></span><span style="display:flex;"><span>  + prompt versionné
+</span></span><span style="display:flex;"><span>  + paramètres de décodage
+</span></span><span style="display:flex;"><span>  + code de parsing
+</span></span></code></pre></div><p>Pour chaque run, j&rsquo;enregistre dans MLflow :</p>
+<ul>
+<li>le commit Git et le lock des dépendances ;</li>
+<li>l&rsquo;identifiant et la révision immuable du modèle de base ;</li>
+<li>le hash du dataset et les identifiants des partitions ;</li>
+<li>la seed ;</li>
+<li>la configuration LoRA ;</li>
+<li>le batch réellement utilisé ;</li>
+<li>les métriques train et validation par step ;</li>
+<li>les checkpoints ;</li>
+<li>les résultats de génération ;</li>
+<li>les matrices de confusion et les erreurs appariées ;</li>
+<li>les hashes SHA-256 des artefacts retenus.</li>
+</ul>
+<p>Je conserve aussi les échecs. Un run interrompu pour manque de mémoire ou une configuration qui produit du JSON invalide fait partie de l&rsquo;historique expérimental. Supprimer ces traces crée une vision artificiellement linéaire de la recherche.</p>
+<h2 id="le-chemin-jusquà-la-production">Le chemin jusqu&rsquo;à la production</h2>
+<p>Je ne déploierais pas directement l&rsquo;adaptateur qui vient de gagner le benchmark. Le passage en production suit plusieurs portes :</p>
+<ol>
+<li><strong>Gate de données</strong> : provenance, licence, PII, conflits de labels, doublons et séparation des partitions.</li>
+<li><strong>Gate offline</strong> : macro-F1, rappel par intention, validité du contrat, latence, mémoire et robustesse sur paraphrases.</li>
+<li><strong>Gate métier</strong> : revue des confusions coûteuses et accord sur la politique de rejet.</li>
+<li><strong>Shadow traffic</strong> : le modèle observe du trafic réel sans piloter le routage.</li>
+<li><strong>Canary</strong> : exposition progressive à une petite part du trafic avec rollback immédiat.</li>
+<li><strong>Monitoring</strong> : dérive des entrées, distribution des intentions, taux de rejet, invalides JSON, latence et corrections humaines.</li>
+</ol>
+<p>La prod doit pouvoir revenir au modèle précédent en changeant une référence d&rsquo;artefact. Je garde la base et l&rsquo;adaptateur séparés tant que j&rsquo;ai besoin de charger plusieurs adaptations ou de revenir rapidement en arrière. Je ne fusionne les poids que si la simplification du serving ou la mesure de latence le justifie.</p>
+<p>Le monitoring de la loss n&rsquo;a plus de sens une fois le modèle en service. Il faut observer des proxys disponibles immédiatement, puis rattacher les labels métier lorsqu&rsquo;ils arrivent. Une hausse soudaine de <code>card_payment_not_recognised</code> peut signaler un incident produit, une fraude, un changement de vocabulaire ou une dérive du modèle. L&rsquo;alerte doit déclencher une analyse, pas un réentraînement automatique.</p>
+<h2 id="ce-que-je-ferais-ensuite">Ce que je ferais ensuite</h2>
+<p>Le run valide la pertinence de LoRA sur une taxonomie fine. Il laisse plusieurs travaux ouverts :</p>
+<ul>
+<li>construire un test privé, récent et temporellement postérieur au train ;</li>
+<li>ajouter des exemples hors périmètre et mesurer le taux de faux routage ;</li>
+<li>évaluer la calibration et définir un seuil d&rsquo;abstention ;</li>
+<li>comparer les rangs 8, 16 et 32 sous le même budget ;</li>
+<li>mesurer un LoRA attention-only face à attention + MLP ;</li>
+<li>tester QLoRA NF4 séparément, avec les mêmes seeds et partitions ;</li>
+<li>mesurer la latence et le débit dans le serveur d&rsquo;inférence réel ;</li>
+<li>répéter l&rsquo;expérience sur plusieurs seeds ;</li>
+<li>faire annoter les cas ambigus par plusieurs experts métier.</li>
+</ul>
+<p>Je travaillerais aussi sur la taxonomie. Lorsque deux labels ne peuvent pas être distingués de façon fiable à partir du texte disponible, le problème ne vient pas toujours du modèle. Il peut venir d&rsquo;une définition métier trop subtile ou d&rsquo;un manque de contexte dans l&rsquo;interface.</p>
+<h2 id="mon-retour-darchitecte">Mon retour d&rsquo;architecte</h2>
+<p>LoRA rend le fine-tuning accessible, mais la facilité de lancer un entraînement ne doit pas masquer la difficulté de prouver qu&rsquo;il améliore le système.</p>
+<p>Le gain de 50,06 % à 92,01 % est réel dans ce protocole. Ce qui le rend exploitable n&rsquo;est pourtant pas le chiffre seul. C&rsquo;est le fait d&rsquo;avoir gelé le test, compté les sorties invalides comme des erreurs, comparé les prédictions une à une, conservé une baseline classique, sélectionné le checkpoint sur validation et versionné l&rsquo;ensemble du contrat d&rsquo;inférence.</p>
+<p>La décision d&rsquo;architecture reste conditionnelle :</p>
+<ul>
+<li>si le besoin est une classification pure à coût minimal, la baseline classique peut gagner ;</li>
+<li>si le produit a besoin de compréhension sémantique plus large et de sorties structurées, un petit LLM avec LoRA devient une option solide ;</li>
+<li>si la connaissance change fréquemment, il faut probablement compléter avec du retrieval ;</li>
+<li>si le coût d&rsquo;une erreur est élevé, l&rsquo;abstention et la revue humaine font partie du modèle de service.</li>
+</ul>
+<p>LoRA ne transforme pas un benchmark en produit. Il offre une manière efficace d&rsquo;adapter le comportement d&rsquo;un modèle. La valeur vient de la discipline appliquée autour : données, évaluation, traçabilité, serving et boucle de retour métier.</p>
+<h2 id="références">Références</h2>
+<ul>
+<li>Edward J. Hu et al., <a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a>, 2021.</li>
+<li>Tim Dettmers et al., <a href="https://arxiv.org/abs/2305.14314">QLoRA: Efficient Finetuning of Quantized LLMs</a>, 2023.</li>
+<li>Iñigo Casanueva et al., <a href="https://aclanthology.org/2020.nlp4convai-1.5/">Efficient Intent Detection with Dual Sentence Encoders</a>, ACL 2020.</li>
+<li>PolyAI, <a href="https://github.com/PolyAI-LDN/task-specific-datasets">BANKING77 dans le dépôt Task-Specific Datasets</a>, 2020.</li>
+<li>Hugging Face, <a href="https://github.com/huggingface/peft">PEFT</a>, bibliothèque d&rsquo;adaptation efficace en paramètres.</li>
+<li>MLflow 2.17, <a href="https://mlflow.org/docs/2.17.0/tracking.html">MLflow Tracking</a>, suivi des paramètres, métriques et artefacts d&rsquo;expérimentation.</li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://leandeep.com/tags/generative-ai">Generative AI</a></span><span class="tag"><a href="https://leandeep.com/tags/llm">LLM</a></span><span class="tag"><a href="https://leandeep.com/tags/lora">LoRA</a></span><span class="tag"><a href="https://leandeep.com/tags/fine-tuning">Fine-tuning</a></span><span class="tag"><a href="https://leandeep.com/tags/mlops">MLOps</a></span><span class="tag"><a href="https://leandeep.com/tags/machine-learning">Machine Learning</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>3224 Mots</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>18 déc.. 2024</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://leandeep.com/et-vous-quels-sont-vos-projets-pour-2025/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">Et vous quels sont vos projets pour 2025 ?</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://leandeep.com/installer-tailscale-sur-fedora/">
+                                <span class="button__text">Installer Tailscale sur Fedora</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Built by <a href="https://www.linkedin.com/in/oliviereeckhoutte/">Olivier Eeckhoutte</a>,
+                Freelance @ LeanDeep <a href="https://leandeep.com/about/">(🍃 company)</a></span>
+            <span>Siret: 83825337500029</span>
+            <span><a href="https://leandeep.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss">
+                        <path d="M4 11a9 9 0 0 1 9 9"></path>
+                        <path d="M4 4a16 16 0 0 1 16 16"></path>
+                        <circle cx="5" cy="19" r="1"></circle>
+                    </svg></a></span>
+        </div>
+    </div>
+</footer>
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://leandeep.com/bundle.min.cca95202fd7f851ba2dc5ae58437e513ae0502a14e1f0665478519a2a49e4e20d9d09eba7e6e9332889abd90be87e499c3bff5480b413d5302c1680374f168c7.js" integrity="sha512-zKlSAv1/hRui3FrlhDflE64FAqFOHwZlR4UZoqSeTiDZ0J66fm6TMoiavZC&#43;h&#43;SZw7/1SAtBPVMCwWgDdPFoxw=="></script>
+
+
+
+
+
+
+
+        
+    </body>
+</html>
